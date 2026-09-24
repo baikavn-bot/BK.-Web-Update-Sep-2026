@@ -1,0 +1,70 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+
+// Nút chính của site. Figma: `Button 1` 519:3354 · `Button 2` 26:2182.
+// Hai bộ nút trong Figma dùng chung một bộ tên trục (State × Type) từ DEC-036,
+// nên ở đây gộp làm MỘT component, phân biệt bằng thuộc tính.
+interface Props {
+  /** Chữ trên nút. */
+  label: string;
+  /** Đích đến. Có href thì render thẻ <a>, không có thì render <button>. */
+  href?: string;
+  /** Cỡ nút — khớp trục `Type` trong Figma. */
+  size?: 'sm' | 'md' | 'lg';
+  /** Hiện mũi tên bên phải. Hero dùng true. */
+  icon?: boolean;
+}
+const { label, href, size = 'md', icon = true } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class:list={['btn', `btn--${size}`]} href={href}>
+  <span class="btn__label">{label}</span>
+  {icon && <span class="btn__icon"><ArrowUpRight size={24} /></span>}
+</Tag>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    background: var(--gray-50);
+    /* Figma ghi #000000 — không phải token. Bind sang --gray-950 theo luật
+       "không hardcode" trong CLAUDE.md muc 4. Chênh lệch mắt thường không thấy. */
+    color: var(--gray-950);
+    border: none;
+    border-radius: var(--r-pill);
+    text-decoration: none;
+    cursor: pointer;
+    transition: box-shadow 120ms ease, background-color 120ms ease;
+  }
+
+  /* Cỡ — padding đo từ Figma: 10 trên/dưới, 16 trái, 10 phải */
+  .btn--sm { padding: var(--s-2) var(--s-2) var(--s-2) var(--s-3); font-size: var(--fs-body); }
+  .btn--md { padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4); font-size: var(--fs-body-lg); }
+  .btn--lg { padding: var(--s-3) var(--s-3) var(--s-3) var(--s-5); font-size: var(--fs-body-lg); }
+
+  .btn__label { line-height: 1; }
+
+  .btn__icon {
+    display: inline-flex;
+    color: var(--blue-700);
+  }
+
+  /* Ngôn ngữ tương tác dùng chung — DEC-014, DEC-015 */
+  .btn:hover  { box-shadow: var(--shadow-inner); }
+  .btn:active { box-shadow: var(--shadow-inner-press); }
+  .btn:focus-visible {
+    box-shadow: var(--shadow-drop-inner);
+    outline: 2px solid var(--blue-400);
+    outline-offset: 2px;
+  }
+
+  /* Disabled: đổi màu, GIỮ opacity 1 — quy ước của file này */
+  .btn:disabled {
+    background: var(--gray-700);
+    color: var(--gray-300);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+</style>

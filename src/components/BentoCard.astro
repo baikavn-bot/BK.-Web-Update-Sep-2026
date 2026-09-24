@@ -1,0 +1,101 @@
+---
+import ArrowUpRight from './ArrowUpRight.astro';
+
+// Ô trong lưới bento trang chủ.
+// Figma: `Home/Services Card` 518:2781 — trục Type (breakpoint) × State.
+//
+// Ba dạng:
+//   card        — ô có nhãn, bấm được (nếu có href)
+//   placeholder — ô rỗng chỉ có viền, KHÔNG bấm được. Là nhịp thị giác của lưới
+//   empty       — ô trống hoàn toàn, không viền. Để lộ artwork nền phía sau
+interface Props {
+  variant?: 'card' | 'placeholder' | 'empty';
+  /** Nhãn hiển thị. Xuống dòng bằng ký tự \n giống Figma. */
+  label?: string;
+  /** Đích đến. Bỏ trống thì ô hiện bình thường nhưng KHÔNG bấm được. */
+  href?: string;
+  /** Tên vùng trong grid-template-areas của trang. */
+  area: string;
+}
+const { variant = 'card', label = '', href, area } = Astro.props;
+const lines = label.split('\n');
+const Tag = variant === 'card' && href ? 'a' : 'div';
+---
+
+<Tag
+  class:list={['tile', `tile--${variant}`, { 'tile--link': variant === 'card' && href }]}
+  style={`grid-area: ${area}`}
+  href={href}
+>
+  {variant === 'card' && label && (
+    <>
+      <span class="tile__arrow" aria-hidden="true"><ArrowUpRight size={24} /></span>
+      <h2 class="tile__title">
+        {lines.map((line, i) => <>{i > 0 && <br />}{line}</>)}
+      </h2>
+    </>
+  )}
+</Tag>
+
+<style>
+  .tile {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--s-6);
+    border-radius: var(--r-md);
+    text-decoration: none;
+    /* 0.5px là số đo thật trong Figma, không làm tròn lên 1px */
+    border: 0.5px solid var(--gray-600);
+    transition: background-color 140ms ease, color 140ms ease;
+  }
+
+  /* Ô có nhãn — nền trắng mờ 15% phủ lên artwork, có làm mờ hậu cảnh */
+  .tile--card {
+    background: var(--opacity-white);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: var(--gray-50);
+  }
+
+  /* Ô rỗng — chỉ viền, không nền, không làm mờ */
+  .tile--placeholder { background: none; }
+
+  /* Ô trống hoàn toàn — không viền, để lộ nền */
+  .tile--empty { border: none; background: none; }
+
+  .tile__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+    color: inherit;
+    text-transform: uppercase;
+  }
+
+  .tile__arrow {
+    position: absolute;
+    top: var(--s-6);
+    right: var(--s-6);
+    display: inline-flex;
+    opacity: 0;
+    transition: opacity 140ms ease;
+  }
+
+  /* Trạng thái tương tác — đo từ variant Hover/Focus/Active trong Figma:
+     đổi nền sang --blue-50, chữ sang --blue-800, mũi tên hiện ra. */
+  .tile--link:hover,
+  .tile--link:focus-visible,
+  .tile--link:active {
+    background: var(--blue-50);
+    color: var(--blue-800);
+  }
+
+  .tile--link:hover .tile__arrow,
+  .tile--link:focus-visible .tile__arrow,
+  .tile--link:active .tile__arrow { opacity: 1; }
+
+  /* Ô chưa có đích: hiện như ô thường nhưng không bấm, không đổi trạng thái */
+  .tile--card:not(.tile--link) { cursor: default; }
+</style>
