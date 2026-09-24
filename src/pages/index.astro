@@ -16,9 +16,14 @@ const tiles = [
   { area: 'legal', label: 'PHÁP LÝ & THUẾ',              href: '/legal-tax' },
   { area: 'mkt',   label: 'MARKETING\nTĂNG TRƯỞNG',      href: '/marketing' },
   { area: 'ops',   label: 'HỆ THỐNG HÓA\nVẬN HÀNH',      href: '/remote-ops' },
-  { area: 'idea',  label: 'TRẠM Ý TƯỞNG',                href: undefined },
+  // Trạm Ý Tưởng dùng gradient RIÊNG — style `Hover BG 2` trong Figma
+  // (instance 534:3833 ghi đè fillStyleId sang style đó). Tám ô còn lại
+  // dùng `Hover BG Bento`.
+  { area: 'idea',  label: 'TRẠM Ý TƯỞNG',                href: undefined, hoverStyle: 'bento-2' as const, featured: true },
   { area: 'conn',  label: 'TRẠM KẾT NỐI',                href: undefined },
-  { area: 'adv',   label: 'TƯ VẤN\nDOANH NGHIỆP',        href: '/advisory' },
+  // Figma đặt ô này ở `State=Focus` — clipsContent=false nên gradient tràn
+  // ra thành quầng sáng. Trạm Ý Tưởng ở `State=Hover` nên KHÔNG có quầng.
+  { area: 'adv',   label: 'TƯ VẤN\nDOANH NGHIỆP',        href: '/advisory', featured: true, glow: true },
   { area: 'tech',  label: 'CÔNG NGHỆ\nAI ỨNG DỤNG',      href: '/ai-os' },
   { area: 'fin',   label: 'TÀI CHÍNH\nDÒNG TIỀN',        href: '/finance' },
   { area: 'ceo',   label: 'ĐÀO TẠO CEO',                 href: '/ceo-blueprint' },
@@ -37,12 +42,65 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
 
     <div class="grid">
       <HomeHero area="hero" />
-      {tiles.map((t) => <BentoCard area={t.area} label={t.label} href={t.href} />)}
+      {tiles.map((t) => (
+        <BentoCard
+          area={t.area}
+          label={t.label}
+          href={t.href}
+          hoverStyle={t.hoverStyle}
+          featured={t.featured}
+          glow={t.glow}
+        />
+      ))}
       {placeholders.map((a) => <BentoCard variant="placeholder" area={a} />)}
       <BentoCard variant="empty" area="gap" />
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  // MOBILE — ô bento nào đang nằm giữa màn hình thì ô đó sáng.
+  //
+  // Thắng mô tả 25/09: màn nhỏ không có chuột nên không có trạng thái rê.
+  // Thay vào đó, ô đi qua giữa màn hình sẽ sáng lên, ô trước đó tắt đi.
+  //
+  // Cách làm: IntersectionObserver với `rootMargin: -50% trên và dưới`.
+  // Hai lề âm 50% thu vùng quan sát lại thành một ĐƯỜNG KẺ ngang giữa màn.
+  // Ô nào chạm đường kẻ đó thì `isIntersecting = true`. Vì các ô xếp liền
+  // nhau nên tại một thời điểm chỉ có đúng một ô chạm — không cần so sánh.
+  //
+  // Vì sao không dùng CSS thuần (`animation-timeline: view()`): tính năng
+  // đó chưa chạy trên Safari, mà iPhone chiếm phần lớn lượt truy cập mobile.
+  //
+  // Không có JS thì mọi ô vẫn hiển thị ở trạng thái Default — mất hiệu ứng,
+  // không hỏng trang.
+  const mq = window.matchMedia('(max-width: 767px)');
+  let observer: IntersectionObserver | null = null;
+
+  function apply() {
+    observer?.disconnect();
+    observer = null;
+    document
+      .querySelectorAll('.tile--incenter')
+      .forEach((el) => el.classList.remove('tile--incenter'));
+
+    if (!mq.matches) return;
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          e.target.classList.toggle('tile--incenter', e.isIntersecting);
+        }
+      },
+      { rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+    );
+
+    document.querySelectorAll('.tile--card').forEach((el) => observer!.observe(el));
+  }
+
+  apply();
+  mq.addEventListener('change', apply);
+</script>
 
 <style>
   .stage {
@@ -53,36 +111,29 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
     overflow: hidden;
   }
 
-  /* --- Artwork nền ---------------------------------------------------
-     ⚠️ ĐÂY LÀ BẢN TẠM, CHƯA ĐÚNG BẢN THIẾT KẾ.
+  /* --- Artwork nền — ẢNH XUẤT TỪ FIGMA --------------------------------
+     Thắng xuất ngày 25/09: bản crop đúng khung Desktop 1280×832, scale 0.5x
+     → 640×416. Em chuyển sang WebP: **2.9 KB**.
 
-     Figma dựng khối này bằng 5 lớp trong frame `Frame 2121454393`
-     (534:3940, 2052×1409 đặt tại −741,−537 so với khung Desktop 1280×832).
-     Ba trong năm lớp là VECTOR — hình tự do vẽ tay. CSS chỉ có hình tròn
-     và hình elip, KHÔNG vẽ lại được hình tự do.
+     Vì sao là ảnh chứ không phải CSS hay SVG:
+     - Khối này gồm 5 lớp, 3 trong số đó là VECTOR (hình tự do vẽ tay).
+       CSS chỉ có hình tròn và elip — không vẽ lại được hình tự do.
+     - SVG dựng đúng hình nhưng cần 5 bộ lọc Gaussian 30–100px phủ kín
+       màn hình → giật khi cuộn, tốn pin.
+     - Ảnh đã "nướng" sẵn blur vào pixel, trình duyệt chỉ việc vẽ.
 
-     Bản tạm dưới đây đã nắn lại ĐÚNG VỊ TRÍ và ĐÚNG KÍCH THƯỚC đo từ Figma,
-     nhưng hình dạng vẫn là elip, và hai sắc xanh #1A5A8D / #2698ED không có
-     trong bộ token nên đang thay bằng token gần nhất (--blue-700 / --blue-400).
-     Thứ tự lớp đã đảo ngược so với Figma vì CSS vẽ lớp đầu tiên lên TRÊN CÙNG.
+     Vì sao 640px là đủ cho màn 4K: cả khối là blur, KHÔNG có một chi tiết
+     sắc nét nào để mất khi phóng to. Đây cũng là lý do 282 KB PNG nén
+     xuống còn 2.9 KB WebP.
 
-     → Cách sửa dứt điểm: xuất khối này thành ẢNH từ Figma. Xem báo cáo. */
+     KHÔNG thêm `filter: blur()` ở đây — blur đã nằm trong ảnh rồi. */
   .artwork {
     position: absolute;
     inset: 0;
-    background:
-      /* Ellipse 17 (trên cùng) — #0F6BB0 → #0B1730 */
-      radial-gradient(10% 11% at 7% 90%,   var(--blue-600) 0%, transparent 72%),
-      /* Vector 26 — #08111D → #1A5A8D → #2698ED */
-      radial-gradient(58% 89% at 17% 23%,  var(--blue-400) 0%, var(--blue-700) 45%, var(--slate-950) 100%),
-      /* Vector 25 — #08111D → #1A5A8D → #FDFEFF (trắng → --gray-50) */
-      radial-gradient(67% 77% at 28% 25%,  var(--gray-50) 0%, var(--blue-700) 45%, var(--slate-950) 100%),
-      /* Vector 27 — #AFD8F5 → #0B1730 */
-      radial-gradient(30% 31% at 68% 74%,  var(--blue-200) 0%, var(--blue-950) 100%),
-      /* Ellipse 16 (dưới cùng) — #0D538B → #FFFFFF (→ --gray-50) */
-      radial-gradient(13% 54% at 89% 50%,  var(--blue-700) 0%, var(--gray-50) 100%);
-    filter: blur(var(--blur-120));
-    opacity: 0.9;
+    background-image: url('/img/home-bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     pointer-events: none;
   }
 
@@ -126,12 +177,9 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
   .grid > :global(.tile--empty) { display: none; }
 
   /* --- TABLET 768–1279 — lưới LẤP ĐẦY MÀN HÌNH -------------------------
-     Đo Figma Tablet 540:4027: Grid Container 768×832 = 3 cột × 4 hàng
-     của ô 256×208. Bốn hàng đầu dưới đây khớp 100% với Figma.
-
-     Hàng 5 là phần THÊM: Figma bỏ sót Trạm Ý Tưởng, Thắng đã chốt phải có.
-     Thêm ph1 + ph2 vào hai ô còn lại để lưới vẫn là một khối chữ nhật kín,
-     đúng vai trò của ô rỗng ở bản Desktop — thay vì để một ô lẻ loi. */
+     Đo lại Figma Tablet 540:4027 ngày 25/09 (quét ĐỆ QUY — lần trước em
+     chỉ quét con trực tiếp của Grid Container nên đếm thiếu một ô):
+     768×832 = 3 cột × 4 hàng của ô 256×208, ĐỦ 9 ô dịch vụ, KHÔNG có ô rỗng. */
   @media (min-width: 768px) {
     .stage {
       height: 100svh;
@@ -146,19 +194,23 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
       grid-template-columns: repeat(3, 1fr);
       /* minmax: cửa sổ quá thấp thì ô ngừng co và trang cuộn,
          thay vì bóp ô đến mức chữ bị cắt. */
-      grid-template-rows: repeat(5, minmax(120px, 1fr));
+      grid-template-rows: repeat(4, minmax(120px, 1fr));
       grid-template-areas:
-        'hero hero tech'
+        'hero hero idea'
         'hero hero ceo'
         'ops  adv  mkt'
-        'conn fin  legal'
-        'idea ph1  ph2';
+        'conn fin  legal';
     }
 
-    /* Bản đồ tablet chỉ có chỗ cho ph1 và ph2. ph3–ph6 mà hiện ra thì
-       grid tự đẻ thêm hàng ở dưới — phải chặn. */
-    .grid > :global(.tile--at-ph1),
-    .grid > :global(.tile--at-ph2) { display: flex; }
+    /* CÔNG NGHỆ AI ỨNG DỤNG nằm ĐÈ lên góc dưới–phải của khối hero.
+       Trong Figma nó là con của `Container` (khối hero), đặt tại (256,208)
+       — nên khối hero thực chất là hình chữ L. `grid-template-areas` chỉ
+       nhận vùng hình CHỮ NHẬT, không viết được chữ L, nên ô này phải đặt
+       bằng số dòng/cột và chồng lên hero. Nó đứng sau hero trong DOM nên
+       vẽ đè lên trên — đúng thứ tự lớp của Figma. */
+    .grid > :global(.tile--at-tech) { grid-area: 2 / 2 / 3 / 3; }
+
+    /* Tablet không có ô rỗng nào — giữ ẩn như ở mobile. */
   }
 
   /* --- DESKTOP ≥ 1280 — 5 cột × 4 hàng = 20 ô --------------------------
@@ -178,6 +230,9 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
         'idea conn ph3  adv   ph4'
         'tech ph5  fin  ph6   ceo';
     }
+
+    /* Desktop có bản đồ riêng cho tech — gỡ cách đặt thủ công của tablet. */
+    .grid > :global(.tile--at-tech) { grid-area: tech; }
 
     .grid > :global(.tile--placeholder),
     .grid > :global(.tile--empty) { display: flex; }

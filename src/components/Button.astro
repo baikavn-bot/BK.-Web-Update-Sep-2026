@@ -1,20 +1,18 @@
 ---
 import ArrowUpRight from './ArrowUpRight.astro';
 
-// NÚT CHÍNH — hệ `Button 1` (Figma 519:3354).
-// Đo lại toàn bộ 18 biến thể ngày 24/09/2026 sau review của Thắng.
-// (Bản trước dựng nhầm theo `Button 2` 26:2182 — nút bo tròn, chữ Be Vietnam Pro.)
+// NÚT CHÍNH — hệ `Button 1` (Figma 519:3354, 18 biến thể).
+// Đo lại ngày 25/09/2026.
 //
-// Cấu tạo theo đúng Figma — hai lớp chồng nhau:
-//   1. `Button Background` — khung trang trí phía SAU, cao hơn nút 11px nên
-//      thò ra bên dưới: một đường viền 0.5px + 4 ô vuông 4×4 ở bốn góc.
-//   2. `Button Content`    — thân nút đục, nền --gray-50, bo góc 0.
+// ⚠️ Thắng đã XOÁ lớp `Button Background` (khung trang trí thò xuống dưới,
+//    viền 0.5px + 4 ô vuông ở góc). Mỗi biến thể giờ chỉ còn `Button Content`.
+//    Hai màu lạc token #CCCCCC và #1237C3 theo đó cũng biến mất khỏi hệ.
 //
-// Số đo theo cỡ (đã xác minh, không suy đoán):
+// Số đo theo cỡ (đã xác minh):
 //   Sm : cao 34 · chữ 14 · icon 18
 //   Md : cao 36 · chữ 16 · icon 20
 //   Lg : cao 44 · chữ 18 · icon 24
-//   Chung: padding trái 16 · phải 10 · khoảng cách chữ↔icon 12
+//   Chung: padding trái 16 · phải 10 · khoảng cách chữ↔icon 12 · bo góc 0
 interface Props {
   /** Chữ trên nút. Figma viết HOA toàn bộ — chỗ dùng cứ viết thường. */
   label: string;
@@ -48,40 +46,32 @@ const iconSize = { auto: 24, sm: 18, md: 20, lg: 24 }[size];
   href={href && !disabled ? href : undefined}
   disabled={Tag === 'button' && disabled ? true : undefined}
 >
-  <span class="btn__frame" aria-hidden="true">
-    <i></i><i></i><i></i><i></i>
-  </span>
-
-  <span class="btn__content">
-    <span class="btn__label">{label}</span>
-    {icon && <span class="btn__icon"><ArrowUpRight size={iconSize} /></span>}
-  </span>
+  <span class="btn__label">{label}</span>
+  {icon && <span class="btn__icon"><ArrowUpRight size={iconSize} /></span>}
 </Tag>
 
 <style>
   .btn {
-    /* ⚠️ BA MÀU DƯỚI ĐÂY CHƯA CÓ TRONG BỘ TOKEN — đo thẳng từ Figma.
-       Đang chờ Thắng quyết: thêm biến vào Figma, hay đổi sang token sẵn có.
-       Khi đã quyết, xoá ba dòng này và trỏ sang var(--…).
-         #CCCCCC — viền khung trang trí (gần --gray-300 #D5D5D5 / --gray-400 #C7C7C7)
-         #1237C3 — 4 ô vuông ở góc khung (không nằm trong thang --blue-*)
-         #000000 — màu chữ trên nút (--gray-950 là #1E1E1E, không phải đen tuyệt đối) */
-    --btn-frame-line: #CCCCCC;
-    --btn-corner: #1237C3;
+    /* ⚠️ #000000 CHƯA CÓ TRONG BỘ TOKEN — đo thẳng từ Figma.
+       `--gray-950` là #1E1E1E, không phải đen tuyệt đối.
+       Chờ Thắng quyết: thêm biến vào Figma, hay nắn về --gray-950.
+       (Hai màu lạc token còn lại đã hết hiệu lực từ khi xoá Button Background.) */
     --btn-text: #000000;
 
-    position: relative;
     display: inline-flex;
-    /* Khung trang trí thò xuống dưới thân nút — không được cắt */
-    overflow: visible;
+    align-items: center;
+    gap: 12px;
+    height: var(--btn-h);
+    padding-left: var(--s-4);   /* 16 */
+    padding-right: 10px;
+    background: var(--gray-50);
     border: none;
-    background: none;
-    padding: 0;
+    border-radius: 0;           /* Button 1 KHÔNG bo góc */
+    color: var(--btn-text);
     text-decoration: none;
     cursor: pointer;
-    /* Vùng chạm tối thiểu 44px trên mobile (WCAG 2.5.8) — cỡ Sm/Md thấp hơn
-       chiều cao thân nút nên nới vùng chạm bằng padding trong suốt. */
     -webkit-tap-highlight-color: transparent;
+    transition: box-shadow 120ms ease, background-color 120ms ease;
   }
 
   /* --- Cỡ ------------------------------------------------------------
@@ -100,48 +90,6 @@ const iconSize = { auto: 24, sm: 18, md: 20, lg: 24 }[size];
     .btn--auto { --btn-h: 44px; --btn-fs: 18px; --btn-icon: 24px; }
   }
 
-  /* --- Lớp 1 · khung trang trí ---------------------------------------
-     Figma: frame cao hơn thân nút 11px; đường viền nằm trong 2px mỗi phía.
-     → hộp có viền cao = --btn-h + 11 − 4 = --btn-h + 7, hai bên thụt 2px.
-     Phần nằm trên bị thân nút (đục) che, chỉ lộ ra phần thò xuống dưới. */
-  .btn__frame {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    right: 2px;
-    height: calc(var(--btn-h) + 7px);
-    border: 0.5px solid var(--btn-frame-line);
-    pointer-events: none;
-  }
-
-  /* 4 ô vuông 4×4, tâm đặt đúng 4 góc của đường viền */
-  .btn__frame i {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--btn-corner);
-  }
-  .btn__frame i:nth-child(1) { top: -2px;    left: -2px; }
-  .btn__frame i:nth-child(2) { top: -2px;    right: -2px; }
-  .btn__frame i:nth-child(3) { bottom: -2px; left: -2px; }
-  .btn__frame i:nth-child(4) { bottom: -2px; right: -2px; }
-
-  /* --- Lớp 2 · thân nút ----------------------------------------------- */
-  .btn__content {
-    position: relative;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    height: var(--btn-h);
-    padding-left: var(--s-4);   /* 16 */
-    padding-right: 10px;
-    background: var(--gray-50);
-    border-radius: 0;           /* Button 1 KHÔNG bo góc */
-    color: var(--btn-text);
-    transition: box-shadow 120ms ease, background-color 120ms ease;
-  }
-
   .btn__label {
     font-family: var(--font-heading);   /* Chakra Petch */
     font-weight: 600;                   /* SemiBold */
@@ -155,7 +103,7 @@ const iconSize = { auto: 24, sm: 18, md: 20, lg: 24 }[size];
   }
 
   /* Mũi tên: hộp vuông nền --blue-700, glyph --gray-50.
-     SVG viewBox 24 nên glyph (10) và độ dày nét (2) tự co theo cỡ hộp. */
+     SVG viewBox 24 nên glyph (10) và nét (2) tự co theo cỡ hộp. */
   .btn__icon {
     display: inline-flex;
     align-items: center;
@@ -174,25 +122,24 @@ const iconSize = { auto: 24, sm: 18, md: 20, lg: 24 }[size];
     display: block;
   }
 
-  /* --- Trạng thái — ngôn ngữ tương tác chung DEC-014 / DEC-015 --------
-     Cả ba hiệu ứng đều nằm trên THÂN nút, không phải khung trang trí. */
-  .btn:hover  .btn__content { box-shadow: var(--shadow-inner); }
-  .btn:active .btn__content { box-shadow: var(--shadow-inner-press); }
-  .btn:focus-visible { outline: none; }
-  .btn:focus-visible .btn__content { box-shadow: var(--shadow-drop-inner); }
+  /* --- Trạng thái — ngôn ngữ tương tác chung DEC-014 / DEC-015 -------- */
+  .btn:hover  { box-shadow: var(--shadow-inner); }
+  .btn:active { box-shadow: var(--shadow-inner-press); }
+  .btn:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-drop-inner);
+  }
 
   /* Disabled: đổi màu, GIỮ opacity 1 — quy ước của file này.
-     Figma: thân --gray-700, chữ --gray-100, 4 ô góc --gray-500,
-     mũi tên GIỮ NGUYÊN nền xanh. */
-  .btn:disabled { cursor: not-allowed; }
-  .btn:disabled .btn__content {
+     Figma: thân --gray-700, chữ --gray-100, mũi tên GIỮ NGUYÊN nền xanh. */
+  .btn:disabled {
+    cursor: not-allowed;
     background: var(--gray-700);
     color: var(--gray-100);
     box-shadow: none;
   }
-  .btn:disabled .btn__frame i { background: var(--gray-500); }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn__content { transition: none; }
+    .btn { transition: none; }
   }
 </style>

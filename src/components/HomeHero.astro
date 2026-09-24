@@ -7,7 +7,7 @@ interface Props { area: string; }
 const { area } = Astro.props;
 ---
 
-<div class="hero" style={`grid-area: ${area}`}>
+<div class="hero" style={`--area: ${area}`}>
   {/*
     Khối nhận diện: dấu hiệu BAIKA + chữ "Baika" nằm chung MỘT ảnh.
     Thắng cung cấp bản PNG @2x ngày 24/09; đã chuyển sang WebP.
@@ -43,12 +43,30 @@ const { area } = Astro.props;
 
 <style>
   .hero {
+    grid-area: var(--area);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     align-items: flex-start;
-    gap: var(--s-4);
+    /* Figma Desktop: logo kết ở y=275, chữ bắt đầu y=288 → cách 12–13px */
+    gap: var(--s-3);
     padding: var(--s-6);
+    /* Mobile: khối nội dung nằm khoảng giữa ô (Figma: y 96→292 trong 416) */
+    justify-content: center;
+  }
+
+  /* Tablet: nội dung dồn LÊN TRÊN.
+     Hai lý do, cùng chỉ về một hướng:
+     1. Figma đặt vậy — chữ "Baika" ở y=52, nút kết ở y=253.
+     2. Ở tablet, ô CÔNG NGHỆ AI nằm đè lên góc dưới–phải của khối hero
+        (x 256–512, y 208–416). Dồn nội dung xuống đáy là dòng mô tả sẽ
+        chui xuống dưới ô đó. */
+  @media (min-width: 768px) {
+    .hero { justify-content: flex-start; }
+  }
+
+  /* Desktop: dồn XUỐNG ĐÁY — Figma: nút kết ở y=388 trong ô cao 416. */
+  @media (min-width: 1280px) {
+    .hero { justify-content: flex-end; }
   }
 
   /* Cân bằng động: lưới giãn theo màn hình, nên khối logo phải giãn theo,

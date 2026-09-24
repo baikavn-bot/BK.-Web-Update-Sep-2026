@@ -3,7 +3,7 @@ import ArrowUpRight from './ArrowUpRight.astro';
 
 // Ô trong lưới bento trang chủ.
 // Figma: `Home/Services Card` 518:2781 — trục Type (breakpoint) × State.
-// Số đo lấy ngày 24/09/2026, đã đối chiếu lại sau review của Thắng.
+// Số đo lấy lại ngày 25/09/2026, sau khi Thắng sửa component.
 //
 // Ba dạng:
 //   card        — ô có nhãn, bấm được (nếu có href)
@@ -17,21 +17,69 @@ interface Props {
   href?: string;
   /** Tên vùng trong grid-template-areas của trang. */
   area: string;
+  /**
+   * Gradient của lớp Hover BG. Khớp tên paint style trong Figma:
+   *   `bento`   → style `Hover BG Bento` (mặc định, 8/9 ô dùng)
+   *   `bento-2` → style `Hover BG 2`    (hiện chỉ Trạm Ý Tưởng)
+   */
+  hoverStyle?: 'bento' | 'bento-2';
+  /**
+   * Ô NỔI BẬT — sáng sẵn ngay khi tải trang, không cần rê chuột.
+   * Thắng chốt 25/09: Trạm Ý Tưởng và Tư vấn Doanh nghiệp là hai ô nổi bật.
+   *
+   * ⚠️ CỐ Ý KHÔNG dùng trạng thái `:focus` của CSS để làm việc này.
+   * Focus là trạng thái con trỏ bàn phím đang đứng — tạm thời, đổi liên tục
+   * khi bấm Tab. Gán cố định thì người dùng bàn phím sẽ thấy hai ô trông
+   * giống hệt nhau và không biết mình đang ở đâu (lỗi WCAG 2.4.7).
+   * Dựng riêng thì hai thứ hoạt động độc lập: ô vẫn sáng, focus vẫn thấy.
+   */
+  featured?: boolean;
+  /**
+   * Quầng sáng tràn ra ngoài ô. Chỉ có nghĩa khi `featured`.
+   *
+   * Trong Figma đây chính là thứ phân biệt Hover với Focus:
+   *   Hover → `clipsContent = true`  → gradient bị cắt gọn trong ô
+   *   Focus → `clipsContent = false` → gradient tràn ra thành quầng sáng
+   * Khớp đúng ngôn ngữ tương tác của hệ: quầng sáng thuộc về Focus.
+   *
+   * Trên Home: Tư vấn Doanh nghiệp đặt ở Focus (có quầng), Trạm Ý Tưởng
+   * đặt ở Hover (không quầng).
+   */
+  glow?: boolean;
 }
-const { variant = 'card', label = '', href, area } = Astro.props;
+const {
+  variant = 'card', label = '', href, area,
+  hoverStyle = 'bento', featured = false, glow = false,
+} = Astro.props;
 const lines = label.split('\n');
 const isLink = variant === 'card' && !!href;
 const Tag = isLink ? 'a' : 'div';
 ---
 
 <Tag
-  class:list={['tile', `tile--${variant}`, `tile--at-${area}`, { 'tile--link': isLink }]}
-  style={`grid-area: ${area}`}
+  class:list={[
+    'tile',
+    `tile--${variant}`,
+    `tile--at-${area}`,
+    `tile--hbg-${hoverStyle}`,
+    {
+      'tile--link': isLink,
+      'tile--featured': featured && variant === 'card',
+      'tile--glow': featured && glow && variant === 'card',
+    },
+  ]}
+  {/* Đặt qua BIẾN CSS chứ không gán thẳng `grid-area`.
+      Lý do: style nội tuyến luôn thắng mọi rule trong stylesheet, nên nếu
+      gán thẳng thì trang KHÔNG thể đặt lại vị trí một ô cho riêng một
+      breakpoint (tablet cần ô Công nghệ AI nằm đè lên góc hero). Gán
+      thẳng từng làm vỡ cả lưới tablet ngày 25/09. */}
+  style={`--area: ${area}`}
   href={href}
 >
   {variant === 'card' && label && (
     <>
-      {/* Lớp `Hover BG` — CHỈ có ở Hover và Focus. Active KHÔNG có lớp này. */}
+      {/* Lớp `Hover BG`. Figma: visible=true ở Hover và Focus, visible=false ở
+          Active và ở mọi trạng thái Default. Đã kiểm từng biến thể. */}
       <span class="tile__hoverbg" aria-hidden="true"></span>
       <span class="tile__arrow" aria-hidden="true"><ArrowUpRight size={24} /></span>
       <h2 class="tile__title">
@@ -43,8 +91,9 @@ const Tag = isLink ? 'a' : 'div';
 
 <style>
   .tile {
+    grid-area: var(--area);
     position: relative;
-    /* Lớp Hover BG bị làm mờ 24px và tràn ra ngoài ô — cắt lại ở đây */
+    /* Lớp Hover BG bị làm mờ và tràn mép — cắt lại ở đây */
     overflow: hidden;
     display: flex;
     align-items: flex-end;
@@ -52,8 +101,9 @@ const Tag = isLink ? 'a' : 'div';
     border-radius: var(--r-md);
     text-decoration: none;
 
-    /* Figma: stroke 0.5px, dashed [1,1], màu --gray-600, align = CENTER.
-       CSS luôn vẽ viền PHÍA TRONG hộp. Để hai ô kề nhau có viền CHỒNG LÊN
+    /* Figma: stroke 0.5px, dashed [1,1], align = CENTER,
+       bind `Colors/Neutral 2/--gray-600` (#8A8A8A) — Thắng chốt 25/09.
+       CSS luôn vẽ viền PHÍA TRONG hộp. Để viền hai ô kề nhau CHỒNG LÊN
        nhau (đúng như center align) thay vì nằm cạnh nhau thành đường 1px,
        kéo mỗi ô ra 0.25px mỗi phía. */
     border: 0.5px dashed var(--gray-600);
@@ -63,11 +113,11 @@ const Tag = isLink ? 'a' : 'div';
   }
 
   /* Ô có nhãn — nền trắng mờ 15% phủ lên artwork, có làm mờ hậu cảnh.
-     `--opacity-white` = biến `Colors/Opacity/White` trong Figma (#FFFFFF @15%). */
+     `--opacity-white` = biến `Colors/Opacity/White` (#FFFFFF @15%). */
   .tile--card {
     background: var(--opacity-white);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(var(--blur-card));
+    -webkit-backdrop-filter: blur(var(--blur-card));
     color: var(--gray-50);
   }
 
@@ -78,37 +128,74 @@ const Tag = isLink ? 'a' : 'div';
   .tile--empty { border: none; background: none; }
 
   /* --- Lớp Hover BG ---------------------------------------------------
-     Figma: child `Hover BG` phủ kín ô, fill style `Hover BG Bento`
-     (GRADIENT_RADIAL #0D538B → #D6EBFA = --blue-700 → --blue-100),
-     effect LayerBlur Uniform 24.
-     Nới ra 24px mỗi phía: nếu vừa khít ô thì blur sẽ ăn mòn mép thành
-     trong suốt, hở ra nền phía sau. overflow:hidden ở .tile cắt lại. */
+     Lấy nguyên từ panel "Copy as CSS" của style `Hover BG Bento`:
+
+       radial-gradient(179.94% 139.4% at 100% 0%, #0D538B 0%, #D6EBFA 100%)
+       filter: blur(12px)
+
+     Tâm gradient nằm ở GÓC TRÊN PHẢI (100% 0%), không phải giữa ô — bản
+     trước đặt ở giữa nên sắc độ sai chỗ. Em tính lại ma trận gradient
+     trong Figma và ra đúng (1, 0), khớp với CSS Figma xuất.
+
+     Khung phủ đúng kích thước ô (Figma: child 256×208 tại 0,0). Blur làm
+     nhoè mép thành trong suốt — đúng như Figma, và .tile cắt phần thừa. */
   .tile__hoverbg {
     position: absolute;
-    inset: calc(var(--blur-24) * -1);
-    background: radial-gradient(ellipse at 50% 50%, var(--blue-700) 0%, var(--blue-100) 100%);
-    filter: blur(var(--blur-24));
+    inset: 0;
+    filter: blur(var(--blur-24));   /* = 12px, xem mục 11 trong tokens.css */
     opacity: 0;
     transition: opacity 140ms ease;
     pointer-events: none;
+  }
+
+  /* style `Hover BG Bento` — 8/9 ô dùng cái này */
+  .tile--hbg-bento .tile__hoverbg {
+    background: radial-gradient(
+      179.94% 139.4% at 100% 0%,
+      var(--blue-700) 0%,
+      var(--blue-100) 100%
+    );
+  }
+
+  /* style `Hover BG 2` — hiện chỉ Trạm Ý Tưởng.
+     Tâm (83.7%, 19.23%): em giải ma trận gradient trong Figma ra đúng số
+     này, khớp với CSS Figma xuất — hai nguồn độc lập.
+
+     Màu đầu dùng `--cyan` (#118888) — Thắng đã thêm vào bộ Primary trong
+     Figma ngày 25/09 và bind thẳng vào điểm đầu của style này. */
+  .tile--hbg-bento-2 .tile__hoverbg {
+    background: radial-gradient(
+      148.1% 114.33% at 83.7% 19.23%,
+      var(--cyan) 0%,
+      var(--blue-100) 100%
+    );
   }
 
   .tile__title {
     position: relative;  /* nằm trên lớp Hover BG */
     z-index: 1;
     margin: 0;
+    /* Chữ chiếm TRỌN bề ngang ô, trừ 24px lề mỗi bên.
+       Figma: `Container` rộng 208 = 256 − 24×2, sizing ngang FIXED.
+       Không có dòng này thì thẻ h2 chỉ rộng bằng chữ (nó là flex item),
+       nên chỗ ngắt dòng không tính theo đúng bề ngang ô. */
+    width: 100%;
+    min-width: 0;
     font-family: var(--font-heading);
     font-size: var(--fs-h2);
     line-height: var(--lh-h2);
     font-weight: var(--fw-h2);
     color: inherit;
-    text-transform: uppercase;
+    /* KHÔNG ép viết hoa. Figma: text style `Global Tokens/Headings/H-2`,
+       textCase = ORIGINAL — chữ hoa là do gõ hoa sẵn trong nội dung,
+       không phải component ép. Giữ đúng như vậy để nhãn nào cần viết
+       thường sau này vẫn ra đúng. */
   }
 
   /* --- Mũi tên góc trên phải -----------------------------------------
-     Figma: instance 24×24, FILL --blue-700, cornerRadius 0.
-     Glyph bên trong 10×10 tại (7,7), stroke --gray-50, width 2.
-     SVG dùng viewBox 24 nên glyph và độ dày nét tự khớp khi hộp = 24. */
+     Figma: instance 24×24, fill --blue-700, cornerRadius 0.
+     Glyph 10×10 tại (7,7), stroke --gray-50, width 2.
+     SVG dùng viewBox 24 nên glyph và nét tự khớp khi hộp = 24. */
   .tile__arrow {
     position: absolute;
     z-index: 1;
@@ -122,29 +209,100 @@ const Tag = isLink ? 'a' : 'div';
     border-radius: 0;
     background: var(--blue-700);
     color: var(--gray-50);
-    opacity: 0;
     transition: opacity 140ms ease;
   }
 
+  /* Tablet + Mobile: mũi tên LUÔN hiện.
+     Figma `Type=Tablet/Mobile, State=Default` đều có arrow visible=true.
+     Đúng logic: màn cảm ứng không có trạng thái rê chuột, giấu mũi tên
+     thì không còn dấu hiệu nào cho biết ô này bấm được. */
+  .tile__arrow { opacity: 1; }
+
+  /* Desktop: mũi tên ẩn ở Default, hiện khi tương tác.
+     Figma `Type=Desktop, State=Default` có arrow visible=false. */
+  @media (min-width: 1280px) {
+    .tile__arrow { opacity: 0; }
+
+    .tile--link:hover .tile__arrow,
+    .tile--link:focus-visible .tile__arrow,
+    .tile--link:active .tile__arrow { opacity: 1; }
+  }
+
+  /* --- Ô NỔI BẬT ------------------------------------------------------
+     Sáng sẵn khi tải trang. Hình thức giống trạng thái Hover, nhưng đây
+     là một DẠNG riêng, không phải trạng thái tương tác — xem chú thích
+     ở phần Props về lý do không mượn `:focus`.
+
+     Đặt SAU `.tile--card` để thắng phần nền mặc định, nhưng TRƯỚC khối
+     trạng thái bên dưới để rê chuột vào vẫn còn tác dụng. */
+  /* CHỈ từ Tablet trở lên. Mobile không dùng ô nổi bật cố định — ở đó
+     ô nào đang nằm giữa màn hình thì ô đó sáng (xem khối dưới). */
+  @media (min-width: 768px) {
+    .tile--featured {
+      background: var(--blue-50);
+      backdrop-filter: blur(var(--blur-card-alt));
+      -webkit-backdrop-filter: blur(var(--blur-card-alt));
+      color: var(--blue-800);
+    }
+
+    .tile--featured .tile__hoverbg,
+    .tile--featured .tile__arrow { opacity: 1; }
+
+    /* Quầng sáng: bỏ cắt để lớp gradient đã làm mờ tràn ra ngoài ô.
+       Đúng cách Figma làm — xem chú thích prop `glow`. */
+    .tile--glow { overflow: visible; }
+
+    /* ⚠️ THÊM NGOÀI FIGMA — Thắng xem có giữ không.
+       Ô đã sáng sẵn thì bấm Tab vào không tạo khác biệt nào, người dùng
+       bàn phím mất dấu (lỗi WCAG 2.4.7). Thêm viền focus rõ ràng.
+       Dùng --blue-700 vì nền ô lúc này là --blue-50 → tương phản đủ. */
+    .tile--featured.tile--link:focus-visible {
+      outline: 2px solid var(--blue-700);
+      outline-offset: 2px;
+    }
+  }
+
+  /* --- MOBILE: ô đang ở giữa màn hình thì sáng ------------------------
+     Thắng mô tả 25/09: "Tất cả các Bento đều sáng khi lướt tới. Tư vấn
+     Doanh nghiệp sáng vì nó đang là center; lướt tiếp đến khi Pháp lý &
+     Thuế tới center thì đổi trạng thái giữa hai bento cho nhau."
+
+     → Trên mobile KHÔNG có ô nổi bật cố định. Trạng thái sáng chạy theo
+     vị trí cuộn. Lớp `tile--incenter` do JS gắn (xem script ở index.astro).
+     Không có JS thì mọi ô vẫn hiện bình thường ở trạng thái Default — chỉ
+     mất hiệu ứng, không hỏng trang. */
+  @media (max-width: 767px) {
+    .tile--incenter {
+      background: var(--blue-50);
+      backdrop-filter: blur(var(--blur-card-alt));
+      -webkit-backdrop-filter: blur(var(--blur-card-alt));
+      color: var(--blue-800);
+    }
+
+    .tile--incenter .tile__hoverbg { opacity: 1; }
+  }
+
   /* --- Trạng thái -----------------------------------------------------
-     Hover & Focus : nền --blue-50, backdrop blur 32, CÓ lớp Hover BG
-     Active        : y hệt Hover nhưng KHÔNG có lớp Hover BG
+     Hover · Focus : nền --blue-50, backdrop blur 32(Figma) → 16px, CÓ Hover BG
+     Active        : y hệt nhưng Hover BG visible=false trong Figma
      Chữ chuyển --blue-800 ở cả ba. */
   .tile--link:hover,
   .tile--link:focus-visible,
   .tile--link:active {
     background: var(--blue-50);
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
+    backdrop-filter: blur(var(--blur-card-alt));
+    -webkit-backdrop-filter: blur(var(--blur-card-alt));
     color: var(--blue-800);
   }
 
-  .tile--link:hover .tile__arrow,
-  .tile--link:focus-visible .tile__arrow,
-  .tile--link:active .tile__arrow { opacity: 1; }
-
   .tile--link:hover .tile__hoverbg,
   .tile--link:focus-visible .tile__hoverbg { opacity: 1; }
+
+  /* Đây là thứ DUY NHẤT phân biệt Hover với Focus trong bản thiết kế:
+       Hover → clipsContent = true  → gradient cắt gọn trong ô
+       Focus → clipsContent = false → gradient tràn ra thành quầng sáng
+     Khớp ngôn ngữ chung của hệ: quầng sáng thuộc về Focus và chỉ Focus. */
+  .tile--link:focus-visible { overflow: visible; }
 
   /* Phải đứng SAU hai dòng trên để thắng: Active tắt lớp Hover BG.
      (Trình duyệt vẫn tính :hover trong lúc đang nhấn, nên không thể dựa

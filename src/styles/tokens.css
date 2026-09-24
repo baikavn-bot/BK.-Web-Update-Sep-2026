@@ -32,6 +32,12 @@
   --blue-900: #16255C;
   --blue-950: #0B1730;
 
+  /* Xanh lục lam — Thắng thêm vào bộ Primary ngày 25/09/2026.
+     Figma: `Colors/Primary/--cyan`, đã bind vào điểm đầu của gradient
+     `Hover BG 2` (ô Trạm Ý Tưởng trên trang chủ).
+     Đây là màu DUY NHẤT trong hệ không thuộc thang xanh dương. */
+  --cyan: #118888;
+
   /* -----------------------------------------------------------
      2 · THANG XÁM — Colors/Neutral 2
      Đây là thang đang dùng làm vỏ toàn site.
@@ -189,18 +195,37 @@
                         0 0 6px 1px rgb(255 255 255 / 50%);
 
   /* -----------------------------------------------------------
-     11 · LÀM MỜ NỀN — LayerBlur
+     11 · LÀM MỜ — LayerBlur
      (Trong Figma tên style viết sai chính tả "Unifrom" — ở đây sửa lại.)
+
+     ⚠️ ĐỌC KỸ — ĐÂY LÀ CHỖ ĐÃ TỪNG SAI TOÀN HỆ.
+
+     Figma và CSS đo độ mờ bằng HAI THANG KHÁC NHAU.
+     Số trong Figma gấp ĐÔI số CSS cần dùng:
+
+         Figma LayerBlur 24  →  CSS  filter: blur(12px)
+         Figma LayerBlur 120 →  CSS  filter: blur(60px)
+
+     (Tự Figma xác nhận: panel "Copy as CSS" của lớp Hover BG —
+      hiệu ứng ghi 24 nhưng CSS nó xuất ra là blur(12px).)
+
+     → TÊN token giữ theo số Figma để tra cứu cho dễ.
+       GIÁ TRỊ đã quy đổi sẵn sang hệ CSS. Dùng thẳng, KHÔNG chia thêm.
      ----------------------------------------------------------- */
-  --blur-6:   6px;
-  --blur-24:  24px;
-  --blur-40:  40px;
-  --blur-60:  60px;
-  --blur-80:  80px;
-  --blur-120: 120px;
-  --blur-200: 200px;
-  --blur-300: 300px;
-  --blur-500: 500px;
+  --blur-6:   3px;    /* Figma LayerBlur/Unifrom/6   */
+  --blur-24:  12px;   /* Figma LayerBlur/Unifrom/24  */
+  --blur-40:  20px;   /* Figma LayerBlur/Unifrom/40  */
+  --blur-60:  30px;   /* Figma LayerBlur/Progessive/60 */
+  --blur-80:  40px;   /* Figma LayerBlur/Unifrom/80  */
+  --blur-120: 60px;   /* Figma LayerBlur/Unifrom/120 */
+  --blur-200: 100px;  /* Figma LayerBlur/Unifrom/200 */
+  --blur-300: 150px;  /* Figma LayerBlur/Unifrom/300 */
+  --blur-500: 250px;  /* Figma LayerBlur/Unifrom/500 */
+
+  /* Làm mờ HẬU CẢNH của ô bento (backdrop-filter).
+     Trong Figma đây là giá trị rời trên từng biến thể, không phải style. */
+  --blur-card:       8px;   /* Figma BackgroundBlur 16 — trạng thái Default   */
+  --blur-card-alt:  16px;   /* Figma BackgroundBlur 32 — Hover/Active/Focus   */
 
   /* -----------------------------------------------------------
      12 · LƯỚI & BREAKPOINT — 5 grid style
