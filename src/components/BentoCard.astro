@@ -101,12 +101,15 @@ const Tag = isLink ? 'a' : 'div';
     border-radius: var(--r-md);
     text-decoration: none;
 
-    /* Figma: stroke 0.5px, dashed [1,1], align = CENTER,
-       bind `Colors/Neutral 2/--gray-600` (#8A8A8A) — Thắng chốt 25/09.
+    /* Figma: stroke 0.5px, dashed [1,1], align = CENTER.
+       MÀU: cả 11 biến thể đang bind `Colors/Opacity/Light` = #D5D5D5 @50%
+       (đo lại 25/09). Xem ghi chú lệch nguồn trong báo cáo — CSS Thắng gửi
+       ghi `Colors/Opacity/White`; nếu đúng là White thì đổi đúng dòng này
+       sang `var(--opacity-white)`.
        CSS luôn vẽ viền PHÍA TRONG hộp. Để viền hai ô kề nhau CHỒNG LÊN
        nhau (đúng như center align) thay vì nằm cạnh nhau thành đường 1px,
        kéo mỗi ô ra 0.25px mỗi phía. */
-    border: 0.5px dashed var(--gray-600);
+    border: 0.5px dashed var(--opacity-light);
     margin: -0.25px;
 
     transition: background-color 140ms ease, color 140ms ease;
