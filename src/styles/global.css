@@ -1,0 +1,105 @@
+@import './tokens.css';
+@import './reset.css';
+
+/* =============================================================
+   Nền chung + thang chữ.
+   Chỉ những thứ dùng ở MỌI trang mới được nằm ở đây.
+   Cái gì thuộc về một khối cụ thể → CSS Module của khối đó.
+   ============================================================= */
+
+body {
+  background: var(--gray-950);
+  color: var(--gray-50);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-body);
+}
+
+/* --- Thang chữ: map 1-1 với 9 text style trong Figma --------- */
+
+.display-1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-1);
+  line-height: var(--lh-display-1);
+  font-weight: var(--fw-display-1);
+}
+
+.display-2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-2);
+  line-height: var(--lh-display-2);
+  font-weight: var(--fw-display-2);
+}
+
+h1, .h1 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-h1);
+  font-weight: var(--fw-h1);
+}
+
+h2, .h2 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: var(--fw-h2);
+}
+
+h3, .h3 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: var(--fw-h3);
+}
+
+.body-lg {
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+}
+
+.caption {
+  font-size: var(--fs-caption);
+  line-height: var(--lh-caption);
+}
+
+.label {
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  font-weight: var(--fw-label);
+}
+
+/* --- Khung chứa theo lưới Figma ------------------------------ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+/* --- Focus: nhìn thấy được ở MỌI thứ bấm được ----------------
+   WCAG 2.1 AA mục 2.4.7. Đây là mức sàn của cả site; component
+   nào có thiết kế focus riêng thì ghi đè, nhưng không được bỏ. */
+
+:focus-visible {
+  outline: 2px solid var(--blue-400);
+  outline-offset: 2px;
+}
+
+/* --- Bỏ qua nội dung, cho người dùng bàn phím ---------------- */
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--s-2);
+  z-index: 100;
+  padding: var(--s-2) var(--s-4);
+  background: var(--gray-50);
+  color: var(--gray-950);
+  border-radius: var(--r-sm);
+}
+
+.skip-link:focus {
+  left: var(--s-4);
+}

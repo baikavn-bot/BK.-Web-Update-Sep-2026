@@ -1,0 +1,243 @@
+/* =============================================================
+   BAIKA — Design tokens
+   Sinh từ Figma `YmcXg1lQqGVjQOFrVtdOgW`, collection `Global Tokens`
+   82 biến · 1 mode `light` · đo ngày 24/09/2026
+
+   ⛔ KHÔNG sửa tay file này để "cho vừa" một thiết kế.
+      Thiếu token → nêu ra và hỏi Thắng. Không tự chế giá trị mới.
+      Đổi giá trị → đổi trong Figma trước, rồi sinh lại file này.
+
+   ⛔ KHÔNG viết #FFFFFF / #fff / white ở bất kỳ đâu trong CSS.
+      Trắng đục   → var(--gray-50)      (#F8F8F8)
+      Trắng mờ    → var(--opacity-white) (#FFFFFF @15%)
+      Ngoại lệ duy nhất: màu bóng đổ trong --shadow-drop-inner.
+      Xem DEC-035 + DEC-035-A.
+   ============================================================= */
+
+:root {
+  /* -----------------------------------------------------------
+     1 · MÀU THƯƠNG HIỆU — Colors/Primary
+     Thang xanh NÀY chính là thang --brand (DEC-028).
+     Không có token --brand riêng; dùng trực tiếp --blue-*.
+     ----------------------------------------------------------- */
+  --blue-50:  #EDF6FD;
+  --blue-100: #D6EBFA;
+  --blue-200: #AFD8F5;
+  --blue-300: #7CC0EE;
+  --blue-400: #45A4E3;
+  --blue-500: #1B87D2;
+  --blue-600: #0F6BB0;
+  --blue-700: #0D538B;
+  --blue-800: #113F6B;
+  --blue-900: #16255C;
+  --blue-950: #0B1730;
+
+  /* -----------------------------------------------------------
+     2 · THANG XÁM — Colors/Neutral 2
+     Đây là thang đang dùng làm vỏ toàn site.
+     --gray-50 là màu SÁNG NHẤT của hệ. Không có gì sáng hơn.
+     ----------------------------------------------------------- */
+  --gray-50:  #F8F8F8;
+  --gray-100: #F1F1F1;
+  --gray-200: #E3E3E3;
+  --gray-300: #D5D5D5;
+  --gray-400: #C7C7C7;
+  --gray-500: #A8A8A8;
+  --gray-600: #8A8A8A;
+  --gray-700: #6D6D6D;  /* token cho trạng thái Disabled — đổi màu, KHÔNG giảm opacity */
+  --gray-800: #515151;
+  --gray-900: #373737;
+  --gray-950: #1E1E1E;  /* nền tối chủ đạo của 7 trang dịch vụ */
+
+  /* -----------------------------------------------------------
+     3 · THANG XÁM 2 — Colors/Neutral 1 (slate)
+     Giữ nguyên theo quyết định của Thắng. Hiện gần như chưa dùng.
+     Trước khi dùng slate cho việc gì, hỏi — mặc định là dùng --gray-*.
+     ----------------------------------------------------------- */
+  --slate-50:  #F4F7FA;
+  --slate-100: #EDF2F7;
+  --slate-200: #DBE3EC;
+  --slate-300: #C3CFDC;
+  --slate-400: #9AAABF;
+  --slate-500: #6B7C93;
+  --slate-600: #4E6076;
+  --slate-700: #3E5069;
+  --slate-800: #22334B;
+  --slate-900: #0E1B2E;
+  --slate-950: #08111D;
+
+  /* -----------------------------------------------------------
+     4 · MÀU TRẠNG THÁI
+     ----------------------------------------------------------- */
+  --red-100:    #FFC8C8;
+  --red-200:    #FB3748;   /* dùng cho Error */
+  --yellow-100: #FFDB43;
+  --yellow-200: #DFB400;
+  --green-100:  #84EBB4;
+  --green-200:  #257551;   /* dùng cho Success */
+
+  /* -----------------------------------------------------------
+     5 · MÀU 7 TRỤ — Colors/Page
+     Mỗi trang dịch vụ một bộ 3 sắc độ.
+     --dam CHỈ dùng cho điểm cuối gradient / quầng sáng / đổ bóng.
+     KHÔNG dùng --dam cho chữ.
+     ----------------------------------------------------------- */
+  --page-tu-van-dam:   #815901;
+  --page-tu-van-trung: #E79F01;
+  --page-tu-van-nhat:  #F7CE7A;
+
+  --page-van-hanh-dam:   #005545;
+  --page-van-hanh-trung: #01BB98;
+  --page-van-hanh-nhat:  #7FE0C5;
+
+  --page-marketing-dam:   #710044;
+  --page-marketing-trung: #D70082;
+  --page-marketing-nhat:  #FF47B6;
+
+  --page-tai-chinh-dam:   #003F73;
+  --page-tai-chinh-trung: #0077D9;
+  --page-tai-chinh-nhat:  #9BD0FF;
+
+  --page-phap-ly-dam:   #95212B;
+  --page-phap-ly-trung: #FB3748;
+  --page-phap-ly-nhat:  #FFC8C8;
+
+  --page-cong-nghe-ai-dam:   #5D2E99;
+  --page-cong-nghe-ai-trung: #9B4DFF;
+  --page-cong-nghe-ai-nhat:  #C4B5FF;
+
+  --page-dao-tao-ceo-dam:   #2D3078;
+  --page-dao-tao-ceo-trung: #5458DE;
+  --page-dao-tao-ceo-nhat:  #A9BEFF;
+
+  /* -----------------------------------------------------------
+     6 · MÀU TRONG SUỐT — Colors/Opacity
+     Alpha nằm TRONG token. Đừng cộng thêm opacity ở chỗ dùng.
+     ----------------------------------------------------------- */
+  --opacity-white: rgb(255 255 255 / 15%);  /* lớp phủ ô bento trang chủ */
+  --opacity-light: rgb(213 213 213 / 50%);
+  --opacity-gray:  rgb(213 213 213 / 25%);
+  --opacity-dark:  rgb(33 33 33 / 50%);
+
+  /* -----------------------------------------------------------
+     7 · KHOẢNG CÁCH — Spacing
+     Thang nhảy 4px tới 24, rồi thưa dần. Không có --s-7/9/11/…
+     Cần một giá trị không có trong thang → hỏi, đừng tự thêm.
+     ----------------------------------------------------------- */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+
+  /* -----------------------------------------------------------
+     8 · BO GÓC — Radius
+     ----------------------------------------------------------- */
+  --r-xs:   4px;
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   24px;
+  --r-pill: 999px;
+
+  /* -----------------------------------------------------------
+     9 · CHỮ — 9 text style, 2 họ chữ
+     Be Vietnam Pro : display + body
+     Chakra Petch   : heading H-1…H-3
+     KHÔNG có chữ mono trong thiết kế (DEC-024). Style tên `label`
+     trước đây tên `label-mono` — tên cũ nói dối font thật.
+     ----------------------------------------------------------- */
+  --font-display: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: 'Chakra Petch', 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-body:    'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --fs-display-1: 80px;  --lh-display-1: 1;      --fw-display-1: 600;
+  --fs-display-2: 48px;  --lh-display-2: 1;      --fw-display-2: 700;
+  --fs-h1:        32px;  --lh-h1:        36.8px; --fw-h1:        700;
+  --fs-h2:        24px;  --lh-h2:        29px;   --fw-h2:        700;
+  --fs-h3:        19px;  --lh-h3:        24px;   --fw-h3:        500;
+  --fs-body-lg:   17px;  --lh-body-lg:   1.3;    --fw-body-lg:   400;
+  --fs-body:      15px;  --lh-body:      1.3;    --fw-body:      400;
+  --fs-caption:   13px;  --lh-caption:   1.3;    --fw-caption:   400;
+  --fs-label:     11px;  --lh-label:     11px;   --fw-label:     300;
+
+  /* -----------------------------------------------------------
+     10 · BÓNG ĐỔ — 7 effect style
+     Ba cái dưới là NGÔN NGỮ TƯƠNG TÁC toàn hệ (DEC-014, DEC-015):
+       Hover  = "nổi lên"   → --shadow-inner
+       Active = "chìm xuống" → --shadow-inner-press
+       Focus  = "quầng sáng" → --shadow-drop-inner
+     Quầng sáng thuộc về Focus và chỉ Focus.
+     ----------------------------------------------------------- */
+  --shadow-1: 0 2px 2px 0 rgb(0 0 0 / 10%);
+  --shadow-2: 2px 3px 4px 0 rgb(0 0 0 / 30%);
+  --shadow-3: 4px 6px 5px 0 rgb(0 0 0 / 40%);
+  --shadow-4: 6px 8px 10px 0 rgb(0 0 0 / 60%);
+
+  --shadow-inner:       inset 0 -4px 6px 0 rgb(153 153 153 / 50%);
+  --shadow-inner-press: inset 0 4px 12px 4px rgb(0 0 0 / 100%);
+  /* Ngoại lệ #FFFFFF duy nhất của cả dự án: đây là màu effect, không phải fill.
+     Làm mờ nó đi là làm yếu quầng sáng Focus — thứ đang gánh WCAG 2.4.7. */
+  --shadow-drop-inner:  inset 0 -4px 6px 0 rgb(153 153 153 / 50%),
+                        0 0 6px 1px rgb(255 255 255 / 50%);
+
+  /* -----------------------------------------------------------
+     11 · LÀM MỜ NỀN — LayerBlur
+     (Trong Figma tên style viết sai chính tả "Unifrom" — ở đây sửa lại.)
+     ----------------------------------------------------------- */
+  --blur-6:   6px;
+  --blur-24:  24px;
+  --blur-40:  40px;
+  --blur-60:  60px;
+  --blur-80:  80px;
+  --blur-120: 120px;
+  --blur-200: 200px;
+  --blur-300: 300px;
+  --blur-500: 500px;
+
+  /* -----------------------------------------------------------
+     12 · LƯỚI & BREAKPOINT — 5 grid style
+     Breakpoint mobile là 375, KHÔNG phải 390 (DEC-031).
+     ----------------------------------------------------------- */
+  --bp-sm: 375px;
+  --bp-md: 768px;
+  --bp-lg: 1280px;
+
+  --grid-cols:   4;
+  --grid-gutter: var(--s-4);
+  --grid-margin: var(--s-4);
+  --container-max: 1280px;
+}
+
+/* md — tablet 768 */
+@media (min-width: 768px) {
+  :root {
+    --grid-cols:   8;
+    --grid-gutter: var(--s-4);
+    --grid-margin: var(--s-6);
+  }
+}
+
+/* lg — desktop 1280 */
+@media (min-width: 1280px) {
+  :root {
+    --grid-cols:   12;
+    --grid-gutter: var(--s-5);
+    --grid-margin: var(--s-8);
+  }
+}
+
+/* xl */
+@media (min-width: 1440px) {
+  :root {
+    --grid-gutter: var(--s-6);
+    --grid-margin: var(--s-8);
+  }
+}
