@@ -35,7 +35,10 @@ const { area } = Astro.props;
     BAIKA rà soát và dựng lại hệ thống vận hành — từ mô hình kinh doanh đến tài chính, pháp lý, công nghệ.
   </p>
 
-  <Button label="liên hệ" href="/lien-he" size="md" />
+  {/* Figma: Home có đúng 3 instance Button 1 — Lg ở Desktop (534:3846, 128×44),
+      Md ở Tablet (117×36), Sm ở Mobile (108×34). Trục Type = breakpoint,
+      nên ở đây dùng `auto` thay vì ép một cỡ. Đã xác minh bằng kiểm kê instance. */}
+  <Button label="liên hệ" href="/lien-he" size="auto" />
 </div>
 
 <style>
@@ -48,9 +51,13 @@ const { area } = Astro.props;
     padding: var(--s-6);
   }
 
+  /* Cân bằng động: lưới giãn theo màn hình, nên khối logo phải giãn theo,
+     không đứng yên ở 392px.
+     Tỉ lệ lấy từ Figma: hero 512 rộng, trừ 2×24 lề còn 464 — logo 392
+     chiếm 84.5% chỗ đó. Giữ đúng tỉ lệ ấy ở mọi cỡ màn.
+     Chặn trên 784px = đúng bề ngang file @2x, quá số đó là ảnh bị nhoè. */
   .hero__lockup {
-    width: 392px;
-    max-width: 100%;
+    width: min(84.5%, 784px);
     height: auto;
   }
 

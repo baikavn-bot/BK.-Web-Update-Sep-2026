@@ -33,8 +33,6 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
   description="BAIKA rà soát và dựng lại hệ thống vận hành — từ mô hình kinh doanh đến tài chính, pháp lý, công nghệ."
 >
   <div class="stage">
-    <!-- Lớp artwork: các khối gradient mờ phía sau lưới.
-         Figma dựng bằng 5 vector blur; ở đây dựng bằng radial-gradient + blur. -->
     <div class="artwork" aria-hidden="true"></div>
 
     <div class="grid">
@@ -55,16 +53,36 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
     overflow: hidden;
   }
 
-  /* --- Artwork nền -------------------------------------------------- */
+  /* --- Artwork nền ---------------------------------------------------
+     ⚠️ ĐÂY LÀ BẢN TẠM, CHƯA ĐÚNG BẢN THIẾT KẾ.
+
+     Figma dựng khối này bằng 5 lớp trong frame `Frame 2121454393`
+     (534:3940, 2052×1409 đặt tại −741,−537 so với khung Desktop 1280×832).
+     Ba trong năm lớp là VECTOR — hình tự do vẽ tay. CSS chỉ có hình tròn
+     và hình elip, KHÔNG vẽ lại được hình tự do.
+
+     Bản tạm dưới đây đã nắn lại ĐÚNG VỊ TRÍ và ĐÚNG KÍCH THƯỚC đo từ Figma,
+     nhưng hình dạng vẫn là elip, và hai sắc xanh #1A5A8D / #2698ED không có
+     trong bộ token nên đang thay bằng token gần nhất (--blue-700 / --blue-400).
+     Thứ tự lớp đã đảo ngược so với Figma vì CSS vẽ lớp đầu tiên lên TRÊN CÙNG.
+
+     → Cách sửa dứt điểm: xuất khối này thành ẢNH từ Figma. Xem báo cáo. */
   .artwork {
     position: absolute;
-    inset: -30%;
+    inset: 0;
     background:
-      radial-gradient(40% 55% at 82% 62%, var(--blue-700) 0%, transparent 70%),
-      radial-gradient(45% 40% at 62% 88%, var(--blue-800) 0%, transparent 70%),
-      radial-gradient(60% 55% at 45% 40%, var(--blue-900) 0%, transparent 75%),
-      radial-gradient(30% 22% at 38% 92%, var(--blue-600) 0%, transparent 70%);
-    filter: blur(80px);
+      /* Ellipse 17 (trên cùng) — #0F6BB0 → #0B1730 */
+      radial-gradient(10% 11% at 7% 90%,   var(--blue-600) 0%, transparent 72%),
+      /* Vector 26 — #08111D → #1A5A8D → #2698ED */
+      radial-gradient(58% 89% at 17% 23%,  var(--blue-400) 0%, var(--blue-700) 45%, var(--slate-950) 100%),
+      /* Vector 25 — #08111D → #1A5A8D → #FDFEFF (trắng → --gray-50) */
+      radial-gradient(67% 77% at 28% 25%,  var(--gray-50) 0%, var(--blue-700) 45%, var(--slate-950) 100%),
+      /* Vector 27 — #AFD8F5 → #0B1730 */
+      radial-gradient(30% 31% at 68% 74%,  var(--blue-200) 0%, var(--blue-950) 100%),
+      /* Ellipse 16 (dưới cùng) — #0D538B → #FFFFFF (→ --gray-50) */
+      radial-gradient(13% 54% at 89% 50%,  var(--blue-700) 0%, var(--gray-50) 100%);
+    filter: blur(var(--blur-120));
+    opacity: 0.9;
     pointer-events: none;
   }
 
@@ -79,10 +97,22 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
     gap: 0;
   }
 
-  /* Mobile 375 — một cột, cuộn dọc. Hero cao gấp đôi một ô. */
+  /* --- MOBILE < 768 — một cột, CUỘN DỌC -------------------------------
+     Đo Figma Mobile 540:4115: Grid Container 375×2288 = 11 hàng × 208,
+     lề hai bên 24, ô rộng 327. Hero cao 416 = 2 hàng. 9 ô dịch vụ.
+
+     Thứ tự đúng y Figma. Ô thứ 6 trong Figma KHÔNG có chữ — suy luận:
+     đó chính là TRẠM Ý TƯỞNG, Thắng chưa gõ nhãn vào (đếm ra: 9 ô mobile,
+     8 ô có chữ, thiếu đúng một cái là Trạm Ý Tưởng). Thắng đã xác nhận
+     ô này phải có mặt ở cả 3 breakpoint → điền vào đúng chỗ đó.
+
+     KHÔNG ép vừa một màn ở mobile: 11 hàng nhét vào một màn thì mỗi ô
+     còn ~60px, chữ không đọc nổi. Mục tiêu "20 ô vừa một màn" là của
+     lưới desktop. */
   .grid {
     width: 100%;
-    max-width: 375px;
+    /* KHÔNG khoá 375px: điện thoại thật rộng 390–430px, khoá lại thì
+       hai bên hở ra hai dải trống. Để ô nở theo màn, giữ nguyên lề 24. */
     padding-inline: var(--s-6);
     grid-template-columns: 1fr;
     grid-auto-rows: 208px;
@@ -91,30 +121,57 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
       'adv' 'legal' 'ceo' 'conn' 'ops' 'idea' 'mkt' 'tech' 'fin';
   }
 
-  /* Mobile không dùng tới 6 ô rỗng + ô trống — ẩn đi cho gọn DOM hình ảnh */
+  /* Mobile không có ô rỗng nào — Figma cũng vậy. */
   .grid > :global(.tile--placeholder),
   .grid > :global(.tile--empty) { display: none; }
 
-  /* Tablet 768 — 3 cột. Hero 2×2. Hàng 5 dành cho Trạm Ý Tưởng. */
+  /* --- TABLET 768–1279 — lưới LẤP ĐẦY MÀN HÌNH -------------------------
+     Đo Figma Tablet 540:4027: Grid Container 768×832 = 3 cột × 4 hàng
+     của ô 256×208. Bốn hàng đầu dưới đây khớp 100% với Figma.
+
+     Hàng 5 là phần THÊM: Figma bỏ sót Trạm Ý Tưởng, Thắng đã chốt phải có.
+     Thêm ph1 + ph2 vào hai ô còn lại để lưới vẫn là một khối chữ nhật kín,
+     đúng vai trò của ô rỗng ở bản Desktop — thay vì để một ô lẻ loi. */
   @media (min-width: 768px) {
+    .stage {
+      height: 100svh;
+      min-height: 0;
+      place-items: stretch;
+    }
+
     .grid {
-      max-width: 768px;
+      width: 100%;
+      height: 100%;
       padding-inline: 0;
-      grid-template-columns: repeat(3, 256px);
+      grid-template-columns: repeat(3, 1fr);
+      /* minmax: cửa sổ quá thấp thì ô ngừng co và trang cuộn,
+         thay vì bóp ô đến mức chữ bị cắt. */
+      grid-template-rows: repeat(5, minmax(120px, 1fr));
       grid-template-areas:
         'hero hero tech'
         'hero hero ceo'
         'ops  adv  mkt'
         'conn fin  legal'
-        'idea .    .';
+        'idea ph1  ph2';
     }
+
+    /* Bản đồ tablet chỉ có chỗ cho ph1 và ph2. ph3–ph6 mà hiện ra thì
+       grid tự đẻ thêm hàng ở dưới — phải chặn. */
+    .grid > :global(.tile--at-ph1),
+    .grid > :global(.tile--at-ph2) { display: flex; }
   }
 
-  /* Desktop 1280 — 5 cột × 4 hàng, đúng bản Figma. */
+  /* --- DESKTOP ≥ 1280 — 5 cột × 4 hàng = 20 ô --------------------------
+     Đo Figma Desktop 534:3816: Grid Container 1280×832, 16 node con
+     (1 hero 512×416 + 15 ô 256×208). Bản đồ dưới đây đã đối chiếu từng
+     toạ độ — KHỚP 100%, không sửa gì.
+
+     Ô `gap` ở hàng 1 cột 3 trong Figma KHÔNG có node nào — trống thật,
+     không viền, để lộ artwork nền. */
   @media (min-width: 1280px) {
     .grid {
-      max-width: 1280px;
-      grid-template-columns: repeat(5, 256px);
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, minmax(140px, 1fr));
       grid-template-areas:
         'hero hero gap  legal ph1'
         'hero hero mkt  ph2   ops'

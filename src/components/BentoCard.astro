@@ -3,6 +3,7 @@ import ArrowUpRight from './ArrowUpRight.astro';
 
 // Ô trong lưới bento trang chủ.
 // Figma: `Home/Services Card` 518:2781 — trục Type (breakpoint) × State.
+// Số đo lấy ngày 24/09/2026, đã đối chiếu lại sau review của Thắng.
 //
 // Ba dạng:
 //   card        — ô có nhãn, bấm được (nếu có href)
@@ -19,16 +20,19 @@ interface Props {
 }
 const { variant = 'card', label = '', href, area } = Astro.props;
 const lines = label.split('\n');
-const Tag = variant === 'card' && href ? 'a' : 'div';
+const isLink = variant === 'card' && !!href;
+const Tag = isLink ? 'a' : 'div';
 ---
 
 <Tag
-  class:list={['tile', `tile--${variant}`, { 'tile--link': variant === 'card' && href }]}
+  class:list={['tile', `tile--${variant}`, `tile--at-${area}`, { 'tile--link': isLink }]}
   style={`grid-area: ${area}`}
   href={href}
 >
   {variant === 'card' && label && (
     <>
+      {/* Lớp `Hover BG` — CHỈ có ở Hover và Focus. Active KHÔNG có lớp này. */}
+      <span class="tile__hoverbg" aria-hidden="true"></span>
       <span class="tile__arrow" aria-hidden="true"><ArrowUpRight size={24} /></span>
       <h2 class="tile__title">
         {lines.map((line, i) => <>{i > 0 && <br />}{line}</>)}
@@ -40,17 +44,26 @@ const Tag = variant === 'card' && href ? 'a' : 'div';
 <style>
   .tile {
     position: relative;
+    /* Lớp Hover BG bị làm mờ 24px và tràn ra ngoài ô — cắt lại ở đây */
+    overflow: hidden;
     display: flex;
     align-items: flex-end;
     padding: var(--s-6);
     border-radius: var(--r-md);
     text-decoration: none;
-    /* 0.5px là số đo thật trong Figma, không làm tròn lên 1px */
-    border: 0.5px solid var(--gray-600);
+
+    /* Figma: stroke 0.5px, dashed [1,1], màu --gray-600, align = CENTER.
+       CSS luôn vẽ viền PHÍA TRONG hộp. Để hai ô kề nhau có viền CHỒNG LÊN
+       nhau (đúng như center align) thay vì nằm cạnh nhau thành đường 1px,
+       kéo mỗi ô ra 0.25px mỗi phía. */
+    border: 0.5px dashed var(--gray-600);
+    margin: -0.25px;
+
     transition: background-color 140ms ease, color 140ms ease;
   }
 
-  /* Ô có nhãn — nền trắng mờ 15% phủ lên artwork, có làm mờ hậu cảnh */
+  /* Ô có nhãn — nền trắng mờ 15% phủ lên artwork, có làm mờ hậu cảnh.
+     `--opacity-white` = biến `Colors/Opacity/White` trong Figma (#FFFFFF @15%). */
   .tile--card {
     background: var(--opacity-white);
     backdrop-filter: blur(16px);
@@ -64,7 +77,25 @@ const Tag = variant === 'card' && href ? 'a' : 'div';
   /* Ô trống hoàn toàn — không viền, để lộ nền */
   .tile--empty { border: none; background: none; }
 
+  /* --- Lớp Hover BG ---------------------------------------------------
+     Figma: child `Hover BG` phủ kín ô, fill style `Hover BG Bento`
+     (GRADIENT_RADIAL #0D538B → #D6EBFA = --blue-700 → --blue-100),
+     effect LayerBlur Uniform 24.
+     Nới ra 24px mỗi phía: nếu vừa khít ô thì blur sẽ ăn mòn mép thành
+     trong suốt, hở ra nền phía sau. overflow:hidden ở .tile cắt lại. */
+  .tile__hoverbg {
+    position: absolute;
+    inset: calc(var(--blur-24) * -1);
+    background: radial-gradient(ellipse at 50% 50%, var(--blue-700) 0%, var(--blue-100) 100%);
+    filter: blur(var(--blur-24));
+    opacity: 0;
+    transition: opacity 140ms ease;
+    pointer-events: none;
+  }
+
   .tile__title {
+    position: relative;  /* nằm trên lớp Hover BG */
+    z-index: 1;
     margin: 0;
     font-family: var(--font-heading);
     font-size: var(--fs-h2);
@@ -74,21 +105,37 @@ const Tag = variant === 'card' && href ? 'a' : 'div';
     text-transform: uppercase;
   }
 
+  /* --- Mũi tên góc trên phải -----------------------------------------
+     Figma: instance 24×24, FILL --blue-700, cornerRadius 0.
+     Glyph bên trong 10×10 tại (7,7), stroke --gray-50, width 2.
+     SVG dùng viewBox 24 nên glyph và độ dày nét tự khớp khi hộp = 24. */
   .tile__arrow {
     position: absolute;
+    z-index: 1;
     top: var(--s-6);
     right: var(--s-6);
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 0;
+    background: var(--blue-700);
+    color: var(--gray-50);
     opacity: 0;
     transition: opacity 140ms ease;
   }
 
-  /* Trạng thái tương tác — đo từ variant Hover/Focus/Active trong Figma:
-     đổi nền sang --blue-50, chữ sang --blue-800, mũi tên hiện ra. */
+  /* --- Trạng thái -----------------------------------------------------
+     Hover & Focus : nền --blue-50, backdrop blur 32, CÓ lớp Hover BG
+     Active        : y hệt Hover nhưng KHÔNG có lớp Hover BG
+     Chữ chuyển --blue-800 ở cả ba. */
   .tile--link:hover,
   .tile--link:focus-visible,
   .tile--link:active {
     background: var(--blue-50);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
     color: var(--blue-800);
   }
 
@@ -96,6 +143,18 @@ const Tag = variant === 'card' && href ? 'a' : 'div';
   .tile--link:focus-visible .tile__arrow,
   .tile--link:active .tile__arrow { opacity: 1; }
 
+  .tile--link:hover .tile__hoverbg,
+  .tile--link:focus-visible .tile__hoverbg { opacity: 1; }
+
+  /* Phải đứng SAU hai dòng trên để thắng: Active tắt lớp Hover BG.
+     (Trình duyệt vẫn tính :hover trong lúc đang nhấn, nên không thể dựa
+     vào việc "không hover nữa" — phải ghi đè tường minh.) */
+  .tile--link:active .tile__hoverbg { opacity: 0; }
+
   /* Ô chưa có đích: hiện như ô thường nhưng không bấm, không đổi trạng thái */
   .tile--card:not(.tile--link) { cursor: default; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile, .tile__arrow, .tile__hoverbg { transition: none; }
+  }
 </style>
