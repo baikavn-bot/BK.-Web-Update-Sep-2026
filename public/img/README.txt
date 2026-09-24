@@ -1,9 +1,10 @@
 Thư mục ảnh.
 
-CẦN BỔ SUNG: baika-logo.webp (91x100, hoặc @2x 182x200)
+baika-lockup.webp      392x120  — khối nhận diện: dấu hiệu + chữ "Baika"
+baika-lockup@2x.webp   784x241  — bản nét đôi cho màn hình retina
 
-Agent không tải được ảnh từ Figma (proxy chặn figma.com).
-Cách lấy: mở Figma file YmcXg1lQqGVjQOFrVtdOgW, chọn node `Frame 2` 543:4503
--> Export -> PNG @2x (hoac SVG neu co ban goc) -> luu vao thu muc nay.
+Nguồn: Thắng cung cấp bản PNG @2x ngày 24/09/2026, agent chuyển sang WebP.
+Cỡ hiển thị 392x120 = đúng số đo khối này trong Figma (Logo 120x120 + chữ
+"Baika" 260x90, cách nhau 12px).
 
-Trang van chay binh thuong khi thieu file nay, chi la o logo trong.
+Muốn thay: xuất lại từ Figma, giữ đúng tỉ lệ 392:120, lưu WebP chất lượng 94.

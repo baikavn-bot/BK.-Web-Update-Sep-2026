@@ -8,16 +8,28 @@ const { area } = Astro.props;
 ---
 
 <div class="hero" style={`grid-area: ${area}`}>
-  <div class="hero__logo">
-    <!-- Khối nền xanh bo góc + gradient toả: dựng bằng CSS.
-         Dấu hiệu BAIKA bên trong là file ảnh — xem public/img/README.txt -->
-    <img class="hero__mark" src="/img/baika-logo.webp" alt="" width="91" height="100" />
-  </div>
+  {/*
+    Khối nhận diện: dấu hiệu BAIKA + chữ "Baika" nằm chung MỘT ảnh.
+    Thắng cung cấp bản PNG @2x ngày 24/09; đã chuyển sang WebP.
 
-  <!-- Chữ "Baika" là LOGOTYPE, không thuộc thang chữ 9 bậc.
-       Chakra Petch Regular 120px, line-height 75%, gradient mờ dần.
-       Thắng chốt 24/09: không thêm bậc chữ mới vào tokens.css. -->
-  <p class="hero__wordmark" aria-hidden="true">Baika</p>
+    Vì sao dùng ảnh thay vì dựng bằng CSS:
+    - Chữ "Baika" là LOGOTYPE (Chakra Petch 120px + gradient mờ dần), không
+      thuộc thang chữ 9 bậc. Dựng bằng CSS thì phụ thuộc font tải về đúng
+      weight, và gradient chỉ là xấp xỉ.
+    - Dấu hiệu bên trái có gradient và chi tiết, vẽ lại bằng SVG dễ sai lệch.
+    Ảnh cho kết quả đúng y bản gốc và không phụ thuộc gì cả.
+
+    Cỡ hiển thị 392×120 = đúng số đo khối này trong Figma.
+  */}
+  <img
+    class="hero__lockup"
+    src="/img/baika-lockup.webp"
+    srcset="/img/baika-lockup.webp 1x, /img/baika-lockup@2x.webp 2x"
+    alt="BAIKA"
+    width="392"
+    height="120"
+    fetchpriority="high"
+  />
 
   <p class="hero__tagline">
     BAIKA rà soát và dựng lại hệ thống vận hành — từ mô hình kinh doanh đến tài chính, pháp lý, công nghệ.
@@ -36,44 +48,10 @@ const { area } = Astro.props;
     padding: var(--s-6);
   }
 
-  .hero__logo {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    border-radius: var(--r-xl);
-    border: 0.5px solid var(--gray-600);
-    background: var(--blue-50);
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-  }
-
-  /* Quầng sáng toả từ tâm — thay cho lớp BG gradient radial + blur trong Figma */
-  .hero__logo::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 45%, var(--blue-200), transparent 70%);
-    filter: blur(13px);
-  }
-
-  .hero__mark {
-    position: relative;
-    width: 91px;
-    height: 100px;
-    object-fit: contain;
-  }
-
-  .hero__wordmark {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: 120px;
-    line-height: 0.75;
-    font-weight: 400;
-    background: linear-gradient(180deg, var(--blue-100) 0%, rgb(11 23 48 / 0%) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .hero__lockup {
+    width: 392px;
+    max-width: 100%;
+    height: auto;
   }
 
   .hero__tagline {
@@ -82,11 +60,5 @@ const { area } = Astro.props;
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
     color: var(--gray-50);
-  }
-
-  @media (max-width: 767px) {
-    .hero__wordmark { font-size: 88px; }
-    .hero__logo { width: 96px; height: 96px; }
-    .hero__mark { width: 73px; height: 80px; }
   }
 </style>
