@@ -25,3 +25,6 @@ Thumbs.db
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# anh chup man hinh / file nhap cua Claude - khong day len repo
+Claude outputs/
