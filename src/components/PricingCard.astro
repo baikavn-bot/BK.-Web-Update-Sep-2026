@@ -78,19 +78,31 @@ interface Props {
   ctaHref?: string;
   /** Các dòng trong danh sách quyền lợi. */
   items: string[];
+  /**
+   * Gói được khuyên dùng — sáng sẵn ngay khi tải trang.
+   *
+   * Trong Figma, thẻ này được đặt `State=Focus` để làm nổi bật. Ở đây KHÔNG
+   * gán thẳng trạng thái Focus của CSS, vì Focus là chỗ con trỏ bàn phím
+   * đang đứng — tạm thời, đổi liên tục khi bấm Tab. Gán cố định thì người
+   * dùng bàn phím thấy hai thẻ giống hệt nhau và không biết mình đang ở đâu
+   * (**lỗi WCAG 2.4.7**). Nên tách thành một dạng riêng; Focus bàn phím vẫn
+   * chạy độc lập bên trên. Cùng cách đã làm với ô bento nổi bật ở DEC-057.
+   */
+  featured?: boolean;
 }
 const {
   eyebrow, title,
   ctaLabel = 'Chọn gói này',
   ctaHref = '#lien-he',
   items,
+  featured = false,
 } = Astro.props;
 
 import Button2 from './Button2.astro';
 import IconCheck from './IconCheck.astro';
 ---
 
-<article class="goi">
+<article class={`goi${featured ? ' goi--noi-bat' : ''}`}>
   <span class="goi__light" aria-hidden="true"></span>
 
   <header class="goi__header">
@@ -160,6 +172,10 @@ import IconCheck from './IconCheck.astro';
     gap: var(--s-6);                  /* 24 */
     padding: var(--s-10) var(--s-6);  /* 40 / 24 */
     border-radius: var(--r-lg);       /* 16 */
+    /* Figma đặt thẻ cao CỐ ĐỊNH 448 ở cả ba khổ. Dùng `min-height` chứ
+       không `height`: nhãn dài bất ngờ thì thẻ cao thêm, không cắt mất chữ.
+       Nhờ đó các thẻ trong cùng một hàng luôn bằng nhau như bản vẽ. */
+    min-height: 448px;
     background: var(--nen-nghi);
     box-shadow: none;
     /* Cắt phần vệt sáng thò ra ngoài. Bóng đổ quanh thẻ KHÔNG bị cắt. */
@@ -266,6 +282,16 @@ import IconCheck from './IconCheck.astro';
     flex: none;
     color: var(--gray-50);
   }
+
+  /* --- GÓI ĐƯỢC KHUYÊN DÙNG — sáng sẵn, không phải trạng thái tương tác
+     Hình ảnh giống hệt Focus, nhưng là một DẠNG riêng chứ không phải trạng
+     thái. Xem giải thích ở phần khai báo `featured` đầu file. */
+  .goi--noi-bat {
+    background: var(--nen-sang);
+    box-shadow: var(--bong-trong), var(--bong-ngoai);
+  }
+  .goi--noi-bat::before  { background: var(--vien-sang); }
+  .goi--noi-bat .goi__light { opacity: 0.75; }
 
   /* --- FOCUS — con trỏ bàn phím ---------------------------------------
      ⚠️ ĐÃ ĐỔI CHỖ SO VỚI BẢN VẼ — Thắng chốt 25/09, xem DEC-090.

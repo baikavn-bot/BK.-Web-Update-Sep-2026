@@ -1,0 +1,109 @@
+---
+// SECTION 2 — "BẠN CÓ ĐANG GẶP VẤN ĐỀ NÀY?"
+// Figma: Desktop 382:8844 · Tablet 480:2050 · Mobile 450:5556. Đo 25/09/2026.
+//
+// Chiều cao: 423 (desktop) · 739 (tablet) · 776 (mobile)
+// Padding dọc 80 ở CẢ BA khổ — chỉ lề ngang đổi (xem ServicePageLayout).
+//
+// Bố cục: tiêu đề → gap 80 → hàng 3 ô, gap 12
+//   Desktop : 3 ô nằm NGANG, giữa các ô có **đường kẻ dọc** 1px `--gray-50`
+//             (Figma: LINE dài 146, xoay −90°)
+//   Tablet + Mobile : xếp DỌC, **bỏ đường kẻ** — đường kẻ dọc giữa các ô
+//             xếp dọc thì vô nghĩa, và Figma cũng không vẽ.
+//
+// Cộng thử desktop: 80 + 37 + 80 + 146 + 80 = **423** ✓ khớp Figma.
+//
+// ✅ ĐÃ ĐO LẠI TABLET 25/09 — bản vẽ KHÔNG sai như em tưởng ở DEC-087.
+//    Tablet: ba ô rộng **392, căn giữa** khung 688 (x=148 mỗi bên).
+//    Mobile: ô **lấp đầy** khung 327.
+//    Tức tablet cố ý giữ một cột chữ hẹp cho dễ đọc, không phải quên chỉnh.
+//    Em đã sửa lại theo số đo; trước đó cho lấp đầy cả tablet là SAI.
+import Solution from './Solution.astro';
+
+interface Props {
+  /** Tiêu đề section. Mặc định đúng nguyên văn Figma. */
+  heading?: string;
+  /** Đúng 3 vấn đề — bản vẽ 7 trang đều 3 ô. */
+  items: { title: string; desc: string }[];
+}
+const { heading = 'Bạn có đang gặp vấn đề này?', items } = Astro.props;
+---
+
+<section class="van-de sec">
+  <h2 class="van-de__heading">{heading}</h2>
+
+  <div class="van-de__hang">
+    {items.map((it, i) => (
+      <>
+        {/* Đường kẻ chỉ chèn GIỮA các ô, không có ở đầu và cuối.
+            `aria-hidden` vì nó là vạch trang trí, không mang thông tin. */}
+        {i > 0 && <span class="van-de__ke" aria-hidden="true"></span>}
+        <Solution title={it.title}>{it.desc}</Solution>
+      </>
+    ))}
+  </div>
+</section>
+
+<style>
+  .van-de {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-20);                  /* 80 */
+    padding-block: var(--s-20);        /* 80 — KHÔNG đổi theo khổ màn */
+  }
+
+  .van-de__heading {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);           /* 32 */
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+    text-align: center;
+  }
+
+  /* Mobile: xếp dọc, ô lấp đầy khung (đo được: 327/327) */
+  .van-de__hang {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-3);                   /* 12 */
+    width: 100%;
+  }
+  .van-de__hang > :global(.solution) { width: 100%; }
+
+  /* Tablet: vẫn xếp dọc, nhưng ô giữ bề ngang 392 và căn giữa */
+  @media (min-width: 768px) {
+    .van-de__hang > :global(.solution) { width: 392px; }
+  }
+
+  .van-de__ke { display: none; }       /* không có đường kẻ khi xếp dọc */
+
+  /* Desktop: 3 cột ngang + 2 đường kẻ dọc */
+  @media (min-width: 1280px) {
+    .van-de__hang {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Mỗi ô chia đều phần còn lại. `min-width: 0` để chữ dài không
+       đẩy ô rộng ra — thiếu dòng này là một ô nuốt chỗ của hai ô kia. */
+    .van-de__hang > :global(.solution) {
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 392px;                /* bề ngang trong bản vẽ */
+    }
+
+    /* Figma: LINE dài 146, xoay −90° → là một vạch DỌC cao 146.
+       Nét 1px, màu đặc --gray-50 (đã kiểm: SOLID #F8F8F8, không gradient). */
+    .van-de__ke {
+      display: block;
+      flex: none;
+      width: 1px;
+      height: 146px;
+      background: var(--gray-50);
+    }
+  }
+</style>

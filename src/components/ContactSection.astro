@@ -1,0 +1,166 @@
+---
+// SECTION 7 — "LIÊN HỆ" (section Contact của 7 trang dịch vụ)
+// Figma: Desktop 382:8965 · Tablet 480:2183 · Mobile 450:5688. Đo 25/09/2026.
+//
+// Chiều cao: 661 (desktop) · 810 (tablet) · 972 (mobile)
+// Padding dọc 96 ở cả ba khổ.
+//
+// Đây là section THỨ HAI đổi trục ở mốc 1280 (cùng FAQ):
+//   ≥ 1280 : cột trái **200** (tiêu đề + mạng xã hội) · cột phải **800** (form),
+//            hai khối dạt về hai mép. Cột trái dùng `space-between` nên
+//            tiêu đề bám đỉnh, cụm mạng xã hội tụt xuống đáy đúng 469.
+//   < 1280 : xếp DỌC, gap 40.
+//
+// Cộng thử desktop: 96 + 469 + 96 = **661** ✓ khớp Figma.
+//
+// ⚠️ ĐÂY LÀ CÙNG MỘT FORM với trang Liên hệ — không phải bản chép.
+//    Cả hai gọi `ContactForm.astro`. Sửa một chỗ, đúng cả 8 trang.
+//    Thắng chốt tách ra ngày 25/09; xem DEC-099.
+//
+// ⚠️ MẠNG XÃ HỘI — hai chỗ chưa xong, đều cần Thắng:
+//    1. **Chưa có đường dẫn thật** (VD-010). Để `undefined` thì hiện chữ
+//       nhưng KHÔNG bấm được — thà vậy còn hơn ba link chết.
+//    2. Bản vẽ dùng **icon tròn 48×48** (bộ Ionicons), còn ở đây đang là
+//       chữ, giống trang Liên hệ đã duyệt. Em KHÔNG tự vẽ lại logo
+//       Facebook/Instagram/LinkedIn từ trí nhớ — vẽ sai một nét là sai
+//       nhận diện thương hiệu của người ta. Cần Thắng xuất 3 icon đó,
+//       giống cách đã làm với ảnh nền sao.
+import ContactForm from './ContactForm.astro';
+
+interface Props {
+  heading?: string;
+  socials?: { label: string; href?: string }[];
+}
+const {
+  heading = 'Liên hệ',
+  socials = [
+    { label: 'Facebook',  href: undefined },
+    { label: 'Instagram', href: undefined },
+    { label: 'Linkedin',  href: undefined },
+  ],
+} = Astro.props;
+---
+
+<section class="lh sec sec--cat" id="lien-he">
+  <span class="lh__quang" aria-hidden="true"></span>
+
+  <div class="lh__trai">
+    <h2 class="lh__heading">{heading}</h2>
+
+    <ul class="lh__social">
+      {socials.map((s) => (
+        <li>
+          {s.href
+            ? <a class="lh__link" href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+            : <span class="lh__link lh__link--tat">{s.label}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="lh__phai">
+    <ContactForm />
+  </div>
+</section>
+
+<style>
+  .lh {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* 40 */
+    padding-block: var(--s-24);        /* 96 — KHÔNG đổi theo khổ màn */
+  }
+
+  /* Quầng sáng góc trên trái. Figma `Ellipse 15`: 362×312 ở (−49, 159),
+     xoay 30°, gradient `--tru-trung` → `--tru-nhat` ở độ đục 50%, blur 120.
+     Màu lấy từ **màu trụ** nên sang trang khác tự đổi. */
+  .lh__quang {
+    position: absolute;
+    top: 159px;
+    left: -89px;                       /* Figma x=−49, trừ tiếp lề trang 40 */
+    z-index: 0;
+    width: 362px;
+    height: 312px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--tru-trung), var(--tru-nhat));
+    opacity: 0.5;
+    transform: rotate(30deg);
+    filter: blur(var(--blur-120));     /* Figma LayerBlur 120 → CSS 60 */
+    pointer-events: none;
+  }
+
+  .lh__trai,
+  .lh__phai { position: relative; z-index: 1; }
+
+  .lh__trai {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);
+  }
+
+  .lh__heading {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);           /* 32 */
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+  }
+
+  .lh__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-6);                   /* Figma: 26 — thang không có bậc 26,
+                                          lấy 24 (--s-6), lệch 2px */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lh__link {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);           /* 24 — cùng cỡ với trang Liên hệ */
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+    color: var(--gray-50);
+    text-decoration: none;
+  }
+  .lh__link:hover { text-decoration: underline; }
+  .lh__link:focus-visible {
+    outline: 2px solid var(--gray-50);
+    outline-offset: 4px;
+    border-radius: var(--r-xs);
+  }
+  /* Chưa có đường dẫn: bỏ con trỏ bàn tay, bỏ gạch chân khi rê —
+     không hứa một cú bấm không dẫn tới đâu. Màu vẫn giữ nguyên `--gray-50`
+     đúng thiết kế (bài học DEC-072: đừng tự ý làm mờ để "báo hiệu"). */
+  .lh__link--tat { cursor: default; }
+
+  /* --- Desktop: hai cột dạt về hai mép -------------------------------- */
+  @media (min-width: 1280px) {
+    .lh {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+    }
+    .lh__trai {
+      width: 200px;
+      flex: none;
+      /* Figma: cột trái cao 469 (bằng form), căn SPACE_BETWEEN → tiêu đề
+         bám đỉnh, cụm mạng xã hội tụt xuống đáy. */
+      justify-content: space-between;
+    }
+    .lh__phai { width: 800px; flex: none; }
+
+    /* ⚠️ Ở desktop cột trái chỉ rộng **200**. Bản vẽ để ba mạng xã hội nằm
+       NGANG vì chúng là icon 48×48 (48×3 + 26×2 = 196, vừa khít). Ở đây
+       đang là CHỮ nên ba chữ nằm ngang cần hơn 250px — đã thấy thật khi
+       chụp: chữ tràn sang cột form và **đè lên nút gửi**.
+       → Tạm xếp DỌC, giống cách trang Liên hệ đang làm.
+       📌 Khi Thắng xuất 3 icon, đổi lại thành hàng ngang cho đúng bản vẽ. */
+    .lh__social {
+      flex-direction: column;
+      gap: var(--s-2);                 /* 8 */
+    }
+  }
+</style>

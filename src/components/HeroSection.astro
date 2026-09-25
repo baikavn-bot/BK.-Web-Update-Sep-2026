@@ -1,0 +1,300 @@
+---
+// SECTION 1 — HERO. Dùng chung cho cả 7 trang dịch vụ.
+// Figma: đo từ `Tư vấn doanh nghiệp` ở cả ba khổ màn, 25/09/2026
+//   Desktop 382:8829 · Tablet 480:2034 · Mobile 450:5540 — **đều cao 680**.
+//
+// ─── Xếp lớp, từ dưới lên ────────────────────────────────────────────
+//   1. Milkyway   — ảnh nền sao, có thêm hiệu ứng nhiễu (NOISE)
+//   2. Planet     — vòng cung hành tinh 1920×727, đặt ở y=344
+//   3. Nebula light — vệt sáng cong, nằm trên đỉnh vòng cung
+//   4. Chữ cong   — tên trang, chạy theo cung tròn
+//   5. Khối nội dung — tiêu đề phụ + mô tả + nút
+//
+// 🗑️ Thắng đã XOÁ lớp `Top left light` khỏi Figma ngày 25/09 ("thấy không
+//    cần thiết"). Đã gỡ khỏi code cho khớp.
+//
+// ─── Ba con số KHÔNG đổi ở cả ba khổ màn ─────────────────────────────
+//   · Chiều cao Hero: 680
+//   · Chữ cong: khung 1382×639, đặt ở y=240, **luôn căn giữa ngang**
+//     (desktop x=−51 · tablet x=−307 · mobile x=−503 — tính ra tâm đều
+//      trùng tâm màn hình)
+//   · Vòng cung: 1920×727 ở y=344, cũng luôn căn giữa
+//   → Nghĩa là hoạ tiết KHÔNG co theo màn. Màn hẹp thì thấy ít hơn,
+//     chứ hình không bị bóp méo. Đây là điều dễ làm sai nhất ở section này.
+//
+// ─── Cỡ chữ cong — quy tắc rút ra từ ba số đo ────────────────────────
+//   1280 → 80  ·  768 → 48  ·  375 → 24
+//   Chia cho bề ngang màn: 6.25vw · 6.25vw · 6.4vw → **6.25vw khớp cả ba**.
+//   Chặn trần 80 để màn rộng hơn 1280 không phóng to thêm (Figma dừng ở 1280).
+//
+// ─── ✅ ẢNH NỀN SAO — Thắng đã xuất, đã xử lý xong 25/09 ──────────────
+// `Milkyway` trong Figma là **ảnh thật** (image fill) + hiệu ứng NOISE,
+// không phải hình vẽ CSS. Proxy mạng chặn tên miền Figma ở cả hai môi
+// trường (lỗi 403) nên Thắng phải xuất tay.
+// Xem phần `.hero__stars` bên dưới về cách cắt và nén.
+//
+// ─── ⚠️ MỘT CHỖ BUỘC PHẢI LỆCH BẢN VẼ ────────────────────────────────
+// Khối nội dung trong Figma rộng **527 cố định** ở cả ba khổ. Trên màn
+// 375 thì 527 **tràn ra ngoài màn** (Figma đặt nó ở x=−76). Trên web
+// không thể để vậy, nên ở đây là `max-width: 527px` + co theo màn.
+// Đây là lỗi của bản vẽ, không phải lựa chọn của em.
+import NebulaLight from './NebulaLight.astro';
+import Button2 from './Button2.astro';
+
+interface Props {
+  /** Tên trang — chữ chạy theo cung tròn. Cũng là <h1> của trang. */
+  title: string;
+  /** Câu tiêu đề phụ, Chakra Petch Bold 32. */
+  tagline: string;
+  /** Đoạn mô tả ngắn bên dưới. */
+  lead: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+const {
+  title, tagline, lead,
+  ctaLabel = 'Đặt lịch chẩn đoán',
+  ctaHref = '#lien-he',
+} = Astro.props;
+
+// Mỗi trang một bộ id riêng cho đường dẫn chữ và gradient. Hai Hero cùng
+// một trang thì không xảy ra, nhưng vẫn sinh id riêng cho chắc — trùng id
+// là trình duyệt lấy nhầm của nhau.
+const uid = Math.random().toString(36).slice(2, 8);
+---
+
+<section class="hero">
+  {/* ─── Hoạ tiết. Toàn bộ `aria-hidden` — trình đọc màn hình bỏ qua. ─── */}
+  <div class="hero__stars" aria-hidden="true"></div>
+
+  <div class="hero__planet" aria-hidden="true">
+    <div class="hero__globe"></div>
+    <div class="hero__nebula"><NebulaLight width="695px" /></div>
+  </div>
+
+  {/* ─── Tên trang, chạy theo cung tròn ───────────────────────────────
+      Dựng bằng SVG `<textPath>` — chữ THẬT, không phải ảnh. Quan trọng:
+      đây là <h1> của trang, nên nó phải đọc được, chọn được, và Google
+      phải đọc được. Xuất thành ảnh là mất hết.
+      CSS thuần không uốn được chữ theo đường cong; SVG thì làm được. */}
+  <h1 class="hero__title">
+    <svg class="hero__arc" viewBox="0 0 1382 639" role="img" aria-label={title}>
+      <defs>
+        {/* Nửa trên của hình elip 1382×639 — đúng kích thước khung
+            TEXT_PATH trong Figma. Vẽ từ trái sang phải để chữ đọc xuôi,
+            điểm giữa cung nằm đúng đỉnh. */}
+        <path id={`arc-${uid}`} fill="none"
+              d="M 0 319.5 A 691 319.5 0 0 1 1382 319.5" />
+        <linearGradient id={`arcfill-${uid}`}
+                        x1="0" y1="0" x2="1382" y2="0"
+                        gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="var(--tru-trung)" stop-opacity="1" />
+          <stop offset="1" stop-color="var(--tru-dam)" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+      <text fill={`url(#arcfill-${uid})`} text-anchor="middle">
+        <textPath href={`#arc-${uid}`} startOffset="50%">{title}</textPath>
+      </text>
+    </svg>
+  </h1>
+
+  {/* ─── Nội dung ─────────────────────────────────────────────────────
+      `tagline` để <p> chứ không phải <h2>: nó là câu dẫn, không mở ra
+      một mục mới nào. Tiêu đề thật của trang là chữ cong ở trên. */}
+  <div class="hero__content">
+    <div class="hero__text">
+      <p class="hero__tagline">{tagline}</p>
+      <p class="hero__lead">{lead}</p>
+    </div>
+    <Button2 label={ctaLabel} href={ctaHref} size="md"
+             iconLeft={false} iconRight={false} />
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    /* 680 = 401 (chỗ trống phía trên) + 218 (nội dung) + 61 (dưới).
+       `min-height` chứ không phải `height`: màn hẹp chữ xuống dòng nhiều
+       hơn thì Hero cao thêm, không đè chữ ra ngoài. */
+    min-height: 680px;
+    padding: 401px var(--le-trang) 61px;
+    box-sizing: border-box;
+    /* Cắt hoạ tiết tràn viền. Nút bên trong nằm giữa màn, cách mép rất xa,
+       nên quầng sáng focus của nó không bị cắt. */
+    overflow: hidden;
+    background: var(--gray-950);
+  }
+
+  /* --- 1 · Nền sao ---------------------------------------------------
+     Figma: khung 1280×694 ở y=0, luôn căn giữa ngang, KHÔNG co theo màn.
+     Nên đặt bề ngang cố định 1280 rồi căn giữa, thay vì `cover`.
+
+     ✂️ CHỈ DÙNG 470/694 CHIỀU CAO — đây là chỗ tiết kiệm lớn nhất.
+     Vòng cung hành tinh (elip 1920×727 đặt ở y=344, căn giữa) che kín
+     mọi thứ từ y=437 trở xuống — chỗ cao nhất của nó là hai mép màn,
+     tính ra đúng 437. Tức **257px cuối của ảnh không bao giờ ai thấy**.
+     Cắt bỏ phần đó giảm 32% dung lượng mà không mất một pixel nhìn được.
+     Lấy 470 thay vì 437 để chừa lề an toàn.
+
+     Dung lượng sau khi cắt: **51 KB** (1x) · **125 KB** (2x).
+     Chất lượng nén để thấp (q55/q35) sau khi so bốn bản ở cỡ hiển thị
+     thật — bản 179 KB và bản 74 KB **không phân biệt được bằng mắt**.
+     Ảnh sao là kết cấu tối, nhiễu cao, tương phản thấp: đúng loại mà
+     vết nén giấu được trong chính cái nhiễu. Ngược hẳn với logo (nét
+     sắc, nền phẳng) — chỗ đó phải để chất lượng cao. */
+  .hero__stars {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1280px;
+    height: 470px;
+    transform: translateX(-50%);
+    background-image: image-set(
+      url('/img/hero-stars.webp') 1x,
+      url('/img/hero-stars@2x.webp') 2x
+    );
+    background-size: 1280px 470px;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+
+  /* --- 2 · Vòng cung hành tinh ----------------------------------------
+     Figma: 1920×727 ở y=344, luôn căn giữa. Cùng họ với hoạ tiết ở chân
+     trang (SiteFooter) — xem DEC-092 về lý do dựng bằng CSS thay vì ảnh.
+     Khác ở đây: nét viền dày **4** (chân trang chỉ 1.5) và có thêm bóng. */
+  .hero__planet {
+    position: absolute;
+    top: 344px;
+    left: 50%;
+    width: 1920px;
+    height: 727px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .hero__globe {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    /* Figma chồng hai lớp tô: nền --gray-950 đặc, rồi một dải sáng đổ từ
+       mép trên xuống, tắt hẳn ở khoảng y=193 (≈27% chiều cao).
+       ⚠️ Lớp sáng đó có **độ đục riêng 0.15** — con số nằm ở thuộc tính
+       `opacity` CỦA LỚP TÔ, tách rời khỏi alpha trong mã màu. Bản đầu em
+       bỏ sót và áp trắng 100%: vòng cung sáng loá, che mất nửa Hero.
+       Đã chụp ảnh so sánh mới phát hiện. Xem DEC-094. */
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--gray-50) 15%, transparent) 0%,
+        color-mix(in srgb, var(--gray-950) 0%, transparent) 27%
+      ),
+      var(--gray-950);
+    /* Figma: INNER_SHADOW r120 lệch y+24 trắng 25%
+            + DROP_SHADOW r120 lệch y−103 trắng 7%. Độ mờ chia đôi. */
+    box-shadow:
+      inset 0 24px 60px 0 color-mix(in srgb, var(--gray-50) 25%, transparent),
+      0 -103px 60px 0 color-mix(in srgb, var(--gray-50) 7%, transparent);
+  }
+
+  /* Nét viền sáng 4px chạy dọc mép trên. Cùng kỹ thuật vẽ viền gradient
+     đã dùng ở FaqItem / PricingCard / SiteFooter — xem FaqItem.astro. */
+  .hero__globe::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 4px;                      /* Figma strokeWeight 4 */
+    background: linear-gradient(
+      180deg,
+      var(--gray-50) 0%,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 26%
+    );
+    -webkit-mask:
+      linear-gradient(var(--gray-950) 0 0) content-box,
+      linear-gradient(var(--gray-950) 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+    .hero__globe::before { display: none; }
+  }
+
+  /* --- 3 · Vệt sáng cong trên đỉnh cung -------------------------------
+     Figma: instance `Neubula light` đặt ở x=614 trong khung Planet 1920
+     (tâm 961.5 ≈ tâm 960 của khung) → căn giữa. */
+  .hero__nebula {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* --- 4 · Chữ cong ---------------------------------------------------
+     Khung 1382×639 ở y=240, căn giữa — cố định, KHÔNG co theo màn. */
+  .hero__title {
+    position: absolute;
+    top: 240px;
+    left: 50%;
+    width: 1382px;
+    height: 639px;
+    margin: 0;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .hero__arc {
+    display: block;
+    width: 1382px;
+    height: 639px;
+    overflow: visible;
+  }
+  .hero__arc text {
+    font-family: var(--font-body);      /* Be Vietnam Pro */
+    font-weight: 600;                   /* SemiBold */
+    /* 6.25vw ra đúng 80 ở 1280 và 48 ở 768; ở 375 ra 23.4 (bản vẽ 24).
+       Chặn trần 80 vì Figma dừng vẽ ở khổ 1280. */
+    font-size: min(6.25vw, 80px);
+  }
+
+  /* --- 5 · Nội dung ---------------------------------------------------
+     Figma: khung 527, xếp dọc, gap 40, các con căn giữa ngang. */
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-10);                   /* 40 */
+    /* 527 là bề ngang trong bản vẽ; `max-width` để màn 375 không tràn.
+       Xem cảnh báo ở đầu file. */
+    max-width: 527px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-3);                    /* 12 */
+  }
+
+  .hero__tagline {
+    margin: 0;
+    font-family: var(--font-heading);   /* Chakra Petch */
+    font-size: var(--fs-h1);            /* 32 */
+    line-height: var(--lh-h1);          /* 37 */
+    font-weight: var(--fw-h1);          /* Bold */
+    color: var(--slate-50);
+  }
+
+  .hero__lead {
+    margin: 0;
+    /* Figma để đoạn này rộng 431 trong khung 527 — hẹp hơn tiêu đề một
+       chút để dòng chữ không quá dài. Giữ đúng tỉ lệ đó. */
+    max-width: 431px;
+    font-size: var(--fs-body);          /* 15 */
+    line-height: var(--lh-body);        /* 130% */
+    color: var(--slate-50);
+  }
+</style>

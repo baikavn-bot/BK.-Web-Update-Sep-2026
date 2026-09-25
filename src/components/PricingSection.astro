@@ -1,0 +1,104 @@
+---
+// SECTION 5 — "CÁC GÓI DỊCH VỤ"
+// Figma: Desktop 382:8950 · Tablet 480:2168 · Mobile 450:5673. Đo 25/09/2026.
+//
+// Chiều cao: 1157 (desktop, 4 gói) · 1145 (tablet) · 2101 (mobile)
+// ⚠️ Section này có **hai biến thể** trên 7 trang: **685** khi 3 gói,
+//    **1157** khi 4 gói. Tư vấn và Pháp lý là 4 gói; AI là 5; còn lại 3.
+//    Code không cố định chiều cao — lưới tự xuống hàng theo số gói.
+//
+// Bố cục: padding 80 / lề trang · xếp dọc · gap 40
+//   tiêu đề (căn TRÁI, khác với section Solution căn giữa) → lưới thẻ
+//
+// Lưới: 3 thẻ mỗi hàng ở desktop. **384 × 3 + 24 × 2 = đúng 1200** — vừa khít
+// bề ngang nội dung, không phải số làm tròn. Thẻ thứ 4 xuống hàng hai.
+// Cộng thử: 80 + 37 + 40 + (448×2 + 24) + 80 = **1157** ✓ khớp Figma.
+import PricingCard from './PricingCard.astro';
+
+interface Props {
+  heading?: string;
+  packages: {
+    eyebrow: string;
+    title: string;
+    items: string[];
+    ctaLabel?: string;
+    ctaHref?: string;
+    /** Gói được khuyên dùng — sáng sẵn. Chỉ nên có MỘT gói mỗi trang. */
+    featured?: boolean;
+  }[];
+}
+const { heading = 'Các gói dịch vụ', packages } = Astro.props;
+---
+
+<section class="goi-dv sec">
+  <h2 class="goi-dv__heading">{heading}</h2>
+
+  <div class="goi-dv__luoi">
+    {packages.map((p) => (
+      <PricingCard
+        eyebrow={p.eyebrow}
+        title={p.title}
+        items={p.items}
+        ctaLabel={p.ctaLabel}
+        ctaHref={p.ctaHref}
+        featured={p.featured}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .goi-dv {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* 40 */
+    padding-block: var(--s-20);        /* 80 — KHÔNG đổi theo khổ màn */
+  }
+
+  .goi-dv__heading {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);           /* 32 */
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+    /* Căn TRÁI — khác section "Bạn có đang gặp vấn đề này?" (căn giữa).
+       Đã kiểm bằng toạ độ: chữ bắt đầu đúng ở mép lề trái. */
+  }
+
+  /* Số cột và khoảng cách ĐO ĐƯỢC từ bản vẽ, mỗi khổ một kiểu:
+       Mobile  375 : **1 cột**, gap 24 — thẻ lấp đầy 327
+       Tablet  768 : **2 cột**, gap **12** — 338 × 2 + 12 = đúng 688
+       Desktop 1280: **3 cột**, gap 24 — 384 × 3 + 24 × 2 = đúng 1200
+
+     ⚠️ Gap ở tablet là **12**, khác hai khổ kia (24). Nhìn thì lạ, nhưng
+     đó là con số duy nhất để hai thẻ 338 vừa khít khung 688. Đã đo, không
+     phải gõ nhầm.
+
+     Viết số cột rõ ràng cho từng khổ thay vì để `auto-fit` tự tính: bản
+     trước dùng `auto-fit` và **ra 1 cột ở tablet** thay vì 2 — vì `auto-fit`
+     lấy cận TRÊN (384) để quyết định số cột, mà 384×2 thì không vừa 688.
+     Lỗi này chỉ lộ ra khi đo chiều cao section, không lộ khi build. */
+  .goi-dv__luoi {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-6);                   /* 24 */
+  }
+
+  @media (min-width: 768px) {
+    .goi-dv__luoi {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--s-3);                 /* 12 — chỉ ở tablet */
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .goi-dv__luoi {
+      /* Cột cố định 384 + căn trái: hàng cuối thiếu thẻ thì các thẻ vẫn
+         thẳng cột với hàng trên, thay vì trôi vào giữa. */
+      grid-template-columns: repeat(3, 384px);
+      justify-content: start;
+      gap: var(--s-6);                 /* 24 */
+    }
+  }
+</style>

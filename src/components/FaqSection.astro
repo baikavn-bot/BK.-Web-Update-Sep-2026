@@ -1,0 +1,100 @@
+---
+// SECTION 6 — "CÁC CÂU HỎI THƯỜNG GẶP"
+// Figma: Desktop 382:8957 · Tablet 480:2175 · Mobile 450:5680. Đo 25/09/2026.
+//
+// Chiều cao: 566 (desktop) · 680 (tablet) · 785 (mobile)
+// Padding dọc 96 ở CẢ BA khổ.
+//
+// Bố cục — đây là một trong HAI section đổi trục ở mốc 1280:
+//   ≥ 1280 : tiêu đề bên TRÁI (200 rộng) · danh sách bên PHẢI (800 rộng),
+//            hai khối dạt về hai mép (`space-between`)
+//   < 1280 : xếp DỌC — tablet 768 đã dọc rồi
+//
+// Cộng thử desktop: 96 + 374 + 96 = **566** ✓ khớp Figma.
+//
+// Hoạ tiết: một quầng sáng elip 787×384 ở góc trên phải (x=620, y=−88),
+// blur 300 → CSS 150. **Màu lấy từ màu trụ** — gradient `--tru-trung` →
+// `--tru-nhat` ở độ đục 50%. Nghĩa là sang trang khác nó tự đổi màu, không
+// phải sửa gì. Đây là lý do bộ biến `--tru-*` ở khung trang đáng giá.
+import FaqItem from './FaqItem.astro';
+
+interface Props {
+  heading?: string;
+  /** Bản vẽ 7 trang đều đúng 4 câu. Câu đầu mở sẵn. */
+  items: { question: string; answer: string }[];
+}
+const { heading = 'Các câu hỏi thường gặp', items } = Astro.props;
+---
+
+<section class="faq-sec sec sec--cat">
+  <span class="faq-sec__quang" aria-hidden="true"></span>
+
+  <h2 class="faq-sec__heading">{heading}</h2>
+
+  <div class="faq-sec__list">
+    {items.map((it, i) => (
+      // `group` giống nhau → mở câu này thì câu kia tự đóng, không cần JS.
+      // Câu đầu mở sẵn, đúng như bản vẽ.
+      <FaqItem question={it.question} group="faq-trang" open={i === 0}>
+        {it.answer}
+      </FaqItem>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq-sec {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* 40 */
+    padding-block: var(--s-24);        /* 96 — KHÔNG đổi theo khổ màn */
+  }
+
+  /* Quầng sáng góc trên phải. Nằm dưới cùng (`z-index: 0`) và section có
+     `sec--cat` (overflow: hidden) nên phần tràn ra ngoài bị cắt gọn. */
+  .faq-sec__quang {
+    position: absolute;
+    top: -88px;
+    right: -127px;                     /* Figma x=620 trên khung 1280 */
+    z-index: 0;
+    width: 787px;
+    height: 384px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, var(--tru-trung), var(--tru-nhat));
+    opacity: 0.5;                      /* Figma: fill opacity 50% */
+    filter: blur(var(--blur-300));     /* Figma LayerBlur 300 → CSS 150 */
+    pointer-events: none;
+  }
+
+  .faq-sec__heading,
+  .faq-sec__list { position: relative; z-index: 1; }
+
+  .faq-sec__heading {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);           /* 32 */
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+  }
+
+  .faq-sec__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);                   /* 12 */
+  }
+
+  /* Desktop: hai cột dạt về hai mép */
+  @media (min-width: 1280px) {
+    .faq-sec {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--s-10);                /* 40 */
+    }
+    /* Figma: khối tiêu đề rộng 200 → chữ xuống 2 dòng, cao 74. Cố ý.
+       `flex: none` để nó không co thêm khi chữ ngắn. */
+    .faq-sec__heading { width: 200px; flex: none; }
+    .faq-sec__list    { width: 800px; flex: none; }
+  }
+</style>

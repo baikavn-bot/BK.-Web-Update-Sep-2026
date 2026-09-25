@@ -1,0 +1,165 @@
+---
+// KHUNG TRANG DÙNG CHUNG CHO 7 TRANG DỊCH VỤ
+// Figma: đo từ `Tư vấn doanh nghiệp` ở cả ba breakpoint, 25/09/2026
+//   Desktop 382:8828 (1280×6727) · Tablet 480:2033 (768×7626) · Mobile 450:5539 (375×10176)
+//
+// Vì sao lấy Tư vấn làm chuẩn: đây là trang DUY NHẤT trong Figma được vẽ
+// đủ cả ba khổ màn. Sáu trang kia chỉ có desktop — dựng từ chúng thì phải
+// tự bịa hành vi tablet/mobile.
+//
+// ─── QUY TẮC RESPONSIVE — đã xác minh bằng số đo, không suy đoán ──────
+//
+// 1. LỀ HAI BÊN đổi MỘT lần duy nhất, ở mốc 768:
+//      < 768  → 24  (--s-6)
+//      ≥ 768  → 40  (--s-10)   ← tablet và desktop GIỐNG NHAU
+//
+// 2. PADDING TRÊN–DƯỚI của section KHÔNG đổi theo khổ màn.
+//    Đo cả ba khổ đều ra cùng một bộ số:
+//      Solution 80 · Baika sẽ làm gì 96 · Gói dịch vụ 80
+//      FAQ 96 · Contact 96 · 6 dịch vụ 0
+//    Nghĩa là trang co giãn bằng cách **đổi cách xếp**, không phải bằng
+//    cách bóp khoảng cách dọc. Đây là điều cần nhớ nhất khi dựng section.
+//
+// 3. FAQ và Contact ĐỔI TRỤC ở mốc 1280:
+//      ≥ 1280 → xếp NGANG (hai cột)
+//      < 1280 → xếp DỌC    ← tablet 768 đã dọc rồi
+//
+// 4. KHÔNG giới hạn bề ngang. Section trải hết màn hình.
+//    Thắng đã chốt 25/09 ở trang Liên hệ: *"Contact Section: Fill Page"*.
+//    Con cố định (ví dụ hai cột 560/600) giữ nguyên bề ngang và dạt về hai
+//    mép trên màn rộng — chủ ý, không phải lỗi bố cục.
+//
+// ─── HAI DẢI MÀN KHÔNG CÓ BẢN VẼ — [suy luận, cần Thắng duyệt] ────────
+//
+// Style guide khai báo 5 dải: `0–479 · 480–767 · 768–1023 · 1024–1279 · 1280+`
+// (đã mở cả 5 khung — chúng RỖNG, chỉ đặt tên dải chứ không có số đo bên trong).
+// Figma chỉ vẽ trang ở 375, 768, 1280 → hai dải giữa không có bản vẽ:
+//   `480–767`   → cho chạy theo mobile  (lề 24)
+//   `1024–1279` → cho chạy theo tablet  (lề 40, FAQ/Contact xếp dọc)
+// Suy luận này khớp với cách trang Liên hệ đã dựng, nên ít rủi ro — nhưng
+// vẫn là suy luận.
+//
+// ─── ⚠️ MỘT MÂU THUẪN TRONG CHÍNH FILE FIGMA — để Thắng biết ──────────
+//
+// `tokens.css` có biến `--grid-margin` với bộ số **16 / 24 / 32** (sinh ra
+// từ *grid style* trong Figma). Các trang thật lại dùng **24 / 40 / 40**
+// (đo từ padding của chính khung trang). Hai chỗ này lệch nhau.
+//
+// Khung này dùng số **đo từ trang thật**, vì đó là thứ người xem sẽ thấy,
+// và vì trang Liên hệ đã dựng theo số đó — đi theo `--grid-margin` thì
+// toàn bộ 7 trang sẽ lệch so với bản vẽ.
+//
+// Hệ quả cần biết: class `.container` trong `global.css` đang dùng
+// `--grid-margin`, nên nó KHÔNG khớp trang nào cả. Đừng dùng `.container`
+// cho các trang dịch vụ. Xem DEC-093.
+import BaseLayout from './BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Slug của trụ — quyết định bộ 3 màu của trang. */
+  pillar: 'tu-van' | 'van-hanh' | 'marketing' | 'tai-chinh'
+        | 'phap-ly' | 'cong-nghe-ai' | 'dao-tao-ceo';
+  /** Đường dẫn trang đang mở, để đánh dấu mục menu tương ứng. */
+  current?: string;
+}
+const { title, description, pillar, current } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} pillar={pillar}>
+  {/* Header đặt TUYỆT ĐỐI, cao 128, đè lên Hero — đúng như Figma
+      (`layoutPositioning: ABSOLUTE` ở cả ba khổ màn). */}
+  <SiteHeader slot="header" current={current} />
+
+  <slot />
+
+  <SiteFooter slot="footer" />
+</BaseLayout>
+
+<style is:global>
+  /* ─── Hai biến dùng chung cho MỌI section của 7 trang ────────────────
+     Đặt ở đây một lần, thay vì mỗi section tự viết lại media query.
+     Sửa một chỗ là đổi cả 7 trang — đó là mục đích của khung này. */
+  :root {
+    --le-trang: var(--s-6);        /* 24 — mobile */
+  }
+
+  @media (min-width: 768px) {
+    :root {
+      --le-trang: var(--s-10);     /* 40 — tablet VÀ desktop */
+    }
+  }
+
+  /* ─── BỘ MÀU CỦA TRỤ — thứ làm "dựng một lần, dùng bảy lần" chạy được
+     `BaseLayout` đặt `data-pillar` lên thẻ <html>, nhưng trước đây KHÔNG
+     có CSS nào đọc nó — em vừa nối lại chỗ này.
+
+     Cách dùng: mọi section cứ viết `var(--tru-trung)`. Sang trang khác,
+     chỉ cần đổi prop `pillar` là toàn bộ màu tự đổi theo. Không section
+     nào được viết thẳng tên màu của một trụ cụ thể.
+
+     Ba sắc độ, theo đúng luật ghi trong tokens.css mục 5:
+       --tru-nhat   sáng nhất
+       --tru-trung  màu chính — dùng cho CHỮ và nét
+       --tru-dam    CHỈ dùng cho điểm cuối gradient / quầng sáng / đổ bóng.
+                    ⛔ KHÔNG dùng cho chữ (không đủ tương phản trên nền tối). */
+  [data-pillar='tu-van'] {
+    --tru-dam: var(--page-tu-van-dam);
+    --tru-trung: var(--page-tu-van-trung);
+    --tru-nhat: var(--page-tu-van-nhat);
+  }
+  [data-pillar='van-hanh'] {
+    --tru-dam: var(--page-van-hanh-dam);
+    --tru-trung: var(--page-van-hanh-trung);
+    --tru-nhat: var(--page-van-hanh-nhat);
+  }
+  [data-pillar='marketing'] {
+    --tru-dam: var(--page-marketing-dam);
+    --tru-trung: var(--page-marketing-trung);
+    --tru-nhat: var(--page-marketing-nhat);
+  }
+  [data-pillar='tai-chinh'] {
+    --tru-dam: var(--page-tai-chinh-dam);
+    --tru-trung: var(--page-tai-chinh-trung);
+    --tru-nhat: var(--page-tai-chinh-nhat);
+  }
+  [data-pillar='phap-ly'] {
+    --tru-dam: var(--page-phap-ly-dam);
+    --tru-trung: var(--page-phap-ly-trung);
+    --tru-nhat: var(--page-phap-ly-nhat);
+  }
+  [data-pillar='cong-nghe-ai'] {
+    --tru-dam: var(--page-cong-nghe-ai-dam);
+    --tru-trung: var(--page-cong-nghe-ai-trung);
+    --tru-nhat: var(--page-cong-nghe-ai-nhat);
+  }
+  [data-pillar='dao-tao-ceo'] {
+    --tru-dam: var(--page-dao-tao-ceo-dam);
+    --tru-trung: var(--page-dao-tao-ceo-trung);
+    --tru-nhat: var(--page-dao-tao-ceo-nhat);
+  }
+
+  /* ─── Nền chung của trang dịch vụ ─────────────────────────────────── */
+  [data-pillar] main {
+    background: var(--gray-950);
+  }
+
+  /* ─── Lớp nền cho section ──────────────────────────────────────────
+     Mọi section của trang dịch vụ đều: trải hết bề ngang · lề hai bên
+     theo `--le-trang` · `position: relative` để hoạ tiết nền đặt tuyệt
+     đối bên trong không bị lọt ra ngoài.
+
+     Padding TRÊN–DƯỚI thì mỗi section tự đặt, vì mỗi cái một số khác
+     nhau (80 / 96 / 0) và KHÔNG đổi theo khổ màn — xem mục 2 ở trên. */
+  .sec {
+    position: relative;
+    padding-inline: var(--le-trang);
+  }
+
+  /* Cắt hoạ tiết thò ra ngoài. Dùng riêng, vì section nào có hoạ tiết
+     tràn viền mới cần — bật `overflow: hidden` bừa bãi sẽ cắt luôn
+     quầng sáng focus của nút bên trong. */
+  .sec--cat { overflow: hidden; }
+</style>

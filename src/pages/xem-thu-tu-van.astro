@@ -1,0 +1,84 @@
+---
+// TRANG XEM THỬ — Giai đoạn 2 đang dựng dở.
+//
+// ⚠️ ĐÂY KHÔNG PHẢI trang Tư vấn thật. Trang thật sẽ là `/advisory`
+//    (đúng slug trong menu, DEC-019) và chỉ ra đời ở **Giai đoạn 4**,
+//    khi đã đủ 9 section. Đặt tên khác để menu vẫn 404 như cũ, thay vì
+//    dẫn người xem vào một trang mới có mỗi vài khối.
+//
+// 📌 XOÁ FILE NÀY khi `/advisory` thật ra đời.
+//
+// Đã có ĐỦ 6 section dùng chung: Hero · Bạn có đang gặp vấn đề này
+//        · Bạn sẽ nhận được gì · Các gói dịch vụ · Câu hỏi thường gặp · Liên hệ
+// Còn thiếu: Baika sẽ làm gì (Giai đoạn 3) · 6 dịch vụ (khối riêng của Tư vấn)
+//
+// Nội dung lấy nguyên văn từ `claude/noi-dung-day-du.md`.
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SolutionSection from '../components/SolutionSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const vanDe = [
+  { title: 'Vận hành bắt đầu rối',
+    desc: 'Doanh thu tăng nhưng mọi việc dồn về CEO; quy trình nằm trong đầu từng người, không ai thay thế được ai.' },
+  { title: 'Đội ngũ chồng chéo',
+    desc: 'Tuyển người nhưng không rõ vai trò; phòng ban chồng chéo; nhân sự giỏi đến rồi đi mà không rõ vì sao.' },
+  { title: 'Tăng trưởng thiếu chiến lược',
+    desc: 'Chạy theo cơ hội ngắn hạn; mở rộng nhưng lãi mỏng dần; không có bản đồ ưu tiên cho 12 tháng tới.' },
+];
+
+const ketQua = [
+  'Nhìn rõ bức tranh doanh nghiệp trên 7 trục thay vì cảm tính',
+  'Bản đồ hành động có thứ tự ưu tiên cho 90 ngày – 1 năm',
+  'Quy trình và vai trò được chuẩn hóa, giảm phụ thuộc cá nhân',
+  'CEO thoát dần khỏi vận hành vụn để tập trung quyết định lớn',
+  'Rủi ro tài chính – pháp lý – thuế được nhận diện sớm',
+  'Có cố vấn đồng hành thay vì tự mò mẫm một mình',
+];
+
+const goi = [
+  { eyebrow: 'Khởi đầu', title: 'Business Start',
+    items: ['Định hình mô hình kinh doanh', 'Kiểm tra tính khả thi & điểm hòa vốn',
+            'Lộ trình khởi động 90 ngày', 'Checklist pháp lý khi thành lập'] },
+  { eyebrow: 'Đề xuất', title: 'Business Health Check', featured: true,
+    items: ['Chẩn đoán 7 trục hệ thống', 'Báo cáo điểm mạnh – điểm nghẽn',
+            'Bản đồ ưu tiên hành động', 'Phiên trình bày trực tiếp với CEO'] },
+  { eyebrow: 'Cải thiện', title: 'Business Improvement',
+    items: ['Kế hoạch cải thiện theo trục', 'Chuẩn hóa quy trình & vai trò',
+            'Đồng hành triển khai theo giai đoạn', 'Đo lường kết quả từng mốc'] },
+  { eyebrow: 'Cố vấn', title: 'CEO Strategic Advisory',
+    items: ['Phiên cố vấn 1-1 định kỳ', 'Khung ra quyết định cho CEO',
+            'Đồng hành các quyết định lớn', 'Kênh trao đổi ưu tiên'] },
+];
+
+const cauHoi = [
+  { question: 'Gói nào phù hợp với doanh nghiệp của tôi?',
+    answer: 'Cơ sở để chọn là mức độ trưởng thành của hệ thống, không phải quy mô doanh thu. Doanh nghiệp dưới 12 tháng tuổi nên bắt đầu ở Business Start; đã chạy ổn định thì Business Health Check là điểm vào được khuyên dùng.' },
+  { question: 'Một đợt đồng hành kéo dài bao lâu?',
+    answer: 'Tuỳ gói. Chẩn đoán gói gọn trong vài tuần; đồng hành cải thiện thường theo quý để kịp đo kết quả từng mốc.' },
+  { question: 'BAIKA có làm thay phần triển khai không?',
+    answer: 'BAIKA thiết kế hệ thống và đồng hành cùng đội ngũ của bạn triển khai — không làm thay, vì hệ thống phải sống được khi BAIKA rút đi.' },
+  { question: 'Thông tin doanh nghiệp có được bảo mật không?',
+    answer: 'Có. Mọi dữ liệu trao đổi trong quá trình tư vấn đều nằm trong phạm vi thoả thuận bảo mật ký trước khi bắt đầu.' },
+];
+---
+<ServicePageLayout
+  title="Tư vấn doanh nghiệp — BAIKA"
+  description="Dịch vụ tư vấn doanh nghiệp theo tư duy hệ thống: chẩn đoán đúng hiện trạng, thiết kế mô hình phù hợp và đồng hành triển khai."
+  pillar="tu-van"
+  current="/advisory"
+>
+  <HeroSection
+    title="Tư vấn doanh nghiệp"
+    tagline="Đồng hành cùng CEO từ chiến lược đến vận hành"
+    lead="Dịch vụ tư vấn doanh nghiệp theo tư duy hệ thống: chẩn đoán đúng hiện trạng, thiết kế mô hình phù hợp và đồng hành triển khai — thay vì đưa lời khuyên chung chung."
+  />
+  <SolutionSection items={vanDe} />
+  <BenefitsSection items={ketQua} />
+  <PricingSection packages={goi} />
+  <FaqSection items={cauHoi} />
+  <ContactSection />
+</ServicePageLayout>

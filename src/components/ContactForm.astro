@@ -1,0 +1,296 @@
+---
+// FORM LIÊN HỆ — DÙNG CHUNG cho trang Liên hệ và cả 7 trang dịch vụ.
+//
+// ─── Vì sao tách ra thành component ──────────────────────────────────
+// Trước 25/09 form này viết thẳng trong `lien-he.astro`. Section `Contact`
+// của 7 trang dịch vụ dùng **đúng cái form đó**, chỉ khác bố cục xung quanh
+// (200·800 thay vì 560·600).
+//
+// Thắng chốt tách ra thay vì chép sang. Lý do: đoạn JS bên dưới có một lỗi
+// đã trả giá để tìm ra (DEC-079 — `FormData` bỏ qua ô đang khoá, khiến form
+// gửi lên object rỗng ở **100%** số lần) và một bộ thông báo lỗi theo từng
+// mã HTTP. Để hai bản thì lần sau sửa lỗi mà quên một bản là **hỏng âm
+// thầm, không ai biết** — công ty không có dev nên loại nợ đó đắt nhất.
+//
+// ⚠️ Code bên dưới được **cắt nguyên văn** từ `lien-he.astro`, không gõ lại
+//    một dòng nào. Gõ lại là cơ hội tạo lỗi mới trên một thứ đang chạy tốt.
+//
+// ─── Ba trạng thái, đúng ba frame `Form States` 645:3184 ─────────────
+//   Submitting → khoá mọi ô, nút đổi chữ "Đang gửi…"
+//   Success    → CẢ form biến mất, thay bằng khối xác nhận
+//   Error      → dải báo lỗi ngay trên nút gửi, **giữ nguyên mọi thứ đã gõ**
+//
+// ⚠️ Mỗi trang chỉ được đặt **MỘT** form này — các `id` bên trong
+//    (`contact-form`, `ten`, `email`, `sdt`, `dongy`…) là cố định, đặt hai
+//    cái trên cùng một trang sẽ trùng id và JS bắt nhầm.
+//
+// ⚠️ Form KHÔNG chạy khi `pnpm dev`: phần nhận form là `api/contact.ts` ở
+//    gốc repo — đó là tính năng của Vercel, máy chủ dev của Astro không
+//    phục vụ nó. Xem DEC-080, và `/api/health` để tự chẩn đoán.
+import TextField from './TextField.astro';
+import Checkbox from './Checkbox.astro';
+import Button from './Button.astro';
+---
+
+        <form class="cform" id="contact-form" novalidate>
+          {/* Bẫy spam: ô này ẩn với người thật, chỉ máy tự động mới điền.
+              Có chữ trong đó là biết ngay không phải người → bỏ qua lặng lẽ. */}
+          <div class="cform__trap" aria-hidden="true">
+            <label for="website">Đừng điền ô này</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <TextField id="ten"   name="ten"   label="Tên"            required autocomplete="name" />
+          <TextField id="email" name="email" label="Email"          type="email" required autocomplete="email" />
+          <TextField id="sdt"   name="sdt"   label="Số điện thoại"  type="tel"   required autocomplete="tel" />
+          <TextField id="mota"  name="mota"  label="Mô tả vấn đề"   multiline height={178} />
+
+          <Checkbox id="dongy" name="dongy" required>
+            Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật
+          </Checkbox>
+
+          {/* Dải báo lỗi chung — đặt NGAY TRÊN nút gửi, đúng như frame
+              `Form · Error`. Mọi thứ khách đã gõ được giữ nguyên. */}
+          <p class="cform__alert" id="form-alert" role="alert" hidden></p>
+
+          <div class="cform__submit">
+            <Button label="liên hệ" />
+          </div>
+        </form>
+
+        {/* Khối xác nhận — thay chỗ CẢ form sau khi gửi được.
+            Figma `Form · Success`: nếu form vẫn nằm đó, khách tưởng chưa
+            gửi được và gửi lại. */}
+        <div class="cform__done" id="contact-done" hidden>
+          {/* tabindex="-1" để JS chuyển được con trỏ vào đây sau khi gửi
+              xong — trình đọc màn hình nhờ vậy đọc ngay lời xác nhận. */}
+          <h2 class="cform__donetitle" tabindex="-1">Đã nhận thông tin của bạn</h2>
+          <p class="cform__donebody">
+            BAIKA sẽ liên hệ trong vòng 24 giờ làm việc. Nếu cần gấp hơn,
+            gọi trực tiếp hotline <a href="tel:+84905247365">0905 247 365</a>.
+          </p>
+          <button class="cform__again" type="button">Gửi một yêu cầu khác</button>
+        </div>
+
+<style>
+  /* --- Form ------------------------------------------------------------ */
+  .cform {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);             /* Figma: gap 24 */
+  }
+
+  /* Bẫy spam — đẩy ra ngoài màn hình, không dùng display:none vì một số
+     máy tự động bỏ qua ô ẩn kiểu đó. */
+  .cform__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .cform__submit { display: flex; }
+
+  /* Dải báo lỗi — Figma dùng instance `Badge` trong frame `Form · Error`.
+     Số đo: cao 35 · bo góc 8 · viền 1px --red-200 · nền --red-200 @30%
+            padding 8 · chữ Be Vietnam Pro Regular 13 (--fs-caption)
+            màu chữ #FFC8C8 = --red-100
+     Hug theo nội dung, KHÔNG kéo hết bề ngang — nếu kéo full thì nó trông
+     như một khối cảnh báo của cả trang, không phải của riêng form. */
+  .cform__alert {
+    align-self: flex-start;
+    margin: 0;
+    padding: var(--s-2);                     /* 8 */
+    border: 1px solid var(--red-200);
+    border-radius: var(--r-sm);              /* 8 */
+    /* Pha loãng thẳng từ token thay vì gõ lại mã màu — không hardcode,
+       và đổi --red-200 trong tokens.css thì chỗ này đổi theo. */
+    background: color-mix(in srgb, var(--red-200) 30%, transparent);
+    font-size: var(--fs-caption);            /* 13 */
+    line-height: var(--lh-caption);
+    color: var(--red-100);
+  }
+  .cform__alert[hidden] { display: none; }
+
+  /* --- Khối xác nhận sau khi gửi -------------------------------------- */
+  .cform__done {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    padding: var(--s-6);
+    /* Cùng ngôn ngữ với `Form/Success` 650:3285: nền xanh lá mờ + viền.
+       Pha từ token, không gõ lại mã màu. */
+    background: color-mix(in srgb, var(--green-200) 12%, transparent);
+    border: 1px solid var(--green-200);
+    border-radius: var(--r-sm);
+  }
+  .cform__done[hidden] { display: none; }
+
+  .cform__donetitle {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+    color: var(--gray-50);
+  }
+  .cform__donebody {
+    margin: 0;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--gray-50);
+  }
+  .cform__donebody a { color: inherit; }
+
+  .cform__again {
+    align-self: flex-start;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    color: var(--gray-50);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  // FORM LIÊN HỆ — kiểm tra dữ liệu ngay trên trình duyệt, rồi gửi lên
+  // `/api/contact`. Ba trạng thái theo đúng ba frame `Form States`:
+  //   Submitting · Success · Error
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const done = document.getElementById('contact-done') as HTMLElement | null;
+  const alertBox = document.getElementById('form-alert') as HTMLElement | null;
+
+  if (form && done && alertBox) {
+    const fieldOf = (name: string) =>
+      form.querySelector<HTMLElement>(`[data-field="${name}"]`);
+
+    const setError = (name: string, message: string | null) => {
+      const wrap = fieldOf(name);
+      if (!wrap) return;
+      const hint = wrap.querySelector<HTMLElement>('.field__hint, .check__hint');
+      if (message) {
+        wrap.dataset.invalid = 'true';
+        if (hint) { hint.textContent = message; hint.hidden = false; }
+      } else {
+        delete wrap.dataset.invalid;
+        if (hint) { hint.textContent = ''; hint.hidden = true; }
+      }
+    };
+
+    // Số điện thoại Việt Nam: bắt đầu bằng 0 hoặc +84, 9–11 chữ số.
+    // Cho phép khoảng trắng, dấu chấm và gạch ngang vì người ta hay gõ vậy.
+    const phoneOk = (v: string) => /^(\+84|0)[\s.-]?\d(?:[\s.-]?\d){7,9}$/.test(v.trim());
+    const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+
+    const validate = () => {
+      const data = new FormData(form);
+      const errs: Array<[string, string]> = [];
+
+      const ten = String(data.get('ten') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const sdt = String(data.get('sdt') ?? '').trim();
+
+      if (!ten) errs.push(['ten', 'Chưa điền tên.']);
+      if (!email) errs.push(['email', 'Chưa điền email.']);
+      else if (!emailOk(email)) errs.push(['email', 'Email chưa đúng định dạng.']);
+      if (!sdt) errs.push(['sdt', 'Chưa điền số điện thoại.']);
+      else if (!phoneOk(sdt)) errs.push(['sdt', 'Số điện thoại chưa đúng định dạng.']);
+      if (!data.get('dongy')) errs.push(['dongy', 'Cần đồng ý để BAIKA liên hệ lại.']);
+
+      for (const n of ['ten', 'email', 'sdt', 'dongy']) setError(n, null);
+      for (const [n, m] of errs) setError(n, m);
+      return errs;
+    };
+
+    const setBusy = (busy: boolean) => {
+      form
+        .querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement>(
+          'input, textarea, button',
+        )
+        .forEach((el) => { el.disabled = busy; });
+      const label = form.querySelector<HTMLElement>('.btn__label');
+      if (label) label.textContent = busy ? 'Đang gửi…' : 'liên hệ';
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.hidden = true;
+
+      const errs = validate();
+      if (errs.length) {
+        alertBox.textContent =
+          `Chưa gửi được — ${errs[0][1]} Kiểm tra lại ô được đánh dấu đỏ rồi gửi lại.`;
+        alertBox.hidden = false;
+        fieldOf(errs[0][0])?.querySelector<HTMLElement>('input, textarea')?.focus();
+        return;
+      }
+
+      // ⚠️ LẤY DỮ LIỆU TRƯỚC KHI KHOÁ FORM.
+      // `FormData` BỎ QUA mọi ô đang `disabled` — đó là quy định của HTML,
+      // không phải lỗi trình duyệt. Bản đầu gọi setBusy(true) trước rồi mới
+      // đọc FormData, nên gửi lên một object RỖNG và lần nào cũng hỏng.
+      const payload = Object.fromEntries(new FormData(form).entries());
+
+      setBusy(true);
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          form.hidden = true;
+          done.hidden = false;
+          done.querySelector<HTMLElement>('.cform__donetitle')?.focus();
+          return;
+        }
+
+        // Hỏng ở đâu thì nói rõ ở đó — một câu chung chung cho mọi lỗi thì
+        // không ai sửa được, kể cả người dựng.
+        let chiTiet = '';
+        try {
+          const j = (await res.json()) as { error?: string };
+          chiTiet = j?.error ?? '';
+        } catch { /* máy chủ trả về không phải JSON — bỏ qua */ }
+
+        const theoMa: Record<number, string> = {
+          400: chiTiet || 'Dữ liệu gửi lên chưa hợp lệ.',
+          404: 'Chưa nối được tới máy chủ nhận form. Nếu đang chạy thử bằng `pnpm dev` ở máy thì đây là bình thường — phần nhận form chỉ chạy trên bản đã deploy.',
+          405: 'Máy chủ từ chối cách gửi này.',
+          500: 'Máy chủ chưa được cấu hình xong (thiếu biến môi trường).',
+          502: 'Dịch vụ gửi thư đang lỗi.',
+        };
+
+        // Thêm dấu chấm nếu câu trả về từ máy chủ chưa có — tránh hai câu
+        // dính liền thành một dòng khó đọc.
+        const cau = theoMa[res.status] ?? `máy chủ trả mã ${res.status}.`;
+        alertBox.textContent =
+          `Chưa gửi được — ${/[.!?]$/.test(cau) ? cau : cau + '.'} ` +
+          'Gọi trực tiếp 0905 247 365 nếu cần gấp.';
+        alertBox.hidden = false;
+        console.error('[form liên hệ] HTTP', res.status, chiTiet);
+      } catch (err) {
+        // GIỮ NGUYÊN mọi thứ khách đã gõ — mất dữ liệu là mất luôn lead.
+        alertBox.textContent =
+          'Chưa gửi được — mất kết nối mạng. Thử lại sau ít phút, hoặc gọi trực tiếp 0905 247 365.';
+        alertBox.hidden = false;
+        console.error('[form liên hệ] không gọi được /api/contact', err);
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    done.querySelector('.cform__again')?.addEventListener('click', () => {
+      form.reset();
+      for (const n of ['ten', 'email', 'sdt', 'dongy']) setError(n, null);
+      done.hidden = true;
+      form.hidden = false;
+      form.querySelector<HTMLInputElement>('#ten')?.focus();
+    });
+  }
+</script>
