@@ -2,7 +2,7 @@
 // Ô nhập — Figma `Text field` 588:6238. Đo ngày 25/09/2026.
 //
 // Số đo đã xác minh:
-//   Khung `Field / Flexible`: cao 48 · padding 12 · bo góc 0
+//   Khung `Field / Flexible`: cao 48 · padding 12 · bo góc 8 (--r-sm)
 //   Nền Default : #D5D5D5 @25%  = --opacity-gray
 //   Nền Focus   : #D5D5D5 @50%  = --opacity-light
 //   Chữ         : Be Vietnam Pro Regular 15 = --fs-body, màu --gray-50
@@ -90,7 +90,7 @@ const {
     display: flex;
     min-height: 48px;
     padding: var(--s-3);      /* 12 */
-    border-radius: 0;
+    border-radius: var(--r-sm);   /* Figma đổi 0 → 8 ngày 25/09, cả 10 biến thể */
     background: var(--opacity-gray);            /* #D5D5D5 @25% */
     border: 1px solid transparent;              /* chỗ dành sẵn cho viền lỗi,
                                                    để lúc lỗi không nhảy layout */

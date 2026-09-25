@@ -141,9 +141,21 @@ const socials = [
     text-align: center;
     font-family: var(--font-heading);
     font-weight: 400;          /* Chakra Petch Regular */
-    font-size: 100px;          /* Mobile */
+    /* Cỡ chữ tính theo BỀ NGANG MÀN HÌNH, không phải px cố định.
+       Thắng chốt 25/09: "Desktop width 80% view". Đo Figma khớp đúng vậy —
+       chữ rộng 1028 trên khung 1280 = 80.3%.
+
+         Desktop : 300 / 1280 = 23.44vw  → chữ chiếm ~80% bề ngang
+         Tablet  : 200 /  768 = 26.04vw  → ~86.6%
+         Mobile  : 100 /  375 = 26.67vw  → ~80.8%
+
+       Dùng vw thì tỉ lệ đó giữ nguyên ở mọi cỡ màn, thay vì chỉ đúng
+       tại đúng ba con số 1280 / 768 / 375. */
+    font-size: 26.67vw;        /* Mobile */
     line-height: 0.75;         /* Figma: 75% */
-    letter-spacing: -0.0333em; /* Figma: −10px ở cỡ 300 = −3.33% */
+    /* Figma ghi −10px ở cả ba khung. Viết bằng `em` để giãn theo cỡ chữ:
+       −10px trên nền 100px = −0.1em. */
+    letter-spacing: -0.1em;
     white-space: nowrap;       /* không bao giờ được xuống dòng */
 
     /* Gradient đổ lên chữ. Giải ma trận gradient của Figma ra:
@@ -170,10 +182,10 @@ const socials = [
   }
 
   @media (min-width: 768px) {
-    .watermark { top: 80px; font-size: 200px; }
+    .watermark { top: 80px; font-size: 26.04vw; letter-spacing: -0.05em; }
   }
   @media (min-width: 1280px) {
-    .watermark { font-size: 300px; }
+    .watermark { font-size: 23.44vw; letter-spacing: -0.0333em; }
   }
 
   /* --- Khối nội dung --------------------------------------------------
@@ -191,15 +203,24 @@ const socials = [
     .contact { padding: 240px var(--s-10) var(--s-16); }
   }
 
-  /* Desktop: hai cột — thông tin 560 · form 600, cách nhau 40 */
+  /* Desktop — Figma `Contact Section`:
+       HORIZONTAL · SPACE_BETWEEN · canh trên · padding 0 40 · rộng 1280
+       hai cột FIXED: thông tin 560 · form 600
+     1280 − 80 padding = 1200 chỗ trống; 560 + 600 = 1160 → cách nhau đúng 40.
+
+     `max-width` + `margin-inline: auto`: từ 1280px trở lên nội dung DỪNG
+     giãn và căn giữa. Khác trang chủ (lưới bento tràn viền) — ở đây là
+     chữ và form, dòng chữ dài quá thì khó đọc. */
   @media (min-width: 1280px) {
     .contact {
       flex-direction: row;
+      justify-content: space-between;
       align-items: flex-start;
-      gap: var(--s-10);
+      max-width: var(--container-max);   /* 1280 */
+      margin-inline: auto;
     }
     .contact__info     { flex: 0 0 560px; }
-    .contact__formwrap { flex: 1 1 600px; max-width: 600px; }
+    .contact__formwrap { flex: 0 0 600px; }
   }
 
   /* --- Cột thông tin --------------------------------------------------- */
@@ -229,6 +250,8 @@ const socials = [
     gap: var(--s-3);             /* Figma: 3 dòng trong 111px */
   }
 
+  /* Figma: text style H-2 (Chakra Petch Bold 24 / 29), màu --gray-50.
+     Ba dòng cách nhau 12 = --s-3. */
   .contact__sociallink {
     font-family: var(--font-heading);
     font-size: var(--fs-h2);
@@ -238,7 +261,11 @@ const socials = [
     text-decoration: none;
   }
   .contact__sociallink:hover { text-decoration: underline; }
-  .contact__sociallink--off  { color: var(--gray-600); cursor: default; }
+
+  /* Chưa có đường dẫn thật → giữ NGUYÊN màu --gray-50 như thiết kế,
+     chỉ bỏ con trỏ bàn tay và bỏ gạch chân khi rê chuột, để không hứa
+     một cú bấm không dẫn tới đâu. */
+  .contact__sociallink--off { cursor: default; }
 
   .contact__details {
     display: flex;
