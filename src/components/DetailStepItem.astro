@@ -1,0 +1,62 @@
+---
+// MỘT BƯỚC TRONG "BAIKA SẼ LÀM GÌ" — Figma `Detail Step Item` 355:256.
+// Đo 25/09/2026.
+//
+// Đây là component NẶNG NHẤT theo số lượng: mỗi trang dùng từ 4 (Tư vấn)
+// đến 12 (Đào tạo CEO). Sai một chi tiết ở đây là sai ở hơn 50 chỗ.
+//
+// Hai biến thể, trục `Type`:
+//   `Title` — chỉ hiện tiêu đề, cao 24
+//   `Full`  — tiêu đề + mô tả, cao 93 (24 + 12 + 57)
+// Mô tả trong biến thể `Title` không bị xoá, chỉ bị ẩn (`visible: false`).
+//
+// Số đo đã xác minh:
+//   Xếp dọc · không padding · gap 12 (--s-3) · rộng 418 (bản vẽ desktop)
+//   Tiêu đề: Chakra Petch Medium 19/24 = style H-3, màu --gray-50
+//   Mô tả  : Be Vietnam Pro Regular 15/130% = style body, màu --gray-50
+//
+// ✅ Thắng đã sửa Figma 25/09: gap đổi từ **14** về **12** = `--s-3`.
+//    Trước đó 14 nằm ngoài thang spacing (thang nhảy 12 → 16, không có
+//    bậc 14) — tức một giá trị gõ tay, không phải token. Sửa ở gốc nên
+//    cả 50+ chỗ dùng component này đều về đúng thang. Xem DEC-088.
+//
+// ⚠️ Bản vẽ để bề ngang CỐ ĐỊNH 418. Ở đây để co giãn theo khung cha —
+//    418px cứng sẽ tràn màn 375. Khung cha khống chế bề ngang tối đa.
+interface Props {
+  title: string;
+  /** `true` = biến thể `Full` (có mô tả). `false` = biến thể `Title`. */
+  full?: boolean;
+}
+const { title, full = true } = Astro.props;
+---
+
+<div class="step">
+  <h3 class="step__title">{title}</h3>
+  {full && (
+    <p class="step__desc"><slot /></p>
+  )}
+</div>
+
+<style>
+  .step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);             /* 12 */
+  }
+
+  .step__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);     /* 19 */
+    line-height: var(--lh-h3);   /* 24 */
+    font-weight: var(--fw-h3);   /* 500 */
+    color: var(--gray-50);
+  }
+
+  .step__desc {
+    margin: 0;
+    font-size: var(--fs-body);   /* 15 */
+    line-height: var(--lh-body); /* 130% */
+    color: var(--gray-50);
+  }
+</style>

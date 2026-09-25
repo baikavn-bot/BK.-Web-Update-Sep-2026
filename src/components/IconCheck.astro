@@ -1,0 +1,26 @@
+---
+// Icon dấu tích — Lucide `check`. Dùng ở danh sách quyền lợi trong `Các gói`.
+//
+// Vì sao khung 24 mà nét vẽ chỉ chiếm 14: trong Figma mọi icon đều đặt trong
+// ô vuông 24×24, phần hình thật nằm gọn giữa ô, chừa lề 5 mỗi bên. Giữ đúng
+// như vậy thì icon nào thay icon nào cũng không xê dịch chữ bên cạnh.
+interface Props {
+  /** Cỡ ô icon tính bằng px. Mặc định 24 — đúng cỡ trong Figma. */
+  size?: number;
+}
+const { size = 24 } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d="M5 12.5 9.5 17 19 7" />
+</svg>

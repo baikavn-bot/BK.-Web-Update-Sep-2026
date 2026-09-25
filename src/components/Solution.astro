@@ -1,0 +1,61 @@
+---
+// MỘT Ô "VẤN ĐỀ BẠN ĐANG GẶP" — Figma `Solution` 327:321. Đo 25/09/2026.
+// Mỗi trang dịch vụ có đúng 3 ô, nằm trong section `Bạn có đang gặp vấn đề này?`.
+//
+// ⚠️ Ô này KHÔNG CÓ NỀN, KHÔNG CÓ VIỀN, KHÔNG BO GÓC.
+//    Figma báo có fill #F8F8F8 và một nét viền gradient đỏ — nhưng CẢ HAI
+//    đều đang `visible: false`. Đó là nền mặc định của khung component và
+//    một nét viền vẽ thử còn sót, không phải thiết kế.
+//    Đã đối chiếu bằng ảnh chụp chính Figma: chỉ có chữ, không có khung.
+//
+//    → Bài học nối tiếp bài học cũ "đọc fill thì đọc cả opacity":
+//      **giờ phải đọc cả `visible` của từng lớp fill/stroke nữa.**
+//      Một lớp `visible:false` mà chép sang code là vẽ ra thứ không tồn tại.
+//
+// Số đo đã xác minh:
+//   Xếp dọc · padding 24 · gap 12 · rộng 392 (desktop & tablet) / 327 (mobile)
+//   Tiêu đề : Chakra Petch Medium 19/24 = style H-3, màu --blue-50
+//   Mô tả   : Be Vietnam Pro Regular 15/130% = style body, màu --slate-50
+//
+// ⚠️ Figma còn gắn BackgroundBlur 24 lên ô này. Đã BỎ, có lý do:
+//    làm mờ hậu cảnh chỉ thấy được khi phía sau có hình. Nền trang dịch vụ
+//    là màu đặc --gray-950 (đã đo trên khung trang), nên hiệu ứng này không
+//    đổi một pixel nào mà vẫn bắt máy tính vẽ lại mỗi khi cuộn — tốn pin
+//    trên điện thoại, đổi lại không được gì. Nếu sau này trang có hoạ tiết
+//    nền thì thêm lại `backdrop-filter: blur(var(--blur-24))`.
+interface Props {
+  /** Tiêu đề vấn đề. */
+  title: string;
+}
+const { title } = Astro.props;
+---
+
+<div class="solution">
+  <h3 class="solution__title">{title}</h3>
+  <p class="solution__desc"><slot /></p>
+</div>
+
+<style>
+  .solution {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);            /* 12 */
+    padding: var(--s-6);        /* 24 */
+  }
+
+  .solution__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);    /* 19 */
+    line-height: var(--lh-h3);  /* 24 */
+    font-weight: var(--fw-h3);  /* 500 — Medium */
+    color: var(--blue-50);
+  }
+
+  .solution__desc {
+    margin: 0;
+    font-size: var(--fs-body);  /* 15 */
+    line-height: var(--lh-body);
+    color: var(--slate-50);
+  }
+</style>

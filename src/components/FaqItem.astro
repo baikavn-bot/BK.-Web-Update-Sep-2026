@@ -1,0 +1,203 @@
+---
+// MỘT CÂU HỎI THƯỜNG GẶP — Figma `FAQ Items` 230:3231. Đo 25/09/2026.
+//
+// ✅ Thắng đã sửa 25/09: bộ này giờ có đủ **6 biến thể**
+//    = Type(Close/Open) × State(Default/Hover/Focus).
+//    Trước đó thiếu Hover + Focus — mà đây là thứ bấm được, nên thiếu Focus
+//    là vi phạm WCAG 2.4.7 ở 28 chỗ (4 câu × 7 trang).
+//
+// Số đo đã xác minh:
+//   Bo góc 12 (--r-md) · padding 24 · hàng ngang, gap 16
+//   Cột nội dung dọc, gap 8 (đóng) / 12 (mở)
+//   Câu hỏi : Chakra Petch Medium 19/24  = style H-3, màu --gray-50
+//   Câu trả lời: Be Vietnam Pro Regular 15/130% = style body, màu --gray-300
+//   Icon 24×24 (hình thật 14×14, nét 2), màu --slate-50
+//   Cao 72 khi đóng · 122 khi mở
+//
+//   Default : nền --opacity-gray   (#D5D5D5 @ 25%)
+//   Hover   : nền --opacity-light  (#D5D5D5 @ 50%)
+//   Focus   : nền --gray-950 + viền gradient (style `Liner/Stroke/Light`)
+//
+// ─── BA CHỖ CODE KHÁC BẢN VẼ, CỐ Ý, CẦN THẮNG XÁC NHẬN ───────────────
+//
+// 1. Dùng thẻ <details>/<summary> có sẵn của trình duyệt, KHÔNG viết JS.
+//    Đổi lại được miễn phí: bấm được bằng bàn phím, trình đọc màn hình
+//    đọc đúng "đang mở / đang đóng", và nếu JS lỗi thì phần này vẫn chạy.
+//    Đúng tinh thần CLAUDE.md mục 6: "mặc định là không JS".
+//
+// 2. Gradient viền Focus có hai màu thô: #FFFFFF và #414141.
+//    - #FFFFFF bị CLAUDE.md mục 4 cấm → thay bằng --gray-50.
+//    - #414141 không có trong thang xám (nằm giữa --gray-800 #515151 và
+//      --gray-900 #373737) → dùng color-mix trộn đôi hai token đó, ra
+//      #444444. Lệch 3 đơn vị trên một đường viền 1px: mắt không thấy.
+//    Cả hai là **thay thế có chủ ý**, không phải đo sai. Nếu Thắng muốn
+//    đúng từng mã màu thì phải thêm token — mục 4 cấm agent tự thêm.
+//
+// 3. Bản vẽ đặt bề ngang CỐ ĐỊNH 698. Trên web để nó co giãn theo khung
+//    cha; section bên ngoài khống chế bề ngang tối đa. Khung cố định sẽ
+//    vỡ ở màn 375.
+interface Props {
+  /** Câu hỏi. */
+  question: string;
+  /**
+   * Tên nhóm. Các mục cùng một tên thì mở cái này TỰ ĐỘNG đóng cái kia.
+   * Bỏ trống → mở được nhiều câu cùng lúc.
+   */
+  group?: string;
+  /** Mở sẵn khi tải trang. Thường chỉ dùng cho câu đầu tiên. */
+  open?: boolean;
+}
+const { question, group, open = false } = Astro.props;
+---
+
+<details class="faq" name={group} open={open}>
+  <summary class="faq__head">
+    <span class="faq__q">{question}</span>
+    <span class="faq__icon" aria-hidden="true">
+      {/* Icon 24×24, hình thật 14×14 (từ 5 đến 19), nét 2 — đúng Figma.
+          Khi mở thì gạch dọc biến mất: dấu cộng thành dấu trừ. */}
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M5 12h14" />
+        <path class="faq__icon-bar" d="M12 5v14" />
+      </svg>
+    </span>
+  </summary>
+
+  <div class="faq__body">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .faq {
+    position: relative;
+    border-radius: var(--r-md);            /* 12 */
+    background: var(--opacity-gray);        /* Default */
+    transition: background-color 120ms ease;
+  }
+
+  /* VIỀN GRADIENT KHÔNG LÀM XÊ DỊCH GÌ CẢ — đọc kỹ trước khi sửa.
+     ───────────────────────────────────────────────────────────────────
+     Vấn đề: trong Figma, nét viền vẽ *đè lên phía trong* khung nên thẻ vẫn
+     cao đúng 72. Trong CSS, `border: 1px` CỘNG THÊM 2px vào chiều cao →
+     74. Đã đo thật bằng trình duyệt: 74 và 125 thay vì 72 và 122.
+
+     Thêm nữa, viền này là GRADIENT nên không dùng `outline` được
+     (outline chỉ nhận màu đặc).
+
+     Cách làm: vẽ viền bằng một lớp phủ riêng (`::before`) nằm chồng lên
+     thẻ. Lớp này tô kín gradient, rồi "khoét rỗng" phần giữa bằng mask,
+     chỉ chừa lại đúng vành 1px ngoài cùng. Lớp phủ không chiếm chỗ →
+     chiều cao không đổi, mở/đóng/focus đều không nhảy. */
+  .faq::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;                 /* độ dày vành */
+    background: linear-gradient(
+      180deg,
+      var(--gray-50) 0%,
+      color-mix(in srgb, var(--gray-800), var(--gray-900)) 100%
+    );
+    /* Hai lớp mask này chỉ dùng phần ĐỤC/TRONG, không dùng màu — màu nào
+       cũng được miễn là đục 100%. Lấy một token có sẵn để khỏi gõ mã màu,
+       đúng luật CLAUDE.md mục 4. */
+    -webkit-mask:
+      linear-gradient(var(--gray-950) 0 0) content-box,
+      linear-gradient(var(--gray-950) 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;         /* không chặn chuột bấm vào câu hỏi */
+    opacity: 0;                   /* chỉ hiện ở trạng thái Focus */
+    transition: opacity 120ms ease;
+  }
+  /* Trình duyệt không hiểu mask thì lớp phủ sẽ là một mảng đặc che hết chữ.
+     Thà không có viền còn hơn che mất nội dung. */
+  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+    .faq::before { display: none; }
+  }
+
+  .faq__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--s-4);                        /* 16 */
+    padding: var(--s-6);                    /* 24 */
+    min-height: 72px;                       /* 24 + 24 + 24 = đúng Figma */
+    box-sizing: border-box;
+    cursor: pointer;
+    list-style: none;                       /* bỏ tam giác mặc định */
+  }
+  /* Safari cần dòng riêng này, `list-style: none` không đủ. */
+  .faq__head::-webkit-details-marker { display: none; }
+
+  .faq__q {
+    font-family: var(--font-heading);       /* Chakra Petch */
+    font-size: var(--fs-h3);                /* 19 */
+    line-height: var(--lh-h3);              /* 24 */
+    font-weight: var(--fw-h3);              /* 500 — Medium */
+    color: var(--gray-50);
+  }
+
+  .faq__icon {
+    display: inline-flex;
+    flex: none;
+    color: var(--slate-50);
+  }
+  .faq__icon svg { display: block; }
+
+  /* Dấu cộng → dấu trừ. Xoay 90° rồi mờ đi, thay vì biến mất đột ngột. */
+  .faq__icon-bar {
+    transform-origin: center;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+  .faq[open] .faq__icon-bar {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .faq__body {
+    /* Lề phải 40 = 24 (icon) + 16 (gap): cột chữ trả lời thẳng hàng với
+       cột câu hỏi, không chạy lấn xuống dưới icon. */
+    padding: 0 var(--s-10) var(--s-6) var(--s-6);
+    margin-top: calc(var(--s-3) - var(--s-6));  /* 12 − 24 = bù phần padding
+                                                   dưới của hàng câu hỏi */
+    font-size: var(--fs-body);              /* 15 */
+    line-height: var(--lh-body);            /* 130% */
+    color: var(--gray-300);
+  }
+  .faq__body :global(p) { margin: 0; }
+  .faq__body :global(p + p) { margin-top: var(--s-2); }
+
+  /* --- Trạng thái ----------------------------------------------------- */
+
+  .faq:hover { background: var(--opacity-light); }
+
+  /* Focus: bản vẽ tô cả THẺ, nhưng thứ nhận con trỏ bàn phím là <summary>.
+     `:has()` cho phép thẻ cha đổi màu theo con — không cần JS. */
+  .faq:has(.faq__head:focus-visible) {
+    background: var(--gray-950);
+    /* Ngôn ngữ tương tác DEC-015: Focus = quầng sáng. */
+    box-shadow: var(--shadow-drop-inner);
+  }
+  .faq:has(.faq__head:focus-visible)::before { opacity: 1; }
+  /* Mức sàn trong global.css vẽ thêm một khung xanh quanh chữ — ở đây đã
+     có thiết kế Focus riêng nên bỏ khung đó đi, đúng luật CLAUDE.md mục 6
+     ("ghi đè được, nhưng không được bỏ"). */
+  .faq__head:focus-visible { outline: none; }
+
+  /* Trình duyệt cũ không hiểu `:has()` thì vẫn phải thấy được con trỏ. */
+  @supports not selector(:has(*)) {
+    .faq__head:focus-visible {
+      outline: 2px solid var(--blue-400);
+      outline-offset: -2px;
+      border-radius: var(--r-md);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq, .faq__icon-bar { transition: none; }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+// VỆT SÁNG CONG — Figma `Neubula light` 573:3960. Đo 25/09/2026.
+// (Tên trong Figma viết thiếu chữ: "Neubula" — đúng ra là "Nebula", tinh vân.
+//  Giữ nguyên tên file theo cách gọi trong dự án để khỏi lạc khi tra cứu.)
+//
+// Mỗi trang dịch vụ dùng 2 cái. Thuần trang trí — có `aria-hidden` nên
+// trình đọc màn hình bỏ qua hoàn toàn.
+//
+// Cấu tạo: **MỘT đường cong duy nhất, vẽ ba lần chồng lên nhau**, mỗi lần
+// một mức mờ khác (blur 6 / 24 / 40 trong Figma = 3 / 12 / 20 trong CSS).
+// Lớp mờ nhiều nằm dưới tạo quầng, lớp nét gọn nằm trên tạo lõi sáng —
+// đúng cách người ta vẽ đèn neon.
+//
+// ✅ Chỗ này dựng bằng SVG được, KHÁC hoạ tiết nền trang chủ.
+//    Lý do: đây là một ĐƯỜNG NÉT (stroke 7px) có đúng 4 điểm điều khiển,
+//    chép thẳng được. Hoạ tiết nền trang chủ là những MẢNG hình tự do
+//    chồng nhau, nên lần đó phải xuất ảnh.
+//    SVG ở đây chỉ nặng vài trăm byte và sắc nét ở mọi cỡ màn.
+//
+// ⚠️ Màu gốc trong Figma là #FFFFFF (trong suốt → đặc → trong suốt).
+//    CLAUDE.md mục 4 cấm #FFFFFF nên đổi sang `--gray-50`, sáng nhất của hệ.
+interface Props {
+  /** Bề ngang. Mặc định 695 — đúng bản vẽ. Nhận mọi giá trị CSS. */
+  width?: string;
+}
+const { width = '695px' } = Astro.props;
+
+// Ba lớp cần ba `id` riêng. Nếu hai vệt sáng cùng nằm trên một trang mà
+// dùng chung id thì trình duyệt lấy nhầm bộ lọc của cái kia → sai độ mờ.
+// Sinh một mã ngẫu nhiên lúc build để mỗi lần đặt là một bộ id riêng.
+const uid = Math.random().toString(36).slice(2, 8);
+
+// Đường cong lấy nguyên văn từ `vectorPaths` trong Figma.
+const duongCong =
+  'M 0 54.111 C 105.833 13.278 392.9 -43.889 694.5 54.111';
+
+// [độ mờ trong Figma, độ mờ trong CSS] — luật chia đôi, xem DEC-083.
+const lop = [40, 24, 6].map((figma) => ({ figma, css: figma / 2 }));
+---
+
+<svg
+  class="neb"
+  style={`width: ${width}`}
+  viewBox="0 0 694.5 54.111"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <linearGradient id={`neb-${uid}`} x1="0" y1="0" x2="694.5" y2="0"
+                    gradientUnits="userSpaceOnUse">
+      <stop offset="0"     stop-color="var(--gray-50)" stop-opacity="0" />
+      <stop offset="0.505" stop-color="var(--gray-50)" stop-opacity="1" />
+      <stop offset="1"     stop-color="var(--gray-50)" stop-opacity="0" />
+    </linearGradient>
+
+    {lop.map((l) => (
+      <filter
+        id={`neb-${uid}-b${l.figma}`}
+        /* Vùng vẽ phải nới rộng ra, nếu không quầng sáng bị cắt cụt ở mép. */
+        x="-20%" y="-300%" width="140%" height="700%"
+      >
+        <feGaussianBlur stdDeviation={l.css} />
+      </filter>
+    ))}
+  </defs>
+
+  {lop.map((l) => (
+    <path
+      d={duongCong}
+      stroke={`url(#neb-${uid})`}
+      stroke-width="7"
+      stroke-linecap="round"
+      filter={`url(#neb-${uid}-b${l.figma})`}
+    />
+  ))}
+</svg>
+
+<style>
+  .neb {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    pointer-events: none;
+  }
+</style>

@@ -1,0 +1,144 @@
+---
+// NÚT CTA — hệ `Button 2` (Figma 26:2182, 18 biến thể). Đo 25/09/2026.
+//
+// Khác hẳn `Button 1`:
+//   Button 1 = nút HUD trắng, bo góc 0 — dùng ở trang chủ và trang Liên hệ
+//   Button 2 = nút tối bo tròn hết cỡ — dùng ở 7 trang dịch vụ (5–7 nút/trang)
+// Hai thứ KHÔNG dùng lẫn.
+//
+// Số đo đã xác minh:
+//   Bo góc 999 (--r-pill) · nền --gray-950 · viền 1px --gray-100
+//   Chữ Be Vietnam Pro Regular 15 (--fs-body) màu --gray-100 · gap 8
+//   Sm cao 32 pad 6/16 · Md cao 40 pad 8/16 · Lg cao 48 pad 12/16
+//   Icon 24×24, glyph 14×14 nét 2
+//
+// ✅ Thắng đã sửa 25/09: đổi chiều cao sang HUG. Trước đó Normal cao 35 còn
+//    Hover cao 40 → rê chuột là cả khối nhảy. Đo lại: mọi trạng thái trong
+//    cùng một cỡ giờ bằng nhau (32 / 40 / 48).
+interface Props {
+  label: string;
+  href?: string;
+  /** Cỡ — khớp trục `Type` trong Figma. */
+  size?: 'sm' | 'md' | 'lg';
+  /** Hiện icon bên trái. Figma mặc định bật. */
+  iconLeft?: boolean;
+  /** Hiện icon bên phải. Figma mặc định bật. */
+  iconRight?: boolean;
+  disabled?: boolean;
+  /** Dùng khi nút là nút gửi form. */
+  type?: 'button' | 'submit';
+}
+const {
+  label, href, size = 'md',
+  iconLeft = true, iconRight = true,
+  disabled = false, type = 'button',
+} = Astro.props;
+const Tag = href && !disabled ? 'a' : 'button';
+---
+
+<Tag
+  class:list={['btn2', `btn2--${size}`]}
+  href={href && !disabled ? href : undefined}
+  type={Tag === 'button' ? type : undefined}
+  disabled={Tag === 'button' && disabled ? true : undefined}
+>
+  {iconLeft && (
+    <span class="btn2__icon" aria-hidden="true">
+      <slot name="icon-left">
+        {/* Icon mặc định trong Figma là `plus`. Chỗ dùng thay bằng <slot>. */}
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 12h14" /><path d="M12 5v14" />
+        </svg>
+      </slot>
+    </span>
+  )}
+
+  <span class="btn2__label">{label}</span>
+
+  {iconRight && (
+    <span class="btn2__icon" aria-hidden="true">
+      <slot name="icon-right">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 12h14" /><path d="M12 5v14" />
+        </svg>
+      </slot>
+    </span>
+  )}
+</Tag>
+
+<style>
+  .btn2 {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);                 /* 8 */
+    border-radius: var(--r-pill);    /* 999 */
+    background: var(--gray-950);
+    border: 1px solid var(--gray-100);
+    color: var(--gray-100);
+    text-decoration: none;
+    cursor: pointer;
+    /* Figma: Normal có DROP_SHADOW r2 = --shadow-1 */
+    box-shadow: var(--shadow-1);
+    transition: box-shadow 120ms ease, background-color 120ms ease;
+  }
+
+  /* Ba cỡ. Chỉ đặt CHIỀU CAO và lề trái/phải; KHÔNG đặt padding trên/dưới.
+     ───────────────────────────────────────────────────────────────────
+     Figma ghi padding dọc 6 / 8 / 12 cho Sm / Md / Lg. Nhưng trong Figma,
+     nét viền 1px vẽ *đè lên phía trong* khung nên không cộng vào chiều cao;
+     trong CSS thì viền CÓ cộng vào. Cứ chép nguyên padding sang là ra
+     34 / 42 / 50 — lệch đúng 2px, và lệch ở cả 40 chỗ dùng nút này.
+     (Đã đo thật bằng trình duyệt, không phải suy đoán.)
+
+     Cách làm ở đây: cố định chiều cao, rồi canh giữa nội dung. Icon 24 nằm
+     giữa ô cao 40 thì trên dưới còn đúng 8 — y hệt bản vẽ, mà chiều cao
+     tổng vẫn đúng 40.
+
+     `min-height` chứ không phải `height`: nếu mai này có nhãn dài bất ngờ
+     thì nút cao thêm chứ không cắt mất chữ. */
+  .btn2 { justify-content: center; padding: 0 var(--s-4); }
+  .btn2--sm { min-height: 32px; }
+  .btn2--md { min-height: 40px; }
+  .btn2--lg { min-height: 48px; }
+
+  .btn2__label {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);       /* 15 */
+    line-height: var(--lh-body);     /* 130% */
+    white-space: nowrap;
+  }
+
+  .btn2__icon {
+    display: inline-flex;
+    flex: none;
+    /* Icon thừa hưởng màu chữ → Disabled đổi một chỗ là đổi cả cụm */
+    color: currentColor;
+  }
+  .btn2__icon :global(svg) { display: block; width: 24px; height: 24px; }
+
+  /* --- Trạng thái — ngôn ngữ chung DEC-014 / DEC-015 ------------------ */
+  .btn2:hover  { box-shadow: var(--shadow-inner); }
+  .btn2:active { box-shadow: var(--shadow-inner-press); }
+  .btn2:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-drop-inner);
+  }
+
+  /* Disabled — đổi màu, GIỮ opacity 1.
+     Figma: nền --gray-700 · viền --gray-50 · chữ #EDF2F7 (--slate-100)
+     · icon #F4F7FA (--slate-50). */
+  .btn2:disabled {
+    background: var(--gray-700);
+    border-color: var(--gray-50);
+    color: var(--slate-100);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .btn2:disabled .btn2__icon { color: var(--slate-50); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn2 { transition: none; }
+  }
+</style>

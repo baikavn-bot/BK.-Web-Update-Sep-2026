@@ -1,0 +1,70 @@
+---
+// VÒM BÁN NGUYỆT — Figma `Footer/Half circle item` 374:394. Đo 25/09/2026.
+// Thuần trang trí, 6 cái mỗi trang. Có `aria-hidden` nên trình đọc màn
+// hình bỏ qua.
+//
+// Cấu tạo: nửa hình tròn 360×180 (đáy phẳng, nóc cong).
+//   Ruột : gradient dọc #454545 (đặc) → --gray-950 (trong suốt hoàn toàn)
+//   Viền : gradient dọc #FFFFFF (đặc) → --gray-950 (trong suốt), dày 1.15
+// Nghĩa là: sáng nhất ở nóc vòm, mờ dần xuống đáy rồi tan hẳn.
+//
+// ✅ Chỗ này KHÔNG cần xuất ảnh: nửa hình tròn thì `border-radius` vẽ được
+//    chính xác tuyệt đối, và vẽ bằng CSS thì co giãn theo khung, không vỡ
+//    nét ở màn retina.
+//
+// Hai màu đã thay thế (cùng nguyên tắc DEC-085):
+//   #454545 → trộn --gray-800 + --gray-900, ra #444444 (lệch 1 đơn vị)
+//   #FFFFFF → --gray-50 (CLAUDE.md mục 4 cấm #FFFFFF)
+interface Props {
+  /** Bề ngang vòm. Mặc định 360 — đúng bản vẽ. Chiều cao luôn bằng nửa. */
+  width?: string;
+}
+const { width = '360px' } = Astro.props;
+---
+
+<span class="vom" style={`--vom-w: ${width}`} aria-hidden="true"></span>
+
+<style>
+  .vom {
+    position: relative;
+    display: block;
+    width: var(--vom-w);
+    /* Chiều cao luôn đúng một nửa bề ngang → vòm luôn là nửa hình tròn
+       thật, dù khung cha rộng bao nhiêu. */
+    aspect-ratio: 2 / 1;
+    /* Bo nóc bằng nửa bề ngang, đáy để vuông → ra đúng nửa hình tròn. */
+    border-radius: calc(var(--vom-w) / 2) calc(var(--vom-w) / 2) 0 0;
+    /* Điểm cuối dùng --gray-950 ở alpha 0, KHÔNG dùng `transparent` trơn:
+       Safari nội suy `transparent` qua màu đen nên dải giữa bị xỉn. */
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--gray-800), var(--gray-900)) 0%,
+      color-mix(in srgb, var(--gray-950) 0%, transparent) 100%
+    );
+    pointer-events: none;
+  }
+
+  /* Viền gradient. Cùng kỹ thuật với FAQ Items và Các gói: vẽ bằng lớp phủ
+     rồi khoét rỗng ruột, để viền không cộng thêm vào kích thước.
+     Xem giải thích đầy đủ trong FaqItem.astro. */
+  .vom::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.15px;              /* Figma: strokeWeight 1.146 */
+    background: linear-gradient(
+      180deg,
+      var(--gray-50) 0%,
+      color-mix(in srgb, var(--gray-950) 0%, transparent) 100%
+    );
+    -webkit-mask:
+      linear-gradient(var(--gray-950) 0 0) content-box,
+      linear-gradient(var(--gray-950) 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+    .vom::before { display: none; }
+  }
+</style>

@@ -1,0 +1,316 @@
+---
+// CHÂN TRANG DÙNG CHUNG — Figma `Footer` 450:5263. Đo 25/09/2026.
+// Ba biến thể: Desktop 1280 · Tablet 768 · Mobile 375 — đều **cao 680**.
+//
+// Bố cục (đo trên bản Desktop, cộng lại ra đúng 680):
+//   padding 40 · xếp dọc · dồn xuống đáy · gap 24
+//   `Planet`  — hoạ tiết, đặt TUYỆT ĐỐI, 1920×1000 ở x=−320 y=0, bị cắt bớt
+//   `BAIKA`   — chữ lớn, đặt TUYỆT ĐỐI, x=40 y=0
+//   Details (y 498, cao 80) → Line (y 602) → legal (y 626, cao 14) → hết 680
+//
+// Chữ `BAIKA`: Be Vietnam Pro **Black (900)** · cỡ 358 / 220 / 100 ·
+//   giãn dòng 85% · chữ HOA · tô gradient **NGANG** (ma trận đơn vị):
+//   trong suốt → --gray-50 ở 50% độ đục (giữa) → trong suốt.
+//   ⚠️ Gradient NGANG, không phải dọc — nhìn ảnh render rất dễ tưởng nhầm
+//      là dọc. Đã kiểm bằng ma trận gradient, không đoán.
+//   ⚠️ Đã phải THÊM weight 900 vào link Google Fonts ở BaseLayout —
+//      trước đó chỉ nạp tới 700, chữ này sẽ bị trình duyệt làm đậm giả.
+//
+// Đường kẻ ngang: 1px `--gray-900` (#373737) — đã kiểm, đúng token.
+//
+// ⚠️ CẦN THẮNG XEM VÀ DUYỆT — hoạ tiết `Planet`.
+//    Trong Figma đây là một cụm 7 hình vector với blur 4 / 12 / 32 / 80.
+//    Ở đây dựng LẠI BẰNG CSS thay vì xuất ảnh, khác với cách làm ở hoạ
+//    tiết nền trang chủ. Lý do:
+//      · Chân trang chạy suốt bề ngang màn hình, từ 375 tới hơn 1920.
+//        Một file ảnh cố định 1920 sẽ bị cắt hoặc kéo méo ở các cỡ khác;
+//        hình vẽ bằng CSS thì co giãn đúng tỉ lệ ở mọi cỡ.
+//      · Hình ở đây là một ELIP + vệt sáng — `border-radius` tả được.
+//        Hoạ tiết trang chủ là các mảng tự do, nên lần đó buộc phải xuất ảnh.
+//      · Không thêm file ảnh nào phải tải, trong khi chân trang xuất hiện
+//        ở **cả 9 trang**.
+//    Đây là bản DỰNG LẠI, không phải bản sao từng pixel. Nếu Thắng thấy
+//    chưa đạt thì chuyển sang xuất ảnh — đổi một khối CSS lấy một thẻ <img>.
+interface Props {
+  /** Số điện thoại hiển thị. */
+  phone?: string;
+  email?: string;
+  address?: string;
+}
+const {
+  phone = '0905 247 365',
+  email = 'baika.vn@gmail.com',
+  address = 'Tầng 15, 72 Lê Thánh Tôn,\nP. Sài Gòn, Thành phố Hồ Chí Minh',
+} = Astro.props;
+---
+
+<footer class="ft">
+  {/* --- Hoạ tiết: hành tinh + vành sáng --- */}
+  <div class="ft__planet" aria-hidden="true">
+    <div class="ft__globe"></div>
+    <div class="ft__flare"></div>
+  </div>
+
+  {/* --- Chữ lớn. `aria-hidden` vì đây là hoạ tiết chữ, không phải nội
+        dung: tên công ty đã có ở logo trên đầu trang, đọc lại là thừa. --- */}
+  <p class="ft__wordmark" aria-hidden="true">Baika</p>
+
+  <div class="ft__details">
+    <div class="ft__block ft__block--address">
+      <p class="ft__label">Địa chỉ</p>
+      <p class="ft__value">{address}</p>
+    </div>
+
+    <div class="ft__block ft__block--contact">
+      <p class="ft__label">Liên hệ</p>
+      <p class="ft__value">
+        <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
+      </p>
+      <p class="ft__value">
+        <a href={`mailto:${email}`}>{email}</a>
+      </p>
+    </div>
+  </div>
+
+  <hr class="ft__line" />
+
+  <div class="ft__legal">
+    <p class="ft__rights">All rights reserved for Baika</p>
+    <p class="ft__by">Design by Baika</p>
+  </div>
+</footer>
+
+<style>
+  .ft {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    /* Dồn nội dung xuống đáy — Figma đặt primaryAxisAlignItems = MAX. */
+    justify-content: flex-end;
+    gap: var(--s-6);                 /* 24 */
+    height: 680px;
+    padding: var(--s-10);            /* 40 — mobile đổi xuống 24 */
+    overflow: hidden;                /* cắt phần hoạ tiết thò ra ngoài */
+    background: var(--gray-950);
+  }
+
+  /* --- Hoạ tiết hành tinh ---------------------------------------------
+     Khung hoạ tiết giữ đúng tỉ lệ 1920×1000 của bản vẽ và luôn rộng bằng
+     150% chân trang — đúng như Figma đặt nó ở x=−320 trên khung 1280. */
+  .ft__planet {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    /* Figma giữ hoạ tiết ở NGUYÊN 1920×1000 cho cả ba breakpoint — ở mobile
+       nó tràn ra ngoài rất nhiều, và đó là chủ ý: vòng cung phải thoai thoải.
+       `max()` tả đúng điều đó: 150% khi màn rộng, không bao giờ nhỏ hơn 1920.
+       Bỏ `max()` thì ở mobile elip co lại và lòi cả đáy ra — đã thấy thật
+       khi chụp thử. */
+    width: max(150%, 1920px);
+    aspect-ratio: 1920 / 1000;
+    transform: translateX(-50%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Thân hành tinh: một elip rất rộng, chỉ ló phần chỏm lên.
+     Các con số % lấy thẳng từ toạ độ trong Figma chia cho 1920×1000. */
+  .ft__globe {
+    position: absolute;
+    left: -16.2%;                    /* x = −311 / 1920 */
+    top: 39.1%;                      /* y = 391 / 1000 */
+    width: 132.4%;                   /* 2543 / 1920 */
+    height: 74%;                     /* 740 / 1000 */
+    border-radius: 50%;
+    /* Bề mặt hành tinh: sáng nhẹ sát đường chân trời rồi tối dần. */
+    background: radial-gradient(
+      120% 100% at 50% 0%,
+      color-mix(in srgb, var(--gray-800) 60%, transparent) 0%,
+      color-mix(in srgb, var(--gray-950) 0%, transparent) 55%
+    );
+    /* Quầng sáng hắt lên phía trên đường chân trời. */
+    box-shadow: 0 -2px 80px 0 color-mix(in srgb, var(--gray-50) 18%, transparent);
+  }
+
+  /* Vành sáng chạy dọc mép trên elip. Gradient NGANG nên sáng nhất ở giữa,
+     tắt dần về hai bên — giống ánh mặt trời hắt qua rìa hành tinh.
+     Vẫn là kỹ thuật vẽ viền bằng lớp phủ + khoét rỗng, xem FaqItem.astro. */
+  .ft__globe::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 20%,
+      var(--gray-50) 50%,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 80%
+    );
+    -webkit-mask:
+      linear-gradient(var(--gray-950) 0 0) content-box,
+      linear-gradient(var(--gray-950) 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+    .ft__globe::before { display: none; }
+  }
+
+  /* Điểm loé sáng ở đỉnh vòng cung — Figma có hai hình trắng nhoè
+     (120×50 blur 32 và 40×16 blur 12). Gộp thành một. */
+  .ft__flare {
+    position: absolute;
+    left: 46.9%;                     /* x = 900 / 1920 */
+    top: 36.1%;                      /* y = 361 / 1000 */
+    width: 6.25%;                    /* 120 / 1920 */
+    height: 5%;                      /* 50 / 1000 */
+    border-radius: 50%;
+    background: var(--gray-50);
+    filter: blur(var(--blur-40));    /* Figma LayerBlur 32 ≈ CSS 16 */
+    /* Giảm còn 0.45: bản đầu để 0.85 thì ra một cục trắng loang, át cả
+       vòng cung. Đã chụp thử rồi chỉnh — không phải chọn bừa. */
+    opacity: 0.45;
+  }
+
+  /* --- Chữ lớn --------------------------------------------------------
+     Bản vẽ cho ba cỡ rời: 358 (1280) · 220 (768) · 100 (375). Quy về
+     phần trăm bề ngang màn thì ra ba hệ số hơi khác nhau, nên đặt riêng
+     theo breakpoint để cỡ nào cũng khớp đúng bản vẽ, thay vì lấy một con
+     số trung bình rồi sai cả ba. Chặn trần 358 để màn siêu rộng không
+     phóng to vô tội vạ.
+     Chữ có thể tràn ra ngoài lề vài px — trong Figma cũng vậy (bản mobile
+     rộng 336 trong khung 327). `.ft` có `overflow: hidden` nên tràn thì bị
+     cắt gọn, không đẩy vỡ bố cục. */
+  .ft__wordmark {
+    position: absolute;
+    top: 0;
+    left: var(--s-10);
+    right: var(--s-10);
+    z-index: -1;
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 900;                /* Be Vietnam Pro Black */
+    font-size: 26.6vw;               /* Mobile: 375 → 100 */
+    line-height: 0.85;               /* Figma: 85% */
+    text-transform: uppercase;
+    /* Bắt buộc MỘT dòng. Không có dòng này thì chữ xuống hàng thành
+       "BAIK / A" — đã thấy thật khi chụp thử. Bản vẽ để 1201px cho cỡ 358,
+       tức vừa khít; chỉ cần font nhích rộng một chút là gãy. */
+    white-space: nowrap;
+    /* Gradient NGANG, tô vào chính nét chữ. `background-clip: text` là cách
+       duy nhất làm được việc này — chữ trở thành "cửa sổ" nhìn xuyên qua
+       lớp gradient bên dưới. */
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 0%,
+      color-mix(in srgb, var(--gray-50) 50%, transparent) 51%,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 100%
+    );
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    user-select: none;
+  }
+
+  /* --- Khối thông tin -------------------------------------------------- */
+  .ft__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--s-6);
+  }
+  .ft__block {
+    display: flex;
+    flex-direction: column;
+    /* Figma ghi 7. Thang --s-* không có bậc 7; dùng 8 (--s-2), lệch 1px
+       không nhìn ra. Cùng loại với việc Thắng vừa đổi 14 → 12. */
+    gap: var(--s-2);
+    max-width: 300px;
+  }
+  .ft__block--contact {
+    align-items: flex-end;
+    text-align: right;
+  }
+  .ft__label {
+    margin: 0;
+    font-size: var(--fs-body-lg);    /* 17 */
+    line-height: var(--lh-body-lg);
+    color: var(--gray-50);
+  }
+  .ft__value {
+    margin: 0;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--slate-50);
+    white-space: pre-line;           /* giữ chỗ xuống dòng trong địa chỉ */
+  }
+  .ft__value a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .ft__value a:hover { text-decoration: underline; }
+  .ft__value a:focus-visible {
+    outline: 2px solid var(--blue-400);
+    outline-offset: 2px;
+    border-radius: var(--r-xs);
+  }
+
+  /* --- Đường kẻ -------------------------------------------------------- */
+  .ft__line {
+    width: 100%;
+    height: 0;
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--gray-900);   /* #373737 — đã kiểm */
+  }
+
+  /* --- Dòng cuối -------------------------------------------------------- */
+  .ft__legal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-6);
+  }
+  .ft__legal p {
+    margin: 0;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--gray-50);
+  }
+
+  /* Tablet: 768 → 220 */
+  @media (min-width: 768px) {
+    .ft__wordmark { font-size: 28.6vw; }
+  }
+  /* Desktop: 1280 → 358, không lớn hơn nữa */
+  @media (min-width: 1280px) {
+    .ft__wordmark { font-size: min(28vw, 358px); }
+  }
+
+  /* --- Mobile ---------------------------------------------------------- */
+  @media (max-width: 767px) {
+    .ft { padding: var(--s-10) var(--s-6); }   /* lề 24 */
+    .ft__wordmark { left: var(--s-6); right: var(--s-6); }
+
+    /* Bản vẽ mobile đảo thứ tự: Liên hệ lên trước, Địa chỉ xuống sau.
+       Dùng `order` thay vì đảo thứ tự trong HTML, để trình đọc màn hình
+       vẫn đọc theo mạch "địa chỉ rồi liên hệ" như bản desktop. */
+    .ft__details {
+      flex-direction: column;
+      gap: var(--s-3);                          /* 12 */
+    }
+    .ft__block--contact {
+      order: -1;
+      align-items: flex-start;
+      text-align: left;
+    }
+    .ft__legal {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--s-3);
+    }
+    .ft__by { order: -1; }
+  }
+</style>

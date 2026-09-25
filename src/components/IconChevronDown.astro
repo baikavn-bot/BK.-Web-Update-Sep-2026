@@ -1,0 +1,22 @@
+---
+// Icon mũi tên xuống — Lucide `chevron-down`.
+// Dùng cho thứ mở ra/đóng lại. Xoay 180° khi mở, bằng CSS ở chỗ dùng.
+interface Props {
+  size?: number;
+}
+const { size = 24 } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  <path d="m5 9 7 7 7-7" />
+</svg>

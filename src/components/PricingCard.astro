@@ -1,0 +1,308 @@
+---
+// MỘT THẺ GÓI DỊCH VỤ — Figma `Các gói` 365:785. Đo 25/09/2026.
+// (Tên file tiếng Anh cho khớp 10 component đã có; tên trong Figma là `Các gói`.)
+//
+// Mỗi trang dịch vụ có 3–5 thẻ. Tổng cộng khoảng 24 thẻ trên cả site.
+//
+// 7 biến thể trong Figma:
+//   Desktop 384 · Default / Hover / Focus
+//   Tablet  338 · Default / Focus          ← không có Hover: màn cảm ứng
+//   Mobile  342 · Default / Focus          ← không có Hover: màn cảm ứng
+//   (Tablet 338 HẸP HƠN Mobile 342 — đúng bản vẽ, hơi lạ, đã ghi lại ở DEC-089)
+//
+// ⚠️ Trục `State` trong Figma có `defaultValue` là **Focus**, không phải
+//    Default. Đặt instance mà không chỉ rõ là ra Focus — dễ nhầm khi vẽ trang.
+//
+// Số đo đã xác minh (Desktop · Default):
+//   384×448 · bo góc 16 (--r-lg) · padding 40/24 · xếp dọc gap 24
+//   Nền   : gradient dọc --gray-950 (40%) → #333333
+//   Viền  : gradient 2px #666666 → #000000
+//   Nhãn nhỏ : Be Vietnam Pro Regular 17 = style body-lg, màu --blue-200
+//   Tên gói  : Chakra Petch Bold 32/36.8 = style H-1, màu --gray-50
+//   Nút      : `Button 2` lấp đầy bề ngang
+//   Danh sách: padding dọc 12, gap 4 · mỗi dòng padding dọc 8, gap 8
+//              icon `check` 20×20 + chữ 15/130% màu --gray-50
+//
+// ─── HAI CHỖ CẦN THẮNG XÁC NHẬN ─────────────────────────────────────
+//
+// 1. BA MÃ MÀU NGOÀI THANG TOKEN. Đã thay bằng cách trộn hai token gần
+//    nhất (`color-mix`) thay vì gõ thẳng mã màu — đúng luật mục 4, và
+//    lệch không quá 1–2 đơn vị nên mắt không thấy:
+//      #333333 → trộn --gray-900 85% + --gray-950   (ra đúng #333333)
+//      #666666 → trộn --gray-700 80% + --gray-800   (ra #676767, lệch 1)
+//      #000000 → dùng thẳng --gray-950. Đầu tối của viền vốn chìm vào nền
+//               trang (cũng là --gray-950) nên đen tuyền hay không, nhìn
+//               như nhau.
+//    Muốn đúng từng mã thì phải thêm token mới — mục 4 cấm agent tự thêm.
+//
+// 2. NÚT BÊN TRONG: bản vẽ cao 35, ở đây dùng cỡ **`lg` = 48**.
+//    ✅ Thắng chốt 25/09. Trong Figma nút này tắt icon nên co lại còn 35 —
+//    mà WCAG đòi **vùng chạm ≥ 44px** trên màn cảm ứng. 35 không đạt, cỡ
+//    `md` (40) cũng chưa đạt. `lg` (48) là bậc nhỏ nhất trong hệ vượt mức
+//    đó, nên dùng ở cả ba breakpoint cho nhất quán.
+//    📌 Figma cần sửa theo: nút trong `Các gói` đổi sang cỡ Lg.
+//
+// ─── BA TRẠNG THÁI — đã đo lại cả ba, 25/09 ──────────────────────────
+//
+// Thắng nói đúng: ba hình vector ánh sáng thuộc về **Focus**, không phải
+// riêng Hover. Số đo xác nhận:
+//
+//   |                      | Default | Focus | Hover |
+//   | nền                  | dọc     | toả tròn sáng góc trên trái      |
+//   | viền                 | #666→#000 | Liner/Stroke/Light             |
+//   | 3 vệt sáng (blur 60) | không   | CÓ    | CÓ    |
+//   | INNER_SHADOW         | không   | CÓ    | CÓ    |
+//   | DROP_SHADOW          | không   | không | **CÓ** ← khác biệt DUY NHẤT
+//
+// ⚠️ Một chỗ khác với lời Thắng: Focus **đã có sẵn** inner shadow.
+//    Hover khác Focus **chỉ ở drop shadow**, không phải ở cả hai.
+//
+// ✅ THẮNG ĐÃ CHỐT 25/09 — ĐỔI CHỖ so với bản vẽ (DEC-090):
+//    quầng sáng (DROP_SHADOW) chuyển sang **Focus**, Hover giữ bóng trong.
+//    Lý do: `CLAUDE.md` mục 4 (DEC-015) quy định cho toàn hệ
+//    **Hover = nổi lên · Focus = quầng sáng trắng**, và "quầng sáng thuộc
+//    về Focus và chỉ Focus". Bản vẽ đang làm ngược, khiến người dùng bàn
+//    phím — vốn chỉ thấy Focus — lại được trạng thái nhạt hơn.
+//    📌 **Figma cần sửa theo cho khớp.**
+//
+// Cách dựng vệt sáng: Thắng đã chốt dùng **một vệt sáng CSS** thay cho ba
+// hình vector tự do — không thêm file ảnh, không méo khi thẻ đổi kích
+// thước, và vì hiệu ứng chỉ thoáng qua nên không ai soi từng vệt.
+interface Props {
+  /** Nhãn nhỏ phía trên tên gói, ví dụ "Kiểm tra". */
+  eyebrow: string;
+  /** Tên gói. */
+  title: string;
+  /** Chữ trên nút. */
+  ctaLabel?: string;
+  ctaHref?: string;
+  /** Các dòng trong danh sách quyền lợi. */
+  items: string[];
+}
+const {
+  eyebrow, title,
+  ctaLabel = 'Chọn gói này',
+  ctaHref = '#lien-he',
+  items,
+} = Astro.props;
+
+import Button2 from './Button2.astro';
+import IconCheck from './IconCheck.astro';
+---
+
+<article class="goi">
+  <span class="goi__light" aria-hidden="true"></span>
+
+  <header class="goi__header">
+    <div class="goi__heading">
+      <p class="goi__eyebrow">{eyebrow}</p>
+      <h3 class="goi__title">{title}</h3>
+    </div>
+
+    <Button2 label={ctaLabel} href={ctaHref} size="lg"
+             iconLeft={false} iconRight={false} />
+  </header>
+
+  <ul class="goi__list">
+    {items.map((it) => (
+      <li class="goi__item">
+        <span class="goi__check" aria-hidden="true"><IconCheck size={20} /></span>
+        <span>{it}</span>
+      </li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  .goi {
+    /* ─── Bốn "công tắc" dùng chung cho cả ba trạng thái ────────────────
+       Viết sẵn cả hai bộ giá trị ở đây, rồi mỗi trạng thái chỉ việc gạt
+       công tắc. Nhờ vậy gradient dài chỉ phải viết MỘT lần, sửa một chỗ
+       là đổi cả ba trạng thái — thay vì chép đi chép lại ba lần rồi lệch
+       nhau lúc nào không hay. */
+    --nen-nghi: linear-gradient(
+      180deg,
+      var(--gray-950) 40%,
+      color-mix(in srgb, var(--gray-900) 85%, var(--gray-950)) 100%
+    );
+    /* Tâm sáng ở đúng góc trên bên trái — tính từ ma trận gradient của
+       Figma, ra (0%, −1.3%) với bán kính 109.5% × 109.4%. */
+    --nen-sang: radial-gradient(
+      109.5% 109.4% at 0% -1.3%,
+      var(--gray-300) 0%,
+      color-mix(in srgb, var(--gray-600) 55%, var(--gray-700)) 13%,
+      var(--gray-900) 49%,
+      var(--gray-950) 100%
+    );
+    --vien-nghi: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--gray-700) 80%, var(--gray-800)) 0%,
+      var(--gray-950) 100%
+    );
+    /* Style `Liner/Stroke/Light` — xem DEC-085 về hai màu đã thay thế. */
+    --vien-sang: linear-gradient(
+      180deg,
+      var(--gray-50) 0%,
+      color-mix(in srgb, var(--gray-800), var(--gray-900)) 100%
+    );
+    /* Figma INNER_SHADOW r72.5 lệch y −40, trắng 25%.
+       Độ mờ của Figma gấp đôi CSS → 72.5 thành 36.
+       Màu trắng lấy từ --gray-50 qua color-mix, không gõ #FFFFFF. */
+    --bong-trong: inset 0 -40px 36px 0
+      color-mix(in srgb, var(--gray-50) 25%, transparent);
+    /* Figma DROP_SHADOW r12, trắng 50% → CSS blur 6. */
+    --bong-ngoai: 0 0 6px 0
+      color-mix(in srgb, var(--gray-50) 50%, transparent);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);                  /* 24 */
+    padding: var(--s-10) var(--s-6);  /* 40 / 24 */
+    border-radius: var(--r-lg);       /* 16 */
+    background: var(--nen-nghi);
+    box-shadow: none;
+    /* Cắt phần vệt sáng thò ra ngoài. Bóng đổ quanh thẻ KHÔNG bị cắt. */
+    overflow: hidden;
+    transition: box-shadow 160ms ease, background 160ms ease;
+  }
+
+  /* Viền gradient 2px. Cùng kỹ thuật với FAQ Items: vẽ bằng lớp phủ rồi
+     khoét rỗng ruột, để viền không cộng thêm vào kích thước thẻ.
+     Xem giải thích đầy đủ trong FaqItem.astro. */
+  .goi::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;                       /* nằm trên vệt sáng */
+    border-radius: inherit;
+    padding: 2px;
+    background: var(--vien-nghi);
+    -webkit-mask:
+      linear-gradient(var(--gray-950) 0 0) content-box,
+      linear-gradient(var(--gray-950) 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    transition: background 160ms ease;
+  }
+  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+    .goi::before { display: none; }
+  }
+
+  /* Vệt sáng — chỉ hiện khi rê chuột. Nằm dưới chữ (z-index 0) nên không
+     làm chữ mờ đi. Nghiêng nhẹ và làm mờ mạnh để ra cảm giác ánh sáng hắt
+     từ mép trên bên trái, giống ba hình trong bản vẽ. */
+  .goi__light {
+    position: absolute;
+    top: -40px;
+    left: -20%;
+    z-index: 0;
+    width: 140%;
+    height: 90px;
+    transform: rotate(-12deg);
+    background: linear-gradient(
+      90deg,
+      var(--gray-50) 0%,
+      var(--gray-400) 22%,
+      var(--gray-400) 74%,
+      var(--gray-50) 100%
+    );
+    filter: blur(var(--blur-60));     /* Figma LayerBlur 60 → CSS 30px */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+
+  .goi__header,
+  .goi__list { position: relative; z-index: 1; }
+
+  /* --- Phần đầu thẻ --------------------------------------------------- */
+  .goi__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);                  /* 24 */
+  }
+  .goi__heading {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);                  /* 4 */
+  }
+  .goi__eyebrow {
+    margin: 0;
+    font-size: var(--fs-body-lg);     /* 17 */
+    line-height: var(--lh-body-lg);
+    color: var(--blue-200);
+  }
+  .goi__title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);          /* 32 */
+    line-height: var(--lh-h1);        /* 36.8 */
+    font-weight: var(--fw-h1);        /* 700 — Bold */
+    color: var(--gray-50);
+  }
+
+  /* --- Danh sách quyền lợi -------------------------------------------- */
+  .goi__list {
+    margin: 0;
+    padding: var(--s-3) 0;            /* 12 trên dưới */
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);                  /* 4 */
+  }
+  .goi__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-2);                  /* 8 */
+    padding: var(--s-2) 0;            /* 8 trên dưới → dòng cao 36 */
+    font-size: var(--fs-body);        /* 15 */
+    line-height: var(--lh-body);
+    color: var(--gray-50);
+  }
+  .goi__check {
+    display: inline-flex;
+    flex: none;
+    color: var(--gray-50);
+  }
+
+  /* --- FOCUS — con trỏ bàn phím ---------------------------------------
+     ⚠️ ĐÃ ĐỔI CHỖ SO VỚI BẢN VẼ — Thắng chốt 25/09, xem DEC-090.
+     Bản vẽ để quầng sáng (bóng NGOÀI) ở Hover, Focus thì không có. Như
+     vậy là ngược với luật của cả hệ (CLAUDE.md mục 4 / DEC-015):
+     **quầng sáng thuộc về Focus và chỉ Focus**. Giữ nguyên bản vẽ thì
+     `Các gói` thành component duy nhất đi ngược luật, và người dùng bàn
+     phím — vốn chỉ nhìn thấy Focus — lại được trạng thái nhạt hơn.
+     → Bóng ngoài chuyển sang đây. Hover giữ bóng trong.
+     Figma cần sửa theo cho khớp.
+
+     `:focus-within` để khi con trỏ nhảy vào nút bên trong thì cả thẻ sáng
+     lên, không chỉ riêng cái nút. */
+  .goi:focus-within {
+    background: var(--nen-sang);
+    box-shadow: var(--bong-trong), var(--bong-ngoai);
+  }
+  .goi:focus-within::before  { background: var(--vien-sang); }
+  .goi:focus-within .goi__light { opacity: 0.75; }
+
+  /* --- HOVER — chỉ desktop, chỉ máy có chuột thật ----------------------
+     `hover: hover` lọc ra thiết bị có con trỏ rê được. Điện thoại và tablet
+     cảm ứng sẽ KHÔNG chạy khối này — đúng như bản vẽ, hai cỡ đó không có
+     biến thể Hover. Nếu không lọc, màn cảm ứng sẽ "dính" trạng thái hover
+     sau khi chạm, rồi không bỏ ra được.
+
+     Giống Focus nhưng KHÔNG có quầng sáng — xem ghi chú ở khối Focus. */
+  @media (hover: hover) and (pointer: fine) {
+    .goi:hover {
+      background: var(--nen-sang);
+      box-shadow: var(--bong-trong);
+    }
+    .goi:hover::before  { background: var(--vien-sang); }
+    .goi:hover .goi__light { opacity: 0.75; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .goi, .goi::before, .goi__light { transition: none; }
+  }
+</style>
