@@ -99,17 +99,78 @@ export default async function handler(req: Req, res: Res): Promise<void> {
     return;
   }
 
-  const noiDung = [
-    `Tên:            ${ten}`,
-    `Email:          ${email}`,
-    `Số điện thoại:  ${sdt}`,
+  // Giờ Việt Nam, đọc được ngay trong hộp thư — không bắt ai tự đổi múi giờ.
+  const nhanLuc = new Intl.DateTimeFormat('vi-VN', {
+    timeZone: 'Asia/Ho_Chi_Minh',
+    dateStyle: 'full',
+    timeStyle: 'short',
+  }).format(new Date());
+
+  const dong: Array<[string, string]> = [
+    ['Tên', ten],
+    ['Email', email],
+    ['Số điện thoại', sdt],
+    ['Mô tả vấn đề', mota || '(để trống)'],
+  ];
+
+  /* ---- Bản CHỮ THUẦN ------------------------------------------------
+     Bắt buộc phải có, không phải cho đẹp: một số ứng dụng mail và phần
+     lớn bộ lọc rác đọc bản này. Mail chỉ có HTML dễ bị đẩy vào Spam hơn. */
+  const banChu = [
+    'LIÊN HỆ MỚI TỪ baika.vn',
+    '='.repeat(40),
     '',
-    'Mô tả vấn đề:',
-    mota || '(để trống)',
+    ...dong.map(([k, v]) => `${k}:\n  ${v.replace(/\n/g, '\n  ')}\n`),
+    '-'.repeat(40),
+    'Khách đã đồng ý để BAIKA liên hệ và xử lý thông tin.',
+    `Nhận lúc: ${nhanLuc} (giờ Việt Nam)`,
+    'Gửi từ: trang /lien-he',
     '',
-    `Đã đồng ý xử lý thông tin: có`,
-    `Nhận lúc: ${new Date().toISOString()}`,
+    'Bấm Trả lời để trả lời thẳng cho khách.',
   ].join('\n');
+
+  /* ---- Bản HTML ------------------------------------------------------
+     Viết bằng bảng và style nội tuyến. Không phải vì lạc hậu — ứng dụng
+     mail (nhất là Outlook và Gmail) cắt bỏ thẻ <style>, bỏ qua flexbox
+     và grid. Bảng + style nội tuyến là thứ duy nhất hiển thị giống nhau
+     ở mọi nơi. Đây là quy ước chung của email HTML, không phải lựa chọn. */
+  const esc = (s: string) =>
+    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+  const hang = dong
+    .map(
+      ([k, v]) => `
+        <tr>
+          <td style="padding:10px 0;border-bottom:1px solid #e3e3e3;color:#6d6d6d;font-size:13px;width:150px;vertical-align:top;">${esc(k)}</td>
+          <td style="padding:10px 0;border-bottom:1px solid #e3e3e3;color:#1e1e1e;font-size:15px;vertical-align:top;white-space:pre-wrap;">${esc(v)}</td>
+        </tr>`,
+    )
+    .join('');
+
+  const banHtml = `<!doctype html>
+<html lang="vi"><body style="margin:0;padding:24px;background:#f1f1f1;font-family:Arial,Helvetica,sans-serif;">
+  <table role="presentation" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#f8f8f8;border:1px solid #e3e3e3;border-radius:8px;">
+    <tr>
+      <td style="padding:20px 24px;background:#0d538b;border-radius:8px 8px 0 0;">
+        <div style="color:#f8f8f8;font-size:18px;font-weight:bold;">BAIKA · Liên hệ mới</div>
+        <div style="color:#d6ebfa;font-size:13px;padding-top:4px;">Gửi từ biểu mẫu trang /lien-he</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:8px 24px 16px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" width="100%">${hang}</table>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:0 24px 24px;color:#6d6d6d;font-size:12px;line-height:18px;">
+        Khách đã đồng ý để BAIKA liên hệ và xử lý thông tin.<br />
+        Nhận lúc: ${esc(nhanLuc)} (giờ Việt Nam)<br /><br />
+        Bấm <strong>Trả lời</strong> để trả lời thẳng cho khách
+        (<a href="mailto:${esc(email)}" style="color:#0d538b;">${esc(email)}</a>).
+      </td>
+    </tr>
+  </table>
+</body></html>`;
 
   try {
     const r = await fetch('https://api.resend.com/emails', {
@@ -119,12 +180,15 @@ export default async function handler(req: Req, res: Res): Promise<void> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from,
+        // Tên hiển thị trước địa chỉ → hộp thư hiện "BAIKA Website"
+        // thay vì một địa chỉ trần trụi.
+        from: `BAIKA Website <${from}>`,
         to: [to],
-        // Trả lời thẳng vào mail là trả lời đúng cho khách, không phải cho hệ thống.
+        // Bấm Trả lời là trả lời cho KHÁCH, không phải cho hệ thống.
         reply_to: email,
         subject: oneLine(`[baika.vn] Liên hệ mới — ${ten}`),
-        text: noiDung,
+        text: banChu,
+        html: banHtml,
       }),
     });
 

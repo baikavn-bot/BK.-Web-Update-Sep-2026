@@ -1,17 +1,26 @@
 ---
-// Ô tick — Figma `Checkbox` 29:2685. Đo ngày 25/09/2026.
+// Ô tick — Figma `Checkbox` 29:2685. Đo lại ngày 25/09/2026.
 //
-// Số đo: 20×20 · bo góc 0 · viền 1px.
-//   Chưa tick : viền --gray-50, trong rỗng
-//   Đã tick   : nền --gray-950, viền --gray-50, dấu tick --gray-50
-//   Error     : viền --red-200 (#FB3748)
-//   Disabled  : viền + tick --gray-700
-//   Hover     : KHÔNG đổi hình so với Default — cố ý, theo mô tả component.
-//               Tín hiệu hover nằm ở nhãn và con trỏ, không ở ô 20px.
+// ⚠️ KHUNG component bo góc 0, nhưng VECTOR bên trong thì CÓ bo góc.
+//    Đọc `vectorPaths` ra số thật:
+//      hộp  : 15.333 × 15.333 tại (2.5, 2.5) · bo góc **1.9167** (= 12.5%)
+//      nét  : 1px, align CENTER, màu --gray-50
+//      tick : path 7.583 × 6.417 tại (6.38, 7) · đầu nét bo tròn
 //
-// ⚠️ Figma chưa gán effect style cho trạng thái Focus (còn tồn từ 24/09).
-//    Ở đây dùng --shadow-drop-inner cho đúng luật "quầng sáng = Focus"
-//    (DEC-014). Nếu Thắng tạo style `Shadow/Focus Ring` riêng thì đổi lại.
+//    Không dùng `border` của CSS được — border bo góc theo hộp 20×20 chứ
+//    không theo hình 15.33 bên trong. Vẽ thẳng bằng SVG mới đúng.
+//
+//    SVG viết THẲNG TRONG FILE, không tải file .svg rời:
+//      · bớt một file phải quản
+//      · đổi màu được bằng `currentColor` → một hình dùng chung cho cả
+//        Default / Error / Disabled, thay vì ba file khác nhau
+//
+// Màu theo trạng thái (đã xác minh):
+//   Chưa tick : nét --gray-50, trong rỗng
+//   Đã tick   : ruột --gray-950, nét + tick --gray-50
+//   Error     : nét --red-200 (#FB3748)
+//   Disabled  : nét + tick --gray-700
+//   Hover     : KHÔNG đổi hình — cố ý. Tín hiệu hover nằm ở nhãn và con trỏ.
 interface Props {
   id: string;
   name: string;
@@ -22,8 +31,24 @@ const { id, name, required = false } = Astro.props;
 
 <div class="check" data-field={name}>
   <div class="check__row">
-    <input class="check__input" type="checkbox" id={id} name={name} required={required}
-           aria-describedby={`${id}-err`} />
+    <span class="check__box">
+      <input class="check__input" type="checkbox" id={id} name={name} required={required}
+             aria-describedby={`${id}-err`} />
+      <svg class="check__svg" viewBox="0 0 20 20" width="20" height="20"
+           fill="none" aria-hidden="true" focusable="false">
+        <rect
+          class="check__frame"
+          x="2.5" y="2.5" width="15.333" height="15.333" rx="1.917"
+          stroke="currentColor" stroke-width="1" stroke-linejoin="round"
+        />
+        <path
+          class="check__tick"
+          d="M13.96 7 L8.66 13.417 L6.38 10.85"
+          stroke="currentColor" stroke-width="1"
+          stroke-linecap="round" stroke-linejoin="round"
+        />
+      </svg>
+    </span>
     <label class="check__label" for={id}><slot /></label>
   </div>
   <p class="check__hint" id={`${id}-err`} role="alert" hidden></p>
@@ -38,49 +63,42 @@ const { id, name, required = false } = Astro.props;
     gap: var(--s-3);
   }
 
-  .check__input {
-    appearance: none;
-    -webkit-appearance: none;
+  .check__box {
+    position: relative;
     flex: none;
     width: 20px;
     height: 20px;
-    margin: 0;
-    border: 1px solid var(--gray-50);
-    border-radius: 0;
-    background: none;
-    cursor: pointer;
-    position: relative;
-    /* Vùng chạm thật phải ≥ 44px trên mobile (WCAG 2.5.8). Ô chỉ 20px nên
-       nới vùng bấm ra bằng lớp phủ trong suốt, không đụng tới hình. */
-    transition: background-color 120ms ease, border-color 120ms ease,
-                box-shadow 120ms ease;
+    color: var(--gray-50);         /* `currentColor` của SVG lấy từ đây */
+    border-radius: var(--r-xs);    /* chỉ để quầng sáng Focus ôm gọn */
   }
-  .check__input::before {
-    content: '';
+
+  /* Ô tick thật — trong suốt, nằm đè lên SVG.
+     Giữ <input> thật thay vì vẽ giả: bàn phím, trình đọc màn hình và
+     `required` của trình duyệt đều hoạt động sẵn, không phải dựng lại. */
+  .check__input {
     position: absolute;
+    /* Nới ra 12px mỗi phía = vùng chạm 44×44, đạt WCAG 2.5.8 trên mobile.
+       Hình vẫn 20×20, chỉ vùng bấm rộng ra. */
     inset: -12px;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
   }
 
-  .check__input:checked {
-    background: var(--gray-950);
-  }
+  .check__svg { display: block; pointer-events: none; }
 
-  /* Dấu tick — Figma: vector 8×6 tại (6,7), nét 1, màu --gray-50.
-     Dựng bằng hai cạnh của một hộp rồi xoay 45° — không cần thêm file ảnh. */
-  .check__input:checked::after {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 3px;
-    width: 6px;
-    height: 10px;
-    border: solid var(--gray-50);
-    border-width: 0 1px 1px 0;
-    transform: rotate(45deg);
-  }
+  .check__tick { opacity: 0; }
 
-  .check__input:focus-visible {
-    outline: none;
+  .check__input:checked ~ .check__svg .check__frame { fill: var(--gray-950); }
+  .check__input:checked ~ .check__svg .check__tick  { opacity: 1; }
+
+  /* Focus — quầng sáng, đúng ngôn ngữ chung DEC-014.
+     `--shadow-drop-inner` gồm một phần inset và một phần quầng ngoài;
+     khung này không có nền nên phần inset không hiện, chỉ còn quầng. */
+  .check__input:focus-visible ~ .check__svg { outline: none; }
+  .check__box:has(.check__input:focus-visible) {
     box-shadow: var(--shadow-drop-inner);
   }
 
@@ -92,9 +110,9 @@ const { id, name, required = false } = Astro.props;
     cursor: pointer;
   }
 
-  /* Error */
-  .check[data-invalid='true'] .check__input { border-color: var(--red-200); }
-  .check[data-invalid='true'] .check__hint  { color: var(--red-100); }
+  /* Error — chỉ đổi màu nét, ruột giữ nguyên */
+  .check[data-invalid='true'] .check__box { color: var(--red-200); }
+  .check[data-invalid='true'] .check__hint { color: var(--red-100); }
 
   .check__hint {
     margin: 0;
@@ -105,11 +123,12 @@ const { id, name, required = false } = Astro.props;
   .check__hint[hidden] { display: none; }
 
   /* Disabled — đổi màu, KHÔNG giảm opacity */
-  .check__input:disabled { border-color: var(--gray-700); cursor: not-allowed; }
-  .check__input:disabled:checked::after { border-color: var(--gray-700); }
-  .check__input:disabled + .check__label { color: var(--gray-700); cursor: not-allowed; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .check__input { transition: none; }
+  .check__input:disabled { cursor: not-allowed; }
+  .check__box:has(.check__input:disabled) { color: var(--gray-700); }
+  .check__input:disabled ~ .check__svg .check__frame { fill: none; }
+  .check__input:disabled + .check__svg + .check__label,
+  .check__row:has(.check__input:disabled) .check__label {
+    color: var(--gray-700);
+    cursor: not-allowed;
   }
 </style>

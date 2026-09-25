@@ -161,7 +161,12 @@ const socials = [
     /* Gradient đổ lên chữ. Giải ma trận gradient của Figma ra:
        màu đặc từ đỉnh tới y = 25.3%, rồi nhạt dần tới 0 ở đáy.
        Điểm cuối viết rgb(… / 0) chứ KHÔNG dùng `transparent` — ở Safari
-       `transparent` nội suy qua màu đen, chữ sẽ xỉn thành xám bẩn. */
+       `transparent` nội suy qua màu đen, chữ sẽ xỉn thành xám bẩn.
+
+       ⚠️ #1D6297 CHƯA CÓ TRONG BỘ TOKEN. Nó ở alpha 0 nên không nhìn thấy
+       trực tiếp, nhưng SẮC của nó quyết định màu ở đoạn giữa gradient —
+       không thay bằng token khác được mà không đổi hình. Chờ Thắng quyết:
+       thêm biến vào Figma, hay nắn về một bậc --blue-* sẵn có. */
     background: linear-gradient(
       180deg,
       var(--blue-100) 0%,
@@ -322,12 +327,23 @@ const socials = [
 
   .cform__submit { display: flex; }
 
+  /* Dải báo lỗi — Figma dùng instance `Badge` trong frame `Form · Error`.
+     Số đo: cao 35 · bo góc 8 · viền 1px --red-200 · nền --red-200 @30%
+            padding 8 · chữ Be Vietnam Pro Regular 13 (--fs-caption)
+            màu chữ #FFC8C8 = --red-100
+     Hug theo nội dung, KHÔNG kéo hết bề ngang — nếu kéo full thì nó trông
+     như một khối cảnh báo của cả trang, không phải của riêng form. */
   .cform__alert {
+    align-self: flex-start;
     margin: 0;
-    padding: var(--s-3);
+    padding: var(--s-2);                     /* 8 */
     border: 1px solid var(--red-200);
-    font-size: var(--fs-body);
-    line-height: var(--lh-body);
+    border-radius: var(--r-sm);              /* 8 */
+    /* Pha loãng thẳng từ token thay vì gõ lại mã màu — không hardcode,
+       và đổi --red-200 trong tokens.css thì chỗ này đổi theo. */
+    background: color-mix(in srgb, var(--red-200) 30%, transparent);
+    font-size: var(--fs-caption);            /* 13 */
+    line-height: var(--lh-caption);
     color: var(--red-100);
   }
   .cform__alert[hidden] { display: none; }
@@ -338,9 +354,11 @@ const socials = [
     flex-direction: column;
     gap: var(--s-4);
     padding: var(--s-6);
-    /* Cùng ngôn ngữ với `Form/Success` 650:3285: nền xanh lá mờ + viền */
-    background: rgb(37 117 81 / 12%);
+    /* Cùng ngôn ngữ với `Form/Success` 650:3285: nền xanh lá mờ + viền.
+       Pha từ token, không gõ lại mã màu. */
+    background: color-mix(in srgb, var(--green-200) 12%, transparent);
     border: 1px solid var(--green-200);
+    border-radius: var(--r-sm);
   }
   .cform__done[hidden] { display: none; }
 

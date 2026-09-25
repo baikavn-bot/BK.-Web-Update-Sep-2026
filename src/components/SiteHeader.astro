@@ -150,8 +150,11 @@ const menu = [
     position: fixed;
     inset: 0;
     z-index: -1;
+    /* Điểm đầu là --gray-950 ở alpha 0, KHÔNG dùng `transparent` trơn:
+       Safari nội suy `transparent` qua màu đen nên dải giữa bị xỉn.
+       `color-mix` giữ đúng sắc mà vẫn lấy từ token, không gõ lại mã màu. */
     background: linear-gradient(200deg,
-      rgb(30 23 48 / 0) 0%,
+      color-mix(in srgb, var(--gray-950) 0%, transparent) 0%,
       var(--gray-950) 55%,
       var(--gray-950) 100%);
     opacity: 0;
