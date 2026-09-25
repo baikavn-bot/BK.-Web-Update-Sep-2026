@@ -1,0 +1,115 @@
+---
+// Ô tick — Figma `Checkbox` 29:2685. Đo ngày 25/09/2026.
+//
+// Số đo: 20×20 · bo góc 0 · viền 1px.
+//   Chưa tick : viền --gray-50, trong rỗng
+//   Đã tick   : nền --gray-950, viền --gray-50, dấu tick --gray-50
+//   Error     : viền --red-200 (#FB3748)
+//   Disabled  : viền + tick --gray-700
+//   Hover     : KHÔNG đổi hình so với Default — cố ý, theo mô tả component.
+//               Tín hiệu hover nằm ở nhãn và con trỏ, không ở ô 20px.
+//
+// ⚠️ Figma chưa gán effect style cho trạng thái Focus (còn tồn từ 24/09).
+//    Ở đây dùng --shadow-drop-inner cho đúng luật "quầng sáng = Focus"
+//    (DEC-014). Nếu Thắng tạo style `Shadow/Focus Ring` riêng thì đổi lại.
+interface Props {
+  id: string;
+  name: string;
+  required?: boolean;
+}
+const { id, name, required = false } = Astro.props;
+---
+
+<div class="check" data-field={name}>
+  <div class="check__row">
+    <input class="check__input" type="checkbox" id={id} name={name} required={required}
+           aria-describedby={`${id}-err`} />
+    <label class="check__label" for={id}><slot /></label>
+  </div>
+  <p class="check__hint" id={`${id}-err`} role="alert" hidden></p>
+</div>
+
+<style>
+  .check { display: flex; flex-direction: column; gap: var(--s-1); }
+
+  .check__row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s-3);
+  }
+
+  .check__input {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 1px solid var(--gray-50);
+    border-radius: 0;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    /* Vùng chạm thật phải ≥ 44px trên mobile (WCAG 2.5.8). Ô chỉ 20px nên
+       nới vùng bấm ra bằng lớp phủ trong suốt, không đụng tới hình. */
+    transition: background-color 120ms ease, border-color 120ms ease,
+                box-shadow 120ms ease;
+  }
+  .check__input::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+  }
+
+  .check__input:checked {
+    background: var(--gray-950);
+  }
+
+  /* Dấu tick — Figma: vector 8×6 tại (6,7), nét 1, màu --gray-50.
+     Dựng bằng hai cạnh của một hộp rồi xoay 45° — không cần thêm file ảnh. */
+  .check__input:checked::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 6px;
+    height: 10px;
+    border: solid var(--gray-50);
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+  }
+
+  .check__input:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-drop-inner);
+  }
+
+  .check__label {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--gray-50);
+    cursor: pointer;
+  }
+
+  /* Error */
+  .check[data-invalid='true'] .check__input { border-color: var(--red-200); }
+  .check[data-invalid='true'] .check__hint  { color: var(--red-100); }
+
+  .check__hint {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+  }
+  .check__hint[hidden] { display: none; }
+
+  /* Disabled — đổi màu, KHÔNG giảm opacity */
+  .check__input:disabled { border-color: var(--gray-700); cursor: not-allowed; }
+  .check__input:disabled:checked::after { border-color: var(--gray-700); }
+  .check__input:disabled + .check__label { color: var(--gray-700); cursor: not-allowed; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .check__input { transition: none; }
+  }
+</style>

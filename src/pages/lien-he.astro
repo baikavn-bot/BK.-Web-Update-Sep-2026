@@ -1,0 +1,427 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import TextField from '../components/TextField.astro';
+import Checkbox from '../components/Checkbox.astro';
+import Button from '../components/Button.astro';
+
+// TRANG LIÊN HỆ
+// Figma: section `Contact` 634:3537 — Desktop 634:2874 (1280×832) ·
+// Tablet 634:3306 (768×1167) · Mobile 634:3378 (375×1368). Đo 25/09/2026.
+//
+// Hai điều đã đối chiếu và KHÔNG dựng:
+//   · `Planet` (1920×1000) — visible = false ở cả ba breakpoint.
+//   · Nền header màu trắng — là nền mặc định của khung component, không
+//     phải thiết kế. Ảnh render của chính Figma cho thấy header trong suốt.
+//
+// Form: Thắng chốt 25/09 giữ 4 ô như bản vẽ, THÊM checkbox đồng ý xử lý
+// thông tin (bắt buộc về mặt pháp lý khi thu số điện thoại và email).
+
+const intro =
+  'Cảm ơn bạn đã quan tâm đến Baika. Vui lòng cung cấp cho chúng tôi một số thông tin để chúng tôi có thể phản hồi bạn sớm.';
+
+// ⚠️ CHƯA CÓ ĐƯỜNG DẪN THẬT — Thắng cần cung cấp 3 link mạng xã hội.
+// Để `undefined` thì hiện chữ nhưng không bấm được, không tạo link chết.
+const socials = [
+  { label: 'Facebook',  href: undefined },
+  { label: 'Instagram', href: undefined },
+  { label: 'Linkedin',  href: undefined },
+];
+---
+
+<BaseLayout
+  title="Liên hệ — BAIKA"
+  description="Gửi thông tin để BAIKA liên hệ lại. Hotline 0905 247 365 · baika.vn@gmail.com · Tầng 15, 72 Lê Thánh Tôn, P. Sài Gòn, TP. Hồ Chí Minh."
+>
+  <SiteHeader slot="header" />
+
+  <div class="page">
+    <div class="artwork" aria-hidden="true"></div>
+
+    {/* Chữ "Contact" cỡ lớn — lớp trang trí nằm SAU nội dung.
+        Figma: Chakra Petch Regular, 300px (Desktop) / 200 (Tablet) / 100 (Mobile),
+        line-height 75%, gradient #D6EBFA → #1D6297 alpha 0, canh giữa ngang.
+        ⚠️ Ba cỡ chữ này không nằm trong thang 9 bậc — đây là hoạ tiết chữ,
+        không phải một bậc tiêu đề. Đặt aria-hidden vì nó không mang thông
+        tin: tiêu đề thật của trang là thẻ h1 bên dưới. */}
+    <p class="watermark" aria-hidden="true">Contact</p>
+
+    <section class="contact">
+      <div class="contact__info">
+        <h1 class="contact__intro">{intro}</h1>
+
+        <ul class="contact__social">
+          {socials.map((s) => (
+            <li>
+              {s.href
+                ? <a class="contact__sociallink" href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+                : <span class="contact__sociallink contact__sociallink--off">{s.label}</span>}
+            </li>
+          ))}
+        </ul>
+
+        <address class="contact__details">
+          <a href="tel:+84905247365">0905 247 365</a>
+          <a href="mailto:baika.vn@gmail.com">baika.vn@gmail.com</a>
+          <span>Tầng 15, 72 Lê Thánh Tôn,<br />P. Sài Gòn, Thành phố Hồ Chí Minh</span>
+        </address>
+      </div>
+
+      <div class="contact__formwrap">
+        <form class="cform" id="contact-form" novalidate>
+          {/* Bẫy spam: ô này ẩn với người thật, chỉ máy tự động mới điền.
+              Có chữ trong đó là biết ngay không phải người → bỏ qua lặng lẽ. */}
+          <div class="cform__trap" aria-hidden="true">
+            <label for="website">Đừng điền ô này</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <TextField id="ten"   name="ten"   label="Tên"            required autocomplete="name" />
+          <TextField id="email" name="email" label="Email"          type="email" required autocomplete="email" />
+          <TextField id="sdt"   name="sdt"   label="Số điện thoại"  type="tel"   required autocomplete="tel" />
+          <TextField id="mota"  name="mota"  label="Mô tả vấn đề"   multiline height={178} />
+
+          <Checkbox id="dongy" name="dongy" required>
+            Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật
+          </Checkbox>
+
+          {/* Dải báo lỗi chung — đặt NGAY TRÊN nút gửi, đúng như frame
+              `Form · Error`. Mọi thứ khách đã gõ được giữ nguyên. */}
+          <p class="cform__alert" id="form-alert" role="alert" hidden></p>
+
+          <div class="cform__submit">
+            <Button label="liên hệ" />
+          </div>
+        </form>
+
+        {/* Khối xác nhận — thay chỗ CẢ form sau khi gửi được.
+            Figma `Form · Success`: nếu form vẫn nằm đó, khách tưởng chưa
+            gửi được và gửi lại. */}
+        <div class="cform__done" id="contact-done" hidden>
+          <h2 class="cform__donetitle">Đã nhận thông tin của bạn</h2>
+          <p class="cform__donebody">
+            BAIKA sẽ liên hệ trong vòng 24 giờ làm việc. Nếu cần gấp hơn,
+            gọi trực tiếp hotline <a href="tel:+84905247365">0905 247 365</a>.
+          </p>
+          <button class="cform__again" type="button">Gửi một yêu cầu khác</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    position: relative;
+    min-height: 100svh;
+    overflow-x: hidden;
+    background: var(--gray-950);
+  }
+
+  /* Cùng một khối artwork với trang chủ — Figma đặt `Frame 2121454393` ở
+     đúng toạ độ (−741, −537) trên cả hai trang. Dùng chung một file ảnh. */
+  .artwork {
+    position: absolute;
+    inset: 0;
+    background-image: url('/img/home-bg.webp');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+
+  /* --- Chữ "Contact" cỡ lớn ------------------------------------------- */
+  .watermark {
+    position: absolute;
+    top: 120px;                /* Mobile */
+    left: 0;
+    right: 0;
+    z-index: 1;
+    margin: 0;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 400;          /* Chakra Petch Regular */
+    font-size: 100px;          /* Mobile */
+    line-height: 0.75;         /* Figma: 75% */
+    letter-spacing: -0.0333em; /* Figma: −10px ở cỡ 300 = −3.33% */
+    white-space: nowrap;       /* không bao giờ được xuống dòng */
+
+    /* Gradient đổ lên chữ. Giải ma trận gradient của Figma ra:
+       màu đặc từ đỉnh tới y = 25.3%, rồi nhạt dần tới 0 ở đáy.
+       Điểm cuối viết rgb(… / 0) chứ KHÔNG dùng `transparent` — ở Safari
+       `transparent` nội suy qua màu đen, chữ sẽ xỉn thành xám bẩn. */
+    background: linear-gradient(
+      180deg,
+      var(--blue-100) 0%,
+      var(--blue-100) 25.3%,
+      rgb(29 98 151 / 0) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    /* Figma để fill của chữ này ở opacity 15% — đây là hoạ tiết chìm,
+       không phải tiêu đề đọc được. Thiếu dòng này thì nó nổi bật hơn cả
+       nội dung thật và át hết cột chữ bên trái. */
+    opacity: 0.15;
+
+    user-select: none;
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .watermark { top: 80px; font-size: 200px; }
+  }
+  @media (min-width: 1280px) {
+    .watermark { font-size: 300px; }
+  }
+
+  /* --- Khối nội dung --------------------------------------------------
+     Figma: bắt đầu ở y = 240 trên cả ba breakpoint (dưới header 128). */
+  .contact {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);            /* Figma gap 40 */
+    padding: 240px var(--s-6) var(--s-16);
+  }
+
+  @media (min-width: 768px) {
+    .contact { padding: 240px var(--s-10) var(--s-16); }
+  }
+
+  /* Desktop: hai cột — thông tin 560 · form 600, cách nhau 40 */
+  @media (min-width: 1280px) {
+    .contact {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: var(--s-10);
+    }
+    .contact__info     { flex: 0 0 560px; }
+    .contact__formwrap { flex: 1 1 600px; max-width: 600px; }
+  }
+
+  /* --- Cột thông tin --------------------------------------------------- */
+  .contact__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);            /* Figma: VERTICAL gap 40 */
+  }
+
+  /* Tiêu đề thật của trang. Figma dùng text style H-1 cho đoạn này —
+     vừa là lời chào vừa là h1, nên không tạo thêm tiêu đề ẩn nào khác. */
+  .contact__intro {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+  }
+
+  .contact__social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);             /* Figma: 3 dòng trong 111px */
+  }
+
+  .contact__sociallink {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+    color: var(--gray-50);
+    text-decoration: none;
+  }
+  .contact__sociallink:hover { text-decoration: underline; }
+  .contact__sociallink--off  { color: var(--gray-600); cursor: default; }
+
+  .contact__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);
+    font-style: normal;          /* <address> mặc định in nghiêng */
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--slate-50);      /* Figma: #F4F7FA */
+  }
+  .contact__details a { color: inherit; text-decoration: none; }
+  .contact__details a:hover { text-decoration: underline; }
+
+  /* --- Form ------------------------------------------------------------ */
+  .cform {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);             /* Figma: gap 24 */
+  }
+
+  /* Bẫy spam — đẩy ra ngoài màn hình, không dùng display:none vì một số
+     máy tự động bỏ qua ô ẩn kiểu đó. */
+  .cform__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .cform__submit { display: flex; }
+
+  .cform__alert {
+    margin: 0;
+    padding: var(--s-3);
+    border: 1px solid var(--red-200);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--red-100);
+  }
+  .cform__alert[hidden] { display: none; }
+
+  /* --- Khối xác nhận sau khi gửi -------------------------------------- */
+  .cform__done {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    padding: var(--s-6);
+    /* Cùng ngôn ngữ với `Form/Success` 650:3285: nền xanh lá mờ + viền */
+    background: rgb(37 117 81 / 12%);
+    border: 1px solid var(--green-200);
+  }
+  .cform__done[hidden] { display: none; }
+
+  .cform__donetitle {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+    color: var(--gray-50);
+  }
+  .cform__donebody {
+    margin: 0;
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    color: var(--gray-50);
+  }
+  .cform__donebody a { color: inherit; }
+
+  .cform__again {
+    align-self: flex-start;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    color: var(--gray-50);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  // FORM LIÊN HỆ — kiểm tra dữ liệu ngay trên trình duyệt, rồi gửi lên
+  // `/api/contact`. Ba trạng thái theo đúng ba frame `Form States`:
+  //   Submitting · Success · Error
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const done = document.getElementById('contact-done') as HTMLElement | null;
+  const alertBox = document.getElementById('form-alert') as HTMLElement | null;
+
+  if (form && done && alertBox) {
+    const fieldOf = (name: string) =>
+      form.querySelector<HTMLElement>(`[data-field="${name}"]`);
+
+    const setError = (name: string, message: string | null) => {
+      const wrap = fieldOf(name);
+      if (!wrap) return;
+      const hint = wrap.querySelector<HTMLElement>('.field__hint, .check__hint');
+      if (message) {
+        wrap.dataset.invalid = 'true';
+        if (hint) { hint.textContent = message; hint.hidden = false; }
+      } else {
+        delete wrap.dataset.invalid;
+        if (hint) { hint.textContent = ''; hint.hidden = true; }
+      }
+    };
+
+    // Số điện thoại Việt Nam: bắt đầu bằng 0 hoặc +84, 9–11 chữ số.
+    // Cho phép khoảng trắng, dấu chấm và gạch ngang vì người ta hay gõ vậy.
+    const phoneOk = (v: string) => /^(\+84|0)[\s.-]?\d(?:[\s.-]?\d){7,9}$/.test(v.trim());
+    const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim());
+
+    const validate = () => {
+      const data = new FormData(form);
+      const errs: Array<[string, string]> = [];
+
+      const ten = String(data.get('ten') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const sdt = String(data.get('sdt') ?? '').trim();
+
+      if (!ten) errs.push(['ten', 'Chưa điền tên.']);
+      if (!email) errs.push(['email', 'Chưa điền email.']);
+      else if (!emailOk(email)) errs.push(['email', 'Email chưa đúng định dạng.']);
+      if (!sdt) errs.push(['sdt', 'Chưa điền số điện thoại.']);
+      else if (!phoneOk(sdt)) errs.push(['sdt', 'Số điện thoại chưa đúng định dạng.']);
+      if (!data.get('dongy')) errs.push(['dongy', 'Cần đồng ý để BAIKA liên hệ lại.']);
+
+      for (const n of ['ten', 'email', 'sdt', 'dongy']) setError(n, null);
+      for (const [n, m] of errs) setError(n, m);
+      return errs;
+    };
+
+    const setBusy = (busy: boolean) => {
+      form
+        .querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLButtonElement>(
+          'input, textarea, button',
+        )
+        .forEach((el) => { el.disabled = busy; });
+      const label = form.querySelector<HTMLElement>('.btn__label');
+      if (label) label.textContent = busy ? 'Đang gửi…' : 'liên hệ';
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertBox.hidden = true;
+
+      const errs = validate();
+      if (errs.length) {
+        alertBox.textContent =
+          `Chưa gửi được — ${errs[0][1]} Kiểm tra lại ô được đánh dấu đỏ rồi gửi lại.`;
+        alertBox.hidden = false;
+        fieldOf(errs[0][0])?.querySelector<HTMLElement>('input, textarea')?.focus();
+        return;
+      }
+
+      setBusy(true);
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.hidden = true;
+        done.hidden = false;
+        done.querySelector<HTMLElement>('.cform__donetitle')?.focus();
+      } catch {
+        // GIỮ NGUYÊN mọi thứ khách đã gõ — mất dữ liệu là mất luôn lead.
+        alertBox.textContent =
+          'Chưa gửi được — lỗi kết nối. Thử lại sau ít phút, hoặc gọi trực tiếp 0905 247 365.';
+        alertBox.hidden = false;
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    done.querySelector('.cform__again')?.addEventListener('click', () => {
+      form.reset();
+      for (const n of ['ten', 'email', 'sdt', 'dongy']) setError(n, null);
+      done.hidden = true;
+      form.hidden = false;
+      form.querySelector<HTMLInputElement>('#ten')?.focus();
+    });
+  }
+</script>

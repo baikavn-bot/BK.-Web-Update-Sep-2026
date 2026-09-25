@@ -1,0 +1,269 @@
+---
+// HEADER DÙNG CHUNG — Figma `NVG header` 452:6600.
+// Đo ngày 25/09/2026.
+//
+// ⚠️ Nền header TRONG SUỐT. Figma báo fill #F8F8F8 nhưng đó là nền mặc định
+//    của khung component, không phải thiết kế — ảnh render của chính Figma
+//    cho thấy không có dải trắng nào. Đã đối chiếu bằng ảnh chụp frame.
+//
+// Cấu tạo: cao 128 · dấu hiệu 48×48 bo 10.67 bên trái · nút hamburger 48×48
+// nền --gray-50 bo 8 bên phải. Lề 40 (Desktop/Tablet) · 24 (Mobile).
+
+interface Props {
+  /** Đường dẫn trang đang mở — để đánh dấu mục menu tương ứng. */
+  current?: string;
+}
+const { current } = Astro.props;
+
+// 8 mục menu, đúng thứ tự và nguyên văn nhãn trong Figma (biến thể State=Open).
+// Slug lấy từ DEC-019 — giữ nguyên từ site cũ.
+const menu = [
+  { label: 'Trạm kết nối',             href: undefined },   // ngoài phạm vi v1
+  { label: 'Đào tạo CEO',              href: '/ceo-blueprint' },
+  { label: 'Pháp lý & Thuế',           href: '/legal-tax' },
+  { label: 'Tư vấn doanh nghiệp',      href: '/advisory' },
+  { label: 'Tài chính & Dòng tiền',    href: '/finance' },
+  { label: 'Hệ thống hóa vận hành',    href: '/remote-ops' },
+  { label: 'Marketing & Tăng trưởng',  href: '/marketing' },
+  { label: 'Công nghệ & AI ứng dụng',  href: '/ai-os' },
+];
+---
+
+<header class="hdr">
+  <a class="hdr__logo" href="/" aria-label="BAIKA — về trang chủ">
+    <img src="/img/baika-mark.webp" alt="" width="48" height="48" />
+  </a>
+
+  <button
+    class="hdr__toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="site-menu"
+    aria-label="Mở menu"
+  >
+    {/* Hamburger · State=Close — 3 gạch. State=Open đổi thành 1 gạch. */}
+    <svg class="hdr__icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+      <line class="hdr__bar hdr__bar--1" x1="4" y1="6"  x2="20" y2="6" />
+      <line class="hdr__bar hdr__bar--2" x1="4" y1="12" x2="20" y2="12" />
+      <line class="hdr__bar hdr__bar--3" x1="4" y1="18" x2="20" y2="18" />
+    </svg>
+  </button>
+
+  <div class="hdr__scrim" hidden></div>
+
+  <nav class="hdr__menu" id="site-menu" hidden aria-label="Menu chính">
+    <ul class="hdr__list">
+      {menu.map((m) => (
+        <li>
+          {m.href ? (
+            <a
+              class="navbtn"
+              href={m.href}
+              aria-current={current === m.href ? 'page' : undefined}
+            >{m.label}</a>
+          ) : (
+            /* Trạm kết nối chưa có trang đích (ngoài phạm vi v1) — hiện chữ
+               nhưng không bấm được, thà vậy còn hơn link chết trả 404. */
+            <span class="navbtn navbtn--off">{m.label}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .hdr {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 20;
+    height: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--s-6);          /* Mobile: lề 24 */
+    background: none;               /* trong suốt — xem chú thích đầu file */
+    pointer-events: none;           /* để chuột lọt xuống nội dung phía dưới */
+  }
+  .hdr > * { pointer-events: auto; }
+
+  @media (min-width: 768px) {
+    .hdr { padding: 0 var(--s-10); }   /* Desktop/Tablet: lề 40 */
+  }
+
+  /* --- Dấu hiệu ------------------------------------------------------- */
+  .hdr__logo {
+    display: block;
+    width: 48px;
+    height: 48px;
+    /* Figma: cornerRadius 10.667 trên khung 48 = 22.22% */
+    border-radius: 22.22%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .hdr__logo img { width: 100%; height: 100%; display: block; }
+  .hdr__logo:focus-visible {
+    outline: 2px solid var(--gray-50);
+    outline-offset: 3px;
+  }
+
+  /* --- Nút hamburger --------------------------------------------------- */
+  .hdr__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: var(--r-sm);        /* Figma: 8 */
+    background: var(--gray-50);
+    color: var(--gray-950);
+    cursor: pointer;
+    transition: box-shadow 120ms ease;
+  }
+  .hdr__toggle:hover  { box-shadow: var(--shadow-inner); }
+  .hdr__toggle:active { box-shadow: var(--shadow-inner-press); }
+  .hdr__toggle:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-drop-inner);
+  }
+
+  /* State=Open trong Figma chỉ còn MỘT gạch. Ở đây cho hai gạch ngoài
+     trượt vào giữa rồi biến mất — cùng kết quả, nhưng có chuyển động nên
+     người dùng thấy được nút vừa đổi trạng thái. */
+  .hdr__bar { transition: opacity 160ms ease, transform 160ms ease; }
+  .hdr[data-open='true'] .hdr__bar--1 { transform: translateY(6px); opacity: 0; }
+  .hdr[data-open='true'] .hdr__bar--3 { transform: translateY(-6px); opacity: 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hdr__bar { transition: none; }
+  }
+
+  /* --- Lớp phủ nền ----------------------------------------------------
+     ⚠️ Figma dùng một VECTOR hình tự do (`Vector 14`, 957×1200) tô đặc
+     --gray-950 làm nền menu. Đây là hình PHẲNG, không blur → nếu muốn
+     đúng y bản vẽ thì xuất SVG là hợp lý (khác trường hợp artwork nền,
+     chỗ đó phải xuất ảnh vì có blur nặng).
+     Tạm thời dùng lớp phủ chữ nhật mờ dần. */
+  .hdr__scrim {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(200deg,
+      rgb(30 23 48 / 0) 0%,
+      var(--gray-950) 55%,
+      var(--gray-950) 100%);
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+  .hdr[data-open='true'] .hdr__scrim { opacity: 0.94; }
+
+  /* --- Khung menu -----------------------------------------------------
+     Figma `Frame 74`: 375×376, bo 12, gradient radial.
+     Tâm (−9.6%, −3.9%) và bán kính 119% × 114% tính từ ma trận gradient.
+
+     ⚠️ Hai màu chưa có token: #D9D9D9 (gần --gray-300 #D5D5D5) và
+     #7C7C7C (nằm giữa --gray-700 và --gray-600). Hai màu còn lại khớp
+     token: #363636 ≈ --gray-900 (#373737) · #1E1E1E = --gray-950. */
+  .hdr__menu {
+    position: absolute;
+    top: 108px;
+    right: var(--s-6);
+    width: min(375px, calc(100vw - 48px));
+    padding: var(--s-2);
+    border-radius: var(--r-md);
+    background: radial-gradient(
+      119% 114% at -9.6% -3.9%,
+      #D9D9D9 0%,
+      #7C7C7C 26%,
+      var(--gray-900) 77.9%,
+      var(--gray-950) 100%
+    );
+  }
+  @media (min-width: 768px) {
+    .hdr__menu { right: var(--s-10); }
+  }
+
+  .hdr__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;   /* Figma canh phải */
+    gap: var(--s-2);         /* 8 */
+  }
+
+  /* --- Mục menu — Figma `Nav Button` 472:4918 -------------------------- */
+  .navbtn {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: var(--s-2);
+    border-radius: var(--r-sm);
+    font-family: var(--font-body);
+    font-weight: 500;                /* Be Vietnam Pro Medium */
+    font-size: 18px;                 /* ⚠️ không có trong thang chữ (15/17) */
+    line-height: 1;
+    text-decoration: none;
+    color: var(--gray-600);
+    transition: color 120ms ease, box-shadow 120ms ease;
+  }
+
+  .navbtn:hover  { color: var(--gray-50); }
+  .navbtn:active { color: var(--gray-800); }
+
+  /* Trang đang mở. Figma dùng biến thể `Focus` để đánh dấu việc này —
+     xem VD-005: Focus là trạng thái con trỏ bàn phím, không phải "đang ở
+     trang này". Ở đây tách ra: màu giống nhau, nhưng focus bàn phím còn
+     có thêm quầng sáng nên vẫn phân biệt được. */
+  .navbtn[aria-current='page'] { color: var(--gray-50); }
+
+  .navbtn:focus-visible {
+    outline: none;
+    color: var(--gray-50);
+    box-shadow: var(--shadow-drop-inner);
+  }
+
+  .navbtn--off {
+    color: var(--gray-700);
+    cursor: default;
+  }
+</style>
+
+<script>
+  // Đóng/mở menu. Không dùng thư viện nào.
+  document.querySelectorAll<HTMLElement>('.hdr').forEach((hdr) => {
+    const btn = hdr.querySelector<HTMLButtonElement>('.hdr__toggle');
+    const menu = hdr.querySelector<HTMLElement>('.hdr__menu');
+    const scrim = hdr.querySelector<HTMLElement>('.hdr__scrim');
+    if (!btn || !menu || !scrim) return;
+
+    const setOpen = (open: boolean) => {
+      hdr.dataset.open = String(open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
+      menu.hidden = !open;
+      scrim.hidden = !open;
+    };
+
+    btn.addEventListener('click', () => setOpen(hdr.dataset.open !== 'true'));
+    scrim.addEventListener('click', () => { setOpen(false); btn.focus(); });
+
+    // Esc đóng menu và trả con trỏ về nút — người dùng bàn phím không bị kẹt.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && hdr.dataset.open === 'true') {
+        setOpen(false);
+        btn.focus();
+      }
+    });
+
+    // Bấm ra ngoài khung menu thì đóng.
+    document.addEventListener('click', (e) => {
+      if (hdr.dataset.open !== 'true') return;
+      const t = e.target as Node;
+      if (!menu.contains(t) && !btn.contains(t)) setOpen(false);
+    });
+  });
+</script>

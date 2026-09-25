@@ -1,0 +1,155 @@
+---
+// Ô nhập — Figma `Text field` 588:6238. Đo ngày 25/09/2026.
+//
+// Số đo đã xác minh:
+//   Khung `Field / Flexible`: cao 48 · padding 12 · bo góc 0
+//   Nền Default : #D5D5D5 @25%  = --opacity-gray
+//   Nền Focus   : #D5D5D5 @50%  = --opacity-light
+//   Chữ         : Be Vietnam Pro Regular 15 = --fs-body, màu --gray-50
+//   Disabled    : chữ đổi --gray-700
+//   Khung ngoài xếp dọc, gap 4 — chỗ 4px đó dành cho dòng báo lỗi bên dưới.
+//
+// ⚠️ HAI THỨ THÊM NGOÀI FIGMA — Thắng xem rồi quyết (xem DEC-028):
+//
+//   1. Trạng thái ERROR. Trong Figma `Error` giống HỆT `Default` từng giá
+//      trị một — ô sai không có dấu hiệu nào. Ở đây thêm viền --red-200 và
+//      dòng nhắc màu --red-100, GIỮ chữ --gray-50 để người dùng vẫn đọc
+//      được thứ mình vừa gõ.
+//
+//   2. Quầng sáng khi FOCUS. Figma chỉ tăng độ mờ nền 25% → 50%, mà theo
+//      DEC-014 "sáng lên" là ngôn ngữ của Hover, còn Focus phải là quầng
+//      sáng. Ô nhập không có Hover nên không đụng nhau, nhưng để vậy thì
+//      lệch luật chung của cả hệ. Đã thêm --shadow-drop-inner.
+interface Props {
+  id: string;
+  name: string;
+  /** Nhãn. Vừa là <label> cho trình đọc màn hình, vừa là chữ gợi ý trong ô. */
+  label: string;
+  type?: 'text' | 'email' | 'tel';
+  /** true → render <textarea> thay cho <input>. */
+  multiline?: boolean;
+  required?: boolean;
+  autocomplete?: string;
+  /** Chiều cao ô nhiều dòng. Figma: 178px. */
+  height?: number;
+}
+const {
+  id, name, label, type = 'text',
+  multiline = false, required = false, autocomplete, height,
+} = Astro.props;
+---
+
+<div class="field" data-field={name}>
+  {/*
+    Figma KHÔNG có nhãn hiện bên trên ô — chữ trong ô đóng luôn vai nhãn.
+    Cách đó có một điểm yếu thật: gõ xong là chữ gợi ý biến mất, người dùng
+    không còn biết ô này hỏi gì. Ở đây giữ đúng hình thức của bản vẽ, nhưng
+    thêm một <label> ẩn để trình đọc màn hình vẫn đọc đúng tên ô.
+    → Đề xuất về sau: cho nhãn hiện hẳn bên trên ô. Cần Thắng quyết.
+  */}
+  <label class="sr-only" for={id}>
+    {label}{required && ' (bắt buộc)'}
+  </label>
+
+  <div class="field__box" style={height ? `min-height: ${height}px` : undefined}>
+    {multiline ? (
+      <textarea
+        class="field__input field__input--multi"
+        id={id}
+        name={name}
+        placeholder={label}
+        required={required}
+        autocomplete={autocomplete}
+        aria-describedby={`${id}-err`}
+      />
+    ) : (
+      <input
+        class="field__input"
+        id={id}
+        name={name}
+        type={type}
+        placeholder={label}
+        required={required}
+        autocomplete={autocomplete}
+        aria-describedby={`${id}-err`}
+      />
+    )}
+  </div>
+
+  <p class="field__hint" id={`${id}-err`} role="alert" hidden></p>
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);          /* Figma: gap 4 */
+  }
+
+  .field__box {
+    display: flex;
+    min-height: 48px;
+    padding: var(--s-3);      /* 12 */
+    border-radius: 0;
+    background: var(--opacity-gray);            /* #D5D5D5 @25% */
+    border: 1px solid transparent;              /* chỗ dành sẵn cho viền lỗi,
+                                                   để lúc lỗi không nhảy layout */
+    transition: background-color 120ms ease, box-shadow 120ms ease,
+                border-color 120ms ease;
+  }
+
+  .field__input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-body);        /* 15 */
+    line-height: var(--lh-body);
+    color: var(--gray-50);
+    outline: none;
+  }
+
+  .field__input--multi {
+    resize: vertical;
+    min-height: 100%;
+  }
+
+  .field__input::placeholder {
+    color: var(--gray-50);
+    opacity: 1;                       /* Figma để chữ gợi ý sáng bằng chữ thật */
+  }
+
+  /* Focus — nền sáng lên (đúng Figma) + quầng sáng (thêm, xem đầu file) */
+  .field__box:focus-within {
+    background: var(--opacity-light);           /* #D5D5D5 @50% */
+    box-shadow: var(--shadow-drop-inner);
+  }
+
+  /* Error — thêm ngoài Figma */
+  .field[data-invalid='true'] .field__box {
+    border-color: var(--red-200);
+  }
+  .field[data-invalid='true'] .field__hint {
+    color: var(--red-100);
+  }
+
+  .field__hint {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    color: var(--gray-500);
+  }
+  .field__hint[hidden] { display: none; }
+
+  /* Disabled — đổi màu chữ, GIỮ opacity 1 theo quy ước của hệ */
+  .field__input:disabled { color: var(--gray-700); cursor: not-allowed; }
+  .field__input:disabled::placeholder { color: var(--gray-700); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .field__box { transition: none; }
+  }
+</style>
