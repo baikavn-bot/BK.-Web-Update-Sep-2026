@@ -41,6 +41,13 @@ const { title } = Astro.props;
     flex-direction: column;
     gap: var(--s-3);            /* 12 */
     padding: var(--s-6);        /* 24 */
+    /* ✅ TRẢ LẠI 25/09 — Dev Mode ghi `backdrop-blur-[12px]`.
+       Em từng BỎ nó (xem ghi chú ⚠️ ở đầu file) với lý do "nền trang là màu
+       đặc nên làm mờ hậu cảnh không đổi pixel nào". Lý do đó **sai**: nền
+       các section có hoạ tiết (quầng sáng, vòng cung) tràn qua, nên lớp mờ
+       này có tác dụng thật. Bài học: đừng tự bỏ một hiệu ứng vì nghĩ nó vô
+       dụng — kiểm bằng ảnh trước đã. */
+    backdrop-filter: blur(var(--blur-24));   /* Figma 24 → CSS 12 */
   }
 
   .solution__title {

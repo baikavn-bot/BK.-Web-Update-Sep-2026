@@ -52,10 +52,15 @@ const VOM = [
   { x: 376.5, y: 404 }, { x: 823.5, y: 404 },
   { x: 600,   y: 608 },
 ];
-// [tâm x, y bắt đầu, y kết thúc] — độ dài mỗi sợi mỗi khác, cố ý
+// Mỗi sợi dây treo đúng MỘT mái vòm — Thắng chốt 25/09: *"Mỗi Line light
+// sẽ căn giữa với 1 khối Solution"*. Nên ở đây KHÔNG ghi toạ độ x rời;
+// chỉ ghi **vòm thứ mấy**, rồi lấy thẳng tâm của vòm đó.
+// Figma đo được lệch 1–2px so với tâm vòm (190 vs 192, 594 vs 600…) — đó là
+// sai số đặt tay trong bản vẽ, không phải chủ ý. Căn đúng tâm thì sạch hơn.
+// [chỉ số vòm, y bắt đầu, y kết thúc] — độ dài mỗi sợi mỗi khác, cố ý
 const DAY = [
-  [190, 1, 208], [594, 68, 208], [1006, 0, 208],
-  [822, 46, 417], [598, 404, 622], [375, 53, 417],
+  [0, 1, 208], [1, 68, 208], [2, 0, 208],
+  [4, 46, 417], [5, 404, 622], [3, 53, 417],
 ];
 const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
 
@@ -68,7 +73,7 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
 //    bỏ qua — không phải viết một dòng `!important` nào.
 ---
 
-<section class="nhan sec sec--cat">
+<section class="nhan sec">
   {/* --- Hoạ tiết --- */}
   <div class="nhan__quang" aria-hidden="true"></div>
   <div class="nhan__cung" aria-hidden="true"><span class="nhan__cau"></span></div>
@@ -77,11 +82,11 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
 
   <div class="nhan__khung">
     {/* Sáu sợi dây. Đặt trước các vòm để vòm vẽ đè lên đầu dây. */}
-    {DAY.map(([x, y1, y2]) => (
+    {DAY.map(([vom, y1, y2]) => (
       <span
         class="nhan__day"
         aria-hidden="true"
-        style={`--x:${pc(x, 1200)}; --y:${pc(y1, 788)}; --cao:${pc(y2 - y1, 788)}`}
+        style={`--x:${pc(VOM[vom].x, 1200)}; --y:${pc(y1, 788)}; --cao:${pc(y2 - y1, 788)}`}
       ></span>
     ))}
 

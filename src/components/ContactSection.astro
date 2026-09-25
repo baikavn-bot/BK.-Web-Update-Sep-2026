@@ -13,9 +13,11 @@
 //
 // Cộng thử desktop: 96 + 469 + 96 = **661** ✓ khớp Figma.
 //
-// ⚠️ ĐÂY LÀ CÙNG MỘT FORM với trang Liên hệ — không phải bản chép.
-//    Cả hai gọi `ContactForm.astro`. Sửa một chỗ, đúng cả 8 trang.
-//    Thắng chốt tách ra ngày 25/09; xem DEC-099.
+// ⚠️ CÙNG MỘT COMPONENT với trang Liên hệ, nhưng **khác dạng**.
+//    Dev Mode cho thấy form ở đây có **6 trường** (thêm "Đơn vị / Doanh
+//    nghiệp" và "Lĩnh vực"), xếp **hai cột**, nút ghi **"Đăng ký rà soát"**.
+//    Trang Liên hệ chỉ 4 trường, một cột, nút "liên hệ".
+//    Vẫn một bản code, hai cấu hình — Thắng chốt 25/09, xem DEC-101.
 //
 // ⚠️ MẠNG XÃ HỘI — hai chỗ chưa xong, đều cần Thắng:
 //    1. **Chưa có đường dẫn thật** (VD-010). Để `undefined` thì hiện chữ
@@ -26,6 +28,11 @@
 //       nhận diện thương hiệu của người ta. Cần Thắng xuất 3 icon đó,
 //       giống cách đã làm với ảnh nền sao.
 import ContactForm from './ContactForm.astro';
+
+// ⚠️ Danh sách "Lĩnh vực" CHƯA CÓ — Figma chỉ vẽ ô dropdown, không ghi các
+//    lựa chọn bên trong. Em không tự bịa danh sách ngành nghề. Bỏ trống thì
+//    ô vẫn hiện, chỉ có dòng gợi ý. Cần Thắng cung cấp.
+const LINH_VUC: string[] = [];
 
 interface Props {
   heading?: string;
@@ -41,7 +48,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="lh sec sec--cat" id="lien-he">
+<section class="lh sec" id="lien-he">
   <span class="lh__quang" aria-hidden="true"></span>
 
   <div class="lh__trai">
@@ -59,7 +66,7 @@ const {
   </div>
 
   <div class="lh__phai">
-    <ContactForm />
+    <ContactForm variant="dich-vu" linhVucOptions={LINH_VUC} />
   </div>
 </section>
 

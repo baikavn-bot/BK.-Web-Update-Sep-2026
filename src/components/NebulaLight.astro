@@ -20,10 +20,10 @@
 // ⚠️ Màu gốc trong Figma là #FFFFFF (trong suốt → đặc → trong suốt).
 //    CLAUDE.md mục 4 cấm #FFFFFF nên đổi sang `--gray-50`, sáng nhất của hệ.
 interface Props {
-  /** Bề ngang. Mặc định 695 — đúng bản vẽ. Nhận mọi giá trị CSS. */
+  /** Bề ngang. Mặc định **694.5** — đúng bản vẽ (không phải 695). */
   width?: string;
 }
-const { width = '695px' } = Astro.props;
+const { width = '694.5px' } = Astro.props;
 
 // Ba lớp cần ba `id` riêng. Nếu hai vệt sáng cùng nằm trên một trang mà
 // dùng chung id thì trình duyệt lấy nhầm bộ lọc của cái kia → sai độ mờ.

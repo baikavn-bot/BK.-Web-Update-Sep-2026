@@ -141,9 +141,20 @@ const { title, description, pillar, current } = Astro.props;
     --tru-nhat: var(--page-dao-tao-ceo-nhat);
   }
 
-  /* ─── Nền chung của trang dịch vụ ─────────────────────────────────── */
+  /* ─── Nền chung của trang dịch vụ ───────────────────────────────────
+     `overflow-x: clip` cắt MỘT lần ở tầng trang, và **chỉ theo chiều ngang**.
+
+     Vì sao không để mỗi section tự cắt: hoạ tiết ở đây (vòng cung 1920,
+     quầng sáng 1708, chữ cong 1382) đều cố ý tràn ra ngoài khung section.
+     Section nào tự bật `overflow: hidden` là cắt cụt hoạ tiết của chính nó
+     — Thắng chốt 25/09 không được làm vậy.
+
+     Dùng `clip` chứ không `hidden`: `hidden` biến phần tử thành một vùng
+     cuộn được, làm hỏng `position: sticky` bên trong và đôi khi tự cuộn
+     khi bấm Tab. `clip` chỉ cắt, không tạo vùng cuộn. */
   [data-pillar] main {
     background: var(--gray-950);
+    overflow-x: clip;
   }
 
   /* ─── Lớp nền cho section ──────────────────────────────────────────
@@ -158,8 +169,6 @@ const { title, description, pillar, current } = Astro.props;
     padding-inline: var(--le-trang);
   }
 
-  /* Cắt hoạ tiết thò ra ngoài. Dùng riêng, vì section nào có hoạ tiết
-     tràn viền mới cần — bật `overflow: hidden` bừa bãi sẽ cắt luôn
-     quầng sáng focus của nút bên trong. */
-  .sec--cat { overflow: hidden; }
+  /* ⚠️ Lớp `.sec--cat` (cắt hoạ tiết) đã BỊ GỠ ngày 25/09.
+     Đừng thêm lại: mọi việc cắt giờ làm một lần ở `main` phía trên. */
 </style>

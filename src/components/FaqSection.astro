@@ -26,7 +26,7 @@ interface Props {
 const { heading = 'Các câu hỏi thường gặp', items } = Astro.props;
 ---
 
-<section class="faq-sec sec sec--cat">
+<section class="faq-sec sec">
   <span class="faq-sec__quang" aria-hidden="true"></span>
 
   <h2 class="faq-sec__heading">{heading}</h2>
@@ -76,6 +76,8 @@ const { heading = 'Các câu hỏi thường gặp', items } = Astro.props;
     line-height: var(--lh-h1);
     font-weight: var(--fw-h1);
     color: var(--gray-50);
+    /* Dev Mode: `text-center w-[200px]`. Bản trước em để căn trái. */
+    text-align: center;
   }
 
   .faq-sec__list {

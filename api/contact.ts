@@ -73,6 +73,10 @@ export default async function handler(req: Req, res: Res): Promise<void> {
   const email = clean(body.email, 200);
   const sdt = clean(body.sdt, 40);
   const mota = clean(body.mota, 4000);
+  // Hai trường chỉ có ở form trang dịch vụ (dạng `dich-vu`). Form trang
+  // Liên hệ không gửi chúng → để trống, không phải lỗi. KHÔNG bắt buộc.
+  const donvi = clean(body.donvi, 200);
+  const linhvuc = clean(body.linhvuc, 120);
   const dongy = body.dongy === 'on' || body.dongy === true || body.dongy === 'true';
 
   // Kiểm lại trên máy chủ. Kiểm ở trình duyệt là để người dùng thấy lỗi
@@ -108,8 +112,10 @@ export default async function handler(req: Req, res: Res): Promise<void> {
 
   const dong: Array<[string, string]> = [
     ['Tên', ten],
+    ...(donvi ? [['Đơn vị / Doanh nghiệp', donvi] as [string, string]] : []),
     ['Email', email],
     ['Số điện thoại', sdt],
+    ...(linhvuc ? [['Lĩnh vực', linhvuc] as [string, string]] : []),
     ['Mô tả vấn đề', mota || '(để trống)'],
   ];
 

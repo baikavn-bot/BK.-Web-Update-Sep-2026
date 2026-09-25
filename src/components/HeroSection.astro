@@ -69,7 +69,7 @@ const uid = Math.random().toString(36).slice(2, 8);
 
   <div class="hero__planet" aria-hidden="true">
     <div class="hero__globe"></div>
-    <div class="hero__nebula"><NebulaLight width="695px" /></div>
+    <div class="hero__nebula"><NebulaLight width="694.5px" /></div>
   </div>
 
   {/* ─── Tên trang, chạy theo cung tròn ───────────────────────────────
@@ -85,11 +85,20 @@ const uid = Math.random().toString(36).slice(2, 8);
             điểm giữa cung nằm đúng đỉnh. */}
         <path id={`arc-${uid}`} fill="none"
               d="M 0 319.5 A 691 319.5 0 0 1 1382 319.5" />
+        {/* ⚠️ SỬA 25/09 — Thắng đưa CSS gốc từ Figma:
+              `linear-gradient(180deg, --tru-trung 0%, --tru-dam alpha-0 15.57%)`
+            Tức gradient chạy **DỌC** (trên xuống) và **tắt rất sớm** — hết màu
+            ở 15.57% chiều cao khung, tức y ≈ 99.5 trên khung cao 639.
+            Bản trước em cho chạy NGANG vì đoán từ ảnh render (nhìn thấy chữ
+            bên phải tối hơn nên tưởng là ngang). Thật ra chữ tối dần **xuống
+            dưới** — chữ "nghiệp" trông tối hơn vì nó tụt thấp trên cung tròn,
+            không phải vì nó nằm bên phải. Bài học: đừng đoán hướng gradient
+            từ ảnh, đọc ma trận hoặc xin CSS gốc. */}
         <linearGradient id={`arcfill-${uid}`}
-                        x1="0" y1="0" x2="1382" y2="0"
+                        x1="0" y1="0" x2="0" y2="639"
                         gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="var(--tru-trung)" stop-opacity="1" />
-          <stop offset="1" stop-color="var(--tru-dam)" stop-opacity="0" />
+          <stop offset="0"      stop-color="var(--tru-trung)" stop-opacity="1" />
+          <stop offset="0.1557" stop-color="var(--tru-dam)"   stop-opacity="0" />
         </linearGradient>
       </defs>
       <text fill={`url(#arcfill-${uid})`} text-anchor="middle">
@@ -120,9 +129,11 @@ const uid = Math.random().toString(36).slice(2, 8);
     min-height: 680px;
     padding: 401px var(--le-trang) 61px;
     box-sizing: border-box;
-    /* Cắt hoạ tiết tràn viền. Nút bên trong nằm giữa màn, cách mép rất xa,
-       nên quầng sáng focus của nó không bị cắt. */
-    overflow: hidden;
+    /* ⚠️ KHÔNG cắt ở đây nữa — Thắng chốt 25/09: *"không được phép để
+       section nào che hoặc cắt các vector/element trang trí"*.
+       Việc chặn cuộn ngang chuyển lên tầng trang (`main`), cắt MỘT lần
+       theo chiều ngang thay vì mỗi section tự cắt cả bốn phía.
+       Xem ServicePageLayout.astro. */
     background: var(--gray-950);
   }
 
@@ -143,19 +154,32 @@ const uid = Math.random().toString(36).slice(2, 8);
      Ảnh sao là kết cấu tối, nhiễu cao, tương phản thấp: đúng loại mà
      vết nén giấu được trong chính cái nhiễu. Ngược hẳn với logo (nét
      sắc, nền phẳng) — chỗ đó phải để chất lượng cao. */
+  /* ✅ ĐỌC LẠI BẰNG DEV MODE 25/09 — em hiểu sai câu của Thắng.
+     *"Milkyway: Full view weight-height"* nghĩa là **tấm ảnh phủ kín khung
+     chứa nó** (`size-full` + `object-cover`), KHÔNG phải khung phủ kín màn.
+     Dev Mode ghi rõ: khung `w-[1280px] h-[694px]`, căn giữa ngang, còn ảnh
+     bên trong mới là `inset-0 object-cover size-full`.
+     Bản giữa em cho `inset: 0` phủ cả section — sai theo hướng ngược lại.
+
+     🔴 VÀ MỘT THỨ EM BỎ SÓT HOÀN TOÀN: **`mix-blend-overlay`**.
+     Ảnh sao KHÔNG nằm đè lên nền — nó *hoà* vào lớp bên dưới. Chỗ nền tối
+     thì sao chìm đi, chỗ nền sáng thì sao nổi lên. Đọc thuộc tính thô
+     không bao giờ thấy được điều này; chỉ Dev Mode mới nói. */
   .hero__stars {
     position: absolute;
     top: 0;
     left: 50%;
     width: 1280px;
-    height: 470px;
+    height: 470px;                     /* 694 trong bản vẽ; 224px cuối bị
+                                          vòng cung che, đã cắt — xem DEC-098 */
     transform: translateX(-50%);
     background-image: image-set(
       url('/img/hero-stars.webp') 1x,
       url('/img/hero-stars@2x.webp') 2x
     );
-    background-size: 1280px 470px;
+    background-size: cover;
     background-repeat: no-repeat;
+    mix-blend-mode: overlay;
     pointer-events: none;
   }
 

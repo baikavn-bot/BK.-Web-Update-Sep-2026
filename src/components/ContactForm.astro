@@ -15,6 +15,16 @@
 // ⚠️ Code bên dưới được **cắt nguyên văn** từ `lien-he.astro`, không gõ lại
 //    một dòng nào. Gõ lại là cơ hội tạo lỗi mới trên một thứ đang chạy tốt.
 //
+// ─── HAI DẠNG — Thắng chốt 25/09 sau khi đọc Figma bằng Dev Mode ─────
+//   `lien-he`  4 trường · một cột · nút "liên hệ"
+//   `dich-vu`  6 trường · hai cột · nút "Đăng ký rà soát"
+//              (thêm "Đơn vị / Doanh nghiệp" và "Lĩnh vực" dạng dropdown)
+//
+// Phát hiện muộn: lúc tách component em tưởng hai form giống hệt nhau.
+// Dev Mode cho thấy form ở 7 trang dịch vụ có **6 trường**, không phải 4.
+// Vẫn giữ MỘT bản code vì phần khó (JS kiểm dữ liệu, ba trạng thái, xử lý
+// lỗi theo mã HTTP) hai dạng dùng chung y hệt.
+//
 // ─── Ba trạng thái, đúng ba frame `Form States` 645:3184 ─────────────
 //   Submitting → khoá mọi ô, nút đổi chữ "Đang gửi…"
 //   Success    → CẢ form biến mất, thay bằng khối xác nhận
@@ -30,6 +40,35 @@
 import TextField from './TextField.astro';
 import Checkbox from './Checkbox.astro';
 import Button from './Button.astro';
+
+interface Props {
+  /**
+   * Hai dạng form — Thắng chốt 25/09 (xem DEC-101):
+   *
+   *   `lien-he`  4 trường, một cột, nút "liên hệ"
+   *              → dùng ở trang `/lien-he`
+   *   `dich-vu`  6 trường, hai cột, nút "Đăng ký rà soát"
+   *              → dùng ở section Contact của 7 trang dịch vụ
+   *
+   * Vì sao KHÔNG tách thành hai component: phần khó của form nằm ở đoạn JS
+   * (kiểm dữ liệu, ba trạng thái, xử lý lỗi theo mã HTTP) — chỗ đó hai dạng
+   * dùng chung y hệt. Tách ra là có hai bản của đoạn khó, đúng cái vừa gộp
+   * lại hôm nay. Khác nhau chỉ ở **danh sách ô**, nên để một prop là đủ.
+   */
+  variant?: 'lien-he' | 'dich-vu';
+  /**
+   * Danh sách lựa chọn cho ô "Lĩnh vực" (chỉ dạng `dich-vu`).
+   *
+   * ⚠️ **CHƯA CÓ DANH SÁCH THẬT.** Figma chỉ vẽ ô dropdown với chữ gợi ý
+   *    "Lĩnh vực", không ghi các lựa chọn bên trong. Em KHÔNG tự bịa danh
+   *    sách ngành nghề — đó là nội dung kinh doanh, không phải kỹ thuật.
+   *    Bỏ trống thì ô vẫn hiện nhưng chỉ có dòng gợi ý. Cần Thắng cung cấp.
+   */
+  linhVucOptions?: string[];
+}
+const { variant = 'lien-he', linhVucOptions = [] } = Astro.props;
+
+const laDichVu = variant === 'dich-vu';
 ---
 
         <form class="cform" id="contact-form" novalidate>
@@ -40,10 +79,28 @@ import Button from './Button.astro';
             <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
           </div>
 
-          <TextField id="ten"   name="ten"   label="Tên"            required autocomplete="name" />
-          <TextField id="email" name="email" label="Email"          type="email" required autocomplete="email" />
-          <TextField id="sdt"   name="sdt"   label="Số điện thoại"  type="tel"   required autocomplete="tel" />
-          <TextField id="mota"  name="mota"  label="Mô tả vấn đề"   multiline height={178} />
+          {laDichVu ? (
+            <>
+              {/* Figma `382:8965`: hai hàng, mỗi hàng hai ô, cách nhau 24. */}
+              <div class="cform__row">
+                <TextField id="ten"   name="ten"   label="Tên" required autocomplete="name" />
+                <TextField id="donvi" name="donvi" label="Đơn vị / Doanh nghiệp" autocomplete="organization" />
+              </div>
+              <div class="cform__row">
+                <TextField id="email" name="email" label="Email" type="email" required autocomplete="email" />
+                <TextField id="sdt"   name="sdt"   label="Số điện thoại" type="tel" required autocomplete="tel" />
+              </div>
+              <TextField id="linhvuc" name="linhvuc" label="Lĩnh vực" options={linhVucOptions} />
+              <TextField id="mota" name="mota" label="Mô tả vấn đề" multiline height={150} />
+            </>
+          ) : (
+            <>
+              <TextField id="ten"   name="ten"   label="Tên"            required autocomplete="name" />
+              <TextField id="email" name="email" label="Email"          type="email" required autocomplete="email" />
+              <TextField id="sdt"   name="sdt"   label="Số điện thoại"  type="tel"   required autocomplete="tel" />
+              <TextField id="mota"  name="mota"  label="Mô tả vấn đề"   multiline height={178} />
+            </>
+          )}
 
           <Checkbox id="dongy" name="dongy" required>
             Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật
@@ -53,8 +110,8 @@ import Button from './Button.astro';
               `Form · Error`. Mọi thứ khách đã gõ được giữ nguyên. */}
           <p class="cform__alert" id="form-alert" role="alert" hidden></p>
 
-          <div class="cform__submit">
-            <Button label="liên hệ" />
+          <div class="cform__submit" data-align={laDichVu ? 'phai' : 'trai'}>
+            <Button label={laDichVu ? 'Đăng ký rà soát' : 'liên hệ'} />
           </div>
         </form>
 
@@ -91,6 +148,21 @@ import Button from './Button.astro';
   }
 
   .cform__submit { display: flex; }
+  /* Figma: ở form trang dịch vụ nút dạt về mép PHẢI (`items-end`),
+     còn ở trang Liên hệ nó nằm bên trái. */
+  .cform__submit[data-align='phai'] { justify-content: flex-end; }
+
+  /* Hàng hai ô — chỉ có ở dạng `dich-vu`. Dưới 768 thì xếp dọc, vì hai ô
+     nhập cạnh nhau trên màn 375 thì mỗi ô còn ~150px, gõ không nhìn thấy gì. */
+  .cform__row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);                   /* 24 */
+  }
+  .cform__row > :global(.field) { flex: 1 1 0; min-width: 0; }
+  @media (min-width: 768px) {
+    .cform__row { flex-direction: row; }
+  }
 
   /* Dải báo lỗi — Figma dùng instance `Badge` trong frame `Form · Error`.
      Số đo: cao 35 · bo góc 8 · viền 1px --red-200 · nền --red-200 @30%

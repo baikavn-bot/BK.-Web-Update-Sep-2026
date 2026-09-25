@@ -211,6 +211,11 @@ const {
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
+    /* 🔴 BỎ SÓT — Dev Mode 25/09: chữ này có **`mix-blend-overlay`**.
+       Đây là lý do trong Figma nó *tan vào* vòng cung hành tinh chứ không
+       nằm đè lên như một lớp chữ bình thường. Thiếu dòng này thì chữ trông
+       "dán lên", khác hẳn cảm giác bản vẽ. */
+    mix-blend-mode: overlay;
     user-select: none;
   }
 
@@ -224,9 +229,11 @@ const {
   .ft__block {
     display: flex;
     flex-direction: column;
-    /* Figma ghi 7. Thang --s-* không có bậc 7; dùng 8 (--s-2), lệch 1px
-       không nhìn ra. Cùng loại với việc Thắng vừa đổi 14 → 12. */
-    gap: var(--s-2);
+    /* Dev Mode ghi thẳng `gap-[7px]` — đúng 7, không phải một token.
+       Bản trước em làm tròn lên 8 cho "sạch thang"; giờ theo đúng bản vẽ.
+       Đây là giá trị ngoài thang --s-*, cùng loại với 14 mà Thắng đã sửa
+       về 12 — nếu muốn sạch thì sửa Figma về 8, em đổi lại một dòng. */
+    gap: 7px;
     max-width: 300px;
   }
   .ft__block--contact {

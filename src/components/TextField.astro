@@ -28,6 +28,17 @@ interface Props {
   type?: 'text' | 'email' | 'tel';
   /** true → render <textarea> thay cho <input>. */
   multiline?: boolean;
+  /**
+   * Danh sách lựa chọn. Có mảng này → render <select> thay cho <input>.
+   * Figma gọi dạng này là `Text field · Type=Dropdown`, dùng cho ô "Lĩnh vực"
+   * ở form trang dịch vụ.
+   *
+   * ⚠️ Dùng <select> THẬT của trình duyệt, không tự dựng menu bằng JS.
+   *    Lý do: <select> đã có sẵn bàn phím, trình đọc màn hình, và trên điện
+   *    thoại nó mở bánh xe chọn quen thuộc của hệ điều hành. Tự dựng lại là
+   *    phải làm lại toàn bộ những thứ đó, và gần như luôn làm thiếu.
+   */
+  options?: string[];
   required?: boolean;
   autocomplete?: string;
   /** Chiều cao ô nhiều dòng. Figma: 178px. */
@@ -35,7 +46,7 @@ interface Props {
 }
 const {
   id, name, label, type = 'text',
-  multiline = false, required = false, autocomplete, height,
+  multiline = false, required = false, autocomplete, height, options,
 } = Astro.props;
 ---
 
@@ -52,7 +63,26 @@ const {
   </label>
 
   <div class="field__box" style={height ? `min-height: ${height}px` : undefined}>
-    {multiline ? (
+    {options ? (
+      <select
+        class="field__input field__input--select"
+        id={id}
+        name={name}
+        required={required}
+        aria-describedby={`${id}-err`}
+      >
+        {/* Dòng đầu đóng vai chữ gợi ý. `value=""` để `required` của trình
+            duyệt vẫn bắt được khi chưa chọn gì.
+
+            ⚠️ KHÔNG đặt `disabled` cho dòng này — đã thử và hỏng: trình duyệt
+            không chọn được một `<option disabled>`, nên `selectedIndex` thành
+            −1, ô hiện **trống trơn** thay vì hiện chữ "Lĩnh vực", và FormData
+            bỏ luôn ô này khi gửi. Bắt được nhờ đọc nội dung thật gửi lên —
+            nhìn giao diện không thấy. */}
+        <option value="" selected>{label}</option>
+        {options.map((o) => <option value={o}>{o}</option>)}
+      </select>
+    ) : multiline ? (
       <textarea
         class="field__input field__input--multi"
         id={id}
@@ -85,6 +115,26 @@ const {
     flex-direction: column;
     gap: var(--s-1);          /* Figma: gap 4 */
   }
+
+  /* Dạng <select>: mũi tên mặc định của trình duyệt khác nhau ở mỗi hệ, nên
+     tắt đi rồi tự vẽ một mũi tên bằng nền — giữ cho ba khổ màn giống nhau.
+     Mũi tên vẽ bằng gradient chứ không dùng ảnh, để đổi màu theo token. */
+  .field__input--select {
+    appearance: none;
+    cursor: pointer;
+    padding-right: var(--s-6);
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--gray-50) 50%),
+      linear-gradient(135deg, var(--gray-50) 50%, transparent 50%);
+    background-position:
+      right 10px top 50%,
+      right 4px top 50%;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+  }
+  /* Khi chưa chọn gì thì chữ mờ như chữ gợi ý của các ô khác. */
+  .field__input--select:invalid { color: var(--gray-400); }
+  .field__input--select option { color: var(--gray-950); }
 
   .field__box {
     display: flex;
