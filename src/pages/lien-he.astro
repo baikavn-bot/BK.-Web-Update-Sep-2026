@@ -189,18 +189,24 @@ const socials = [
   }
 
   /* --- Khối nội dung --------------------------------------------------
-     Figma: bắt đầu ở y = 240 trên cả ba breakpoint (dưới header 128). */
+     Bắt đầu ở y = 200 trên cả ba breakpoint — Thắng chốt 25/09.
+     (Figma đo được 240; 200 là con số mới, đã cập nhật ở đây.)
+     Header cao 128, nên còn 72px thở giữa header và dòng chữ đầu tiên.
+
+     ⚠️ 200 không nằm trong thang --s-* (thang dừng ở 96). Đây là toạ độ
+     bố cục của một section, không phải khoảng cách giữa hai thành phần —
+     cùng loại với 240px của bản trước. */
   .contact {
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
     gap: var(--s-10);            /* Figma gap 40 */
-    padding: 240px var(--s-6) var(--s-16);
+    padding: 200px var(--s-6) var(--s-16);
   }
 
   @media (min-width: 768px) {
-    .contact { padding: 240px var(--s-10) var(--s-16); }
+    .contact { padding: 200px var(--s-10) var(--s-16); }
   }
 
   /* Desktop — Figma `Contact Section`:
@@ -208,19 +214,23 @@ const socials = [
        hai cột FIXED: thông tin 560 · form 600
      1280 − 80 padding = 1200 chỗ trống; 560 + 600 = 1160 → cách nhau đúng 40.
 
-     `max-width` + `margin-inline: auto`: từ 1280px trở lên nội dung DỪNG
-     giãn và căn giữa. Khác trang chủ (lưới bento tràn viền) — ở đây là
-     chữ và form, dòng chữ dài quá thì khó đọc. */
+     KHÔNG giới hạn bề ngang — Thắng chốt 25/09: "Contact Section: Fill Page".
+     Khối trải hết màn hình, giống lưới bento ở trang chủ.
+
+     Hai cột giãn theo ĐÚNG TỈ LỆ thiết kế nhờ `flex-grow` đặt bằng chính
+     số đo Figma: 560 và 600. Ở màn 1280 chúng ra đúng 560 và 600; ở màn
+     rộng hơn chúng nở ra nhưng vẫn giữ nguyên tỉ lệ 48.3% / 51.7%.
+
+     Vì sao không để cố định 560/600 rồi `space-between`: trên màn 1920 sẽ
+     hở một khoảng trống ~760px giữa hai cột. */
   @media (min-width: 1280px) {
     .contact {
       flex-direction: row;
       justify-content: space-between;
       align-items: flex-start;
-      max-width: var(--container-max);   /* 1280 */
-      margin-inline: auto;
     }
-    .contact__info     { flex: 0 0 560px; }
-    .contact__formwrap { flex: 0 0 600px; }
+    .contact__info     { flex: 560 1 0; }
+    .contact__formwrap { flex: 600 1 0; }
   }
 
   /* --- Cột thông tin --------------------------------------------------- */
