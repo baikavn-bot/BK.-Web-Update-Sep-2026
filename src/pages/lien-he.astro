@@ -217,20 +217,34 @@ const socials = [
      KHÔNG giới hạn bề ngang — Thắng chốt 25/09: "Contact Section: Fill Page".
      Khối trải hết màn hình, giống lưới bento ở trang chủ.
 
-     Hai cột giãn theo ĐÚNG TỈ LỆ thiết kế nhờ `flex-grow` đặt bằng chính
-     số đo Figma: 560 và 600. Ở màn 1280 chúng ra đúng 560 và 600; ở màn
-     rộng hơn chúng nở ra nhưng vẫn giữ nguyên tỉ lệ 48.3% / 51.7%.
+     Hai cột CỐ ĐỊNH 560 và 600, `flex-shrink: 0` — Thắng chốt 25/09,
+     đúng như Figma đặt (hai con FIXED trong khung SPACE_BETWEEN).
 
-     Vì sao không để cố định 560/600 rồi `space-between`: trên màn 1920 sẽ
-     hở một khoảng trống ~760px giữa hai cột. */
+     Hệ quả: khối trải hết màn nhưng hai cột không nở theo. Trên màn 1920
+     chúng bị đẩy về hai mép, chừa khoảng trống ~680px ở giữa — chỗ đó là
+     nền artwork và chữ "Contact". Đây là chủ ý, không phải lỗi bố cục. */
   @media (min-width: 1280px) {
     .contact {
       flex-direction: row;
       justify-content: space-between;
       align-items: flex-start;
     }
-    .contact__info     { flex: 560 1 0; }
-    .contact__formwrap { flex: 600 1 0; }
+
+    /* Figma `Contact Information`: flex dọc · 560 · gap 40 · canh trái */
+    .contact__info {
+      width: 560px;
+      flex-shrink: 0;
+      align-items: flex-start;
+    }
+
+    /* Figma `Form Container`: flex dọc · 600 · gap 24 · canh trái.
+       Không đặt `align-items: flex-start` ở đây — các ô nhập bên trong
+       phải trải hết 600 (trong Figma chúng để sizing FILL). Nút "liên hệ"
+       đã tự hug trái nhờ `.cform__submit`. */
+    .contact__formwrap {
+      width: 600px;
+      flex-shrink: 0;
+    }
   }
 
   /* --- Cột thông tin --------------------------------------------------- */
