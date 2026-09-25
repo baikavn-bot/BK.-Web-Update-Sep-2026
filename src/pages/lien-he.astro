@@ -98,7 +98,9 @@ const socials = [
             Figma `Form · Success`: nếu form vẫn nằm đó, khách tưởng chưa
             gửi được và gửi lại. */}
         <div class="cform__done" id="contact-done" hidden>
-          <h2 class="cform__donetitle">Đã nhận thông tin của bạn</h2>
+          {/* tabindex="-1" để JS chuyển được con trỏ vào đây sau khi gửi
+              xong — trình đọc màn hình nhờ vậy đọc ngay lời xác nhận. */}
+          <h2 class="cform__donetitle" tabindex="-1">Đã nhận thông tin của bạn</h2>
           <p class="cform__donebody">
             BAIKA sẽ liên hệ trong vòng 24 giờ làm việc. Nếu cần gấp hơn,
             gọi trực tiếp hotline <a href="tel:+84905247365">0905 247 365</a>.
@@ -464,22 +466,57 @@ const socials = [
         return;
       }
 
+      // ⚠️ LẤY DỮ LIỆU TRƯỚC KHI KHOÁ FORM.
+      // `FormData` BỎ QUA mọi ô đang `disabled` — đó là quy định của HTML,
+      // không phải lỗi trình duyệt. Bản đầu gọi setBusy(true) trước rồi mới
+      // đọc FormData, nên gửi lên một object RỖNG và lần nào cũng hỏng.
+      const payload = Object.fromEntries(new FormData(form).entries());
+
       setBusy(true);
       try {
         const res = await fetch('/api/contact', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+          body: JSON.stringify(payload),
         });
-        if (!res.ok) throw new Error(String(res.status));
-        form.hidden = true;
-        done.hidden = false;
-        done.querySelector<HTMLElement>('.cform__donetitle')?.focus();
-      } catch {
+
+        if (res.ok) {
+          form.hidden = true;
+          done.hidden = false;
+          done.querySelector<HTMLElement>('.cform__donetitle')?.focus();
+          return;
+        }
+
+        // Hỏng ở đâu thì nói rõ ở đó — một câu chung chung cho mọi lỗi thì
+        // không ai sửa được, kể cả người dựng.
+        let chiTiet = '';
+        try {
+          const j = (await res.json()) as { error?: string };
+          chiTiet = j?.error ?? '';
+        } catch { /* máy chủ trả về không phải JSON — bỏ qua */ }
+
+        const theoMa: Record<number, string> = {
+          400: chiTiet || 'Dữ liệu gửi lên chưa hợp lệ.',
+          404: 'Chưa nối được tới máy chủ nhận form. Nếu đang chạy thử bằng `pnpm dev` ở máy thì đây là bình thường — phần nhận form chỉ chạy trên bản đã deploy.',
+          405: 'Máy chủ từ chối cách gửi này.',
+          500: 'Máy chủ chưa được cấu hình xong (thiếu biến môi trường).',
+          502: 'Dịch vụ gửi thư đang lỗi.',
+        };
+
+        // Thêm dấu chấm nếu câu trả về từ máy chủ chưa có — tránh hai câu
+        // dính liền thành một dòng khó đọc.
+        const cau = theoMa[res.status] ?? `máy chủ trả mã ${res.status}.`;
+        alertBox.textContent =
+          `Chưa gửi được — ${/[.!?]$/.test(cau) ? cau : cau + '.'} ` +
+          'Gọi trực tiếp 0905 247 365 nếu cần gấp.';
+        alertBox.hidden = false;
+        console.error('[form liên hệ] HTTP', res.status, chiTiet);
+      } catch (err) {
         // GIỮ NGUYÊN mọi thứ khách đã gõ — mất dữ liệu là mất luôn lead.
         alertBox.textContent =
-          'Chưa gửi được — lỗi kết nối. Thử lại sau ít phút, hoặc gọi trực tiếp 0905 247 365.';
+          'Chưa gửi được — mất kết nối mạng. Thử lại sau ít phút, hoặc gọi trực tiếp 0905 247 365.';
         alertBox.hidden = false;
+        console.error('[form liên hệ] không gọi được /api/contact', err);
       } finally {
         setBusy(false);
       }
