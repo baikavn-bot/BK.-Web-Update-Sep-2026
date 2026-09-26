@@ -157,53 +157,60 @@ const {
   .ft__wordmark {
     position: absolute;
     top: 129px;                    /* Mobile. Tablet 46 · Desktop 0 */
-    left: 50%;
-    transform: translateX(-50%);
+    /* Thắng chốt 26/09: khung chữ rộng **FULL VIEW**, lề 40 (mobile 24) —
+       không phải một khối căn giữa theo bề rộng chữ. Điều này quan trọng vì
+       gradient bên dưới tính theo BỀ NGANG KHUNG, không phải bề ngang chữ. */
+    left: var(--s-10);
+    right: var(--s-10);
     z-index: 1;                    /* NẰM TRÊN hoạ tiết, DƯỚI phần chữ đọc
                                       được — đúng thứ tự lớp trong Figma */
     margin: 0;
+    text-align: center;
     font-family: var(--font-display);
     font-weight: 900;              /* Be Vietnam Pro Black. Đã phải thêm
                                       `;900` vào link Google Fonts ở
                                       BaseLayout — trước đó chỉ nạp tới 700,
                                       trình duyệt sẽ bôi đậm giả. */
-    font-size: 26.6vw;             /* Mobile: 375 → 100 */
+    /* Cỡ chữ tính theo BỀ RỘNG KHUNG (đã trừ lề), không theo bề rộng màn.
+       Hệ số lấy từ ba khổ trong Figma:
+         mobile  375 − 48 = 327 · chữ 100 → 0,3058
+         tablet  768 − 80 = 688 · chữ 220 → 0,3198
+         desktop 1280 − 80 = 1200 · chữ 358 → 0,2983
+       Không chặn trần nữa: "full view" nghĩa là màn rộng bao nhiêu chữ to
+       bấy nhiêu. */
+    font-size: calc((100vw - 48px) * 0.3058);
     line-height: 0.85;             /* Figma: 85% */
     text-transform: uppercase;
     /* Bắt buộc MỘT dòng. Thiếu dòng này chữ xuống hàng thành "BAIK / A" —
        đã thấy thật khi chụp thử. */
     white-space: nowrap;
-    /* ⚠️ CHỖ NÀY KHÔNG LÀM THEO DEV MODE — đọc kỹ trước khi sửa.
-       Dev Mode ghi: gradient NGANG (trong suốt → trắng 50% ở 50,962% → trong
-       suốt) + `mix-blend-overlay`. Em đã dựng đúng y như vậy, rồi đo lại:
+    /* Gradient NGANG, nguyên văn CSS Thắng lấy từ Figma ngày 26/09:
+         linear-gradient(90deg,
+           rgba(255,255,255,0)    0%,
+           rgba(255,255,255,0.50) 50.96%,
+           rgba(255,255,255,0)    100%)
+       Viết lại bằng token theo luật repo (không có `#fff` trong CSS):
+       `--gray-50` là màu sáng nhất của hệ (#F8F8F8).
 
-         · Bản dựng theo Dev Mode : lệch **111/255** so với ảnh render Figma
-         · Bỏ `overlay`, tô dọc   : lệch **63/255**
+       ⚠️ Dev Mode còn ghi thêm `mix-blend-overlay`. Thắng đã xác nhận bản
+          Figma KHÔNG có dòng đó — CSS anh copy thẳng từ panel Figma chỉ có
+          gradient + background-clip. Đo cũng cho cùng kết luận: bật overlay
+          thì lệch 111/255 so với bản vẽ, tắt thì 63/255. `overlay` làm TỐI
+          khi nền dưới 50%, mà nền sau chữ gần như đen.
+          → KHÔNG thêm `mix-blend-mode` vào đây.
 
-       Lý do bản theo Dev Mode sai: phép trộn `overlay` LÀM TỐI khi nền phía
-       sau dưới 50%. Nền sau chữ ở đây gần như đen, nên chữ ra tối thui —
-       trong khi bản vẽ cho chữ SÁNG gần trắng đặc. Phép trộn đó về mặt toán
-       học không thể ra được thứ bản vẽ đang hiện.
-
-       Các mốc dưới đây ĐO TỪ ẢNH RENDER: dò dọc nét chữ "I" ở giữa và nét
-       đứng trái chữ "B" — sáng đều ~230–255 từ đỉnh xuống 62%, rồi tối dần
-       còn ~120 ở chân chữ.
-
-       📌 CẦN THẮNG XÁC NHẬN: anh mở Figma nhìn chân trang, chữ BAIKA SÁNG hay
-          TỐI? Nếu tối (tức Figma dựng đúng như Dev Mode nói, chỉ ảnh render
-          bị sai) thì đổi lại: xoá khối `background` này, trả về gradient ngang
-          50,962%, và thêm lại `mix-blend-mode: overlay`. Hai chỗ, một phút. */
+       `background-clip: text` biến nét chữ thành "cửa sổ" nhìn xuyên xuống
+       lớp gradient bên dưới. Vì gradient tính theo bề ngang KHUNG, hai đầu
+       chữ sẽ nhạt dần — đúng chủ ý bản vẽ. */
     background: linear-gradient(
-      180deg,
-      var(--gray-50) 0%,
-      var(--gray-50) 62%,
-      color-mix(in srgb, var(--gray-50) 95%, transparent) 76%,
-      color-mix(in srgb, var(--gray-50) 86%, transparent) 84%,
-      color-mix(in srgb, var(--gray-50) 66%, transparent) 95%,
-      color-mix(in srgb, var(--gray-50) 45%, transparent) 100%
+      90deg,
+      transparent 0%,
+      color-mix(in srgb, var(--gray-50) 50%, transparent) 50.96%,
+      transparent 100%
     );
     -webkit-background-clip: text;
             background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
     user-select: none;
   }
@@ -299,6 +306,10 @@ const {
   @media (max-width: 767px) {
     .ft { padding: var(--s-10) var(--s-6); }      /* lề ngang 24 */
 
+    /* Khung chữ BAIKA cũng theo lề 24 — gradient tính theo bề ngang khung
+       nên đổi lề là đổi cả dáng chữ. */
+    .ft__wordmark { left: var(--s-6); right: var(--s-6); }
+
     /* Hoạ tiết tụt lên 32px — Dev Mode: `top-[-32px]`. Cộng thêm 21px nhoè. */
     .ft__planet { top: -53px; }
 
@@ -328,8 +339,52 @@ const {
      ===================================================================== */
   @media (min-width: 768px) {
     .ft__wordmark {
-      font-size: 28.6vw;
+      left: var(--s-10);
+      right: var(--s-10);
+      font-size: calc((100vw - 80px) * 0.3198);
       top: 46px;
+    }
+  }
+
+  /* =====================================================================
+     ⚠️ MÀN RỘNG HƠN 1280 — hoạ tiết phải GIÃN THEO, không để cố định
+     ---------------------------------------------------------------------
+     Bản vẽ Figma chỉ có ba khổ 375 / 768 / 1280. File SVG rộng 1962, nghĩa
+     là ở khổ 1280 người vẽ chỉ nhìn thấy **phần giữa** của nó — hai bên rìa
+     nằm ngoài khung, chưa ai từng nhìn.
+
+     Ở màn 1920 thì rìa đó lộ ra, và nó có **hai vòng cung tách nhau**: trong
+     file có 4 nét vòng cung chồng lên nhau, bán kính lệch nhau một chút. Ở
+     giữa chúng trùng khít thành một nét; càng ra rìa càng tách, thành hai
+     đường song song cắt ngang cả khối địa chỉ. Thắng phát hiện 26/09.
+
+     → Từ 1280 trở lên, cho hoạ tiết giãn NGANG theo bề ngang màn
+       (1962 / 1280 = 153,281vw), GIỮ NGUYÊN chiều cao 1042.
+       Như vậy phần hiện ra luôn đúng là phần Figma đã vẽ, ở mọi bề ngang.
+       Giữ chiều cao cố định để đỉnh vòng cung vẫn nằm đúng chỗ cũ — nếu giãn
+       cả hai chiều thì ở màn 1920 đỉnh tụt xuống 576px, đè lên khối địa chỉ.
+       Vòng cung bẹt ra một chút, nhưng đây là hình mềm nên không ai nhận ra.
+
+     Dưới 1280 giữ nguyên 1962px cố định — đúng như Figma, vì ở khổ nhỏ hoạ
+     tiết vốn đã tràn ra ngoài hai bên rất nhiều và đó là chủ ý.
+     Tại đúng 1280 hai cách cho cùng một con số, nên không có bước nhảy.
+     ===================================================================== */
+  @media (min-width: 1280px) {
+    /* Phóng ĐỀU cả hai chiều theo bề ngang màn (1962/1280 và 1042/1280).
+       Giãn riêng một chiều KHÔNG ăn thua: file SVG có `viewBox` nên trình
+       duyệt tự giữ tỉ lệ và chừa viền, khung có rộng ra cũng vô ích.
+
+       Phóng đều thì đỉnh vòng cung tụt xuống, nên phải kéo khung lên đúng
+       bằng phần tụt đó: đỉnh nằm ở 405px trong file (384 + 21 nhoè), phóng
+       k lần thành 405k, muốn nó ở lại 384 thì `top = 384 − 405k`.
+       405/1280 = 0,31641 → `calc(384px - 31.641vw)`.
+
+       Kiểm ở đúng 1280: rộng 1962 · cao 1042 · top −21 — trùng khít giá trị
+       cố định bên trên, nên không có bước nhảy ở mốc breakpoint. */
+    .ft__planet {
+      width: 153.281vw;            /* 1962 / 1280 */
+      height: 81.406vw;            /* 1042 / 1280 */
+      top: calc(384px - 31.641vw);
     }
   }
 
@@ -339,7 +394,7 @@ const {
      ===================================================================== */
   @media (min-width: 1280px) {
     .ft__wordmark {
-      font-size: min(28vw, 358px);
+      font-size: calc((100vw - 80px) * 0.2983);
       top: 0;
     }
   }
