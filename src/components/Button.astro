@@ -52,11 +52,9 @@ const iconSize = { auto: 24, sm: 18, md: 20, lg: 24 }[size];
 
 <style>
   .btn {
-    /* ⚠️ #000000 CHƯA CÓ TRONG BỘ TOKEN — đo thẳng từ Figma.
-       `--gray-950` là #1E1E1E, không phải đen tuyệt đối.
-       Chờ Thắng quyết: thêm biến vào Figma, hay nắn về --gray-950.
-       (Hai màu lạc token còn lại đã hết hiệu lực từ khi xoá Button Background.) */
-    --btn-text: #000000;
+    /* 🔴 26/09 — Thắng đổi chữ Button 1 từ #000000 sang biến --gray-950
+       trong Figma (đã kiểm: cả 3 cỡ đều bind `--gray-950`). Hết màu lạc token. */
+    --btn-text: var(--gray-950);
 
     display: inline-flex;
     align-items: center;

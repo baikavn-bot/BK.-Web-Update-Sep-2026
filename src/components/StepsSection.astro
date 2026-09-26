@@ -56,16 +56,8 @@ interface Nhom {
 interface Props {
   heading?: string;
   groups: Nhom[];
-  /**
-   * Cỡ quầng sáng nền. Figma có HAI cỡ (đọc Plugin API 26/09):
-   *   'chuan' — 1000 × 1490 · 5 trang (Vận hành, Marketing, Tài chính,
-   *             Pháp lý, Đào tạo CEO)
-   *   'lon'   — 1199 × 1654 · riêng trang Tư vấn
-   * (Trang AI có cỡ thứ ba, làm khi dựng trang AI.)
-   */
-  quang?: 'chuan' | 'lon';
 }
-const { heading = 'BAIKA sẽ làm gì', groups, quang = 'chuan' } = Astro.props;
+const { heading = 'BAIKA sẽ làm gì', groups } = Astro.props;
 ---
 
 <section class="buoc sec">
@@ -74,7 +66,7 @@ const { heading = 'BAIKA sẽ làm gì', groups, quang = 'chuan' } = Astro.props
       `left/bottom` lại áp cho hộp TRƯỚC khi xoay. Gộp một lớp thì phải tự
       quy đổi ra một cặp số chẳng ai đối chiếu được với bản vẽ nữa.
       Lớp ngoài = khung bao, lớp trong = hình thật rồi mới xoay. */}
-  <span class={`buoc__quang buoc__quang--${quang}`} aria-hidden="true"><span class="buoc__quang-hinh"></span></span>
+  <span class="buoc__quang" aria-hidden="true"><span class="buoc__quang-hinh"></span></span>
 
   <h2 class="tieu-de-section buoc__heading">{heading}</h2>
 
@@ -83,7 +75,7 @@ const { heading = 'BAIKA sẽ làm gì', groups, quang = 'chuan' } = Astro.props
       <div class="buoc__nhom">
         <div class="buoc__trai">
           <h3 class="buoc__nhan">{g.title}</h3>
-          {g.no && <SoMo so={g.no} doDam={500} />}
+          {g.no && <SoMo so={g.no} />}
         </div>
 
         <div class="buoc__phai">
@@ -117,27 +109,17 @@ const { heading = 'BAIKA sẽ làm gì', groups, quang = 'chuan' } = Astro.props
          ra cùng chỗ nên không ai thấy; sang trang CEO (cao 1713) neo đáy làm
          quầng tụt xuống nửa dưới, trong khi Figma để nó ở nửa trên.
        · Đỉnh khung bao sau khi xoay: y = −423.175 — GIỐNG NHAU ở mọi trang.
-       · Có HAI cỡ, khai báo bằng biến bên dưới (xem prop `quang`).
+       · Cỡ 1000 × 1490. Trang Tư vấn trước đây to hơn (1199 × 1654) — Thắng
+         xác nhận là vẽ lệch, đã đồng bộ trong Figma 26/09 (cả 3 khổ màn).
+         Trang AI còn một cỡ riêng, xử lý khi dựng trang AI.
      Số đo = khung bao SAU khi xoay (Figma absoluteBoundingBox), hình thật
      bên trong xoay 127.118°.
 
      Ràng buộc `Scale` (Thắng chốt 26/09): ≤ 1280 dùng đúng px; > 1280 quy ra
      % bề ngang section để chỉ giãn NGANG. `min()`/`max()` tự chọn. */
-  .buoc__quang--chuan {
-    --q-trai: -319.700;                /* mép trái khung bao, px tại 1280 */
-    --q-rong: 1791.577;                /* rộng khung bao */
-    --q-cao: 1696.545px;               /* cao khung bao */
-    --q-hinh-rong: 55.817%;            /* 1000 / 1791.577 */
-    --q-hinh-cao: 1490px;
-  }
-  .buoc__quang--lon {
-    --q-trai: -439.817;
-    --q-rong: 2042.390;
-    --q-cao: 1954.175px;
-    --q-hinh-rong: 58.707%;            /* 1199.05 / 2042.39 */
-    --q-hinh-cao: 1653.903px;
-  }
   .buoc__quang {
+    --q-trai: -319.700;                /* mép trái khung bao, px tại 1280 */
+    --q-rong: 1791.577;                /* rộng khung bao sau khi xoay */
     position: absolute;
     /* Mobile (< 768): Figma Tư vấn mobile `450:5539` đặt hoạ tiết lệch hẳn
        lên trên và sang trái so với desktop: đỉnh −743, trái −805 (tức dời
@@ -150,12 +132,12 @@ const { heading = 'BAIKA sẽ làm gì', groups, quang = 'chuan' } = Astro.props
     align-items: center;
     justify-content: center;
     width: max(calc(var(--q-rong) * 1px), calc(var(--q-rong) / 12.8 * 1%));
-    height: var(--q-cao);
+    height: 1696.545px;                /* cao khung bao sau khi xoay */
     pointer-events: none;
   }
   .buoc__quang-hinh {
-    width: var(--q-hinh-rong);         /* giãn theo khung bao */
-    height: var(--q-hinh-cao);
+    width: 55.817%;                    /* 1000 / 1791.577 — giãn theo khung bao */
+    height: 1490px;
     border-radius: 50%;
     background: linear-gradient(
       185deg,
@@ -216,8 +198,8 @@ const { heading = 'BAIKA sẽ làm gì', groups, quang = 'chuan' } = Astro.props
     color: var(--blue-50);
   }
 
-  /* Số thứ tự to mờ: component dùng chung `SoMo` (Medium 500) — cùng style
-     với số trên thẻ dịch vụ. Thắng chốt 26/09. */
+  /* Số thứ tự to mờ: component dùng chung `SoMo` — giống hệt số trên thẻ
+     dịch vụ (Light, cùng gradient, cùng nhoè dần). Thắng chốt 26/09. */
 
   .buoc__phai {
     display: flex;

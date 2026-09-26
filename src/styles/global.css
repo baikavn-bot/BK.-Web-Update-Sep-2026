@@ -139,3 +139,20 @@ h3, .h3 {
   font-weight: var(--fw-h1);
   color: var(--gray-50);
 }
+
+/* --- Paint style Figma dùng ở NHIỀU component --------------------
+   Một biến = một paint style trong Figma. Sửa ở đây là mọi chỗ dùng style
+   đó đổi theo — giống sửa style trong Figma.
+
+   `Liner/Stroke/Black` (S:ff7c0499…): gradient DỌC trên → dưới,
+   #1E1E1E ở 40% → #333333 ở 100%. Đang dùng ở: nền gói dịch vụ (trạng thái
+   nghỉ) · khung menu mở trên header (Thắng đổi 26/09, thay 2 màu lạc token).
+   ⚠️ #333333 không có token → trộn --gray-900 85% + --gray-950 (ra đúng
+      #333333, cách đã dùng ở PricingCard từ trước). */
+:root {
+  --liner-stroke-black: linear-gradient(
+    180deg,
+    var(--gray-950) 40%,
+    color-mix(in srgb, var(--gray-900) 85%, var(--gray-950)) 100%
+  );
+}

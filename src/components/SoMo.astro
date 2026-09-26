@@ -16,22 +16,24 @@
 //     nhoè 0 tại (78.4%, 33.6%) khung chữ → nhoè 24 tại (20.6%, 80.4%)
 //     → chữ số bên phải gần như sắc, chữ số bên trái nhoè mạnh.
 //
+// 🔴 26/09 (lần 2) — Thắng chốt: chuẩn hoá HẲN theo số của thẻ dịch vụ,
+//    cả màu lẫn biến thể font. Trong Figma, 25 số của "BAIKA sẽ làm gì" đã
+//    đổi từ Medium + gradient trắng đặc sang **Light + đúng gradient của thẻ**.
+//    → Component không còn tuỳ chọn độ đậm: mọi số to mờ giống hệt nhau.
+//
 // CSS không có nhoè dần, nên dựng bằng 4 bản sao chồng khít nhoè 0 · 4 · 8 ·
 // 12px (12 = token `--blur-24`), mỗi bản chỉ hiện trên một dải chéo nhờ
 // `mask-image`. Dải tính cho khung chữ 123 × 120 (+ đệm 24px để quầng nhoè
-// không bị cắt): hướng 231.7°, điểm rõ 33.4%, điểm nhoè 71.4%. Số rộng hơn
-// (VD "04" Medium rộng 168) lệch góc vài độ — mắt không phân biệt được.
+// không bị cắt): hướng 231.7°, điểm rõ 33.4%, điểm nhoè 71.4% — đúng khung
+// "01" Light trong Figma. Số rộng hơn lệch góc vài độ, mắt không phân biệt được.
 interface Props {
   /** Chuỗi số, VD "01". */
   so: string;
-  /** Độ đậm, theo từng chỗ trong Figma: thẻ dịch vụ 300 (Light), "BAIKA sẽ
-   *  làm gì" 500 (Medium). */
-  doDam?: 300 | 500;
 }
-const { so, doDam = 300 } = Astro.props;
+const { so } = Astro.props;
 ---
 
-<span class="so-mo" style={`--do-dam:${doDam}`} aria-hidden="true">
+<span class="so-mo" aria-hidden="true">
   {[0, 1, 2, 3].map((i) => <span class={`so-mo__lop so-mo__lop--${i}`}>{so}</span>)}
 </span>
 
@@ -40,7 +42,7 @@ const { so, doDam = 300 } = Astro.props;
     display: grid;                     /* 4 bản chồng vào cùng một ô */
     font-family: var(--font-body);
     font-size: 120px;
-    font-weight: var(--do-dam);
+    font-weight: 300;                  /* Be Vietnam Pro Light — mọi chỗ */
     line-height: 1;
     pointer-events: none;
     user-select: none;

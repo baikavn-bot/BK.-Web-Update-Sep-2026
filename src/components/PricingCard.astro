@@ -132,11 +132,7 @@ import IconCheck from './IconCheck.astro';
        công tắc. Nhờ vậy gradient dài chỉ phải viết MỘT lần, sửa một chỗ
        là đổi cả ba trạng thái — thay vì chép đi chép lại ba lần rồi lệch
        nhau lúc nào không hay. */
-    --nen-nghi: linear-gradient(
-      180deg,
-      var(--gray-950) 40%,
-      color-mix(in srgb, var(--gray-900) 85%, var(--gray-950)) 100%
-    );
+    --nen-nghi: var(--liner-stroke-black);   /* paint style Figma — global.css */
     /* Tâm sáng ở đúng góc trên bên trái — tính từ ma trận gradient của
        Figma, ra (0%, −1.3%) với bán kính 109.5% × 109.4%. */
     --nen-sang: radial-gradient(

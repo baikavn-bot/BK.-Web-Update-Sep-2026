@@ -163,12 +163,9 @@ const menu = [
   .hdr[data-open='true'] .hdr__scrim { opacity: 0.94; }
 
   /* --- Khung menu -----------------------------------------------------
-     Figma `Frame 74`: 375×376, bo 12, gradient radial.
-     Tâm (−9.6%, −3.9%) và bán kính 119% × 114% tính từ ma trận gradient.
-
-     ⚠️ Hai màu chưa có token: #D9D9D9 (gần --gray-300 #D5D5D5) và
-     #7C7C7C (nằm giữa --gray-700 và --gray-600). Hai màu còn lại khớp
-     token: #363636 ≈ --gray-900 (#373737) · #1E1E1E = --gray-950. */
+     Figma `Frame 74`: 375×376, bo 12.
+     🔴 26/09 — Thắng thay nền gradient radial cũ (có 2 màu lạc token
+     #D9D9D9 · #7C7C7C) bằng paint style `Liner/Stroke/Black`. */
   .hdr__menu {
     position: absolute;
     top: 108px;
@@ -176,13 +173,7 @@ const menu = [
     width: min(375px, calc(100vw - 48px));
     padding: var(--s-2);
     border-radius: var(--r-md);
-    background: radial-gradient(
-      119% 114% at -9.6% -3.9%,
-      #D9D9D9 0%,
-      #7C7C7C 26%,
-      var(--gray-900) 77.9%,
-      var(--gray-950) 100%
-    );
+    background: var(--liner-stroke-black);   /* paint style Figma — global.css */
   }
   @media (min-width: 768px) {
     .hdr__menu { right: var(--s-10); }
