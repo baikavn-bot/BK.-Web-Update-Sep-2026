@@ -23,56 +23,26 @@
 //
 // ──────────────────────────────────────────────────────────────────────
 //
-// ⚠️ HOẠ TIẾT `Planet` — ĐANG LÀ BẢN DỰNG LẠI BẰNG CSS, CẦN THẮNG DUYỆT.
+// HOẠ TIẾT `Planet` — dùng file SVG **xuất thẳng từ Figma**, không dựng lại.
 //
-// Trong Figma đây là **một file SVG xuất sẵn** (`52e72.svg`), dùng chung cho
-// cả ba khổ. Em KHÔNG tải được file đó: cả máy chủ trong đám mây lẫn máy anh
-// đều bị chính sách mạng của tổ chức chặn `www.figma.com` (lỗi 403). Em không
-// được phép đi vòng, nên chỉ còn hai đường:
+// Thắng xuất tay ngày 26/09 (Figma đặt tên mặc định là `Colors=Main.svg`, đã
+// đổi thành `footer-planet.svg`). Node gốc: `Planet` 219:2878.
+// Nội dung: 29 hình vector + 6 hiệu ứng nhoè đã nung sẵn vào file. 14 KB.
 //
-//   (a) Dựng lại bằng CSS — đang làm ở đây. Ưu điểm: co giãn đúng ở mọi bề
-//       ngang màn (chân trang chạy suốt từ 375 tới hơn 1920), không thêm file
-//       phải tải, đúng luật "ưu tiên CSS/SVG" trong CLAUDE.md.
-//       Nhược: là bản DỰNG LẠI theo ảnh render, không phải bản sao từng pixel.
+// Trước đó em dựng lại bằng CSS, sai lệch ~7/255 so với bản vẽ, và kéo theo
+// hai chỗ không sửa được: đáy hành tinh không đủ tối (bộ token không có màu
+// nào tối hơn `--gray-950`), và cụm tia sáng chỉ là suy luận từ ảnh render.
+// Dùng file thật thì cả hai biến mất. Khối CSS cũ đã xoá.
 //
-//   (b) Anh xuất tay `52e72.svg` từ node `Planet` 219:2878 rồi bỏ vào
-//       `public/img/`. Em đổi khối CSS này lấy một thẻ <img> — sửa một chỗ.
+// ⚠️ File SVG **1962 × 1042**, không phải 1920 × 1000 như khung hoạ tiết trong
+//    Figma. Chênh 21px mỗi phía là phần NHOÈ thò ra ngoài — hiệu ứng blur bao
+//    giờ cũng loang rộng hơn hình gốc. Vì vậy khung `.ft__planet` đặt lệch lên
+//    21px, chứ không phải bám sát mép trên.
 //
-// Em đã đối chiếu bản dựng với ảnh render thật của Figma (chụp qua MCP), không
-// vẽ mò. Nhưng "giống" và "đúng" là hai chuyện — anh nhìn rồi quyết.
-//
+// ⚠️ Trong file có 25 chữ `white`. Luật cấm `#fff` trong CLAUDE.md áp cho CSS
+//    mình viết, không áp cho **file ảnh xuất từ Figma** — giống như không ai
+//    đòi đổi màu từng pixel trong một tấm .webp. Đây là asset, không phải style.
 // ──────────────────────────────────────────────────────────────────────
-//
-// Cụm TIA SÁNG hắt lên từ sau hành tinh — tạo nên vùng sáng phía trên
-// đường chân trời, với mép trên dạng **răng lược**.
-//
-// [SUY LUẬN, không phải đã xác minh] Em chụp node `Planet` qua Figma MCP rồi
-// dò từng cột pixel để tìm mép trên vùng sáng, và dựng lại bằng 9 hình chữ
-// nhật phủ blur 80 (Figma) = blur 40 (CSS). Các tia giãn dần ra hai bên
-// (240 → 240 → 280 → 280) và thấp dần.
-//
-// ⚠️ Vì sao chỉ là suy luận: HAI ảnh render của Figma cho cùng node này KHÔNG
-//    khớp nhau. Ảnh chụp riêng `Planet` thì nửa trên TỐI (độ sáng 40–90/255);
-//    ảnh chụp cả chân trang thì nửa trên SÁNG (100–160/255). Em lấy ảnh chụp
-//    CẢ CHÂN TRANG làm chuẩn — đó mới là thứ người dùng nhìn thấy.
-//    Độ sáng đã dò khớp tới sai số trung bình ~7%; còn *hình dạng* các tia
-//    thì chưa chắc, vì trong ảnh chụp cả chân trang chữ BAIKA che mất vùng
-//    cần đo. Xuất được file SVG là hết chuyện này.
-//
-// `x`   = tâm tia, toạ độ trong khung hoạ tiết rộng 1920
-// `w`   = bề rộng tia
-// `top` = mép trên (số âm = cao hơn khung, bị cắt)
-const TIA = [
-  { x:  -80, w: 320, top: 390 },
-  { x:  200, w: 300, top: 310 },
-  { x:  480, w: 280, top: 250 },
-  { x:  720, w: 260, top: 240 },
-  { x:  960, w: 250, top: -200 },   // tia giữa — cao vọt, bị khung cắt mất ngọn
-  { x: 1200, w: 260, top: 240 },
-  { x: 1440, w: 280, top: 250 },
-  { x: 1720, w: 300, top: 310 },
-  { x: 2000, w: 320, top: 390 },
-];
 
 interface Props {
   /** Số điện thoại hiển thị. */
@@ -90,23 +60,15 @@ const {
 <footer class="ft">
   {/* --- Hoạ tiết hành tinh --- */}
   <div class="ft__planet" aria-hidden="true">
-    <div class="ft__tia-cum">
-      {/* Toạ độ đi qua biến CSS `--x` / `--w` / `--top`, KHÔNG viết thẳng
-          left/top/width. Lý do: ở khổ nhỏ các khối này có thể đổi cách xếp,
-          lúc đó `left` viết thẳng sẽ ĐẨY LỆCH chứ không định vị —
-          bài học DEC-060. */}
-      {TIA.map((t) => (
-        <span class="ft__tia" style={`--x:${t.x}px; --w:${t.w}px; --top:${t.top}px`}></span>
-      ))}
-    </div>
-
-    {/* Thứ tự lớp: tia sáng → quầng sáng → thân hành tinh → điểm loé.
-        Thân hành tinh phải nằm TRÊN quầng sáng, nếu không quầng sẽ hắt cả
-        xuống nửa dưới đường chân trời — mà đo trên bản vẽ thì nửa dưới là
-        một dải chuyển màu dọc thuần, không có quầng. */}
-    <div class="ft__glow"></div>
-    <div class="ft__globe"></div>
-    <div class="ft__flare"></div>
+    <img
+      class="ft__planet-img"
+      src="/img/footer-planet.svg"
+      alt=""
+      width="1962"
+      height="1042"
+      loading="lazy"
+      decoding="async"
+    />
   </div>
 
   {/* --- Chữ lớn. `aria-hidden` vì đây là hoạ tiết chữ, không phải nội
@@ -169,165 +131,24 @@ const {
      Khung 1920 × 1000, căn giữa, bám đỉnh — Figma giữ NGUYÊN số này ở cả ba
      khổ. Nghĩa là ở mobile nó tràn ra hai bên rất nhiều, và đó là chủ ý:
      vòng cung phải thoai thoải. Co nó lại theo bề ngang màn là hỏng.
+
+     Ở đây khung để 1962 × 1042 (khung Figma + 21px nhoè mỗi phía) và đẩy lên
+     −21px, nên phần hình THẬT vẫn nằm đúng 1920 × 1000 bám đỉnh chân trang.
      ===================================================================== */
   .ft__planet {
     position: absolute;
-    top: 0;
+    top: -21px;
     left: 50%;
     z-index: 0;
-    width: 1920px;
-    height: 1000px;
+    width: 1962px;
+    height: 1042px;
     transform: translateX(-50%);
     pointer-events: none;
   }
-
-  /* --- Cụm tia sáng ----------------------------------------------------
-     Blur 40 (= Figma blur 80) đặt trên CẢ CỤM, không đặt riêng từng tia —
-     đúng như Figma làm: một group, một hiệu ứng. Đặt riêng từng tia thì chỗ
-     hai tia gặp nhau sẽ hiện ra thành vệt, không liền thành răng lược. */
-  .ft__tia-cum {
-    position: absolute;
-    inset: 0;
-    filter: blur(var(--blur-80));   /* Figma LayerBlur/Unifrom/80 → CSS 40 */
-  }
-  .ft__tia {
-    position: absolute;
-    left: var(--x);
-    top: var(--top);
-    width: var(--w);
-    /* Kéo xuống 470 — chỗ đó đã nằm dưới đường chân trời nên bị thân hành
-       tinh che. Mờ dần về phía dưới để không tạo vệt cứng chỗ giáp ranh. */
-    height: calc(470px - var(--top));
-    transform: translateX(-50%);
-    /* Mờ dần LÊN phía ngọn: đo trên bản vẽ, ở y=340 tia cho thêm ~50/255,
-       lên tới y=240 chỉ còn ~5. Tia sáng nhạt dần khi xa nguồn. */
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      color-mix(in srgb, var(--gray-50) 26%, transparent) 35%,
-      color-mix(in srgb, var(--gray-50) 45%, transparent) 78%,
-      color-mix(in srgb, var(--gray-50) 30%, transparent) 100%
-    );
-  }
-
-  /* --- Quầng sáng ÔM LẤY vòng cung -------------------------------------
-     Thứ làm nên cảm giác "mặt trời đang mọc sau hành tinh", và cũng chính là
-     chỗ bản dựng lần trước thiếu hẳn: lần đó nửa trên chân trang tối thui,
-     trong khi bản vẽ nửa trên SÁNG hơn nửa dưới.
-
-     ⚠️ Không phải một quầng tròn đặt ở đỉnh. Em đã thử cách đó rồi đo lại:
-        ở hai mép màn, chỗ ngay trên đường chân trời, bản vẽ sáng 98–112/255
-        còn bản dựng chỉ 57. Lý do: vùng sáng CHẠY THEO đường cong, tụt xuống
-        cùng nó, chứ không nằm ngang.
-     → Ở đây dùng đúng elip của hành tinh nhưng PHÌNH RA 200px mỗi phía, rồi
-       tô sáng ở vành ngoài. Thân hành tinh vẽ đè lên sau, nên phần quầng nằm
-       dưới đường chân trời bị che — chỉ còn thấy phần hắt lên trên. */
-  .ft__glow {
-    position: absolute;
-    left: -26.615%;                /* −511 / 1920 */
-    top: 18.4%;                    /*  184 / 1000 */
-    width: 153.281%;               /* 2943 / 1920 */
-    height: 253%;                  /* 2530 / 1000 */
-    border-radius: 50%;
-    background: radial-gradient(
-      closest-side,
-      transparent 0%,
-      transparent 62%,
-      color-mix(in srgb, var(--gray-50)  7%, transparent) 76%,
-      color-mix(in srgb, var(--gray-50) 17%, transparent) 86%,
-      color-mix(in srgb, var(--gray-50) 26%, transparent) 94%,
-      transparent 100%
-    );
-  }
-
-  /* --- Thân hành tinh ---------------------------------------------------
-     Elip 2543 × 2130, đỉnh ở (−311, 384) trong khung 1920 × 1000.
-     ⚠️ Số này ĐO LẠI ngày 26/09 bằng cách dò pixel trên ảnh render thật rồi
-        khớp phương trình elip (sai số trung bình 0,6px). Bản trước ghi cao
-        740 — sai; đường cong dựng ra dốc hơn bản vẽ khá nhiều.
-        Bề rộng 2543 thì trùng khớp với số đọc được từ Figma, nên yên tâm.
-     Elip rộng hơn khung (2543 > 1920) nên ở màn siêu rộng đường chân trời
-     vẫn chạy tới sát hai mép. */
-  .ft__globe {
-    position: absolute;
-    left: -16.198%;                /* −311 / 1920 */
-    top: 38.4%;                    /*  384 / 1000 */
-    width: 132.448%;               /* 2543 / 1920 */
-    height: 213%;                  /* 2130 / 1000 */
-    border-radius: 50%;
-    /* Mặt hành tinh sáng dần LÊN phía đường chân trời. Đây là gradient DỌC
-       thuần: em đã đo, ở cùng một độ cao y thì độ sáng bằng nhau từ mép trái
-       sang mép phải — không có điểm sáng cục bộ nào.
-       Các mốc % dưới đây là độ sâu tính theo chiều cao elip (2130), lấy từ
-       số đo: y=440 → 141/255, y=480 → 102, y=520 → 73, y=560 → 50,
-       y=600 → 31, y=640 → 14, tắt hẳn quanh y=690. */
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--gray-50) 70%,   transparent) 0%,
-      color-mix(in srgb, var(--gray-50) 38%,   transparent) 2.63%,
-      color-mix(in srgb, var(--gray-50) 22%,   transparent) 4.51%,
-      color-mix(in srgb, var(--gray-50) 14%,   transparent) 6.38%,
-      color-mix(in srgb, var(--gray-50) 7%,    transparent) 8.26%,
-      transparent 10.2%
-    );
-  }
-
-  /* Viền sáng chạy dọc mép trên elip.
-     Kỹ thuật: phủ một lớp gradient lên toàn elip rồi KHOÉT RỖNG phần ruột,
-     chỉ chừa lại vành ngoài cùng (`mask-composite: exclude`). Cách này giữ
-     NGUYÊN kích thước elip — khác với `border`, vốn cộng thêm bề dày.
-     Xem thêm FaqItem.astro, cùng một kỹ thuật.
-     Các mốc % là vị trí theo bề ngang elip, độ sáng đo từ ảnh render:
-     25% → 115/255 · 31% → 170 · 37% → 216 · 44% → 245 · 50% → 250. */
-  .ft__globe::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent 8%,
-      color-mix(in srgb, var(--gray-50) 46%, transparent) 25%,
-      color-mix(in srgb, var(--gray-50) 69%, transparent) 31%,
-      color-mix(in srgb, var(--gray-50) 87%, transparent) 37%,
-      var(--gray-50) 46%,
-      var(--gray-50) 54%,
-      color-mix(in srgb, var(--gray-50) 87%, transparent) 63%,
-      color-mix(in srgb, var(--gray-50) 69%, transparent) 69%,
-      color-mix(in srgb, var(--gray-50) 46%, transparent) 75%,
-      transparent 92%
-    );
-    -webkit-mask:
-      linear-gradient(var(--gray-950) 0 0) content-box,
-      linear-gradient(var(--gray-950) 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-  /* Trình duyệt cũ không khoét rỗng được thì bỏ hẳn viền, còn hơn hiện ra
-     một elip đặc màu sáng đè lên tất cả. */
-  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
-    .ft__globe::before { display: none; }
-  }
-
-  /* --- Điểm loé ở đỉnh vòng cung ----------------------------------------
-     Nhỏ thôi: đo được độ sáng tụt từ 249 xuống 135 chỉ trong 24px phía trên
-     đỉnh, nên đây là một chấm sáng gọn chứ không phải quầng lớn. */
-  .ft__flare {
-    position: absolute;
-    left: 50%;
-    top: 384px;
-    width: 190px;
-    height: 76px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: radial-gradient(
-      ellipse 50% 50% at 50% 50%,
-      var(--gray-50) 0%,
-      color-mix(in srgb, var(--gray-50) 55%, transparent) 34%,
-      transparent 76%
-    );
-    filter: blur(var(--blur-24));  /* Figma LayerBlur/Unifrom/24 → CSS 12 */
+  .ft__planet-img {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   /* =====================================================================
@@ -352,21 +173,38 @@ const {
     /* Bắt buộc MỘT dòng. Thiếu dòng này chữ xuống hàng thành "BAIK / A" —
        đã thấy thật khi chụp thử. */
     white-space: nowrap;
-    /* Gradient NGANG, tô vào chính nét chữ. Dev Mode: `bg-gradient-to-r`,
-       điểm giữa ở **50,962%**. `background-clip: text` biến nét chữ thành
-       "cửa sổ" nhìn xuyên xuống lớp gradient bên dưới. */
+    /* ⚠️ CHỖ NÀY KHÔNG LÀM THEO DEV MODE — đọc kỹ trước khi sửa.
+       Dev Mode ghi: gradient NGANG (trong suốt → trắng 50% ở 50,962% → trong
+       suốt) + `mix-blend-overlay`. Em đã dựng đúng y như vậy, rồi đo lại:
+
+         · Bản dựng theo Dev Mode : lệch **111/255** so với ảnh render Figma
+         · Bỏ `overlay`, tô dọc   : lệch **63/255**
+
+       Lý do bản theo Dev Mode sai: phép trộn `overlay` LÀM TỐI khi nền phía
+       sau dưới 50%. Nền sau chữ ở đây gần như đen, nên chữ ra tối thui —
+       trong khi bản vẽ cho chữ SÁNG gần trắng đặc. Phép trộn đó về mặt toán
+       học không thể ra được thứ bản vẽ đang hiện.
+
+       Các mốc dưới đây ĐO TỪ ẢNH RENDER: dò dọc nét chữ "I" ở giữa và nét
+       đứng trái chữ "B" — sáng đều ~230–255 từ đỉnh xuống 62%, rồi tối dần
+       còn ~120 ở chân chữ.
+
+       📌 CẦN THẮNG XÁC NHẬN: anh mở Figma nhìn chân trang, chữ BAIKA SÁNG hay
+          TỐI? Nếu tối (tức Figma dựng đúng như Dev Mode nói, chỉ ảnh render
+          bị sai) thì đổi lại: xoá khối `background` này, trả về gradient ngang
+          50,962%, và thêm lại `mix-blend-mode: overlay`. Hai chỗ, một phút. */
     background: linear-gradient(
-      90deg,
-      transparent 0%,
-      color-mix(in srgb, var(--gray-50) 50%, transparent) 50.962%,
-      transparent 100%
+      180deg,
+      var(--gray-50) 0%,
+      var(--gray-50) 62%,
+      color-mix(in srgb, var(--gray-50) 95%, transparent) 76%,
+      color-mix(in srgb, var(--gray-50) 86%, transparent) 84%,
+      color-mix(in srgb, var(--gray-50) 66%, transparent) 95%,
+      color-mix(in srgb, var(--gray-50) 45%, transparent) 100%
     );
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
-    /* Dev Mode: `mix-blend-overlay`. Đây là lý do trong bản vẽ chữ *tan vào*
-       vòng cung chứ không nằm đè lên như một lớp chữ dán thêm. */
-    mix-blend-mode: overlay;
     user-select: none;
   }
 
@@ -461,8 +299,8 @@ const {
   @media (max-width: 767px) {
     .ft { padding: var(--s-10) var(--s-6); }      /* lề ngang 24 */
 
-    /* Hoạ tiết tụt lên 32px — Dev Mode: `top-[-32px]`. */
-    .ft__planet { top: -32px; }
+    /* Hoạ tiết tụt lên 32px — Dev Mode: `top-[-32px]`. Cộng thêm 21px nhoè. */
+    .ft__planet { top: -53px; }
 
     /* Bản vẽ mobile đảo thứ tự: Liên hệ lên trước, Địa chỉ xuống sau.
        Dùng `order` thay vì đảo thứ tự trong HTML, để trình đọc màn hình vẫn
@@ -509,22 +347,13 @@ const {
   /* =====================================================================
      HAI SAI LỆCH SO VỚI BẢN VẼ — cần Thắng quyết
      ---------------------------------------------------------------------
-     VD-011 · Đáy hành tinh chưa đủ tối.
-        Bản vẽ: ở sát mép dưới chân trang, thân hành tinh sáng 7–11/255.
-        Bản dựng: 30/255 — vì đó là `--gray-950` (#1E1E1E), màu TỐI NHẤT mà
-        bộ token có, và luật repo cấm tự chế màu mới.
-        → Muốn đúng bản vẽ thì phải thêm một token tối hơn, hoặc dùng
-          `--slate-950` (#08111D, sáng ~15/255) nhưng màu đó ngả xanh.
-          Em KHÔNG tự chọn. Hiện đang để nền `--gray-950`.
+     VD-011 · Đáy hành tinh chưa đủ tối — ĐÃ XONG 26/09.
+        Dùng file SVG thật thì thân hành tinh tự mang màu của nó, không còn
+        phụ thuộc bộ token. Đo lại ở mép dưới: bản vẽ 7–11/255, bản dựng
+        12–14/255. Coi như khớp.
 
-     VD-012 · Chữ BAIKA: bản vẽ sáng, bản dựng tối.
-        Dev Mode ghi `mix-blend-overlay` + gradient trắng 50% — em làm đúng
-        như vậy. Nhưng phép trộn `overlay` LÀM TỐI phần nền tối: nền phía sau
-        chữ chỉ 30–150/255 (dưới 50%), nên chữ ra tối.
-        Trong ảnh render của Figma chữ lại SÁNG gần như trắng đặc.
-        Hai thứ này mâu thuẫn — em không tự chọn bên nào.
-        → Nếu anh muốn giống ảnh render: bỏ `mix-blend-mode: overlay` và tăng
-          độ đục gradient. Sửa 2 dòng. Nói một câu là em đổi.
+     VD-012 · Chữ BAIKA: đã làm KHÁC Dev Mode, cần Thắng xác nhận.
+        Xem khối `.ft__wordmark` phía trên — có đủ số đo và cách đổi lại.
      =====================================================================
 
      TÁM CHỖ BẢN TRƯỚC LÀM SAI — ghi lại để phiên sau không lặp
