@@ -69,7 +69,7 @@ const uid = Math.random().toString(36).slice(2, 8);
 
   <div class="hero__planet" aria-hidden="true">
     <div class="hero__globe"></div>
-    <div class="hero__nebula"><NebulaLight width="694.5px" /></div>
+    <div class="hero__nebula"><NebulaLight width="100%" /></div>
   </div>
 
   {/* ─── Tên trang, chạy theo cung tròn ───────────────────────────────
@@ -137,61 +137,65 @@ const uid = Math.random().toString(36).slice(2, 8);
     background: var(--gray-950);
   }
 
-  /* --- 1 · Nền sao ---------------------------------------------------
-     Figma: khung 1280×694 ở y=0, luôn căn giữa ngang, KHÔNG co theo màn.
-     Nên đặt bề ngang cố định 1280 rồi căn giữa, thay vì `cover`.
+  /* --- 1 · Nền sao (Milkyway) -----------------------------------------
+     🔴 SỬA 26/09 — Thắng chốt: *"Milkyway: Fill 100% (Scale)"*.
+     Bản trước để khung CỐ ĐỊNH 1280 rồi căn giữa → ở màn 1905 lộ rõ hai dải
+     tối hai bên, thấy được cả mép chữ nhật của tấm ảnh. Giờ khung rộng
+     100% màn, ảnh `cover` (phóng đều, cắt phần thừa) nên không bao giờ méo.
+       · màn 375–1280 : ảnh giữ cỡ thật 1280, cắt bớt hai bên — y như Figma
+       · màn > 1280   : ảnh phóng lên theo bề ngang, bám mép trên
 
-     ✂️ CHỈ DÙNG 470/694 CHIỀU CAO — đây là chỗ tiết kiệm lớn nhất.
-     Vòng cung hành tinh (elip 1920×727 đặt ở y=344, căn giữa) che kín
-     mọi thứ từ y=437 trở xuống — chỗ cao nhất của nó là hai mép màn,
-     tính ra đúng 437. Tức **257px cuối của ảnh không bao giờ ai thấy**.
-     Cắt bỏ phần đó giảm 32% dung lượng mà không mất một pixel nhìn được.
-     Lấy 470 thay vì 437 để chừa lề an toàn.
+     🔴 VÀ ẢNH PHẢI ĐỦ CAO. Hôm 25/09 em cắt ảnh chỉ còn 470px vì tính rằng
+     vòng cung che kín từ y=437 trở xuống. Con số 437 đó SAI — nó đến từ
+     hình elip sai (xem mục 2). Vòng cung đúng thì ở mép màn nằm tận y≈531,
+     nên cắt ở 470 sẽ lộ một dải không có sao. Đã lấy lại ảnh qua Figma MCP,
+     giờ đủ 680 (= chiều cao Hero; Figma vẽ 694, 14px cuối luôn bị vòng cung
+     che). 70 KB (1x) · 152 KB (2x).
 
-     Dung lượng sau khi cắt: **51 KB** (1x) · **125 KB** (2x).
-     Chất lượng nén để thấp (q55/q35) sau khi so bốn bản ở cỡ hiển thị
-     thật — bản 179 KB và bản 74 KB **không phân biệt được bằng mắt**.
-     Ảnh sao là kết cấu tối, nhiễu cao, tương phản thấp: đúng loại mà
-     vết nén giấu được trong chính cái nhiễu. Ngược hẳn với logo (nét
-     sắc, nền phẳng) — chỗ đó phải để chất lượng cao. */
-  /* ✅ ĐỌC LẠI BẰNG DEV MODE 25/09 — em hiểu sai câu của Thắng.
-     *"Milkyway: Full view weight-height"* nghĩa là **tấm ảnh phủ kín khung
-     chứa nó** (`size-full` + `object-cover`), KHÔNG phải khung phủ kín màn.
-     Dev Mode ghi rõ: khung `w-[1280px] h-[694px]`, căn giữa ngang, còn ảnh
-     bên trong mới là `inset-0 object-cover size-full`.
-     Bản giữa em cho `inset: 0` phủ cả section — sai theo hướng ngược lại.
-
-     🔴 VÀ MỘT THỨ EM BỎ SÓT HOÀN TOÀN: **`mix-blend-overlay`**.
-     Ảnh sao KHÔNG nằm đè lên nền — nó *hoà* vào lớp bên dưới. Chỗ nền tối
-     thì sao chìm đi, chỗ nền sáng thì sao nổi lên. Đọc thuộc tính thô
-     không bao giờ thấy được điều này; chỉ Dev Mode mới nói. */
+     `mix-blend-overlay` (Dev Mode): sao HOÀ vào lớp dưới, không nằm đè lên. */
   .hero__stars {
     position: absolute;
-    top: 0;
-    left: 50%;
-    width: 1280px;
-    height: 470px;                     /* 694 trong bản vẽ; 224px cuối bị
-                                          vòng cung che, đã cắt — xem DEC-098 */
-    transform: translateX(-50%);
+    inset: 0 0 auto 0;
+    height: 680px;
     background-image: image-set(
       url('/img/hero-stars.webp') 1x,
       url('/img/hero-stars@2x.webp') 2x
     );
     background-size: cover;
+    background-position: center top;
     background-repeat: no-repeat;
     mix-blend-mode: overlay;
     pointer-events: none;
   }
 
-  /* --- 2 · Vòng cung hành tinh ----------------------------------------
-     Figma: 1920×727 ở y=344, luôn căn giữa. Cùng họ với hoạ tiết ở chân
-     trang (SiteFooter) — xem DEC-092 về lý do dựng bằng CSS thay vì ảnh.
-     Khác ở đây: nét viền dày **4** (chân trang chỉ 1.5) và có thêm bóng. */
+  /* --- 2 · Vòng cung hành tinh --------------------------------------
+     Figma: khung `Planet` 1920 × 727 ở y=344, căn giữa.
+
+     🔴 SỬA 26/09 — hai lỗi, Thắng chỉ ra:
+
+     (a) HÌNH SAI. Bản trước vẽ một elip ĐẦY ĐỦ vừa khít khung 1920×727
+         (`border-radius: 50%`). Nhưng `Planet` là **NỬA TRÊN** của một elip —
+         vòm, đáy phẳng. Hai hệ quả:
+           · nửa dưới elip thò xuống, thành cái nền lạ phía sau section
+             "Bạn có đang gặp vấn đề này" (ảnh 2, ảnh 3 Thắng gửi)
+           · vòng cung quá DẸT. Đã kiểm trên ảnh Figma: ở mép màn 1280 (lệch
+             tâm 640px) vòng cung tụt 187px so với đỉnh. Elip đầy đủ cao 727
+             chỉ tụt 92px; nửa elip bán trục 960 × 727 tụt đúng **185px** ✓
+         → Vẽ elip đầy đủ 1920 × **1454** rồi CẮT BỎ nửa dưới bằng `clip-path`.
+           Dùng clip-path chứ không dùng `overflow: hidden` vì phải chừa chỗ
+           cho quầng sáng hắt NGƯỢC LÊN phía trên đỉnh vòm.
+
+     (b) KHÔNG GIÃN THEO MÀN. Thắng chốt *"Planet Hero: Scale"*.
+         Theo đúng nghĩa ràng buộc `Scale` của Figma: khung cha chỉ rộng ra
+         (Hero luôn cao 680) thì hoạ tiết chỉ giãn NGANG, chiều cao giữ nguyên.
+           · ≤ 1280 : cố định 1920 — đúng số đo cả ba khổ Figma
+           · > 1280 : 150% bề ngang màn (= 1920/1280) — tại 1280 hai cách ra
+                      cùng một số nên không có bước nhảy */
   .hero__planet {
     position: absolute;
     top: 344px;
     left: 50%;
-    width: 1920px;
+    width: max(1920px, 150vw);
     height: 727px;
     transform: translateX(-50%);
     pointer-events: none;
@@ -199,19 +203,22 @@ const uid = Math.random().toString(36).slice(2, 8);
 
   .hero__globe {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1454px;                    /* elip đầy đủ = 2 × 727 */
     border-radius: 50%;
+    /* Cắt đúng nửa dưới (727px tính từ đáy), ba phía còn lại nới rộng ra
+       400px để quầng sáng hắt lên không bị cắt. */
+    clip-path: inset(-400px -400px 727px -400px);
     /* Figma chồng hai lớp tô: nền --gray-950 đặc, rồi một dải sáng đổ từ
-       mép trên xuống, tắt hẳn ở khoảng y=193 (≈27% chiều cao).
-       ⚠️ Lớp sáng đó có **độ đục riêng 0.15** — con số nằm ở thuộc tính
-       `opacity` CỦA LỚP TÔ, tách rời khỏi alpha trong mã màu. Bản đầu em
-       bỏ sót và áp trắng 100%: vòng cung sáng loá, che mất nửa Hero.
-       Đã chụp ảnh so sánh mới phát hiện. Xem DEC-094. */
+       mép trên xuống, tắt ở y≈196 (27% của 727).
+       ⚠️ Lớp sáng có **độ đục riêng 0.15** tách khỏi alpha màu — DEC-094. */
     background:
       linear-gradient(
         180deg,
-        color-mix(in srgb, var(--gray-50) 15%, transparent) 0%,
-        color-mix(in srgb, var(--gray-950) 0%, transparent) 27%
+        color-mix(in srgb, var(--gray-50) 15%, transparent) 0,
+        color-mix(in srgb, var(--gray-950) 0%, transparent) 196px
       ),
       var(--gray-950);
     /* Figma: INNER_SHADOW r120 lệch y+24 trắng 25%
@@ -221,8 +228,8 @@ const uid = Math.random().toString(36).slice(2, 8);
       0 -103px 60px 0 color-mix(in srgb, var(--gray-50) 7%, transparent);
   }
 
-  /* Nét viền sáng 4px chạy dọc mép trên. Cùng kỹ thuật vẽ viền gradient
-     đã dùng ở FaqItem / PricingCard / SiteFooter — xem FaqItem.astro. */
+  /* Nét viền sáng 4px chạy dọc mép trên, tắt dần ở y≈189 (26% của 727).
+     Cùng kỹ thuật viền gradient ở FaqItem / PricingCard — xem FaqItem.astro. */
   .hero__globe::before {
     content: '';
     position: absolute;
@@ -231,8 +238,8 @@ const uid = Math.random().toString(36).slice(2, 8);
     padding: 4px;                      /* Figma strokeWeight 4 */
     background: linear-gradient(
       180deg,
-      var(--gray-50) 0%,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 26%
+      var(--gray-50) 0,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 189px
     );
     -webkit-mask:
       linear-gradient(var(--gray-950) 0 0) content-box,
@@ -245,13 +252,19 @@ const uid = Math.random().toString(36).slice(2, 8);
   }
 
   /* --- 3 · Vệt sáng cong trên đỉnh cung -------------------------------
-     Figma: instance `Neubula light` đặt ở x=614 trong khung Planet 1920
-     (tâm 961.5 ≈ tâm 960 của khung) → căn giữa. */
+     Figma: `Neubula light` 694.5 × 54.111 ở (613.5, 0) trong khung Planet.
+     Đường cong của nó bám ĐÚNG vòng cung: ở hai đầu (lệch tâm 347px) vòng
+     cung tụt 49px — khớp chiều cao 54 của vệt sáng. Chỉ đúng khi vòng cung
+     đã sửa thành nửa elip (mục 2); với elip cũ hai đường lệch nhau.
+
+     Đặt theo PHẦN TRĂM khung Planet (613.5/1920 · 694.5/1920) để khi Planet
+     giãn ngang ở màn rộng, vệt sáng giãn theo và vẫn bám vòng cung.
+     🔴 Bản trước để `top: -8px` bù cho vòng cung sai — đã bỏ, giờ đúng 0. */
   .hero__nebula {
     position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0;
+    left: 31.953%;
+    width: 36.172%;
   }
 
   /* --- 4 · Chữ cong ---------------------------------------------------

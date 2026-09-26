@@ -59,7 +59,7 @@ const {
 
 <footer class="ft">
   {/* --- Hoạ tiết hành tinh --- */}
-  <div class="ft__planet" aria-hidden="true">
+  <div class="ft__vung" aria-hidden="true"><div class="ft__planet">
     <img
       class="ft__planet-img"
       src="/img/footer-planet.svg"
@@ -69,7 +69,7 @@ const {
       loading="lazy"
       decoding="async"
     />
-  </div>
+  </div></div>
 
   {/* --- Chữ lớn. `aria-hidden` vì đây là hoạ tiết chữ, không phải nội
         dung: tên công ty đã có ở logo trên đầu trang, đọc lại là thừa. --- */}
@@ -121,7 +121,12 @@ const {
        nhiều hơn dự tính — thà chân trang cao thêm còn hơn cắt mất chữ. */
     min-height: 680px;
     padding: var(--s-10);          /* 40 — mobile đổi lề ngang xuống 24 */
-    overflow: hidden;              /* Figma `overflow-clip` */
+    /* 🔴 SỬA 26/09 — Thắng chốt *"Footer: Visible"*: không cắt hoạ tiết.
+       Bỏ `overflow: hidden`. Chỉ giữ cắt theo CHIỀU NGANG (`overflow-x:
+       clip`) để chữ BAIKA to không bao giờ đẩy ra thanh cuộn ngang.
+       `clip` chứ không phải `hidden`: `hidden` một chiều sẽ ép chiều kia
+       thành `auto` và cắt luôn cả chiều dọc — đúng thứ vừa phải bỏ. */
+    overflow-x: clip;
     background: var(--gray-950);   /* chân trang nằm NGOÀI <main> nên phải tự
                                       đặt nền, không thừa hưởng nền trang */
   }
@@ -135,15 +140,30 @@ const {
      Ở đây khung để 1962 × 1042 (khung Figma + 21px nhoè mỗi phía) và đẩy lên
      −21px, nên phần hình THẬT vẫn nằm đúng 1920 × 1000 bám đỉnh chân trang.
      ===================================================================== */
+  /* Vùng chứa hoạ tiết: TRÀN LÊN TRÊN 600px, nhưng cắt ở ĐÁY và hai bên.
+     Vì sao không bỏ cắt hẳn: hoạ tiết cao 1042 (màn rộng tới ~1560) trong
+     chân trang cao 680. Bỏ cắt thẳng tay thì phần thò xuống dưới chân trang
+     bị trình duyệt tính là nội dung trang → cuộn được thêm 340–660px khoảng
+     tối trống sau chân trang. Phía TRÊN thì khác: đó là section Liên hệ, cho
+     hoạ tiết hắt lên đó là đúng ý "visible".
+     600 đủ cho màn tới ~2900px (ở 1920 hoạ tiết nhô lên 223px). */
+  .ft__vung {
+    position: absolute;
+    top: -600px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
   .ft__planet {
     position: absolute;
-    top: -21px;
+    top: calc(600px - 21px);       /* −21 so với đỉnh chân trang */
     left: 50%;
-    z-index: 0;
     width: 1962px;
     height: 1042px;
     transform: translateX(-50%);
-    pointer-events: none;
   }
   .ft__planet-img {
     display: block;
@@ -311,7 +331,7 @@ const {
     .ft__wordmark { left: var(--s-6); right: var(--s-6); }
 
     /* Hoạ tiết tụt lên 32px — Dev Mode: `top-[-32px]`. Cộng thêm 21px nhoè. */
-    .ft__planet { top: -53px; }
+    .ft__planet { top: calc(600px - 53px); }   /* −53 so với đỉnh chân trang */
 
     /* Bản vẽ mobile đảo thứ tự: Liên hệ lên trước, Địa chỉ xuống sau.
        Dùng `order` thay vì đảo thứ tự trong HTML, để trình đọc màn hình vẫn
@@ -384,7 +404,7 @@ const {
     .ft__planet {
       width: 153.281vw;            /* 1962 / 1280 */
       height: 81.406vw;            /* 1042 / 1280 */
-      top: calc(384px - 31.641vw);
+      top: calc(600px + 384px - 31.641vw);   /* +600: gốc toạ độ giờ là vùng chứa */
     }
   }
 

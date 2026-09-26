@@ -110,19 +110,25 @@ const { heading = 'BAIKA sẽ làm gì', groups } = Astro.props;
      token `--blur-200`. Không phải số Figma thô. */
   .buoc__quang {
     position: absolute;
-    left: -439.817px;
+    /* 🔴 SỬA 26/09 — Thắng chốt *"Ellipse 1: scale"*.
+       Cùng nguyên tắc với Planet ở Hero: ràng buộc `Scale` của Figma, khung
+       cha chỉ rộng ra nên hoạ tiết chỉ giãn NGANG, chiều cao giữ nguyên.
+         · ≤ 1280 : đúng số px Figma
+         · > 1280 : quy ra % bề ngang section (−439.817/1280 · 2042.39/1280)
+       `min()` / `max()` tự chọn: tại 1280 hai cách ra cùng một số. */
+    left: min(-439.817px, -34.361%);
     bottom: -746px;                    /* neo theo ĐÁY section, nên section
                                           cao bao nhiêu cũng đặt đúng chỗ */
     z-index: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2042.39px;                  /* khung bao sau khi xoay */
+    width: max(2042.39px, 159.562%);   /* khung bao sau khi xoay */
     height: 1954.175px;
     pointer-events: none;
   }
   .buoc__quang-hinh {
-    width: 1199.05px;
+    width: 58.707%;                    /* 1199.05 / 2042.39 — giãn theo khung */
     height: 1653.903px;
     border-radius: 50%;
     background: linear-gradient(
@@ -184,31 +190,33 @@ const { heading = 'BAIKA sẽ làm gì', groups } = Astro.props;
     color: var(--blue-50);
   }
 
-  /* Số thứ tự to, mờ ảo, nằm sau nhãn.
-     Dev Mode: 120px · Be Vietnam Pro Medium · `leading-none` ·
-     `background-clip: text` với gradient chéo · `blur(13.15px)`.
+  /* Số thứ tự to, mờ ảo, nằm dưới nhãn nhóm (120px · Be Vietnam Pro Medium).
+     🔴 SỬA 26/09 — Thắng gửi CSS gốc, DÙNG CHUNG với số trong ServiceLinkCard:
+         linear-gradient(224deg, rgba(204,204,204,0.59) 13.72%,
+                                 rgba(81,81,81,0) 95.95%)
+         background-clip: text · blur(13.149999618530273px)
+     Bản trước em lấy 211° và điểm dừng 13.607% → 75.906% từ Dev Mode khối
+     CEO — sai cả góc, cả độ sáng (trắng đặc thay vì #CCC ở 59%), cả điểm
+     dừng. Số trông gắt và sáng hơn bản vẽ.
 
-     ⚠️ 13,15px nằm NGOÀI thang `--blur-*` (bậc gần nhất là `--blur-24` =
-        12px). Đây là số có thật trong bản vẽ, không phải em tự chế — cùng
-        loại với `gap: 7px` ở chân trang. Muốn sạch thang thì sửa Figma về
-        blur 24, em đổi lại một dòng.
-
-     Góc gradient trong Figma hơi khác nhau ở mỗi nhóm (216,5° / 211° /
-     210,7° / 210°) vì Figma tính theo kích thước từng khối chữ. Lấy 211°
-     làm số chung — chênh vài độ trên một khối đã nhoè 13px thì không ai
-     thấy được. */
+     ⚠️ #CCCCCC KHÔNG có trong bộ token. Bậc gần nhất `--gray-400` (#C7C7C7),
+        lệch 5/255 ≈ 2% — không phân biệt được bằng mắt. Dùng token để đổi
+        bảng màu một chỗ là đổi hết. Nêu ra, không tự chế màu mới.
+     ⚠️ 13.15px nằm ngoài thang `--blur-*` (bậc gần nhất 12px). Là số có
+        thật trong bản vẽ, cùng loại với `gap: 7px` ở chân trang. */
   .buoc__so {
     font-family: var(--font-body);
     font-size: 120px;
     font-weight: 500;                  /* Be Vietnam Pro Medium */
     line-height: 1;                    /* `leading-none` */
     background: linear-gradient(
-      211deg,
-      var(--gray-50) 13.607%,
-      transparent 75.906%
+      224deg,
+      color-mix(in srgb, var(--gray-400) 59%, transparent) 13.72%,
+      color-mix(in srgb, var(--gray-800) 0%, transparent) 95.95%
     );
     -webkit-background-clip: text;
             background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
     filter: blur(13.15px);
     user-select: none;

@@ -76,13 +76,16 @@ const Tag = href ? 'a' : 'div';
     font-size: 120px;
     font-weight: 300;                 /* Be Vietnam Pro Light */
     line-height: 1;
+    /* 🔴 26/09 — CSS gốc Thắng gửi, dùng chung với số trong StepsSection:
+       224° · #CCC@59% ở 13.72% → #515151@0 ở 95.95%. Bản trước 222.96°. */
     background: linear-gradient(
-      222.96deg,
-      color-mix(in srgb, var(--gray-400) 59%, transparent) 13.721%,
-      transparent 95.949%
+      224deg,
+      color-mix(in srgb, var(--gray-400) 59%, transparent) 13.72%,
+      color-mix(in srgb, var(--gray-800) 0%, transparent) 95.95%
     );
     -webkit-background-clip: text;
             background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
     filter: blur(13.15px);
     pointer-events: none;

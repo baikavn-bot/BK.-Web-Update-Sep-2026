@@ -1,102 +1,76 @@
 ---
-// SECTION 4 — "BẠN SẼ NHẬN ĐƯỢC GÌ"
-// Figma: Desktop 382:8879 · Tablet 480:2096 · Mobile 450:5602. Đo 25/09/2026.
+// SECTION "BẠN SẼ NHẬN ĐƯỢC GÌ"
+// Figma: Desktop `382:8879` (đọc lại bằng Dev Mode 26/09 sau khi Thắng dựng
+// lại) · Tablet `480:2096` · Mobile `450:5602`.
+// Chiều cao: 1098 (desktop) · 1098 (tablet) · 1592 (mobile).
 //
-// Chiều cao: 1098 (desktop) · **1098 (tablet — y hệt desktop)** · 1592 (mobile)
+// ─── 🔴 DỰNG LẠI 26/09 — hai chỗ sai, Thắng chỉ ra ─────────────────────
 //
-// Đây là section giàu hình nhất của cả trang: **6 mái vòm treo lơ lửng**
-// trên những sợi dây sáng, xếp thành tháp 3–2–1, dưới một vòng cung hành
-// tinh khổng lồ. Mỗi vòm chứa một kết quả khách nhận được.
+// (1) VÒNG CUNG NGƯỢC CHIỀU. Bản trước vẽ vòng cung LỒI LÊN, giống Hero.
+//     Figma: `Ellipse 11` 1920×727 LẬT DỌC (`-scale-y-100`), đặt ở y=−450 —
+//     tức **nửa DƯỚI của elip**, cái bát úp, võng xuống, đáy thấp nhất ở
+//     y=277. Đối xứng với vòm ở Hero: Hero là nóc hành tinh nhìn từ trên,
+//     ở đây là đáy hành tinh nhìn từ dưới lên, và 6 khối lợi ích treo từ đó.
+//     Đã kiểm: vòng cung trên ảnh Figma ở mép màn cao hơn đáy 185px — khớp
+//     đúng nửa elip bán trục 960 × 727, cùng hình với Hero.
 //
-// ─── Vì sao section này KHÔNG có auto-layout ─────────────────────────
-// Sáu vòm nằm ở sáu vị trí tự do, mỗi sợi dây một độ dài khác nhau
-// (207 · 140 · 208 · 371 · 218 · 364). Đó là bố cục đặt tay, không phải
-// lưới. Nên ở đây cũng đặt tuyệt đối theo đúng toạ độ Figma, thay vì cố
-// ép vào flex/grid rồi ra hình khác.
+// (2) CẤU TRÚC 6 KHỐI. Thắng tạo component `Solution planet`, mỗi khối tự
+//     mang sợi dây của nó (xem SolutionPlanet.astro). Figma xếp thành ba
+//     hàng, MỖI HÀNG là một flex `align-items: flex-end` — đáy các vòm trong
+//     hàng thẳng nhau, sợi dây ngắn thì khối thấp hơn:
+//       Hàng 1 · y 0   · 3 khối · cách 48 · dây 207 / 135 / 208
+//       Hàng 2 · y 46  · 2 khối · cách 87 · dây 364 / 371
+//       Hàng 3 · y 404 · 1 khối           · dây 218 (treo từ vòm giữa hàng 1)
+//     Cả ba hàng đều CĂN GIỮA khung 1200 (12…1188 · 197…1004 · 420…780).
+//     Toạ độ hàng lấy thẳng Dev Mode, không tính lại.
 //
-// ─── Số đo (toạ độ trong khung nội dung 1200×788) ────────────────────
-//   Ba hàng vòm ở y = 200 · 404 · 608, mỗi hàng cao 180
-//   Hàng 1: 3 vòm 360, cách 48 → tâm ở x = 192 · 600 · 1008
-//   Hàng 2: 2 vòm 360, cách 87 → tâm ở x = 376.5 · 823.5
-//   Hàng 3: 1 vòm 360         → tâm ở x = 600
-//   Sáu sợi dây rơi đúng vào tâm từng vòm (lệch ≤ 2px, làm tròn).
+// ⚠️ Khung chứa trong Figma đặt ở x=44 thay vì 40 (lệch 4px khỏi tâm). Ở
+//    đây căn giữa đúng — coi là sai số đặt tay, cùng loại lệch 1–2px đã ghi.
 //
-// Sợi dây gồm HAI nét chồng nhau — đúng cách vẽ dây phát sáng:
-//   nét 3px blur 4 tạo quầng · nét 1px blur 1 tạo lõi
-//   cả hai tô gradient dọc: trong suốt ở trên → sáng ở dưới, nên dây mờ
-//   dần về phía "trần" và rõ nhất ở chỗ chạm vòm.
-//
-// ─── ✅ ĐÃ ĐO CẢ TABLET VÀ MOBILE 25/09 — sửa lại bản suy luận sai ────
-//   Tablet 768 (cao **1098**, y hệt desktop): **2 vòm mỗi hàng × 3 hàng**,
-//     cách nhau 24, vẫn giữ nguyên ba mốc y = 200 · 404 · 608.
-//     Chỉ còn **2 sợi dây**, treo hai vòm hàng đầu.
-//   Mobile 375 (cao 1592): **một cột**, 6 vòm, cách nhau 12.
-//     Chỉ còn **1 sợi dây** trên vòm đầu tiên.
-//
-//   Bản trước em đoán "tablet thì xếp một cột" → ra 1445 thay vì 1098,
-//   lệch 347px. Đây là lý do phải đo chứ không suy: bản vẽ giữ nguyên
-//   ba hàng ở tablet, chỉ đổi số vòm mỗi hàng.
-import FooterHalfCircle from './FooterHalfCircle.astro';
+// ⚠️ TABLET VÀ MOBILE TRONG FIGMA CHƯA CẬP NHẬT theo cấu trúc mới — vẫn là
+//    bản cũ (vòng cung lồi lên ở y=277, dây và vòm rời nhau). Ở đây áp vòng
+//    cung ÚP NGƯỢC cho cả ba khổ cho thống nhất; cách xếp khối ở tablet /
+//    mobile giữ theo số đo cũ (2–2–2 · một cột), vì bản vẽ chưa đổi phần đó.
+import SolutionPlanet from './SolutionPlanet.astro';
+import NebulaLight from './NebulaLight.astro';
 
 interface Props {
   heading?: string;
-  /** Đúng 6 kết quả — bản vẽ 7 trang đều 6 vòm. */
+  /** Đúng 6 kết quả — bản vẽ 7 trang đều 6 khối, theo thứ tự đọc của tháp. */
   items: string[];
 }
 const { heading = 'Bạn sẽ nhận được gì', items } = Astro.props;
 
-// Toạ độ lấy thẳng từ Figma, quy về phần trăm khung 1200×788 để khối co
-// giãn đúng tỉ lệ thay vì vỡ khi khung hẹp hơn 1200 một chút.
-const VOM = [
-  { x: 192,   y: 200 }, { x: 600,   y: 200 }, { x: 1008, y: 200 },
-  { x: 376.5, y: 404 }, { x: 823.5, y: 404 },
-  { x: 600,   y: 608 },
-];
-// Mỗi sợi dây treo đúng MỘT mái vòm — Thắng chốt 25/09: *"Mỗi Line light
-// sẽ căn giữa với 1 khối Solution"*. Nên ở đây KHÔNG ghi toạ độ x rời;
-// chỉ ghi **vòm thứ mấy**, rồi lấy thẳng tâm của vòm đó.
-// Figma đo được lệch 1–2px so với tâm vòm (190 vs 192, 594 vs 600…) — đó là
-// sai số đặt tay trong bản vẽ, không phải chủ ý. Căn đúng tâm thì sạch hơn.
-// [chỉ số vòm, y bắt đầu, y kết thúc] — độ dài mỗi sợi mỗi khác, cố ý
+// Độ dài sợi dây của từng khối ở ba khổ màn (px). Desktop: Dev Mode 382:8879.
+// Tablet: chỉ 2 khối đầu có dây, dài 152. Mobile: chỉ khối đầu, dài 141.
 const DAY = [
-  [0, 1, 208], [1, 68, 208], [2, 0, 208],
-  [4, 46, 417], [5, 404, 622], [3, 53, 417],
+  { desktop: 207, tablet: 152, mobile: 141 },
+  { desktop: 135, tablet: 152 },
+  { desktop: 208 },
+  { desktop: 364 },
+  { desktop: 371 },
+  { desktop: 218 },
 ];
-const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
-
-// ⚠️ Toạ độ truyền xuống bằng **biến CSS** (`--x`, `--y`, `--cao`), KHÔNG
-//    gán thẳng `left`/`top`. Đây đúng là bài học đã ghi ở DEC-060.
-//    Lần này lỗi biểu hiện khác: dưới 1280 các vòm nằm trong lưới và để
-//    `position: relative`; `left`/`top` gán thẳng khi đó **đẩy lệch** vòm
-//    khỏi ô lưới của nó — hai vòm hàng đầu bị đẩy ra ngoài và cắt cụt.
-//    Truyền bằng biến thì CSS chỉ đọc nó ở đúng khổ màn cần, các khổ khác
-//    bỏ qua — không phải viết một dòng `!important` nào.
+const k = items.slice(0, 6).map((text, i) => ({ text, day: DAY[i] }));
+// Ba hàng của tháp, đúng thứ tự Figma.
+const HANG = [k.slice(0, 3), k.slice(3, 5), k.slice(5, 6)];
 ---
 
 <section class="nhan sec">
-  {/* --- Hoạ tiết --- */}
+  {/* ─── Hoạ tiết ─── */}
   <div class="nhan__quang" aria-hidden="true"></div>
-  <div class="nhan__cung" aria-hidden="true"><span class="nhan__cau"></span></div>
+
+  <div class="nhan__cung" aria-hidden="true">
+    <span class="nhan__cau"></span>
+    <div class="nhan__nebula"><NebulaLight width="100%" /></div>
+  </div>
 
   <h2 class="nhan__heading">{heading}</h2>
 
   <div class="nhan__khung">
-    {/* Sáu sợi dây. Đặt trước các vòm để vòm vẽ đè lên đầu dây. */}
-    {DAY.map(([vom, y1, y2]) => (
-      <span
-        class="nhan__day"
-        aria-hidden="true"
-        style={`--x:${pc(VOM[vom].x, 1200)}; --y:${pc(y1, 788)}; --cao:${pc(y2 - y1, 788)}`}
-      ></span>
-    ))}
-
-    {items.slice(0, 6).map((text, i) => (
-      <div
-        class="nhan__vom"
-        style={`--x:${pc(VOM[i].x, 1200)}; --y:${pc(VOM[i].y, 788)}`}
-      >
-        <FooterHalfCircle width="360px" />
-        <p class="nhan__chu">{text}</p>
+    {HANG.map((hang, i) => (
+      <div class={`nhan__hang nhan__hang--${i + 1}`}>
+        {hang.map((kh) => <SolutionPlanet text={kh.text} day={kh.day} />)}
       </div>
     ))}
   </div>
@@ -104,68 +78,106 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
 
 <style>
   .nhan {
+    position: relative;
     padding-block: var(--s-20) 0;      /* Figma: tiêu đề ở y=80 */
   }
 
-  /* Khoảng chừa dưới khung vòm — đo được: **101 ở desktop và tablet,
-     0 ở mobile**. Thang spacing không có bậc 101; lấy 96 (--s-24).
-     Mobile để 0 vì bản vẽ cho vòm cuối chạm đúng đáy section. */
+  /* Khoảng chừa dưới khung — đo được 101 ở desktop/tablet, 0 ở mobile.
+     Thang không có bậc 101; lấy 96 (--s-24). */
   @media (min-width: 768px) {
     .nhan { padding-bottom: var(--s-24); }
   }
 
-  /* --- Quầng sáng ấm phía dưới ----------------------------------------
-     Figma `Vector 6`: 1708×519 ở (−215, 549), gradient toả tròn
-     `--page-*-nhat` → `--gray-950`, blur 500.
-     Màu lấy từ **màu trụ** nên sang trang khác tự đổi, không sửa gì. */
+  /* --- Quầng sáng ấm ------------------------------------------------------
+     Figma `Vector 6`: 1708 × 519, lật dọc, blur 500.
+     🔴 Vị trí ĐỔI theo bản vẽ mới: y = **30** (bản cũ 549). Giờ nó nằm SAU
+     cái bát úp: bên trong bát bị che nên tối, chỉ lộ ra phần ấm ở ngoài
+     vành bát — đúng như ảnh Figma (trong bát tối, ngoài bát ấm).
+     Màu lấy từ **màu trụ** nên sang trang khác tự đổi. */
   .nhan__quang {
     position: absolute;
     left: 50%;
-    top: 549px;
+    top: 30px;
     z-index: 0;
     width: 1708px;
     height: 519px;
     transform: translateX(-50%);
     border-radius: 50%;
+    /* Độ đục 0.55 và tắt hẳn ở 70% bán kính — ĐO từ ảnh Figma, không đoán.
+       Figma để quầng này là một file vector xuất sẵn nên không đọc được
+       độ đục trực tiếp. Bản đầu để đặc 100% thì sáng gần gấp đôi bản vẽ và
+       loang xuống tận các vòm hàng 2. So 8 điểm mẫu với ảnh render:
+         đặc 100%, tắt ở 100%  → lệch trung bình 18.3/255
+         đục 0.55, tắt ở 70%   → lệch trung bình  5.9/255   ← chọn
+       Giữ nguyên kích thước 1708 × 519 của Figma, chỉ chỉnh độ đậm. */
     background: radial-gradient(
       50% 50% at 50% 50%,
       var(--tru-nhat) 0%,
-      color-mix(in srgb, var(--gray-950) 0%, transparent) 100%
+      color-mix(in srgb, var(--gray-950) 0%, transparent) 70%
     );
+    opacity: 0.55;
     filter: blur(var(--blur-500));     /* Figma LayerBlur 500 → CSS 250 */
     pointer-events: none;
   }
 
-  /* --- Vòng cung hành tinh --------------------------------------------
-     Figma `Ellipse 11`: 1920×727 ở y=277, cùng một cách dựng với vòng cung
-     ở Hero — chỉ khác lớp sáng để **0.10** thay vì 0.15 (đã kiểm từng lớp,
-     xem DEC-094 về chuyện độ đục của lớp tô). */
+  /* --- Cái bát úp (nửa dưới hành tinh) ------------------------------------
+     Khung 1920 × 727 ở y = −450 → đáy bát ở y = 277.
+     Nó TRÀN NGƯỢC LÊN 450px vào section "6 dịch vụ" phía trên. Section đó
+     phải nằm LỚP TRÊN (xem ServicesSection: `z-index: 1`), nếu không thân
+     bát tối màu sẽ đè mất nửa dưới sáu thẻ dịch vụ. Figma cũng xếp đúng
+     thứ tự đó — ảnh render "6 dịch vụ" không bị bát che.
+
+     Giãn ngang theo màn giống hệt vòm ở Hero (ràng buộc Scale):
+     ≤ 1280 cố định 1920 · > 1280 là 150% bề ngang màn. */
   .nhan__cung {
     position: absolute;
-    top: 277px;
+    top: -450px;
     left: 50%;
-    width: max(150%, 1920px);
-    aspect-ratio: 1920 / 727;
-    transform: translateX(-50%);
     z-index: 0;
+    width: max(1920px, 150vw);
+    height: 727px;
+    transform: translateX(-50%);
     pointer-events: none;
   }
+
+  /* Elip đầy đủ 1920 × 1454, đẩy lên 727 cho nửa dưới nằm vừa khung, rồi
+     CẮT BỎ nửa trên. Chừa 400px ba phía còn lại cho quầng sáng hắt xuống. */
   .nhan__cau {
     position: absolute;
-    inset: 0;
+    top: -727px;
+    left: 0;
+    width: 100%;
+    height: 1454px;
     border-radius: 50%;
+    clip-path: inset(727px -400px -400px -400px);
+    /* Mép PHẲNG phía trên của bát tan dần trong 300px, không cắt thẳng.
+       Lý do: bát tràn lên section "6 dịch vụ", nơi quầng ấm của section
+       "BAIKA sẽ làm gì" đang loang xuống. Thân bát tối đặc che quầng đó, nên
+       ngay mép bát hiện ra MỘT ĐƯỜNG NGANG CỨNG cắt qua hàng thẻ dịch vụ —
+       đã thấy thật khi chụp. Cho mép tan dần thì hai vùng hoà vào nhau.
+       Phần bát gần đáy (nơi che quầng ấm `Vector 6`) vẫn đặc hoàn toàn.
+       Mặt nạ kéo dài thêm 400px xuống dưới để không che mất quầng sáng hắt
+       xuống dưới đáy bát. */
+    -webkit-mask-image: linear-gradient(180deg, transparent 727px, var(--gray-950) 1027px);
+            mask-image: linear-gradient(180deg, transparent 727px, var(--gray-950) 1027px);
+    -webkit-mask-size: 100% calc(100% + 400px);
+            mask-size: 100% calc(100% + 400px);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    /* Lật dọc toàn bộ so với vòm Hero: dải sáng đi từ ĐÁY lên, bóng hắt
+       XUỐNG dưới. Lớp sáng để 0.10 (vòm Hero 0.15) — xem DEC-094. */
     background:
       linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--gray-50) 10%, transparent) 0%,
-        color-mix(in srgb, var(--gray-950) 0%, transparent) 33%
+        0deg,
+        color-mix(in srgb, var(--gray-50) 10%, transparent) 0,
+        color-mix(in srgb, var(--gray-950) 0%, transparent) 240px
       ),
       var(--gray-950);
     box-shadow:
-      inset 0 24px 60px 0 color-mix(in srgb, var(--gray-50) 25%, transparent),
-      0 -103px 60px 0 color-mix(in srgb, var(--gray-50) 7%, transparent);
+      inset 0 -24px 60px 0 color-mix(in srgb, var(--gray-50) 25%, transparent),
+      0 103px 60px 0 color-mix(in srgb, var(--gray-50) 7%, transparent);
   }
-  /* Nét viền sáng 4px ở mép trên — cùng kỹ thuật với FaqItem/PricingCard. */
+  /* Nét viền sáng 4px ở ĐÁY bát, tắt dần lên trên sau 189px. */
   .nhan__cau::before {
     content: '';
     position: absolute;
@@ -173,9 +185,9 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
     border-radius: inherit;
     padding: 4px;
     background: linear-gradient(
-      180deg,
-      var(--gray-50) 0%,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 26%
+      0deg,
+      var(--gray-50) 0,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 189px
     );
     -webkit-mask:
       linear-gradient(var(--gray-950) 0 0) content-box,
@@ -187,7 +199,22 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
     .nhan__cau::before { display: none; }
   }
 
-  /* --- Tiêu đề --------------------------------------------------------- */
+  /* Vệt sáng ở đáy bát. Figma: 694.5 × 54.111 ở y=225 (section), căn giữa.
+     ⚠️ Dev Mode KHÔNG ghi phép lật, nhưng ảnh render Figma cho thấy dải
+        sáng VÕNG XUỐNG ôm đáy bát — tức có lật dọc; Dev Mode làm rơi mất khi
+        xuất code (bọc `flex items-center` là dấu hiệu quen của phần tử bị
+        biến đổi). Lật thì hai đầu vệt sáng ở y≈225 và đáy ở 279 — khớp
+        vòng cung (hai đầu 228, đáy 277). Không lật thì hai đường cắt nhau.
+     Toạ độ quy về % khung bát để giãn theo khi bát giãn ngang. */
+  .nhan__nebula {
+    position: absolute;
+    top: 675px;                        /* 225 − (−450) */
+    left: 31.953%;                     /* 613.5 / 1920 */
+    width: 36.172%;                    /* 694.5 / 1920 */
+    transform: scaleY(-1);
+  }
+
+  /* --- Tiêu đề ------------------------------------------------------------ */
   .nhan__heading {
     position: relative;
     z-index: 2;
@@ -200,8 +227,10 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
     text-align: center;
   }
 
-  /* --- Khung chứa vòm --------------------------------------------------
-     Mobile: một cột, 6 vòm, cách nhau 12. Một sợi dây trên vòm đầu. */
+  /* --- Khung 6 khối --------------------------------------------------------
+     Mobile: một cột, 6 khối, cách nhau 12. Chỉ khối đầu có dây (141).
+     Hàng của tháp chỉ có nghĩa ở desktop; khổ nhỏ hơn thì cho các hàng
+     "tan" ra (`display: contents`) để 6 khối xếp thẳng vào lưới. */
   .nhan__khung {
     position: relative;
     z-index: 1;
@@ -210,90 +239,24 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
     justify-items: center;
     gap: var(--s-3);                   /* 12 */
     margin-top: 92px;                  /* tiêu đề y=80 + cao 37 → khung y=209 */
-    padding-top: 200px;                /* ba hàng vòm bắt đầu ở y=200 */
-    /* Khung vòm CHẠY HẾT bề ngang section, không chừa lề trang —
-       đo được: tablet khung rộng đúng 768 (x=0), mobile 375 (x=1).
-       Kéo ngược lại đúng bằng lề trang để thoát ra.
-       Thiếu dòng này thì hai vòm 360 + khoảng cách 24 = 744 không vừa
-       khung 688, và vòm bên phải bị cắt cụt — đã thấy thật khi chụp. */
+    /* Vòm hàng đầu ở y=200 trong khung; dây 141 đứng ngay trên nó. */
+    padding-top: calc(200px - 141px);
+    /* Khung chạy HẾT bề ngang section (đo được: tablet x=0 rộng 768). */
     margin-inline: calc(var(--le-trang) * -1);
   }
+  .nhan__hang { display: contents; }
 
-  .nhan__vom {
-    position: relative;
-    width: min(360px, 100%);
-  }
-
-  /* Sợi dây: hai nét chồng nhau — nét ngoài 3px mờ nhiều tạo quầng, nét
-     trong 1px mờ ít tạo lõi sáng. Gradient dọc: trong suốt ở trên, sáng
-     dần xuống dưới, nên dây mờ ở "trần" và rõ nhất ở chỗ chạm vòm. */
-  .nhan__day {
-    display: none;
-    position: absolute;
-    width: 3px;
-    transform: translateX(-1.5px);
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--gray-600) 0%, transparent) 0%,
-      var(--gray-100) 100%
-    );
-    filter: blur(2px);                 /* Figma LayerBlur 4 → CSS 2 */
-    pointer-events: none;
-  }
-  .nhan__day::after {
-    content: '';
-    position: absolute;
-    inset: 0 1px;
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--gray-600) 0%, transparent) 0%,
-      var(--gray-50) 100%
-    );
-    filter: blur(0.5px);               /* Figma LayerBlur 1 → CSS 0.5 */
-  }
-
-  /* Mobile: đúng MỘT sợi, trên vòm đầu tiên. Figma: cao 141, từ y=67. */
-  .nhan__day:first-child {
-    display: block;
-    left: 50%;
-    top: 67px;
-    height: 141px;
-  }
-
-  /* --- Tablet: 2 vòm mỗi hàng × 3 hàng, vẫn đúng ba mốc y --------------- */
+  /* --- Tablet: 2 khối mỗi hàng × 3 hàng, đúng ba mốc y 200 · 404 · 608 ---- */
   @media (min-width: 768px) {
     .nhan__khung {
       grid-template-columns: repeat(2, 360px);
       justify-content: center;
-      gap: 24px;                       /* cả hàng lẫn cột */
+      gap: 24px;
+      padding-top: calc(200px - 152px); /* dây tablet dài 152 */
     }
-    /* Hai sợi, treo hai vòm hàng đầu. Figma: cao 152, từ y=54,
-       tâm ở x=192 và 576 trên khung 768 → 25% và 75%. */
-    .nhan__day:nth-child(-n + 2) {
-      display: block;
-      top: 54px;
-      height: 152px;
-    }
-    .nhan__day:nth-child(1) { left: 25%; }
-    .nhan__day:nth-child(2) { left: 75%; }
   }
 
-  /* Figma: chữ rộng 280 đặt ở (40, 108) trong vòm 360×180 —
-     tức nằm ở phần dưới của mái vòm, nơi vòm đã đủ rộng để chứa chữ. */
-  .nhan__chu {
-    position: absolute;
-    left: 11.111%;                     /* 40 / 360 */
-    top: 60%;                          /* 108 / 180 */
-    width: 77.778%;                    /* 280 / 360 */
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: var(--fs-h3);           /* 19 */
-    line-height: var(--lh-h3);
-    font-weight: var(--fw-h3);         /* 500 — Medium */
-    color: var(--gray-50);
-  }
-
-  /* --- Desktop: tháp 3–2–1 đặt theo đúng toạ độ Figma ------------------ */
+  /* --- Desktop: tháp 3–2–1 --------------------------------------------- */
   @media (min-width: 1280px) {
     .nhan__khung {
       display: block;
@@ -302,22 +265,15 @@ const pc = (v: number, tong: number) => `${(v / tong * 100).toFixed(3)}%`;
       margin: 92px auto 0;
       padding-top: 0;
     }
-    /* Desktop: đủ 6 sợi, mỗi sợi một vị trí và độ dài riêng. */
-    .nhan__day {
-      display: block;
-      left: var(--x);
-      top: var(--y);
-      height: var(--cao);
-    }
-
-    .nhan__vom {
+    .nhan__hang {
       position: absolute;
-      width: 360px;
-      left: var(--x);
-      top: var(--y);
-      /* Toạ độ Figma là TÂM vòm, nên lùi lại nửa bề ngang. */
-      transform: translateX(-180px);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: flex-end;           /* đáy các vòm trong hàng thẳng nhau */
     }
-
+    .nhan__hang--1 { top: 0;     gap: 48px; }
+    .nhan__hang--2 { top: 46px;  gap: 87px; }
+    .nhan__hang--3 { top: 404px; }
   }
 </style>

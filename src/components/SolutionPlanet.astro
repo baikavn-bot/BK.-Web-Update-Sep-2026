@@ -1,0 +1,112 @@
+---
+// MỘT KHỐI LỢI ÍCH: SỢI DÂY SÁNG + MÁI VÒM + CHỮ
+// Figma: component `Solution planet` (Thắng tạo 26/09) bọc trong một khung
+// cột — ví dụ desktop `794:3092`:
+//   display: flex · flex-direction: column · align-items: center · width: 360
+//
+// 🔑 Đây là thay đổi cấu trúc quan trọng so với bản trước.
+//    Bản trước đặt 6 sợi dây và 6 vòm RỜI NHAU, mỗi thứ một toạ độ tuyệt đối,
+//    rồi cố tính cho sợi dây rơi đúng tâm vòm. Lệch 1–2px là chuyện thường,
+//    và đổi một vòm là phải tính lại dây.
+//    Giờ sợi dây NẰM TRONG khối, ngay phía trên vòm, căn giữa bằng flex —
+//    nên nó LUÔN rơi đúng tâm vòm, không cần tính gì cả. Thắng chốt:
+//    *"mỗi Solution planet sẽ tương ứng với 1 line light"*.
+//
+// Độ dài sợi dây mỗi khối một khác (bố cục tháp đặt tay), và khác theo khổ
+// màn: desktop cả 6 khối có dây, tablet chỉ 2 khối đầu, mobile chỉ khối đầu.
+// Truyền vào bằng ba biến CSS; 0 = không có dây.
+import FooterHalfCircle from './FooterHalfCircle.astro';
+
+interface Props {
+  text: string;
+  /** Độ dài sợi dây (px) ở từng khổ. Bỏ trống = không có dây ở khổ đó. */
+  day?: { desktop?: number; tablet?: number; mobile?: number };
+}
+const { text, day = {} } = Astro.props;
+const { desktop = 0, tablet = 0, mobile = 0 } = day;
+---
+
+<div
+  class="sp"
+  style={`--day-d:${desktop}px; --day-t:${tablet}px; --day-m:${mobile}px`}
+>
+  <span class="sp__day" aria-hidden="true"></span>
+  <div class="sp__vom">
+    <FooterHalfCircle width="360px" />
+    <p class="sp__chu">{text}</p>
+  </div>
+</div>
+
+<style>
+  .sp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 360px;
+    max-width: 100%;
+    flex: none;
+  }
+
+  /* --- Sợi dây sáng -----------------------------------------------------
+     Figma `Line light`: khung 77 rộng, bên trong là hai nét 1px chồng nhau.
+     Dựng lại: nét ngoài 3px mờ nhiều tạo quầng, nét trong 1px mờ ít tạo
+     lõi sáng — đúng cách vẽ dây phát sáng. Gradient dọc: trong suốt ở trên,
+     sáng dần xuống, nên dây mờ ở chỗ nối vòng cung và rõ nhất ở chỗ chạm vòm. */
+  .sp__day {
+    position: relative;
+    display: block;
+    width: 3px;
+    height: var(--day-m);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--gray-600) 0%, transparent) 0%,
+      var(--gray-100) 100%
+    );
+    filter: blur(2px);                 /* Figma LayerBlur 4 → CSS 2 */
+    pointer-events: none;
+  }
+  .sp__day::after {
+    content: '';
+    position: absolute;
+    inset: 0 1px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--gray-600) 0%, transparent) 0%,
+      var(--gray-50) 100%
+    );
+    filter: blur(0.5px);               /* Figma LayerBlur 1 → CSS 0.5 */
+  }
+
+  /* --- Mái vòm + chữ -----------------------------------------------------
+     Vòm 360 × 180. Chữ: Figma `bottom: 72px` rồi `translate-y: 100%`, tức
+     mép trên của chữ nằm ở 180 − 72 = **108** — phần dưới của vòm, nơi vòm
+     đã đủ rộng để chứa hai dòng. Rộng 280, căn giữa. */
+  .sp__vom {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+  }
+  .sp__chu {
+    position: absolute;
+    top: 108px;
+    left: 50%;
+    width: min(280px, 77.778%);
+    transform: translateX(-50%);
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);           /* 19 — H-3 */
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);         /* 500 — Medium */
+    color: var(--gray-50);
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .sp__day { height: var(--day-t); }
+  }
+  @media (min-width: 1280px) {
+    .sp__day { height: var(--day-d); }
+  }
+</style>

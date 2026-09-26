@@ -42,6 +42,8 @@ const lop = [40, 24, 6].map((figma) => ({ figma, css: figma / 2 }));
   class="neb"
   style={`width: ${width}`}
   viewBox="0 0 694.5 54.111"
+  preserveAspectRatio="none"
+  overflow="visible"
   fill="none"
   aria-hidden="true"
   focusable="false"
@@ -71,16 +73,28 @@ const lop = [40, 24, 6].map((figma) => ({ figma, css: figma / 2 }));
       stroke={`url(#neb-${uid})`}
       stroke-width="7"
       stroke-linecap="round"
+      vector-effect="non-scaling-stroke"
       filter={`url(#neb-${uid}-b${l.figma})`}
     />
   ))}
 </svg>
 
 <style>
+  /* 🔴 SỬA 26/09 — vệt sáng bị CẮT PHẲNG ở trên (ảnh 1 Thắng gửi).
+     Nguyên nhân: thẻ <svg> mặc định cắt mọi thứ vẽ ra ngoài khung
+     `viewBox` của nó. Đường cong chạm sát mép trên khung (y≈0), nên quầng
+     mờ 20px hắt lên trên bị xén gọn thành một đường thẳng.
+     Figma xuất vệt sáng này rộng hơn khung 80% mỗi phía trên/dưới
+     (`inset: -80.39% -6.26%`) — tức quầng sáng CỐ Ý tràn ra ngoài.
+     → `overflow: visible` cho phép vẽ ra ngoài khung.
+
+     Chiều cao KHOÁ 54.111 + `preserveAspectRatio="none"`: khi khung cha
+     giãn ngang (màn rộng hơn 1280), vệt sáng chỉ giãn ngang theo vòng cung,
+     không phình cao lên. `non-scaling-stroke` giữ nét luôn đúng 7px. */
   .neb {
     display: block;
-    height: auto;
-    max-width: 100%;
+    height: 54.111px;
+    overflow: visible;
     pointer-events: none;
   }
 </style>
