@@ -87,7 +87,9 @@ const Tag = href ? 'a' : 'div';
             background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    filter: blur(13.15px);
+    /* 🔴 26/09 (lần 2) — Thắng gửi lại: `LayerBlur/Progessive/24` → CSS
+       12px = token `--blur-24`. Bản trước 13.15px (số lẻ, ngoài thang). */
+    filter: blur(var(--blur-24));
     pointer-events: none;
     user-select: none;
   }

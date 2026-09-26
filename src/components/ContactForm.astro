@@ -40,6 +40,7 @@
 import TextField from './TextField.astro';
 import Checkbox from './Checkbox.astro';
 import Button from './Button.astro';
+import Button2 from './Button2.astro';
 
 interface Props {
   /**
@@ -111,7 +112,16 @@ const laDichVu = variant === 'dich-vu';
           <p class="cform__alert" id="form-alert" role="alert" hidden></p>
 
           <div class="cform__submit" data-align={laDichVu ? 'phai' : 'trai'}>
-            <Button label={laDichVu ? 'Đăng ký rà soát' : 'liên hệ'} />
+            {/* 26/09 — Thắng chốt: section Liên hệ của TRANG DỊCH VỤ dùng
+                `Button 2` (nút tối bo tròn), khớp Figma `597:7128`: cỡ Md,
+                tắt cả hai icon. Trang Liên hệ riêng giữ `Button 1` (DEC-067)
+                — đúng luật "Button 1 cho trang chủ + Liên hệ, Button 2 cho
+                7 trang dịch vụ" ghi trong Button2.astro.
+                ⚠️ Button2 mặc định type="button" → PHẢI truyền "submit",
+                thiếu là bấm nút không gửi form. */}
+            {laDichVu
+              ? <Button2 label="Đăng ký rà soát" type="submit" size="md" iconLeft={false} iconRight={false} />
+              : <Button label="liên hệ" />}
           </div>
         </form>
 
@@ -284,8 +294,15 @@ const laDichVu = variant === 'dich-vu';
           'input, textarea, button',
         )
         .forEach((el) => { el.disabled = busy; });
-      const label = form.querySelector<HTMLElement>('.btn__label');
-      if (label) label.textContent = busy ? 'Đang gửi…' : 'liên hệ';
+      // Tìm nhãn của cả hai loại nút (Button 1 `.btn__label`, Button 2
+      // `.btn2__label`). Nhớ chữ gốc lần đầu để trả lại đúng chữ đó — bản
+      // trước luôn trả về "liên hệ", nên nút "Đăng ký rà soát" ở trang dịch
+      // vụ bị đổi chữ sau một lần gửi lỗi.
+      const label = form.querySelector<HTMLElement>('.btn__label, .btn2__label');
+      if (label) {
+        label.dataset.goc ??= label.textContent ?? '';
+        label.textContent = busy ? 'Đang gửi…' : label.dataset.goc;
+      }
     };
 
     form.addEventListener('submit', async (e) => {

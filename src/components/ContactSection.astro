@@ -38,10 +38,13 @@ interface Props {
   socials?: { label: string; href?: string }[];
   /** Các lựa chọn trong ô "Lĩnh vực". Mỗi trang một danh sách riêng. */
   linhVuc?: string[];
+  /** Hiện cụm mạng xã hội. Mặc định TẮT (Thắng chốt 26/09). */
+  hienSocial?: boolean;
 }
 const {
   heading = 'Liên hệ',
   linhVuc = [],
+  hienSocial = false,
   socials = [
     { label: 'Facebook',  href: undefined },
     { label: 'Instagram', href: undefined },
@@ -56,6 +59,10 @@ const {
   <div class="lh__trai">
     <h2 class="lh__heading">{heading}</h2>
 
+    {/* 26/09 — Thắng chốt: ẨN mạng xã hội. Chưa có đường dẫn thật (VD-010)
+        và chưa có icon 48×48 đúng bản vẽ. Code vẫn giữ nguyên bên dưới —
+        muốn hiện lại chỉ cần truyền `hienSocial={true}` khi gọi section. */}
+    {hienSocial && (
     <ul class="lh__social">
       {socials.map((s) => (
         <li>
@@ -65,6 +72,7 @@ const {
         </li>
       ))}
     </ul>
+    )}
   </div>
 
   <div class="lh__phai">
