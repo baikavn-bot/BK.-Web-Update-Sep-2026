@@ -8,17 +8,18 @@
 // Đổi tên thành trang thật ngày 26/09 theo yêu cầu của Thắng, vì trang chủ và
 // nav đều đã trỏ `/advisory` mà chưa có trang nào ở đó — bấm vào là 404.
 //
-// Đang có 6/8 section: Hero · Bạn có đang gặp vấn đề này · Bạn sẽ nhận được gì
-//        · Các gói dịch vụ · Câu hỏi thường gặp · Liên hệ
-// ⚠️ CÒN THIẾU 2 section, sẽ bổ sung ở Giai đoạn 3:
-//      · `Baika sẽ làm gì`  — 12 thẻ Detail Step Item
-//      · `6 dịch vụ`        — khối riêng của trang Tư vấn, cần ServiceLinkCard
+// ĐỦ 8 section, đúng thứ tự Figma (`382:8828`):
+//   Hero 382:8829 · Bạn có đang gặp vấn đề này 382:8844 · BAIKA sẽ làm gì
+//   382:8852 · 6 dịch vụ 424:2923 · Bạn sẽ nhận được gì 382:8879 · Gói dịch
+//   vụ 382:8950 · FAQ 382:8957 · Liên hệ 382:8965
 //
 // Nội dung lấy NGUYÊN VĂN từ `claude/noi-dung-day-du.md` (phụ lục FAQ đọc từ
 // site đang chạy 04/09) và `claude/noi-dung-theo-section.md`.
 import ServicePageLayout from '../layouts/ServicePageLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import SolutionSection from '../components/SolutionSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import ServicesSection from '../components/ServicesSection.astro';
 import BenefitsSection from '../components/BenefitsSection.astro';
 import PricingSection from '../components/PricingSection.astro';
 import FaqSection from '../components/FaqSection.astro';
@@ -31,6 +32,50 @@ const vanDe = [
     desc: 'Tuyển người nhưng không rõ vai trò; phòng ban chồng chéo; nhân sự giỏi đến rồi đi mà không rõ vì sao.' },
   { title: 'Tăng trưởng thiếu chiến lược',
     desc: 'Chạy theo cơ hội ngắn hạn; mở rộng nhưng lãi mỏng dần; không có bản đồ ưu tiên cho 12 tháng tới.' },
+];
+
+// "BAIKA sẽ làm gì" — NGUYÊN VĂN từ Figma `382:8852`, đọc bằng Dev Mode.
+//
+// Trang Tư vấn là TRANG NGOẠI LỆ của section này: bốn nhóm **không đánh số**
+// và mỗi nhóm chỉ có **một dòng mô tả, không có tiêu đề con**. Sáu trang kia
+// có số thứ tự và nhiều thẻ con (Đào tạo CEO có tới 12).
+// Lý do hợp lý: bốn thứ dưới đây là bốn MỨC ĐỘ can thiệp chọn được, không
+// phải bốn BƯỚC nối tiếp — đánh số vào là nói sai ý.
+const baikaLamGi = [
+  { title: 'Chẩn đoán Doanh nghiệp', items: [{ desc:
+    'Quét toàn diện 9 điểm nghẽn: thị trường, sản phẩm, dòng tiền, vận hành, con người. Biết đúng bệnh trước khi ra thuốc.' }] },
+  { title: 'Chiến lược tăng trưởng', items: [{ desc:
+    'Xác định đòn bẩy tăng trưởng thật, dựng lộ trình 12 tháng gắn với chỉ số đo được. Không còn tăng trưởng theo cảm tính.' }] },
+  { title: 'Mô hình kinh doanh', items: [{ desc:
+    'Tái thiết kế mô hình qua Business Model Canvas: giá trị cốt lõi, dòng doanh thu, kênh phân phối và cơ cấu chi phí.' }] },
+  { title: 'Cố vấn đồng hành theo quý', items: [{ desc:
+    'Một cố vấn ngồi cạnh ban lãnh đạo, review theo quý, giữ nhịp thực thi và điều chỉnh khi thị trường thay đổi.' }] },
+];
+
+// "6 dịch vụ trọng tâm" — NGUYÊN VĂN từ Figma `424:2923`.
+//
+// Đây là SÁU ĐƯỜNG DẪN sang sáu trang dịch vụ còn lại, không phải sáu khối
+// chữ. Sáu nhãn khớp đúng sáu trang; thiếu trục `Mô hình kinh doanh` vì đó
+// chính là trang này.
+//
+// ⚠️ `href` đang để TRỐNG hết — sáu trang kia chưa dựng (26/09). Thẻ vẫn hiện
+//    đầy đủ nhưng không bấm được, thay vì bấm vào ra 404. Khi trang nào ra
+//    đời thì điền `href` cho thẻ đó, không phải sửa gì thêm.
+//    Slug đã chốt (DEC-019): /remote-ops · /marketing · /finance ·
+//    /legal-tax · /ai-os · /ceo-blueprint
+const sauDichVu = [
+  { no: '01', title: 'Vận hành', href: undefined, desc:
+    'Chuẩn hóa quy trình lõi, phân định vai trò – trách nhiệm, cơ chế phối hợp và hệ thống đo lường hiệu quả.' },
+  { no: '02', title: 'Marketing & tăng trưởng', href: undefined, desc:
+    'Định vị, thông điệp, cấu trúc kênh và kế hoạch tăng trưởng gắn với năng lực thật — không chạy chiến dịch khi nền chưa vững.' },
+  { no: '03', title: 'Tài chính', href: undefined, desc:
+    'Đọc sức khỏe tài chính, cấu trúc chi phí, điểm hòa vốn, kỷ luật dòng tiền và nền số liệu cho quyết định của CEO.' },
+  { no: '04', title: 'Pháp lý – Thuế', href: undefined, desc:
+    'Nhận diện rủi ro trong mô hình hiện tại; khuyến nghị cấu trúc hợp đồng, sở hữu và tuân thủ trước khi rủi ro thành chi phí.' },
+  { no: '05', title: 'Công nghệ', href: undefined, desc:
+    'Đánh giá công cụ đang dùng; lộ trình số hóa và ứng dụng AI theo đúng bài toán, tránh đầu tư lãng phí.' },
+  { no: '06', title: 'Năng lực CEO', href: undefined, desc:
+    'Cố vấn trực tiếp cho người đứng đầu: khung ra quyết định, quản trị ưu tiên, đội ngũ kế cận và kỷ luật điều hành.' },
 ];
 
 const ketQua = [
@@ -98,6 +143,8 @@ const linhVuc = [
     lead="Dịch vụ tư vấn doanh nghiệp theo tư duy hệ thống: chẩn đoán đúng hiện trạng, thiết kế mô hình phù hợp và đồng hành triển khai — thay vì đưa lời khuyên chung chung."
   />
   <SolutionSection items={vanDe} />
+  <StepsSection groups={baikaLamGi} />
+  <ServicesSection items={sauDichVu} />
   <BenefitsSection items={ketQua} />
   <PricingSection packages={goi} />
   <FaqSection items={cauHoi} />

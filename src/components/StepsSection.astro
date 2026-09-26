@@ -1,0 +1,243 @@
+---
+// SECTION "BAIKA SẼ LÀM GÌ"
+// Figma: Desktop `382:9443` · Tablet `480:2462` · Mobile `450:6532`.
+// Đọc bằng Dev Mode ngày 26/09/2026.
+//
+// Đây là section Thắng báo thiếu trong danh sách lỗi. Nó là section DÀI NHẤT
+// của trang (1713px ở desktop) và là chỗ dùng `Detail Step Item` nhiều nhất —
+// từ 4 thẻ (Tư vấn) tới 12 thẻ (Đào tạo CEO).
+//
+// ─── Bố cục ────────────────────────────────────────────────────────────
+// Khung : xếp dọc · padding 96/40 (mobile 96/24) · gap 80 · rộng hết khung
+// Tiêu đề section : H-1 (Chakra Petch Bold 32/36.8), màu --gray-50
+// Rồi một dãy NHÓM. Mỗi nhóm:
+//   · đường kẻ 1px --gray-600 ở TRÊN (không phải dưới)
+//   · padding dọc 40
+//   · hai cột: `Solution Left` (nhãn + số) và `Solution Right` (các thẻ)
+//
+// ─── Ba khổ khác nhau đúng một chỗ: hai cột nằm ngang hay nằm dọc ───────
+//   | | Desktop 1280 | Tablet 768 | Mobile 375 |
+//   |Trái/Phải | NẰM NGANG, dạt hai mép | xếp DỌC, gap 40 | xếp DỌC, gap 24 |
+//   |Cột trái  | rộng theo chữ, nhãn 400 | 400 | hết khung |
+//   |Cột phải  | 600 | 600 | hết khung |
+//
+// Số đo lấy từ metadata Figma, không đoán: ở tablet `Solution Right` nằm ở
+// y=242 còn `Solution Left` kết thúc ở y=202 → khe đúng 40. Ở mobile hai con
+// số đó là 226 và 202 → khe 24.
+//
+// ⚠️ KHÔNG đặt `overflow: hidden` cho section này. Hoạ tiết `Ellipse 1` cố ý
+//    tràn ra ngoài rất nhiều; cắt nó đi là phạm luật Thắng đặt 25/09:
+//    *"tất cả các section đều visible, không được để section nào che hoặc
+//    cắt các vector trang trí"*. Việc chặn cuộn ngang do `main` lo
+//    (`overflow-x: clip` trong ServicePageLayout).
+import DetailStepItem from './DetailStepItem.astro';
+
+interface Buoc {
+  /**
+   * Tiêu đề bước. Bỏ trống thì chỉ hiện mô tả — trang Tư vấn dùng dạng đó
+   * (nhãn nhóm bên trái đã nói đủ). Sáu trang kia đều có tiêu đề.
+   */
+  title?: string;
+  desc: string;
+}
+interface Nhom {
+  /** Nhãn nhóm, cột trái. VD: "Nền tư duy & mô hình". */
+  title: string;
+  /**
+   * Số thứ tự to mờ phía dưới nhãn. VD: "01".
+   * Bỏ trống thì không hiện số — trang Tư vấn là trường hợp đó, vì bốn tầng
+   * can thiệp của trang này là các MỨC ĐỘ chọn được, không phải các BƯỚC nối
+   * tiếp nhau, nên đánh số sẽ nói sai ý.
+   */
+  no?: string;
+  items: Buoc[];
+}
+interface Props {
+  heading?: string;
+  groups: Nhom[];
+}
+const { heading = 'BAIKA sẽ làm gì', groups } = Astro.props;
+---
+
+<section class="buoc sec">
+  {/* Hoạ tiết phải lồng HAI lớp, không gộp được thành một.
+      Figma ghi toạ độ cho **khung bao SAU khi xoay** (2042×1954), còn CSS
+      `left/bottom` lại áp cho hộp TRƯỚC khi xoay. Gộp một lớp thì phải tự
+      quy đổi ra một cặp số chẳng ai đối chiếu được với bản vẽ nữa.
+      Lớp ngoài = khung bao, lớp trong = hình thật rồi mới xoay. */}
+  <span class="buoc__quang" aria-hidden="true"><span class="buoc__quang-hinh"></span></span>
+
+  <h2 class="buoc__heading">{heading}</h2>
+
+  <div class="buoc__list">
+    {groups.map((g) => (
+      <div class="buoc__nhom">
+        <div class="buoc__trai">
+          <h3 class="buoc__nhan">{g.title}</h3>
+          {g.no && <span class="buoc__so" aria-hidden="true">{g.no}</span>}
+        </div>
+
+        <div class="buoc__phai">
+          {g.items.map((it) => (
+            <DetailStepItem title={it.title}>{it.desc}</DetailStepItem>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .buoc {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-20);                  /* 80 */
+    padding-block: var(--s-24);        /* 96 — không đổi theo khổ màn */
+  }
+
+  /* --- Hoạ tiết `Ellipse 1` --------------------------------------------
+     Số đo Thắng gửi 26/09, lấy từ bản vẽ trang Tư vấn:
+       width 1199.05 · height 1653.903 · rotate(127.118deg)
+       left −439.817 · bottom −746 · blur(100px)
+       gradient 185deg: --tru-trung 4.22% → --tru-nhat 115.54%, độ đục 25%
+
+     Màu lấy từ **biến trụ** nên sang sáu trang kia nó tự đổi màu — không
+     phải sửa gì. Đây chính là lý do bộ biến `--tru-*` ở khung trang đáng giá.
+
+     `blur(100px)` là giá trị CSS thật (Thắng copy từ panel Figma), ứng với
+     token `--blur-200`. Không phải số Figma thô. */
+  .buoc__quang {
+    position: absolute;
+    left: -439.817px;
+    bottom: -746px;                    /* neo theo ĐÁY section, nên section
+                                          cao bao nhiêu cũng đặt đúng chỗ */
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2042.39px;                  /* khung bao sau khi xoay */
+    height: 1954.175px;
+    pointer-events: none;
+  }
+  .buoc__quang-hinh {
+    width: 1199.05px;
+    height: 1653.903px;
+    border-radius: 50%;
+    background: linear-gradient(
+      185deg,
+      var(--tru-trung) 4.22%,
+      var(--tru-nhat) 115.54%
+    );
+    opacity: 0.25;                     /* Figma: fill ở độ đục 25% */
+    transform: rotate(127.118deg);
+    filter: blur(var(--blur-200));     /* 100px */
+  }
+
+  .buoc__heading,
+  .buoc__list { position: relative; z-index: 1; }
+
+  .buoc__heading {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);           /* 32 */
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+  }
+
+  .buoc__list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  /* Đường kẻ nằm TRÊN mỗi nhóm, kể cả nhóm đầu — Dev Mode ghi `border-t`
+     trên từng `Container`, không phải kẻ ngăn giữa các nhóm. Nhóm cuối
+     KHÔNG có kẻ dưới. */
+  .buoc__nhom {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);                   /* 24 — khe hai cột ở mobile */
+    padding-block: var(--s-10);        /* 40 */
+    border-top: 1px solid var(--gray-600);
+  }
+
+  .buoc__trai {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);                   /* 12 */
+    align-items: flex-start;
+  }
+
+  .buoc__nhan {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);           /* 24 */
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+    /* Dev Mode: `--blue-50` (#EDF6FD) — màu CỐ ĐỊNH, KHÔNG phải màu trụ.
+       Đây là chỗ dễ nhầm: cả section tô theo màu trụ, riêng nhãn nhóm thì
+       không. Đã kiểm lại trên bản vẽ Đào tạo CEO (trụ xanh tím) — vẫn
+       #EDF6FD. */
+    color: var(--blue-50);
+  }
+
+  /* Số thứ tự to, mờ ảo, nằm sau nhãn.
+     Dev Mode: 120px · Be Vietnam Pro Medium · `leading-none` ·
+     `background-clip: text` với gradient chéo · `blur(13.15px)`.
+
+     ⚠️ 13,15px nằm NGOÀI thang `--blur-*` (bậc gần nhất là `--blur-24` =
+        12px). Đây là số có thật trong bản vẽ, không phải em tự chế — cùng
+        loại với `gap: 7px` ở chân trang. Muốn sạch thang thì sửa Figma về
+        blur 24, em đổi lại một dòng.
+
+     Góc gradient trong Figma hơi khác nhau ở mỗi nhóm (216,5° / 211° /
+     210,7° / 210°) vì Figma tính theo kích thước từng khối chữ. Lấy 211°
+     làm số chung — chênh vài độ trên một khối đã nhoè 13px thì không ai
+     thấy được. */
+  .buoc__so {
+    font-family: var(--font-body);
+    font-size: 120px;
+    font-weight: 500;                  /* Be Vietnam Pro Medium */
+    line-height: 1;                    /* `leading-none` */
+    background: linear-gradient(
+      211deg,
+      var(--gray-50) 13.607%,
+      transparent 75.906%
+    );
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    filter: blur(13.15px);
+    user-select: none;
+  }
+
+  .buoc__phai {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);                   /* 24 */
+    align-items: flex-start;
+  }
+
+  /* --- Tablet ≥ 768: hai cột vẫn xếp DỌC nhưng khe rộng ra 40 --------- */
+  @media (min-width: 768px) {
+    .buoc__nhom { gap: var(--s-10); }  /* 40 */
+    .buoc__nhan { width: 400px; }
+    .buoc__phai { width: 600px; }
+  }
+
+  /* --- Desktop ≥ 1280: hai cột NẰM NGANG, dạt về hai mép -------------- */
+  @media (min-width: 1280px) {
+    .buoc__nhom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--s-10);
+    }
+    /* `flex: none` để cột phải không co lại khi nhãn trái dài. */
+    .buoc__phai { flex: none; }
+  }
+
+</style>

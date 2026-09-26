@@ -1,0 +1,140 @@
+---
+// THẺ DẪN SANG MỘT TRANG DỊCH VỤ KHÁC
+// Figma `ServiceLinkCard` 450:5984 — đọc bằng Dev Mode 26/09/2026.
+// Trục `Type` = breakpoint · trục `State` = Default / Hover / Focus
+// (chỉ bản Desktop có đủ ba trạng thái).
+//
+// Số đo đã xác minh:
+//   Desktop : 400 × 300 · padding 160 trên / 40 dưới / 40 hai bên · gap 8
+//   Tablet  : 344 × 240 · padding 12 · số ở (12,12)
+//   Mobile  : 342 × 240 · padding 12
+//   Nền     : --opacity-white (#FFFFFF @ 15%) — đúng token, không hardcode
+//   Tiêu đề : H-3 (Chakra Petch Medium 19/24), --gray-50
+//   Mô tả   : body (Be Vietnam Pro 15/130%), **--gray-50**
+//
+// ⚠️ Mô tả ở đây là `--gray-50`, KHÁC với `Detail Step Item` (`--gray-400`).
+//    Không phải nhầm — đã kiểm cả hai bằng Dev Mode. Nền thẻ này sáng hơn
+//    (phủ trắng 15%) nên chữ phải sáng theo mới giữ được tương phản.
+//
+// Số thứ tự: 120px **Be Vietnam Pro Light (300)** — nhẹ hơn số ở
+// `StepsSection` vốn là Medium (500). Đặt tuyệt đối ở góc trên trái, và
+// tiêu đề CHỒNG LÊN phần dưới của số. Đó là chủ ý: số là hoạ tiết nền.
+interface Props {
+  /** Số thứ tự hiện mờ ở góc. VD: "01". */
+  no: string;
+  title: string;
+  /**
+   * Đường dẫn tới trang dịch vụ. **Để trống thì thẻ không bấm được.**
+   *
+   * Cố ý: sáu trang dịch vụ kia chưa dựng (26/09). Một thẻ trông bấm được
+   * mà bấm vào ra 404 tệ hơn hẳn một thẻ không bấm được — cùng lý lẽ với
+   * hai ô `Trạm Ý Tưởng` / `Trạm Kết Nối` trên trang chủ.
+   * Khi trang kia ra đời thì truyền `href` vào, không phải sửa gì thêm.
+   */
+  href?: string;
+}
+const { no, title, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag class="dv" href={href} data-co-link={href ? 'true' : undefined}>
+  <span class="dv__so" aria-hidden="true">{no}</span>
+  <h3 class="dv__title">{title}</h3>
+  <p class="dv__desc"><slot /></p>
+</Tag>
+
+<style>
+  .dv {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);                  /* 8 */
+    align-items: flex-start;
+    width: 100%;
+    height: 240px;
+    padding: 120px var(--s-3) var(--s-3);   /* Tablet/Mobile: lề 12 */
+    background: var(--opacity-white);        /* #FFFFFF @ 15% */
+    overflow: hidden;                        /* Figma `overflow-clip` */
+    color: inherit;
+    text-decoration: none;
+    transition: box-shadow 140ms ease, background-color 140ms ease;
+  }
+
+  /* Số to mờ ở góc trên trái.
+     Gradient 222.96° từ #CCCCCC @59% xuống trong suốt.
+     ⚠️ #CCCCCC KHÔNG có trong bộ token; bậc gần nhất là `--gray-400`
+        (#C7C7C7), lệch 5/255 ≈ 2% — mắt không phân biệt được, và dùng token
+        thì đổi bảng màu một chỗ là đổi hết. Nêu ra để Thắng biết, không tự
+        chế màu mới.
+     ⚠️ `blur(13.15px)` nằm ngoài thang `--blur-*` (bậc gần nhất 12px). Đây
+        là số có thật trong bản vẽ — cùng loại với `gap: 7px` ở chân trang. */
+  .dv__so {
+    position: absolute;
+    top: var(--s-3);
+    left: var(--s-3);
+    font-family: var(--font-body);
+    font-size: 120px;
+    font-weight: 300;                 /* Be Vietnam Pro Light */
+    line-height: 1;
+    background: linear-gradient(
+      222.96deg,
+      color-mix(in srgb, var(--gray-400) 59%, transparent) 13.721%,
+      transparent 95.949%
+    );
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    filter: blur(13.15px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .dv__title,
+  .dv__desc { position: relative; z-index: 1; margin: 0; width: 100%; }
+
+  .dv__title {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);          /* 19 */
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+    color: var(--gray-50);
+  }
+
+  .dv__desc {
+    font-size: var(--fs-body);        /* 15 */
+    line-height: var(--lh-body);
+    color: var(--gray-50);
+  }
+
+  /* --- Desktop ≥ 1280: thẻ cao hơn, lề rộng hơn --------------------- */
+  @media (min-width: 1280px) {
+    .dv {
+      height: 300px;
+      padding: 160px var(--s-10) var(--s-10);   /* 160 / 40 / 40 */
+    }
+    .dv__so { top: var(--s-10); left: var(--s-10); }
+  }
+
+  /* --- Trạng thái ---------------------------------------------------
+     ⚠️ Bản vẽ có `State = Hover / Focus` nhưng em CHƯA đọc được giá trị cụ
+        thể của hai trạng thái đó. Ở đây áp **ngôn ngữ tương tác chung** của
+        hệ (DEC-014 / DEC-015):
+          Hover = nổi lên   → --shadow-inner
+          Focus = quầng sáng → --shadow-drop-inner
+        Khi nào đọc được state thật từ Figma thì thay vào. Chỉ áp cho thẻ
+        BẤM ĐƯỢC — thẻ chưa có đường dẫn thì không phản ứng, vì hứa một cú
+        bấm không dẫn tới đâu là nói dối người dùng. */
+  a.dv:hover {
+    box-shadow: var(--shadow-inner);
+    background: var(--opacity-light);
+  }
+  a.dv:focus-visible {
+    outline: 2px solid var(--gray-50);
+    outline-offset: -2px;
+    box-shadow: var(--shadow-drop-inner);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dv { transition: none; }
+  }
+</style>

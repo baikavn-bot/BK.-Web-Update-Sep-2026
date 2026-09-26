@@ -13,7 +13,13 @@
 // Số đo đã xác minh:
 //   Xếp dọc · không padding · gap 12 (--s-3) · rộng 418 (bản vẽ desktop)
 //   Tiêu đề: Chakra Petch Medium 19/24 = style H-3, màu --gray-50
-//   Mô tả  : Be Vietnam Pro Regular 15/130% = style body, màu --gray-50
+//   Mô tả  : Be Vietnam Pro Regular 15/130% = style body, màu **--gray-400**
+//
+// 🔴 SỬA 26/09 — đọc lại bằng Dev Mode: mô tả là `--gray-400` (#C7C7C7),
+//    KHÔNG phải `--gray-50`. Bản trước tô sáng bằng tiêu đề nên mất hẳn tầng
+//    bậc: tiêu đề và mô tả cùng độ sáng thì mắt không biết đọc cái nào trước.
+//    Đã kiểm tương phản: #C7C7C7 trên nền #1E1E1E = **9,75:1**, vượt xa mức
+//    sàn 4,5:1 của WCAG AA. Sửa ở đây là sửa cho hơn 50 chỗ dùng.
 //
 // ✅ Thắng đã sửa Figma 25/09: gap đổi từ **14** về **12** = `--s-3`.
 //    Trước đó 14 nằm ngoài thang spacing (thang nhảy 12 → 16, không có
@@ -23,7 +29,12 @@
 // ⚠️ Bản vẽ để bề ngang CỐ ĐỊNH 418. Ở đây để co giãn theo khung cha —
 //    418px cứng sẽ tràn màn 375. Khung cha khống chế bề ngang tối đa.
 interface Props {
-  title: string;
+  /**
+   * Tiêu đề bước. **Bỏ trống thì chỉ hiện mô tả** — trang Tư vấn dùng dạng
+   * này: nhãn nhóm bên trái đã nói đủ, thêm tiêu đề nữa là lặp.
+   * (Đã kiểm bằng Dev Mode trên `382:8852` — bốn nhóm đều không có tiêu đề.)
+   */
+  title?: string;
   /** `true` = biến thể `Full` (có mô tả). `false` = biến thể `Title`. */
   full?: boolean;
 }
@@ -31,7 +42,7 @@ const { title, full = true } = Astro.props;
 ---
 
 <div class="step">
-  <h3 class="step__title">{title}</h3>
+  {title && <h3 class="step__title">{title}</h3>}
   {full && (
     <p class="step__desc"><slot /></p>
   )}
@@ -57,6 +68,6 @@ const { title, full = true } = Astro.props;
     margin: 0;
     font-size: var(--fs-body);   /* 15 */
     line-height: var(--lh-body); /* 130% */
-    color: var(--gray-50);
+    color: var(--gray-400);      /* Dev Mode 26/09 — xem ghi chú đầu file */
   }
 </style>

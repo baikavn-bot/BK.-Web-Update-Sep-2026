@@ -1,0 +1,84 @@
+---
+// SECTION "6 DỊCH VỤ TRỌNG TÂM" — khối RIÊNG của trang Tư vấn
+// Figma: Desktop `424:2923` · Tablet `480:2086` · Mobile `450:5592`.
+// Đọc bằng Dev Mode 26/09/2026.
+//
+// 🔑 PHÁT HIỆN: đây KHÔNG phải sáu mục nội dung — đây là **sáu đường dẫn
+//    sang sáu trang dịch vụ còn lại**. Bằng chứng:
+//      · component tên `ServiceLinkCard` (Link, không phải Card)
+//      · sáu nhãn trùng khít sáu trang: Vận hành · Marketing & tăng trưởng
+//        · Tài chính · Pháp lý – Thuế · Công nghệ · Năng lực CEO
+//      · thiếu đúng trục `01 Mô hình kinh doanh` — vì đó CHÍNH LÀ trang này
+//    Nói cách khác: đứng ở trang Tư vấn, khối này mời khách đi tiếp sang
+//    sáu trụ kia. Nếu dựng nó thành sáu khối chữ chết thì mất hẳn vai trò.
+//
+// ─── Bố cục ────────────────────────────────────────────────────────────
+// Khung : xếp dọc · gap 40 · padding NGANG 40, **không có padding dọc**
+//         (Dev Mode chỉ ghi `px-[40px]` — Thắng cũng ghi `padding: 0 40px`)
+// Lưới  : các thẻ DÍNH SÁT NHAU, gap 0 — đúng bản vẽ, không phải thiếu sót
+//         Desktop 3 cột (400 × 300) · Tablet 2 cột (344 × 240)
+//         Mobile 1 cột (342 × 240)
+import ServiceLinkCard from './ServiceLinkCard.astro';
+
+interface DichVu {
+  no: string;
+  title: string;
+  desc: string;
+  /** Để trống nếu trang đích chưa tồn tại — thẻ sẽ không bấm được. */
+  href?: string;
+}
+interface Props {
+  heading?: string;
+  items: DichVu[];
+}
+const { heading = '6 dịch vụ trọng tâm', items } = Astro.props;
+---
+
+<section class="dvs sec">
+  <h2 class="dvs__heading">{heading}</h2>
+
+  <div class="dvs__luoi">
+    {items.map((d) => (
+      <ServiceLinkCard no={d.no} title={d.title} href={d.href}>
+        {d.desc}
+      </ServiceLinkCard>
+    ))}
+  </div>
+</section>
+
+<style>
+  .dvs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-10);                 /* 40 */
+    /* KHÔNG có padding dọc — section này nằm sát khối trên và khối dưới.
+       `.sec` ở khung trang đã lo padding ngang. */
+  }
+
+  .dvs__heading {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);          /* 32 */
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+  }
+
+  /* Lưới thẻ. Dùng `grid` thay cho `flex-wrap` của bản vẽ: cùng kết quả mà
+     không phải tính bề rộng từng thẻ bằng tay, và các thẻ trong một hàng
+     tự cao bằng nhau. */
+  .dvs__luoi {
+    display: grid;
+    grid-template-columns: 1fr;       /* Mobile: 1 cột */
+    gap: 0;                           /* Bản vẽ để các thẻ dính sát nhau */
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .dvs__luoi { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1280px) {
+    .dvs__luoi { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
