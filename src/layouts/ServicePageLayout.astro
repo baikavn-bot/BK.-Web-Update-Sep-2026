@@ -96,6 +96,12 @@ const { title, description, pillar, current } = Astro.props;
      `BaseLayout` đặt `data-pillar` lên thẻ <html>, nhưng trước đây KHÔNG
      có CSS nào đọc nó — em vừa nối lại chỗ này.
 
+     🔴 26/09 — Figma giờ có đúng cơ chế này: bộ biến **`Trụ`** với 7 mode
+     (mỗi trụ một mode), mỗi khung trang gán mode của mình. Biến Figma
+     `--tru-dam / --tru-trung / --tru-nhat` = đúng ba biến dưới đây; mode
+     Figma = giá trị `data-pillar`. Thêm `--tru-dam-0` (bản trong suốt) chỉ
+     cần trong Figma — code tự tạo bằng color-mix.
+
      Cách dùng: mọi section cứ viết `var(--tru-trung)`. Sang trang khác,
      chỉ cần đổi prop `pillar` là toàn bộ màu tự đổi theo. Không section
      nào được viết thẳng tên màu của một trụ cụ thể.

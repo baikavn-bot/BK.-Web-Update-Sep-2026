@@ -78,6 +78,10 @@ const uid = Math.random().toString(36).slice(2, 8);
       đây là <h1> của trang, nên nó phải đọc được, chọn được, và Google
       phải đọc được. Xuất thành ảnh là mất hết.
       CSS thuần không uốn được chữ theo đường cong; SVG thì làm được. */}
+  {/* 🔴 26/09 — Figma: 7 chữ cong dùng CHUNG paint style `Hero/Display 1`
+      (+ text style `display-1`). Style lấy màu từ bộ biến `Trụ` nên mỗi
+      trang tự ra màu trụ của mình. Code tương ứng: một component này +
+      biến `--tru-*` — sửa ở đây là 7 trang đổi theo. */}
   <h1 class="hero__title">
     <svg class="hero__arc" viewBox="0 0 1382 639" role="img" aria-label={title}>
       <defs>
