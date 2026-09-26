@@ -1,36 +1,79 @@
 ---
-// CHÂN TRANG DÙNG CHUNG — Figma `Footer` 450:5263. Đo 25/09/2026.
-// Ba biến thể: Desktop 1280 · Tablet 768 · Mobile 375 — đều **cao 680**.
+// CHÂN TRANG DÙNG CHUNG — Figma `Footer` 450:5263.
+// Dựng lại ngày 26/09/2026 bằng **Dev Mode** (lần trước đọc bằng Plugin API,
+// sai nhiều chỗ — xem cuối file).
 //
-// Bố cục (đo trên bản Desktop, cộng lại ra đúng 680):
-//   padding 40 · xếp dọc · dồn xuống đáy · gap 24
-//   `Planet`  — hoạ tiết, đặt TUYỆT ĐỐI, 1920×1000 ở x=−320 y=0, bị cắt bớt
-//   `BAIKA`   — chữ lớn, đặt TUYỆT ĐỐI, x=40 y=0
-//   Details (y 498, cao 80) → Line (y 602) → legal (y 626, cao 14) → hết 680
+//   Desktop 217:2648 (1280) · Tablet 489:2986 (768) · Mobile 450:5264 (375)
 //
-// Chữ `BAIKA`: Be Vietnam Pro **Black (900)** · cỡ 358 / 220 / 100 ·
-//   giãn dòng 85% · chữ HOA · tô gradient **NGANG** (ma trận đơn vị):
-//   trong suốt → --gray-50 ở 50% độ đục (giữa) → trong suốt.
-//   ⚠️ Gradient NGANG, không phải dọc — nhìn ảnh render rất dễ tưởng nhầm
-//      là dọc. Đã kiểm bằng ma trận gradient, không đoán.
-//   ⚠️ Đã phải THÊM weight 900 vào link Google Fonts ở BaseLayout —
-//      trước đó chỉ nạp tới 700, chữ này sẽ bị trình duyệt làm đậm giả.
+// Ba khổ CÙNG cao 680, cùng gap 24, cùng xếp dọc + dồn xuống đáy.
+// Khác nhau đúng bốn chỗ:
 //
-// Đường kẻ ngang: 1px `--gray-900` (#373737) — đã kiểm, đúng token.
+//   |                | Desktop      | Tablet       | Mobile          |
+//   |----------------|--------------|--------------|-----------------|
+//   | padding        | 40           | 40           | 40 dọc / 24 ngang |
+//   | khối Details   | NGANG, cao 80| NGANG, cao 80| DỌC, cao 165 — Liên hệ lên trước |
+//   | dòng cuối      | NGANG        | NGANG        | DỌC, gap 12 — "Design by" lên trước |
+//   | chữ BAIKA      | 358px, top 0 | 220px, top 46| 100px, top 129  |
 //
-// ⚠️ CẦN THẮNG XEM VÀ DUYỆT — hoạ tiết `Planet`.
-//    Trong Figma đây là một cụm 7 hình vector với blur 4 / 12 / 32 / 80.
-//    Ở đây dựng LẠI BẰNG CSS thay vì xuất ảnh, khác với cách làm ở hoạ
-//    tiết nền trang chủ. Lý do:
-//      · Chân trang chạy suốt bề ngang màn hình, từ 375 tới hơn 1920.
-//        Một file ảnh cố định 1920 sẽ bị cắt hoặc kéo méo ở các cỡ khác;
-//        hình vẽ bằng CSS thì co giãn đúng tỉ lệ ở mọi cỡ.
-//      · Hình ở đây là một ELIP + vệt sáng — `border-radius` tả được.
-//        Hoạ tiết trang chủ là các mảng tự do, nên lần đó buộc phải xuất ảnh.
-//      · Không thêm file ảnh nào phải tải, trong khi chân trang xuất hiện
-//        ở **cả 9 trang**.
-//    Đây là bản DỰNG LẠI, không phải bản sao từng pixel. Nếu Thắng thấy
-//    chưa đạt thì chuyển sang xuất ảnh — đổi một khối CSS lấy một thẻ <img>.
+// Chữ BAIKA ở cả ba khổ đều CĂN GIỮA khung: Figma ghi `left: calc(50% - 600px)`
+// với cỡ 358 (chữ rộng đúng 1201 = 600,5 × 2), `calc(50% - 369px)` với cỡ 220
+// (rộng 738), `calc(50% - 168,5px)` với cỡ 100 (rộng 337). Ba lần đều khít.
+// → Ở đây dùng `left: 50%` + `translateX(-50%)`: cùng kết quả, mà không phụ
+//   thuộc vào việc chữ có rộng đúng từng pixel như trong Figma hay không.
+//
+// ──────────────────────────────────────────────────────────────────────
+//
+// ⚠️ HOẠ TIẾT `Planet` — ĐANG LÀ BẢN DỰNG LẠI BẰNG CSS, CẦN THẮNG DUYỆT.
+//
+// Trong Figma đây là **một file SVG xuất sẵn** (`52e72.svg`), dùng chung cho
+// cả ba khổ. Em KHÔNG tải được file đó: cả máy chủ trong đám mây lẫn máy anh
+// đều bị chính sách mạng của tổ chức chặn `www.figma.com` (lỗi 403). Em không
+// được phép đi vòng, nên chỉ còn hai đường:
+//
+//   (a) Dựng lại bằng CSS — đang làm ở đây. Ưu điểm: co giãn đúng ở mọi bề
+//       ngang màn (chân trang chạy suốt từ 375 tới hơn 1920), không thêm file
+//       phải tải, đúng luật "ưu tiên CSS/SVG" trong CLAUDE.md.
+//       Nhược: là bản DỰNG LẠI theo ảnh render, không phải bản sao từng pixel.
+//
+//   (b) Anh xuất tay `52e72.svg` từ node `Planet` 219:2878 rồi bỏ vào
+//       `public/img/`. Em đổi khối CSS này lấy một thẻ <img> — sửa một chỗ.
+//
+// Em đã đối chiếu bản dựng với ảnh render thật của Figma (chụp qua MCP), không
+// vẽ mò. Nhưng "giống" và "đúng" là hai chuyện — anh nhìn rồi quyết.
+//
+// ──────────────────────────────────────────────────────────────────────
+//
+// Cụm TIA SÁNG hắt lên từ sau hành tinh — tạo nên vùng sáng phía trên
+// đường chân trời, với mép trên dạng **răng lược**.
+//
+// [SUY LUẬN, không phải đã xác minh] Em chụp node `Planet` qua Figma MCP rồi
+// dò từng cột pixel để tìm mép trên vùng sáng, và dựng lại bằng 9 hình chữ
+// nhật phủ blur 80 (Figma) = blur 40 (CSS). Các tia giãn dần ra hai bên
+// (240 → 240 → 280 → 280) và thấp dần.
+//
+// ⚠️ Vì sao chỉ là suy luận: HAI ảnh render của Figma cho cùng node này KHÔNG
+//    khớp nhau. Ảnh chụp riêng `Planet` thì nửa trên TỐI (độ sáng 40–90/255);
+//    ảnh chụp cả chân trang thì nửa trên SÁNG (100–160/255). Em lấy ảnh chụp
+//    CẢ CHÂN TRANG làm chuẩn — đó mới là thứ người dùng nhìn thấy.
+//    Độ sáng đã dò khớp tới sai số trung bình ~7%; còn *hình dạng* các tia
+//    thì chưa chắc, vì trong ảnh chụp cả chân trang chữ BAIKA che mất vùng
+//    cần đo. Xuất được file SVG là hết chuyện này.
+//
+// `x`   = tâm tia, toạ độ trong khung hoạ tiết rộng 1920
+// `w`   = bề rộng tia
+// `top` = mép trên (số âm = cao hơn khung, bị cắt)
+const TIA = [
+  { x:  -80, w: 320, top: 390 },
+  { x:  200, w: 300, top: 310 },
+  { x:  480, w: 280, top: 250 },
+  { x:  720, w: 260, top: 240 },
+  { x:  960, w: 250, top: -200 },   // tia giữa — cao vọt, bị khung cắt mất ngọn
+  { x: 1200, w: 260, top: 240 },
+  { x: 1440, w: 280, top: 250 },
+  { x: 1720, w: 300, top: 310 },
+  { x: 2000, w: 320, top: 390 },
+];
+
 interface Props {
   /** Số điện thoại hiển thị. */
   phone?: string;
@@ -45,8 +88,23 @@ const {
 ---
 
 <footer class="ft">
-  {/* --- Hoạ tiết: hành tinh + vành sáng --- */}
+  {/* --- Hoạ tiết hành tinh --- */}
   <div class="ft__planet" aria-hidden="true">
+    <div class="ft__tia-cum">
+      {/* Toạ độ đi qua biến CSS `--x` / `--w` / `--top`, KHÔNG viết thẳng
+          left/top/width. Lý do: ở khổ nhỏ các khối này có thể đổi cách xếp,
+          lúc đó `left` viết thẳng sẽ ĐẨY LỆCH chứ không định vị —
+          bài học DEC-060. */}
+      {TIA.map((t) => (
+        <span class="ft__tia" style={`--x:${t.x}px; --w:${t.w}px; --top:${t.top}px`}></span>
+      ))}
+    </div>
+
+    {/* Thứ tự lớp: tia sáng → quầng sáng → thân hành tinh → điểm loé.
+        Thân hành tinh phải nằm TRÊN quầng sáng, nếu không quầng sẽ hắt cả
+        xuống nửa dưới đường chân trời — mà đo trên bản vẽ thì nửa dưới là
+        một dải chuyển màu dọc thuần, không có quầng. */}
+    <div class="ft__glow"></div>
     <div class="ft__globe"></div>
     <div class="ft__flare"></div>
   </div>
@@ -81,72 +139,164 @@ const {
 </footer>
 
 <style>
+  /* =====================================================================
+     KHUNG
+     Dev Mode: flex · column · items-center · justify-end · gap 24 · h 680
+     ===================================================================== */
   .ft {
     position: relative;
     z-index: 0;
+    /* `isolation` khoá hiệu ứng hoà trộn của chữ BAIKA lại trong chân trang.
+       Thiếu dòng này, `mix-blend-mode: overlay` sẽ đi tìm cả nền trang phía
+       trên mà trộn — chữ đổi màu theo từng trang, không kiểm soát được. */
+    isolation: isolate;
     display: flex;
     flex-direction: column;
-    /* Dồn nội dung xuống đáy — Figma đặt primaryAxisAlignItems = MAX. */
-    justify-content: flex-end;
-    gap: var(--s-6);                 /* 24 */
-    height: 680px;
-    padding: var(--s-10);            /* 40 — mobile đổi xuống 24 */
-    overflow: hidden;                /* cắt phần hoạ tiết thò ra ngoài */
-    background: var(--gray-950);
+    align-items: center;
+    justify-content: flex-end;     /* Figma: dồn nội dung xuống đáy */
+    gap: var(--s-6);               /* 24 */
+    /* Figma khoá cứng 680. Ở đây để `min-height` phòng khi chữ xuống dòng
+       nhiều hơn dự tính — thà chân trang cao thêm còn hơn cắt mất chữ. */
+    min-height: 680px;
+    padding: var(--s-10);          /* 40 — mobile đổi lề ngang xuống 24 */
+    overflow: hidden;              /* Figma `overflow-clip` */
+    background: var(--gray-950);   /* chân trang nằm NGOÀI <main> nên phải tự
+                                      đặt nền, không thừa hưởng nền trang */
   }
 
-  /* --- Hoạ tiết hành tinh ---------------------------------------------
-     Khung hoạ tiết giữ đúng tỉ lệ 1920×1000 của bản vẽ và luôn rộng bằng
-     150% chân trang — đúng như Figma đặt nó ở x=−320 trên khung 1280. */
+  /* =====================================================================
+     HOẠ TIẾT HÀNH TINH
+     Khung 1920 × 1000, căn giữa, bám đỉnh — Figma giữ NGUYÊN số này ở cả ba
+     khổ. Nghĩa là ở mobile nó tràn ra hai bên rất nhiều, và đó là chủ ý:
+     vòng cung phải thoai thoải. Co nó lại theo bề ngang màn là hỏng.
+     ===================================================================== */
   .ft__planet {
     position: absolute;
     top: 0;
     left: 50%;
-    /* Figma giữ hoạ tiết ở NGUYÊN 1920×1000 cho cả ba breakpoint — ở mobile
-       nó tràn ra ngoài rất nhiều, và đó là chủ ý: vòng cung phải thoai thoải.
-       `max()` tả đúng điều đó: 150% khi màn rộng, không bao giờ nhỏ hơn 1920.
-       Bỏ `max()` thì ở mobile elip co lại và lòi cả đáy ra — đã thấy thật
-       khi chụp thử. */
-    width: max(150%, 1920px);
-    aspect-ratio: 1920 / 1000;
+    z-index: 0;
+    width: 1920px;
+    height: 1000px;
     transform: translateX(-50%);
-    z-index: -1;
     pointer-events: none;
   }
 
-  /* Thân hành tinh: một elip rất rộng, chỉ ló phần chỏm lên.
-     Các con số % lấy thẳng từ toạ độ trong Figma chia cho 1920×1000. */
-  .ft__globe {
+  /* --- Cụm tia sáng ----------------------------------------------------
+     Blur 40 (= Figma blur 80) đặt trên CẢ CỤM, không đặt riêng từng tia —
+     đúng như Figma làm: một group, một hiệu ứng. Đặt riêng từng tia thì chỗ
+     hai tia gặp nhau sẽ hiện ra thành vệt, không liền thành răng lược. */
+  .ft__tia-cum {
     position: absolute;
-    left: -16.2%;                    /* x = −311 / 1920 */
-    top: 39.1%;                      /* y = 391 / 1000 */
-    width: 132.4%;                   /* 2543 / 1920 */
-    height: 74%;                     /* 740 / 1000 */
-    border-radius: 50%;
-    /* Bề mặt hành tinh: sáng nhẹ sát đường chân trời rồi tối dần. */
-    background: radial-gradient(
-      120% 100% at 50% 0%,
-      color-mix(in srgb, var(--gray-800) 60%, transparent) 0%,
-      color-mix(in srgb, var(--gray-950) 0%, transparent) 55%
+    inset: 0;
+    filter: blur(var(--blur-80));   /* Figma LayerBlur/Unifrom/80 → CSS 40 */
+  }
+  .ft__tia {
+    position: absolute;
+    left: var(--x);
+    top: var(--top);
+    width: var(--w);
+    /* Kéo xuống 470 — chỗ đó đã nằm dưới đường chân trời nên bị thân hành
+       tinh che. Mờ dần về phía dưới để không tạo vệt cứng chỗ giáp ranh. */
+    height: calc(470px - var(--top));
+    transform: translateX(-50%);
+    /* Mờ dần LÊN phía ngọn: đo trên bản vẽ, ở y=340 tia cho thêm ~50/255,
+       lên tới y=240 chỉ còn ~5. Tia sáng nhạt dần khi xa nguồn. */
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--gray-50) 26%, transparent) 35%,
+      color-mix(in srgb, var(--gray-50) 45%, transparent) 78%,
+      color-mix(in srgb, var(--gray-50) 30%, transparent) 100%
     );
-    /* Quầng sáng hắt lên phía trên đường chân trời. */
-    box-shadow: 0 -2px 80px 0 color-mix(in srgb, var(--gray-50) 18%, transparent);
   }
 
-  /* Vành sáng chạy dọc mép trên elip. Gradient NGANG nên sáng nhất ở giữa,
-     tắt dần về hai bên — giống ánh mặt trời hắt qua rìa hành tinh.
-     Vẫn là kỹ thuật vẽ viền bằng lớp phủ + khoét rỗng, xem FaqItem.astro. */
+  /* --- Quầng sáng ÔM LẤY vòng cung -------------------------------------
+     Thứ làm nên cảm giác "mặt trời đang mọc sau hành tinh", và cũng chính là
+     chỗ bản dựng lần trước thiếu hẳn: lần đó nửa trên chân trang tối thui,
+     trong khi bản vẽ nửa trên SÁNG hơn nửa dưới.
+
+     ⚠️ Không phải một quầng tròn đặt ở đỉnh. Em đã thử cách đó rồi đo lại:
+        ở hai mép màn, chỗ ngay trên đường chân trời, bản vẽ sáng 98–112/255
+        còn bản dựng chỉ 57. Lý do: vùng sáng CHẠY THEO đường cong, tụt xuống
+        cùng nó, chứ không nằm ngang.
+     → Ở đây dùng đúng elip của hành tinh nhưng PHÌNH RA 200px mỗi phía, rồi
+       tô sáng ở vành ngoài. Thân hành tinh vẽ đè lên sau, nên phần quầng nằm
+       dưới đường chân trời bị che — chỉ còn thấy phần hắt lên trên. */
+  .ft__glow {
+    position: absolute;
+    left: -26.615%;                /* −511 / 1920 */
+    top: 18.4%;                    /*  184 / 1000 */
+    width: 153.281%;               /* 2943 / 1920 */
+    height: 253%;                  /* 2530 / 1000 */
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      transparent 0%,
+      transparent 62%,
+      color-mix(in srgb, var(--gray-50)  7%, transparent) 76%,
+      color-mix(in srgb, var(--gray-50) 17%, transparent) 86%,
+      color-mix(in srgb, var(--gray-50) 26%, transparent) 94%,
+      transparent 100%
+    );
+  }
+
+  /* --- Thân hành tinh ---------------------------------------------------
+     Elip 2543 × 2130, đỉnh ở (−311, 384) trong khung 1920 × 1000.
+     ⚠️ Số này ĐO LẠI ngày 26/09 bằng cách dò pixel trên ảnh render thật rồi
+        khớp phương trình elip (sai số trung bình 0,6px). Bản trước ghi cao
+        740 — sai; đường cong dựng ra dốc hơn bản vẽ khá nhiều.
+        Bề rộng 2543 thì trùng khớp với số đọc được từ Figma, nên yên tâm.
+     Elip rộng hơn khung (2543 > 1920) nên ở màn siêu rộng đường chân trời
+     vẫn chạy tới sát hai mép. */
+  .ft__globe {
+    position: absolute;
+    left: -16.198%;                /* −311 / 1920 */
+    top: 38.4%;                    /*  384 / 1000 */
+    width: 132.448%;               /* 2543 / 1920 */
+    height: 213%;                  /* 2130 / 1000 */
+    border-radius: 50%;
+    /* Mặt hành tinh sáng dần LÊN phía đường chân trời. Đây là gradient DỌC
+       thuần: em đã đo, ở cùng một độ cao y thì độ sáng bằng nhau từ mép trái
+       sang mép phải — không có điểm sáng cục bộ nào.
+       Các mốc % dưới đây là độ sâu tính theo chiều cao elip (2130), lấy từ
+       số đo: y=440 → 141/255, y=480 → 102, y=520 → 73, y=560 → 50,
+       y=600 → 31, y=640 → 14, tắt hẳn quanh y=690. */
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--gray-50) 70%,   transparent) 0%,
+      color-mix(in srgb, var(--gray-50) 38%,   transparent) 2.63%,
+      color-mix(in srgb, var(--gray-50) 22%,   transparent) 4.51%,
+      color-mix(in srgb, var(--gray-50) 14%,   transparent) 6.38%,
+      color-mix(in srgb, var(--gray-50) 7%,    transparent) 8.26%,
+      transparent 10.2%
+    );
+  }
+
+  /* Viền sáng chạy dọc mép trên elip.
+     Kỹ thuật: phủ một lớp gradient lên toàn elip rồi KHOÉT RỖNG phần ruột,
+     chỉ chừa lại vành ngoài cùng (`mask-composite: exclude`). Cách này giữ
+     NGUYÊN kích thước elip — khác với `border`, vốn cộng thêm bề dày.
+     Xem thêm FaqItem.astro, cùng một kỹ thuật.
+     Các mốc % là vị trí theo bề ngang elip, độ sáng đo từ ảnh render:
+     25% → 115/255 · 31% → 170 · 37% → 216 · 44% → 245 · 50% → 250. */
   .ft__globe::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    padding: 1.5px;
+    padding: 2px;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 20%,
-      var(--gray-50) 50%,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 80%
+      transparent 8%,
+      color-mix(in srgb, var(--gray-50) 46%, transparent) 25%,
+      color-mix(in srgb, var(--gray-50) 69%, transparent) 31%,
+      color-mix(in srgb, var(--gray-50) 87%, transparent) 37%,
+      var(--gray-50) 46%,
+      var(--gray-50) 54%,
+      color-mix(in srgb, var(--gray-50) 87%, transparent) 63%,
+      color-mix(in srgb, var(--gray-50) 69%, transparent) 69%,
+      color-mix(in srgb, var(--gray-50) 46%, transparent) 75%,
+      transparent 92%
     );
     -webkit-mask:
       linear-gradient(var(--gray-950) 0 0) content-box,
@@ -154,95 +304,109 @@ const {
     -webkit-mask-composite: xor;
             mask-composite: exclude;
   }
+  /* Trình duyệt cũ không khoét rỗng được thì bỏ hẳn viền, còn hơn hiện ra
+     một elip đặc màu sáng đè lên tất cả. */
   @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
     .ft__globe::before { display: none; }
   }
 
-  /* Điểm loé sáng ở đỉnh vòng cung — Figma có hai hình trắng nhoè
-     (120×50 blur 32 và 40×16 blur 12). Gộp thành một. */
+  /* --- Điểm loé ở đỉnh vòng cung ----------------------------------------
+     Nhỏ thôi: đo được độ sáng tụt từ 249 xuống 135 chỉ trong 24px phía trên
+     đỉnh, nên đây là một chấm sáng gọn chứ không phải quầng lớn. */
   .ft__flare {
     position: absolute;
-    left: 46.9%;                     /* x = 900 / 1920 */
-    top: 36.1%;                      /* y = 361 / 1000 */
-    width: 6.25%;                    /* 120 / 1920 */
-    height: 5%;                      /* 50 / 1000 */
+    left: 50%;
+    top: 384px;
+    width: 190px;
+    height: 76px;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: var(--gray-50);
-    filter: blur(var(--blur-40));    /* Figma LayerBlur 32 ≈ CSS 16 */
-    /* Giảm còn 0.45: bản đầu để 0.85 thì ra một cục trắng loang, át cả
-       vòng cung. Đã chụp thử rồi chỉnh — không phải chọn bừa. */
-    opacity: 0.45;
+    background: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      var(--gray-50) 0%,
+      color-mix(in srgb, var(--gray-50) 55%, transparent) 34%,
+      transparent 76%
+    );
+    filter: blur(var(--blur-24));  /* Figma LayerBlur/Unifrom/24 → CSS 12 */
   }
 
-  /* --- Chữ lớn --------------------------------------------------------
-     Bản vẽ cho ba cỡ rời: 358 (1280) · 220 (768) · 100 (375). Quy về
-     phần trăm bề ngang màn thì ra ba hệ số hơi khác nhau, nên đặt riêng
-     theo breakpoint để cỡ nào cũng khớp đúng bản vẽ, thay vì lấy một con
-     số trung bình rồi sai cả ba. Chặn trần 358 để màn siêu rộng không
-     phóng to vô tội vạ.
-     Chữ có thể tràn ra ngoài lề vài px — trong Figma cũng vậy (bản mobile
-     rộng 336 trong khung 327). `.ft` có `overflow: hidden` nên tràn thì bị
-     cắt gọn, không đẩy vỡ bố cục. */
+  /* =====================================================================
+     CHỮ BAIKA
+     ===================================================================== */
   .ft__wordmark {
     position: absolute;
-    top: 0;
-    left: var(--s-10);
-    right: var(--s-10);
-    z-index: -1;
+    top: 129px;                    /* Mobile. Tablet 46 · Desktop 0 */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;                    /* NẰM TRÊN hoạ tiết, DƯỚI phần chữ đọc
+                                      được — đúng thứ tự lớp trong Figma */
     margin: 0;
     font-family: var(--font-display);
-    font-weight: 900;                /* Be Vietnam Pro Black */
-    font-size: 26.6vw;               /* Mobile: 375 → 100 */
-    line-height: 0.85;               /* Figma: 85% */
+    font-weight: 900;              /* Be Vietnam Pro Black. Đã phải thêm
+                                      `;900` vào link Google Fonts ở
+                                      BaseLayout — trước đó chỉ nạp tới 700,
+                                      trình duyệt sẽ bôi đậm giả. */
+    font-size: 26.6vw;             /* Mobile: 375 → 100 */
+    line-height: 0.85;             /* Figma: 85% */
     text-transform: uppercase;
-    /* Bắt buộc MỘT dòng. Không có dòng này thì chữ xuống hàng thành
-       "BAIK / A" — đã thấy thật khi chụp thử. Bản vẽ để 1201px cho cỡ 358,
-       tức vừa khít; chỉ cần font nhích rộng một chút là gãy. */
+    /* Bắt buộc MỘT dòng. Thiếu dòng này chữ xuống hàng thành "BAIK / A" —
+       đã thấy thật khi chụp thử. */
     white-space: nowrap;
-    /* Gradient NGANG, tô vào chính nét chữ. `background-clip: text` là cách
-       duy nhất làm được việc này — chữ trở thành "cửa sổ" nhìn xuyên qua
-       lớp gradient bên dưới. */
+    /* Gradient NGANG, tô vào chính nét chữ. Dev Mode: `bg-gradient-to-r`,
+       điểm giữa ở **50,962%**. `background-clip: text` biến nét chữ thành
+       "cửa sổ" nhìn xuyên xuống lớp gradient bên dưới. */
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 0%,
-      color-mix(in srgb, var(--gray-50) 50%, transparent) 51%,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 100%
+      transparent 0%,
+      color-mix(in srgb, var(--gray-50) 50%, transparent) 50.962%,
+      transparent 100%
     );
     -webkit-background-clip: text;
             background-clip: text;
     color: transparent;
-    /* 🔴 BỎ SÓT — Dev Mode 25/09: chữ này có **`mix-blend-overlay`**.
-       Đây là lý do trong Figma nó *tan vào* vòng cung hành tinh chứ không
-       nằm đè lên như một lớp chữ bình thường. Thiếu dòng này thì chữ trông
-       "dán lên", khác hẳn cảm giác bản vẽ. */
+    /* Dev Mode: `mix-blend-overlay`. Đây là lý do trong bản vẽ chữ *tan vào*
+       vòng cung chứ không nằm đè lên như một lớp chữ dán thêm. */
     mix-blend-mode: overlay;
     user-select: none;
   }
 
-  /* --- Khối thông tin -------------------------------------------------- */
+  /* =====================================================================
+     KHỐI THÔNG TIN
+     ===================================================================== */
+  .ft__details,
+  .ft__line,
+  .ft__legal {
+    position: relative;
+    z-index: 2;                    /* trên cả hoạ tiết lẫn chữ BAIKA */
+    width: 100%;
+  }
+
   .ft__details {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: var(--s-6);
+    overflow: hidden;              /* Figma `overflow-clip` */
+    word-break: break-word;
   }
   .ft__block {
     display: flex;
     flex-direction: column;
-    /* Dev Mode ghi thẳng `gap-[7px]` — đúng 7, không phải một token.
-       Bản trước em làm tròn lên 8 cho "sạch thang"; giờ theo đúng bản vẽ.
-       Đây là giá trị ngoài thang --s-*, cùng loại với 14 mà Thắng đã sửa
-       về 12 — nếu muốn sạch thì sửa Figma về 8, em đổi lại một dòng. */
+    /* Dev Mode ghi thẳng `gap-[7px]` ở cả ba khổ — đúng 7, không phải token.
+       Đây là giá trị ngoài thang `--s-*`, cùng loại với 14 mà anh đã sửa về
+       12. Muốn sạch thang thì sửa Figma về 8, em đổi lại một dòng. */
     gap: 7px;
-    max-width: 300px;
+    width: 300px;
+    max-width: 100%;
   }
   .ft__block--contact {
     align-items: flex-end;
     text-align: right;
+    white-space: nowrap;           /* Dev Mode: `whitespace-nowrap` */
   }
   .ft__label {
     margin: 0;
-    font-size: var(--fs-body-lg);    /* 17 */
+    font-size: var(--fs-body-lg);  /* 17 — Global Tokens/Body/body-lg */
     line-height: var(--lh-body-lg);
     color: var(--gray-50);
   }
@@ -251,26 +415,28 @@ const {
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
     color: var(--slate-50);
-    white-space: pre-line;           /* giữ chỗ xuống dòng trong địa chỉ */
+    white-space: pre-line;         /* giữ chỗ xuống dòng trong địa chỉ */
   }
+  .ft__block--contact .ft__value { white-space: nowrap; }
   .ft__value a {
     color: inherit;
     text-decoration: none;
   }
   .ft__value a:hover { text-decoration: underline; }
   .ft__value a:focus-visible {
-    outline: 2px solid var(--blue-400);
+    outline: 2px solid var(--gray-50);
     outline-offset: 2px;
     border-radius: var(--r-xs);
   }
 
-  /* --- Đường kẻ -------------------------------------------------------- */
+  /* --- Đường kẻ ---------------------------------------------------------
+     Figma vẽ bằng một SVG `Line 1` cao 0, nét 1px. Ở đây dùng viền trên của
+     <hr> — cùng kết quả, không thêm file. Màu `--gray-900` (#373737). */
   .ft__line {
-    width: 100%;
     height: 0;
     margin: 0;
     border: 0;
-    border-top: 1px solid var(--gray-900);   /* #373737 — đã kiểm */
+    border-top: 1px solid var(--gray-900);
   }
 
   /* --- Dòng cuối -------------------------------------------------------- */
@@ -279,34 +445,32 @@ const {
     justify-content: space-between;
     align-items: center;
     gap: var(--s-6);
+    word-break: break-word;
   }
   .ft__legal p {
     margin: 0;
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
     color: var(--gray-50);
+    white-space: nowrap;
   }
 
-  /* Tablet: 768 → 220 */
-  @media (min-width: 768px) {
-    .ft__wordmark { font-size: 28.6vw; }
-  }
-  /* Desktop: 1280 → 358, không lớn hơn nữa */
-  @media (min-width: 1280px) {
-    .ft__wordmark { font-size: min(28vw, 358px); }
-  }
-
-  /* --- Mobile ---------------------------------------------------------- */
+  /* =====================================================================
+     MOBILE < 768 — khác desktop/tablet ở ba chỗ
+     ===================================================================== */
   @media (max-width: 767px) {
-    .ft { padding: var(--s-10) var(--s-6); }   /* lề 24 */
-    .ft__wordmark { left: var(--s-6); right: var(--s-6); }
+    .ft { padding: var(--s-10) var(--s-6); }      /* lề ngang 24 */
+
+    /* Hoạ tiết tụt lên 32px — Dev Mode: `top-[-32px]`. */
+    .ft__planet { top: -32px; }
 
     /* Bản vẽ mobile đảo thứ tự: Liên hệ lên trước, Địa chỉ xuống sau.
-       Dùng `order` thay vì đảo thứ tự trong HTML, để trình đọc màn hình
-       vẫn đọc theo mạch "địa chỉ rồi liên hệ" như bản desktop. */
+       Dùng `order` thay vì đảo thứ tự trong HTML, để trình đọc màn hình vẫn
+       đọc theo mạch "địa chỉ rồi liên hệ" như bản desktop. */
     .ft__details {
       flex-direction: column;
-      gap: var(--s-3);                          /* 12 */
+      justify-content: space-between;
+      gap: var(--s-3);                            /* Figma cao 165 → khe ≈ 12 */
     }
     .ft__block--contact {
       order: -1;
@@ -316,8 +480,68 @@ const {
     .ft__legal {
       flex-direction: column;
       align-items: flex-start;
-      gap: var(--s-3);
+      gap: var(--s-3);                            /* Dev Mode: gap 12 */
     }
-    .ft__by { order: -1; }
+    .ft__by { order: -1; }                        /* "Design by" lên trước */
   }
+
+  /* =====================================================================
+     TABLET ≥ 768 — chữ BAIKA 220 ở khổ 768, đặt cách đỉnh 46
+     ===================================================================== */
+  @media (min-width: 768px) {
+    .ft__wordmark {
+      font-size: 28.6vw;
+      top: 46px;
+    }
+  }
+
+  /* =====================================================================
+     DESKTOP ≥ 1280 — chữ BAIKA 358 ở khổ 1280, bám đỉnh
+     Chặn trần 358 để màn siêu rộng không phóng chữ to vô tội vạ.
+     ===================================================================== */
+  @media (min-width: 1280px) {
+    .ft__wordmark {
+      font-size: min(28vw, 358px);
+      top: 0;
+    }
+  }
+
+  /* =====================================================================
+     HAI SAI LỆCH SO VỚI BẢN VẼ — cần Thắng quyết
+     ---------------------------------------------------------------------
+     VD-011 · Đáy hành tinh chưa đủ tối.
+        Bản vẽ: ở sát mép dưới chân trang, thân hành tinh sáng 7–11/255.
+        Bản dựng: 30/255 — vì đó là `--gray-950` (#1E1E1E), màu TỐI NHẤT mà
+        bộ token có, và luật repo cấm tự chế màu mới.
+        → Muốn đúng bản vẽ thì phải thêm một token tối hơn, hoặc dùng
+          `--slate-950` (#08111D, sáng ~15/255) nhưng màu đó ngả xanh.
+          Em KHÔNG tự chọn. Hiện đang để nền `--gray-950`.
+
+     VD-012 · Chữ BAIKA: bản vẽ sáng, bản dựng tối.
+        Dev Mode ghi `mix-blend-overlay` + gradient trắng 50% — em làm đúng
+        như vậy. Nhưng phép trộn `overlay` LÀM TỐI phần nền tối: nền phía sau
+        chữ chỉ 30–150/255 (dưới 50%), nên chữ ra tối.
+        Trong ảnh render của Figma chữ lại SÁNG gần như trắng đặc.
+        Hai thứ này mâu thuẫn — em không tự chọn bên nào.
+        → Nếu anh muốn giống ảnh render: bỏ `mix-blend-mode: overlay` và tăng
+          độ đục gradient. Sửa 2 dòng. Nói một câu là em đổi.
+     =====================================================================
+
+     TÁM CHỖ BẢN TRƯỚC LÀM SAI — ghi lại để phiên sau không lặp
+     ---------------------------------------------------------------------
+     1. Nửa trên chân trang TỐI. Bản vẽ nửa trên SÁNG hơn nửa dưới — đó là
+        quầng sáng `.ft__glow`, lần trước không có.
+     2. Thiếu hẳn cụm cột răng lược `.ft__cot` — mép trên vùng sáng trong
+        bản vẽ có dạng bướu tròn, không phải một vệt mờ trơn.
+     3. Chữ BAIKA bị đẩy xuống dưới hoạ tiết (`z-index: -1`). Trong Figma nó
+        là lớp CUỐI CÙNG, nằm TRÊN hoạ tiết — có vậy `overlay` mới trộn được
+        với vòng cung.
+     4. Chữ BAIKA căn bằng `left/right: 40px` (kéo giãn). Dev Mode cho thấy
+        nó căn GIỮA khung ở cả ba khổ.
+     5. Thiếu `top` riêng cho từng khổ: 0 / 46 / 129.
+     6. Điểm giữa gradient chữ để 51%, Dev Mode ghi **50,962%**.
+     7. Khối Details thiếu `width: 300px` (Dev Mode ghi rõ ở cả ba khổ) và
+        thiếu `overflow-clip` + `word-break`.
+     8. Dòng cuối ở mobile thiếu đảo thứ tự "Design by Baika" lên trước.
+     ===================================================================== */
 </style>
