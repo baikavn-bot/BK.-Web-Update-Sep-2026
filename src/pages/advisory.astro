@@ -1,18 +1,21 @@
 ---
-// TRANG XEM THỬ — Giai đoạn 2 đang dựng dở.
+// TRANG 01 — TƯ VẤN DOANH NGHIỆP · `/advisory`
 //
-// ⚠️ ĐÂY KHÔNG PHẢI trang Tư vấn thật. Trang thật sẽ là `/advisory`
-//    (đúng slug trong menu, DEC-019) và chỉ ra đời ở **Giai đoạn 4**,
-//    khi đã đủ 9 section. Đặt tên khác để menu vẫn 404 như cũ, thay vì
-//    dẫn người xem vào một trang mới có mỗi vài khối.
+// Slug giữ nguyên từ site cũ (DEC-019) — khớp với ô bento trên trang chủ và
+// mục "Tư vấn" trên thanh nav.
 //
-// 📌 XOÁ FILE NÀY khi `/advisory` thật ra đời.
+// Tiền thân là `xem-thu-tu-van.astro`, trang xem thử dựng ở Giai đoạn 2.
+// Đổi tên thành trang thật ngày 26/09 theo yêu cầu của Thắng, vì trang chủ và
+// nav đều đã trỏ `/advisory` mà chưa có trang nào ở đó — bấm vào là 404.
 //
-// Đã có ĐỦ 6 section dùng chung: Hero · Bạn có đang gặp vấn đề này
-//        · Bạn sẽ nhận được gì · Các gói dịch vụ · Câu hỏi thường gặp · Liên hệ
-// Còn thiếu: Baika sẽ làm gì (Giai đoạn 3) · 6 dịch vụ (khối riêng của Tư vấn)
+// Đang có 6/8 section: Hero · Bạn có đang gặp vấn đề này · Bạn sẽ nhận được gì
+//        · Các gói dịch vụ · Câu hỏi thường gặp · Liên hệ
+// ⚠️ CÒN THIẾU 2 section, sẽ bổ sung ở Giai đoạn 3:
+//      · `Baika sẽ làm gì`  — 12 thẻ Detail Step Item
+//      · `6 dịch vụ`        — khối riêng của trang Tư vấn, cần ServiceLinkCard
 //
-// Nội dung lấy nguyên văn từ `claude/noi-dung-day-du.md`.
+// Nội dung lấy NGUYÊN VĂN từ `claude/noi-dung-day-du.md` (phụ lục FAQ đọc từ
+// site đang chạy 04/09) và `claude/noi-dung-theo-section.md`.
 import ServicePageLayout from '../layouts/ServicePageLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import SolutionSection from '../components/SolutionSection.astro';
@@ -54,15 +57,33 @@ const goi = [
             'Đồng hành các quyết định lớn', 'Kênh trao đổi ưu tiên'] },
 ];
 
+// FAQ — NGUYÊN VĂN từ `claude/noi-dung-day-du.md`, phụ lục "Toàn bộ câu trả
+// lời FAQ" (đọc từ site đang chạy 04/09/2026).
+// Bản xem thử trước đây dùng 4 câu do em tự viết — đã thay hết.
 const cauHoi = [
-  { question: 'Gói nào phù hợp với doanh nghiệp của tôi?',
-    answer: 'Cơ sở để chọn là mức độ trưởng thành của hệ thống, không phải quy mô doanh thu. Doanh nghiệp dưới 12 tháng tuổi nên bắt đầu ở Business Start; đã chạy ổn định thì Business Health Check là điểm vào được khuyên dùng.' },
-  { question: 'Một đợt đồng hành kéo dài bao lâu?',
-    answer: 'Tuỳ gói. Chẩn đoán gói gọn trong vài tuần; đồng hành cải thiện thường theo quý để kịp đo kết quả từng mốc.' },
-  { question: 'BAIKA có làm thay phần triển khai không?',
-    answer: 'BAIKA thiết kế hệ thống và đồng hành cùng đội ngũ của bạn triển khai — không làm thay, vì hệ thống phải sống được khi BAIKA rút đi.' },
-  { question: 'Thông tin doanh nghiệp có được bảo mật không?',
-    answer: 'Có. Mọi dữ liệu trao đổi trong quá trình tư vấn đều nằm trong phạm vi thoả thuận bảo mật ký trước khi bắt đầu.' },
+  { question: 'Doanh nghiệp nhỏ có phù hợp không?',
+    answer: 'Có. BAIKA thiết kế gói theo giai đoạn — từ chuẩn bị thành lập đến doanh nghiệp đang tăng trưởng. Gói Business Start dành riêng cho giai đoạn sớm.' },
+  { question: 'Bắt đầu như thế nào?',
+    answer: 'Bước đầu luôn là chẩn đoán (Business Health Check hoặc phiên chẩn đoán sơ bộ miễn phí khi bạn gửi form) để biết chính xác nên làm gì trước.' },
+  { question: 'Tư vấn online hay trực tiếp?',
+    answer: 'Cả hai. Các phiên làm việc có thể trực tuyến; giai đoạn khảo sát chuyên sâu có thể thực hiện tại doanh nghiệp.' },
+  { question: 'Chi phí tính như thế nào?',
+    answer: 'Theo gói và phạm vi thống nhất trước khi bắt đầu — không phát sinh ẩn. Sau chẩn đoán sơ bộ, BAIKA gửi đề xuất phạm vi và chi phí rõ ràng.' },
+];
+
+// Danh sách ô "Lĩnh vực" trong form — `claude/noi-dung-theo-section.md`, mục
+// `S7 · Lĩnh vực (dropdown)`. **Mỗi trang một danh sách khác nhau**, nên nó
+// nằm ở đây chứ không nằm cứng trong ContactSection.
+const linhVuc = [
+  'Mở doanh nghiệp mới',
+  'Khám sức khỏe doanh nghiệp',
+  'Cải thiện vận hành',
+  'Tổ chức & nhân sự',
+  'Chiến lược kinh doanh',
+  'Tài chính – Pháp lý – Thuế',
+  'Cố vấn CEO',
+  'Chuyển đổi số',
+  'Nhu cầu khác',
 ];
 ---
 <ServicePageLayout
@@ -80,5 +101,5 @@ const cauHoi = [
   <BenefitsSection items={ketQua} />
   <PricingSection packages={goi} />
   <FaqSection items={cauHoi} />
-  <ContactSection />
+  <ContactSection linhVuc={linhVuc} />
 </ServicePageLayout>

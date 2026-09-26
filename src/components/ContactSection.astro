@@ -29,17 +29,19 @@
 //       giống cách đã làm với ảnh nền sao.
 import ContactForm from './ContactForm.astro';
 
-// ⚠️ Danh sách "Lĩnh vực" CHƯA CÓ — Figma chỉ vẽ ô dropdown, không ghi các
-//    lựa chọn bên trong. Em không tự bịa danh sách ngành nghề. Bỏ trống thì
-//    ô vẫn hiện, chỉ có dòng gợi ý. Cần Thắng cung cấp.
-const LINH_VUC: string[] = [];
-
+// Danh sách ô "Lĩnh vực" **KHÁC NHAU ở mỗi trang dịch vụ** (xem
+// `claude/noi-dung-theo-section.md`, mục `S7 · Lĩnh vực`), nên nó đi vào đây
+// bằng prop chứ không nằm cứng trong component. Trang nào chưa truyền thì ô
+// vẫn hiện, chỉ có dòng gợi ý — không gãy.
 interface Props {
   heading?: string;
   socials?: { label: string; href?: string }[];
+  /** Các lựa chọn trong ô "Lĩnh vực". Mỗi trang một danh sách riêng. */
+  linhVuc?: string[];
 }
 const {
   heading = 'Liên hệ',
+  linhVuc = [],
   socials = [
     { label: 'Facebook',  href: undefined },
     { label: 'Instagram', href: undefined },
@@ -66,7 +68,7 @@ const {
   </div>
 
   <div class="lh__phai">
-    <ContactForm variant="dich-vu" linhVucOptions={LINH_VUC} />
+    <ContactForm variant="dich-vu" linhVucOptions={linhVuc} />
   </div>
 </section>
 
