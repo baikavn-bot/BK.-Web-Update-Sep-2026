@@ -1,0 +1,81 @@
+---
+// SỐ THỨ TỰ MỜ — MỘT bản dùng cho mọi số to mờ trên 7 trang
+//   · thẻ dịch vụ (`ServiceLinkCard`, trang Tư vấn)
+//   · "BAIKA sẽ làm gì" (`StepsSection`, mọi trang có số)
+//   · (sắp tới) `Process Card` trang AI
+//
+// 🔴 26/09 — Thắng chốt: số trong "BAIKA sẽ làm gì" dùng CHUNG style với số
+//    trên thẻ dịch vụ. Trong Figma, 25 số ở 7 trang đã được gán effect style
+//    `LayerBlur/Progessive/24` (trước đó mỗi số mang hiệu ứng rời: đổ bóng
+//    trong + nhoè dần 26.3). Sửa file này là mọi số đổi theo.
+//
+// Style (Figma):
+//   Gradient chữ 224° · #CCC@59% ở 13.72% → #515151@0 ở 95.95%
+//     ⚠️ #CCCCCC không có token → dùng `--gray-400` (#C7C7C7), lệch 2%.
+//   Effect style `LayerBlur/Progessive/24` — NHOÈ DẦN (progressive blur):
+//     nhoè 0 tại (78.4%, 33.6%) khung chữ → nhoè 24 tại (20.6%, 80.4%)
+//     → chữ số bên phải gần như sắc, chữ số bên trái nhoè mạnh.
+//
+// CSS không có nhoè dần, nên dựng bằng 4 bản sao chồng khít nhoè 0 · 4 · 8 ·
+// 12px (12 = token `--blur-24`), mỗi bản chỉ hiện trên một dải chéo nhờ
+// `mask-image`. Dải tính cho khung chữ 123 × 120 (+ đệm 24px để quầng nhoè
+// không bị cắt): hướng 231.7°, điểm rõ 33.4%, điểm nhoè 71.4%. Số rộng hơn
+// (VD "04" Medium rộng 168) lệch góc vài độ — mắt không phân biệt được.
+interface Props {
+  /** Chuỗi số, VD "01". */
+  so: string;
+  /** Độ đậm, theo từng chỗ trong Figma: thẻ dịch vụ 300 (Light), "BAIKA sẽ
+   *  làm gì" 500 (Medium). */
+  doDam?: 300 | 500;
+}
+const { so, doDam = 300 } = Astro.props;
+---
+
+<span class="so-mo" style={`--do-dam:${doDam}`} aria-hidden="true">
+  {[0, 1, 2, 3].map((i) => <span class={`so-mo__lop so-mo__lop--${i}`}>{so}</span>)}
+</span>
+
+<style>
+  .so-mo {
+    display: grid;                     /* 4 bản chồng vào cùng một ô */
+    font-family: var(--font-body);
+    font-size: 120px;
+    font-weight: var(--do-dam);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .so-mo__lop {
+    grid-area: 1 / 1;
+    padding: var(--s-6);               /* 24 — chỗ cho quầng nhoè */
+    margin: calc(-1 * var(--s-6));     /* …mà số vẫn đứng đúng chỗ */
+    background: linear-gradient(
+      224deg,
+      color-mix(in srgb, var(--gray-400) 59%, transparent) 13.72%,
+      color-mix(in srgb, var(--gray-800) 0%, transparent) 95.95%
+    ) content-box no-repeat;
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .so-mo__lop--0 {
+    -webkit-mask-image: linear-gradient(231.7deg, var(--gray-950) 33.4%, transparent 46.1%);
+            mask-image: linear-gradient(231.7deg, var(--gray-950) 33.4%, transparent 46.1%);
+  }
+  .so-mo__lop--1 {
+    filter: blur(calc(var(--blur-24) / 3));        /* 4px */
+    -webkit-mask-image: linear-gradient(231.7deg, transparent 33.4%, var(--gray-950) 46.1%, transparent 58.7%);
+            mask-image: linear-gradient(231.7deg, transparent 33.4%, var(--gray-950) 46.1%, transparent 58.7%);
+  }
+  .so-mo__lop--2 {
+    filter: blur(calc(var(--blur-24) * 2 / 3));    /* 8px */
+    -webkit-mask-image: linear-gradient(231.7deg, transparent 46.1%, var(--gray-950) 58.7%, transparent 71.4%);
+            mask-image: linear-gradient(231.7deg, transparent 46.1%, var(--gray-950) 58.7%, transparent 71.4%);
+  }
+  .so-mo__lop--3 {
+    filter: blur(var(--blur-24));                  /* 12px */
+    -webkit-mask-image: linear-gradient(231.7deg, transparent 58.7%, var(--gray-950) 71.4%);
+            mask-image: linear-gradient(231.7deg, transparent 58.7%, var(--gray-950) 71.4%);
+  }
+</style>

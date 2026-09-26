@@ -122,3 +122,20 @@ h3, .h3 {
 .skip-link:focus {
   left: var(--s-4);
 }
+
+/* --- Tiêu đề section — MỘT nơi duy nhất --------------------------
+   Figma: mọi `Section header` / `Section Title` trên 7 trang dịch vụ
+   (37 chỗ, đã đếm 26/09) dùng CÙNG text style `Global Tokens/Headings/H-1`
+   + màu biến `--gray-50`. Figma đã gom sẵn thành style; code trước đây lại
+   chép 5 dòng này vào 7 file section.
+   → Đổi kiểu tiêu đề section: sửa Ở ĐÂY là cả 7 trang đổi theo.
+   Section nào cần căn giữa / độ rộng riêng thì thêm ở file của section đó,
+   KHÔNG chép lại font/màu. */
+.tieu-de-section {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);        /* 32 */
+  line-height: var(--lh-h1);
+  font-weight: var(--fw-h1);
+  color: var(--gray-50);
+}

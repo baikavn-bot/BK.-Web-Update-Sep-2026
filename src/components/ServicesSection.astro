@@ -35,7 +35,7 @@ const { heading = '6 dịch vụ trọng tâm', items } = Astro.props;
 ---
 
 <section class="dvs sec">
-  <h2 class="dvs__heading">{heading}</h2>
+  <h2 class="tieu-de-section dvs__heading">{heading}</h2>
 
   <div class="dvs__luoi">
     {items.map((d) => (
@@ -61,14 +61,6 @@ const { heading = '6 dịch vụ trọng tâm', items } = Astro.props;
        `.sec` ở khung trang đã lo padding ngang. */
   }
 
-  .dvs__heading {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: var(--fs-h1);          /* 32 */
-    line-height: var(--lh-h1);
-    font-weight: var(--fw-h1);
-    color: var(--gray-50);
-  }
 
   /* Lưới thẻ. Dùng `grid` thay cho `flex-wrap` của bản vẽ: cùng kết quả mà
      không phải tính bề rộng từng thẻ bằng tay, và các thẻ trong một hàng

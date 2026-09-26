@@ -29,7 +29,7 @@ const { heading = 'Các câu hỏi thường gặp', items } = Astro.props;
 <section class="faq-sec sec">
   <span class="faq-sec__quang" aria-hidden="true"></span>
 
-  <h2 class="faq-sec__heading">{heading}</h2>
+  <h2 class="tieu-de-section faq-sec__heading">{heading}</h2>
 
   <div class="faq-sec__list">
     {items.map((it, i) => (
@@ -74,12 +74,6 @@ const { heading = 'Các câu hỏi thường gặp', items } = Astro.props;
   .faq-sec__list { position: relative; z-index: 1; }
 
   .faq-sec__heading {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: var(--fs-h1);           /* 32 */
-    line-height: var(--lh-h1);
-    font-weight: var(--fw-h1);
-    color: var(--gray-50);
     /* Dev Mode: `text-center w-[200px]`. Bản trước em để căn trái. */
     text-align: center;
   }

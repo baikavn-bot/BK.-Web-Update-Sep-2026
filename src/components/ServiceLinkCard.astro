@@ -19,6 +19,8 @@
 // Số thứ tự: 120px **Be Vietnam Pro Light (300)** — nhẹ hơn số ở
 // `StepsSection` vốn là Medium (500). Đặt tuyệt đối ở góc trên trái, và
 // tiêu đề CHỒNG LÊN phần dưới của số. Đó là chủ ý: số là hoạ tiết nền.
+import SoMo from './SoMo.astro';
+
 interface Props {
   /** Số thứ tự hiện mờ ở góc. VD: "01". */
   no: string;
@@ -38,12 +40,7 @@ const Tag = href ? 'a' : 'div';
 ---
 
 <Tag class="dv" href={href} data-co-link={href ? 'true' : undefined}>
-  {/* Bốn bản sao chồng khít nhau, mỗi bản một độ nhoè — xem giải thích ở
-      `.dv__so` bên dưới. Cả cụm `aria-hidden` nên trình đọc màn hình không
-      đọc số 4 lần. */}
-  <span class="dv__so" aria-hidden="true">
-    {[0, 1, 2, 3].map((i) => <span class={`dv__lop dv__lop--${i}`}>{no}</span>)}
-  </span>
+  <span class="dv__so"><SoMo so={no} doDam={300} /></span>
   <h3 class="dv__title">{title}</h3>
   <p class="dv__desc"><slot /></p>
 </Tag>
@@ -65,75 +62,12 @@ const Tag = href ? 'a' : 'div';
     transition: box-shadow 140ms ease, background-color 140ms ease;
   }
 
-  /* Số to mờ ở góc trên trái.
-     ⚠️ #CCCCCC KHÔNG có trong bộ token; dùng `--gray-400` (#C7C7C7), lệch
-        5/255 ≈ 2%, mắt không phân biệt được. Nêu ra, không tự chế màu mới.
-
-     🔑 NHOÈ DẦN (progressive blur) — 26/09, đọc bằng Plugin API:
-        Effect style `LayerBlur/Progessive/24` KHÔNG phải nhoè đều. Nó là
-          blurType  PROGRESSIVE
-          startRadius 0  tại (78.4%, 33.6%) của khung chữ  → nét rõ
-          radius     24  tại (20.6%, 80.4%) của khung chữ  → nhoè hẳn
-        Tức là chữ số bên phải ("1") gần như sắc, chữ số bên trái ("0") nhoè
-        mạnh. Dev Mode chỉ in ra `filter: blur(12px)` vì CSS **không có**
-        thuộc tính nhoè dần — nên bản trước nhoè đều cả số, và đổi 13.15 →
-        12px thì mắt không thấy khác gì.
-
-     Cách dựng: 4 bản sao chồng khít, nhoè 0 · 4 · 8 · 12px (12 = token
-     `--blur-24`, hai bậc giữa chia đều từ token). Mỗi bản chỉ hiện trên một
-     dải chéo nhờ `mask-image`, các dải chuyển mượt sang nhau → nhìn thành
-     một dải nhoè tăng dần. Đây là kỹ thuật dựng, không phải token mới.
-
-     Toán (để lần sau khỏi tính lại): khung chữ 123 × 120, đệm thêm 24px mỗi
-     phía để quầng nhoè không bị mask cắt cụt → 171 × 168. Hướng từ điểm rõ
-     sang điểm nhoè ≈ 231.7°. Chiếu hai điểm lên đường gradient của khung
-     đệm: điểm rõ ở 33.4%, điểm nhoè ở 71.4%. Ba mốc chia đều: 46.1 · 58.7. */
+  /* Số to mờ ở góc trên trái — hình dạng + hiệu ứng nằm ở `SoMo.astro`
+     (dùng chung với "BAIKA sẽ làm gì"). Ở đây chỉ đặt VỊ TRÍ. */
   .dv__so {
     position: absolute;
     top: var(--s-3);
     left: var(--s-3);
-    display: grid;                     /* 4 bản chồng vào cùng một ô */
-    font-family: var(--font-body);
-    font-size: 120px;
-    font-weight: 300;                  /* Be Vietnam Pro Light */
-    line-height: 1;
-    pointer-events: none;
-    user-select: none;
-  }
-  .dv__lop {
-    grid-area: 1 / 1;
-    padding: var(--s-6);               /* 24 — chỗ cho quầng nhoè */
-    margin: calc(-1 * var(--s-6));     /* …mà số vẫn đứng đúng chỗ cũ */
-    /* CSS gốc Thắng gửi: 224° · #CCC@59% ở 13.72% → #515151@0 ở 95.95%.
-       `content-box` để gradient trải trên đúng khung chữ, không tính đệm. */
-    background: linear-gradient(
-      224deg,
-      color-mix(in srgb, var(--gray-400) 59%, transparent) 13.72%,
-      color-mix(in srgb, var(--gray-800) 0%, transparent) 95.95%
-    ) content-box no-repeat;
-    -webkit-background-clip: text;
-            background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-  .dv__lop--0 {
-    -webkit-mask-image: linear-gradient(231.7deg, var(--gray-950) 33.4%, transparent 46.1%);
-            mask-image: linear-gradient(231.7deg, var(--gray-950) 33.4%, transparent 46.1%);
-  }
-  .dv__lop--1 {
-    filter: blur(calc(var(--blur-24) / 3));        /* 4px */
-    -webkit-mask-image: linear-gradient(231.7deg, transparent 33.4%, var(--gray-950) 46.1%, transparent 58.7%);
-            mask-image: linear-gradient(231.7deg, transparent 33.4%, var(--gray-950) 46.1%, transparent 58.7%);
-  }
-  .dv__lop--2 {
-    filter: blur(calc(var(--blur-24) * 2 / 3));    /* 8px */
-    -webkit-mask-image: linear-gradient(231.7deg, transparent 46.1%, var(--gray-950) 58.7%, transparent 71.4%);
-            mask-image: linear-gradient(231.7deg, transparent 46.1%, var(--gray-950) 58.7%, transparent 71.4%);
-  }
-  .dv__lop--3 {
-    filter: blur(var(--blur-24));                  /* 12px */
-    -webkit-mask-image: linear-gradient(231.7deg, transparent 58.7%, var(--gray-950) 71.4%);
-            mask-image: linear-gradient(231.7deg, transparent 58.7%, var(--gray-950) 71.4%);
   }
 
   .dv__title,

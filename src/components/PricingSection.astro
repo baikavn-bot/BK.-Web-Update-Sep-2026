@@ -31,7 +31,7 @@ const { heading = 'Các gói dịch vụ', packages } = Astro.props;
 ---
 
 <section class="goi-dv sec">
-  <h2 class="goi-dv__heading">{heading}</h2>
+  <h2 class="tieu-de-section goi-dv__heading">{heading}</h2>
 
   <div class="goi-dv__luoi">
     {packages.map((p) => (
@@ -56,12 +56,6 @@ const { heading = 'Các gói dịch vụ', packages } = Astro.props;
   }
 
   .goi-dv__heading {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: var(--fs-h1);           /* 32 */
-    line-height: var(--lh-h1);
-    font-weight: var(--fw-h1);
-    color: var(--gray-50);
     /* Căn TRÁI — khác section "Bạn có đang gặp vấn đề này?" (căn giữa).
        Đã kiểm bằng toạ độ: chữ bắt đầu đúng ở mép lề trái. */
   }

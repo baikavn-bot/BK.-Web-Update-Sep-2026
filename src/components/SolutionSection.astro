@@ -30,7 +30,7 @@ const { heading = 'Bạn có đang gặp vấn đề này?', items } = Astro.pro
 ---
 
 <section class="van-de sec">
-  <h2 class="van-de__heading">{heading}</h2>
+  <h2 class="tieu-de-section van-de__heading">{heading}</h2>
 
   <div class="van-de__hang">
     {items.map((it, i) => (
@@ -54,12 +54,6 @@ const { heading = 'Bạn có đang gặp vấn đề này?', items } = Astro.pro
   }
 
   .van-de__heading {
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: var(--fs-h1);           /* 32 */
-    line-height: var(--lh-h1);
-    font-weight: var(--fw-h1);
-    color: var(--gray-50);
     text-align: center;
   }
 

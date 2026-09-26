@@ -39,6 +39,7 @@
 // không thể để vậy, nên ở đây là `max-width: 527px` + co theo màn.
 // Đây là lỗi của bản vẽ, không phải lựa chọn của em.
 import NebulaLight from './NebulaLight.astro';
+import PlanetDome from './PlanetDome.astro';
 import Button2 from './Button2.astro';
 
 interface Props {
@@ -68,7 +69,7 @@ const uid = Math.random().toString(36).slice(2, 8);
   <div class="hero__stars" aria-hidden="true"></div>
 
   <div class="hero__planet" aria-hidden="true">
-    <div class="hero__globe"></div>
+    <PlanetDome huong="len" />
     <div class="hero__nebula"><NebulaLight width="100%" /></div>
   </div>
 
@@ -201,55 +202,8 @@ const uid = Math.random().toString(36).slice(2, 8);
     pointer-events: none;
   }
 
-  .hero__globe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 1454px;                    /* elip đầy đủ = 2 × 727 */
-    border-radius: 50%;
-    /* Cắt đúng nửa dưới (727px tính từ đáy), ba phía còn lại nới rộng ra
-       400px để quầng sáng hắt lên không bị cắt. */
-    clip-path: inset(-400px -400px 727px -400px);
-    /* Figma chồng hai lớp tô: nền --gray-950 đặc, rồi một dải sáng đổ từ
-       mép trên xuống, tắt ở y≈196 (27% của 727).
-       ⚠️ Lớp sáng có **độ đục riêng 0.15** tách khỏi alpha màu — DEC-094. */
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--gray-50) 15%, transparent) 0,
-        color-mix(in srgb, var(--gray-950) 0%, transparent) 196px
-      ),
-      var(--gray-950);
-    /* Figma: INNER_SHADOW r120 lệch y+24 trắng 25%
-            + DROP_SHADOW r120 lệch y−103 trắng 7%. Độ mờ chia đôi. */
-    box-shadow:
-      inset 0 24px 60px 0 color-mix(in srgb, var(--gray-50) 25%, transparent),
-      0 -103px 60px 0 color-mix(in srgb, var(--gray-50) 7%, transparent);
-  }
-
-  /* Nét viền sáng 4px chạy dọc mép trên, tắt dần ở y≈189 (26% của 727).
-     Cùng kỹ thuật viền gradient ở FaqItem / PricingCard — xem FaqItem.astro. */
-  .hero__globe::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 4px;                      /* Figma strokeWeight 4 */
-    background: linear-gradient(
-      180deg,
-      var(--gray-50) 0,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 189px
-    );
-    -webkit-mask:
-      linear-gradient(var(--gray-950) 0 0) content-box,
-      linear-gradient(var(--gray-950) 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
-    .hero__globe::before { display: none; }
-  }
+  /* Mái vòm: component dùng chung `PlanetDome` (huong="len") — lấy thông số
+     của bát "Bạn sẽ nhận được gì", lật dọc. Thắng chốt 26/09. */
 
   /* --- 3 · Vệt sáng cong trên đỉnh cung -------------------------------
      Figma: `Neubula light` 694.5 × 54.111 ở (613.5, 0) trong khung Planet.

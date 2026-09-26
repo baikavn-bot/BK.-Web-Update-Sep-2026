@@ -1,0 +1,108 @@
+---
+// MÁI VÒM PLANET — MỘT bản dùng cho cả hai chỗ
+//
+//   huong="len"   → vòm úp (nửa TRÊN elip)   — Hero
+//   huong="xuong" → bát ngửa (nửa DƯỚI elip) — "Bạn sẽ nhận được gì"
+//
+// 🔴 26/09 — Thắng chốt: trước đây vòm Hero và bát "Nhận được gì" là HAI
+//    bản CSS chép tay riêng, lệch nhau vài chỗ (lớp sáng 15% vs 10%, tắt ở
+//    196px vs 240px). Giờ gộp làm một, **lấy thông số của bát "Bạn sẽ nhận
+//    được gì"**, vòm Hero là bản lật dọc của nó. Sửa ở file này là cả hai
+//    chỗ trên cả 7 trang đổi theo.
+//
+// Cách dùng: đặt component vào một khung `position: absolute` rộng bằng
+// vòm và cao **727** (nửa elip). Component tự vẽ elip đầy đủ 1454 rồi cắt
+// lấy nửa cần dùng. Vị trí + bề rộng khung do section quyết.
+//
+// Cấu tạo (đọc từ Figma, không đổi):
+//   · Elip đầy đủ cao 1454, cắt lấy một nửa bằng `clip-path`. Ba phía còn
+//     lại nới 400px để quầng sáng hắt ra không bị cắt cụt.
+//   · Nền --gray-950 đặc + một dải sáng --gray-50 10% từ mép cong, tắt sau
+//     240px.
+//   · Bóng: INNER_SHADOW r120 lệch 24 trắng 25% + DROP_SHADOW r120 lệch 103
+//     trắng 7% (độ mờ Figma chia đôi sang CSS).
+//   · Viền sáng 4px ở mép cong, tắt dần sau 189px.
+//   · Mép PHẲNG tan dần trong 300px thay vì cắt thẳng — tránh vệt ngang cứng
+//     khi vòm tràn sang section bên cạnh.
+interface Props {
+  huong: 'len' | 'xuong';
+}
+const { huong } = Astro.props;
+---
+
+<span class:list={['planet-vom', `planet-vom--${huong}`]} aria-hidden="true"></span>
+
+<style>
+  .planet-vom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1454px;                    /* elip đầy đủ = 2 × 727 */
+    border-radius: 50%;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        var(--huong-sang),
+        color-mix(in srgb, var(--gray-50) 10%, transparent) 0,
+        color-mix(in srgb, var(--gray-950) 0%, transparent) 240px
+      ),
+      var(--gray-950);
+    box-shadow:
+      inset 0 var(--bong-trong) 60px 0 color-mix(in srgb, var(--gray-50) 25%, transparent),
+      0 var(--bong-ngoai) 60px 0 color-mix(in srgb, var(--gray-50) 7%, transparent);
+    -webkit-mask-image: linear-gradient(var(--huong-tan), transparent 727px, var(--gray-950) 1027px);
+            mask-image: linear-gradient(var(--huong-tan), transparent 727px, var(--gray-950) 1027px);
+    -webkit-mask-size: 100% calc(100% + 400px);
+            mask-size: 100% calc(100% + 400px);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    /* Mặc định mặt nạ CẮT mọi thứ nằm ngoài khung elip — kể cả quầng sáng
+       DROP_SHADOW hắt ra ngoài. `no-clip` giữ lại quầng đó. (Đo 26/09: thiếu
+       dòng này, quầng sáng quanh đỉnh vòm Hero tối đi ~13/255.) */
+            mask-clip: no-clip;
+  }
+
+  /* Vòm úp (Hero): giữ nửa TRÊN, sáng ở đỉnh, bóng hắt LÊN. */
+  .planet-vom--len {
+    top: 0;
+    clip-path: inset(-400px -400px 727px -400px);
+    --huong-sang: 180deg;              /* dải sáng chạy từ trên xuống */
+    --huong-tan: 0deg;                 /* mép phẳng ở dưới → tan từ dưới lên */
+    --bong-trong: 24px;
+    --bong-ngoai: -103px;
+    -webkit-mask-position: 0 100%;     /* phần mặt nạ dôi ra nằm phía trên */
+            mask-position: 0 100%;
+  }
+
+  /* Bát ngửa ("Nhận được gì"): giữ nửa DƯỚI, sáng ở đáy, bóng hắt XUỐNG. */
+  .planet-vom--xuong {
+    top: -727px;
+    clip-path: inset(727px -400px -400px -400px);
+    --huong-sang: 0deg;
+    --huong-tan: 180deg;
+    --bong-trong: -24px;
+    --bong-ngoai: 103px;
+  }
+
+  /* Viền sáng 4px ở mép cong, tắt dần sau 189px. */
+  .planet-vom::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 4px;                      /* Figma strokeWeight 4 */
+    background: linear-gradient(
+      var(--huong-sang),
+      var(--gray-50) 0,
+      color-mix(in srgb, var(--gray-50) 0%, transparent) 189px
+    );
+    -webkit-mask:
+      linear-gradient(var(--gray-950) 0 0) content-box,
+      linear-gradient(var(--gray-950) 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+  }
+  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
+    .planet-vom::before { display: none; }
+  }
+</style>

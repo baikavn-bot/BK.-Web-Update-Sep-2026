@@ -1,0 +1,149 @@
+---
+// TRANG 07 — ĐÀO TẠO CEO · `/ceo-blueprint`
+//
+// Slug giữ nguyên từ site cũ (DEC-019) — trang chủ, thanh nav và thẻ
+// "Năng lực CEO" ở trang Tư vấn đều trỏ về đây.
+//
+// Figma: `Đào tạo CEO` 382:9419 (chỉ có bản DESKTOP). Tablet/mobile chạy theo
+// quy tắc responsive đo từ trang Tư vấn — xem ServicePageLayout.astro.
+//
+// 7 section, đúng thứ tự Figma:
+//   Hero 382:9420 · Bạn có đang gặp vấn đề này 382:9435 · BAIKA sẽ làm gì
+//   382:9443 · Bạn sẽ nhận được gì 382:9470 · Gói dịch vụ 382:9541 ·
+//   FAQ 382:9548 · Liên hệ 382:9556
+// (Trang này KHÔNG có khối riêng như "6 dịch vụ" của Tư vấn.)
+//
+// Nguồn chữ: đọc thẳng từ Figma 26/09 (Plugin API). Chỗ nào Figma không có
+// hoặc Figma đang để chữ chép nhầm từ trang khác thì lấy từ
+// `claude/noi-dung-theo-section.md` — ghi rõ ngay tại chỗ.
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SolutionSection from '../components/SolutionSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+// "Bạn có đang gặp vấn đề này?" — Figma 382:9435.
+const vanDe = [
+  { title: 'Quyết định thiếu dữ liệu',
+    desc: 'Không có dashboard, không có số liệu tin được — quyết định lớn dựa trên cảm giác.' },
+  { title: 'Tăng trưởng nhưng lãi mỏng',
+    desc: 'Doanh thu đi lên nhưng tiền không ở lại; không rõ mảng nào đang nuôi mảng nào.' },
+  { title: 'Kẹt trong vận hành, không kịp nghĩ chiến lược',
+    desc: 'Cả tuần xử lý việc vụn; câu hỏi lớn về hướng đi bị trì hoãn hết quý này sang quý khác.' },
+];
+
+// "BAIKA sẽ làm gì" — Figma 382:9443. 4 nhóm · 12 thẻ (3 + 5 + 2 + 2).
+// Đây là ca NẶNG NHẤT của section này trên cả 7 trang — dựng trang này để thử
+// sức chịu của StepsSection trước khi làm các trang còn lại.
+// Nhóm có số thứ tự (khác Tư vấn — ở đó số bị ẩn).
+const baikaLamGi = [
+  { no: '01', title: 'Nền tư duy & mô hình', items: [
+    { title: 'Tư duy hệ thống CEO', desc:
+      'Chuyển từ tư duy xử lý sự vụ sang tư duy thiết kế hệ thống: nhìn doanh nghiệp như một cỗ máy có thể đo, chỉnh và nhân rộng.' },
+    { title: 'Nền tảng kinh doanh', desc:
+      'Rà lại nền móng: khách hàng thật sự là ai, giá trị cốt lõi là gì, lợi thế nào bền — trước khi xây thêm bất cứ tầng nào.' },
+    { title: 'Logic doanh thu', desc:
+      'Mổ xẻ cấu trúc doanh thu – chi phí – biên lợi nhuận theo từng mảng; nhận diện mảng nuôi mảng và điểm đòn bẩy tăng trưởng.' },
+  ] },
+  { no: '02', title: 'Hệ thống & nguồn lực', items: [
+    { title: 'Hệ điều hành doanh nghiệp', desc:
+      'Thiết kế bộ máy: sơ đồ tổ chức, vai trò, quy trình lõi và nhịp điều hành — để doanh nghiệp chạy không cần CEO ngồi canh.' },
+    { title: 'Tài chính & dòng tiền', desc:
+      'Đọc hiểu số liệu như người điều hành: báo cáo quản trị, kỷ luật dòng tiền, điểm hòa vốn và ngưỡng an toàn.' },
+    { title: 'Marketing & tăng trưởng', desc:
+      'Khung tăng trưởng gắn với định vị và năng lực thật; phân biệt hoạt động xây thương hiệu và hoạt động tạo số.' },
+    { title: 'Rủi ro pháp lý – thuế', desc:
+      'Bản đồ rủi ro người đứng đầu phải tự nhìn thấy: hợp đồng, thuế, sở hữu, trách nhiệm cá nhân — và cách kiểm soát.' },
+    { title: 'Công nghệ & AI', desc:
+      'Lộ trình ứng dụng công nghệ và AI theo bài toán, tránh cả hai cực: thờ ơ bỏ lỡ và chạy theo trào lưu đốt tiền.' },
+  ] },
+  { no: '03', title: 'Con người & nguồn vốn', items: [
+    { title: 'Lãnh đạo đội ngũ', desc:
+      'Xây văn hóa, tuyển chọn, phát triển và giữ chân nhân tài cốt lõi trong giai đoạn tăng trưởng.' },
+    { title: 'Đàm phán & Gọi vốn', desc:
+      'Kỹ năng đàm phán chiến lược, chuẩn bị hồ sơ gọi vốn và làm việc hiệu quả với nhà đầu tư.' },
+  ] },
+  { no: '04', title: 'Bản đồ điều hành & lộ trình', items: [
+    { title: 'CEO Dashboard', desc:
+      'Thiết kế bảng điều khiển cá nhân của CEO: bộ chỉ số tối thiểu đủ để nắm sức khỏe doanh nghiệp trong 15 phút mỗi tuần.' },
+    { title: 'Lộ trình 90 ngày', desc:
+      'Kết tinh toàn bộ chương trình thành kế hoạch hành động 90 ngày cho chính doanh nghiệp bạn — có mốc, có chỉ số, có cam kết.' },
+  ] },
+];
+
+// "Bạn sẽ nhận được gì" — Figma 382:9470. Thứ tự theo vị trí trên bản vẽ:
+// hàng 1 trái → giữa → phải, hàng 2 trái → phải, hàng 3 (quả cuối).
+const ketQua = [
+  'Một bản đồ doanh nghiệp hoàn chỉnh trên 10 trụ cột — thấy rõ đang mạnh, yếu ở đâu',
+  'Trả lời được 5 câu hỏi trọng yếu bằng dữ liệu, không bằng cảm giác',
+  'CEO Dashboard cá nhân: nắm sức khỏe doanh nghiệp trong 15 phút mỗi tuần',
+  'Thoát dần khỏi vận hành vụn — thời gian dồn cho quyết định xứng tầm',
+  'Kết nối cộng đồng CEO cùng hành trình hệ thống hóa',
+  'Lộ trình 90 ngày cụ thể cho chính doanh nghiệp của bạn',
+];
+
+// "Các gói dịch vụ" — Figma 382:9541: 3 gói, gói giữa `State=Focus` = đề xuất.
+// Nhãn + tên gói lấy từ Figma.
+// ⚠️ DANH SÁCH MỤC trong gói 1 và gói 2 ở Figma đang là chữ CHÉP NHẦM từ
+//    trang Pháp lý ("Rà soát hồ sơ pháp nhân & hợp đồng"…). Dùng danh sách
+//    đúng trong `claude/noi-dung-theo-section.md` mục S5. Gói 3 hai nguồn
+//    khớp nhau. → Cần Thắng sửa lại chữ trong Figma.
+const goi = [
+  { eyebrow: 'Kiểm tra', title: 'Business Blueprint Assessment',
+    items: ['Bộ câu hỏi đánh giá 10 trụ cột', 'Điểm số từng trụ cột (0–10)',
+            'Bản đồ điểm mạnh – điểm yếu', 'Đề xuất lộ trình phù hợp'] },
+  { eyebrow: 'Hệ thống hóa', title: 'Chương trình CEO Operating Blueprint', featured: true,
+    items: ['10 hạng mục theo lộ trình', 'Bài tập áp dụng trên doanh nghiệp thật',
+            'CEO Dashboard cá nhân hóa', 'Lộ trình 90 ngày kèm cam kết'] },
+  { eyebrow: 'Hỗ trợ', title: 'Đồng hành cố vấn CEO',
+    items: ['Phiên cố vấn 1-1 định kỳ', 'Rà soát tiến độ lộ trình 90 ngày',
+            'Tham vấn trước quyết định lớn', 'Kênh trao đổi ưu tiên'] },
+];
+
+// FAQ — 4 câu hỏi đọc từ Figma 382:9548. Figma chỉ hiện câu trả lời của câu
+// đang mở (#1); ba câu còn lại lấy từ `claude/noi-dung-theo-section.md` S6.
+// ⚠️ Câu #2 là BẢN ĐÃ SỬA trong tài liệu (bản gốc mời "Làm Business Blueprint
+//    Assessment" — tài liệu ghi công cụ đó đã bỏ). Chưa ai duyệt câu sửa này.
+const cauHoi = [
+  { question: 'Chương trình khác gì các khóa học CEO khác?',
+    answer: 'Khác ở chỗ áp trực tiếp: bạn làm việc trên số liệu, tổ chức và vấn đề thật của doanh nghiệp mình, và ra về với lộ trình 90 ngày — không phải bộ slide.' },
+  { question: 'Tôi nên bắt đầu từ đâu?',
+    answer: 'Gửi form để BAIKA tư vấn lộ trình — đội ngũ đánh giá 10 trụ cột của doanh nghiệp bạn và cho biết nên vào chương trình trọn bộ hay tập trung vài trụ cột trước.' },
+  { question: 'Tôi bận, chương trình tốn bao nhiêu thời gian?',
+    answer: 'Chương trình thiết kế cho người đang điều hành: các phiên tập trung kết hợp bài tập áp dụng ngắn — trung bình vài giờ mỗi tuần trong thời gian chương trình.' },
+  { question: 'Sau chương trình có được đồng hành tiếp không?',
+    answer: 'Có — gói Đồng hành cố vấn CEO duy trì phiên 1-1 định kỳ và tham vấn trước các quyết định lớn.' },
+];
+
+// Ô "Lĩnh vực" — `claude/noi-dung-theo-section.md` mục S7.
+const linhVuc = [
+  'Làm Business Blueprint Assessment',
+  'Tham gia chương trình trọn bộ',
+  'Cố vấn CEO 1-1',
+  'Đặt lịch tư vấn riêng',
+  'Nhu cầu khác',
+];
+---
+<ServicePageLayout
+  title="Đào tạo CEO — BAIKA"
+  description="Chương trình trang bị cho người đứng đầu một bản đồ hoàn chỉnh: từ tư duy hệ thống, mô hình kinh doanh, tài chính, pháp lý đến công nghệ — kết tinh thành lộ trình 90 ngày cho chính doanh nghiệp của bạn."
+  pillar="dao-tao-ceo"
+  current="/ceo-blueprint"
+>
+  <HeroSection
+    title="Đào tạo CEO"
+    tagline="Bản đồ xây dựng & vận hành doanh nghiệp dành cho CEO"
+    lead="Chương trình trang bị cho người đứng đầu một bản đồ hoàn chỉnh: từ tư duy hệ thống, mô hình kinh doanh, tài chính, pháp lý đến công nghệ — kết tinh thành lộ trình 90 ngày cho chính doanh nghiệp của bạn."
+    ctaLabel="Làm Blueprint Assessment miễn phí"
+    ctaHref="#lien-he"
+  />
+  <SolutionSection items={vanDe} />
+  <StepsSection groups={baikaLamGi} />
+  <BenefitsSection items={ketQua} />
+  <PricingSection packages={goi} />
+  <FaqSection items={cauHoi} />
+  <ContactSection linhVuc={linhVuc} />
+</ServicePageLayout>

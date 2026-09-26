@@ -33,6 +33,7 @@
 //    mobile giữ theo số đo cũ (2–2–2 · một cột), vì bản vẽ chưa đổi phần đó.
 import SolutionPlanet from './SolutionPlanet.astro';
 import NebulaLight from './NebulaLight.astro';
+import PlanetDome from './PlanetDome.astro';
 
 interface Props {
   heading?: string;
@@ -61,11 +62,11 @@ const HANG = [k.slice(0, 3), k.slice(3, 5), k.slice(5, 6)];
   <div class="nhan__quang" aria-hidden="true"></div>
 
   <div class="nhan__cung" aria-hidden="true">
-    <span class="nhan__cau"></span>
+    <PlanetDome huong="xuong" />
     <div class="nhan__nebula"><NebulaLight width="100%" /></div>
   </div>
 
-  <h2 class="nhan__heading">{heading}</h2>
+  <h2 class="tieu-de-section nhan__heading">{heading}</h2>
 
   <div class="nhan__khung">
     {HANG.map((hang, i) => (
@@ -140,64 +141,8 @@ const HANG = [k.slice(0, 3), k.slice(3, 5), k.slice(5, 6)];
     pointer-events: none;
   }
 
-  /* Elip đầy đủ 1920 × 1454, đẩy lên 727 cho nửa dưới nằm vừa khung, rồi
-     CẮT BỎ nửa trên. Chừa 400px ba phía còn lại cho quầng sáng hắt xuống. */
-  .nhan__cau {
-    position: absolute;
-    top: -727px;
-    left: 0;
-    width: 100%;
-    height: 1454px;
-    border-radius: 50%;
-    clip-path: inset(727px -400px -400px -400px);
-    /* Mép PHẲNG phía trên của bát tan dần trong 300px, không cắt thẳng.
-       Lý do: bát tràn lên section "6 dịch vụ", nơi quầng ấm của section
-       "BAIKA sẽ làm gì" đang loang xuống. Thân bát tối đặc che quầng đó, nên
-       ngay mép bát hiện ra MỘT ĐƯỜNG NGANG CỨNG cắt qua hàng thẻ dịch vụ —
-       đã thấy thật khi chụp. Cho mép tan dần thì hai vùng hoà vào nhau.
-       Phần bát gần đáy (nơi che quầng ấm `Vector 6`) vẫn đặc hoàn toàn.
-       Mặt nạ kéo dài thêm 400px xuống dưới để không che mất quầng sáng hắt
-       xuống dưới đáy bát. */
-    -webkit-mask-image: linear-gradient(180deg, transparent 727px, var(--gray-950) 1027px);
-            mask-image: linear-gradient(180deg, transparent 727px, var(--gray-950) 1027px);
-    -webkit-mask-size: 100% calc(100% + 400px);
-            mask-size: 100% calc(100% + 400px);
-    -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-    /* Lật dọc toàn bộ so với vòm Hero: dải sáng đi từ ĐÁY lên, bóng hắt
-       XUỐNG dưới. Lớp sáng để 0.10 (vòm Hero 0.15) — xem DEC-094. */
-    background:
-      linear-gradient(
-        0deg,
-        color-mix(in srgb, var(--gray-50) 10%, transparent) 0,
-        color-mix(in srgb, var(--gray-950) 0%, transparent) 240px
-      ),
-      var(--gray-950);
-    box-shadow:
-      inset 0 -24px 60px 0 color-mix(in srgb, var(--gray-50) 25%, transparent),
-      0 103px 60px 0 color-mix(in srgb, var(--gray-50) 7%, transparent);
-  }
-  /* Nét viền sáng 4px ở ĐÁY bát, tắt dần lên trên sau 189px. */
-  .nhan__cau::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 4px;
-    background: linear-gradient(
-      0deg,
-      var(--gray-50) 0,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 189px
-    );
-    -webkit-mask:
-      linear-gradient(var(--gray-950) 0 0) content-box,
-      linear-gradient(var(--gray-950) 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-  }
-  @supports not ((-webkit-mask-composite: xor) or (mask-composite: exclude)) {
-    .nhan__cau::before { display: none; }
-  }
+  /* Bát ngửa: component dùng chung `PlanetDome` (huong="xuong"). Thông số
+     gốc của bát này giờ nằm trong PlanetDome.astro — vòm Hero dùng lại nó. */
 
   /* Vệt sáng ở đáy bát. Figma: 694.5 × 54.111 ở y=225 (section), căn giữa.
      ⚠️ Dev Mode KHÔNG ghi phép lật, nhưng ảnh render Figma cho thấy dải
@@ -218,12 +163,6 @@ const HANG = [k.slice(0, 3), k.slice(3, 5), k.slice(5, 6)];
   .nhan__heading {
     position: relative;
     z-index: 2;
-    margin: 0;
-    font-family: var(--font-heading);
-    font-size: var(--fs-h1);
-    line-height: var(--lh-h1);
-    font-weight: var(--fw-h1);
-    color: var(--gray-50);
     text-align: center;
   }
 
