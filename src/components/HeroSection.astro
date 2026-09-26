@@ -106,7 +106,16 @@ const uid = Math.random().toString(36).slice(2, 8);
           <stop offset="0.1557" stop-color="var(--tru-dam)"   stop-opacity="0" />
         </linearGradient>
       </defs>
-      <text fill={`url(#arcfill-${uid})`} text-anchor="middle">
+      {/* 🔴 SỬA 26/09 — Thắng báo: *"trên source display dùng màu solid chứ
+          không phải gradient"*. Gradient KHÔNG sai; chữ đặt SAI CHỖ.
+            · SVG mặc định đặt CHÂN chữ (baseline) lên đường cung → cả con chữ
+              nằm PHÍA TRÊN y=0, tức phía trên điểm bắt đầu của dải màu. Ở đó
+              SVG tô bằng màu điểm đầu (vàng/xanh đặc 100%) → trông như màu đặc.
+            · Figma đặt GIỮA chữ lên đường cung: đo khung mực chữ trang CEO
+              trong Figma là y −27.5 → +52.8; web cũ là −56 → +21 (cao hơn
+              ~30px). `dominant-baseline="central"` → −26 → +50, khớp Figma
+              trong 3px, và nửa dưới con chữ giờ rơi vào vùng dải màu tan dần. */}
+      <text fill={`url(#arcfill-${uid})`} text-anchor="middle" dominant-baseline="central">
         <textPath href={`#arc-${uid}`} startOffset="50%">{title}</textPath>
       </text>
     </svg>
