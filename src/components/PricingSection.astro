@@ -92,12 +92,36 @@ const { heading = 'Các gói dịch vụ', packages } = Astro.props;
     }
   }
 
+  /* --- Desktop ≥ 1280: MIN-WIDTH 384 + FILL -----------------------------
+     🔴 26/09 — Thắng chốt: thẻ có bề rộng tối thiểu và **lấp đầy** hàng.
+     Trước đây cột cố định 384 → ở màn rộng hơn 1280 (VD laptop 1536) ba thẻ
+     dồn trái, bên phải trống 250px.
+
+     Dịch sang CSS đúng như Figma "Min width + Fill container":
+       `auto-fit`   = nhét được bao nhiêu thẻ một hàng thì nhét
+       `minmax(…, 1fr)` = mỗi thẻ không hẹp hơn mức tối thiểu, rồi chia đều
+                        phần còn dư → hàng luôn kín mép phải
+     Kết quả theo bề ngang nội dung (màn trừ 80 lề):
+       1200 – 1607 : 3 thẻ/hàng, mỗi thẻ 384 → 520   (1280 → 1687 màn)
+       ≥ 1608      : 4 thẻ/hàng                       (từ 1688 màn)
+     Trang chỉ có 3 gói thì ở màn rất rộng 3 thẻ vẫn giãn kín — `auto-fit`
+     bỏ cột thừa, không chừa ô trống.
+
+     Mức tối thiểu = `min(384px, (100% − 2 gap) / 3)`: bình thường là 384
+     (số Figma), NHƯNG không bao giờ để rớt xuống 2 cột ở đúng khổ 1280.
+     Lý do: trên Windows thanh cuộn ăn ~17px, nội dung chỉ còn ~1183 < 1200,
+     nếu ép cứng 384 thì chỉ vừa 2 thẻ. Đã gặp đúng lỗi kiểu này ở tablet
+     (ghi chú phía trên), nên chặn trước.
+
+     ⚠️ Hàng cuối thiếu thẻ (VD 4 gói ở màn 1280–1687 → 3 + 1) thì thẻ lẻ vẫn
+        rộng bằng một cột và đứng bên trái, thẳng cột với hàng trên — đúng như
+        bản vẽ 1280. Không kéo nó giãn hết hàng. */
   @media (min-width: 1280px) {
     .goi-dv__luoi {
-      /* Cột cố định 384 + căn trái: hàng cuối thiếu thẻ thì các thẻ vẫn
-         thẳng cột với hàng trên, thay vì trôi vào giữa. */
-      grid-template-columns: repeat(3, 384px);
-      justify-content: start;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(384px, (100% - 2 * var(--s-6)) / 3), 1fr)
+      );
       gap: var(--s-6);                 /* 24 */
     }
   }
