@@ -50,8 +50,12 @@ const { heading = 'Các câu hỏi thường gặp', items } = Astro.props;
     padding-block: var(--s-24);        /* 96 — KHÔNG đổi theo khổ màn */
   }
 
-  /* Quầng sáng góc trên phải. Nằm dưới cùng (`z-index: 0`) và section có
-     `sec--cat` (overflow: hidden) nên phần tràn ra ngoài bị cắt gọn. */
+  /* Quầng sáng góc trên phải, nằm dưới cùng (`z-index: 0`).
+     ⚠️ Ghi chú cũ ở đây nói section có `sec--cat` (overflow: hidden) để cắt
+        phần tràn. KHÔNG còn đúng: `.sec--cat` đã bỏ theo luật Thắng đặt
+        25/09 — *"tất cả section đều visible, không section nào được che
+        hoặc cắt vector trang trí"*. Quầng này cố ý tràn ra ngoài; việc chặn
+        cuộn ngang do `main` lo bằng `overflow-x: clip`. */
   .faq-sec__quang {
     position: absolute;
     top: -88px;
