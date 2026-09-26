@@ -58,22 +58,21 @@ const baikaLamGi = [
 // chữ. Sáu nhãn khớp đúng sáu trang; thiếu trục `Mô hình kinh doanh` vì đó
 // chính là trang này.
 //
-// ⚠️ `href` để TRỐNG cho trang nào chưa dựng. 26/09: trang Đào tạo CEO đã có
-//    → thẻ 06 đã trỏ `/ceo-blueprint`. Năm thẻ còn lại chưa. Thẻ vẫn hiện
+// ✅ 26/09: đủ 7 trang dịch vụ → cả 6 thẻ đã có đường dẫn (DEC-019). Thẻ vẫn hiện
 //    đầy đủ nhưng không bấm được, thay vì bấm vào ra 404. Khi trang nào ra
 //    đời thì điền `href` cho thẻ đó, không phải sửa gì thêm.
 //    Slug đã chốt (DEC-019): /remote-ops · /marketing · /finance ·
 //    /legal-tax · /ai-os · /ceo-blueprint
 const sauDichVu = [
-  { no: '01', title: 'Vận hành', href: undefined, desc:
+  { no: '01', title: 'Vận hành', href: '/remote-ops', desc:
     'Chuẩn hóa quy trình lõi, phân định vai trò – trách nhiệm, cơ chế phối hợp và hệ thống đo lường hiệu quả.' },
-  { no: '02', title: 'Marketing & tăng trưởng', href: undefined, desc:
+  { no: '02', title: 'Marketing & tăng trưởng', href: '/marketing', desc:
     'Định vị, thông điệp, cấu trúc kênh và kế hoạch tăng trưởng gắn với năng lực thật — không chạy chiến dịch khi nền chưa vững.' },
-  { no: '03', title: 'Tài chính', href: undefined, desc:
+  { no: '03', title: 'Tài chính', href: '/finance', desc:
     'Đọc sức khỏe tài chính, cấu trúc chi phí, điểm hòa vốn, kỷ luật dòng tiền và nền số liệu cho quyết định của CEO.' },
-  { no: '04', title: 'Pháp lý – Thuế', href: undefined, desc:
+  { no: '04', title: 'Pháp lý – Thuế', href: '/legal-tax', desc:
     'Nhận diện rủi ro trong mô hình hiện tại; khuyến nghị cấu trúc hợp đồng, sở hữu và tuân thủ trước khi rủi ro thành chi phí.' },
-  { no: '05', title: 'Công nghệ', href: undefined, desc:
+  { no: '05', title: 'Công nghệ', href: '/ai-os', desc:
     'Đánh giá công cụ đang dùng; lộ trình số hóa và ứng dụng AI theo đúng bài toán, tránh đầu tư lãng phí.' },
   { no: '06', title: 'Năng lực CEO', href: '/ceo-blueprint', desc:
     'Cố vấn trực tiếp cho người đứng đầu: khung ra quyết định, quản trị ưu tiên, đội ngũ kế cận và kỷ luật điều hành.' },

@@ -267,6 +267,21 @@ const uid = Math.random().toString(36).slice(2, 8);
     text-align: center;
   }
 
+  /* 🔴 26/09 — khi dựng 5 trang còn lại, đo Figma thấy khối nội dung
+     **căn GIỮA quanh y ≈ 510**, không bám đỉnh 401:
+       Tư vấn : khối cao 218 → đỉnh 401 · CEO : khối cao 237 → đỉnh 391
+     (cả hai tâm ≈ 510). Nhãn phụ dài xuống 2 dòng thì khối nhô đều lên trên
+     và xuống dưới, Hero vẫn đúng 680 — thay vì bị đẩy cao ra như bản trước.
+     Dựng: vùng 340 → 680 (tâm 510), nội dung căn giữa trong vùng.
+     Chỉ áp ở desktop — nơi có bản vẽ chứng minh. Tablet/mobile giữ cách cũ. */
+  @media (min-width: 1280px) {
+    .hero { padding-top: 340px; padding-bottom: 0; }
+    .hero__content {
+      min-height: 340px;               /* 680 − 340 */
+      justify-content: center;
+    }
+  }
+
   .hero__text {
     display: flex;
     flex-direction: column;
@@ -281,6 +296,9 @@ const uid = Math.random().toString(36).slice(2, 8);
     line-height: var(--lh-h1);          /* 37 */
     font-weight: var(--fw-h1);          /* Bold */
     color: var(--slate-50);
+    /* Giữ chỗ xuống dòng Thắng đặt tay trong Figma (VD trang AI: "…vận hành
+       thật ⏎ không phải trào lưu…"). Trang nào không có ⏎ thì không đổi gì. */
+    white-space: pre-line;
   }
 
   .hero__lead {

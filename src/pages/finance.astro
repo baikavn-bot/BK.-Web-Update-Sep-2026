@@ -1,0 +1,117 @@
+---
+// TRANG 04 — TÀI CHÍNH & DÒNG TIỀN · `/finance`
+//
+// Slug giữ nguyên từ site cũ (DEC-019). Figma: `Tài chính` 382:7831
+// (chỉ có DESKTOP — tablet/mobile theo quy tắc đo từ trang Tư vấn).
+//
+// Nguồn chữ: đọc thẳng Figma 26/09; câu trả lời FAQ đang đóng → nguyên văn
+// site cũ (`claude/noi-dung-day-du.md`). Gói 1–2: Figma từng chép nhầm mục
+// của gói Pháp lý → 26/09 đã thay trong Figma bằng nguyên văn site cũ.
+// Trang DUY NHẤT (cùng CEO) có 4 nhóm đánh số trong "BAIKA sẽ làm gì".
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SolutionSection from '../components/SolutionSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const vanDe = [
+  { title: 'Sổ sách thiếu chuẩn',
+    desc: 'Số liệu kế toán lệch với thực tế kinh doanh; báo cáo làm để nộp chứ không dùng để điều hành.' },
+  { title: 'Hóa đơn – chứng từ rối',
+    desc: 'Chứng từ thiếu, lưu rải rác; đến kỳ quyết toán mới cuống cuồng truy tìm.' },
+  { title: 'Dòng tiền không kiểm soát',
+    desc: 'Có lãi trên sổ nhưng luôn thiếu tiền; không dự báo được các khoản phải trả sắp tới.' },
+];
+
+const baikaLamGi = [
+  { no: '01', title: 'Chẩn đoán', items: [
+    { title: 'Finance Diagnosis', desc:
+      'Chẩn đoán toàn diện: chất lượng số liệu, quy trình kế toán, kiểm soát chứng từ, dòng tiền, rủi ro thuế. Đầu ra là báo cáo sức khỏe tài chính kèm bản đồ ưu tiên.' },
+  ] },
+  { no: '02', title: 'Làm sạch', items: [
+    { title: 'Accounting Clean-Up', desc:
+      'Làm sạch sổ sách: đối chiếu, xử lý sai lệch tồn đọng, chuẩn hóa hệ thống tài khoản và nguyên tắc ghi nhận — nền số liệu đáng tin để đi tiếp.' },
+    { title: 'Invoice & Document Control', desc:
+      'Thiết lập quy trình hóa đơn – chứng từ: chuẩn phát hành, luân chuyển, lưu trữ và kiểm tra chéo; không còn cảnh truy tìm chứng từ cuối kỳ.' },
+  ] },
+  { no: '03', title: 'Kiểm soát', items: [
+    { title: 'Finance Workflow', desc:
+      'Chuẩn hóa quy trình tài chính: đề nghị – duyệt chi, tạm ứng – hoàn ứng, mua hàng – thanh toán với cấp phê duyệt và thời hạn rõ ràng.' },
+    { title: 'Management Reporting', desc:
+      'Bộ báo cáo quản trị cho CEO: lãi lỗ theo mảng, cơ cấu chi phí, chỉ số sức khỏe — đọc trong 15 phút, ra quyết định được ngay.' },
+    { title: 'Cash Flow Control', desc:
+      'Kiểm soát dòng tiền: kế hoạch thu – chi theo tuần, dự báo thiếu hụt sớm, kỷ luật ưu tiên thanh toán và hạn mức.' },
+    { title: 'Finance Governance', desc:
+      'Thiết lập quản trị tài chính dài hạn: phân quyền, kiểm soát nội bộ, lịch tuân thủ thuế và cơ chế giám sát định kỳ.' },
+  ] },
+  { no: '04', title: 'Sẵn sàng vốn', items: [
+    { title: 'Capital Readiness', desc:
+      'Chuẩn bị gọi vốn / vay vốn: chuẩn hóa hồ sơ tài chính, số liệu thẩm định, kịch bản trả lời câu hỏi của ngân hàng, quỹ đầu tư.' },
+  ] },
+];
+
+const ketQua = [
+  'Số liệu tài chính khớp với thực tế kinh doanh',
+  'Chứng từ đầy đủ, truy xuất được trong vài phút',
+  'CEO đọc báo cáo quản trị 15 phút là nắm được sức khỏe doanh nghiệp',
+  'Dòng tiền được dự báo trước — hết cảnh "có lãi mà thiếu tiền" bất ngờ',
+  'Rủi ro thuế được nhận diện và xử lý trước khi thành tiền phạt',
+  'Hồ sơ tài chính đủ chuẩn khi ngân hàng, nhà đầu tư yêu cầu',
+];
+
+// Figma 3 gói, gói giữa `State=Focus` = đề xuất.
+const goi = [
+  { eyebrow: 'Kiểm tra', title: 'Finance Health Check',
+    items: ['Đánh giá chất lượng số liệu & quy trình', 'Rà soát chứng từ & rủi ro thuế',
+            'Báo cáo sức khỏe tài chính', 'Bản đồ ưu tiên hành động'] },
+  { eyebrow: 'Hệ thống hóa', title: 'Finance Clean-Up & Control', featured: true,
+    items: ['Accounting Clean-Up', 'Kiểm soát hóa đơn – chứng từ',
+            'Quy trình tài chính & duyệt chi', 'Báo cáo quản trị + kiểm soát dòng tiền'] },
+  { eyebrow: 'Hỗ trợ', title: 'Capital Readiness Program',
+    items: ['Yêu cầu nền Clean-Up & Control', 'Chuẩn hóa hồ sơ tài chính thẩm định',
+            'Mô hình số liệu trình nhà đầu tư', 'Đồng hành qua vòng thẩm định'] },
+];
+
+const cauHoi = [
+  { question: 'BAIKA có thay thế kế toán của tôi không?',
+    answer: 'Không. Kế toán của bạn vẫn vận hành hằng ngày; BAIKA chẩn đoán, thiết kế hệ thống, chuẩn hóa quy trình và nâng năng lực đội hiện có.' },
+  { question: 'Sổ sách tôi đang rối, có làm được không?',
+    answer: 'Đó chính là tình huống phổ biến nhất. Gói Clean-Up & Control sinh ra cho việc này — bắt đầu từ Health Check để đo mức độ trước.' },
+  { question: 'Số liệu của tôi có được bảo mật?',
+    answer: 'Có. Quyền truy cập phân theo vai trò, tài liệu trao đổi qua kênh kiểm soát và có điều khoản bảo mật trong hợp đồng.' },
+  { question: 'Bao lâu thì gọi vốn được?',
+    answer: 'Tùy nền hiện tại. Thông thường: Health Check 2–3 tuần, Clean-Up & Control 2–3 tháng, Capital Readiness thêm 1–2 tháng.' },
+];
+
+const linhVuc = [
+  'Chẩn đoán sức khỏe tài chính',
+  'Làm sạch sổ sách kế toán',
+  'Kiểm soát hóa đơn – chứng từ',
+  'Báo cáo quản trị cho CEO',
+  'Kiểm soát dòng tiền',
+  'Chuẩn bị vay vốn / gọi vốn',
+  'Nhu cầu khác',
+];
+---
+<ServicePageLayout
+  title="Tài chính & Dòng tiền — BAIKA"
+  description="Chẩn đoán, làm sạch, kiểm soát và nâng chuẩn hệ thống tài chính — để CEO ra quyết định bằng số liệu thật và doanh nghiệp sẵn sàng trước ngân hàng, nhà đầu tư."
+  pillar="tai-chinh"
+  current="/finance"
+>
+  <HeroSection
+    title="Tài chính & Dòng tiền"
+    tagline='Từ "sổ sách để đối phó" thành công cụ điều hành'
+    lead="Chẩn đoán, làm sạch, kiểm soát và nâng chuẩn hệ thống tài chính — để CEO ra quyết định bằng số liệu thật và doanh nghiệp sẵn sàng trước ngân hàng, nhà đầu tư."
+    ctaLabel="Bắt đầu Finance Assessment miễn phí"
+  />
+  <SolutionSection items={vanDe} />
+  <StepsSection groups={baikaLamGi} />
+  <BenefitsSection items={ketQua} />
+  <PricingSection packages={goi} />
+  <FaqSection items={cauHoi} />
+  <ContactSection linhVuc={linhVuc} />
+</ServicePageLayout>

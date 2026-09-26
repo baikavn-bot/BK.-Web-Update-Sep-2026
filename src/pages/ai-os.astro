@@ -1,0 +1,152 @@
+---
+// TRANG 06 — CÔNG NGHỆ & AI ỨNG DỤNG · `/ai-os`
+//
+// Slug giữ nguyên từ site cũ (DEC-019). Figma: `AI` 382:10018
+// (chỉ có DESKTOP — tablet/mobile theo quy tắc đo từ trang Tư vấn).
+//
+// Trang cao nhất (7 263) và có khối riêng thứ hai: "5 bước thực hiện".
+// Figma vẽ bằng component `Process Card` — đo 26/09 thì giống hệt
+// `ServiceLinkCard` → dùng lại `ServicesSection`, thẻ KHÔNG đường dẫn.
+//
+// "BAIKA sẽ làm gì" ở trang này: 4 nhóm KHÔNG đánh số (các nhóm song song,
+// không phải các bước). Quầng sáng nền: Figma từng vẽ to hơn các trang khác
+// — Thắng chốt 26/09 là lệch, đã đồng bộ về cỡ chuẩn.
+//
+// Nguồn chữ: đọc thẳng Figma 26/09; câu trả lời FAQ đang đóng → nguyên văn
+// site cũ. Gói 1 và 3: Figma từng chép nhầm mục của gói Pháp lý → đã thay
+// trong Figma bằng nguyên văn site cũ.
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SolutionSection from '../components/SolutionSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import ServicesSection from '../components/ServicesSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const vanDe = [
+  { title: 'AI dùng rời rạc',
+    desc: 'Vài nhân viên tự dùng chatbot cho việc cá nhân; không quy trình, không kiểm soát, không nhân rộng được.' },
+  { title: 'Quy trình vẫn thủ công',
+    desc: 'Nhập liệu tay, đối chiếu tay, báo cáo tay — những việc lặp lại chiếm phần lớn thời gian đội ngũ.' },
+  { title: 'Phần mềm không khớp nhu cầu',
+    desc: 'Mua phần mềm đóng gói rồi dùng 20% tính năng; nghiệp vụ đặc thù vẫn phải xử lý ngoài hệ thống.' },
+];
+
+const baikaLamGi = [
+  { title: 'Chẩn đoán & lộ trình', items: [
+    { title: 'AI Opportunity Diagnosis', desc:
+      'Khảo sát hiện trạng quy trình, dữ liệu, công cụ; chấm điểm mức độ sẵn sàng AI và điểm cơ hội tự động hóa; đề xuất lộ trình 30–60–90 ngày.' },
+  ] },
+  { title: 'Trợ lý & tự động hóa', items: [
+    { title: 'AI Agent', desc:
+      'Xây AI Agent theo vai trò: trợ lý CSKH, trợ lý sales, trợ lý nội bộ — được huấn luyện trên dữ liệu doanh nghiệp, làm việc trong quy trình thật.' },
+    { title: 'AI Workflow Automation', desc:
+      'Tự động hóa quy trình lặp lại: nhập liệu, đối chiếu, tổng hợp báo cáo, luân chuyển hồ sơ — nối các công cụ đang dùng thành dòng chảy tự động.' },
+    { title: 'Knowledge Base', desc:
+      'Quy tri thức doanh nghiệp về một mối: tài liệu, quy trình, hỏi đáp nội bộ — nền để AI trả lời đúng theo cách doanh nghiệp bạn làm việc.' },
+  ] },
+  { title: 'Dữ liệu & phần mềm', items: [
+    { title: 'Custom Software', desc:
+      'Phần mềm may đo cho nghiệp vụ đặc thù mà phần mềm đóng gói không xử lý được — tích hợp AI ngay trong thiết kế.' },
+    { title: 'Data & Dashboard', desc:
+      'Gom dữ liệu phân tán về kho chung; dashboard điều hành cập nhật tự động thay cho báo cáo tay cuối tuần.' },
+  ] },
+  { title: 'Quản trị & con người', items: [
+    { title: 'AI Governance', desc:
+      'Quy tắc sử dụng AI trong doanh nghiệp: dữ liệu nào được đưa vào AI, ai được dùng gì, kiểm soát chất lượng đầu ra và rủi ro.' },
+    { title: 'AI Training', desc:
+      'Đào tạo đội ngũ dùng AI đúng cách theo từng vai trò — để hệ thống được dùng thật thay vì bỏ xó sau bàn giao.' },
+  ] },
+];
+
+// "5 bước thực hiện" — Figma 454:6798, 5 `Process Card` (3 + 2).
+// ⚠️ Bước 03 hứa "sprint 2 tuần", bước 05 hứa "phản hồi sự cố trong 4 giờ
+//    làm việc" — là SLA với khách, `claude/sitemap.md` ghi chưa ai duyệt.
+const namBuoc = [
+  { no: '01', title: 'Khảo sát', desc:
+    'Phân tích quy trình, dữ liệu & điểm nghẽn. Deliverable: báo cáo hiện trạng & đề xuất giải pháp.' },
+  { no: '02', title: 'Thiết kế', desc:
+    'Đề xuất kiến trúc, UX/UI & kế hoạch tự động hóa. Deliverable: prototype & roadmap.' },
+  { no: '03', title: 'Phát triển', desc:
+    'Xây dựng theo sprint 2 tuần, bàn giao từng phần chạy thật để bạn dùng và phản hồi ngay.' },
+  { no: '04', title: 'Triển khai', desc:
+    'Tích hợp hệ thống, di trú dữ liệu & đào tạo đội ngũ. Deliverable: hệ thống live, tài liệu hướng dẫn.' },
+  { no: '05', title: 'Vận hành', desc:
+    'Theo dõi hiệu quả, tối ưu & bảo trì. SLA rõ ràng, phản hồi sự cố trong 4 giờ làm việc.' },
+];
+
+const ketQua = [
+  'Những việc lặp lại được tự động — đội ngũ dồn thời gian cho việc tạo giá trị',
+  'AI Agent làm việc thật trong quy trình, không phải bản demo trình diễn',
+  'Dữ liệu quy về một mối, dashboard điều hành cập nhật tự động',
+  'Tri thức doanh nghiệp được hệ thống hóa, không thất thoát khi người rời đi',
+  'Có quy tắc dùng AI an toàn — kiểm soát dữ liệu và chất lượng đầu ra',
+  'Lộ trình AI rõ ràng theo ROI thay vì chạy theo trào lưu',
+];
+
+// Figma 5 gói (3 + 2), gói THỨ BA `State=Focus` = đề xuất (khớp site cũ).
+// ⚠️ Nhãn nhỏ của gói 4 và 5 trong Figma đều là "Kết thúc" — giống nhãn gói
+//    cuối trang Pháp lý (nơi nó đúng nghĩa: giải thể). Ở đây có thể là chép
+//    nhầm; em để nguyên theo Figma, chờ Thắng xem lại.
+const goi = [
+  { eyebrow: 'Kiểm tra', title: 'AI Opportunity Audit',
+    items: ['Khảo sát quy trình – dữ liệu – công cụ', 'Điểm sẵn sàng AI & cơ hội tự động hóa',
+            'Danh mục use case xếp hạng ROI', 'Lộ trình 30–60–90 ngày'] },
+  { eyebrow: 'Hệ thống hóa', title: 'AI Agent Starter Kit',
+    items: ['1 AI Agent theo vai trò chọn trước', 'Huấn luyện trên dữ liệu doanh nghiệp',
+            'Tích hợp vào kênh đang dùng', 'Đo lường hiệu quả sau 30 ngày'] },
+  { eyebrow: 'Hỗ trợ', title: 'AI Workflow Automation', featured: true,
+    items: ['Thiết kế lại quy trình trước khi tự động', 'Kết nối các công cụ hiện có',
+            'Knowledge base cho quy trình liên quan', 'Bàn giao kèm đào tạo vận hành'] },
+  { eyebrow: 'Kết thúc', title: 'Custom AI Software',
+    items: ['Phân tích nghiệp vụ chuyên sâu', 'Thiết kế & phát triển theo giai đoạn',
+            'Tích hợp hệ thống hiện hữu', 'Bảo hành & phát triển tiếp'] },
+  { eyebrow: 'Kết thúc', title: 'AI Operating System Partner',
+    items: ['Toàn bộ các lớp giải pháp theo lộ trình', 'Data platform & dashboard điều hành',
+            'AI Governance & đào tạo toàn công ty', 'Đội đồng hành phát triển liên tục'] },
+];
+
+const cauHoi = [
+  { question: 'Doanh nghiệp tôi chưa có dữ liệu chuẩn, làm AI được không?',
+    answer: 'Được — và đó là lý do lộ trình luôn bắt đầu bằng chẩn đoán. Nhiều use case đầu tiên (như AI Agent trên tri thức nội bộ) chạy được ngay trong khi nền dữ liệu được xây song song.' },
+  { question: 'Chi phí triển khai AI có đắt không?',
+    answer: 'BAIKA xếp hạng use case theo ROI và bắt đầu từ điểm hoàn vốn nhanh nhất. Gói Audit giúp bạn biết con số cụ thể trước khi cam kết đầu tư lớn.' },
+  { question: 'Dữ liệu doanh nghiệp có an toàn khi dùng AI?',
+    answer: 'Đây là hạng mục AI Governance: phân loại dữ liệu nào được đưa vào AI, chọn mô hình/hạ tầng phù hợp và kiểm soát truy cập theo vai trò.' },
+  { question: 'Nhân viên không rành công nghệ có dùng được không?',
+    answer: 'Hệ thống thiết kế theo nguyên tắc lắp vào công cụ đang dùng, kèm gói đào tạo theo vai trò — không bắt đội ngũ học lại từ đầu.' },
+];
+
+const linhVuc = [
+  'Khảo sát cơ hội AI',
+  'AI Agent (CSKH / Sales / nội bộ)',
+  'Tự động hóa quy trình',
+  'Knowledge base nội bộ',
+  'Phần mềm tùy chỉnh',
+  'Dashboard dữ liệu điều hành',
+  'Đào tạo AI cho đội ngũ',
+  'Nhu cầu khác',
+];
+---
+<ServicePageLayout
+  title="Công nghệ & AI ứng dụng — BAIKA"
+  description="BAIKA xây hệ điều hành AI cho doanh nghiệp: AI Agent làm việc thật, quy trình được tự động hóa, dữ liệu quy về một mối và phần mềm may đo đúng bài toán của bạn."
+  pillar="cong-nghe-ai"
+  current="/ai-os"
+>
+  <HeroSection
+    title="Công nghệ & AI ứng dụng"
+    tagline={'Đưa AI vào vận hành thật\nkhông phải trào lưu, không demo'}
+    lead="BAIKA xây hệ điều hành AI cho doanh nghiệp: AI Agent làm việc thật, quy trình được tự động hóa, dữ liệu quy về một mối và phần mềm may đo đúng bài toán của bạn."
+    ctaLabel="Bắt đầu chẩn đoán AI miễn phí"
+  />
+  <SolutionSection items={vanDe} />
+  <StepsSection groups={baikaLamGi} />
+  <ServicesSection heading="5 bước thực hiện" items={namBuoc} />
+  <BenefitsSection items={ketQua} />
+  <PricingSection packages={goi} />
+  <FaqSection items={cauHoi} />
+  <ContactSection linhVuc={linhVuc} />
+</ServicePageLayout>

@@ -1,0 +1,116 @@
+---
+// TRANG 03 — MARKETING & TĂNG TRƯỞNG · `/marketing`
+//
+// Slug giữ nguyên từ site cũ (DEC-019). Figma: `Marketing` 382:8223
+// (chỉ có DESKTOP — tablet/mobile theo quy tắc đo từ trang Tư vấn).
+//
+// Nguồn chữ: đọc thẳng Figma 26/09. Câu trả lời FAQ đang đóng trong Figma →
+// nguyên văn site cũ (`claude/noi-dung-day-du.md`). Riêng câu #1: Figma đã
+// dùng bản sửa (không mời làm bài chẩn đoán 5 phút) → theo Figma.
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SolutionSection from '../components/SolutionSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const vanDe = [
+  { title: 'Thương hiệu mờ nhạt',
+    desc: 'Khách không phân biệt được bạn với đối thủ; giá trị thật của sản phẩm không được truyền tải.' },
+  { title: 'Launch thiếu kế hoạch',
+    desc: 'Ra sản phẩm mới theo kiểu "đăng bài rồi tính tiếp"; không có lộ trình, mốc và ngân sách rõ ràng.' },
+  { title: 'Đội sales thiếu công cụ',
+    desc: 'Nhân viên bán hàng tự chế tài liệu; câu chuyện thương hiệu mỗi người kể một khác.' },
+];
+
+const baikaLamGi = [
+  { no: '01', title: 'Nền thương hiệu', items: [
+    { title: 'Brand Diagnosis', desc:
+      'Chẩn đoán hiện trạng thương hiệu: mức độ nhận biết, tính nhất quán, khoảng cách giữa định vị mong muốn và cảm nhận thực tế của khách hàng.' },
+    { title: 'Brand Strategy', desc:
+      'Chiến lược định vị: chọn phân khúc, điểm khác biệt, lời hứa thương hiệu và kiến trúc thương hiệu phù hợp mô hình kinh doanh.' },
+    { title: 'Messaging System', desc:
+      'Hệ thông điệp phân tầng: thông điệp lõi, thông điệp theo nhóm khách hàng, theo kênh và theo giai đoạn hành trình mua.' },
+    { title: 'Visual Identity Direction', desc:
+      'Định hướng nhận diện thị giác: tinh thần thiết kế, bảng màu, typography và nguyên tắc ứng dụng — nhất quán trên mọi điểm chạm.' },
+  ] },
+  { no: '02', title: 'Kế hoạch ra thị trường', items: [
+    { title: 'IMC Blueprint', desc:
+      'Bản thiết kế truyền thông tích hợp: mục tiêu từng kênh, vai trò từng loại nội dung, nhịp truyền thông và phối hợp giữa các kênh.' },
+    { title: 'Launch Plan', desc:
+      'Kế hoạch ra mắt theo mốc: pre-launch, launch, post-launch với hạng mục, ngân sách, KPI và kịch bản dự phòng.' },
+    { title: 'Content Production Direction', desc:
+      'Định hướng sản xuất nội dung: trục nội dung, guideline giọng điệu, khung biên tập để đội in-house hoặc agency thực thi đúng chuẩn.' },
+  ] },
+  { no: '03', title: 'Công cụ & đo lường', items: [
+    { title: 'Sales Enablement Kit', desc:
+      'Bộ công cụ cho đội bán hàng: sales deck, kịch bản tư vấn, xử lý từ chối, one-pager — kể cùng một câu chuyện thương hiệu.' },
+    { title: 'Launch Dashboard', desc:
+      'Bộ chỉ số theo dõi chiến dịch: nhận biết, tương tác, chuyển đổi — biết cái gì hiệu quả để dồn ngân sách đúng chỗ.' },
+  ] },
+];
+
+const ketQua = [
+  'Định vị rõ ràng — khách hàng hiểu bạn khác gì đối thủ',
+  'Một hệ thông điệp nhất quán trên mọi kênh, mọi nhân sự',
+  'Kế hoạch launch có mốc, ngân sách và KPI thay vì ngẫu hứng',
+  'Đội sales có bộ công cụ chuẩn, kể cùng một câu chuyện',
+  'Nội dung sản xuất theo định hướng, không lệch tông',
+  'Dashboard đo lường để biết ngân sách đang sinh hiệu quả ở đâu',
+];
+
+// Figma 3 gói, gói CUỐI `State=Focus` = đề xuất (khớp site cũ).
+const goi = [
+  { eyebrow: 'Kiểm tra', title: 'Brand Foundation',
+    items: ['Brand Diagnosis', 'Brand Strategy & định vị',
+            'Messaging System', 'Visual Identity Direction'] },
+  { eyebrow: 'Hệ thống hóa', title: 'IMC Launch Blueprint',
+    items: ['Toàn bộ Brand Foundation', 'IMC Blueprint',
+            'Launch Plan theo mốc', 'Định hướng content'] },
+  { eyebrow: 'Hỗ trợ', title: 'Brand-to-Market Launch', featured: true,
+    items: ['Toàn bộ IMC Launch Blueprint', 'Sales Enablement Kit',
+            'Launch Dashboard', 'Đồng hành giai đoạn ra mắt'] },
+];
+
+const cauHoi = [
+  { question: 'Tôi chưa biết mình cần gì thì bắt đầu từ đâu?',
+    answer: 'Gửi form để BAIKA chẩn đoán sơ bộ — đội ngũ đánh giá mức độ sẵn sàng của thương hiệu và đề xuất gói phù hợp trước khi bạn quyết định.' },
+  { question: 'BAIKA có thiết kế logo / chạy quảng cáo không?',
+    answer: 'BAIKA làm tầng chiến lược và định hướng (bao gồm định hướng nhận diện, định hướng content). Phần sản xuất thiết kế và chạy kênh có thể do đội của bạn, agency, hoặc BAIKA giới thiệu đối tác thực thi theo đúng định hướng.' },
+  { question: 'Thời gian triển khai bao lâu?',
+    answer: 'Brand Foundation khoảng 4–6 tuần; trọn bộ Brand-to-Market Launch 8–12 tuần tùy phạm vi.' },
+  { question: 'Doanh nghiệp B2B có phù hợp không?',
+    answer: 'Rất phù hợp — hệ thông điệp phân tầng và Sales Enablement Kit được thiết kế đặc biệt hiệu quả cho chu trình bán B2B.' },
+];
+
+const linhVuc = [
+  'Branding / định vị',
+  'Truyền thông tích hợp (IMC)',
+  'Kế hoạch launch',
+  'Sales enablement',
+  'Định hướng content',
+  'Dashboard đo lường',
+  'Nhu cầu khác',
+];
+---
+<ServicePageLayout
+  title="Marketing & Tăng trưởng — BAIKA"
+  description="Không làm thương hiệu kiểu chắp vá: BAIKA xây nền định vị, hệ thông điệp, kế hoạch IMC và bộ công cụ bán hàng như một hệ thống hoàn chỉnh để ra mắt và tăng trưởng."
+  pillar="marketing"
+  current="/marketing"
+>
+  <HeroSection
+    title="Marketing & Tăng trưởng"
+    tagline="Từ định vị thương hiệu đến kế hoạch ra thị trường"
+    lead="Không làm thương hiệu kiểu chắp vá: BAIKA xây nền định vị, hệ thông điệp, kế hoạch IMC và bộ công cụ bán hàng như một hệ thống hoàn chỉnh để ra mắt và tăng trưởng."
+    ctaLabel="Chẩn đoán thương hiệu miễn phí"
+  />
+  <SolutionSection items={vanDe} />
+  <StepsSection groups={baikaLamGi} />
+  <BenefitsSection items={ketQua} />
+  <PricingSection packages={goi} />
+  <FaqSection items={cauHoi} />
+  <ContactSection linhVuc={linhVuc} />
+</ServicePageLayout>

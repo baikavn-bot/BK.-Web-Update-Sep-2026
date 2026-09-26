@@ -1,0 +1,124 @@
+---
+// TRANG 05 — PHÁP LÝ & THUẾ · `/legal-tax`
+//
+// Slug giữ nguyên từ site cũ (DEC-019). Figma: `Pháp lý` 199:814
+// (chỉ có DESKTOP — tablet/mobile theo quy tắc đo từ trang Tư vấn).
+//
+// Nguồn chữ: đọc thẳng Figma 26/09; câu trả lời FAQ đang đóng → nguyên văn
+// site cũ (`claude/noi-dung-day-du.md`). Figma từng chép nhầm: mục gói 2
+// (lấy từ gói 1) và câu trả lời FAQ #1 (lấy từ trang Marketing) → 26/09 đã
+// thay trong Figma bằng nguyên văn site cũ.
+//
+// ⚠️ Site cũ có ô "Mức độ khẩn cấp" trong form, và câu FAQ #2 bảo khách
+//    "Chọn mức Rất khẩn trong form". Figma KHÔNG vẽ ô này → dựng theo Figma
+//    (Thắng chốt 26/09), việc chờ ghi ở `claude/viec-cho-nhac.md`.
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SolutionSection from '../components/SolutionSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const vanDe = [
+  { title: 'Pháp lý chủ doanh nghiệp lẫn với doanh nghiệp',
+    desc: 'Tài sản, vay mượn, sở hữu cá nhân và công ty đan xen — rủi ro dồn cả vào người đứng đầu.' },
+  { title: 'Hợp đồng lỏng lẻo',
+    desc: 'Dùng mẫu trôi nổi trên mạng; điều khoản bất lợi chỉ lộ ra khi tranh chấp đã xảy ra.' },
+  { title: 'Bị hỏi mà không biết giải trình',
+    desc: 'Cơ quan thuế yêu cầu giải trình — doanh nghiệp lúng túng, trả lời sai cách khiến vấn đề nặng thêm.' },
+];
+
+const baikaLamGi = [
+  { no: '01', title: 'Rà soát & nhận diện rủi ro', items: [
+    { title: 'Legal & Tax Diagnosis', desc:
+      'Rà soát tổng thể pháp lý – thuế: hồ sơ pháp nhân, hợp đồng, hạch toán, hóa đơn, nghĩa vụ thuế. Đầu ra là bản đồ rủi ro xếp theo mức độ nghiêm trọng.' },
+    { title: 'Tax Risk Review', desc:
+      'Rà soát chuyên sâu rủi ro thuế: doanh thu, chi phí được trừ, hóa đơn đầu vào, giao dịch liên kết — lượng hóa mức phơi nhiễm từng khoản.' },
+  ] },
+  { no: '02', title: 'Dựng hệ thống tuân thủ', items: [
+    { title: 'Business Legal System', desc:
+      'Dựng hệ thống pháp lý nội bộ: điều lệ, quy chế, phân quyền ký kết, hồ sơ pháp nhân chuẩn — nền tuân thủ cho mọi giao dịch.' },
+    { title: 'Contract Control', desc:
+      'Kiểm soát hợp đồng: chuẩn hóa bộ mẫu theo giao dịch thật của doanh nghiệp, quy trình soát xét trước ký và quản lý vòng đời hợp đồng.' },
+    { title: 'Tax Planning', desc:
+      'Kế hoạch thuế hợp pháp: cấu trúc giao dịch, lựa chọn chính sách phù hợp để tối ưu nghĩa vụ trong khuôn khổ pháp luật — không lách, không rủi ro tích tụ.' },
+    { title: 'Owner Legal Advisory', desc:
+      'Pháp lý cho chủ sở hữu: tách bạch tài sản cá nhân – công ty, cấu trúc sở hữu, thỏa thuận cổ đông, chuẩn bị chuyển giao.' },
+  ] },
+  { no: '03', title: 'Đồng hành xử lý tình huống', items: [
+    { title: 'Tax Explanation & Response', desc:
+      'Đồng hành giải trình thuế: chuẩn bị hồ sơ, xây phương án giải trình, làm việc cùng doanh nghiệp qua từng vòng yêu cầu của cơ quan thuế.' },
+    { title: 'Dissolution & Exit Process', desc:
+      'Giải thể, tạm ngừng, chuyển nhượng: xử lý đúng trình tự để đóng lại sạch sẽ, không để nghĩa vụ treo đeo bám người đứng đầu.' },
+  ] },
+];
+
+const ketQua = [
+  'Biết rõ doanh nghiệp đang có những rủi ro pháp lý – thuế nào, mức độ ra sao',
+  'Hợp đồng được kiểm soát trước khi ký, không còn điều khoản bẫy',
+  'Có lịch tuân thủ — không bỏ sót nghĩa vụ, không bị phạt vặt',
+  'Tài sản cá nhân của chủ doanh nghiệp được tách bạch, bảo vệ',
+  'Nếu cần đóng doanh nghiệp: đóng sạch, không nghĩa vụ treo',
+  'Khi bị yêu cầu giải trình: có phương án, có người đồng hành',
+];
+
+// Figma 4 gói (3 + 1), gói ĐẦU `State=Focus` = đề xuất (khớp site cũ).
+const goi = [
+  { eyebrow: 'Kiểm tra', title: 'Legal & Tax Health Check', featured: true,
+    items: ['Rà soát hồ sơ pháp nhân & hợp đồng', 'Rà soát hạch toán & hóa đơn',
+            'Bản đồ rủi ro theo mức độ', 'Khuyến nghị thứ tự xử lý'] },
+  { eyebrow: 'Hệ thống hóa', title: 'Legal & Tax Control Setup',
+    items: ['Hệ thống pháp lý nội bộ', 'Bộ mẫu & quy trình kiểm soát hợp đồng',
+            'Lịch tuân thủ thuế', 'Đào tạo đội ngũ liên quan'] },
+  { eyebrow: 'Hỗ trợ', title: 'Tax Response Program',
+    items: ['Đánh giá tình huống khẩn', 'Chuẩn bị hồ sơ & phương án giải trình',
+            'Đồng hành qua từng vòng làm việc', 'Phương án xử lý hậu kiểm'] },
+  { eyebrow: 'Kết thúc', title: 'Legal Exit & Dissolution',
+    items: ['Rà soát nghĩa vụ tồn đọng', 'Lộ trình giải thể / tạm ngừng',
+            'Xử lý thuế khi đóng doanh nghiệp', 'Hoàn tất hồ sơ pháp lý cuối cùng'] },
+];
+
+const cauHoi = [
+  { question: 'Tôi chưa bị kiểm tra, có cần rà soát không?',
+    answer: 'Đó là thời điểm tốt nhất. Rà soát khi chưa có áp lực cho phép xử lý chủ động với chi phí thấp nhất; khi đã có quyết định kiểm tra, lựa chọn hẹp đi rất nhiều.' },
+  { question: 'Đang bị yêu cầu giải trình gấp thì sao?',
+    answer: 'Chọn mức "Rất khẩn" trong form — BAIKA ưu tiên liên hệ trong ngày làm việc để đánh giá tình huống và phương án ban đầu.' },
+  { question: 'Thông tin của tôi có an toàn không?',
+    answer: 'Có. Hồ sơ được trao đổi qua kênh kiểm soát, phân quyền truy cập theo vai trò và ràng buộc bảo mật trong hợp đồng dịch vụ.' },
+  { question: 'BAIKA có làm việc với luật sư / đại lý thuế của tôi không?',
+    answer: 'Có. BAIKA phối hợp với đội hiện có của bạn — vai trò của BAIKA là hệ thống hóa và điều phối để mọi tuyến đi cùng một phương án.' },
+];
+
+const linhVuc = [
+  'Rà soát pháp lý – thuế tổng thể',
+  'Hệ thống pháp lý doanh nghiệp',
+  'Kiểm soát hợp đồng',
+  'Rà soát rủi ro thuế',
+  'Giải trình / làm việc với cơ quan thuế',
+  'Kế hoạch thuế',
+  'Pháp lý chủ sở hữu',
+  'Giải thể / tạm ngừng / chuyển nhượng',
+  'Nhu cầu khác',
+];
+---
+<ServicePageLayout
+  title="Pháp lý & Thuế — BAIKA"
+  description="Hệ thống dịch vụ pháp lý – thuế cho doanh nghiệp SME: rà soát rủi ro, dựng hệ thống tuân thủ, kiểm soát hợp đồng và đồng hành giải trình khi cơ quan thuế yêu cầu."
+  pillar="phap-ly"
+  current="/legal-tax"
+>
+  <HeroSection
+    title="Pháp lý & Thuế"
+    tagline="Kiểm soát rủi ro pháp lý – thuế trước khi rủi ro tìm đến bạn"
+    lead="Hệ thống dịch vụ pháp lý – thuế cho doanh nghiệp SME: rà soát rủi ro, dựng hệ thống tuân thủ, kiểm soát hợp đồng và đồng hành giải trình khi cơ quan thuế yêu cầu."
+    ctaLabel="Đăng ký rà soát thuế"
+  />
+  <SolutionSection items={vanDe} />
+  <StepsSection groups={baikaLamGi} />
+  <BenefitsSection items={ketQua} />
+  <PricingSection packages={goi} />
+  <FaqSection items={cauHoi} />
+  <ContactSection linhVuc={linhVuc} />
+</ServicePageLayout>

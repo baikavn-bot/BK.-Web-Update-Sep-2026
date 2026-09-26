@@ -1,0 +1,112 @@
+---
+// TRANG 02 — HỆ THỐNG HÓA VẬN HÀNH · `/remote-ops`
+//
+// Slug giữ nguyên từ site cũ (DEC-019). Figma: `Hệ thống hóa vận hành`
+// 382:8544 (chỉ có DESKTOP — tablet/mobile theo quy tắc đo từ trang Tư vấn).
+//
+// Nguồn chữ: đọc thẳng Figma 26/09. Chỗ Figma không có (câu trả lời FAQ đang
+// đóng) lấy nguyên văn site cũ trong `claude/noi-dung-day-du.md`.
+// Gói 1–2: Figma từng chép nhầm mục của gói Pháp lý → 26/09 đã thay trong
+// Figma bằng nguyên văn site cũ (Thắng chốt).
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import SolutionSection from '../components/SolutionSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const vanDe = [
+  { title: 'Phụ thuộc cá nhân',
+    desc: 'Việc chạy được nhờ vài người "biết việc". Một người nghỉ là cả mảng khựng lại.' },
+  { title: 'Quy trình không chuẩn',
+    desc: 'Mỗi người làm một kiểu; sai sót lặp lại; đào tạo người mới mất hàng tháng.' },
+  { title: 'CEO thiếu thông tin điều hành',
+    desc: 'Muốn biết tình hình phải hỏi từng người; báo cáo chậm, số liệu mỗi nơi một kiểu.' },
+];
+
+const baikaLamGi = [
+  { no: '01', title: 'Khảo sát & chẩn đoán vận hành', items: [
+    { title: 'Khảo sát & chẩn đoán vận hành', desc:
+      'Khảo sát có cấu trúc: hiện trạng quy trình, phân công, công cụ, điểm nghẽn. Đầu ra là Diagnosis Report chỉ rõ đang tắc ở đâu và vì sao.' },
+  ] },
+  { no: '02', title: 'Blueprint tổ chức & quy trình', items: [
+    { title: 'Sơ đồ tổ chức & vai trò', desc:
+      'Thiết kế lại sơ đồ tổ chức theo chức năng thật; mô tả vai trò – trách nhiệm – quyền quyết định cho từng vị trí, chấm dứt tình trạng việc rơi giữa hai người.' },
+    { title: 'SOP & quy trình chuẩn', desc:
+      'Xây bộ quy trình lõi theo template chuẩn: các bước, người thực hiện, thời hạn, tiêu chí hoàn thành. Người mới đọc là làm được.' },
+  ] },
+  { no: '03', title: 'Vận hành đồng hành', items: [
+    { title: 'Quản lý task', desc:
+      'Đưa công việc từ tin nhắn về hệ thống: task có người phụ trách, deadline, trạng thái; tự động cảnh báo task trễ hạn và task chưa có người nhận.' },
+    { title: 'KPI / KRI dashboard', desc:
+      'Bộ chỉ số hiệu suất và chỉ số rủi ro theo từng bộ phận, cập nhật trên dashboard — CEO nhìn một màn hình biết doanh nghiệp đang chạy thế nào.' },
+    { title: 'Báo cáo & cảnh báo điểm nghẽn', desc:
+      'Nhịp báo cáo tuần/tháng chuẩn hóa; hệ thống tự làm nổi các điểm nghẽn cần CEO can thiệp thay vì để chìm trong dữ liệu.' },
+  ] },
+];
+
+// Thứ tự theo vị trí trên bản vẽ: hàng 1 trái → giữa → phải, hàng 2, quả cuối.
+const ketQua = [
+  'Doanh nghiệp vận hành theo quy trình, không theo trí nhớ',
+  'Mỗi việc có người phụ trách, deadline và trạng thái rõ ràng',
+  'CEO xem một dashboard là nắm được sức khỏe vận hành',
+  'Đào tạo nhân sự mới nhanh hơn nhờ SOP chuẩn',
+  'Điểm nghẽn được cảnh báo sớm thay vì phát hiện khi đã thành khủng hoảng',
+  'Nền tảng sẵn sàng để mở rộng quy mô hoặc vận hành từ xa',
+];
+
+// Figma 3 gói, gói giữa `State=Focus` = đề xuất.
+const goi = [
+  { eyebrow: 'Kiểm tra', title: 'Ops Diagnosis',
+    items: ['Khảo sát vận hành có cấu trúc', 'Phỏng vấn vị trí chủ chốt',
+            'Diagnosis Report & bản đồ điểm nghẽn', 'Khuyến nghị thứ tự xử lý'] },
+  { eyebrow: 'Hệ thống hóa', title: 'Ops Blueprint', featured: true,
+    items: ['Sơ đồ tổ chức & mô tả vai trò', 'Bộ SOP quy trình lõi',
+            'Bộ KPI/KRI theo bộ phận', 'Kế hoạch triển khai theo giai đoạn'] },
+  { eyebrow: 'Hỗ trợ', title: 'Remote Ops Partner',
+    items: ['Vận hành hệ thống task & báo cáo', 'Dashboard KPI cập nhật liên tục',
+            'Họp điều hành định kỳ cùng CEO', 'Cảnh báo & xử lý điểm nghẽn'] },
+];
+
+const cauHoi = [
+  { question: 'Doanh nghiệp tôi nhỏ, có cần hệ thống không?',
+    answer: 'Nếu dưới 10 người và việc vẫn trong tầm kiểm soát thì chưa gấp. Nhưng nếu bạn đã thấy việc rơi, sai lặp lại, người mới lâu bắt nhịp — đó là lúc bắt đầu, càng sớm càng rẻ.' },
+  { question: 'Triển khai mất bao lâu?',
+    answer: 'Ops Diagnosis thường 2–4 tuần. Ops Blueprint 6–10 tuần tùy quy mô. Remote Ops Partner theo kỳ 3–6 tháng.' },
+  { question: 'Có phải thay phần mềm đang dùng không?',
+    answer: 'Không bắt buộc. BAIKA ưu tiên chuẩn hóa trên công cụ bạn đang có; chỉ đề xuất đổi khi công cụ hiện tại là điểm nghẽn thật.' },
+  { question: 'Nhân viên có hợp tác không?',
+    answer: 'Blueprint luôn kèm kế hoạch chuyển đổi: đào tạo, giai đoạn thử, cơ chế phản hồi — thay đổi theo nhịp đội ngũ theo kịp.' },
+];
+
+const linhVuc = [
+  'Chẩn đoán vận hành',
+  'Chuẩn hóa quy trình / SOP',
+  'Sơ đồ tổ chức & vai trò',
+  'Hệ thống task & giao việc',
+  'KPI / báo cáo điều hành',
+  'Vận hành đồng hành (Ops Partner)',
+  'Nhu cầu khác',
+];
+---
+<ServicePageLayout
+  title="Hệ thống hóa vận hành — BAIKA"
+  description="Chuẩn hóa quy trình, sơ đồ tổ chức, task, KPI và báo cáo trên một nền tảng — để doanh nghiệp vận hành bằng hệ thống thay vì bằng trí nhớ của vài cá nhân."
+  pillar="van-hanh"
+  current="/remote-ops"
+>
+  <HeroSection
+    title="Hệ thống hóa vận hành"
+    tagline="Xây hệ điều hành doanh nghiệp — vận hành chuẩn"
+    lead="Chuẩn hóa quy trình, sơ đồ tổ chức, task, KPI và báo cáo trên một nền tảng — để doanh nghiệp vận hành bằng hệ thống thay vì bằng trí nhớ của vài cá nhân."
+    ctaLabel="Kiểm soát vận hành miễn phí"
+  />
+  <SolutionSection items={vanDe} />
+  <StepsSection groups={baikaLamGi} />
+  <BenefitsSection items={ketQua} />
+  <PricingSection packages={goi} />
+  <FaqSection items={cauHoi} />
+  <ContactSection linhVuc={linhVuc} />
+</ServicePageLayout>
