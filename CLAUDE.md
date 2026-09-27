@@ -185,6 +185,8 @@ Component ở màn nhỏ phải **đổi dạng**, không co lại đến mức 
 
 **Sai lệch đã ghi nhận:** `VD-001` — tương phản nhãn 8 ô bento trang chủ chưa đo được (nền là gradient artwork). Thắng chốt đây là chủ ý. **QA không báo FAIL mục này.**
 
+**Sai lệch đã ghi nhận (27/09):** nhãn nhỏ (`.goi__eyebrow`) của thẻ gói khi sáng lên (nổi bật · focus · rê chuột) nằm trên vệt sáng góc trên trái — đo được ≈ **2.4 : 1**, Figma ≈ 2.65 : 1. Thắng chốt: *"Nhãn không cần quá rõ, như vậy là đủ."* **QA không báo FAIL mục này.** Chưa đánh số VD — gán số khi gộp vào `website-agent-decisions.md`.
+
 ### Bốn trạng thái bắt buộc
 
 Mọi khu vực lấy dữ liệu phải có đủ: **Loading** (skeleton) → **Empty** (có lối thoát) → **Error** (nói rõ hỏng gì, còn an toàn gì) → **Not found** (khác Empty).

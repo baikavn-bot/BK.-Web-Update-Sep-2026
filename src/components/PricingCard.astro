@@ -65,9 +65,10 @@
 //    phím — vốn chỉ thấy Focus — lại được trạng thái nhạt hơn.
 //    📌 **Figma cần sửa theo cho khớp.**
 //
-// Cách dựng vệt sáng: Thắng đã chốt dùng **một vệt sáng CSS** thay cho ba
-// hình vector tự do — không thêm file ảnh, không méo khi thẻ đổi kích
-// thước, và vì hiệu ứng chỉ thoáng qua nên không ai soi từng vệt.
+// Cách dựng vệt sáng — 🔴 ĐỔI 27/09: Thắng chốt dựng **đúng ba tia sáng**
+// `Top left light` của Figma (374:474 · 374:478 · 374:481) để ra hiệu ứng
+// tia sáng. Bản cũ (25/09) dùng MỘT dải CSS nghiêng thay cho ba tia — nhìn
+// thành một mảng sáng đều, mất cảm giác tia. Xem khối `.goi__light` bên dưới.
 interface Props {
   /** Nhãn nhỏ phía trên tên gói, ví dụ "Kiểm tra". */
   eyebrow: string;
@@ -100,10 +101,59 @@ const {
 
 import Button2 from './Button2.astro';
 import IconCheck from './IconCheck.astro';
+
+// Mã riêng cho mỗi thẻ: một trang có 3–5 thẻ, mà `id` của gradient phải
+// là DUY NHẤT trên cả trang (trùng id là lỗi HTML, QA accessibility báo).
+// Cùng cách với HeroSection.astro.
+const uid = Math.random().toString(36).slice(2, 8);
 ---
 
 <article class={`goi${featured ? ' goi--noi-bat' : ''}`}>
-  <span class="goi__light" aria-hidden="true"></span>
+  {/* Ba tia sáng góc trên trái — hình lấy nguyên từ SVG Figma xuất ra.
+      Toạ độ mỗi hình tính theo góc trên trái của THẺ (gốc 0,0 của file xuất
+      trùng góc thẻ, đã kiểm: mép phải/dưới của mỗi hình + 60 bán kính mờ =
+      đúng kích thước file xuất 235×232 · 144×217 · 355×235).
+      `viewBox` của từng hình bọc vừa khít hình → đặt thẻ <svg> đúng chỗ đó.
+      Độ mờ làm bằng CSS (token --blur-60) trên từng <svg>, không dùng
+      <filter> của SVG, để dùng lại token và chạy được trên Safari. */}
+  <span class="goi__light" aria-hidden="true">
+    <svg class="goi__tia goi__tia--1" viewBox="-3 -6 178 178">
+      <defs>
+        <linearGradient id={`goi-tia-1-${uid}`} x1="100.486" y1="48.6952" x2="51.6953" y2="97.4856" gradientUnits="userSpaceOnUse">
+          <stop offset="0"        style="stop-color: var(--gray-50)" />
+          <stop offset="0.221154" style="stop-color: var(--gray-400)" />
+          <stop offset="0.735577" style="stop-color: var(--gray-400)" />
+          <stop offset="1"        style="stop-color: var(--gray-50)" />
+        </linearGradient>
+      </defs>
+      <path d="M6.99154 -5.20101L174.181 122.39L125.391 171.181L-2.20085 3.99138L6.99154 -5.20101Z"
+            fill={`url(#goi-tia-1-${uid})`} fill-opacity="0.75" />
+    </svg>
+    <svg class="goi__tia goi__tia--2" viewBox="-36 -20 121 177">
+      <defs>
+        <linearGradient id={`goi-tia-2-${uid}`} x1="30.9125" y1="58.5915" x2="8.08212" y2="73.0892" gradientUnits="userSpaceOnUse">
+          <stop offset="0"        style="stop-color: var(--gray-50)" />
+          <stop offset="0.221154" style="stop-color: var(--gray-400)" />
+          <stop offset="0.735577" style="stop-color: var(--gray-400)" />
+          <stop offset="1"        style="stop-color: var(--gray-50)" />
+        </linearGradient>
+      </defs>
+      <path d="M-31.4342 -19.1169L83.9947 142.183L61.1643 156.681L-35.7356 -16.3854L-31.4342 -19.1169Z"
+            fill={`url(#goi-tia-2-${uid})`} fill-opacity="0.75" />
+    </svg>
+    <svg class="goi__tia goi__tia--3" viewBox="-9 -20 304 195">
+      <defs>
+        <linearGradient id={`goi-tia-3-${uid}`} x1="147.763" y1="59.1405" x2="131.851" y2="85.3549" gradientUnits="userSpaceOnUse">
+          <stop offset="0"        style="stop-color: var(--gray-50)" />
+          <stop offset="0.221154" style="stop-color: var(--gray-400)" />
+          <stop offset="0.735577" style="stop-color: var(--gray-400)" />
+          <stop offset="1"        style="stop-color: var(--gray-50)" />
+        </linearGradient>
+      </defs>
+      <path d="M-5.54466 -19.3623L294.614 148.281L278.701 174.495L-8.54268 -14.4233L-5.54466 -19.3623Z"
+            fill={`url(#goi-tia-3-${uid})`} fill-opacity="0.75" />
+    </svg>
+  </span>
 
   <header class="goi__header">
     <div class="goi__heading">
@@ -202,29 +252,34 @@ import IconCheck from './IconCheck.astro';
     .goi::before { display: none; }
   }
 
-  /* Vệt sáng — chỉ hiện khi rê chuột. Nằm dưới chữ (z-index 0) nên không
-     làm chữ mờ đi. Nghiêng nhẹ và làm mờ mạnh để ra cảm giác ánh sáng hắt
-     từ mép trên bên trái, giống ba hình trong bản vẽ. */
+  /* --- Ba tia sáng góc trên trái (Figma `Top left light` ×3) ----------
+     Chỉ hiện ở ba chỗ thẻ "sáng lên": nổi bật · focus · rê chuột. Default
+     không có tia (Figma: biến thể Default không chứa ba hình này).
+     Figma: mỗi tia tô gradient trắng → #CBCBCB → #CBCBCB → trắng, độ đục
+     tô 75% (nằm sẵn trong `fill-opacity` của hình), LayerBlur 60.
+     Thay màu (không thêm token — CLAUDE.md mục 4):
+       trắng   → --gray-50  (#F8F8F8, lệch 7/255)
+       #CBCBCB → --gray-400 (#C7C7C7, lệch 4/255)
+     Qua lớp mờ 30px, hai mức lệch này không nhìn ra được.
+     Thẻ `overflow: hidden` cắt phần tia thò ra ngoài — đúng `clipsContent`
+     của Figma. Số px cố định: Figma đặt ba tia y hệt nhau ở cả ba khổ. */
   .goi__light {
     position: absolute;
-    top: -40px;
-    left: -20%;
+    inset: 0;
     z-index: 0;
-    width: 140%;
-    height: 90px;
-    transform: rotate(-12deg);
-    background: linear-gradient(
-      90deg,
-      var(--gray-50) 0%,
-      var(--gray-400) 22%,
-      var(--gray-400) 74%,
-      var(--gray-50) 100%
-    );
-    filter: blur(var(--blur-60));     /* Figma LayerBlur 60 → CSS 30px */
     opacity: 0;
     pointer-events: none;
     transition: opacity 160ms ease;
   }
+  .goi__tia {
+    position: absolute;
+    overflow: visible;
+    filter: blur(var(--blur-60));     /* Figma LayerBlur 60 → CSS 30px */
+  }
+  /* left/top = góc trên trái của viewBox; width/height = cỡ viewBox. */
+  .goi__tia--1 { left: -3px;  top: -6px;  width: 178px; height: 178px; }
+  .goi__tia--2 { left: -36px; top: -20px; width: 121px; height: 177px; }
+  .goi__tia--3 { left: -9px;  top: -20px; width: 304px; height: 195px; }
 
   .goi__header,
   .goi__list { position: relative; z-index: 1; }
@@ -299,7 +354,7 @@ import IconCheck from './IconCheck.astro';
     box-shadow: var(--bong-trong), var(--bong-ngoai);
   }
   .goi--noi-bat::before  { background: var(--vien-sang); }
-  .goi--noi-bat .goi__light { opacity: 0.75; }
+  .goi--noi-bat .goi__light { opacity: 1; }
 
   /* --- FOCUS — con trỏ bàn phím ---------------------------------------
      ⚠️ ĐÃ ĐỔI CHỖ SO VỚI BẢN VẼ — Thắng chốt 25/09, xem DEC-090.
@@ -318,7 +373,7 @@ import IconCheck from './IconCheck.astro';
     box-shadow: var(--bong-trong), var(--bong-ngoai);
   }
   .goi:focus-within::before  { background: var(--vien-sang); }
-  .goi:focus-within .goi__light { opacity: 0.75; }
+  .goi:focus-within .goi__light { opacity: 1; }
 
   /* --- HOVER — chỉ desktop, chỉ máy có chuột thật ----------------------
      `hover: hover` lọc ra thiết bị có con trỏ rê được. Điện thoại và tablet
@@ -333,7 +388,7 @@ import IconCheck from './IconCheck.astro';
       box-shadow: var(--bong-trong);
     }
     .goi:hover::before  { background: var(--vien-sang); }
-    .goi:hover .goi__light { opacity: 0.75; }
+    .goi:hover .goi__light { opacity: 1; }
   }
 
   @media (prefers-reduced-motion: reduce) {

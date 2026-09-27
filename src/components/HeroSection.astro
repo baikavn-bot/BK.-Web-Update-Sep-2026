@@ -102,8 +102,11 @@ const uid = Math.random().toString(36).slice(2, 8);
         <linearGradient id={`arcfill-${uid}`}
                         x1="0" y1="0" x2="0" y2="639"
                         gradientUnits="userSpaceOnUse">
-          <stop offset="0"      stop-color="var(--tru-trung)" stop-opacity="1" />
-          <stop offset="0.1557" stop-color="var(--tru-dam)"   stop-opacity="0" />
+          <stop offset="0"      style="stop-color: var(--tru-trung); stop-opacity: 1" />
+          <stop offset="0.1557" style="stop-color: var(--tru-dam); stop-opacity: 0" />
+          {/* Màu đặt qua `style` chứ không qua thuộc tính `stop-color="var(…)"`:
+              `var()` trong thuộc tính trình bày của SVG không được mọi trình
+              duyệt đảm bảo; trong `style` thì chắc chắn chạy. */}
         </linearGradient>
       </defs>
       {/* 🔴 SỬA 26/09 — Thắng báo: *"trên source display dùng màu solid chứ
