@@ -86,11 +86,10 @@ const ketQua = [
 ];
 
 // "Các gói dịch vụ" — Figma 382:9541: 3 gói, gói giữa `State=Focus` = đề xuất.
-// Nhãn + tên gói lấy từ Figma.
-// ⚠️ DANH SÁCH MỤC trong gói 1 và gói 2 ở Figma đang là chữ CHÉP NHẦM từ
-//    trang Pháp lý ("Rà soát hồ sơ pháp nhân & hợp đồng"…). Dùng danh sách
-//    đúng trong `claude/noi-dung-theo-section.md` mục S5. Gói 3 hai nguồn
-//    khớp nhau. → Cần Thắng sửa lại chữ trong Figma.
+// ✅ 27/09 — Thắng đã sửa chữ gói 1–2 trong Figma (trước đó chép nhầm từ
+//    trang Pháp lý). Đọc lại bằng Plugin API: cả 18 dòng (nhãn, tên, mục)
+//    của 3 gói trùng từng ký tự với code dưới đây — kể cả gạch "–" (U+2013).
+//    Figma và code giờ cùng một nguồn, không còn chỗ lệch.
 const goi = [
   { eyebrow: 'Kiểm tra', title: 'Business Blueprint Assessment',
     items: ['Bộ câu hỏi đánh giá 10 trụ cột', 'Điểm số từng trụ cột (0–10)',
