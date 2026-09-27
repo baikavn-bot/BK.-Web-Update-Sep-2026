@@ -245,6 +245,18 @@ import IconCheck from './IconCheck.astro';
     font-size: var(--fs-body-lg);     /* 17 */
     line-height: var(--lh-body-lg);
     color: var(--blue-200);
+    transition: color 160ms ease;
+  }
+  /* 🔴 27/09 — Figma component `Các gói` 365:785: ở biến thể Desktop
+     `State=Focus` và `State=Hover`, nhãn nhỏ đổi từ `--blue-200` sang
+     `--slate-50` (đọc biến gắn trên lớp chữ, không đoán theo mã màu).
+     Áp cho cả ba chỗ thẻ "sáng lên": nổi bật · focus bàn phím · rê chuột.
+     Thắng chốt chỉ đồng bộ nhãn; nút bên trong thẻ (Figma để `Button 2 ·
+     Hover`) chưa đổi — nền Hover dùng #000000/#666666, ngoài bộ token. */
+  .goi--noi-bat .goi__eyebrow,
+  .goi:focus-within .goi__eyebrow { color: var(--slate-50); }
+  @media (hover: hover) and (pointer: fine) {
+    .goi:hover .goi__eyebrow { color: var(--slate-50); }
   }
   .goi__title {
     margin: 0;
@@ -325,6 +337,6 @@ import IconCheck from './IconCheck.astro';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .goi, .goi::before, .goi__light { transition: none; }
+    .goi, .goi::before, .goi__light, .goi__eyebrow { transition: none; }
   }
 </style>
