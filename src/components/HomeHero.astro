@@ -9,23 +9,21 @@ const { area } = Astro.props;
 
 <div class="hero" style={`--area: ${area}`}>
   {/*
-    Khối nhận diện: dấu hiệu BAIKA + chữ "Baika" nằm chung MỘT ảnh.
-    Thắng cung cấp bản PNG @2x ngày 24/09; đã chuyển sang WebP.
+    Khối nhận diện: biểu tượng BAIKA + chữ "Baika".
 
-    Vì sao dùng ảnh thay vì dựng bằng CSS:
-    - Chữ "Baika" là LOGOTYPE (Chakra Petch 120px + gradient mờ dần), không
-      thuộc thang chữ 9 bậc. Dựng bằng CSS thì phụ thuộc font tải về đúng
-      weight, và gradient chỉ là xấp xỉ.
-    - Dấu hiệu bên trái có gradient và chi tiết, vẽ lại bằng SVG dễ sai lệch.
-    Ảnh cho kết quả đúng y bản gốc và không phụ thuộc gì cả.
+    🔴 28/09 — HỆ LOGO MỚI. Figma `Logo` 691:4420 (392×120): `Logo / Symbol`
+    107×120 (biểu tượng mới, dải màu --blue-100 → trong suốt) + chữ "Baika"
+    Chakra Petch 120 cùng dải màu. Thay cho ảnh WebP cũ (dấu hiệu vuông xanh).
 
-    Cỡ hiển thị 392×120 = đúng số đo khối này trong Figma.
+    Dùng file SVG xuất THẲNG từ Figma (chữ đã chuyển thành nét vẽ), đã so
+    checksum trùng từng ký tự: nét luôn sắc ở mọi cỡ màn, không phụ thuộc
+    font tải về, và nhẹ hơn ảnh cũ (12 KB so với 16 + 38 KB).
+    Tablet/Mobile trong Figma là cùng khối này thu nhỏ (100 và 80 cao) —
+    ở đây thu nhỏ theo tỉ lệ khung, xem `.hero__lockup`.
   */}
   <img
     class="hero__lockup"
-    src="/img/baika-lockup.webp"
-    srcset="/img/baika-lockup.webp 392w, /img/baika-lockup@2x.webp 784w"
-    sizes="(min-width: 1280px) min(33.8vw, 784px), (min-width: 768px) min(56.3vw, 784px), min(84.5vw, 784px)"
+    src="/img/logo/baika-lockup-home.svg"
     alt="BAIKA"
     width="392"
     height="120"
@@ -74,10 +72,30 @@ const { area } = Astro.props;
      không đứng yên ở 392px.
      Tỉ lệ lấy từ Figma: hero 512 rộng, trừ 2×24 lề còn 464 — logo 392
      chiếm 84.5% chỗ đó. Giữ đúng tỉ lệ ấy ở mọi cỡ màn.
-     Chặn trên 784px = đúng bề ngang file @2x, quá số đó là ảnh bị nhoè. */
+     Chặn trên 784px (gấp đôi bản vẽ) để màn siêu rộng không phóng logo to
+     quá khổ. (Trước đây 784 là giới hạn độ nét của ảnh WebP; giờ là SVG,
+     không còn nhoè, nhưng giữ mốc cũ cho bố cục không đổi.) */
+  /* 🔴 28/09 — Tablet/Mobile theo ĐÚNG cỡ Figma của hệ logo mới:
+       Mobile 540:4115 → biểu tượng cao 80 · Tablet 540:4027 → cao 100.
+     Trước đây hai khổ này dùng chung quy tắc % của desktop nên logo tablet
+     ra 120 cao (to hơn bản vẽ 20%), mobile ra 72 (nhỏ hơn 10%). */
   .hero__lockup {
-    width: min(84.5%, 784px);
-    height: auto;
+    width: auto;
+    height: 80px;
+    max-width: 100%;
+    /* Màn hẹp hơn 320: khung co bề ngang thì logo thu nhỏ GIỮ tỉ lệ, dạt
+       trái — không bị bóp méo. */
+    object-fit: contain;
+    object-position: left center;
+  }
+  @media (min-width: 768px) {
+    .hero__lockup { height: 100px; }
+  }
+  @media (min-width: 1280px) {
+    .hero__lockup {
+      width: min(84.5%, 784px);
+      height: auto;
+    }
   }
 
   .hero__tagline {

@@ -27,6 +27,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="vi_VN" />
 
+    {/* 28/09: favicon = biểu tượng BAIKA mới (Figma `Logo / Symbol`).
+        Tự đổi màu theo giao diện trình duyệt: nền sáng → Style=Navy
+        (#1C2657), nền tối → Style=White. Cả hai màu lấy từ hai biến thể có
+        sẵn trong Figma. */}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />

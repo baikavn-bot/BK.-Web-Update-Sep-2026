@@ -1,10 +1,16 @@
 Thư mục ảnh.
 
-baika-lockup.webp      392x120  — khối nhận diện: dấu hiệu + chữ "Baika"
-baika-lockup@2x.webp   784x241  — bản nét đôi cho màn hình retina
+logo/baika-lockup-white.svg   130x48   — logo trên thanh đầu trang (biểu tượng + chữ BAIKA, trắng)
+logo/baika-lockup-home.svg    392x120  — khối nhận diện ở trang chủ (biểu tượng + chữ "Baika", dải màu)
+../favicon.svg                         — biểu tượng trên tab trình duyệt (navy khi nền sáng, trắng khi nền tối)
 
-Nguồn: Thắng cung cấp bản PNG @2x ngày 24/09/2026, agent chuyển sang WebP.
-Cỡ hiển thị 392x120 = đúng số đo khối này trong Figma (Logo 120x120 + chữ
-"Baika" 260x90, cách nhau 12px).
+Nguồn: xuất thẳng từ Figma ngày 28/09/2026 bằng Plugin API
+  - Header: `Logo / Lockup` 861:8828 (trong `NVG header` 452:6600)
+  - Trang chủ: `Logo` 691:4420 (trong Home Desktop 534:3816)
+Đã so checksum: nội dung file trùng từng ký tự với bản Figma xuất ra.
 
-Muốn thay: xuất lại từ Figma, giữ đúng tỉ lệ 392:120, lưu WebP chất lượng 94.
+Muốn thay: xuất lại SVG từ đúng hai node trên, ghi đè file cùng tên.
+
+⚠️ Ba file CŨ không còn trang nào dùng (hệ logo trước 28/09):
+   baika-lockup.webp · baika-lockup@2x.webp · baika-mark.webp
+   Chưa xoá — chờ Thắng đồng ý.
