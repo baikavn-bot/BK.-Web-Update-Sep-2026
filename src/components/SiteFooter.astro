@@ -181,7 +181,18 @@ const {
      ===================================================================== */
   .ft__wordmark {
     position: absolute;
-    top: 129px;                    /* Mobile. Tablet 46 · Desktop 0 */
+    /* 🔴 28/09 — Thắng: "Chữ Baika dịch xuống thấp nữa, đủ để chân chạm
+       planet". Figma cũ đặt chữ theo MÉP TRÊN (top 129 / 46 / 0). Giờ đặt
+       theo CHÂN CHỮ: chân chữ nằm đúng trên vành sáng của hành tinh (điểm
+       cao nhất của vòng cung, giữa màn).
+         top = (vị trí vành sáng) − 0.788 × cỡ chữ
+       0.788 = khoảng cách từ mép trên khung chữ tới chân chữ, tính theo cỡ
+       chữ — ĐO bằng trình duyệt với Be Vietnam Pro Black, line-height 0.85
+       (đo ở 5 bề ngang 375 → 1920, lệch nhau < 1%). Vì đặt theo tỉ lệ cỡ
+       chữ nên màn rộng hẹp thế nào chân chữ vẫn chạm vành.
+       Vành sáng: mobile 352 (hoạ tiết tụt lên 32) · tablet 384 · desktop 384·s.
+       Mobile: 352 − 0.788 × cỡ chữ mobile. */
+    top: calc(352px - 0.788 * (100vw - 48px) * 0.3058);
     /* Thắng chốt 26/09: khung chữ rộng **FULL VIEW**, lề 40 (mobile 24) —
        không phải một khối căn giữa theo bề rộng chữ. Điều này quan trọng vì
        gradient bên dưới tính theo BỀ NGANG KHUNG, không phải bề ngang chữ. */
@@ -368,15 +379,18 @@ const {
       left: var(--s-10);
       right: var(--s-10);
       font-size: calc((100vw - 80px) * 0.3198);
-      top: 46px;
+      top: calc(384px - 0.788 * (100vw - 80px) * 0.3198);   /* chân chữ chạm vành ở 384 */
     }
   }
 
   /* =====================================================================
-     DESKTOP ≥ 1280 — chữ BAIKA bám đỉnh (top 0)
+     DESKTOP ≥ 1280 — chân chữ BAIKA chạm vành sáng ở 384·s
+     (384·s = 30vw, trần 768 ở màn 2560; cỡ chữ lấy đúng công thức bên dưới)
      ===================================================================== */
   @media (min-width: 1280px) {
-    .ft__wordmark { top: 0; }
+    .ft__wordmark {
+      top: calc(min(30vw, 768px) - 0.788 * min((100vw - 80px) * 0.2983, 740px));
+    }
   }
 
   /* =====================================================================
