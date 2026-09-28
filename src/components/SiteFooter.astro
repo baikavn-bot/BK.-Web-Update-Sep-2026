@@ -373,56 +373,68 @@ const {
   }
 
   /* =====================================================================
-     ⚠️ MÀN RỘNG HƠN 1280 — hoạ tiết phải GIÃN THEO, không để cố định
-     ---------------------------------------------------------------------
-     Bản vẽ Figma chỉ có ba khổ 375 / 768 / 1280. File SVG rộng 1962, nghĩa
-     là ở khổ 1280 người vẽ chỉ nhìn thấy **phần giữa** của nó — hai bên rìa
-     nằm ngoài khung, chưa ai từng nhìn.
-
-     Ở màn 1920 thì rìa đó lộ ra, và nó có **hai vòng cung tách nhau**: trong
-     file có 4 nét vòng cung chồng lên nhau, bán kính lệch nhau một chút. Ở
-     giữa chúng trùng khít thành một nét; càng ra rìa càng tách, thành hai
-     đường song song cắt ngang cả khối địa chỉ. Thắng phát hiện 26/09.
-
-     → Từ 1280 trở lên, cho hoạ tiết giãn NGANG theo bề ngang màn
-       (1962 / 1280 = 153,281vw), GIỮ NGUYÊN chiều cao 1042.
-       Như vậy phần hiện ra luôn đúng là phần Figma đã vẽ, ở mọi bề ngang.
-       Giữ chiều cao cố định để đỉnh vòng cung vẫn nằm đúng chỗ cũ — nếu giãn
-       cả hai chiều thì ở màn 1920 đỉnh tụt xuống 576px, đè lên khối địa chỉ.
-       Vòng cung bẹt ra một chút, nhưng đây là hình mềm nên không ai nhận ra.
-
-     Dưới 1280 giữ nguyên 1962px cố định — đúng như Figma, vì ở khổ nhỏ hoạ
-     tiết vốn đã tràn ra ngoài hai bên rất nhiều và đó là chủ ý.
-     Tại đúng 1280 hai cách cho cùng một con số, nên không có bước nhảy.
+     DESKTOP ≥ 1280 — chữ BAIKA bám đỉnh (top 0)
      ===================================================================== */
   @media (min-width: 1280px) {
-    /* Phóng ĐỀU cả hai chiều theo bề ngang màn (1962/1280 và 1042/1280).
-       Giãn riêng một chiều KHÔNG ăn thua: file SVG có `viewBox` nên trình
-       duyệt tự giữ tỉ lệ và chừa viền, khung có rộng ra cũng vô ích.
-
-       Phóng đều thì đỉnh vòng cung tụt xuống, nên phải kéo khung lên đúng
-       bằng phần tụt đó: đỉnh nằm ở 405px trong file (384 + 21 nhoè), phóng
-       k lần thành 405k, muốn nó ở lại 384 thì `top = 384 − 405k`.
-       405/1280 = 0,31641 → `calc(384px - 31.641vw)`.
-
-       Kiểm ở đúng 1280: rộng 1962 · cao 1042 · top −21 — trùng khít giá trị
-       cố định bên trên, nên không có bước nhảy ở mốc breakpoint. */
-    .ft__planet {
-      width: 153.281vw;            /* 1962 / 1280 */
-      height: 81.406vw;            /* 1042 / 1280 */
-      top: calc(600px + 384px - 31.641vw);   /* +600: gốc toạ độ giờ là vùng chứa */
-    }
+    .ft__wordmark { top: 0; }
   }
 
   /* =====================================================================
-     DESKTOP ≥ 1280 — chữ BAIKA 358 ở khổ 1280, bám đỉnh
-     Chặn trần 358 để màn siêu rộng không phóng chữ to vô tội vạ.
+     ≥ 1280 — CẢ KHỐI CHÂN TRANG PHÓNG CÙNG MỘT TỈ LỆ, DỪNG Ở MÀN 2560
+     ---------------------------------------------------------------------
+     ✅ Thắng chốt 28/09 (hai câu hỏi: "dừng ở 2560" + "theo Figma: chữ nằm
+        trên chân trời").
+
+     Vấn đề cũ (Thắng phát hiện khi thu nhỏ trình duyệt): chữ BAIKA to theo
+     bề ngang màn, nhưng chân trang cao CỐ ĐỊNH 680 và vòng cung hành tinh
+     đứng CỐ ĐỊNH ở 384px. Màn càng rộng chữ càng tụt xuống dưới vòng cung,
+     rồi tràn ra ngoài chân trang (đo: màn 3840 tràn 273px, 7680 tràn 1247px,
+     trang cuộn thêm một khoảng tối trống). Cảnh "hành tinh che chân chữ" ở
+     màn 1920 cũng là hệ quả của lỗi này, không phải bản vẽ.
+
+     Cách làm: coi chân trang là MỘT tấm poster, mọi thứ trong poster phóng
+     cùng hệ số s = bề ngang màn / 1280, chặn trên s = 2 (màn 2560):
+       · chiều cao chân trang   680 · s          → min(53.125vw, 1360px)
+       · hoạ tiết hành tinh     1962×1042 · s    (phóng ĐỀU hai chiều — file
+         SVG có viewBox nên không giãn riêng một chiều được)
+       · đỉnh vòng cung         ở 384 · s. Đỉnh nằm ở 405px trong file (384
+         + 21 nhoè) → top = 600 + 384s − 405s = 600 − 21s = 600px − 1.641vw
+       · chữ BAIKA              (100vw − 80) · 0.2983, trần 740 (= cỡ ở 2560)
+     → Ở MỌI bề ngang từ 1280 đến 2560, bố cục y hệt bản vẽ 1280.
+     Chữ ĐỌC ĐƯỢC (địa chỉ, liên hệ, dòng cuối) KHÔNG phóng — cỡ chữ đọc
+     không nên đổi theo bề ngang màn.
+
+     Màn > 2560 (màn siêu rộng hoặc thu nhỏ trình duyệt): mọi thứ đứng yên ở
+     cỡ của 2560, căn giữa; hai rìa hành tinh tan dần vào nền thay vì lộ mép
+     cắt. Ở màn ≤ 2560 hai rìa đó nằm NGOÀI màn nên không thấy khác gì.
+
+     Tại đúng 1280 mọi công thức cho ra số của Figma (680 · 1962×1042 · top
+     −21 · chữ 358) → không có bước nhảy ở mốc breakpoint.
+     Đổi thiết kế thì xem lại TỈ LỆ, không phải từng con số: mọi số ở đây
+     đều là số 1280 nhân s.
      ===================================================================== */
   @media (min-width: 1280px) {
-    .ft__wordmark {
-      font-size: calc((100vw - 80px) * 0.2983);
-      top: 0;
+    .ft {
+      min-height: min(53.125vw, 1360px);                 /* 680/1280 · trần 680×2 */
     }
+    .ft__planet {
+      width: min(153.281vw, 3924px);                     /* 1962 × s */
+      height: min(81.406vw, 2084px);                     /* 1042 × s */
+      /* Đỉnh vòng cung ở 384·s: top = 600 + 384s − 405s = 600 − 21s */
+      top: max(calc(600px - 1.641vw), 558px);
+      /* Rìa trái/phải tan dần. Ở màn ≤ 2560 hai rìa nằm NGOÀI màn nên
+         không thấy gì khác; chỉ lộ tác dụng khi màn > 2560. */
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, var(--gray-950) 12%, var(--gray-950) 88%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, var(--gray-950) 12%, var(--gray-950) 88%, transparent 100%);
+    }
+    .ft__wordmark {
+      font-size: min(calc((100vw - 80px) * 0.2983), 740px);   /* trần = cỡ ở 2560 */
+      /* Màn > 2560: khung chữ giữ đúng bề ngang của 2560, căn giữa — để
+         dải màu hai đầu chữ vẫn tan đúng như bản vẽ. */
+      left: max(var(--s-10), calc((100vw - 2560px) / 2 + var(--s-10)));
+      right: max(var(--s-10), calc((100vw - 2560px) / 2 + var(--s-10)));
+    }
+    .ft__details, .ft__line, .ft__legal { max-width: calc(2560px - 2 * var(--s-10)); }
   }
 
   /* =====================================================================
