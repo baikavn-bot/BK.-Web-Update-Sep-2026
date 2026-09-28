@@ -20,12 +20,14 @@ interface Props {
   /**
    * Gradient của lớp Hover BG. Khớp tên paint style trong Figma:
    *   `bento`   → style `Hover BG Bento` (mặc định, 8/9 ô dùng)
-   *   `bento-2` → style `Hover BG 2`    (hiện chỉ Trạm Ý Tưởng)
+   *   `bento-2` → style `Hover BG 2`    (từ 28/09: ô Flagship — Remote Office)
    */
   hoverStyle?: 'bento' | 'bento-2';
   /**
    * Ô NỔI BẬT — sáng sẵn ngay khi tải trang, không cần rê chuột.
    * Thắng chốt 25/09: Trạm Ý Tưởng và Tư vấn Doanh nghiệp là hai ô nổi bật.
+   * 28/09: Trạm Ý Tưởng về ô thường; ô nổi bật thứ hai là Remote Office
+   * (dùng `flagship`, bên dưới).
    *
    * ⚠️ CỐ Ý KHÔNG dùng trạng thái `:focus` của CSS để làm việc này.
    * Focus là trạng thái con trỏ bàn phím đang đứng — tạm thời, đổi liên tục
@@ -42,15 +44,34 @@ interface Props {
    *   Focus → `clipsContent = false` → gradient tràn ra thành quầng sáng
    * Khớp đúng ngôn ngữ tương tác của hệ: quầng sáng thuộc về Focus.
    *
+   * (Ghi chú cũ 25/09 — Trạm Ý Tưởng nay là ô thường:)
    * Trên Home: Tư vấn Doanh nghiệp đặt ở Focus (có quầng), Trạm Ý Tưởng
    * đặt ở Hover (không quầng).
    */
   glow?: boolean;
+  /**
+   * Biến thể `State=Flagship` trong Figma (`Home/Services Card`, thêm 28/09,
+   * node 861:8495 Desktop · 861:8515 Tablet). Đo trực tiếp:
+   *   nền --blue-50 · viền 0.5 nét đứt --opacity-light · bo 12 (--r-md)
+   *   · làm mờ hậu cảnh 32 Figma = 16px CSS (--blur-card-alt)
+   *   · lớp Hover BG dùng style `Hover BG 2` · mũi tên hiện · chữ --blue-800
+   *   · clipsContent = false → gradient tràn ra thành quầng sáng.
+   * Nghĩa là Flagship = ô nổi bật + quầng sáng + gradient `Hover BG 2`.
+   * Viết thành một prop cho khớp tên Figma: sau này đổi Flagship trông thế
+   * nào thì sửa MỘT chỗ ở đây, không phải lần từng trang.
+   * Mobile không có biến thể Flagship — giống mọi ô nổi bật, ở mobile ô
+   * sáng lên khi nằm giữa màn hình.
+   */
+  flagship?: boolean;
 }
+const props = Astro.props;
 const {
-  variant = 'card', label = '', href, area,
-  hoverStyle = 'bento', featured = false, glow = false,
-} = Astro.props;
+  variant = 'card', label = '', href, area, flagship = false,
+} = props;
+// Flagship bật sẵn ba thứ; các ô khác dùng đúng giá trị truyền vào.
+const featured = flagship || (props.featured ?? false);
+const glow = flagship || (props.glow ?? false);
+const hoverStyle = flagship ? 'bento-2' : (props.hoverStyle ?? 'bento');
 const lines = label.split('\n');
 const isLink = variant === 'card' && !!href;
 const Tag = isLink ? 'a' : 'div';
@@ -66,6 +87,7 @@ const Tag = isLink ? 'a' : 'div';
       'tile--link': isLink,
       'tile--featured': featured && variant === 'card',
       'tile--glow': featured && glow && variant === 'card',
+      'tile--flagship': flagship && variant === 'card',
     },
   ]}
   {/* Đặt qua BIẾN CSS chứ không gán thẳng `grid-area`.
@@ -160,7 +182,7 @@ const Tag = isLink ? 'a' : 'div';
     );
   }
 
-  /* style `Hover BG 2` — hiện chỉ Trạm Ý Tưởng.
+  /* style `Hover BG 2` — từ 28/09 dùng cho ô Flagship (Remote Office).
      Tâm (83.7%, 19.23%): em giải ma trận gradient trong Figma ra đúng số
      này, khớp với CSS Figma xuất — hai nguồn độc lập.
 

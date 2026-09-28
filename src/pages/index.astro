@@ -6,8 +6,19 @@ import BentoCard from '../components/BentoCard.astro';
 // TRANG CHỦ — lưới bento một màn.
 // Figma: section `Home` 540:4422 · Desktop 534:3816 · Tablet 540:4027 · Mobile 540:4115
 //
-// 9 ô có nhãn = 7 trang dịch vụ + Trạm Ý Tưởng + Trạm Kết Nối.
+// 10 ô có nhãn = 7 trang dịch vụ + Remote Office + Trạm Ý Tưởng + Trạm Kết Nối.
 // Slug giữ nguyên từ site cũ — DEC-019.
+//
+// 🔴 28/09 — Thắng cập nhật Figma Desktop 534:3816:
+//   · THÊM `Remote Office` (849:7949) ở hàng 1 cột 5 — chỗ ô rỗng `ph1` cũ.
+//     Là ô FLAGSHIP — biến thể mới `State=Flagship` của component
+//     `Home/Services Card` (861:8495): giống Hover nhưng gradient `Hover BG 2`
+//     và clipsContent=false → CÓ quầng sáng tràn ra ngoài ô.
+//     Bấm vào → sang domain riêng `baika.website`, mở NGAY TRONG TAB HIỆN TẠI
+//     (Thắng chốt 28/09).
+//   · `Trạm Ý Tưởng` về `State=Default`, bỏ ghi đè Hover BG → ô thường.
+//   Figma Tablet/Mobile CHƯA vẽ Remote Office → vị trí ở hai khổ này do
+//   Thắng chốt 28/09 ("đặt lên vị trí nổi bật"), xem ghi chú từng khổ.
 //
 // ⚠️ Hai ô CHƯA CÓ ĐÍCH: `Trạm Ý Tưởng` và `Trạm Kết Nối` đều ngoài phạm vi v1.
 //    Để href = undefined → ô hiện bình thường nhưng KHÔNG bấm được.
@@ -16,10 +27,14 @@ const tiles = [
   { area: 'legal', label: 'PHÁP LÝ & THUẾ',              href: '/legal-tax' },
   { area: 'mkt',   label: 'MARKETING\nTĂNG TRƯỞNG',      href: '/marketing' },
   { area: 'ops',   label: 'HỆ THỐNG HÓA\nVẬN HÀNH',      href: '/remote-ops' },
-  // Trạm Ý Tưởng dùng gradient RIÊNG — style `Hover BG 2` trong Figma
-  // (instance 534:3833 ghi đè fillStyleId sang style đó). Tám ô còn lại
-  // dùng `Hover BG Bento`.
-  { area: 'idea',  label: 'TRẠM Ý TƯỞNG',                href: undefined, hoverStyle: 'bento-2' as const, featured: true },
+  // Remote Office = biến thể `State=Flagship` của component (thêm 28/09):
+  // nền --blue-50, gradient `Hover BG 2`, quầng sáng tràn ra. Chín ô còn
+  // lại dùng `Hover BG Bento`. Link NGOÀI site: sang domain riêng.
+  // ⚠️ Chưa kiểm được baika.website đã chạy chưa — nếu domain chưa trỏ
+  //    đi đâu thì ô flagship này thành link chết. Kiểm trước khi go-live.
+  { area: 'remote', label: 'REMOTE OFFICE',              href: 'https://baika.website', flagship: true },
+  // Trạm Ý Tưởng: từ 28/09 là ô thường (Figma `State=Default`).
+  { area: 'idea',  label: 'TRẠM Ý TƯỞNG',                href: undefined },
   { area: 'conn',  label: 'TRẠM KẾT NỐI',                href: undefined },
   // Figma đặt ô này ở `State=Focus` — clipsContent=false nên gradient tràn
   // ra thành quầng sáng. Trạm Ý Tưởng ở `State=Hover` nên KHÔNG có quầng.
@@ -29,8 +44,10 @@ const tiles = [
   { area: 'ceo',   label: 'ĐÀO TẠO CEO',                 href: '/ceo-blueprint' },
 ];
 
-// 6 ô rỗng chỉ có viền — nhịp thị giác của lưới, không mang nội dung.
-const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
+// Ô rỗng chỉ có viền — nhịp thị giác của lưới, không mang nội dung.
+// 28/09: còn 5 ô — ô `ph1` cũ (hàng 1 cột 5) nhường chỗ cho Remote Office.
+// Tablet mượn `ph2` + `ph3` để lấp hàng thứ 5 (xem khối Tablet).
+const placeholders = ['ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
 ---
 
 <BaseLayout
@@ -47,9 +64,9 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
           area={t.area}
           label={t.label}
           href={t.href}
-          hoverStyle={t.hoverStyle}
           featured={t.featured}
           glow={t.glow}
+          flagship={t.flagship}
         />
       ))}
       {placeholders.map((a) => <BentoCard variant="placeholder" area={a} />)}
@@ -167,9 +184,13 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
     padding-inline: var(--s-6);
     grid-template-columns: 1fr;
     grid-auto-rows: 208px;
+    /* 28/09: Remote Office là ô ĐẦU TIÊN ngay dưới Hero — ô flagship,
+       Thắng chốt "đặt lên vị trí nổi bật". Figma Mobile chưa có ô này.
+       (Ô ở vị trí `idea` trong Figma Mobile đang ghi chữ mẫu "ERP
+       Integrations" — web vẫn để TRẠM Ý TƯỞNG như đã chốt trước.) */
     grid-template-areas:
       'hero' 'hero'
-      'adv' 'legal' 'ceo' 'conn' 'ops' 'idea' 'mkt' 'tech' 'fin';
+      'remote' 'adv' 'legal' 'ceo' 'conn' 'ops' 'idea' 'mkt' 'tech' 'fin';
   }
 
   /* Mobile không có ô rỗng nào — Figma cũng vậy. */
@@ -194,13 +215,22 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
       grid-template-columns: repeat(3, 1fr);
       /* minmax: cửa sổ quá thấp thì ô ngừng co và trang cuộn,
          thay vì bóp ô đến mức chữ bị cắt. */
-      grid-template-rows: repeat(4, minmax(120px, 1fr));
+      /* 28/09: thêm HÀNG THỨ 5. Remote Office lấy ô góc trên phải (chỗ ô
+         nổi bật trong Figma Tablet), Trạm Ý Tưởng xuống hàng 5 cùng hai ô
+         viền nét đứt cho đủ hàng — cùng ngôn ngữ ô rỗng của Desktop.
+         Thắng chốt 28/09; Figma Tablet chưa vẽ lại. */
+      grid-template-rows: repeat(5, minmax(120px, 1fr));
       grid-template-areas:
-        'hero hero idea'
+        'hero hero remote'
         'hero hero ceo'
         'ops  adv  mkt'
-        'conn fin  legal';
+        'conn fin  legal'
+        'idea ph2  ph3';
     }
+
+    /* Tablet chỉ hiện hai ô rỗng dùng cho hàng 5. */
+    .grid > :global(.tile--at-ph2),
+    .grid > :global(.tile--at-ph3) { display: flex; }
 
     /* CÔNG NGHỆ AI ỨNG DỤNG nằm ĐÈ lên góc dưới–phải của khối hero.
        Trong Figma nó là con của `Container` (khối hero), đặt tại (256,208)
@@ -210,7 +240,8 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
        vẽ đè lên trên — đúng thứ tự lớp của Figma. */
     .grid > :global(.tile--at-tech) { grid-area: 2 / 2 / 3 / 3; }
 
-    /* Tablet không có ô rỗng nào — giữ ẩn như ở mobile. */
+    /* Tablet: chỉ `ph2` + `ph3` hiện (hàng 5, xem trên). Các ô rỗng khác
+       và ô `gap` vẫn ẩn như ở mobile. */
   }
 
   /* --- DESKTOP ≥ 1280 — 5 cột × 4 hàng = 20 ô --------------------------
@@ -225,7 +256,7 @@ const placeholders = ['ph1', 'ph2', 'ph3', 'ph4', 'ph5', 'ph6'];
       grid-template-columns: repeat(5, 1fr);
       grid-template-rows: repeat(4, minmax(140px, 1fr));
       grid-template-areas:
-        'hero hero gap  legal ph1'
+        'hero hero gap  legal remote'
         'hero hero mkt  ph2   ops'
         'idea conn ph3  adv   ph4'
         'tech ph5  fin  ph6   ceo';
