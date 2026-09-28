@@ -80,6 +80,11 @@ const HANG = [k.slice(0, 3), k.slice(3, 5), k.slice(5, 6)];
 <style>
   .nhan {
     position: relative;
+    /* 28/09: khoá thứ tự lớp BÊN TRONG section này. Cần vì cái bát giờ nằm
+       lớp 2 (trên các sợi dây) — không khoá thì lớp 2 đó so với cả section
+       "6 dịch vụ" phía trên (lớp 1) và thân bát sẽ đè lên sáu thẻ dịch vụ.
+       Khoá lại thì cả section này là MỘT lớp, section trên vẫn nằm trên. */
+    isolation: isolate;
     padding-block: var(--s-20) 0;      /* Figma: tiêu đề ở y=80 */
   }
 
@@ -134,7 +139,13 @@ const HANG = [k.slice(0, 3), k.slice(3, 5), k.slice(5, 6)];
     position: absolute;
     top: -450px;
     left: 50%;
-    z-index: 0;
+    /* 🔴 28/09 — Thắng: "không nhìn thấy light line dư ở dưới planet".
+       Sợi dây của hàng 1 bắt đầu ở y≈200 trong khi đáy bát ở y=277 (giữa)
+       và còn cao hơn ở hai bên → đoạn đầu mỗi sợi dây lộ ra TRONG thân bát.
+       Đưa bát lên TRÊN khung 6 khối (lớp 2 > lớp 1): thân bát đặc che đoạn
+       thừa, sợi dây trông như thò ra từ dưới hành tinh. Các vòm khối đều
+       nằm dưới đáy bát nên không bị che. */
+    z-index: 2;
     width: max(1920px, 150vw);
     height: 727px;
     transform: translateX(-50%);
@@ -162,7 +173,7 @@ const HANG = [k.slice(0, 3), k.slice(3, 5), k.slice(5, 6)];
   /* --- Tiêu đề ------------------------------------------------------------ */
   .nhan__heading {
     position: relative;
-    z-index: 2;
+    z-index: 3;                        /* trên cả cái bát (lớp 2) */
     text-align: center;
   }
 

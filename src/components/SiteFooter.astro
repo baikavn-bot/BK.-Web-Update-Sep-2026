@@ -153,7 +153,12 @@ const {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 0;
+    /* 🔴 28/09 — Thắng chốt: chữ BAIKA nằm DƯỚI hành tinh. Hoạ tiết lên
+       lớp 1, chữ BAIKA xuống lớp 0 → thân hành tinh che phần chân chữ,
+       quầng sáng + tia sáng phủ nhẹ lên thân chữ.
+       ⚠️ Figma (Footer 217:2648 · 489:2986 · 450:5264) vẫn để lớp `Baika`
+       TRÊN CÙNG — cần kéo xuống dưới `Planet` cho khớp. */
+    z-index: 1;
     overflow: hidden;
     pointer-events: none;
   }
@@ -182,8 +187,8 @@ const {
        gradient bên dưới tính theo BỀ NGANG KHUNG, không phải bề ngang chữ. */
     left: var(--s-10);
     right: var(--s-10);
-    z-index: 1;                    /* NẰM TRÊN hoạ tiết, DƯỚI phần chữ đọc
-                                      được — đúng thứ tự lớp trong Figma */
+    z-index: 0;                    /* 🔴 28/09: NẰM DƯỚI hoạ tiết (Thắng chốt),
+                                      dưới cả phần chữ đọc được */
     margin: 0;
     text-align: center;
     font-family: var(--font-display);
@@ -243,6 +248,7 @@ const {
   .ft__legal {
     position: relative;
     z-index: 2;                    /* trên cả hoạ tiết lẫn chữ BAIKA */
+    /* (hoạ tiết lớp 1 · chữ BAIKA lớp 0) */
     width: 100%;
   }
 
@@ -440,6 +446,9 @@ const {
      3. Chữ BAIKA bị đẩy xuống dưới hoạ tiết (`z-index: -1`). Trong Figma nó
         là lớp CUỐI CÙNG, nằm TRÊN hoạ tiết — có vậy `overlay` mới trộn được
         với vòng cung.
+        → ⚠️ ĐÃ ĐẢO LẠI 28/09 theo Thắng: chữ BAIKA nằm DƯỚI hành tinh
+          (overlay đã bỏ từ 26/09 nên lý do cũ không còn). Mục này KHÔNG còn
+          là "sai" — đừng sửa ngược lại.
      4. Chữ BAIKA căn bằng `left/right: 40px` (kéo giãn). Dev Mode cho thấy
         nó căn GIỮA khung ở cả ba khổ.
      5. Thiếu `top` riêng cho từng khổ: 0 / 46 / 129.

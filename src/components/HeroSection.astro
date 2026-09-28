@@ -137,6 +137,50 @@ const uid = Math.random().toString(36).slice(2, 8);
   </div>
 </section>
 
+<script>
+  // 🔴 28/09 — CHỮ CONG GIÃN THEO HÀNH TINH (Thắng: "Display sẽ có đường
+  // cong tương đương với planet khi scale").
+  //
+  // Hành tinh ở màn > 1280 giãn NGANG (rộng 150% màn, cao giữ 727) nên vòng
+  // cung bẹt dần. Chữ cong thì đang vẽ trên một elip CỐ ĐỊNH 1382 × 639 →
+  // ở màn 1920 chữ cong gắt hơn hẳn vòng cung bên dưới.
+  //
+  // Sửa: giãn elip của chữ theo ĐÚNG tỉ lệ hành tinh giãn,
+  //   s = bề ngang hành tinh / 1920  (≤ 1280 thì s = 1, không đổi gì)
+  //   elip chữ: rộng 1382·s, cao giữ 639 — y như hành tinh.
+  // Chỉ đổi ĐƯỜNG DẪN chữ chạy theo, không co giãn chính con chữ, nên chữ
+  // không bị kéo bè ra.
+  //
+  // Vì sao phải dùng JS: bề ngang elip phụ thuộc bề ngang màn, mà đường dẫn
+  // SVG không nhận `calc()`/`vw`. Cách thuần CSS (`d: path()`) Safari không
+  // hỗ trợ. Không có JS thì chữ vẫn hiện đúng như bản 1280 — chỉ mất phần
+  // giãn theo ở màn rộng, không hỏng trang.
+  const HANH_TINH_GOC = 1920;          // bề ngang hành tinh ở khổ ≤ 1280
+  const CHU_RONG = 1382, CHU_CAO = 639; // khung chữ cong trong Figma
+
+  document.querySelectorAll<HTMLElement>('.hero').forEach((hero) => {
+    const planet = hero.querySelector<HTMLElement>('.hero__planet');
+    const title  = hero.querySelector<HTMLElement>('.hero__title');
+    const svg    = hero.querySelector<SVGSVGElement>('.hero__arc');
+    const path   = svg?.querySelector<SVGPathElement>('defs path');
+    if (!planet || !title || !svg || !path) return;
+
+    const capNhat = () => {
+      const s = Math.max(1, planet.getBoundingClientRect().width / HANH_TINH_GOC);
+      const rong = CHU_RONG * s;
+      const r = rong / 2;
+      svg.setAttribute('viewBox', `0 0 ${rong} ${CHU_CAO}`);
+      path.setAttribute('d', `M 0 ${CHU_CAO / 2} A ${r} ${CHU_CAO / 2} 0 0 1 ${rong} ${CHU_CAO / 2}`);
+      svg.style.width = `${rong}px`;
+      title.style.width = `${rong}px`;
+    };
+    capNhat();
+    // Theo dõi chính khung hành tinh: nó đổi cỡ thì chữ đổi theo, kể cả khi
+    // xoay màn hình hay kéo cửa sổ.
+    new ResizeObserver(capNhat).observe(planet);
+  });
+</script>
+
 <style>
   .hero {
     position: relative;
