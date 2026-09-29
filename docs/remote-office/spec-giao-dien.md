@@ -204,7 +204,7 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 | 6 | Frame `825:6629` | Tên "Gói dịch vụ" trùng `842:7714` | → `So sánh` |
 | 7 | Frame hero — **mọi trang** | Tên "Herro" | → `Hero` |
 | 8 | ~~Frame `825:6535` — mode màu trụ = "Đào tạo CEO"~~ | ✅ **Đã sửa 29/09** — chuyển sang mode "Remote Office"; 4 lớp gradient đang gắn thẳng vào biến màu CEO đã gắn lại vào biến `Trụ` | — |
-| 10 | Thẻ gói R7 | Nhãn nhỏ vẫn ghi «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ» | Thay bằng giá (Master §7 #2 đã chốt) |
+| 10 | ~~Thẻ gói R7 — nhãn nhỏ ghi «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ»~~ | ✅ **Đã sửa 29/09** — thay bằng giá | — |
 | 9 | R2 cột trái | `#FFFFFF` thô · cỡ chữ 100 | Về `--gray-50` · cỡ theo Master §7 #10 |
 
 ---
@@ -215,4 +215,5 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 | --- | --- | --- | --- | --- |
 | 29/09/2026 | `825:6535` | Đọc lần đầu để lập spec | — | — |
 | 29/09/2026 | Bộ biến | Tạo `Colors/Page/Remote Office/--dam · --trung · --nhat` (`904:2–4`) + mode "Remote Office" (`904:0`) trong bộ `Trụ` | Chưa dựng trang | commit spec này |
+| 29/09/2026 | `842:7714` | Nhãn nhỏ 3 thẻ gói → «4.900.000 đ/tháng» · «9.900.000 đ/tháng» · «19.900.000 đ/tháng». Thêm text `Chú thích giá` `905:3394` dưới lưới gói — style `caption`, màu `--gray-50`. Section cao 685 → 742 (frame tự giãn, auto-layout) | Chưa dựng trang | commit spec này |
 | 29/09/2026 | `825:6535` | Chuyển mode `Trụ` "Đào tạo CEO" → "Remote Office". Gắn lại 4 gradient (`825:6591` · `825:6593` · `825:6636` · `825:6644`) từ biến màu CEO sang `--tru-trung` / `--tru-nhat` | Chưa dựng trang | commit spec này |

@@ -102,7 +102,7 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | Bảo hiểm phần doanh nghiệp đóng | 21,5% lương | ✅ khớp bảng chi phí §2 · *chưa ai đối chiếu văn bản luật* |
 | Kinh phí công đoàn | 2% lương | ✅ khớp §2 |
 | Chi phí cố định mỗi người (chỗ ngồi, thiết bị, tuyển dụng) | 1.800.000 đ | ⏸ spec cũ ghi **"giả định"** — nằm trong khoảng 1,5–2,5 triệu nhưng không phải điểm giữa · Master §7 #5 |
-| Giá gói Khởi đầu · Vận hành · Trọn gói | 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, chưa VAT | ✅ **công khai** (Thắng chốt 29/09) · ⏸ con số cụ thể: giả định theo spec cũ — Master §7 #3 |
+| Giá gói Khởi đầu · Vận hành · Trọn gói | 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, chưa VAT | ✅ **công khai, con số đã chốt** (Thắng 29/09) |
 | Số nhóm việc tối đa của gói | 1 · 3 · 5 | ✅ bảng giá spec cũ |
 | Gói "thay được" | nửa vị trí · 1,5–2 · 3–4 vị trí | ✅ bảng giá spec cũ · ⚠️ chưa khớp số đơn vị công việc (100 đơn vị × 30 phút = 50 giờ/tháng mà "thay 1,5–2 người") — sếp cần có câu trả lời khi khách hỏi |
 | Lương nhập được | 7.000.000 – 25.000.000 đ · nút ‹ › nhảy 500.000 | ✅ khoảng từ spec cũ |
@@ -211,9 +211,7 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 | Nút ✅ | «Chọn gói này» | «Chọn gói này» | «Chọn gói này» |
 | Thay được | ➕ «Nửa vị trí hành chính» | ➕ «1,5 – 2 vị trí» | ➕ «3 – 4 vị trí» |
 
-*(Con số giá: giả định theo spec cũ — Master §7 #3.)*
-
-**Chú thích dưới bảng giá** ➕ ⏸ *Claude đề xuất đưa vào vì giá đã công khai — Master §7 #3* — «Giá chưa gồm VAT. Gói nền gồm cổng gửi yêu cầu, một điều phối viên phụ trách riêng, kho hồ sơ số và báo cáo tháng. Một đơn vị công việc tương đương một đầu việc chuẩn khoảng 30 phút.»
+**Chú thích dưới bảng giá** ✅ *(chốt 29/09, Figma đã có)* — «Giá chưa gồm VAT. Gói nền gồm cổng gửi yêu cầu, một điều phối viên phụ trách riêng, kho hồ sơ số và báo cáo tháng. Một đơn vị công việc tương đương một đầu việc chuẩn khoảng 30 phút.»
 
 ---
 
