@@ -114,9 +114,9 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 
 | # | Câu hỏi | Chặn phần nào |
 | --- | --- | --- |
-| 1 | **Màu trụ của trang.** Figma đang để mode "Đào tạo CEO" (nhiều khả năng sót khi nhân bản). Spec cũ tạm dùng `van-hanh`. Hay một bộ riêng? | Hero · vòm · thẻ gói — cả trang |
-| 2 | **Công khai giá hay không.** Thẻ gói trong Figma **không có giá**, nhưng bảng so sánh ghi "Từ 4,9 triệu" và bảng ước tính ghi "9.900.000 đ" | Gói · So sánh · Ước tính |
-| 3 | **Bảng giá dùng cho công thức ước tính** (spec cũ: 4,9 / 9,9 / 19,9 triệu — chưa chốt công khai) | Ước tính |
+| 1 | ✅ **ĐÃ CHỐT 29/09 — Màu trụ riêng cho Remote Office:** `--dam` `#2E4716` · `--trung` `#58832C` *(Thắng đưa)* · `--nhat` `#B6D79B` *(Claude đề xuất theo quy luật 7 trụ, Thắng duyệt)*. Figma: biến `Colors/Page/Remote Office/*` + mode **"Remote Office"** trong bộ biến `Trụ`, frame `825:6535` đã chuyển sang mode này | — |
+| 2 | ✅ **ĐÃ CHỐT 29/09 — Giá công khai**, đặt **thay vào nhãn nhỏ phía trên tên gói** (chỗ đang ghi «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ»). Figma chưa cập nhật chữ | — |
+| 3 | **Con số giá cụ thể** — đang **giả định** giữ 4.900.000 · 9.900.000 · 19.900.000 đ/tháng như spec cũ, viết dạng «4.900.000 đ/tháng». Kèm: có thêm dòng «Giá chưa gồm VAT…» dưới khối gói không *(Claude đề xuất có)* | Gói · Ước tính |
 | 4 | **Ô "Nhóm công việc"** hiện "3 nhóm việc" nhưng danh sách mở ra là 7 dòng chữ mẫu giống nhau. Chọn **số nhóm** hay chọn **từng nhóm** (bản cũ: 8 ô tick)? Có mấy lựa chọn? | Ước tính |
 | 5 | **Con số 1.800.000** trong công thức — giả định từ spec cũ, chưa xác nhận | Ước tính |
 | 6 | **Nút "Gửi yêu cầu theo ước tính này"** dẫn đi đâu: cuộn xuống form và điền sẵn số ước tính, hay chỉ cuộn xuống? | Ước tính · Liên hệ |
@@ -151,4 +151,5 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | Ngày | Ai | Thay đổi |
 | --- | --- | --- |
 | 29/09/2026 | Claude (phiên với Thắng) | Lập bộ spec: Master · Nội dung · Giao diện · Quy trình. Chốt luật lệch C và luật đồng bộ |
+| 29/09/2026 | Claude (phiên với Thắng) | Chốt #1 màu trụ + #2 giá công khai. Tạo biến + mode màu trong Figma. #3 đổi thành câu xác nhận con số giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Gộp `claude/remote-office-cong-thuc-uoc-tinh.md` (project Claude) vào §4 `spec-noi-dung.md` và §4 `spec-giao-dien.md`. Thêm câu hỏi #14. **Từ nay bản trong repo là bản chính** |

@@ -102,7 +102,7 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | Bảo hiểm phần doanh nghiệp đóng | 21,5% lương | ✅ khớp bảng chi phí §2 · *chưa ai đối chiếu văn bản luật* |
 | Kinh phí công đoàn | 2% lương | ✅ khớp §2 |
 | Chi phí cố định mỗi người (chỗ ngồi, thiết bị, tuyển dụng) | 1.800.000 đ | ⏸ spec cũ ghi **"giả định"** — nằm trong khoảng 1,5–2,5 triệu nhưng không phải điểm giữa · Master §7 #5 |
-| Giá gói Khởi đầu · Vận hành · Trọn gói | 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, chưa VAT | ⏸ chưa chốt công khai · Master §7 #2, #3. ⚠️ **Công cụ không chạy được nếu ẩn giá** — cột BAIKA cần một con số |
+| Giá gói Khởi đầu · Vận hành · Trọn gói | 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, chưa VAT | ✅ **công khai** (Thắng chốt 29/09) · ⏸ con số cụ thể: giả định theo spec cũ — Master §7 #3 |
 | Số nhóm việc tối đa của gói | 1 · 3 · 5 | ✅ bảng giá spec cũ |
 | Gói "thay được" | nửa vị trí · 1,5–2 · 3–4 vị trí | ✅ bảng giá spec cũ · ⚠️ chưa khớp số đơn vị công việc (100 đơn vị × 30 phút = 50 giờ/tháng mà "thay 1,5–2 người") — sếp cần có câu trả lời khi khách hỏi |
 | Lương nhập được | 7.000.000 – 25.000.000 đ · nút ‹ › nhảy 500.000 | ✅ khoảng từ spec cũ |
@@ -189,7 +189,7 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 
 | Tiêu chí | Tự tuyển | BAIKA |
 | --- | --- | --- |
-| «Chi phí mỗi tháng» | «≈ 14–15 triệu cho một người» | «Từ 4,9 triệu» ⏸ *phụ thuộc Master §7 #2* |
+| «Chi phí mỗi tháng» | «≈ 14–15 triệu cho một người» | «Từ 4,9 triệu» *(giá đã công khai — khớp giá gói Khởi đầu)* |
 | «Bảo hiểm, công đoàn» | «Doanh nghiệp tự đóng, tăng theo mỗi người» | «Đã nằm trong phí dịch vụ» |
 | «Thời gian có người làm» | «Vài tuần tuyển, thêm thời gian thử việc» | «7 ngày làm việc» |
 | «Người nghỉ phép, nghỉ việc» | «Việc dừng lại, phải tuyển lại» | «BAIKA bố trí người thay» |
@@ -206,13 +206,14 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 
 | | Khởi đầu | Vận hành *(nổi bật)* | Trọn gói |
 | --- | --- | --- | --- |
-| Nhãn nhỏ | ⚠️ `L11` Figma «Kiểm tra » | ⚠️ `L11` «Hệ thống hóa» | ⚠️ `L11` «Hỗ trợ» |
+| **Nhãn nhỏ = GIÁ** ✅ *(chốt 29/09, thay «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ»)* | «4.900.000 đ/tháng» | «9.900.000 đ/tháng» | «19.900.000 đ/tháng» |
 | Checklist ✅ | «Gói nền đầy đủ» · «1 nhóm việc» · «40 đơn vị công việc» · «Báo cáo tháng» | «Gói nền đầy đủ» · «3 nhóm việc» · «100 đơn vị công việc» · «Họp rà soát mỗi quý» | «Gói nền đầy đủ» · «5 nhóm việc» · «220 đơn vị công việc» · «Ưu tiên thời gian trả kết quả» |
 | Nút ✅ | «Chọn gói này» | «Chọn gói này» | «Chọn gói này» |
-| Giá | ➕ spec cũ «4.900.000 đ/tháng» | ➕ «9.900.000 đ/tháng» | ➕ «19.900.000 đ/tháng» |
 | Thay được | ➕ «Nửa vị trí hành chính» | ➕ «1,5 – 2 vị trí» | ➕ «3 – 4 vị trí» |
 
-**Chú thích dưới bảng giá** ➕ — «Giá chưa gồm VAT. Gói nền gồm cổng gửi yêu cầu, một điều phối viên phụ trách riêng, kho hồ sơ số và báo cáo tháng. Một đơn vị công việc tương đương một đầu việc chuẩn khoảng 30 phút.»
+*(Con số giá: giả định theo spec cũ — Master §7 #3.)*
+
+**Chú thích dưới bảng giá** ➕ ⏸ *Claude đề xuất đưa vào vì giá đã công khai — Master §7 #3* — «Giá chưa gồm VAT. Gói nền gồm cổng gửi yêu cầu, một điều phối viên phụ trách riêng, kho hồ sơ số và báo cáo tháng. Một đơn vị công việc tương đương một đầu việc chuẩn khoảng 30 phút.»
 
 ---
 
@@ -259,7 +260,7 @@ Figma có 4 mục — **chỉ mục 1 là câu hỏi thật**, 3 mục sau là k
 
 | | Nguyên văn |
 | --- | --- |
-| Title | «BAIKA Remote Office — thuê ngoài việc văn phòng từ 4,9 triệu/tháng» ⏸ *có giá — phụ thuộc Master §7 #2* |
+| Title | «BAIKA Remote Office — thuê ngoài việc văn phòng từ 4,9 triệu/tháng» *(giá đã công khai)* |
 | Meta description | «Giao việc hành chính, nhân sự, kế toán, chăm sóc khách hàng cho BAIKA. Không tuyển thêm người, không quản lý lao động, có hoá đơn VAT. Khảo sát miễn phí 45 phút.» |
 
 *(Đường dẫn gợi ý `baika.vn/remote-office` trong file cũ **đã lỗi thời** — trang chạy ở `baika.website`.)*
@@ -282,7 +283,7 @@ Mỗi dòng Thắng chốt một chữ: **F** (theo Figma) · **N** (theo spec c
 | `L8` | Tiêu đề so sánh | «…giao cho Baika» | «…giao cho BAIKA?» | | |
 | `L9` | Đầu cột so sánh | «Tuyển  nhân viên» | «Tuyển thêm nhân viên» | | |
 | `L10` | So sánh — chú thích | *(không có)* | «Phần tiết kiệm đến từ việc không phải tuyển thêm người cho những việc BAIKA làm thay. Nghĩa vụ bảo hiểm với nhân viên bạn đang trực tiếp sử dụng vẫn giữ nguyên.» | | |
-| `L11` | Nhãn nhỏ thẻ gói | «Kiểm tra » · «Hệ thống hóa» · «Hỗ trợ» *(nhãn của 7 trang dịch vụ)* | *(không có)* | | |
+| `L11` | Nhãn nhỏ thẻ gói | «Kiểm tra » · «Hệ thống hóa» · «Hỗ trợ» *(nhãn của 7 trang dịch vụ)* | *(không có)* | **khác: thay bằng giá** — «4.900.000 đ/tháng» · «9.900.000 đ/tháng» · «19.900.000 đ/tháng» | 29/09 |
 | `L12` | Cam kết / FAQ | 3 ô cam kết nằm trong FAQ, mất «Cam kết bằng hợp đồng» | Khối Cam kết riêng 4 ô + FAQ 5 câu — «Cam kết bằng hợp đồng» — «Mỗi đầu việc có hạn trả kết quả rõ ràng. Trễ hạn thì BAIKA chịu phạt theo hợp đồng.» · FAQ 2 «Tôi có được chỉ đạo trực tiếp người làm không?» — «Bạn làm việc với điều phối viên và gửi yêu cầu qua cổng. BAIKA chọn người phù hợp và chịu trách nhiệm về kết quả, nhờ vậy dịch vụ không gián đoạn khi có người nghỉ.» · FAQ 3 «Dùng hết đơn vị công việc trong tháng thì sao?» — «BAIKA báo trước khi gần hết. Bạn mua thêm theo đơn giá của gói hoặc nâng gói từ tháng sau.» · FAQ 4 «Dữ liệu công ty tôi được giữ thế nào?» — «Hai bên ký cam kết bảo mật. Mỗi nhân sự chỉ truy cập phần dữ liệu cần cho việc mình làm, và mọi truy cập đều được ghi lại.» · FAQ 5 «Bao lâu thì bắt đầu được?» — «Trong 7 ngày làm việc sau khi ký hợp đồng.» | | |
 | `L13` | Nút form | «Đăng ký rà soát» | «Đặt lịch khảo sát» | | |
 | `L14` | Dòng pháp lý cuối trang | *(không có)* | xem §9 | | |

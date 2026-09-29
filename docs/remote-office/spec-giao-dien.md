@@ -29,7 +29,8 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 **Khác 7 trang về thứ tự:** không có khối "Bạn có đang gặp vấn đề này?" — R2 đứng vào chỗ đó.
 
-**Màu trụ (`pillar`)** — ⏸ chờ chốt (`SPEC-MASTER.md` §7 #1). Figma đang ở mode "Đào tạo CEO". Prop `pillar` hiện chỉ nhận 7 trụ; nếu Thắng chốt bộ màu riêng thì phải có token mới trong Figma trước — **không tự thêm vào `tokens.css`**.
+**Màu trụ (`pillar`)** — ✅ chốt 29/09: bộ màu riêng. Figma: `Colors/Page/Remote Office/--dam` `#2E4716` (`VariableID:904:2`) · `--trung` `#58832C` (`904:3`) · `--nhat` `#B6D79B` (`904:4`); mode **"Remote Office"** (`904:0`) trong bộ biến `Trụ`.
+**Khi dựng:** thêm đúng 3 biến này vào `tokens.css` (tên theo cách đặt của 7 trụ kia, vd. `--page-remote-office-dam`) · thêm giá trị `'remote-office'` vào prop `pillar` của `ServicePageLayout` + khối `[data-pillar='remote-office']` gán `--tru-dam/--tru-trung/--tru-nhat` như 7 trụ. `--tru-dam-0` = `--dam` trong suốt. **Không thêm giá trị nào khác.**
 
 ---
 
@@ -171,7 +172,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 | Khối | Điều cần nhớ |
 | --- | --- |
-| `PricingSection` | Thẻ **không có ô giá** trong component hiện tại. Nếu Thắng chốt công khai giá (Master §7 #2) → cần Figma vẽ chỗ đặt giá trước, rồi mới sửa component. **Sửa component là sửa cả 7 trang** — kiểm lại 7 trang |
+| `PricingSection` | ✅ Giá đặt **vào ô nhãn nhỏ** (`eyebrow`) có sẵn — Thắng chốt 29/09. **Không sửa component**, chỉ truyền giá qua `eyebrow` → 7 trang không bị ảnh hưởng. Dòng chú thích VAT (nếu chốt) đặt ngoài thẻ, dưới lưới gói |
 | `FaqSection` | Component ghi "đúng 4 câu". Nếu Thắng chốt thêm câu (Master §7 #7) → kiểm component chịu được 5+ câu |
 | `ContactSection` | Nút form đang dùng chung chữ cho mọi trang. Đổi riêng cho trang này (Master §7 #12) → thêm prop, **không** sửa chữ chung |
 | Mọi khối dùng lại | **Không sửa component chung để vừa trang này** mà không kiểm lại 7 trang dịch vụ + trang chủ (`quy-trinh-build.md` §4) |
@@ -202,7 +203,8 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 | 5 | Nút CTA hero — **mọi trang** | Instance để `State=Hover` | Về `Normal` |
 | 6 | Frame `825:6629` | Tên "Gói dịch vụ" trùng `842:7714` | → `So sánh` |
 | 7 | Frame hero — **mọi trang** | Tên "Herro" | → `Hero` |
-| 8 | Frame `825:6535` | Mode màu trụ = "Đào tạo CEO" | Theo quyết định Master §7 #1 |
+| 8 | ~~Frame `825:6535` — mode màu trụ = "Đào tạo CEO"~~ | ✅ **Đã sửa 29/09** — chuyển sang mode "Remote Office"; 4 lớp gradient đang gắn thẳng vào biến màu CEO đã gắn lại vào biến `Trụ` | — |
+| 10 | Thẻ gói R7 | Nhãn nhỏ vẫn ghi «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ» | Thay bằng giá (Master §7 #2 đã chốt) |
 | 9 | R2 cột trái | `#FFFFFF` thô · cỡ chữ 100 | Về `--gray-50` · cỡ theo Master §7 #10 |
 
 ---
@@ -212,3 +214,5 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
 | 29/09/2026 | `825:6535` | Đọc lần đầu để lập spec | — | — |
+| 29/09/2026 | Bộ biến | Tạo `Colors/Page/Remote Office/--dam · --trung · --nhat` (`904:2–4`) + mode "Remote Office" (`904:0`) trong bộ `Trụ` | Chưa dựng trang | commit spec này |
+| 29/09/2026 | `825:6535` | Chuyển mode `Trụ` "Đào tạo CEO" → "Remote Office". Gắn lại 4 gradient (`825:6591` · `825:6593` · `825:6636` · `825:6644`) từ biến màu CEO sang `--tru-trung` / `--tru-nhat` | Chưa dựng trang | commit spec này |
