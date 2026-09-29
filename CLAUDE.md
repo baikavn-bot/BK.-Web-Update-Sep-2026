@@ -1,6 +1,6 @@
 # CLAUDE.md — luật của repo `baika-website`
 
-*Cập nhật 24/09/2026 · Đọc hết file này trước khi sửa bất cứ dòng nào.*
+*Cập nhật 29/09/2026 · Đọc hết file này trước khi sửa bất cứ dòng nào.*
 
 ---
 
@@ -90,6 +90,29 @@ Khi code và tài liệu mâu thuẫn, **Figma thắng**. Khi Figma và quyết 
 | `REF` | `566:3679` | Tham khảo |
 
 ⚠️ Trong kho cũ có một `Text field` `58:5013` **trùng tên nhưng sai**. Cái đúng là `588:6238` ở page `Component`.
+
+### Tài liệu trong repo — thư mục `docs/` *(chuẩn từ 29/09/2026)*
+
+**Luật:** tài liệu để **dựng** một trang hay một landing nằm **trong repo**, ở `docs/<ten-trang>/` — mỗi trang hoặc landing một thư mục con. **Repo là nguồn chính**; project Claude chỉ ghi chú và trỏ sang. Lý do: agent nào cũng đọc được repo, nhưng không phải agent nào cũng vào được project Claude.
+
+Mỗi thư mục con theo cùng một khung 4 file:
+
+| File | Vai trò |
+| --- | --- |
+| `SPEC-MASTER.md` | **Đọc đầu tiên.** Ai quyết cái gì · làm gì khi hai nguồn lệch nhau · luật đồng bộ · danh sách dừng lại hỏi · checklist nghiệm thu |
+| `spec-noi-dung.md` | Chữ, con số, công thức, điều được / không được hứa |
+| `spec-giao-dien.md` | Figma → source: bố cục, component, trạng thái, hành vi |
+| `quy-trinh-build.md` | Dựng, kiểm tra, commit |
+
+**Đang có:**
+
+| Thư mục | Trang |
+| --- | --- |
+| `docs/remote-office/` | Remote Office — `baika.website`. Bắt đầu từ `SPEC-MASTER.md` |
+
+⚠️ Spec của 7 trang dịch vụ + trang chủ **chưa** chuyển vào `docs/` — vẫn nằm ở project Claude (bảng dưới). Sẽ chuyển dần sau 01/10/2026.
+
+**Luật đồng bộ (Thắng chốt 29/09):** sửa code làm đổi chữ, số hay hành vi → sửa spec trong `docs/` **cùng commit**. Figma đổi → ghi vào "Nhật ký Figma" của spec. `git add` từng file, không `git add -A` khi chưa đọc `git status`.
 
 ### Tài liệu — nằm trong Claude Project "BaiKa"
 
@@ -204,6 +227,7 @@ Site tĩnh, không framework UI ở client. JS chỉ dùng cho thứ thật sự
 ```
 baika-website/
 ├── CLAUDE.md              ← file này
+├── docs/                  ← tài liệu dựng từng trang, mỗi trang một thư mục — xem §3
 ├── astro.config.mjs       ← site tĩnh, không adapter
 ├── src/
 │   ├── styles/
