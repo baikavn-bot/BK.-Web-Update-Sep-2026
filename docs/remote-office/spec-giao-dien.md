@@ -172,7 +172,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 | Khối | Điều cần nhớ |
 | --- | --- |
-| `PricingSection` | ✅ Giá đặt **vào ô nhãn nhỏ** (`eyebrow`) có sẵn — Thắng chốt 29/09. **Không sửa component**, chỉ truyền giá qua `eyebrow` → 7 trang không bị ảnh hưởng. Dòng chú thích VAT (nếu chốt) đặt ngoài thẻ, dưới lưới gói |
+| `PricingSection` | ✅ Giá đặt **vào ô nhãn nhỏ** (`eyebrow`) có sẵn — Thắng chốt 29/09, không sửa thẻ gói. Dòng chú thích VAT: **thêm prop `note`** (30/09) — bỏ trống thì không hiện, nên 7 trang không đổi (đã so ảnh chụp từng pixel: giống hệt) |
 | `FaqSection` | Component ghi "đúng 4 câu". Nếu Thắng chốt thêm câu (Master §7 #7) → kiểm component chịu được 5+ câu |
 | `ContactSection` | Nút form đang dùng chung chữ cho mọi trang. Đổi riêng cho trang này (Master §7 #12) → thêm prop, **không** sửa chữ chung |
 | Mọi khối dùng lại | **Không sửa component chung để vừa trang này** mà không kiểm lại 7 trang dịch vụ + trang chủ (`quy-trinh-build.md` §4) |
@@ -214,6 +214,7 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
 | 29/09/2026 | `825:6535` | Đọc lần đầu để lập spec | — | — |
+| 30/09/2026 | — | **Dựng lần 1** trên nhánh `remote-office`: `src/pages/remote-office.astro` — R1 · R3 · R5 · R7 · R8 (chỉ câu 1) · R9. R2 · R4 · R6 chưa dựng. Thêm 3 biến `--page-remote-office-*` vào `tokens.css` (đúng giá trị Figma `904:2–4`) · `pillar='remote-office'` · prop `noindex` (BaseLayout, ServicePageLayout) · prop `note` (PricingSection) | Có | nhánh `remote-office` |
 | 29/09/2026 | Bộ biến | Tạo `Colors/Page/Remote Office/--dam · --trung · --nhat` (`904:2–4`) + mode "Remote Office" (`904:0`) trong bộ `Trụ` | Chưa dựng trang | commit spec này |
 | 29/09/2026 | `842:7714` | Nhãn nhỏ 3 thẻ gói → «4.900.000 đ/tháng» · «9.900.000 đ/tháng» · «19.900.000 đ/tháng». Thêm text `Chú thích giá` `905:3394` dưới lưới gói — style `caption`, màu `--gray-50`. Section cao 685 → 742 (frame tự giãn, auto-layout) | Chưa dựng trang | commit spec này |
 | 29/09/2026 | `825:6535` | Chuyển mode `Trụ` "Đào tạo CEO" → "Remote Office". Gắn lại 4 gradient (`825:6591` · `825:6593` · `825:6636` · `825:6644`) từ biến màu CEO sang `--tru-trung` / `--tru-nhat` | Chưa dựng trang | commit spec này |

@@ -5,10 +5,12 @@ interface Props {
   title: string;
   description: string;
   /** Slug của trụ, để lấy đúng bộ 3 màu trang. Bỏ trống ở trang chủ + liên hệ. */
-  pillar?: 'tu-van' | 'van-hanh' | 'marketing' | 'tai-chinh' | 'phap-ly' | 'cong-nghe-ai' | 'dao-tao-ceo';
+  pillar?: 'tu-van' | 'van-hanh' | 'marketing' | 'tai-chinh' | 'phap-ly' | 'cong-nghe-ai' | 'dao-tao-ceo' | 'remote-office';
+  /** Chặn Google lập chỉ mục — dùng cho trang đang dựng dở (bản preview). Mặc định TẮT. */
+  noindex?: boolean;
 }
 
-const { title, description, pillar } = Astro.props;
+const { title, description, pillar, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
@@ -20,6 +22,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

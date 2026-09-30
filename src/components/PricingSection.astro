@@ -26,8 +26,11 @@ interface Props {
     /** Gói được khuyên dùng — sáng sẵn. Chỉ nên có MỘT gói mỗi trang. */
     featured?: boolean;
   }[];
+  /** Dòng chú thích dưới lưới gói (VD «Giá chưa gồm VAT…»). Bỏ trống = không hiện.
+      Thêm 29/09 cho Remote Office — 7 trang dịch vụ không truyền nên không đổi. */
+  note?: string;
 }
-const { heading = 'Các gói dịch vụ', packages } = Astro.props;
+const { heading = 'Các gói dịch vụ', packages, note } = Astro.props;
 ---
 
 <section class="goi-dv sec">
@@ -45,6 +48,8 @@ const { heading = 'Các gói dịch vụ', packages } = Astro.props;
       />
     ))}
   </div>
+
+  {note && <p class="goi-dv__ghi-chu">{note}</p>}
 </section>
 
 <style>
@@ -53,6 +58,17 @@ const { heading = 'Các gói dịch vụ', packages } = Astro.props;
     flex-direction: column;
     gap: var(--s-10);                  /* 40 */
     padding-block: var(--s-20);        /* 80 — KHÔNG đổi theo khổ màn */
+  }
+
+  /* Figma 842:7714 · `Chú thích giá` 905:3394: con trực tiếp của section
+     (gap 40 như các con khác), style `caption`, màu --gray-50, rộng hết hàng. */
+  .goi-dv__ghi-chu {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    font-weight: var(--fw-caption);
+    color: var(--gray-50);
   }
 
   .goi-dv__heading {

@@ -116,6 +116,14 @@
   --page-dao-tao-ceo-trung: #5458DE;
   --page-dao-tao-ceo-nhat:  #A9BEFF;
 
+  /* Remote Office (baika.website) — thêm 29/09/2026. Figma: biến
+     `Colors/Page/Remote Office/*` (904:2 · 904:3 · 904:4) + mode "Remote Office"
+     trong bộ `Trụ`. --trung do Thắng đưa; --dam, --nhat suy theo quy luật 7 trụ
+     trên (OKLCH, cùng sắc), Thắng duyệt. Xem docs/remote-office/. */
+  --page-remote-office-dam:   #2E4716;
+  --page-remote-office-trung: #58832C;
+  --page-remote-office-nhat:  #B6D79B;
+
   /* -----------------------------------------------------------
      6 · MÀU TRONG SUỐT — Colors/Opacity
      Alpha nằm TRONG token. Đừng cộng thêm opacity ở chỗ dùng.

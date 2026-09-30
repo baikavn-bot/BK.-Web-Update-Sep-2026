@@ -151,6 +151,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | Ngày | Ai | Thay đổi |
 | --- | --- | --- |
 | 29/09/2026 | Claude (phiên với Thắng) | Lập bộ spec: Master · Nội dung · Giao diện · Quy trình. Chốt luật lệch C và luật đồng bộ |
+| 30/09/2026 | Claude (phiên với Thắng) | Dựng lần 1 trên nhánh `remote-office` (6 khối dùng lại). Trang đặt `noindex`, chưa gắn domain. Chữ TẠM ở tiêu đề R3 (`L5`) và nút form R9 (`L13`) — ghi rõ trong code |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #3 con số giá + dòng VAT. Figma: nhãn nhỏ thẻ gói → giá, thêm chú thích giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #1 màu trụ + #2 giá công khai. Tạo biến + mode màu trong Figma. #3 đổi thành câu xác nhận con số giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Gộp `claude/remote-office-cong-thuc-uoc-tinh.md` (project Claude) vào §4 `spec-noi-dung.md` và §4 `spec-giao-dien.md`. Thêm câu hỏi #14. **Từ nay bản trong repo là bản chính** |

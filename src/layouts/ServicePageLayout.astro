@@ -61,14 +61,16 @@ interface Props {
   description: string;
   /** Slug của trụ — quyết định bộ 3 màu của trang. */
   pillar: 'tu-van' | 'van-hanh' | 'marketing' | 'tai-chinh'
-        | 'phap-ly' | 'cong-nghe-ai' | 'dao-tao-ceo';
+        | 'phap-ly' | 'cong-nghe-ai' | 'dao-tao-ceo' | 'remote-office';
   /** Đường dẫn trang đang mở, để đánh dấu mục menu tương ứng. */
   current?: string;
+  /** Chặn Google lập chỉ mục — trang đang dựng dở. Mặc định TẮT. */
+  noindex?: boolean;
 }
-const { title, description, pillar, current } = Astro.props;
+const { title, description, pillar, current, noindex = false } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} pillar={pillar}>
+<BaseLayout title={title} description={description} pillar={pillar} noindex={noindex}>
   {/* Header đặt TUYỆT ĐỐI, cao 128, đè lên Hero — đúng như Figma
       (`layoutPositioning: ABSOLUTE` ở cả ba khổ màn). */}
   <SiteHeader slot="header" current={current} />
@@ -145,6 +147,12 @@ const { title, description, pillar, current } = Astro.props;
     --tru-dam: var(--page-dao-tao-ceo-dam);
     --tru-trung: var(--page-dao-tao-ceo-trung);
     --tru-nhat: var(--page-dao-tao-ceo-nhat);
+  }
+  /* Remote Office — landing riêng ở baika.website (29/09). */
+  [data-pillar='remote-office'] {
+    --tru-dam: var(--page-remote-office-dam);
+    --tru-trung: var(--page-remote-office-trung);
+    --tru-nhat: var(--page-remote-office-nhat);
   }
 
   /* ─── Nền chung của trang dịch vụ ───────────────────────────────────

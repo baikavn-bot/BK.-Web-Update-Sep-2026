@@ -1,0 +1,117 @@
+---
+// TRANG REMOTE OFFICE — landing riêng, domain `baika.website`
+//
+// ⚠️ ĐANG DỰNG DỞ (30/09/2026) — nhánh `remote-office`, chỉ xem trên bản preview.
+//    `noindex` BẬT: Google không lập chỉ mục. Tắt khi ra mắt thật.
+//
+// Nguồn: docs/remote-office/ — ĐỌC SPEC-MASTER.md TRƯỚC.
+//   · Chữ, số           → docs/remote-office/spec-noi-dung.md
+//   · Bố cục, component → docs/remote-office/spec-giao-dien.md
+//   · Figma             → YmcXg1lQqGVjQOFrVtdOgW · frame 825:6535 (chỉ Desktop)
+//
+// Đã dựng — 6 khối dùng lại component của 7 trang dịch vụ:
+//   R1 Hero · R3 BAIKA sẽ làm gì · R5 Bạn sẽ nhận được gì · R7 Các gói · R8 FAQ · R9 Liên hệ
+// Chưa dựng — 3 khối mới (xem các chú thích CHỜ bên dưới):
+//   R2 Chi phí thật · R4 Công cụ ước tính · R6 Bảng so sánh
+//
+// Luật lệch (SPEC-MASTER §3): chữ Figma ≠ spec nội dung → KHÔNG tự chọn,
+// để trống + ghi `CHỜ CHỐT: Lx`. Chỗ nào buộc phải có chữ để khối không vỡ
+// (tiêu đề khối R3, nút form R9) thì tạm để chữ mặc định của component và
+// ghi rõ là TẠM.
+import ServicePageLayout from '../layouts/ServicePageLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import StepsSection from '../components/StepsSection.astro';
+import BenefitsSection from '../components/BenefitsSection.astro';
+import PricingSection from '../components/PricingSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+// R3 — spec-noi-dung §3 ✅ (khớp Figma 825:6556 và spec cũ từng chữ)
+const baikaLamGi = [
+  { no: '01', title: 'Giấy tờ và con người', items: [
+    { title: 'Hành chính – văn thư', desc: 'Nhận thư, trực điện thoại, soạn công văn, lưu trữ hồ sơ.' },
+    { title: 'Nhân sự – tiền lương', desc: 'Bảng lương, khai bảo hiểm, thuế thu nhập cá nhân, hồ sơ nhân viên.' },
+  ] },
+  { no: '02', title: 'Sổ sách và tuân thủ', items: [
+    { title: 'Kế toán – thuế', desc: 'Ghi sổ, tờ khai, báo cáo tài chính cùng đơn vị đủ điều kiện hành nghề.' },
+    { title: 'Tuân thủ – quy chế', desc: 'Rà hồ sơ, soạn quy chế và biểu mẫu, nhắc hạn nộp báo cáo.' },
+  ] },
+  { no: '03', title: 'Khách hàng và bán hàng', items: [
+    { title: 'Chăm sóc khách hàng', desc: 'Trực fanpage, Zalo OA, tin nhắn sàn, hotline theo ca.' },
+    { title: 'Hỗ trợ kinh doanh', desc: 'Lập báo giá, nhập CRM, chăm khách tiềm năng, đối soát đơn.' },
+  ] },
+  { no: '04', title: 'Nội dung và số liệu', items: [
+    { title: 'Nội dung – livestream', desc: 'Lịch nội dung, dựng clip ngắn, vận hành phiên livestream.' },
+    { title: 'Số liệu – báo cáo', desc: 'Bảng số liệu hằng tuần về doanh thu, công nợ, nhân sự.' },
+  ] },
+];
+
+// R5 — spec-noi-dung §5 ✅, đúng thứ tự Figma 825:6592
+const ketQua = [
+  'Không phải chấm công, quản lý',
+  'Không phải tuyển thêm người',
+  'Chi phí cố định hằng tháng',
+  'Có hoá đơn VAT, tính chi phí được trừ',
+  'Việc không đứt khi có người nghỉ',
+  'Báo cáo hằng tháng, đổi gói theo tháng',
+];
+
+// R7 — spec-noi-dung §7 ✅. Nhãn nhỏ = GIÁ (Thắng chốt 29/09, L11).
+//      Giá đặt vào `eyebrow` có sẵn → không sửa component thẻ gói.
+const goi = [
+  { eyebrow: '4.900.000 đ/tháng', title: 'Khởi đầu',
+    items: ['Gói nền đầy đủ', '1 nhóm việc', '40 đơn vị công việc', 'Báo cáo tháng'] },
+  { eyebrow: '9.900.000 đ/tháng', title: 'Vận hành', featured: true,
+    items: ['Gói nền đầy đủ', '3 nhóm việc', '100 đơn vị công việc', 'Họp rà soát mỗi quý'] },
+  { eyebrow: '19.900.000 đ/tháng', title: 'Trọn gói',
+    items: ['Gói nền đầy đủ', '5 nhóm việc', '220 đơn vị công việc', 'Ưu tiên thời gian trả kết quả'] },
+];
+const ghiChuGia = 'Giá chưa gồm VAT. Gói nền gồm cổng gửi yêu cầu, một điều phối viên phụ trách riêng, kho hồ sơ số và báo cáo tháng. Một đơn vị công việc tương đương một đầu việc chuẩn khoảng 30 phút.';
+
+// R8 — chỉ câu 1 (✅ khớp hai nguồn, 🔒 câu bắt buộc giữ nguyên văn).
+//      3 mục còn lại CHỜ CHỐT: L12 (Cam kết hay câu hỏi thật).
+const cauHoi = [
+  { question: 'Dùng dịch vụ này thì doanh nghiệp có hết nghĩa vụ đóng BHXH không?',
+    answer: 'Với nhân viên bạn đang trực tiếp sử dụng thì nghĩa vụ vẫn giữ nguyên. Cái bạn tiết kiệm được là không phải tuyển thêm người cho những việc BAIKA làm thay.' },
+];
+---
+<ServicePageLayout
+  title="BAIKA Remote Office — thuê ngoài việc văn phòng từ 4,9 triệu/tháng"
+  description="Giao việc hành chính, nhân sự, kế toán, chăm sóc khách hàng cho BAIKA. Không tuyển thêm người, không quản lý lao động, có hoá đơn VAT. Khảo sát miễn phí 45 phút."
+  pillar="remote-office"
+  noindex
+>
+  {/* R1 — spec-noi-dung §1 ✅ */}
+  <HeroSection
+    title="Remote Office"
+    tagline="Bộ phận văn phòng của bạn, không cần tuyển thêm người"
+    lead="Giao việc hành chính, nhân sự, kế toán, chăm sóc khách hàng cho BAIKA. Bạn nhận kết quả đúng hạn, không phải tuyển người, không phải chấm công."
+    ctaLabel="Ước tính chi phí miễn phí"
+    ctaHref="#uoc-tinh"
+  />
+
+  {/* R2 — CHỜ: khối mới "Chi phí thật" (spec-giao-dien §3). Chữ còn lệch: L1 · L2 · L3 · L4. */}
+
+  {/* R3 — tiêu đề TẠM theo mặc định component «BAIKA sẽ làm gì». CHỜ CHỐT: L5 */}
+  <StepsSection groups={baikaLamGi} />
+
+  {/* R4 — CHỜ: khối mới "Công cụ ước tính" (spec-giao-dien §4). Chặn bởi Master §7 #4 #5 #6 #14.
+      Neo #uoc-tinh giữ tạm để nút Hero có chỗ trỏ tới — thay bằng section thật khi dựng. */}
+  <div id="uoc-tinh" aria-hidden="true"></div>
+
+  {/* R5 — spec-noi-dung §5 ✅ */}
+  <BenefitsSection items={ketQua} />
+
+  {/* R6 — CHỜ: khối mới "Bảng so sánh" (spec-giao-dien §5). Chữ còn lệch: L8 · L9 · L10. */}
+
+  {/* R7 — spec-noi-dung §7 ✅ */}
+  <PricingSection packages={goi} note={ghiChuGia} />
+
+  {/* R8 */}
+  <FaqSection items={cauHoi} />
+
+  {/* R9 — nút form TẠM theo mặc định «Đăng ký rà soát». CHỜ CHỐT: L13.
+      Danh sách ô "Lĩnh vực" chưa có ở cả hai nguồn (Master §7 #12) → để trống.
+      Dòng pháp lý cuối trang CHỜ CHỐT: L14. */}
+  <ContactSection />
+</ServicePageLayout>
