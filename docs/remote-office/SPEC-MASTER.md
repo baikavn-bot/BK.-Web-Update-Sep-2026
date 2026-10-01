@@ -161,6 +161,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 01/10/2026 | Claude (phiên với Thắng) | Chốt `L15`–`L20` → Figma (tablet, mobile, và «Gói BAIKA» ở desktop) + spec. Vẽ đề xuất `D1` |
 | 01/10/2026 | Claude (phiên với Thắng) | `D1` = (a). Thay frame Figma tablet/mobile R6 · **dựng R6** (`CompareSection.astro`). Mở #16 (ô cao 66) · #17 (lề tablet) |
 | 01/10/2026 | Claude (phiên với Thắng) | R6 mobile: chú giải + viền/nền thay cho chữ lặp (Figma + code). Ghi lệnh push hai nhánh vào `quy-trinh-build.md` §3 |
+| 01/10/2026 | Claude (phiên với Thắng) | **Nối `baika.website`**: Thắng chốt gắn vào nhánh `remote-office` (Preview), giữ `noindex`. Thêm `vercel.json` (`routes` — `rewrites` không chạy được cho `/` vì file tĩnh được ưu tiên, đã xác minh) + `canonical` = `https://baika.website/`. Các bước Thắng làm trên Vercel/DNS: `quy-trinh-build.md` §5 |
 | 01/10/2026 | Claude (phiên với Thắng) | **#6 chốt** → nút gửi điền sẵn ước tính vào ô «Mô tả vấn đề» (`EstimatorSection.astro`) + spec cùng commit. Không đổi Figma (không có giao diện mới) |
 | 01/10/2026 | Claude (phiên với Thắng) | **#18 = (b)** → Figma `Data` Total (2 variant) + `CostSection.astro` + spec cùng commit |
 | 01/10/2026 | Claude (phiên với Thắng) | **#4 chốt** → Figma (`Find Job` 8 dòng tên thật, desktop tick 3 dòng đầu) + code (`CheckItem.astro` mới, ô chọn số nhóm → danh sách tick) + spec cùng commit. Thêm ca 10 (0 nhóm) · 11 (8 nhóm) |

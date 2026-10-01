@@ -66,11 +66,13 @@ interface Props {
   current?: string;
   /** Chặn Google lập chỉ mục — trang đang dựng dở. Mặc định TẮT. */
   noindex?: boolean;
+  /** Địa chỉ chuẩn khi trang chạy ở tên miền riêng — xem BaseLayout. */
+  canonical?: string;
 }
-const { title, description, pillar, current, noindex = false } = Astro.props;
+const { title, description, pillar, current, noindex = false, canonical } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} pillar={pillar} noindex={noindex}>
+<BaseLayout title={title} description={description} pillar={pillar} noindex={noindex} canonical={canonical}>
   {/* Header đặt TUYỆT ĐỐI, cao 128, đè lên Hero — đúng như Figma
       (`layoutPositioning: ABSOLUTE` ở cả ba khổ màn). */}
   <SiteHeader slot="header" current={current} />

@@ -145,27 +145,58 @@ Chỉ dùng phím Tab / Shift+Tab / Enter / Space / mũi tên: đi qua được 
 
 ---
 
-## 5. Gắn domain `baika.website` **[CHƯA THỬ — kiến thức chung về Vercel, phải thử trên bản preview trước]**
+## 5. Gắn domain `baika.website` *(viết lại 01/10 — Thắng chốt: gắn vào NHÁNH `remote-office` trước, giữ `noindex`)*
 
 Mục tiêu: khách gõ `baika.website` → thấy trang Remote Office, thanh địa chỉ **giữ nguyên** `baika.website`.
 
-1. **Thắng** (có quyền Vercel): Project → **Settings → Domains** → thêm `baika.website`. Vercel hiện bản ghi DNS cần khai → khai đúng như vậy ở nơi mua tên miền. *Agent không làm bước này.*
-2. **Agent**: thêm `vercel.json` ở gốc repo:
+### 5.1 Vì sao dùng `routes`, không dùng `rewrites` **[xác minh 01/10]**
 
-```json
-{
-  "rewrites": [
-    {
-      "source": "/",
-      "has": [{ "type": "host", "value": "baika.website" }],
-      "destination": "/remote-office"
-    }
-  ]
-}
-```
+Bản kế hoạch 29/09 định dùng `rewrites` cho đường dẫn `/`. **Không chạy được:** trên Vercel, file tĩnh có sẵn được ưu tiên trước `rewrites` — tài liệu Vercel: *"precedence is given to the filesystem prior to rewrites being applied"*. Repo có `dist/index.html` (trang chủ baika.vn) nên `/` luôn ra trang chủ, rewrite bị bỏ qua. Người của Vercel xác nhận cùng điều này ở github.com/vercel/vercel/discussions/5723.
 
-3. **Chặn các trang khác mở trên domain mới** (vd. `baika.website/advisory`) → thêm `redirects` đưa về `baika.vn` cùng đường dẫn. Cú pháp cụ thể: kiểm tài liệu Vercel ở thời điểm làm.
-4. **Không để Google tính trùng nội dung**: trang `/remote-office` đặt thẻ `<link rel="canonical" href="https://baika.website/">`.
-5. **Kiểm tra** sau khi DNS có hiệu lực: mở `baika.website` → đúng trang, thanh địa chỉ vẫn `baika.website` · mở `baika.website/advisory` → chuyển về `baika.vn/advisory` · ô Remote Office trên trang chủ `baika.vn` → mở `baika.website` trong cùng tab.
+→ Dùng `routes` trong `vercel.json`: các dòng `routes` được xét **theo thứ tự**, trước khi tìm file. **[suy luận từ tài liệu — chưa thấy chạy thật; kiểm ở bước 5.3]**
 
-⚠️ Rewrite theo domain **không thử được bằng link preview** của Vercel (link preview có domain riêng). Thử bằng cách mở thẳng `baika.vn/remote-office` trên preview trước; phần domain chỉ kiểm được sau khi gắn thật.
+### 5.2 `vercel.json` làm gì — đọc từ trên xuống
+
+| # | Khi nào | Làm gì |
+| --- | --- | --- |
+| 1 | Ở `baika.website`, mở `/remote-office` | Chuyển về `/` (308) — một trang chỉ một địa chỉ |
+| 2 | Ở `baika.website`, mở trang của baika.vn (`/advisory` … `/lien-he`) | Chuyển sang `https://baika.vn/<trang>` (307 — tạm, đổi được) |
+| 3 | Ở `baika.website`, mở `/` | **Mở trang Remote Office**, thanh địa chỉ không đổi |
+| 4 | Bất kỳ tên miền nào, mở `/?thu-baika-website` | Mở trang Remote Office — **dòng KIỂM THỬ** cho bước 5.3, xoá khi domain đã chạy |
+
+Không đụng: `/api/*` (form gửi mail), `/_astro/*`, `/img/*`, `favicon.svg` — vẫn chạy ở `baika.website` như ở mọi domain.
+`www.baika.website` → chuyển về `baika.website` bằng cài đặt Domains của Vercel (bước 5.4), không viết trong `vercel.json`.
+
+### 5.3 Kiểm cơ chế TRƯỚC khi có domain *(Agent soạn, Thắng mở)*
+
+Sau khi push nhánh `remote-office`, mở bản preview mới nhất của nhánh, **thêm `/?thu-baika-website` vào cuối**:
+
+- Ra trang **Remote Office** → `routes` đè được file tĩnh → dòng 3 sẽ chạy khi có domain. Đi tiếp 5.4.
+- Ra **trang chủ baika.vn** → `routes` cũng thua file tĩnh → **dừng**, báo Agent. Phương án dự phòng: Routing Middleware (một file chạy trước mọi request) — phức tạp hơn, chưa làm.
+
+### 5.4 Thắng làm trên Vercel + nơi mua tên miền *(Agent không làm — cần đăng nhập của anh)*
+
+1. Vercel → project `bk-web-update-sep-2026` → **Settings → Domains → Add Domain** → gõ `baika.website`. Vercel hỏi thêm `www.baika.website` → đồng ý, chọn chuyển `www` về `baika.website`.
+2. Bấm **Edit** ở dòng `baika.website` → **Connect to an environment** chọn **Preview** → ô **Git Branch** gõ `remote-office` → Save. Làm tương tự cho `www.baika.website` nếu Vercel không tự theo.
+3. Vercel hiện bản ghi DNS cần khai (thường: **A** cho `baika.website`, **CNAME** cho `www`). **Chép đúng giá trị Vercel hiện** — không chép số từ tài liệu này.
+4. Vào trang quản lý tên miền nơi anh mua `baika.website` → mục DNS → thêm 2 bản ghi đó. Có bản ghi A / CNAME cũ cho cùng tên thì **xoá bản cũ** (trùng là Vercel báo "Invalid Configuration").
+5. Chờ Vercel báo dòng domain **Valid Configuration** (vài phút tới vài giờ).
+
+### 5.5 ⚠️ Hai điều xảy ra do gắn vào NHÁNH (Preview), không phải bản chính **[xác minh — tài liệu Vercel 01/10]**
+
+1. **Khoá đăng nhập.** Mặc định Vercel bật *Deployment Protection — Standard Protection*: *"protects all domains except production domains"*. `baika.website` gắn vào nhánh là domain Preview → **người chưa đăng nhập Vercel sẽ thấy trang bắt đăng nhập**, không thấy Remote Office. Hợp với giai đoạn duyệt nội bộ; muốn người ngoài (sếp) xem thì: Settings → **Deployment Protection** → tắt cho Preview, hoặc gộp `main` và chuyển domain sang Production.
+2. **Biến môi trường gửi mail.** Form gửi mail cần 3 biến (`RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM`) **bật cho môi trường Preview**. Kiểm: mở `https://baika.website/api/health` → cả ba `true`.
+
+### 5.6 Kiểm sau khi domain chạy
+
+- `baika.website` → trang Remote Office, thanh địa chỉ vẫn `baika.website`
+- `www.baika.website` → chuyển về `baika.website`
+- `baika.website/remote-office` → chuyển về `baika.website`
+- `baika.website/advisory` → chuyển sang `baika.vn/advisory`
+- Bấm «Gửi yêu cầu theo ước tính này» → điền form → gửi → mail về hộp thư BAIKA
+- Xem mã nguồn trang: `<link rel="canonical" href="https://baika.website/">` + `noindex` còn đó
+- Xong → **xoá dòng 4 (kiểm thử)** trong `vercel.json`
+
+### 5.7 Khi ra mắt thật *(chưa làm — chờ sếp duyệt #5 #14)*
+
+Gộp `remote-office` vào `main` → Domains: chuyển `baika.website` từ Preview sang **Production** → gỡ `noindex` → ô bento Remote Office trên trang chủ đã trỏ `https://baika.website` sẵn. ⚠️ Vercel gói **Hobby** chỉ cho *"non-commercial, personal use"* — trang bán dịch vụ cần gói **Pro** trước khi ra mắt (sếp quyết).

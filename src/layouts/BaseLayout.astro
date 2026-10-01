@@ -8,10 +8,14 @@ interface Props {
   pillar?: 'tu-van' | 'van-hanh' | 'marketing' | 'tai-chinh' | 'phap-ly' | 'cong-nghe-ai' | 'dao-tao-ceo' | 'remote-office';
   /** Chặn Google lập chỉ mục — dùng cho trang đang dựng dở (bản preview). Mặc định TẮT. */
   noindex?: boolean;
+  /** Địa chỉ CHUẨN của trang (thẻ canonical + og:url) — báo Google "bản gốc ở đây".
+   *  Bỏ trống = tự ghép baika.vn + đường dẫn trang (mọi trang của baika.vn).
+   *  Chỉ trang chạy ở TÊN MIỀN RIÊNG mới truyền vào, vd. Remote Office → https://baika.website/ */
+  canonical?: string;
 }
 
-const { title, description, pillar, noindex = false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const { title, description, pillar, noindex = false, canonical: canonicalRieng } = Astro.props;
+const canonical = canonicalRieng ?? new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
