@@ -12,9 +12,9 @@
 //
 // Đã dựng — 6 khối dùng lại component của 7 trang dịch vụ:
 //   R1 Hero · R3 BAIKA sẽ làm gì · R5 Bạn sẽ nhận được gì · R7 Các gói · R8 FAQ · R9 Liên hệ
-// + khối mới R6 Bảng so sánh (CompareSection, 01/10).
-// Chưa dựng (xem các chú thích CHỜ bên dưới):
-//   R2 Chi phí thật · R4 Công cụ ước tính
+// + 3 khối mới (01/10): R2 Chi phí thật (CostSection) · R4 Công cụ ước tính
+//   (EstimatorSection + src/lib/uoc-tinh.ts) · R6 Bảng so sánh (CompareSection).
+// Đủ 9/9 khối. Các chỗ TẠM chờ chốt: xem SPEC-MASTER §7.
 //
 // Luật lệch (SPEC-MASTER §3): chữ Figma ≠ spec nội dung → KHÔNG tự chọn,
 // để trống + ghi `CHỜ CHỐT: Lx`. Thắng đã chốt L1–L13 ngày 30/09
@@ -22,11 +22,23 @@
 import ServicePageLayout from '../layouts/ServicePageLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import StepsSection from '../components/StepsSection.astro';
+import CostSection from '../components/CostSection.astro';
+import EstimatorSection from '../components/EstimatorSection.astro';
 import BenefitsSection from '../components/BenefitsSection.astro';
 import CompareSection from '../components/CompareSection.astro';
 import PricingSection from '../components/PricingSection.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ContactSection from '../components/ContactSection.astro';
+
+// R2 — spec-noi-dung §2 ✅ (L1–L4). Dòng Tổng luôn CUỐI.
+const chiPhi = [
+  { nhan: 'Lương ghi trên hợp đồng',                  so: '10.000.000 đ' },
+  { nhan: 'Bảo hiểm phần doanh nghiệp đóng (21,5%)',  so: '2.150.000 đ' },
+  { nhan: 'Kinh phí công đoàn (2%)',                  so: '200.000 đ' },
+  { nhan: 'Chỗ ngồi, thiết bị, tuyển dụng, ngày nghỉ', so: '1.500.000 đ – 2.500.000 đ' },
+  { nhan: 'Tổng chi phí thật',                        so: '≈ 14 – 15 triệu/tháng', tong: true },
+];
+const ghiChuChiPhi = 'Số liệu minh hoạ cho một vị trí lương 10 triệu, con số thực tế tuỳ từng doanh nghiệp.';
 
 // R3 — spec-noi-dung §3 ✅ (khớp Figma 913:4679 và spec cũ từng chữ)
 const baikaLamGi = [
@@ -113,15 +125,15 @@ const cauHoi = [
     ctaHref="#uoc-tinh"
   />
 
-  {/* R2 — CHỜ: khối mới "Chi phí thật" (spec-giao-dien §3). Chữ đã chốt (L1–L4 theo Figma).
-      Còn chặn bởi Master §7 #10 (cỡ chữ «23,5») · #11 (khoảng 10px). */}
+  {/* R2 — spec-noi-dung §2 ✅ · dựng 01/10. Cỡ chữ «23,5» TẠM 80px (Master §7 #10). */}
+  <CostSection dong={chiPhi} note={ghiChuChiPhi} />
 
   {/* R3 — tiêu đề «BAIKA sẽ làm gì» = mặc định của component, đúng Figma (L5 chốt 30/09). */}
   <StepsSection groups={baikaLamGi} />
 
-  {/* R4 — CHỜ: khối mới "Công cụ ước tính" (spec-giao-dien §4). Chặn bởi Master §7 #4 #5 #6 #14.
-      Neo #uoc-tinh giữ tạm để nút Hero có chỗ trỏ tới — thay bằng section thật khi dựng. */}
-  <div id="uoc-tinh" aria-hidden="true"></div>
+  {/* R4 — spec-noi-dung §4 · dựng 01/10. Neo #uoc-tinh (nút Hero trỏ tới) nằm trong khối.
+      ⏸ Đang chạy phương án TẠM cho Master §7 #4 #5 #6 #14 — xem đầu EstimatorSection.astro. */}
+  <EstimatorSection />
 
   {/* R5 — spec-noi-dung §5 ✅ */}
   <BenefitsSection items={ketQua} />

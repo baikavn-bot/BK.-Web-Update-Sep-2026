@@ -1,0 +1,210 @@
+---
+// SECTION "CHI PHÍ THẬT CỦA MỘT NHÂN VIÊN" — khối R2 trang Remote Office
+//
+// Figma (đọc 01/10/2026): Desktop `923:4219` · Tablet `923:4311` · Mobile `923:4098`.
+// Chữ: docs/remote-office/spec-noi-dung.md §2 (L1–L4 đã chốt).
+// Bố cục: docs/remote-office/spec-giao-dien.md §3 + §7.1.
+//
+// ─── Bố cục ─────────────────────────────────────────────────────────────
+//   Tiêu đề → hai cột chia đôi (≥ 768) / xếp dọc (< 768), cách nhau `--s-10`.
+//   TRÁI : đoạn «Hợp đồng mang tên…» ở ĐỈNH, cụm số «23,5 %» ở ĐÁY.
+//          Figma đặt cột trái cao cố định + khoảng 140 (ngoài thang). Ở đây
+//          dùng `space-between` và cho cột trái cao bằng cột phải — ra đúng hình
+//          mà không cần số 140.
+//   PHẢI : 4 dòng chi phí + 1 dòng Tổng (component `Data`) + chú thích L1.
+//
+// ⏸ TẠM — chờ chốt SPEC-MASTER §7 #10:
+//   Số «23,5» Figma vẽ Chakra Petch SemiBold **100px** — ngoài thang chữ.
+//   Đang dùng cỡ lớn nhất có trong hệ (`--fs-display-1` 80px). Màu Figma là
+//   `#FFFFFF` thô → dùng `--gray-50` theo luật repo.
+// ⏸ TẠM — mobile: Figma cột trái cao cố định 451 (khoảng 140). Xếp dọc thì
+//   `space-between` không còn tác dụng → tạm dùng khoảng `--s-10`.
+
+interface Props {
+  heading?: string;
+  /** Các dòng chi phí. Dòng `tong: true` là dòng Tổng — luôn đặt CUỐI. */
+  dong: { nhan: string; so: string; tong?: boolean }[];
+  /** Chú thích dưới bảng (L1). */
+  note?: string;
+}
+const {
+  heading = 'Một nhân viên lương 10 triệu tốn của bạn 14–15 triệu',
+  dong,
+  note,
+} = Astro.props;
+---
+
+<section class="cp sec" aria-labelledby="cp-tieu-de">
+  <h2 class="tieu-de-section" id="cp-tieu-de">{heading}</h2>
+
+  <div class="cp__khung">
+    <div class="cp__trai">
+      <p class="cp__doan">
+        Hợp đồng mang tên cộng tác hay dịch vụ, nếu có trả công và có quản lý,
+        vẫn phải đóng BHXH bắt buộc từ <span class="cp__ngay">01/07/2025</span>
+      </p>
+
+      {/* Cụm số: đọc thành một câu cho trình đọc màn hình. */}
+      <p class="cp__so" aria-label="23,5% bảo hiểm và công đoàn">
+        <span class="cp__so-lon" aria-hidden="true">23,5</span>
+        <span class="cp__so-phu" aria-hidden="true">
+          <span class="cp__phan-tram">%</span>
+          <span class="cp__nhan">Bảo hiểm</span>
+          <span class="cp__nhan">Công đoàn</span>
+        </span>
+      </p>
+    </div>
+
+    <div class="cp__phai">
+      <dl class="cp__bang">
+        {dong.map((d) => (
+          <div class:list={['cp__dong', { 'cp__dong--tong': d.tong }]}>
+            <dt>{d.nhan}</dt>
+            <dd>{d.so}</dd>
+          </div>
+        ))}
+      </dl>
+      {note && <p class="cp__ghi-chu">{note}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cp {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* 40 */
+    padding-block: var(--s-20);        /* 80 — cả 3 khổ */
+  }
+
+  .cp__khung {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* 40 */
+  }
+
+  .cp__trai {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* ⏸ TẠM mobile — xem đầu file */
+    padding-block: var(--s-4);         /* 16 */
+  }
+
+  .cp__doan {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    font-weight: var(--fw-body-lg);
+    color: var(--gray-50);
+  }
+  /* Ngày được nhấn bằng chữ H-3 — đúng Figma (một đoạn, hai kiểu chữ). */
+  .cp__ngay {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+  }
+
+  .cp__so {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: var(--gray-50);
+  }
+  .cp__so-lon {
+    font-family: var(--font-heading);
+    font-size: var(--fs-display-1);    /* ⏸ TẠM 80 — Figma 100, #10 */
+    line-height: var(--lh-display-1);
+    font-weight: var(--fw-display-1);
+  }
+  .cp__so-phu {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--s-1) / 2);         /* 2 — Figma 2, nửa bậc nhỏ nhất của thang */
+  }
+  .cp__phan-tram {
+    font-family: var(--font-body);
+    font-size: var(--fs-h2);           /* 24 */
+    line-height: 1;
+    font-weight: var(--fw-display-1);  /* SemiBold như Figma */
+  }
+  .cp__nhan {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+  }
+
+  /* ─── Bảng chi phí — component Figma `Data` `834:7502` ─────────── */
+  .cp__phai {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);                   /* 12 */
+  }
+  .cp__bang {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);                   /* 12 */
+  }
+  .cp__dong {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-4);
+    padding: var(--s-4) var(--s-2);    /* 16 / 8 */
+    border-bottom: 1px solid var(--gray-600);
+    color: var(--gray-50);
+  }
+  .cp__dong dt {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--fw-body);
+  }
+  /* Mobile + tablet: nhãn và số chia đôi dòng, cả hai được xuống dòng — đúng
+     Figma `923:4109` / `923:4311` («1.500.000 đ – / 2.500.000 đ» gãy hai dòng). */
+  .cp__dong dt,
+  .cp__dong dd { flex: 1 1 0; min-width: 0; }
+  .cp__dong dd {
+    margin: 0;
+    text-align: right;
+    font-family: var(--font-body);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    font-weight: var(--fw-body-lg);
+  }
+  .cp__dong--tong { background: var(--opacity-light); }
+  .cp__dong--tong dd {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+  }
+
+  .cp__ghi-chu {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    font-weight: var(--fw-caption);
+    color: var(--gray-50);
+  }
+
+  /* ─── ≥ 768: hai cột chia đôi, cột trái cao bằng cột phải ─────────── */
+  @media (min-width: 768px) {
+    .cp__khung {
+      flex-direction: row;
+      align-items: stretch;
+    }
+    .cp__trai,
+    .cp__phai { flex: 1 1 0; min-width: 0; }
+    .cp__trai { justify-content: space-between; }
+  }
+
+  /* ─── ≥ 1280: đủ chỗ — số giữ trên một dòng, nhãn nhận phần còn lại ── */
+  @media (min-width: 1280px) {
+    .cp__dong dd { flex: none; }
+  }
+</style>

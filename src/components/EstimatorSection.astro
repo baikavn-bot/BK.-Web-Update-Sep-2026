@@ -1,0 +1,441 @@
+---
+// SECTION "ƯỚC TÍNH KHOẢN CHÊNH LỆCH CỦA BẠN" — khối R4 trang Remote Office
+//
+// Figma (đọc 01/10/2026): Desktop `913:4711` · Tablet `923:4248` · Mobile `922:3630`.
+// Chữ: docs/remote-office/spec-noi-dung.md §4 (L6 L7 L15–L19 đã chốt) · §4.5 (chữ trạng thái).
+// Bố cục + hành vi: docs/remote-office/spec-giao-dien.md §4 + §7.2.
+// PHẦN TÍNH: src/lib/uoc-tinh.ts — mọi tham số ở ĐÓ, file này chỉ vẽ.
+//
+// ─── Hành vi ────────────────────────────────────────────────────────────
+//   Đổi bất kỳ ô nào → tính lại NGAY (không có nút "Tính").
+//   Không có JavaScript → vẫn hiện ca mẫu (2 người · 10 triệu · 3 nhóm) đã tính
+//   sẵn lúc build, kèm dòng «Bật JavaScript để tính theo số của bạn.»
+//
+// ─── ⏸ CHỜ CHỐT — đang dùng phương án tạm, đổi được ở MỘT chỗ ───────────
+//   #14 Luật chọn gói         → `LUAT_CHON_GOI` trong uoc-tinh.ts (tạm: luật mới)
+//   #5  Con số 1.800.000      → `THAM_SO.chiPhiCoDinh` trong uoc-tinh.ts
+//   #4  Ô "Nhóm công việc"    → tạm: ô chọn SỐ nhóm 1…5 và «6 nhóm việc trở lên»
+//                                (ô chọn gốc của trình duyệt — dùng được bàn phím,
+//                                trình đọc màn hình, không cần JS riêng)
+//   #6  Nút gửi dẫn đi đâu    → tạm: cuộn xuống form Liên hệ (#lien-he)
+//   #11 Khoảng 10px trong ô bấm ‹ › → tạm `--s-3` (12)
+//   Lương: chỉ bấm ‹ › (bước 500.000). Gõ tay là đề xuất chưa duyệt — chưa làm.
+import Button2 from './Button2.astro';
+import IconChevronDown from './IconChevronDown.astro';
+import { THAM_SO, uocTinh, dinhDangTien } from '../lib/uoc-tinh';
+
+interface Props { heading?: string; }
+const { heading = 'Ước tính khoản chênh lệch của bạn' } = Astro.props;
+
+// Ca mẫu — đúng số trên Figma. Vẽ sẵn lúc build để không có JS vẫn đọc được.
+const nguoi0 = THAM_SO.soNguoi.macDinh;
+const luong0 = THAM_SO.luong.macDinh;
+const nhom0 = THAM_SO.soNhom.macDinh;
+const kq0 = uocTinh(nguoi0, luong0, nhom0);
+const tenGoi0 = kq0.goi ? `Gói ${THAM_SO.goi[kq0.goi].ten}` : 'Báo giá riêng sau khảo sát';
+
+const luaChonNhom = Array.from({ length: THAM_SO.soNhom.max }, (_, i) => i + 1).map((n) => ({
+  n,
+  ten: n === THAM_SO.soNhom.max ? `${n} nhóm việc trở lên` : `${n} nhóm việc`,
+}));
+
+const congThuc = 'Chi phí tự tuyển = lương + 21,5% bảo hiểm + 2% kinh phí công đoàn + khoảng 1,8 triệu chỗ ngồi, thiết bị, tuyển dụng.';
+const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính thức theo báo giá sau buổi khảo sát 45 phút.';
+---
+
+<section class="ut sec" id="uoc-tinh" aria-labelledby="ut-tieu-de" data-uoc-tinh>
+  <h2 class="tieu-de-section" id="ut-tieu-de">{heading}</h2>
+
+  <div class="ut__khung">
+    {/* ─── ĐẦU VÀO ─── */}
+    <div class="ut__vao">
+      <div class="ut__dong">
+        <span class="ut__nhan" id="ut-nhan-nguoi">Số người định tuyển</span>
+        <div class="ut__chon" role="group" aria-labelledby="ut-nhan-nguoi">
+          <button type="button" class="ut__nut-buoc" data-buoc="nguoi" data-huong="-1" aria-label="Giảm số người">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <output class="ut__gia-tri" data-ra="nguoi" aria-live="polite">{nguoi0}</output>
+          <button type="button" class="ut__nut-buoc" data-buoc="nguoi" data-huong="1" aria-label="Tăng số người">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ut__dong">
+        <span class="ut__nhan" id="ut-nhan-luong">Lương mỗi người</span>
+        <div class="ut__chon" role="group" aria-labelledby="ut-nhan-luong">
+          <button type="button" class="ut__nut-buoc" data-buoc="luong" data-huong="-1" aria-label="Giảm lương 500.000 đ">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <output class="ut__gia-tri" data-ra="luong" aria-live="polite">{dinhDangTien(luong0)}</output>
+          <button type="button" class="ut__nut-buoc" data-buoc="luong" data-huong="1" aria-label="Tăng lương 500.000 đ">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ut__dong">
+        <label class="ut__nhan" for="ut-nhom">Nhóm công việc</label>
+        <div class="ut__chon-nhom">
+          <select id="ut-nhom" data-vao="nhom">
+            {luaChonNhom.map((o) => <option value={o.n} selected={o.n === nhom0}>{o.ten}</option>)}
+          </select>
+          <span class="ut__mui-ten"><IconChevronDown /></span>
+        </div>
+      </div>
+    </div>
+
+    {/* ─── KẾT QUẢ ─── */}
+    <div class="ut__ra">
+      <div class="ut__khoi">
+        <table class="ut__bang">
+          <thead>
+            <tr>
+              <th scope="col" class="ut__o ut__o--dau">Tự tuyển</th>
+              <th scope="col" class="ut__o ut__o--dau">Gói BAIKA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="ut__o" data-ra="so-nguoi">{nguoi0} người</td>
+              <td class="ut__o">
+                <span data-ra="ten-goi">{tenGoi0}</span>
+                <span class="ut__phu" data-ra="nang" hidden></span>
+              </td>
+            </tr>
+            <tr>
+              <td class="ut__o" data-ra="mot-nguoi">{dinhDangTien(kq0.tuTuyenMotNguoi)}</td>
+              <td class="ut__o">-</td>
+            </tr>
+            <tr>
+              <td class="ut__o ut__o--chan" data-ra="tu-tuyen">{dinhDangTien(kq0.tuTuyen)}</td>
+              <td class="ut__o ut__o--chan" data-ra="gia-goi">{kq0.giaGoi !== null ? dinhDangTien(kq0.giaGoi) : '-'}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="ut__chu-thich">{congThuc}</p>
+        <hr class="ut__ke" />
+
+        <div class="ut__ket-qua" aria-live="polite">
+          <p class="ut__kq-nhan">Ước tính chênh lệch</p>
+          <p class="ut__kq-so" data-ra="chenh-thang">{kq0.chenhLechThang !== null ? dinhDangTien(kq0.chenhLechThang) : '—'}</p>
+          <p class="ut__kq-nam" data-ra="chenh-nam">{kq0.chenhLechNam !== null ? `≈${dinhDangTien(kq0.chenhLechNam)}/năm` : ''}</p>
+          <p class="ut__kq-loi" data-ra="loi" hidden></p>
+          <p class="ut__chu-thich">{luuY}</p>
+          <noscript><p class="ut__chu-thich">Bật JavaScript để tính theo số của bạn.</p></noscript>
+        </div>
+      </div>
+
+      <div class="ut__nut">
+        <Button2 label="Gửi yêu cầu theo ước tính này" href="#lien-he" size="lg" iconLeft={false} iconRight={false} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { THAM_SO, uocTinh, dinhDangTien } from '../lib/uoc-tinh';
+
+  const timGoc = document.querySelector<HTMLElement>('[data-uoc-tinh]');
+  if (timGoc) {
+    const goc: HTMLElement = timGoc;
+    const ra = (ten: string) => goc.querySelector<HTMLElement>(`[data-ra="${ten}"]`)!;
+    const chonNhom = goc.querySelector<HTMLSelectElement>('[data-vao="nhom"]')!;
+    const giaTri: { nguoi: number; luong: number } = { nguoi: THAM_SO.soNguoi.macDinh, luong: THAM_SO.luong.macDinh };
+
+    const CHU_NHO = 'Khối lượng việc bạn chọn còn nhỏ. Giữ người làm trong công ty vẫn rẻ hơn — cứ liên hệ khi cần giao thêm.';
+
+    function ve() {
+      const nhom = Number(chonNhom.value);
+      const kq = uocTinh(giaTri.nguoi, giaTri.luong, nhom);
+
+      ra('nguoi').textContent = String(giaTri.nguoi);
+      ra('luong').textContent = dinhDangTien(giaTri.luong);
+      ra('so-nguoi').textContent = `${giaTri.nguoi} người`;
+      ra('mot-nguoi').textContent = dinhDangTien(kq.tuTuyenMotNguoi);
+      ra('tu-tuyen').textContent = dinhDangTien(kq.tuTuyen);
+      ra('ten-goi').textContent = kq.goi ? `Gói ${THAM_SO.goi[kq.goi].ten}` : 'Báo giá riêng sau khảo sát';
+      ra('gia-goi').textContent = kq.giaGoi !== null ? dinhDangTien(kq.giaGoi) : '-';
+
+      const nang = ra('nang');
+      nang.hidden = kq.trangThai !== 'goi-bi-nang';
+      nang.textContent = kq.trangThai === 'goi-bi-nang' ? `nâng vì chọn ${nhom} nhóm việc` : '';
+
+      ra('chenh-thang').textContent = kq.chenhLechThang !== null ? dinhDangTien(kq.chenhLechThang) : '—';
+      ra('chenh-nam').textContent = kq.chenhLechNam !== null ? `≈${dinhDangTien(kq.chenhLechNam)}/năm` : '';
+      const loi = ra('loi');
+      loi.hidden = kq.trangThai !== 'khoi-luong-nho';
+      loi.textContent = kq.trangThai === 'khoi-luong-nho' ? CHU_NHO : '';
+
+      // Nút ‹ › chuyển Disabled khi chạm giới hạn.
+      goc.querySelectorAll<HTMLButtonElement>('[data-buoc]').forEach((b) => {
+        const loai = b.dataset.buoc as 'nguoi' | 'luong';
+        const huong = Number(b.dataset.huong);
+        const gioiHan = loai === 'nguoi' ? THAM_SO.soNguoi : THAM_SO.luong;
+        b.disabled = huong < 0 ? giaTri[loai] <= gioiHan.min : giaTri[loai] >= gioiHan.max;
+      });
+    }
+
+    goc.querySelectorAll<HTMLButtonElement>('[data-buoc]').forEach((b) => {
+      b.addEventListener('click', () => {
+        const loai = b.dataset.buoc as 'nguoi' | 'luong';
+        const huong = Number(b.dataset.huong);
+        if (loai === 'nguoi') {
+          const { min, max } = THAM_SO.soNguoi;
+          giaTri.nguoi = Math.min(max, Math.max(min, giaTri.nguoi + huong));
+        } else {
+          const { min, max, buoc } = THAM_SO.luong;
+          giaTri.luong = Math.min(max, Math.max(min, giaTri.luong + huong * buoc));
+        }
+        ve();
+      });
+    });
+    chonNhom.addEventListener('change', ve);
+    ve();
+  }
+</script>
+
+<style>
+  .ut {
+    /* Nằm LỚP TRÊN section "Bạn sẽ nhận được gì" ngay bên dưới: cái bát úp của
+       section đó tràn ngược lên 450px. Thiếu dòng này thì thân bát tối màu đè
+       mờ phần kết quả + nút gửi (đã thấy thật khi chụp 01/10). Cùng cách
+       ServicesSection làm ở 7 trang dịch vụ. */
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* 40 tablet/mobile · desktop 80 bên dưới */
+    padding-block: var(--s-24);        /* 96 — cả 3 khổ */
+  }
+
+  .ut__khung { display: flex; flex-direction: column; }
+
+  /* ─── Đầu vào ─────────────────────────────────────────────────── */
+  .ut__vao {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);                   /* 12 — mobile: giữa các dòng */
+    padding-block: var(--s-4);
+  }
+  .ut__dong {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-1);                   /* 4 — mobile: nhãn TRÊN ô */
+  }
+  .ut__nhan {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--fw-body);
+    color: var(--gray-50);
+  }
+
+  /* Ô bấm ‹ số › — Figma vẽ tay, chưa là component (spec-giao-dien §8 #4). */
+  .ut__chon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);                   /* ⏸ Figma 10 — #11 */
+    padding: var(--s-1);
+    min-height: calc(var(--s-12) + var(--s-2));   /* 56 — cao như Figma */
+    background: var(--opacity-white);
+    color: var(--gray-50);
+  }
+  .ut__gia-tri {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+    font-variant-numeric: tabular-nums;
+  }
+  .ut__nut-buoc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    /* Vùng chạm ≥ 44px (WCAG) — icon 24 nằm giữa */
+    width: calc(var(--s-10) + var(--s-1));
+    height: calc(var(--s-10) + var(--s-1));
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    transition: box-shadow 120ms ease;
+  }
+  .ut__nut-buoc svg { width: var(--s-6); height: var(--s-6); }
+  .ut__nut-buoc:hover:not(:disabled) { box-shadow: var(--shadow-inner); }
+  .ut__nut-buoc:active:not(:disabled) { box-shadow: var(--shadow-inner-press); }
+  .ut__nut-buoc:focus-visible { outline: none; box-shadow: var(--shadow-drop-inner); }
+  .ut__nut-buoc:disabled { color: var(--gray-700); cursor: not-allowed; }
+
+  /* Ô "Nhóm công việc" — component Figma `Find Job`. */
+  .ut__chon-nhom { position: relative; }
+  .ut__chon-nhom select {
+    appearance: none;
+    width: 100%;
+    min-height: calc(var(--s-12) + var(--s-2));   /* 56 */
+    padding: var(--s-4);
+    padding-right: calc(var(--s-4) * 2 + var(--s-6));  /* chừa chỗ mũi tên */
+    border: 0;
+    border-radius: 0;
+    background: var(--opacity-white);
+    color: var(--gray-50);
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+    cursor: pointer;
+    transition: box-shadow 120ms ease;
+  }
+  .ut__chon-nhom select:hover { box-shadow: var(--shadow-inner); }
+  .ut__chon-nhom select:focus-visible { outline: none; box-shadow: var(--shadow-drop-inner); }
+  /* Danh sách thả xuống do trình duyệt vẽ — cho nền tối để chữ sáng đọc được. */
+  .ut__chon-nhom option { background: var(--gray-950); color: var(--gray-50); }
+  .ut__mui-ten {
+    position: absolute;
+    right: var(--s-4);
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    color: var(--gray-50);
+    pointer-events: none;
+  }
+
+  /* ─── Kết quả ─────────────────────────────────────────────────── */
+  .ut__ra {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);                  /* 40 — khối kết quả → nút (desktop 80) */
+    padding-block: var(--s-4);
+  }
+  .ut__khoi {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);                   /* 24 */
+  }
+
+  .ut__bang {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 var(--s-1);      /* 4 giữa các hàng */
+    margin-block: calc(var(--s-1) * -1);
+  }
+  .ut__o {
+    padding: var(--s-4);               /* mobile 16/16 · ≥768 16/24 */
+    border: 1px solid var(--gray-900);
+    text-align: left;
+    vertical-align: middle;
+    color: var(--gray-50);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--fw-body);
+  }
+  .ut__bang tr > .ut__o + .ut__o { border-left: 0; }
+  .ut__o--dau {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+    border-radius: var(--r-sm) var(--r-sm) 0 0;
+  }
+  .ut__o--chan { border-radius: 0 0 var(--r-sm) var(--r-sm); }
+  .ut__phu {
+    display: block;
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+  }
+
+  .ut__chu-thich {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    font-weight: var(--fw-caption);
+    color: var(--gray-50);
+  }
+  .ut__ke {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid var(--opacity-light);
+  }
+
+  .ut__ket-qua {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-3);                   /* 12 */
+  }
+  .ut__ket-qua p { margin: 0; }
+  .ut__kq-nhan {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--gray-300);
+  }
+  /* Số chênh lệch: H-1 ở tablet/mobile, display-2 ở desktop (bên dưới). */
+  .ut__kq-so {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+    color: var(--gray-50);
+    font-variant-numeric: tabular-nums;
+  }
+  .ut__kq-nam {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+    color: var(--gray-50);
+  }
+  .ut__kq-nam:empty { display: none; }
+  .ut__kq-loi {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    color: var(--gray-50);
+  }
+
+  /* Nút gửi lấp đầy bề ngang khối kết quả (Figma 500 / lấp đầy). */
+  .ut__nut :global(.btn2) { width: 100%; }
+
+  /* ─── Tablet ≥ 768: nhãn bên trái ô (1 : 5) · ô bảng padding 16/24 ── */
+  @media (min-width: 768px) {
+    .ut__vao { gap: var(--s-1); }
+    .ut__dong {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 5fr);   /* nhãn ~120 · ô lấp đầy */
+      align-items: center;
+      gap: var(--s-3);
+    }
+    .ut__o { padding: var(--s-4) var(--s-6); }
+  }
+
+  /* ─── Desktop ≥ 1280: hai cột — đầu vào | kết quả ───────────────── */
+  @media (min-width: 1280px) {
+    .ut { gap: var(--s-20); }          /* 80 */
+    .ut__khung {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: var(--s-24);         /* Figma: 2 cột 532 cách 136 — gần nhất trong thang */
+      align-items: start;
+    }
+    .ut__vao, .ut__ra { padding: var(--s-4); }
+    .ut__dong {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);   /* 200 · 300 như Figma */
+      gap: 0;
+    }
+    .ut__ra { gap: var(--s-20); }      /* 80 */
+    .ut__kq-so {
+      font-family: var(--font-display);
+      font-size: var(--fs-display-2);
+      line-height: var(--lh-display-2);
+      font-weight: var(--fw-display-2);
+    }
+  }
+</style>

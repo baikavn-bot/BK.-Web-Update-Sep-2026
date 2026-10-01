@@ -121,6 +121,8 @@ chênh lệch / năm                  = chênh lệch / tháng × 12
 
 Hai phương án. **Build không tự chọn** — dựng sao cho đổi luật chỉ sửa một hàm.
 
+⏸ **Code đang chạy TẠM luật MỚI** (01/10) — trang phải hiện *một* con số, và luật mới là phương án **chặt hơn**: không bao giờ hứa gói nhỏ hơn khối lượng việc khách chọn. 9 ca §4.3 cũng viết theo luật mới. **Đây chưa phải quyết định** — sếp chọn luật cũ thì đổi một dòng `LUAT_CHON_GOI = 'cu'` ở `src/lib/uoc-tinh.ts` và sửa cột ca kiểm thử.
+
 | | Luật cũ (spec v3 §13.7) | Luật mới đề xuất (29/09) |
 | --- | --- | --- |
 | Cách chọn | Chỉ theo **số nhóm việc**: 1 → Khởi đầu · 2–3 → Vận hành · từ 4 → Trọn gói | **Gói nhỏ nhất đáp ứng CẢ HAI**: số người ≤ "thay được" của gói **và** số nhóm ≤ số nhóm tối đa của gói |
@@ -297,42 +299,14 @@ Mỗi dòng Thắng chốt một chữ: **F** (theo Figma) · **N** (theo spec c
 
 ---
 
-## Phụ lục A — Bản nháp hàm tính · ⚠️ THAM KHẢO, CHƯA DUYỆT
+## Phụ lục A — Hàm tính → đã chuyển vào code *(01/10)*
 
-Nguồn: `claude/remote-office-cong-thuc-uoc-tinh.md` (29/09). Viết theo **luật mới**, đã chạy ra đúng 9 ca ở §4.3.
-**Không chép thẳng vào `src/`.** Khi Build dựng thật: đặt ở một file riêng (vd. `src/lib/uoc-tinh.ts`), tách phần tham số ra đầu file, rồi **xoá phụ lục này** và ghi đường dẫn file code vào đây — để không có hai bản code.
+Bản nháp từng nằm ở đây đã được dựng thật — **không còn hai bản code**:
 
-```js
-export const THAM_SO = {
-  bhxhPhanNghin: 215,        // 21,5%
-  congDoanPhanNghin: 20,     // 2%
-  chiPhiCoDinh: 1_800_000,   // GIẢ ĐỊNH — chờ xác nhận
-  nguoi: { min: 1, max: 4 },
-  luong: { min: 7_000_000, max: 25_000_000, buoc: 500_000 },
-};
-export const GOI = [
-  { ten: 'Khởi đầu', gia: 4_900_000,  toiDaNhom: 1, toiDaNguoi: 0.5, thayDuoc: 'nửa vị trí' },
-  { ten: 'Vận hành', gia: 9_900_000,  toiDaNhom: 3, toiDaNguoi: 2,   thayDuoc: '1,5 – 2 vị trí' },
-  { ten: 'Trọn gói', gia: 19_900_000, toiDaNhom: 5, toiDaNguoi: 4,   thayDuoc: '3 – 4 vị trí' },
-];
-const kep = (x, a, b) => Math.min(Math.max(x, a), b);
+| Gì | Ở đâu |
+| --- | --- |
+| Tham số (lương, số người, số nhóm, giá gói, 1.800.000…), luật chọn gói, hàm tính, định dạng tiền | `src/lib/uoc-tinh.ts` — tham số ở **đầu file** |
+| 9 ca kiểm thử §4.3 | `tools/kiem-tra-uoc-tinh.mts` — chạy `node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts` (Node ≥ 22.6), phải ra `9/9` |
+| Giao diện gọi hàm rồi vẽ theo `trangThai` | `src/components/EstimatorSection.astro` |
 
-export function uocTinh({ soNguoi, luong, soNhom }) {
-  const P = THAM_SO;
-  const l = kep(Math.round(luong / 1000) * 1000, P.luong.min, P.luong.max);
-  const n = Math.max(1, Math.floor(soNguoi));
-  const k = Math.max(0, Math.floor(soNhom));
-  const motNguoi = Math.round(l * (1000 + P.bhxhPhanNghin + P.congDoanPhanNghin) / 1000) + P.chiPhiCoDinh;
-  const tuTuyen = motNguoi * n;
-  const base = { soNguoi: n, luong: l, soNhom: k, motNguoi, tuTuyen };
-  if (k === 0) return { ...base, trangThai: 'chua-chon-nhom' };
-  const goi = GOI.find(g => n <= g.toiDaNguoi && k <= g.toiDaNhom); // gói nhỏ nhất đáp ứng cả hai
-  if (!goi) return { ...base, trangThai: 'bao-gia-rieng' };
-  const chenhLech = tuTuyen - goi.gia;
-  if (chenhLech <= 0) return { ...base, goi, trangThai: 'khoi-luong-nho' };
-  return { ...base, goi, chenhLech, theoNam: chenhLech * 12, trangThai: 'binh-thuong' };
-}
-```
-
-Trạng thái "Gói bị nâng" = giao diện tự so gói trả về với gói chỉ tính theo số người.
-
+Khác bản nháp: giới hạn số người để **1–5** (5 → Báo giá riêng), đúng bảng chọn gói §4.2.

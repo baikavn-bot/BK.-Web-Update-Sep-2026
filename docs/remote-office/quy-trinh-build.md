@@ -131,6 +131,12 @@ const { chromium } = require('playwright');
 
 Chạy đủ 9 ca trong `spec-noi-dung.md` §4.3 (theo luật chọn gói sếp đã duyệt). Thêm: tắt JavaScript → trang vẫn đọc được, hiện ca mẫu.
 
+```bash
+node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts   # Node ≥ 22.6 · phải ra 9/9
+```
+
+Rồi kiểm trên trang thật (trình duyệt): mặc định ra 18.400.000 · chọn 4 nhóm → Trọn gói + dòng «nâng vì…» · 5 người → Báo giá riêng, nút `›` mờ · 1 người × 7 tr × 4 nhóm → câu «Khối lượng nhỏ». Ở 375 chọn 3 người × 25 tr (số dài nhất «98.025.000 đ») — không tràn ô.
+
 ### 4.5 Bàn phím
 
 Chỉ dùng phím Tab / Shift+Tab / Enter / Space / mũi tên: đi qua được **mọi** nút, stepper, ô chọn, ô form; luôn thấy Focus (quầng sáng); không bị kẹt.

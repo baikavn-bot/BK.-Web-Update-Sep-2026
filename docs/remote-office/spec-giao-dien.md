@@ -22,9 +22,9 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | # | Frame Figma | Khối | Code | Ghi chú |
 | --- | --- | --- | --- | --- |
 | R1 | `Herro` `913:4650` | Hero | **Dùng lại** `HeroSection.astro` — `title="Remote Office"` · `tagline` · `lead` · `ctaLabel` · `ctaHref="#uoc-tinh"` | Giống hệt hero 7 trang (Milkyway · Planet · chữ cong · quầng sáng). Nút trong Figma để `State=Hover` — dựng theo `Normal` |
-| R2 | `Solution` `923:4219` | Chi phí thật | 🆕 **Dựng mới** — §3 | **Không** dùng `SolutionSection.astro` (đó là 3 thẻ vấn đề của 7 trang) |
+| R2 | `Solution` `923:4219` | Chi phí thật | ✅ **Đã dựng 01/10** — `CostSection.astro` · §3 + §7.1 | **Không** dùng `SolutionSection.astro` (đó là 3 thẻ vấn đề của 7 trang) |
 | R3 | `Baika sẽ làm gì` `913:4679` | BAIKA sẽ làm gì | **Dùng lại** `StepsSection.astro` — 4 cụm × 2 mục | Component Figma `Detail Step Item` |
-| R4 | `Ước tính khoản lệch` `913:4711` | Công cụ ước tính | 🆕 **Dựng mới** — §4 | Khối duy nhất trên site có tính toán |
+| R4 | `Ước tính khoản lệch` `913:4711` | Công cụ ước tính | ✅ **Đã dựng 01/10** — `EstimatorSection.astro` + `src/lib/uoc-tinh.ts` · §4 + §7.2 | Khối duy nhất trên site có tính toán |
 | R5 | `Bạn sẽ nhận được gì` `913:4756` | Bạn sẽ nhận được gì | **Dùng lại** `BenefitsSection.astro` — đúng 6 ý | Figma: 6 × `Solution planet` `794:3117` |
 | R6 | `Gói dịch vụ` `922:3801` ⚠️ *tên sai* | Bảng so sánh | ✅ **Đã dựng 01/10** — `CompareSection.astro` · §5 + §7.3 | |
 | R7 | `Gói dịch vụ` `913:4823` | Các gói | **Dùng lại** `PricingSection.astro` — 3 gói, gói giữa `featured`, prop `note` | Figma: thẻ giữa `State=Focus` = thẻ nổi bật, giống trang CEO |
@@ -90,6 +90,13 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 4. ⚠️ Khoảng cách dọc cột trái **140** — ngoài thang `--s-*`. Chờ chốt cùng #10.
 5. ⚠️ 5 dòng `Data` trên frame **Desktop** đang dùng variant **`Type=Mobile`** (bị kéo giãn ra 596). Nếu Desktop phải dùng `Type=Desktop` thì đổi trong Figma — code dựng một dòng co giãn theo cột, không phân biệt hai variant.
 
+**Code (01/10)** — `CostSection.astro`, bảng là `<dl>`, không JS:
+
+- Cột trái cao bằng cột phải, `justify-content: space-between` → đoạn chữ ở đỉnh, cụm số ở đáy. Ra đúng hình mà **không cần số 140**. Dưới 768 (xếp dọc) dùng gap `--s-10` ⏸ TẠM.
+- «23,5»: `--fs-display-1` (80) ⏸ TẠM — Master §7 #10. Cụm «% · Bảo hiểm · Công đoàn» cách nhau `calc(var(--s-1) / 2)` (= 2, nửa bậc nhỏ nhất).
+- Cụm số đọc thành **một câu** cho trình đọc màn hình (`aria-label` «23,5% bảo hiểm và công đoàn»).
+- ⚠️ Dòng `Total`: chữ `--gray-50` trên `--opacity-light` đo **≈ 3.5–4.0 : 1** (dưới AA 4.5). Code đúng Figma, chờ chốt — Master §7 #18.
+
 ## 4. R4 — Công cụ ước tính (`913:4711`)
 
 ```
@@ -117,6 +124,19 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 ⚠️ Khung `Difference Estimate Container` `913:4713` **không dùng auto-layout** (cao cố định). Thêm chú thích L7 làm nút gửi bị đẩy ra ngoài khung → 30/09 Claude nới 615 → 677. Lần sau thêm chữ lại tràn — **nên chuyển khung sang auto-layout** (Figma §8 #11).
 
 **Stepper** — ⚠️ vẽ tay trong Figma, **chưa phải component**: 300 × 56 · nền `var(--opacity-white)` · padding `var(--s-4)` / 10 ⏸ · gap 10 ⏸ · số chữ `H-3` · icon `chevron-left` / `chevron-right`.
+
+**Code (01/10)** — `EstimatorSection.astro` (giao diện) + `src/lib/uoc-tinh.ts` (mọi con số, luật chọn gói, hàm tính):
+
+| Phần | Code đang làm | Ghi chú |
+| --- | --- | --- |
+| Stepper | `<button>` 44 × 44 (`calc(var(--s-10) + var(--s-1))`) + `<output aria-live>` · 10 → `--s-3` ⏸ #11 | Vùng chạm ≥ 44 (WCAG). Hover / Active / Focus theo luật chung, Disabled `--gray-700` |
+| Nhóm việc | `<select>` gốc của trình duyệt: «1 nhóm việc»…«5 nhóm việc» · «6 nhóm việc trở lên» | ⏸ #4 — `<select>` gốc dùng được bằng bàn phím + trình đọc màn hình mà không cần JS. Đổi sang danh sách tự vẽ khi #4 chốt |
+| Lương gõ tay | **Chưa làm** — chỉ nút `‹ ›` | Đề xuất 29/09, chưa ai duyệt |
+| Nút gửi | `Button2` Lg, `href="#lien-he"` — chỉ cuộn xuống | ⏸ #6 |
+| Không JS | Server vẽ sẵn ca 1 + `<noscript>` «Bật JavaScript để tính theo số của bạn.» | |
+| Mái vòm khối R5 | Khối R4 đặt `position: relative; z-index: 1` | Quầng `.nhan__cung` của R5 trồi lên 450px, che mờ nút gửi nếu thiếu dòng này — cùng cách `ServicesSection` đang làm |
+
+Kiểm hành vi (01/10, Playwright): mặc định 18.400.000 / ≈220.800.000 / Vận hành · 4 nhóm → Trọn gói + «nâng vì chọn 4 nhóm việc» · 5 người → Báo giá riêng, nút `›` Disabled · 1 người × 7 tr × 4 nhóm → Khối lượng nhỏ · tắt JS → ca 1.
 
 ### 4.1 Hành vi
 
@@ -209,6 +229,7 @@ Cả ba khổ **cùng một cấu trúc**: tiêu đề → `Cost Container` ngan
 
 → Code: **một** bố cục flex-wrap, hai cột chia đôi, dưới 768 thì một cột. Không cần ba bản.
 `Data` `Type=Mobile`: nhãn **bọc dòng** (rộng tối đa ~150), số **canh phải**. `Type=Desktop`: nhãn một dòng, số canh trái. Cả ba khổ đang dùng `Mobile` → code dựng theo `Mobile`.
+→ Code: dưới 1280 nhãn và số **chia đôi dòng, cả hai được xuống dòng** (đúng `923:4109` / `923:4311` — «1.500.000 đ – / 2.500.000 đ» gãy hai dòng). Từ 1280 số giữ một dòng, nhãn nhận phần còn lại.
 Đoạn «Hợp đồng mang tên…»: `body-lg`, riêng «01/07/2025» là `H-3` (nhấn mạnh).
 
 ### 7.2 R4 Ước tính

@@ -117,20 +117,21 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 1 | ✅ **ĐÃ CHỐT 29/09 — Màu trụ riêng cho Remote Office:** `--dam` `#2E4716` · `--trung` `#58832C` *(Thắng đưa)* · `--nhat` `#B6D79B` *(Claude đề xuất theo quy luật 7 trụ, Thắng duyệt)*. Figma: biến `Colors/Page/Remote Office/*` + mode **"Remote Office"** trong bộ biến `Trụ`, frame Remote Office (nay là `913:4649`) đã chuyển sang mode này | — |
 | 2 | ✅ **ĐÃ CHỐT 29/09 — Giá công khai**, đặt **thay vào nhãn nhỏ phía trên tên gói** (chỗ đang ghi «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ»). Figma chưa cập nhật chữ | — |
 | 3 | ✅ **ĐÃ CHỐT 29/09 — Giá:** 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, viết dạng «4.900.000 đ/tháng» · **có** dòng «Giá chưa gồm VAT…» dưới khối gói. Figma đã cập nhật | — |
-| 4 | **Ô "Nhóm công việc"** hiện "3 nhóm việc" nhưng danh sách mở ra là 7 dòng chữ mẫu giống nhau. Chọn **số nhóm** hay chọn **từng nhóm** (bản cũ: 8 ô tick)? Có mấy lựa chọn? | Ước tính |
-| 5 | **Con số 1.800.000** trong công thức — giả định từ spec cũ, chưa xác nhận | Ước tính |
-| 6 | **Nút "Gửi yêu cầu theo ước tính này"** dẫn đi đâu: cuộn xuống form và điền sẵn số ước tính, hay chỉ cuộn xuống? | Ước tính · Liên hệ |
+| 4 | **Ô "Nhóm công việc"** hiện "3 nhóm việc" nhưng danh sách mở ra là 7 dòng chữ mẫu giống nhau. Chọn **số nhóm** hay chọn **từng nhóm** (bản cũ: 8 ô tick)? Có mấy lựa chọn? · ⏸ **Đang chạy TẠM:** ô chọn **số nhóm** 1…5 + «6 nhóm việc trở lên» — `EstimatorSection.astro` | Ước tính |
+| 5 | **Con số 1.800.000** trong công thức — giả định từ spec cũ, chưa xác nhận · ⏸ **Đang chạy TẠM** 1.800.000 — sửa ở `src/lib/uoc-tinh.ts` (`chiPhiCoDinh`) | Ước tính |
+| 6 | **Nút "Gửi yêu cầu theo ước tính này"** dẫn đi đâu: cuộn xuống form và điền sẵn số ước tính, hay chỉ cuộn xuống? · ⏸ **Đang chạy TẠM:** chỉ cuộn xuống form (`#lien-he`), không điền sẵn | Ước tính · Liên hệ |
 | 7 | ✅ **ĐÃ CHỐT 30/09 (L12)** — FAQ 5 câu theo spec cũ; **không** dựng khối Cam kết riêng | — |
 | 8 | ✅ **ĐÃ CHỐT 30/09 — L1–L13** (`spec-noi-dung.md` §12). **Còn `L14`**: dòng pháp lý — đặt ở đâu | Liên hệ |
 | 9 | ✅ **Tablet / Mobile cho R2 · R4 · R6** — Thắng vẽ 01/10 (`spec-giao-dien.md` §7). `L15`–`L20` ✅ chốt 01/10. **Còn:** bảng so sánh `#15` | Responsive |
-| 10 | **Cỡ chữ số lớn "23,5"** — Figma vẽ 100px (ngoài thang, `display-1` = 80) | Khối chi phí |
-| 11 | **Khoảng `10px`** trong stepper và `Table Item` — ngoài thang spacing (thang có 8 · 12) | Ước tính · So sánh |
+| 10 | **Cỡ chữ số lớn "23,5"** — Figma vẽ 100px (ngoài thang, `display-1` = 80) · ⏸ **Đang chạy TẠM** `--fs-display-1` (80) — `CostSection.astro` | Khối chi phí |
+| 11 | **Khoảng `10px`** trong stepper và `Table Item` — ngoài thang spacing (thang có 8 · 12) · ⏸ **Đang chạy TẠM** `--s-3` (12) | Ước tính · So sánh |
 | 12 | **Form Liên hệ**: ~~nút~~ ✅ «Đặt lịch khảo sát» (L13, 30/09). **Còn:** danh sách ô "Lĩnh vực" cho trang này là gì? | Liên hệ |
 | 13 | **Menu**: trang này có mục trong menu `baika.vn` không, hay chỉ vào từ ô bento trang chủ? | Header |
-| 14 | **Luật chọn gói của công cụ ước tính** — luật cũ (theo số nhóm) hay luật mới (theo cả số người lẫn số nhóm)? Kèm: giới hạn số người 1–5 hay 1–4 + "Báo giá riêng" · có thêm mức «Chưa tới 1 người» không. **Đổi con số hiện ra với khách → sếp duyệt.** Chi tiết `spec-noi-dung.md` §4.2 | Ước tính |
+| 14 | **Luật chọn gói của công cụ ước tính** — luật cũ (theo số nhóm) hay luật mới (theo cả số người lẫn số nhóm)? Kèm: giới hạn số người 1–5 hay 1–4 + "Báo giá riêng" · có thêm mức «Chưa tới 1 người» không. **Đổi con số hiện ra với khách → sếp duyệt.** Chi tiết `spec-noi-dung.md` §4.2 · ⏸ **Đang chạy TẠM luật MỚI** (chặt hơn — không bao giờ hứa gói nhỏ hơn khối lượng việc) — đổi một dòng `LUAT_CHON_GOI` ở `src/lib/uoc-tinh.ts` | Ước tính |
 | 15 | ✅ **ĐÃ CHỐT 01/10 — `D1` = (a)**: tablet giữ bảng 3 cột · mobile mỗi tiêu chí một khối, **phân biệt bằng viền / nền + chú giải đầu bảng** (không lặp chữ «Tự tuyển» / «BAIKA»). Figma đã thay frame, R6 đã dựng | — |
 | 16 | **Ô bảng `Table Item` Desktop/Tablet cao cố định 66px** — ngoài thang. Code đang để ô cao theo nội dung (padding `--s-4` → ô một dòng ~54px, thấp hơn Figma 12px). Giữ như code, hay chốt một giá trị? | So sánh · Ước tính |
 | 17 | **Lề trang ở tablet**: frame tablet R2 · R4 · R6 lề **24**, các khối dùng lại (Hero, Gói, FAQ…) lề **40** theo `--le-trang`. Code dùng **40** cho cả trang để các khối thẳng mép. Chốt một số | Cả trang |
+| 18 | **Tương phản dòng «Tổng chi phí thật»** (component `Data` · Total, khối R2): chữ `--gray-50` trên nền `--opacity-light` đo được **≈ 3.5–4.0 : 1** — dưới mức WCAG AA 4.5 : 1 cho chữ thường. Code đang **đúng Figma**. Chấp nhận như sai lệch đã ghi (giống `VD-001`), hay đổi nền dòng Tổng sang token khác? | Khối chi phí |
 
 ---
 
@@ -160,6 +161,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 01/10/2026 | Claude (phiên với Thắng) | Chốt `L15`–`L20` → Figma (tablet, mobile, và «Gói BAIKA» ở desktop) + spec. Vẽ đề xuất `D1` |
 | 01/10/2026 | Claude (phiên với Thắng) | `D1` = (a). Thay frame Figma tablet/mobile R6 · **dựng R6** (`CompareSection.astro`). Mở #16 (ô cao 66) · #17 (lề tablet) |
 | 01/10/2026 | Claude (phiên với Thắng) | R6 mobile: chú giải + viền/nền thay cho chữ lặp (Figma + code). Ghi lệnh push hai nhánh vào `quy-trinh-build.md` §3 |
+| 01/10/2026 | Claude (phiên với Thắng) | **Dựng R2** (`CostSection.astro`) **+ R4** (`EstimatorSection.astro` · công thức ở `src/lib/uoc-tinh.ts`) → trang đủ 9/9 khối. #4 #5 #6 #10 #11 #14 ghi rõ lựa chọn TẠM đang chạy. Mở #18 (tương phản dòng Tổng) |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #3 con số giá + dòng VAT. Figma: nhãn nhỏ thẻ gói → giá, thêm chú thích giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #1 màu trụ + #2 giá công khai. Tạo biến + mode màu trong Figma. #3 đổi thành câu xác nhận con số giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Gộp `claude/remote-office-cong-thuc-uoc-tinh.md` (project Claude) vào §4 `spec-noi-dung.md` và §4 `spec-giao-dien.md`. Thêm câu hỏi #14. **Từ nay bản trong repo là bản chính** |
