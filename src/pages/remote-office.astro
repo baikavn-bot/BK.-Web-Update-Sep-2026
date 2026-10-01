@@ -7,7 +7,8 @@
 // Nguồn: docs/remote-office/ — ĐỌC SPEC-MASTER.md TRƯỚC.
 //   · Chữ, số           → docs/remote-office/spec-noi-dung.md
 //   · Bố cục, component → docs/remote-office/spec-giao-dien.md
-//   · Figma             → YmcXg1lQqGVjQOFrVtdOgW · frame 825:6535 (chỉ Desktop)
+//   · Figma             → YmcXg1lQqGVjQOFrVtdOgW · frame 913:4649 (chỉ Desktop)
+//                          (frame cũ 825:6535 đã được nhân bản sang đây 30/09 — đừng đọc bản cũ)
 //
 // Đã dựng — 6 khối dùng lại component của 7 trang dịch vụ:
 //   R1 Hero · R3 BAIKA sẽ làm gì · R5 Bạn sẽ nhận được gì · R7 Các gói · R8 FAQ · R9 Liên hệ
@@ -15,9 +16,8 @@
 //   R2 Chi phí thật · R4 Công cụ ước tính · R6 Bảng so sánh
 //
 // Luật lệch (SPEC-MASTER §3): chữ Figma ≠ spec nội dung → KHÔNG tự chọn,
-// để trống + ghi `CHỜ CHỐT: Lx`. Chỗ nào buộc phải có chữ để khối không vỡ
-// (tiêu đề khối R3, nút form R9) thì tạm để chữ mặc định của component và
-// ghi rõ là TẠM.
+// để trống + ghi `CHỜ CHỐT: Lx`. Thắng đã chốt L1–L13 ngày 30/09
+// (spec-noi-dung §12); L14 còn chờ.
 import ServicePageLayout from '../layouts/ServicePageLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import StepsSection from '../components/StepsSection.astro';
@@ -26,7 +26,7 @@ import PricingSection from '../components/PricingSection.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 
-// R3 — spec-noi-dung §3 ✅ (khớp Figma 825:6556 và spec cũ từng chữ)
+// R3 — spec-noi-dung §3 ✅ (khớp Figma 913:4679 và spec cũ từng chữ)
 const baikaLamGi = [
   { no: '01', title: 'Giấy tờ và con người', items: [
     { title: 'Hành chính – văn thư', desc: 'Nhận thư, trực điện thoại, soạn công văn, lưu trữ hồ sơ.' },
@@ -46,7 +46,7 @@ const baikaLamGi = [
   ] },
 ];
 
-// R5 — spec-noi-dung §5 ✅, đúng thứ tự Figma 825:6592
+// R5 — spec-noi-dung §5 ✅, đúng thứ tự Figma 913:4756
 const ketQua = [
   'Không phải chấm công, quản lý',
   'Không phải tuyển thêm người',
@@ -68,11 +68,19 @@ const goi = [
 ];
 const ghiChuGia = 'Giá chưa gồm VAT. Gói nền gồm cổng gửi yêu cầu, một điều phối viên phụ trách riêng, kho hồ sơ số và báo cáo tháng. Một đơn vị công việc tương đương một đầu việc chuẩn khoảng 30 phút.';
 
-// R8 — chỉ câu 1 (✅ khớp hai nguồn, 🔒 câu bắt buộc giữ nguyên văn).
-//      3 mục còn lại CHỜ CHỐT: L12 (Cam kết hay câu hỏi thật).
+// R8 — spec-noi-dung §8 ✅ — 5 câu, khớp Figma 913:4830 (Thắng chốt L12 ngày 30/09).
+//      Câu 1 🔒 bắt buộc giữ nguyên văn (ranh giới BHXH, spec-noi-dung §10).
 const cauHoi = [
   { question: 'Dùng dịch vụ này thì doanh nghiệp có hết nghĩa vụ đóng BHXH không?',
     answer: 'Với nhân viên bạn đang trực tiếp sử dụng thì nghĩa vụ vẫn giữ nguyên. Cái bạn tiết kiệm được là không phải tuyển thêm người cho những việc BAIKA làm thay.' },
+  { question: 'Tôi có được chỉ đạo trực tiếp người làm không?',
+    answer: 'Bạn làm việc với điều phối viên và gửi yêu cầu qua cổng. BAIKA chọn người phù hợp và chịu trách nhiệm về kết quả, nhờ vậy dịch vụ không gián đoạn khi có người nghỉ.' },
+  { question: 'Dùng hết đơn vị công việc trong tháng thì sao?',
+    answer: 'BAIKA báo trước khi gần hết. Bạn mua thêm theo đơn giá của gói hoặc nâng gói từ tháng sau.' },
+  { question: 'Dữ liệu công ty tôi được giữ thế nào?',
+    answer: 'Hai bên ký cam kết bảo mật. Mỗi nhân sự chỉ truy cập phần dữ liệu cần cho việc mình làm, và mọi truy cập đều được ghi lại.' },
+  { question: 'Bao lâu thì bắt đầu được?',
+    answer: 'Trong 7 ngày làm việc sau khi ký hợp đồng.' },
 ];
 ---
 <ServicePageLayout
@@ -90,9 +98,10 @@ const cauHoi = [
     ctaHref="#uoc-tinh"
   />
 
-  {/* R2 — CHỜ: khối mới "Chi phí thật" (spec-giao-dien §3). Chữ còn lệch: L1 · L2 · L3 · L4. */}
+  {/* R2 — CHỜ: khối mới "Chi phí thật" (spec-giao-dien §3). Chữ đã chốt (L1–L4 theo Figma).
+      Còn chặn bởi Master §7 #10 (cỡ chữ «23,5») · #11 (khoảng 10px). */}
 
-  {/* R3 — tiêu đề TẠM theo mặc định component «BAIKA sẽ làm gì». CHỜ CHỐT: L5 */}
+  {/* R3 — tiêu đề «BAIKA sẽ làm gì» = mặc định của component, đúng Figma (L5 chốt 30/09). */}
   <StepsSection groups={baikaLamGi} />
 
   {/* R4 — CHỜ: khối mới "Công cụ ước tính" (spec-giao-dien §4). Chặn bởi Master §7 #4 #5 #6 #14.
@@ -102,7 +111,7 @@ const cauHoi = [
   {/* R5 — spec-noi-dung §5 ✅ */}
   <BenefitsSection items={ketQua} />
 
-  {/* R6 — CHỜ: khối mới "Bảng so sánh" (spec-giao-dien §5). Chữ còn lệch: L8 · L9 · L10. */}
+  {/* R6 — CHỜ: khối mới "Bảng so sánh" (spec-giao-dien §5). Chữ đã chốt (L8 · L9 · L10), dựng được. */}
 
   {/* R7 — spec-noi-dung §7 ✅ */}
   <PricingSection packages={goi} note={ghiChuGia} />
@@ -110,8 +119,8 @@ const cauHoi = [
   {/* R8 */}
   <FaqSection items={cauHoi} />
 
-  {/* R9 — nút form TẠM theo mặc định «Đăng ký rà soát». CHỜ CHỐT: L13.
+  {/* R9 — nút «Đặt lịch khảo sát» (L13 chốt 30/09, khớp Figma I913:4868;26:2449).
       Danh sách ô "Lĩnh vực" chưa có ở cả hai nguồn (Master §7 #12) → để trống.
-      Dòng pháp lý cuối trang CHỜ CHỐT: L14. */}
-  <ContactSection />
+      Dòng pháp lý cuối trang CHỜ CHỐT: L14 (đề xuất: dưới form, không vào Footer chung). */}
+  <ContactSection submitLabel="Đặt lịch khảo sát" />
 </ServicePageLayout>

@@ -11,7 +11,7 @@ Viết lại từ cách Claude đã dựng 7 trang dịch vụ + trang chủ (24
 | --- | --- |
 | Node **20.11+**, **pnpm** | `node -v` · `pnpm -v` |
 | Cài thư viện | `pnpm install` |
-| **Đọc được Figma** `YmcXg1lQqGVjQOFrVtdOgW` (Figma MCP hoặc Dev Mode) | Mở được node `825:6535`. **Không đọc được Figma thì dừng** — không dựng theo ảnh chụp hay trí nhớ |
+| **Đọc được Figma** `YmcXg1lQqGVjQOFrVtdOgW` (Figma MCP hoặc Dev Mode) | Mở được node `913:4649`. **Không đọc được Figma thì dừng** — không dựng theo ảnh chụp hay trí nhớ |
 | Đã đọc `/CLAUDE.md` + `SPEC-MASTER.md` | |
 
 ---
@@ -53,7 +53,7 @@ Kiểm trước khi báo Thắng push: `git log --format='%an <%ae>' -1` phải 
 - `git status` → đọc → `git add` **từng file**. **Không** `git add -A` / `git add .` khi chưa đọc danh sách.
 - **Không** commit `.env`, `Claude outputs/`, ảnh chụp, file tạm.
 - **Không** `git push --force`. Không viết lại lịch sử đã đẩy.
-- Lời commit ngắn, nói đổi gì: `Remote Office: khoi so sanh theo Figma 825:6629`.
+- Lời commit ngắn, nói đổi gì: `Remote Office: khoi so sanh theo Figma 922:3801`.
 
 ### 3.3 Nhánh — **[suy luận — đề xuất, Thắng chốt]**
 

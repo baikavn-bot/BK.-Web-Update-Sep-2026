@@ -40,11 +40,14 @@ interface Props {
   linhVuc?: string[];
   /** Hiện cụm mạng xã hội. Mặc định TẮT (Thắng chốt 26/09). */
   hienSocial?: boolean;
+  /** Chữ nút gửi. Bỏ trống = «Đăng ký rà soát» (7 trang dịch vụ). */
+  submitLabel?: string;
 }
 const {
   heading = 'Liên hệ',
   linhVuc = [],
   hienSocial = false,
+  submitLabel,
   socials = [
     { label: 'Facebook',  href: undefined },
     { label: 'Instagram', href: undefined },
@@ -76,7 +79,7 @@ const {
   </div>
 
   <div class="lh__phai">
-    <ContactForm variant="dich-vu" linhVucOptions={linhVuc} />
+    <ContactForm variant="dich-vu" linhVucOptions={linhVuc} submitLabel={submitLabel} />
   </div>
 </section>
 

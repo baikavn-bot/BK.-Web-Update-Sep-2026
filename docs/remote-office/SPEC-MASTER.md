@@ -32,7 +32,7 @@ Trang phải làm được hai việc: **nói rõ khách tiết kiệm bao nhiê
 | --- | --- |
 | Domain | `baika.website` — gắn vào **cùng dự án Vercel** với `baika.vn` bằng rewrite *(chưa chạy thử — xem `quy-trinh-build.md` §5)* |
 | Đường dẫn trong repo | `src/pages/remote-office.astro` *(đề xuất — [suy luận])* |
-| Figma | [`YmcXg1lQqGVjQOFrVtdOgW` → frame `Remote office` `825:6535`](https://www.figma.com/design/YmcXg1lQqGVjQOFrVtdOgW/Baika-Design-system?node-id=825-6535) — **chỉ có Desktop 1280** |
+| Figma | [`YmcXg1lQqGVjQOFrVtdOgW` → frame `Remote office` `913:4649`](https://www.figma.com/design/YmcXg1lQqGVjQOFrVtdOgW/Baika-Design-system?node-id=913-4649) — **chỉ có Desktop 1280**. ⚠️ Không dựng theo `825:6072` (bản vẽ cũ) |
 | Khác 7 trang dịch vụ | Có **công cụ ước tính** tính trên trang · có **bảng so sánh** · là trang bán **một sản phẩm** |
 | Giống 7 trang dịch vụ | Hero · BAIKA sẽ làm gì · Bạn sẽ nhận được gì · Các gói · FAQ · Liên hệ · Header · Footer — **dùng lại nguyên component có sẵn** |
 
@@ -84,13 +84,13 @@ Bố cục / token / component lệch giữa Figma và `spec-giao-dien.md` → *
 | Trước đây gọi là | Nghĩa cũ | Giờ là |
 | --- | --- | --- |
 | **"Spec A"** | Bản **cũ**: spec v3 + v3.1 (25/09) trong repo `baikavn-bot/remote-office-Sep-2026` + Figma riêng `EXoNVzx2MrGbL7oPkpzZbD` | Phần **nội dung** còn hiệu lực → `spec-noi-dung.md`. Phần bố cục → **bị thay** |
-| **"Spec B"** | Bản **mới**: frame `825:6535` trong Figma design system, Thắng vẽ sau | → `spec-giao-dien.md` |
+| **"Spec B"** | Bản **mới**: frame `825:6535` (nay `913:4649`) trong Figma design system, Thắng vẽ sau | → `spec-giao-dien.md` |
 
 **Những gì của bản cũ KHÔNG còn dùng:**
 
 | Thứ | Trạng thái |
 | --- | --- |
-| Figma riêng `EXoNVzx2MrGbL7oPkpzZbD` (bố cục 12 section, component riêng) | ⛔ **Bị thay** bởi frame `825:6535` |
+| Figma riêng `EXoNVzx2MrGbL7oPkpzZbD` (bố cục 12 section, component riêng) | ⛔ **Bị thay** bởi frame `913:4649` |
 | Bản UI Navy `#0B2545` / Cyan `#22C4DE` / font Spectral (21–25/09) | ⛔ **Đã huỷ** — kể cả phần đầu file `noi-dung/noi-dung-trang-web.md` của repo cũ còn ghi màu này |
 | Thư mục `web/` của repo cũ (HTML thử) | ⛔ **Không dùng** làm mẫu code |
 | Hệ chuyển động (v3.1) · luồng "Tạo yêu cầu tư vấn" 4 bước + tải tệp · Tablet/Mobile của bản cũ | ⏸ **Ngoài phạm vi v1**, trừ khi Thắng chốt đưa vào |
@@ -101,7 +101,7 @@ Bố cục / token / component lệch giữa Figma và `spec-giao-dien.md` → *
 
 | Trong v1 | Ngoài v1 |
 | --- | --- |
-| Trang Remote Office **Desktop** theo Figma `825:6535` | Luồng yêu cầu 4 bước + tải tệp |
+| Trang Remote Office **Desktop** theo Figma `913:4649` | Luồng yêu cầu 4 bước + tải tệp |
 | Công cụ ước tính chạy trên trang | Hệ chuyển động riêng |
 | Form Liên hệ dùng lại `ContactSection` + `api/contact.ts` hiện có | Mọi thứ thuộc backend: lưu dữ liệu, agent, theo dõi hành vi *(luồng F — **không** đưa vào repo này)* |
 | Gắn domain `baika.website` | Tablet / Mobile — **chờ quyết**, xem §7 #9 |
@@ -114,18 +114,18 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 
 | # | Câu hỏi | Chặn phần nào |
 | --- | --- | --- |
-| 1 | ✅ **ĐÃ CHỐT 29/09 — Màu trụ riêng cho Remote Office:** `--dam` `#2E4716` · `--trung` `#58832C` *(Thắng đưa)* · `--nhat` `#B6D79B` *(Claude đề xuất theo quy luật 7 trụ, Thắng duyệt)*. Figma: biến `Colors/Page/Remote Office/*` + mode **"Remote Office"** trong bộ biến `Trụ`, frame `825:6535` đã chuyển sang mode này | — |
+| 1 | ✅ **ĐÃ CHỐT 29/09 — Màu trụ riêng cho Remote Office:** `--dam` `#2E4716` · `--trung` `#58832C` *(Thắng đưa)* · `--nhat` `#B6D79B` *(Claude đề xuất theo quy luật 7 trụ, Thắng duyệt)*. Figma: biến `Colors/Page/Remote Office/*` + mode **"Remote Office"** trong bộ biến `Trụ`, frame Remote Office (nay là `913:4649`) đã chuyển sang mode này | — |
 | 2 | ✅ **ĐÃ CHỐT 29/09 — Giá công khai**, đặt **thay vào nhãn nhỏ phía trên tên gói** (chỗ đang ghi «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ»). Figma chưa cập nhật chữ | — |
 | 3 | ✅ **ĐÃ CHỐT 29/09 — Giá:** 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, viết dạng «4.900.000 đ/tháng» · **có** dòng «Giá chưa gồm VAT…» dưới khối gói. Figma đã cập nhật | — |
 | 4 | **Ô "Nhóm công việc"** hiện "3 nhóm việc" nhưng danh sách mở ra là 7 dòng chữ mẫu giống nhau. Chọn **số nhóm** hay chọn **từng nhóm** (bản cũ: 8 ô tick)? Có mấy lựa chọn? | Ước tính |
 | 5 | **Con số 1.800.000** trong công thức — giả định từ spec cũ, chưa xác nhận | Ước tính |
 | 6 | **Nút "Gửi yêu cầu theo ước tính này"** dẫn đi đâu: cuộn xuống form và điền sẵn số ước tính, hay chỉ cuộn xuống? | Ước tính · Liên hệ |
-| 7 | **Khối "Cam kết"** của bản cũ bị gộp vào FAQ và mất ô *"Cam kết bằng hợp đồng"*. Khôi phục khối riêng, hay giữ như Figma? Bổ sung 4 câu FAQ của bản cũ không? | FAQ |
-| 8 | **Chữ lệch giữa Figma và nội dung** — danh sách ở `spec-noi-dung.md` §12 | Từng chỗ |
+| 7 | ✅ **ĐÃ CHỐT 30/09 (L12)** — FAQ 5 câu theo spec cũ; **không** dựng khối Cam kết riêng | — |
+| 8 | ✅ **ĐÃ CHỐT 30/09 — L1–L13** (`spec-noi-dung.md` §12). **Còn `L14`**: dòng pháp lý — đặt ở đâu | Liên hệ |
 | 9 | **Tablet / Mobile** — Figma chưa vẽ. Có đề xuất ở `spec-giao-dien.md` §7, **chưa duyệt** | Responsive |
 | 10 | **Cỡ chữ số lớn "23,5"** — Figma vẽ 100px (ngoài thang, `display-1` = 80) | Khối chi phí |
 | 11 | **Khoảng `10px`** trong stepper và `Table Item` — ngoài thang spacing (thang có 8 · 12) | Ước tính · So sánh |
-| 12 | **Form Liên hệ**: nút ghi "Đăng ký rà soát" (Figma) hay "Đặt lịch khảo sát" (spec cũ)? Danh sách ô "Lĩnh vực" cho trang này là gì? | Liên hệ |
+| 12 | **Form Liên hệ**: ~~nút~~ ✅ «Đặt lịch khảo sát» (L13, 30/09). **Còn:** danh sách ô "Lĩnh vực" cho trang này là gì? | Liên hệ |
 | 13 | **Menu**: trang này có mục trong menu `baika.vn` không, hay chỉ vào từ ô bento trang chủ? | Header |
 | 14 | **Luật chọn gói của công cụ ước tính** — luật cũ (theo số nhóm) hay luật mới (theo cả số người lẫn số nhóm)? Kèm: giới hạn số người 1–5 hay 1–4 + "Báo giá riêng" · có thêm mức «Chưa tới 1 người» không. **Đổi con số hiện ra với khách → sếp duyệt.** Chi tiết `spec-noi-dung.md` §4.2 | Ước tính |
 
@@ -152,6 +152,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | --- | --- | --- |
 | 29/09/2026 | Claude (phiên với Thắng) | Lập bộ spec: Master · Nội dung · Giao diện · Quy trình. Chốt luật lệch C và luật đồng bộ |
 | 30/09/2026 | Claude (phiên với Thắng) | Dựng lần 1 trên nhánh `remote-office` (6 khối dùng lại). Trang đặt `noindex`, chưa gắn domain. Chữ TẠM ở tiêu đề R3 (`L5`) và nút form R9 (`L13`) — ghi rõ trong code |
+| 01/10/2026 | Claude (phiên với Thắng) | Thắng chốt **L1–L13** → Figma, code (FAQ 5 câu, nút «Đặt lịch khảo sát» qua prop `submitLabel`) và spec sửa cùng commit. Node ID chuyển sang frame `913:4649`. Ghi thêm lỗi Figma #11–#13 (`spec-giao-dien.md` §8) |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #3 con số giá + dòng VAT. Figma: nhãn nhỏ thẻ gói → giá, thêm chú thích giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #1 màu trụ + #2 giá công khai. Tạo biến + mode màu trong Figma. #3 đổi thành câu xác nhận con số giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Gộp `claude/remote-office-cong-thuc-uoc-tinh.md` (project Claude) vào §4 `spec-noi-dung.md` và §4 `spec-giao-dien.md`. Thêm câu hỏi #14. **Từ nay bản trong repo là bản chính** |

@@ -66,8 +66,15 @@ interface Props {
    *    Bỏ trống thì ô vẫn hiện nhưng chỉ có dòng gợi ý. Cần Thắng cung cấp.
    */
   linhVucOptions?: string[];
+  /**
+   * Chữ trên nút gửi của dạng `dich-vu`. Mặc định «Đăng ký rà soát» cho 7
+   * trang dịch vụ. Trang Remote Office truyền «Đặt lịch khảo sát» (Thắng
+   * chốt 30/09, L13 — docs/remote-office/spec-noi-dung.md §12).
+   * Đoạn JS "Đang gửi…" tự nhớ chữ gốc nên đổi chữ ở đây là đủ.
+   */
+  submitLabel?: string;
 }
-const { variant = 'lien-he', linhVucOptions = [] } = Astro.props;
+const { variant = 'lien-he', linhVucOptions = [], submitLabel = 'Đăng ký rà soát' } = Astro.props;
 
 const laDichVu = variant === 'dich-vu';
 ---
@@ -120,7 +127,7 @@ const laDichVu = variant === 'dich-vu';
                 ⚠️ Button2 mặc định type="button" → PHẢI truyền "submit",
                 thiếu là bấm nút không gửi form. */}
             {laDichVu
-              ? <Button2 label="Đăng ký rà soát" type="submit" size="md" iconLeft={false} iconRight={false} />
+              ? <Button2 label={submitLabel} type="submit" size="md" iconLeft={false} iconRight={false} />
               : <Button label="liên hệ" />}
           </div>
         </form>

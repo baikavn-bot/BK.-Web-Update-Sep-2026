@@ -2,9 +2,12 @@
 
 **Trạng thái:** `DRAFT` — chờ Thắng duyệt · Lập 29/09/2026
 **Quyền:** file này quyết **bố cục · token · component · trạng thái · hành vi · responsive** (xem `SPEC-MASTER.md` §2). Lệch với Figma → **Figma thắng**, rồi sửa file này cùng commit.
-**Nguồn:** Figma `YmcXg1lQqGVjQOFrVtdOgW`, frame `Remote office` `825:6535` (1280 × 7985, **chỉ Desktop**) — đọc trực tiếp ngày 29/09 **[xác minh]**.
+**Nguồn:** Figma `YmcXg1lQqGVjQOFrVtdOgW`, frame `Remote office` **`913:4649`** (1280 × 8391, **chỉ Desktop**, nằm trong section `Desktop` của page `UI`) — đọc trực tiếp ngày 01/10 **[xác minh]**.
 
-> Mở Figma: <https://www.figma.com/design/YmcXg1lQqGVjQOFrVtdOgW/Baika-Design-system?node-id=825-6535>
+> ⚠️ **Frame cũ `825:6535` không còn** — 30/09 Thắng nhân bản sang `913:4649`, mọi node ID đổi theo. Node `825:…` trong các bản trước của file này là ID cũ.
+> ⚠️ **Đừng nhầm với `825:6072` `Remote Office / Desktop 1280`** — bản vẽ cũ theo khung spec v3 (có khối "Cam kết" riêng, tiêu đề «BAIKA làm thay tám nhóm việc»…), vẫn nằm trên page `UI`. **Không dựng theo nó.**
+
+> Mở Figma: <https://www.figma.com/design/YmcXg1lQqGVjQOFrVtdOgW/Baika-Design-system?node-id=913-4649>
 > Component ở page `Component` `660:2939` · trang ở page `UI` `191:812`. Node ID ghi trong file này **có thể đổi** nếu Thắng xoá rồi vẽ lại — trước khi dựng, mở đúng node để kiểm.
 
 Tên token dưới đây là tên CSS trong `src/styles/tokens.css` (vd. `--s-20` = 80px). **Không có token mới.**
@@ -17,15 +20,15 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 | # | Frame Figma | Khối | Code | Ghi chú |
 | --- | --- | --- | --- | --- |
-| R1 | `Herro` `825:6536` | Hero | **Dùng lại** `HeroSection.astro` — `title="Remote Office"` · `tagline` · `lead` · `ctaLabel` · `ctaHref="#uoc-tinh"` | Giống hệt hero 7 trang (Milkyway · Planet · chữ cong · quầng sáng). Nút trong Figma để `State=Hover` — dựng theo `Normal` |
-| R2 | `Solution` `825:6548` | Chi phí thật | 🆕 **Dựng mới** — §3 | **Không** dùng `SolutionSection.astro` (đó là 3 thẻ vấn đề của 7 trang) |
-| R3 | `Baika sẽ làm gì` `825:6556` | BAIKA sẽ làm gì | **Dùng lại** `StepsSection.astro` — 4 cụm × 2 mục | Component Figma `Detail Step Item` |
-| R4 | `Ước tính khoản lệch` `834:7508` | Công cụ ước tính | 🆕 **Dựng mới** — §4 | Khối duy nhất trên site có tính toán |
-| R5 | `Bạn sẽ nhận được gì` `825:6592` | Bạn sẽ nhận được gì | **Dùng lại** `BenefitsSection.astro` — đúng 6 ý | Figma: 6 × `Solution planet` `794:3117` |
-| R6 | `Gói dịch vụ` `825:6629` ⚠️ *tên sai* | Bảng so sánh | 🆕 **Dựng mới** — §5 | |
-| R7 | `Gói dịch vụ` `842:7714` | Các gói | **Dùng lại** `PricingSection.astro` — 3 gói, gói giữa `featured` | Figma: thẻ giữa `State=Focus` = thẻ nổi bật, giống trang CEO |
-| R8 | `FAQ` `825:6635` | FAQ | **Dùng lại** `FaqSection.astro` — 4 mục, mục 1 mở sẵn | |
-| R9 | `Contact` `825:6643` | Liên hệ | **Dùng lại** `ContactSection.astro` + `api/contact.ts` | Danh sách `linhVuc` chờ chốt |
+| R1 | `Herro` `913:4650` | Hero | **Dùng lại** `HeroSection.astro` — `title="Remote Office"` · `tagline` · `lead` · `ctaLabel` · `ctaHref="#uoc-tinh"` | Giống hệt hero 7 trang (Milkyway · Planet · chữ cong · quầng sáng). Nút trong Figma để `State=Hover` — dựng theo `Normal` |
+| R2 | `Solution` `923:4219` | Chi phí thật | 🆕 **Dựng mới** — §3 | **Không** dùng `SolutionSection.astro` (đó là 3 thẻ vấn đề của 7 trang) |
+| R3 | `Baika sẽ làm gì` `913:4679` | BAIKA sẽ làm gì | **Dùng lại** `StepsSection.astro` — 4 cụm × 2 mục | Component Figma `Detail Step Item` |
+| R4 | `Ước tính khoản lệch` `913:4711` | Công cụ ước tính | 🆕 **Dựng mới** — §4 | Khối duy nhất trên site có tính toán |
+| R5 | `Bạn sẽ nhận được gì` `913:4756` | Bạn sẽ nhận được gì | **Dùng lại** `BenefitsSection.astro` — đúng 6 ý | Figma: 6 × `Solution planet` `794:3117` |
+| R6 | `Gói dịch vụ` `922:3801` ⚠️ *tên sai* | Bảng so sánh | 🆕 **Dựng mới** — §5 | |
+| R7 | `Gói dịch vụ` `913:4823` | Các gói | **Dùng lại** `PricingSection.astro` — 3 gói, gói giữa `featured`, prop `note` | Figma: thẻ giữa `State=Focus` = thẻ nổi bật, giống trang CEO |
+| R8 | `FAQ` `913:4830` | FAQ | **Dùng lại** `FaqSection.astro` — **5 mục**, mục 1 mở sẵn | Thắng chốt L12 ngày 30/09 |
+| R9 | `Contact` `913:4838` | Liên hệ | **Dùng lại** `ContactSection.astro` + `api/contact.ts` — `submitLabel="Đặt lịch khảo sát"` | Danh sách `linhVuc` chờ chốt |
 
 **Khác 7 trang về thứ tự:** không có khối "Bạn có đang gặp vấn đề này?" — R2 đứng vào chỗ đó.
 
@@ -38,11 +41,11 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 | Figma | Node | Page | Trục variant | Dùng ở |
 | --- | --- | --- | --- | --- |
-| `Data` | `834:7502` | `Component` | `Property 1` = `Cost row` · `Total` | R2 (5 dòng) |
-| `Table Item` | `842:7837` | ⚠️ **`UI`** *(nên ở `Component`)* | `Property 1` = `Head·Body·Foot` × `Type` = `Default·Light` | R4 (8 ô) · R6 (20 ô) |
+| `Data` | `834:7502` | `Component` | `State` = `Cost row` · `Total` × `Type` = `Desktop` (682 rộng) · `Mobile` (327 rộng) *(đổi 30/09)* | R2 (5 dòng) |
+| `Table Item` | `842:7837` | `Component` *(đã chuyển 30/09)* | `Property 1` = `Head·Body·Foot` × `Type` = `Default·Light` | R4 (8 ô) · R6 (20 ô) |
 | `Find Job` | `854:8113` | `Component` | `Property 1` = `Default` *(đóng)* · `Variant2` *(mở)* | R4 |
 
-**`Data`** — một dòng số liệu. Rộng 700 · ngang · padding `var(--s-4)` / `var(--s-2)` · canh hai đầu · viền dưới 1px `var(--gray-600)`.
+**`Data`** — một dòng số liệu. Rộng theo cột chứa · ngang · padding `var(--s-4)` / `var(--s-2)` · canh hai đầu · viền dưới 1px `var(--gray-600)`.
 
 | Variant | Nhãn | Giá trị | Nền |
 | --- | --- | --- | --- |
@@ -63,33 +66,33 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 ---
 
-## 3. R2 — Chi phí thật (`825:6548`)
+## 3. R2 — Chi phí thật (`923:4219`) *(Thắng vẽ lại 30/09 — đọc lại 01/10)*
 
 ```
-<section>  1280 × 602 · dọc · gap var(--s-20) · padding var(--s-20) var(--s-10)
+<section>  1280 × 717 · dọc · gap var(--s-10) · padding var(--s-20) var(--s-6)
 ├─ <h2> H-1 · --gray-50
-└─ hàng ngang · gap var(--s-10)
-   ├─ TRÁI 560 × 325
-   │   ├─ số lớn "23,5" + "%" · "Bảo hiểm" · "Công đoàn"
-   │   └─ đoạn giải thích (rộng 470)
-   └─ PHẢI 600 × 325 · dọc · gap var(--s-3) · CANH ĐÁY
+└─ hàng ngang 1232 · gap var(--s-10)
+   ├─ TRÁI 596 · dọc · gap 140 ⏸ · padding var(--s-4) 0
+   │   ├─ đoạn «Hợp đồng mang tên cộng tác…» (Cost Note)
+   │   └─ cụm số lớn "23,5" + "%" · "Bảo hiểm" · "Công đoàn"
+   └─ PHẢI 596 · dọc · gap var(--s-3)
        ├─ Data {Cost row} × 4
-       └─ Data {Total}   × 1
+       ├─ Data {Total}   × 1
+       └─ chú thích caption · --gray-50 «Số liệu minh hoạ…» (L1)
 ```
 
 **Luật:**
 
 1. Bảng chi phí là dữ liệu tĩnh → dựng bằng `<dl>` hoặc `<table>`, **không JS**.
-2. Dòng `Total` luôn **cuối cùng**, chỉ **một** dòng `Total`.
-3. Cột phải canh đáy để dòng `Total` thẳng hàng với đáy cột trái.
-4. ⚠️ Số lớn "23,5" trong Figma: cỡ **100px** (ngoài thang) và màu **`#FFFFFF` thô**; chữ "%", "Bảo hiểm", "Công đoàn" cũng `#FFFFFF` thô. Code: màu `var(--gray-50)`; **cỡ chữ chờ chốt** (Master §7 #10). Cả cột trái còn đang lệch nội dung (`spec-noi-dung.md` `L2`).
+2. Dòng `Total` luôn **cuối cùng**, chỉ **một** dòng `Total`. Chú thích L1 nằm **dưới** dòng `Total`.
+3. ⚠️ Số lớn "23,5" trong Figma: cỡ **100px** (ngoài thang) và màu **`#FFFFFF` thô**; chữ "%" (24px, không style) · "Bảo hiểm" · "Công đoàn" (H-3) cũng `#FFFFFF` thô. Code: màu `var(--gray-50)`; **cỡ chữ chờ chốt** (Master §7 #10).
+4. ⚠️ Khoảng cách dọc cột trái **140** — ngoài thang `--s-*`. Chờ chốt cùng #10.
+5. ⚠️ 5 dòng `Data` trên frame **Desktop** đang dùng variant **`Type=Mobile`** (bị kéo giãn ra 596). Nếu Desktop phải dùng `Type=Desktop` thì đổi trong Figma — code dựng một dòng co giãn theo cột, không phân biệt hai variant.
 
----
-
-## 4. R4 — Công cụ ước tính (`834:7508`)
+## 4. R4 — Công cụ ước tính (`913:4711`)
 
 ```
-<section id="uoc-tinh">  1280 × 924 · dọc · gap var(--s-20) · padding var(--s-24) var(--s-10)
+<section id="uoc-tinh">  1280 × 986 · dọc · gap var(--s-20) · padding var(--s-24) var(--s-10)
 ├─ <h2> H-1
 └─ hàng ngang
    ├─ TRÁI — đầu vào  532 × 208 · dọc · gap var(--s-1) · padding var(--s-4)
@@ -107,7 +110,10 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
        │   ├─ quy ra năm H-3
        │   └─ chú thích  caption    (luôn hiện)
        └─ Button 2 {Normal, Lg} 500 × 46
+   (dưới bảng kết quả: chú thích công thức `924:4523` — L7, caption)
 ```
+
+⚠️ Khung `Difference Estimate Container` `913:4713` **không dùng auto-layout** (cao cố định). Thêm chú thích L7 làm nút gửi bị đẩy ra ngoài khung → 30/09 Claude nới 615 → 677. Lần sau thêm chữ lại tràn — **nên chuyển khung sang auto-layout** (Figma §8 #11).
 
 **Stepper** — ⚠️ vẽ tay trong Figma, **chưa phải component**: 300 × 56 · nền `var(--opacity-white)` · padding `var(--s-4)` / 10 ⏸ · gap 10 ⏸ · số chữ `H-3` · icon `chevron-left` / `chevron-right`.
 
@@ -146,15 +152,16 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 ---
 
-## 5. R6 — Bảng so sánh (`825:6629`)
+## 5. R6 — Bảng so sánh (`922:3801`) *(khung mới 30/09)*
 
 ```
-<section>  1280 × 681 · dọc · gap var(--s-10) · padding var(--s-20) var(--s-10)
-├─ <h2> H-1
-└─ <table> 1200 · gap giữa hàng var(--s-1)
-   ├─ hàng đầu 1200 × 60 · 2 ô canh PHẢI: Head Default | Head Light
-   └─ 6 hàng × 3 ô 400: Body Default (nhãn) | Body Default | Body Light
-      (ô cuối cột BAIKA ở hàng cuối = Foot Light)
+<section>  1280 × 738 · dọc · gap var(--s-10) · padding var(--s-20) var(--s-10)
+├─ <h2> H-1 «Tuyển thêm người hay giao cho BAIKA?»
+├─ <table> 1200 · Figma dùng GRID 7 hàng × 3 cột bằng nhau · gap hàng var(--s-1) · gap cột 0
+│  ├─ hàng đầu: ô góc trống | Head Default «Tuyển thêm nhân viên» | Head Light «BAIKA Remote Office»
+│  └─ 6 hàng × 3 ô 400: Body Default (nhãn) | Body Default | Body Light
+│     (ô cuối cột BAIKA ở hàng cuối = Foot Light)
+└─ chú thích caption `924:4524` — L10, rộng 1200
 ```
 
 **Luật:**
@@ -173,8 +180,8 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | Khối | Điều cần nhớ |
 | --- | --- |
 | `PricingSection` | ✅ Giá đặt **vào ô nhãn nhỏ** (`eyebrow`) có sẵn — Thắng chốt 29/09, không sửa thẻ gói. Dòng chú thích VAT: **thêm prop `note`** (30/09) — bỏ trống thì không hiện, nên 7 trang không đổi (đã so ảnh chụp từng pixel: giống hệt) |
-| `FaqSection` | Component ghi "đúng 4 câu". Nếu Thắng chốt thêm câu (Master §7 #7) → kiểm component chịu được 5+ câu |
-| `ContactSection` | Nút form đang dùng chung chữ cho mọi trang. Đổi riêng cho trang này (Master §7 #12) → thêm prop, **không** sửa chữ chung |
+| `FaqSection` | ✅ 5 câu (L12, 30/09). Component nhận mảng bất kỳ độ dài — đã chụp kiểm 01/10 |
+| `ContactSection` | ✅ Thêm prop `submitLabel` (01/10) — trang này truyền «Đặt lịch khảo sát» (L13). Bỏ trống = «Đăng ký rà soát», 7 trang không đổi (đã so ảnh chụp từng pixel) |
 | Mọi khối dùng lại | **Không sửa component chung để vừa trang này** mà không kiểm lại 7 trang dịch vụ + trang chủ (`quy-trinh-build.md` §4) |
 
 ---
@@ -196,16 +203,19 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 
 | # | Chỗ | Vấn đề | Đề nghị |
 | --- | --- | --- | --- |
-| 1 | `Table Item` `842:7837` | Nằm ở page `UI`, trái luật "component chỉ ở page `Component`" | Chuyển page — ID không đổi |
-| 2 | `Data` · `Table Item` · `Find Job` | Tên trục `Property 1`; giá trị `Variant2` | `Type` · `Row` · `State = Close·Open` |
+| 1 | ~~`Table Item` `842:7837` nằm ở page `UI`~~ | ✅ **Đã chuyển** sang page `Component` (30/09) | — |
+| 2 | `Table Item` · `Find Job` | Tên trục `Property 1`; giá trị `Variant2` *(`Data` đã sửa 30/09: `State` × `Type`)* | `Row` · `State = Close·Open` |
 | 3 | `Find Job` | Chỉ có đóng/mở, thiếu `Hover` · `Focus` · dòng **đang chọn** | Bổ sung |
 | 4 | Stepper R4 | Vẽ tay, không phải component, thiếu trạng thái | Tạo component `Stepper` |
 | 5 | Nút CTA hero — **mọi trang** | Instance để `State=Hover` | Về `Normal` |
-| 6 | Frame `825:6629` | Tên "Gói dịch vụ" trùng `842:7714` | → `So sánh` |
+| 6 | Frame `922:3801` | Tên "Gói dịch vụ" trùng `913:4823` | → `So sánh` |
 | 7 | Frame hero — **mọi trang** | Tên "Herro" | → `Hero` |
-| 8 | ~~Frame `825:6535` — mode màu trụ = "Đào tạo CEO"~~ | ✅ **Đã sửa 29/09** — chuyển sang mode "Remote Office"; 4 lớp gradient đang gắn thẳng vào biến màu CEO đã gắn lại vào biến `Trụ` | — |
+| 8 | ~~Frame Remote Office — mode màu trụ = "Đào tạo CEO"~~ | ✅ **Đã sửa 29/09** — chuyển sang mode "Remote Office"; 4 lớp gradient đang gắn thẳng vào biến màu CEO đã gắn lại vào biến `Trụ` | — |
 | 10 | ~~Thẻ gói R7 — nhãn nhỏ ghi «Kiểm tra» · «Hệ thống hóa» · «Hỗ trợ»~~ | ✅ **Đã sửa 29/09** — thay bằng giá | — |
-| 9 | R2 cột trái | `#FFFFFF` thô · cỡ chữ 100 | Về `--gray-50` · cỡ theo Master §7 #10 |
+| 9 | R2 cột trái | `#FFFFFF` thô · cỡ chữ 100 · gap 140 | Về `--gray-50` · cỡ theo Master §7 #10 |
+| 11 | `913:4713` khung công cụ ước tính | Không auto-layout, cao cố định — thêm chữ là tràn | Chuyển sang auto-layout dọc |
+| 12 | R2 — 5 dòng `Data` | Frame Desktop dùng variant `Type=Mobile` | Đổi sang `Type=Desktop` nếu đó là ý định |
+| 13 | `825:6072` `Remote Office / Desktop 1280` | Bản vẽ cũ theo spec v3 vẫn nằm trên page `UI` cạnh bản đúng → agent dễ đọc nhầm | Xoá, hoặc đổi tên thêm `(CŨ — không dựng)` |
 
 ---
 
@@ -213,8 +223,11 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
-| 29/09/2026 | `825:6535` | Đọc lần đầu để lập spec | — | — |
-| 30/09/2026 | — | **Dựng lần 1** trên nhánh `remote-office`: `src/pages/remote-office.astro` — R1 · R3 · R5 · R7 · R8 (chỉ câu 1) · R9. R2 · R4 · R6 chưa dựng. Thêm 3 biến `--page-remote-office-*` vào `tokens.css` (đúng giá trị Figma `904:2–4`) · `pillar='remote-office'` · prop `noindex` (BaseLayout, ServicePageLayout) · prop `note` (PricingSection) | Có | nhánh `remote-office` |
+| 01/10/2026 | `913:4649` | Đọc lại cả frame: R2 đã vẽ lại (`923:4219`, xem §3) · `Data` đổi trục `State` × `Type` · `Table Item` chuyển page `Component` | §1–§5 cập nhật | commit này |
+| 30/09/2026 | `913:4649` | **Claude sửa theo L1–L13 Thắng chốt:** `913:4726` «Lương dự kiến» → «Lương mỗi người» (L6) · `922:3802` → «Tuyển thêm người hay giao cho BAIKA?» (L8) · đầu cột `I922:3804;842:7816` → «Tuyển thêm nhân viên» (L9) · nút form `I913:4868;26:2449` → «Đặt lịch khảo sát» (L13) · FAQ `913:4835–4837` viết lại + nhân bản mục 5 `924:3515` = 5 câu spec (L12) · thêm `924:4523` chú thích công thức dưới bảng ước tính (L7) · thêm `924:4524` chú thích dưới bảng so sánh (L10) · nới `913:4713` 615 → 677 cho nút gửi khỏi tràn | Có (FAQ, nút form) · R4/R6 chưa dựng | commit này |
+| 30/09/2026 | `913:4649` | **Thắng:** nhân bản frame `825:6535` → `913:4649` (mọi node ID đổi) · thêm chú thích L1 «Số liệu minh hoạ cho một vị trí lương 10 triệu, con số thực tế tuỳ từng doanh nghiệp.» dưới bảng chi phí. Cùng ngày, R2 thành frame mới `923:4219` và bảng so sánh `922:3801` dùng GRID *(thấy khi đọc 01/10 — không rõ ai sửa, Thắng xác nhận)* | — | commit này |
+| 29/09/2026 | `825:6535` | Đọc lần đầu để lập spec *(frame này không còn)* | — | — |
+| 30/09/2026 | — | **Dựng lần 1** trên nhánh `remote-office`: `src/pages/remote-office.astro` — R1 · R3 · R5 · R7 · R8 (chỉ câu 1 — đủ 5 câu ở lượt 01/10) · R9. R2 · R4 · R6 chưa dựng. Thêm 3 biến `--page-remote-office-*` vào `tokens.css` (đúng giá trị Figma `904:2–4`) · `pillar='remote-office'` · prop `noindex` (BaseLayout, ServicePageLayout) · prop `note` (PricingSection) | Có | nhánh `remote-office` |
 | 29/09/2026 | Bộ biến | Tạo `Colors/Page/Remote Office/--dam · --trung · --nhat` (`904:2–4`) + mode "Remote Office" (`904:0`) trong bộ `Trụ` | Chưa dựng trang | commit spec này |
 | 29/09/2026 | `842:7714` | Nhãn nhỏ 3 thẻ gói → «4.900.000 đ/tháng» · «9.900.000 đ/tháng» · «19.900.000 đ/tháng». Thêm text `Chú thích giá` `905:3394` dưới lưới gói — style `caption`, màu `--gray-50`. Section cao 685 → 742 (frame tự giãn, auto-layout) | Chưa dựng trang | commit spec này |
 | 29/09/2026 | `825:6535` | Chuyển mode `Trụ` "Đào tạo CEO" → "Remote Office". Gắn lại 4 gradient (`825:6591` · `825:6593` · `825:6636` · `825:6644`) từ biến màu CEO sang `--tru-trung` / `--tru-nhat` | Chưa dựng trang | commit spec này |
