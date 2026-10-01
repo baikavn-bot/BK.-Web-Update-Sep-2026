@@ -185,7 +185,7 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 
 **Đầu cột** ✅ «Tuyển thêm nhân viên» *(`L9`)* · «BAIKA Remote Office»
 
-**6 hàng** ✅
+**6 hàng** ✅ *(code: `soSanh` trong `src/pages/remote-office.astro`, dựng 01/10)*
 
 | Tiêu chí | Tự tuyển | BAIKA |
 | --- | --- | --- |

@@ -128,7 +128,9 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 12 | **Form Liên hệ**: ~~nút~~ ✅ «Đặt lịch khảo sát» (L13, 30/09). **Còn:** danh sách ô "Lĩnh vực" cho trang này là gì? | Liên hệ |
 | 13 | **Menu**: trang này có mục trong menu `baika.vn` không, hay chỉ vào từ ô bento trang chủ? | Header |
 | 14 | **Luật chọn gói của công cụ ước tính** — luật cũ (theo số nhóm) hay luật mới (theo cả số người lẫn số nhóm)? Kèm: giới hạn số người 1–5 hay 1–4 + "Báo giá riêng" · có thêm mức «Chưa tới 1 người» không. **Đổi con số hiện ra với khách → sếp duyệt.** Chi tiết `spec-noi-dung.md` §4.2 | Ước tính |
-| 15 | **`D1` — Bảng so sánh tablet/mobile bỏ cột tiêu chí** («Chi phí mỗi tháng», «Bảo hiểm, công đoàn»…). Claude đã vẽ đề xuất 01/10 (section `933:3543`): tablet giữ 3 cột · mobile mỗi tiêu chí một khối. Thắng đánh giá rồi chốt | So sánh |
+| 15 | ✅ **ĐÃ CHỐT 01/10 — `D1` = (a)**: tablet giữ bảng 3 cột · mobile mỗi tiêu chí một khối. Figma đã thay frame, R6 đã dựng | — |
+| 16 | **Ô bảng `Table Item` Desktop/Tablet cao cố định 66px** — ngoài thang. Code đang để ô cao theo nội dung (padding `--s-4` → ô một dòng ~54px, thấp hơn Figma 12px). Giữ như code, hay chốt một giá trị? | So sánh · Ước tính |
+| 17 | **Lề trang ở tablet**: frame tablet R2 · R4 · R6 lề **24**, các khối dùng lại (Hero, Gói, FAQ…) lề **40** theo `--le-trang`. Code dùng **40** cho cả trang để các khối thẳng mép. Chốt một số | Cả trang |
 
 ---
 
@@ -156,6 +158,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 01/10/2026 | Claude (phiên với Thắng) | Thắng chốt **L1–L13** → Figma, code (FAQ 5 câu, nút «Đặt lịch khảo sát» qua prop `submitLabel`) và spec sửa cùng commit. Node ID chuyển sang frame `913:4649`. Ghi thêm lỗi Figma #11–#13 (`spec-giao-dien.md` §8) |
 | 01/10/2026 | Claude (phiên với Thắng) | Đọc Tablet + Mobile của R2 · R4 · R6 (`spec-giao-dien.md` §7). Áp L6 · L7 · L8 · L9 · L10 sang 6 frame mới. Mở `L15`–`L20` + `#15` |
 | 01/10/2026 | Claude (phiên với Thắng) | Chốt `L15`–`L20` → Figma (tablet, mobile, và «Gói BAIKA» ở desktop) + spec. Vẽ đề xuất `D1` |
+| 01/10/2026 | Claude (phiên với Thắng) | `D1` = (a). Thay frame Figma tablet/mobile R6 · **dựng R6** (`CompareSection.astro`). Mở #16 (ô cao 66) · #17 (lề tablet) |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #3 con số giá + dòng VAT. Figma: nhãn nhỏ thẻ gói → giá, thêm chú thích giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #1 màu trụ + #2 giá công khai. Tạo biến + mode màu trong Figma. #3 đổi thành câu xác nhận con số giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Gộp `claude/remote-office-cong-thuc-uoc-tinh.md` (project Claude) vào §4 `spec-noi-dung.md` và §4 `spec-giao-dien.md`. Thêm câu hỏi #14. **Từ nay bản trong repo là bản chính** |

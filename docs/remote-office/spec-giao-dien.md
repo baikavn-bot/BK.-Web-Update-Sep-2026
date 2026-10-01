@@ -26,7 +26,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | R3 | `Baika sẽ làm gì` `913:4679` | BAIKA sẽ làm gì | **Dùng lại** `StepsSection.astro` — 4 cụm × 2 mục | Component Figma `Detail Step Item` |
 | R4 | `Ước tính khoản lệch` `913:4711` | Công cụ ước tính | 🆕 **Dựng mới** — §4 | Khối duy nhất trên site có tính toán |
 | R5 | `Bạn sẽ nhận được gì` `913:4756` | Bạn sẽ nhận được gì | **Dùng lại** `BenefitsSection.astro` — đúng 6 ý | Figma: 6 × `Solution planet` `794:3117` |
-| R6 | `Gói dịch vụ` `922:3801` ⚠️ *tên sai* | Bảng so sánh | 🆕 **Dựng mới** — §5 | |
+| R6 | `Gói dịch vụ` `922:3801` ⚠️ *tên sai* | Bảng so sánh | ✅ **Đã dựng 01/10** — `CompareSection.astro` · §5 + §7.3 | |
 | R7 | `Gói dịch vụ` `913:4823` | Các gói | **Dùng lại** `PricingSection.astro` — 3 gói, gói giữa `featured`, prop `note` | Figma: thẻ giữa `State=Focus` = thẻ nổi bật, giống trang CEO |
 | R8 | `FAQ` `913:4830` | FAQ | **Dùng lại** `FaqSection.astro` — **5 mục**, mục 1 mở sẵn | Thắng chốt L12 ngày 30/09 |
 | R9 | `Contact` `913:4838` | Liên hệ | **Dùng lại** `ContactSection.astro` + `api/contact.ts` — `submitLabel="Đặt lịch khảo sát"` | Danh sách `linhVuc` chờ chốt |
@@ -193,7 +193,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | --- | --- | --- | --- |
 | R2 Chi phí | `923:4219` | `923:4311` | `923:4098` |
 | R4 Ước tính | `913:4711` | `923:4248` | `922:3630` |
-| R6 So sánh | `922:3801` | `923:4293` | `922:3962` |
+| R6 So sánh | `922:3801` | `933:3544` *(D1)* | `933:4613` *(D1)* |
 
 ⚠️ Hai frame **thừa** trên page `UI` (ngoài 3 section): `923:4127` (375) và `923:4015` (1200) — bản nháp R4, chữ cũ. **Không dựng theo** (§8 #14).
 
@@ -227,10 +227,19 @@ Cả ba khổ **cùng một cấu trúc**: tiêu đề → `Cost Container` ngan
 ✅ **Một bộ chữ cho mọi khổ** (L15–L19 chốt 01/10). Chữ đầy đủ vừa chỗ nhờ Thắng sửa bố cục mobile: nhãn đặt trên điều khiển (ô lương rộng 327 → «10.000.000 đ» 115px vừa) và ô bảng mobile giảm padding ngang còn `--s-4` (chỗ cho chữ 132px → «28.300.000 đ» 102px vừa).
 ⚠️ Ca số dài nhất cần thử khi dựng: «98.025.000 đ» (ca 5, §4.3) và «Báo giá riêng sau khảo sát» — kiểm ở 375 không tràn ô.
 
-### 7.3 R6 So sánh
+### 7.3 R6 So sánh — ✅ D1 = (a), Thắng chốt 01/10 · đã dựng
 
 | | Desktop | Tablet | Mobile |
 | --- | --- | --- | --- |
+| Padding section | `--s-20` / `--s-10` | `--s-20` / `--s-6` *(Figma — code dùng `--le-trang` = `--s-10` như các khối khác của trang, Master §7 #17)* | `--s-20` / `--s-6` |
+| Bảng | **3 cột** bằng nhau: tiêu chí · tự tuyển · BAIKA | **3 cột** như desktop (D1) | **mỗi tiêu chí một khối** (D1): `Head Default` tên tiêu chí → `Body Default` «**Tự tuyển** · …» → `Foot Light` «**BAIKA** · …» · trong khối `--s-1` · giữa khối `--s-3` |
+| Ô | `Table Item Device=Desktop/Tablet` · padding `--s-4`/`--s-6` · Figma cao cố định 66 *(Master §7 #16 — code để cao theo nội dung)* | như desktop | `Table Item Device=Mobile` · padding `--s-4`/`--s-4` |
+| Ô cùng hàng | cao bằng nhau | cao bằng nhau | — |
+
+**Code** (`src/components/CompareSection.astro`): **một** `<table>` cho cả 3 khổ. Dưới 768 các ô đổi `display` thành khối; nhãn «Tự tuyển · » / «BAIKA · » là chữ thật trong HTML, chỉ hiện ở mobile. Hàng đầu (`thead`) ẩn ở mobile vì nhãn đã nằm trong từng ô.
+Hai ô viền sát nhau (tiêu chí · tự tuyển) bỏ viền trái ô sau → vạch 1px như Figma (viền "giữa" chồng nhau).
+
+--- | --- | --- | --- |
 | Padding section | `--s-20` / `--s-10` | `--s-20` / `--s-6` | như tablet |
 | Bảng | GRID 7 × **3** (cột tiêu chí · tự tuyển · BAIKA) | GRID 7 × **2** — **bỏ cột tiêu chí** | **hai bảng xếp dọc**, mỗi bảng 7 × 1: bảng "Tự tuyển" rồi bảng "BAIKA" — **bỏ cột tiêu chí** |
 | Ô | 400 × 60 | 360 × 60 | 327 × 60 |
@@ -267,6 +276,7 @@ Cả ba khổ **cùng một cấu trúc**: tiêu đề → `Cost Container` ngan
 
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
+| 01/10/2026 | R6 tablet/mobile | **D1 = (a)**: Claude thay `923:4293` → `933:3544` (Tablet) và `922:3962` → `933:4613` (Mobile), xoá section đề xuất `933:3543`, đổi tên frame «So sánh · Tablet/Mobile». Dời 2 frame xuống để hết chồng lên frame Ước tính (tablet y 4706, mobile y 4809). **Thắng** đổi padding dọc `Table Item Device=Mobile` 8 → 16 (`--s-4`) | Có — `CompareSection` | commit này |
 | 01/10/2026 | R4 · R6 tablet/mobile | **Thắng:** `Table Item` thêm trục `Device` (Mobile padding `--s-2`/`--s-4`) · mobile R4 nhãn đặt trên điều khiển, bảng thành GRID. Đổi tên `825:6072` → «Remote Office cũ / Desktop 1280». **Claude áp L15–L20:** `923:4261` · `922:3643` «10.000.000 đ» · bảng tablet/mobile «14.150.000 đ» «28.300.000 đ» «9.900.000 đ» · `Find Job` «3 nhóm việc» · nút «Gửi yêu cầu theo ước tính này» · so sánh «Doanh nghiệp tự đóng, tăng theo mỗi người» · **desktop** `913:4739` «Giao cho BAIKA» → «Gói BAIKA» (L18 áp cả 3 khổ). Vẽ đề xuất D1 trong section `933:3543` | Chưa dựng | commit này |
 | 01/10/2026 | Tablet · Mobile | **Thắng vẽ** R2 · R4 · R6 cho 768 + 375 (§7). **Claude áp các chữ đã chốt** sang 6 frame mới: «Lương mỗi người» `923:4259` · `922:3641` (L6) · tiêu đề «Tuyển thêm người hay giao cho BAIKA?» `923:4294` · `922:3963` (L8) · đầu cột «Tuyển thêm nhân viên» `923:4296` · `922:3965` (L9) · thêm chú thích công thức `928:65` · `928:66` (L7) · thêm chú thích so sánh `928:67` · `928:68` (L10). Chữ rút gọn khác (L15–L20) **chưa đụng**, chờ chốt | Chưa dựng | commit này |
 | 01/10/2026 | `913:4649` | Đọc lại cả frame: R2 đã vẽ lại (`923:4219`, xem §3) · `Data` đổi trục `State` × `Type` · `Table Item` chuyển page `Component` | §1–§5 cập nhật | commit này |

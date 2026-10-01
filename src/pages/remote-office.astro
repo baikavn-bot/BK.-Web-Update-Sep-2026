@@ -12,8 +12,9 @@
 //
 // Đã dựng — 6 khối dùng lại component của 7 trang dịch vụ:
 //   R1 Hero · R3 BAIKA sẽ làm gì · R5 Bạn sẽ nhận được gì · R7 Các gói · R8 FAQ · R9 Liên hệ
-// Chưa dựng — 3 khối mới (xem các chú thích CHỜ bên dưới):
-//   R2 Chi phí thật · R4 Công cụ ước tính · R6 Bảng so sánh
+// + khối mới R6 Bảng so sánh (CompareSection, 01/10).
+// Chưa dựng (xem các chú thích CHỜ bên dưới):
+//   R2 Chi phí thật · R4 Công cụ ước tính
 //
 // Luật lệch (SPEC-MASTER §3): chữ Figma ≠ spec nội dung → KHÔNG tự chọn,
 // để trống + ghi `CHỜ CHỐT: Lx`. Thắng đã chốt L1–L13 ngày 30/09
@@ -22,6 +23,7 @@ import ServicePageLayout from '../layouts/ServicePageLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
 import StepsSection from '../components/StepsSection.astro';
 import BenefitsSection from '../components/BenefitsSection.astro';
+import CompareSection from '../components/CompareSection.astro';
 import PricingSection from '../components/PricingSection.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ContactSection from '../components/ContactSection.astro';
@@ -55,6 +57,19 @@ const ketQua = [
   'Việc không đứt khi có người nghỉ',
   'Báo cáo hằng tháng, đổi gói theo tháng',
 ];
+
+// R6 — spec-noi-dung §6 ✅ (L8 · L9 · L10 · L20). Figma: desktop 922:3801 ·
+//      tablet 933:3544 · mobile 933:4613 (đề xuất D1, Thắng duyệt 01/10).
+const soSanh = [
+  { tieuChi: 'Chi phí mỗi tháng',          tuTuyen: '≈ 14–15 triệu cho một người',              baika: 'Từ 4,9 triệu' },
+  { tieuChi: 'Bảo hiểm, công đoàn',        tuTuyen: 'Doanh nghiệp tự đóng, tăng theo mỗi người', baika: 'Đã nằm trong phí dịch vụ' },
+  { tieuChi: 'Thời gian có người làm',     tuTuyen: 'Vài tuần tuyển, thêm thời gian thử việc',   baika: '7 ngày làm việc' },
+  { tieuChi: 'Người nghỉ phép, nghỉ việc', tuTuyen: 'Việc dừng lại, phải tuyển lại',             baika: 'BAIKA bố trí người thay' },
+  { tieuChi: 'Quản lý, chấm công',         tuTuyen: 'Doanh nghiệp tự làm',                       baika: 'Không cần' },
+  { tieuChi: 'Chứng từ chi phí',           tuTuyen: 'Bảng lương, hồ sơ bảo hiểm',                baika: 'Hoá đơn VAT' },
+];
+// 🔒 Câu này gánh ranh giới BHXH (spec-noi-dung §10) — không bỏ.
+const ghiChuSoSanh = 'Phần tiết kiệm đến từ việc không phải tuyển thêm người cho những việc BAIKA làm thay. Nghĩa vụ bảo hiểm với nhân viên bạn đang trực tiếp sử dụng vẫn giữ nguyên.';
 
 // R7 — spec-noi-dung §7 ✅. Nhãn nhỏ = GIÁ (Thắng chốt 29/09, L11).
 //      Giá đặt vào `eyebrow` có sẵn → không sửa component thẻ gói.
@@ -111,7 +126,8 @@ const cauHoi = [
   {/* R5 — spec-noi-dung §5 ✅ */}
   <BenefitsSection items={ketQua} />
 
-  {/* R6 — CHỜ: khối mới "Bảng so sánh" (spec-giao-dien §5). Chữ đã chốt (L8 · L9 · L10), dựng được. */}
+  {/* R6 — spec-giao-dien §5 + §7.3 ✅ (dựng 01/10) */}
+  <CompareSection hang={soSanh} note={ghiChuSoSanh} />
 
   {/* R7 — spec-noi-dung §7 ✅ */}
   <PricingSection packages={goi} note={ghiChuGia} />
