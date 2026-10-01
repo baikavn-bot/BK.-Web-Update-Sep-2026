@@ -266,7 +266,9 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 
 ---
 
-## 12. Chỗ lệch — Thắng đã chốt L1–L13 (30/09), còn L14
+## 12. Chỗ lệch — Thắng đã chốt L1–L13 (30/09) · còn L14–L20
+
+`L15`–`L20` (01/10): Figma tablet/mobile rút gọn chữ so với desktop. **Một trang = một bộ chữ** cho mọi khổ, trừ khi Thắng chốt khác — code đổi chữ theo khổ màn phải in cả hai bản rồi ẩn một, dễ lệch.
 
 Mỗi dòng Thắng chốt một chữ: **F** (theo Figma) · **N** (theo spec cũ) · **khác** (ghi chữ mới) · **bỏ**.
 
@@ -286,6 +288,12 @@ Mỗi dòng Thắng chốt một chữ: **F** (theo Figma) · **N** (theo spec c
 | `L12` | Cam kết / FAQ | 3 ô cam kết nằm trong FAQ, mất «Cam kết bằng hợp đồng» | Khối Cam kết riêng 4 ô + FAQ 5 câu — «Cam kết bằng hợp đồng» — «Mỗi đầu việc có hạn trả kết quả rõ ràng. Trễ hạn thì BAIKA chịu phạt theo hợp đồng.» · FAQ 2 «Tôi có được chỉ đạo trực tiếp người làm không?» — «Bạn làm việc với điều phối viên và gửi yêu cầu qua cổng. BAIKA chọn người phù hợp và chịu trách nhiệm về kết quả, nhờ vậy dịch vụ không gián đoạn khi có người nghỉ.» · FAQ 3 «Dùng hết đơn vị công việc trong tháng thì sao?» — «BAIKA báo trước khi gần hết. Bạn mua thêm theo đơn giá của gói hoặc nâng gói từ tháng sau.» · FAQ 4 «Dữ liệu công ty tôi được giữ thế nào?» — «Hai bên ký cam kết bảo mật. Mỗi nhân sự chỉ truy cập phần dữ liệu cần cho việc mình làm, và mọi truy cập đều được ghi lại.» · FAQ 5 «Bao lâu thì bắt đầu được?» — «Trong 7 ngày làm việc sau khi ký hợp đồng.» | **N** — FAQ 5 câu theo spec cũ; không dựng khối Cam kết | 30/09 |
 | `L13` | Nút form | «Đăng ký rà soát» | «Đặt lịch khảo sát» | **N** «Đặt lịch khảo sát» | 30/09 |
 | `L14` | Dòng pháp lý cuối trang | *(không có)* | xem §9 | ⏸ Thắng hỏi chỗ đặt — đề xuất dưới form Liên hệ, chờ chốt |  |
+| `L15` | Ước tính — ô lương *(tablet · mobile)* | «10tr» | «10.000.000 đ» *(desktop, §4.4)* | | |
+| `L16` | Ước tính — số trong bảng *(tablet · mobile)* | «14tr150» · «28tr300» · «9tr900» | «14.150.000 đ» · «28.300.000 đ» · «9.900.000 đ» | | |
+| `L17` | Ước tính — ô nhóm việc *(tablet · mobile)* | «3 nhóm» | «3 nhóm việc» | | |
+| `L18` | Ước tính — đầu cột phải *(tablet · mobile)* | «Gói BAIKA» | «Giao cho BAIKA» | | |
+| `L19` | Ước tính — nút *(tablet · mobile)* | «Gửi yêu cầu theo ước tính» | «Gửi yêu cầu theo ước tính này» | | |
+| `L20` | So sánh — hàng 2 cột tự tuyển *(tablet · mobile)* | «Doanh nghiệp tự đóng» | «Doanh nghiệp tự đóng, tăng theo mỗi người» | | |
 
 ---
 

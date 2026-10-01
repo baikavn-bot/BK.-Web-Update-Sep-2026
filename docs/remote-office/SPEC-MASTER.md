@@ -122,12 +122,13 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 6 | **Nút "Gửi yêu cầu theo ước tính này"** dẫn đi đâu: cuộn xuống form và điền sẵn số ước tính, hay chỉ cuộn xuống? | Ước tính · Liên hệ |
 | 7 | ✅ **ĐÃ CHỐT 30/09 (L12)** — FAQ 5 câu theo spec cũ; **không** dựng khối Cam kết riêng | — |
 | 8 | ✅ **ĐÃ CHỐT 30/09 — L1–L13** (`spec-noi-dung.md` §12). **Còn `L14`**: dòng pháp lý — đặt ở đâu | Liên hệ |
-| 9 | **Tablet / Mobile** — Figma chưa vẽ. Có đề xuất ở `spec-giao-dien.md` §7, **chưa duyệt** | Responsive |
+| 9 | ✅ **Tablet / Mobile cho R2 · R4 · R6** — Thắng vẽ 01/10 (`spec-giao-dien.md` §7). **Còn:** chữ rút gọn `L15`–`L20` · bảng so sánh `#15` | Responsive |
 | 10 | **Cỡ chữ số lớn "23,5"** — Figma vẽ 100px (ngoài thang, `display-1` = 80) | Khối chi phí |
 | 11 | **Khoảng `10px`** trong stepper và `Table Item` — ngoài thang spacing (thang có 8 · 12) | Ước tính · So sánh |
 | 12 | **Form Liên hệ**: ~~nút~~ ✅ «Đặt lịch khảo sát» (L13, 30/09). **Còn:** danh sách ô "Lĩnh vực" cho trang này là gì? | Liên hệ |
 | 13 | **Menu**: trang này có mục trong menu `baika.vn` không, hay chỉ vào từ ô bento trang chủ? | Header |
 | 14 | **Luật chọn gói của công cụ ước tính** — luật cũ (theo số nhóm) hay luật mới (theo cả số người lẫn số nhóm)? Kèm: giới hạn số người 1–5 hay 1–4 + "Báo giá riêng" · có thêm mức «Chưa tới 1 người» không. **Đổi con số hiện ra với khách → sếp duyệt.** Chi tiết `spec-noi-dung.md` §4.2 | Ước tính |
+| 15 | **`D1` — Bảng so sánh tablet/mobile bỏ cột tiêu chí** («Chi phí mỗi tháng», «Bảo hiểm, công đoàn»…). Giữ như Figma, hay mỗi hàng giữ nhãn tiêu chí? Chi tiết `spec-giao-dien.md` §7.3 | So sánh |
 
 ---
 
@@ -153,6 +154,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 29/09/2026 | Claude (phiên với Thắng) | Lập bộ spec: Master · Nội dung · Giao diện · Quy trình. Chốt luật lệch C và luật đồng bộ |
 | 30/09/2026 | Claude (phiên với Thắng) | Dựng lần 1 trên nhánh `remote-office` (6 khối dùng lại). Trang đặt `noindex`, chưa gắn domain. Chữ TẠM ở tiêu đề R3 (`L5`) và nút form R9 (`L13`) — ghi rõ trong code |
 | 01/10/2026 | Claude (phiên với Thắng) | Thắng chốt **L1–L13** → Figma, code (FAQ 5 câu, nút «Đặt lịch khảo sát» qua prop `submitLabel`) và spec sửa cùng commit. Node ID chuyển sang frame `913:4649`. Ghi thêm lỗi Figma #11–#13 (`spec-giao-dien.md` §8) |
+| 01/10/2026 | Claude (phiên với Thắng) | Đọc Tablet + Mobile của R2 · R4 · R6 (`spec-giao-dien.md` §7). Áp L6 · L7 · L8 · L9 · L10 sang 6 frame mới. Mở `L15`–`L20` + `#15` |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #3 con số giá + dòng VAT. Figma: nhãn nhỏ thẻ gói → giá, thêm chú thích giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #1 màu trụ + #2 giá công khai. Tạo biến + mode màu trong Figma. #3 đổi thành câu xác nhận con số giá |
 | 29/09/2026 | Claude (phiên với Thắng) | Gộp `claude/remote-office-cong-thuc-uoc-tinh.md` (project Claude) vào §4 `spec-noi-dung.md` và §4 `spec-giao-dien.md`. Thêm câu hỏi #14. **Từ nay bản trong repo là bản chính** |

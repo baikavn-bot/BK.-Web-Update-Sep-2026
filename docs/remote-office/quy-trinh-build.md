@@ -115,7 +115,7 @@ const { chromium } = require('playwright');
 ```
 
 **Đạt khi:** mọi dòng `"tran":0` (không tràn ngang) · `"h1":1` (đúng một tiêu đề chính) · cuối dòng là `ok` (không lỗi JS).
-*(Remote Office chưa có Tablet/Mobile — ở 375/768 chỉ cần không tràn và không lỗi.)*
+*(Tablet/Mobile: khối dùng lại theo component có sẵn; 3 khối mới R2 · R4 · R6 theo `spec-giao-dien.md` §7 — chụp 375 và 768, đặt cạnh frame Figma để so.)*
 
 ### 4.4 Công cụ ước tính
 

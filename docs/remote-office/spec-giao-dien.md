@@ -2,7 +2,8 @@
 
 **Trạng thái:** `DRAFT` — chờ Thắng duyệt · Lập 29/09/2026
 **Quyền:** file này quyết **bố cục · token · component · trạng thái · hành vi · responsive** (xem `SPEC-MASTER.md` §2). Lệch với Figma → **Figma thắng**, rồi sửa file này cùng commit.
-**Nguồn:** Figma `YmcXg1lQqGVjQOFrVtdOgW`, frame `Remote office` **`913:4649`** (1280 × 8391, **chỉ Desktop**, nằm trong section `Desktop` của page `UI`) — đọc trực tiếp ngày 01/10 **[xác minh]**.
+**Nguồn:** Figma `YmcXg1lQqGVjQOFrVtdOgW`, frame `Remote office` **`913:4649`** (1280 × 8391, nằm trong section `Desktop` của page `UI`) — đọc trực tiếp ngày 01/10 **[xác minh]**.
+**Tablet 768 + Mobile 375** — Thắng vẽ 01/10 cho **3 khối mới** (R2 · R4 · R6), mỗi khối một frame rời trong section `Tablet` `489:3046` / `Mobile` `450:6597` — bảng ở §7. Khối dùng lại theo responsive có sẵn của component.
 
 > ⚠️ **Frame cũ `825:6535` không còn** — 30/09 Thắng nhân bản sang `913:4649`, mọi node ID đổi theo. Node `825:…` trong các bản trước của file này là ID cũ.
 > ⚠️ **Đừng nhầm với `825:6072` `Remote Office / Desktop 1280`** — bản vẽ cũ theo khung spec v3 (có khối "Cam kết" riêng, tiêu đề «BAIKA làm thay tám nhóm việc»…), vẫn nằm trên page `UI`. **Không dựng theo nó.**
@@ -186,16 +187,56 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 ---
 
-## 7. Responsive — Figma chưa vẽ **[suy luận — CHƯA DUYỆT, không dựng khi Thắng chưa chốt]**
+## 7. Responsive — Figma đã vẽ 01/10 **[xác minh — đọc trực tiếp]**
 
-Theo luật hệ: component **đổi dạng**, không co lại.
+| Khối | Desktop 1280 | Tablet 768 | Mobile 375 |
+| --- | --- | --- | --- |
+| R2 Chi phí | `923:4219` | `923:4311` | `923:4098` |
+| R4 Ước tính | `913:4711` | `923:4248` | `922:3630` |
+| R6 So sánh | `922:3801` | `923:4293` | `922:3962` |
 
-| Khối | 768 | 375 |
-| --- | --- | --- |
-| R2 Chi phí | Hai cột → xếp dọc: cột trái trên, bảng dưới | Như 768 · `Data` rộng 100% |
-| R4 Ước tính | Đầu vào trên, kết quả dưới | Stepper + `Find Job` rộng 100%, nhãn nằm **trên** điều khiển |
-| R6 So sánh | Giữ bảng 3 cột | **Đổi dạng:** mỗi tiêu chí thành một khối — nhãn trên, 2 dòng "Tự tuyển" / "BAIKA". **Không** cuộn ngang |
-| Khối dùng lại | Tự theo responsive của component có sẵn | Như 768 |
+⚠️ Hai frame **thừa** trên page `UI` (ngoài 3 section): `923:4127` (375) và `923:4015` (1200) — bản nháp R4, chữ cũ. **Không dựng theo** (§8 #14).
+
+### 7.1 R2 Chi phí
+
+Cả ba khổ **cùng một cấu trúc**: tiêu đề → `Cost Container` ngang, **có xuống dòng (wrap)**, gap `var(--s-10)` cả hai chiều.
+
+| | Desktop | Tablet | Mobile |
+| --- | --- | --- | --- |
+| Padding section | `--s-20` / `--s-6` | như desktop | như desktop |
+| Cột trái · phải | 596 · 596 (2 cột) | 340 · 340 (2 cột) | **xếp dọc**, mỗi cột 327 |
+| Dòng `Data` | `Type=Mobile` *(§8 #12)* | `Type=Mobile` | `Type=Mobile` |
+
+→ Code: **một** bố cục flex-wrap, hai cột chia đôi, dưới 768 thì một cột. Không cần ba bản.
+`Data` `Type=Mobile`: nhãn **bọc dòng** (rộng tối đa ~150), số **canh phải**. `Type=Desktop`: nhãn một dòng, số canh trái. Cả ba khổ đang dùng `Mobile` → code dựng theo `Mobile`.
+Đoạn «Hợp đồng mang tên…»: `body-lg`, riêng «01/07/2025» là `H-3` (nhấn mạnh).
+
+### 7.2 R4 Ước tính
+
+| | Desktop | Tablet | Mobile |
+| --- | --- | --- | --- |
+| Padding section | `--s-24` / `--s-10` | `--s-24` / `--s-6` | như tablet |
+| Gap tiêu đề → nội dung | `--s-20` | `--s-10` | `--s-10` |
+| Đầu vào ↔ kết quả | **hai cột** ngang (532 · 532) | **xếp dọc** (đầu vào trên) | xếp dọc |
+| Dòng đầu vào | nhãn 200 ↔ điều khiển 300 | nhãn **120** ↔ điều khiển **lấp đầy** (588) · gap `--s-3` | nhãn 120 ↔ điều khiển 195 · gap `--s-3` |
+| Bảng kết quả | 2 × 250 | 2 × 360 | 2 × 164 |
+| Số chênh lệch | `display-2` | **`H-1`** | **`H-1`** |
+| Gap khối kết quả → nút | `--s-20` | `--s-10` | `--s-10` |
+| Nút gửi | 500, `Button 2 · Lg` | lấp đầy | lấp đầy |
+
+⚠️ Nhãn ở mobile **nằm cạnh** điều khiển (không phải nằm trên như đề xuất cũ) → «Số người định tuyển» · «Lương mỗi người» xuống 2 dòng. Figma thắng.
+⚠️ Chữ trong ô ở tablet/mobile đang **khác desktop** (rút gọn) — chờ chốt `L15`–`L19` (`spec-noi-dung.md` §12). Đừng dựng chữ rút gọn khi chưa chốt.
+⚠️ Mobile: ô bảng 164, padding ngang 32 → chỗ cho chữ chỉ **100px**. «28.300.000 đ» đo được **102px** → không vừa. Stepper lương 195 → chỗ cho số ~95px, «10.000.000 đ» rộng **115px** → không vừa. Đây là lý do chữ bị rút gọn — xem `L15`/`L16`.
+
+### 7.3 R6 So sánh
+
+| | Desktop | Tablet | Mobile |
+| --- | --- | --- | --- |
+| Padding section | `--s-20` / `--s-10` | `--s-20` / `--s-6` | như tablet |
+| Bảng | GRID 7 × **3** (cột tiêu chí · tự tuyển · BAIKA) | GRID 7 × **2** — **bỏ cột tiêu chí** | **hai bảng xếp dọc**, mỗi bảng 7 × 1: bảng "Tự tuyển" rồi bảng "BAIKA" — **bỏ cột tiêu chí** |
+| Ô | 400 × 60 | 360 × 60 | 327 × 60 |
+
+⛔ **Chưa dựng tablet/mobile** — chờ Thắng xác nhận `D1` (`SPEC-MASTER.md` §7 #15): bỏ cột tiêu chí thì người đọc thấy «7 ngày làm việc», «Không cần» mà không biết đang so cái gì; trên mobile còn phải cuộn qua 7 dòng rồi **nhớ** để so với 7 dòng bên dưới (trái nguyên tắc Nielsen "nhận ra thay vì phải nhớ"). Trình đọc màn hình cũng mất nhãn hàng.
 
 ---
 
@@ -215,6 +256,8 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 | 9 | R2 cột trái | `#FFFFFF` thô · cỡ chữ 100 · gap 140 | Về `--gray-50` · cỡ theo Master §7 #10 |
 | 11 | `913:4713` khung công cụ ước tính | Không auto-layout, cao cố định — thêm chữ là tràn | Chuyển sang auto-layout dọc |
 | 12 | R2 — 5 dòng `Data` | Frame Desktop dùng variant `Type=Mobile` | Đổi sang `Type=Desktop` nếu đó là ý định |
+| 14 | `923:4127` (375) · `923:4015` (1200) | Hai bản nháp R4 nằm lẻ trên page `UI`, chữ cũ («Lương dự kiến», «10tr») | Xoá |
+| 15 | Nhãn đầu vào R4 (cả 3 khổ) | Màu chữ **thô**, không gắn biến | Gắn `--gray-50` |
 | 13 | `825:6072` `Remote Office / Desktop 1280` | Bản vẽ cũ theo spec v3 vẫn nằm trên page `UI` cạnh bản đúng → agent dễ đọc nhầm | Xoá, hoặc đổi tên thêm `(CŨ — không dựng)` |
 
 ---
@@ -223,6 +266,7 @@ Theo luật hệ: component **đổi dạng**, không co lại.
 
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
+| 01/10/2026 | Tablet · Mobile | **Thắng vẽ** R2 · R4 · R6 cho 768 + 375 (§7). **Claude áp các chữ đã chốt** sang 6 frame mới: «Lương mỗi người» `923:4259` · `922:3641` (L6) · tiêu đề «Tuyển thêm người hay giao cho BAIKA?» `923:4294` · `922:3963` (L8) · đầu cột «Tuyển thêm nhân viên» `923:4296` · `922:3965` (L9) · thêm chú thích công thức `928:65` · `928:66` (L7) · thêm chú thích so sánh `928:67` · `928:68` (L10). Chữ rút gọn khác (L15–L20) **chưa đụng**, chờ chốt | Chưa dựng | commit này |
 | 01/10/2026 | `913:4649` | Đọc lại cả frame: R2 đã vẽ lại (`923:4219`, xem §3) · `Data` đổi trục `State` × `Type` · `Table Item` chuyển page `Component` | §1–§5 cập nhật | commit này |
 | 30/09/2026 | `913:4649` | **Claude sửa theo L1–L13 Thắng chốt:** `913:4726` «Lương dự kiến» → «Lương mỗi người» (L6) · `922:3802` → «Tuyển thêm người hay giao cho BAIKA?» (L8) · đầu cột `I922:3804;842:7816` → «Tuyển thêm nhân viên» (L9) · nút form `I913:4868;26:2449` → «Đặt lịch khảo sát» (L13) · FAQ `913:4835–4837` viết lại + nhân bản mục 5 `924:3515` = 5 câu spec (L12) · thêm `924:4523` chú thích công thức dưới bảng ước tính (L7) · thêm `924:4524` chú thích dưới bảng so sánh (L10) · nới `913:4713` 615 → 677 cho nút gửi khỏi tràn | Có (FAQ, nút form) · R4/R6 chưa dựng | commit này |
 | 30/09/2026 | `913:4649` | **Thắng:** nhân bản frame `825:6535` → `913:4649` (mọi node ID đổi) · thêm chú thích L1 «Số liệu minh hoạ cho một vị trí lương 10 triệu, con số thực tế tuỳ từng doanh nghiệp.» dưới bảng chi phí. Cùng ngày, R2 thành frame mới `923:4219` và bảng so sánh `922:3801` dùng GRID *(thấy khi đọc 01/10 — không rõ ai sửa, Thắng xác nhận)* | — | commit này |
