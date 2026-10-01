@@ -52,7 +52,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | Variant | Nhãn | Giá trị | Nền |
 | --- | --- | --- | --- |
 | `Cost row` | `body` · `--gray-50` | `body-lg` · `--gray-50` | không |
-| `Total` | `body` · `--gray-50` | **`H-3`** · `--gray-50` | `var(--opacity-light)` |
+| `Total` | `body` · `--gray-50` | **`H-3`** · `--gray-50` | `var(--opacity-white)` *(đổi từ `--opacity-light` 01/10 — #18)* |
 
 **`Table Item`** — một ô bảng. 400 × 60 · padding `var(--s-4)` / `var(--s-8)` · gap 10 ⏸ *(ngoài thang — Master §7 #11)*.
 
@@ -97,7 +97,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 - Cột trái cao bằng cột phải, `justify-content: space-between` → đoạn chữ ở đỉnh, cụm số ở đáy. Ra đúng hình mà **không cần số 140**. Dưới 768 (xếp dọc) dùng gap `--s-10` ⏸ TẠM.
 - «23,5»: `--fs-display-1` (80) ⏸ TẠM — Master §7 #10. Cụm «% · Bảo hiểm · Công đoàn» cách nhau `calc(var(--s-1) / 2)` (= 2, nửa bậc nhỏ nhất).
 - Cụm số đọc thành **một câu** cho trình đọc màn hình (`aria-label` «23,5% bảo hiểm và công đoàn»).
-- ⚠️ Dòng `Total`: chữ `--gray-50` trên `--opacity-light` đo **≈ 3.5–4.0 : 1** (dưới AA 4.5). Code đúng Figma, chờ chốt — Master §7 #18.
+- Dòng `Total`: nền `--opacity-white` (✅ #18, 01/10). Nền cũ `--opacity-light` chỉ đạt ≈ 3.5–4.0 : 1; nền mới ≈ 6.7–9.8 : 1 — đạt AA.
 
 ## 4. R4 — Công cụ ước tính (`913:4711`)
 
@@ -299,6 +299,7 @@ Hai ô viền sát nhau (tiêu chí · tự tuyển) bỏ viền trái ô sau �
 
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
+| 01/10/2026 | `834:7503` · `913:5167` `Data` Total | **Thắng chốt #18 (b). Claude:** nền 2 variant Total `Colors/Opacity/Light` → `Colors/Opacity/White`. 3 instance R2 (`923:4235` · `923:4327` · `923:4114`) theo component, không có ghi đè — đã kiểm | Có — `CostSection.astro` | commit này |
 | 01/10/2026 | `854:8114` `Find Job` Variant2 · `913:4733` | **Thắng:** mở sẵn danh sách tick ở desktop R4 (`Find Job` = Variant2, component `Check` `836:7698`). **Claude theo #4 chốt:** thêm dòng thứ 8 (`947:58`) · đổi 8 chữ mẫu «Hành chính - văn thư» thành 8 tên R3 · instance desktop tick 3 dòng đầu (`Choose`). Tablet `923:4266` / mobile `922:3648` vẫn vẽ trạng thái đóng — đúng, không cần thêm frame | Có — `CheckItem.astro` + `EstimatorSection` | commit này |
 | 01/10/2026 | `933:4613` Mobile R6 | **Thắng chốt:** viền = tự tuyển, nền sáng = BAIKA, thêm chú giải đầu bảng. **Claude:** bỏ tiền tố «Tự tuyển · » / «BAIKA · » ở 12 ô · tên tiêu chí từ ô `Head Default` thành chữ H-3 trần (`936:5`…`936:25`) để không lẫn với "ô viền = tự tuyển" · thêm hàng `Chú giải` `936:6386` · khoảng trong khối 4 → 8 (`--s-2`), giữa khối 12 → 16 (`--s-4`) | Có | commit này |
 | 01/10/2026 | R6 tablet/mobile | **D1 = (a)**: Claude thay `923:4293` → `933:3544` (Tablet) và `922:3962` → `933:4613` (Mobile), xoá section đề xuất `933:3543`, đổi tên frame «So sánh · Tablet/Mobile». Dời 2 frame xuống để hết chồng lên frame Ước tính (tablet y 4706, mobile y 4809). **Thắng** đổi padding dọc `Table Item Device=Mobile` 8 → 16 (`--s-4`) | Có — `CompareSection` | commit này |

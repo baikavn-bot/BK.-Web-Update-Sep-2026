@@ -131,7 +131,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 15 | ✅ **ĐÃ CHỐT 01/10 — `D1` = (a)**: tablet giữ bảng 3 cột · mobile mỗi tiêu chí một khối, **phân biệt bằng viền / nền + chú giải đầu bảng** (không lặp chữ «Tự tuyển» / «BAIKA»). Figma đã thay frame, R6 đã dựng | — |
 | 16 | **Ô bảng `Table Item` Desktop/Tablet cao cố định 66px** — ngoài thang. Code đang để ô cao theo nội dung (padding `--s-4` → ô một dòng ~54px, thấp hơn Figma 12px). Giữ như code, hay chốt một giá trị? | So sánh · Ước tính |
 | 17 | **Lề trang ở tablet**: frame tablet R2 · R4 · R6 lề **24**, các khối dùng lại (Hero, Gói, FAQ…) lề **40** theo `--le-trang`. Code dùng **40** cho cả trang để các khối thẳng mép. Chốt một số | Cả trang |
-| 18 | **Tương phản dòng «Tổng chi phí thật»** (component `Data` · Total, khối R2): chữ `--gray-50` trên nền `--opacity-light` đo được **≈ 3.5–4.0 : 1** — dưới mức WCAG AA 4.5 : 1 cho chữ thường. Code đang **đúng Figma**. Chấp nhận như sai lệch đã ghi (giống `VD-001`), hay đổi nền dòng Tổng sang token khác? | Khối chi phí |
+| 18 | ✅ **ĐÃ CHỐT 01/10 — (b)**: nền dòng «Tổng chi phí thật» (`Data` · Total) đổi `--opacity-light` → **`--opacity-white`**. Tương phản từ ≈ 3.5–4.0 : 1 (dưới AA) lên **≈ 6.7–9.8 : 1** (đo trên ảnh chụp 375 · 768 · 1280). Figma component + code đã đổi | — |
 
 ---
 
@@ -161,6 +161,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 01/10/2026 | Claude (phiên với Thắng) | Chốt `L15`–`L20` → Figma (tablet, mobile, và «Gói BAIKA» ở desktop) + spec. Vẽ đề xuất `D1` |
 | 01/10/2026 | Claude (phiên với Thắng) | `D1` = (a). Thay frame Figma tablet/mobile R6 · **dựng R6** (`CompareSection.astro`). Mở #16 (ô cao 66) · #17 (lề tablet) |
 | 01/10/2026 | Claude (phiên với Thắng) | R6 mobile: chú giải + viền/nền thay cho chữ lặp (Figma + code). Ghi lệnh push hai nhánh vào `quy-trinh-build.md` §3 |
+| 01/10/2026 | Claude (phiên với Thắng) | **#18 = (b)** → Figma `Data` Total (2 variant) + `CostSection.astro` + spec cùng commit |
 | 01/10/2026 | Claude (phiên với Thắng) | **#4 chốt** → Figma (`Find Job` 8 dòng tên thật, desktop tick 3 dòng đầu) + code (`CheckItem.astro` mới, ô chọn số nhóm → danh sách tick) + spec cùng commit. Thêm ca 10 (0 nhóm) · 11 (8 nhóm) |
 | 01/10/2026 | Claude (phiên với Thắng) | **Dựng R2** (`CostSection.astro`) **+ R4** (`EstimatorSection.astro` · công thức ở `src/lib/uoc-tinh.ts`) → trang đủ 9/9 khối. #4 #5 #6 #10 #11 #14 ghi rõ lựa chọn TẠM đang chạy. Mở #18 (tương phản dòng Tổng) |
 | 29/09/2026 | Claude (phiên với Thắng) | Chốt #3 con số giá + dòng VAT. Figma: nhãn nhỏ thẻ gói → giá, thêm chú thích giá |

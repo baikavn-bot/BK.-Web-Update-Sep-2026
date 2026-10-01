@@ -175,7 +175,9 @@ const {
     line-height: var(--lh-body-lg);
     font-weight: var(--fw-body-lg);
   }
-  .cp__dong--tong { background: var(--opacity-light); }
+  /* Nền dòng Tổng: `--opacity-white` (15%) — Thắng chốt #18 (01/10).
+     Nền cũ `--opacity-light` (50%) làm chữ sáng chỉ đạt ≈ 3.5–4.0 : 1, dưới WCAG AA. */
+  .cp__dong--tong { background: var(--opacity-white); }
   .cp__dong--tong dd {
     font-family: var(--font-heading);
     font-size: var(--fs-h3);
