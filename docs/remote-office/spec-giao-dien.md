@@ -134,7 +134,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | Stepper | `<button>` 44 × 44 (`calc(var(--s-10) + var(--s-1))`) + `<output aria-live>` · 10 → `--s-3` ⏸ #11 | Vùng chạm ≥ 44 (WCAG). Hover / Active / Focus theo luật chung, Disabled `--gray-700` |
 | Nhóm việc | `<details>` + `<summary>` (ô «N nhóm việc» + mũi tên) → danh sách `CheckItem.astro` (= Figma `Check`), mỗi dòng một `<input type="checkbox">` thật trong `<fieldset>` | ✅ #4. `<details>` là ô mở/đóng có sẵn của trình duyệt: chạy cả khi tắt JS, Enter/Space mở được, trình đọc màn hình đọc được "đang mở/đóng". Cả dòng là vùng bấm (48 cao). 8 tên lấy từ prop `nhomViec` — trang truyền dữ liệu R3 vào |
 | Lương gõ tay | **Chưa làm** — chỉ nút `‹ ›` | Đề xuất 29/09, chưa ai duyệt |
-| Nút gửi | `Button2` Lg, `href="#lien-he"` — chỉ cuộn xuống | ⏸ #6 |
+| Nút gửi | `Button2` Lg, `href="#lien-he"`. Có JS: chặn đường dẫn → điền ước tính vào `#lien-he textarea[name="mota"]` → cuộn mượt tới `#lien-he` (tôn trọng `prefers-reduced-motion`) → focus ô `ten`. Không có JS: đường dẫn cuộn xuống bình thường | ✅ #6 (01/10). Chữ + luật thay đoạn cũ: `spec-noi-dung.md` §4.6 |
 | Không JS | Server vẽ sẵn ca 1 + `<noscript>` «Bật JavaScript để tính theo số của bạn.» | |
 | Mái vòm khối R5 | Khối R4 đặt `position: relative; z-index: 1` | Quầng `.nhan__cung` của R5 trồi lên 450px, che mờ nút gửi nếu thiếu dòng này — cùng cách `ServicesSection` đang làm |
 

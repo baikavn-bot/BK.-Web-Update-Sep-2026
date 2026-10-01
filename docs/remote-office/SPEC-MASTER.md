@@ -119,7 +119,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 3 | ✅ **ĐÃ CHỐT 29/09 — Giá:** 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, viết dạng «4.900.000 đ/tháng» · **có** dòng «Giá chưa gồm VAT…» dưới khối gói. Figma đã cập nhật | — |
 | 4 | ✅ **ĐÃ CHỐT 01/10 — Ô "Nhóm công việc" = danh sách TICK**: đúng **8 nhóm của khối R3** (chữ lấy từ R3, một nguồn) · **tick sẵn 3 nhóm đầu** (trang mở ra = ca 1, 18.400.000 đ) · bấm mở thì danh sách **đẩy nội dung xuống**, không nổi đè. Figma `Find Job` Variant2 sửa 7 → 8 dòng, đã dựng | — |
 | 5 | **Con số 1.800.000** trong công thức — giả định từ spec cũ, chưa xác nhận · ⏸ **Đang chạy TẠM** 1.800.000 — sửa ở `src/lib/uoc-tinh.ts` (`chiPhiCoDinh`) | Ước tính |
-| 6 | **Nút "Gửi yêu cầu theo ước tính này"** dẫn đi đâu: cuộn xuống form và điền sẵn số ước tính, hay chỉ cuộn xuống? · ⏸ **Đang chạy TẠM:** chỉ cuộn xuống form (`#lien-he`), không điền sẵn | Ước tính · Liên hệ |
+| 6 | ✅ **ĐÃ CHỐT 01/10 — Nút «Gửi yêu cầu theo ước tính này»**: gửi ước tính **kèm** thông tin cá nhân của khách, API đưa về mail BAIKA. Cách làm (Thắng chọn): bấm nút → **điền sẵn bản tóm tắt ước tính vào ô «Mô tả vấn đề»** của form R9 → cuộn xuống → con trỏ vào ô «Tên». Khách sửa / viết thêm được. **Không sửa API** — mail về như mọi form khác. Chữ mẫu: `spec-noi-dung.md` §4.6 | — |
 | 7 | ✅ **ĐÃ CHỐT 30/09 (L12)** — FAQ 5 câu theo spec cũ; **không** dựng khối Cam kết riêng | — |
 | 8 | ✅ **ĐÃ CHỐT 30/09 — L1–L13** (`spec-noi-dung.md` §12). **Còn `L14`**: dòng pháp lý — đặt ở đâu | Liên hệ |
 | 9 | ✅ **Tablet / Mobile cho R2 · R4 · R6** — Thắng vẽ 01/10 (`spec-giao-dien.md` §7). `L15`–`L20` ✅ chốt 01/10. **Còn:** bảng so sánh `#15` | Responsive |
@@ -161,6 +161,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 01/10/2026 | Claude (phiên với Thắng) | Chốt `L15`–`L20` → Figma (tablet, mobile, và «Gói BAIKA» ở desktop) + spec. Vẽ đề xuất `D1` |
 | 01/10/2026 | Claude (phiên với Thắng) | `D1` = (a). Thay frame Figma tablet/mobile R6 · **dựng R6** (`CompareSection.astro`). Mở #16 (ô cao 66) · #17 (lề tablet) |
 | 01/10/2026 | Claude (phiên với Thắng) | R6 mobile: chú giải + viền/nền thay cho chữ lặp (Figma + code). Ghi lệnh push hai nhánh vào `quy-trinh-build.md` §3 |
+| 01/10/2026 | Claude (phiên với Thắng) | **#6 chốt** → nút gửi điền sẵn ước tính vào ô «Mô tả vấn đề» (`EstimatorSection.astro`) + spec cùng commit. Không đổi Figma (không có giao diện mới) |
 | 01/10/2026 | Claude (phiên với Thắng) | **#18 = (b)** → Figma `Data` Total (2 variant) + `CostSection.astro` + spec cùng commit |
 | 01/10/2026 | Claude (phiên với Thắng) | **#4 chốt** → Figma (`Find Job` 8 dòng tên thật, desktop tick 3 dòng đầu) + code (`CheckItem.astro` mới, ô chọn số nhóm → danh sách tick) + spec cùng commit. Thêm ca 10 (0 nhóm) · 11 (8 nhóm) |
 | 01/10/2026 | Claude (phiên với Thắng) | **Dựng R2** (`CostSection.astro`) **+ R4** (`EstimatorSection.astro` · công thức ở `src/lib/uoc-tinh.ts`) → trang đủ 9/9 khối. #4 #5 #6 #10 #11 #14 ghi rõ lựa chọn TẠM đang chạy. Mở #18 (tương phản dòng Tổng) |

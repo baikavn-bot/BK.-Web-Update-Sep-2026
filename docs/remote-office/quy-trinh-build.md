@@ -135,7 +135,9 @@ Chạy đủ 11 ca trong `spec-noi-dung.md` §4.3 (theo luật chọn gói sếp
 node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts   # Node ≥ 22.6 · phải ra 11/11
 ```
 
-Rồi kiểm trên trang thật (trình duyệt): mặc định ra 18.400.000 · chọn 4 nhóm → Trọn gói + dòng «nâng vì…» · 5 người → Báo giá riêng, nút `›` mờ · 1 người × 7 tr × 4 nhóm → câu «Khối lượng nhỏ» · bỏ tick hết → «0 nhóm việc» + câu «Chọn ít nhất một nhóm việc…» · mở/đóng danh sách tick bằng Enter, Tab vào từng ô, Space để tick. Ở 375 chọn 3 người × 25 tr (số dài nhất «98.025.000 đ») — không tràn ô.
+Rồi kiểm trên trang thật (trình duyệt): mặc định ra 18.400.000 · chọn 4 nhóm → Trọn gói + dòng «nâng vì…» · 5 người → Báo giá riêng, nút `›` mờ · 1 người × 7 tr × 4 nhóm → câu «Khối lượng nhỏ» · bỏ tick hết → «0 nhóm việc» + câu «Chọn ít nhất một nhóm việc…» · mở/đóng danh sách tick bằng Enter, Tab vào từng ô, Space để tick.
+
+**Nút gửi ước tính (#6):** bấm nút → ô «Mô tả vấn đề» có đoạn ước tính đúng số đang hiện, con trỏ ở ô «Tên» · viết thêm một dòng, đổi số, bấm lại → đoạn ước tính thay mới, dòng tự viết còn nguyên · điền đủ form, **chặn lời gọi `/api/contact` và đọc nội dung gửi đi** (luật DEC-079 — không chỉ nhìn giao diện): trường `mota` phải chứa đoạn ước tính. Ở 375 chọn 3 người × 25 tr (số dài nhất «98.025.000 đ») — không tràn ô.
 
 ### 4.5 Bàn phím
 

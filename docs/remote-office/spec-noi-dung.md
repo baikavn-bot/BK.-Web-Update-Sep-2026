@@ -91,7 +91,7 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | Số chính | «18.400.000 đ» *(ca mẫu)* |
 | Quy ra năm | «≈220.800.000 đ/năm» *(ca mẫu)* |
 | Chú thích — **luôn hiện** | «Con số mang tính tham khảo, chưa gồm VAT. Giá chính thức theo báo giá sau buổi khảo sát 45 phút.» |
-| Nút | «Gửi yêu cầu theo ước tính này» — đích đến: **chờ chốt** (`SPEC-MASTER.md` §7 #6) |
+| Nút | «Gửi yêu cầu theo ước tính này» — ✅ #6: điền sẵn ước tính vào form Liên hệ (§4.6) |
 
 **Chú thích công thức** ✅ `L7` — nằm **dưới bảng kết quả**: «Chi phí tự tuyển = lương + 21,5% bảo hiểm + 2% kinh phí công đoàn + khoảng 1,8 triệu chỗ ngồi, thiết bị, tuyển dụng.» ⚠️ con số «1,8 triệu» vẫn chờ sếp (Master §7 #5) — đổi số thì đổi cả câu này.
 
@@ -170,6 +170,33 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 | Tắt JavaScript | «Bật JavaScript để tính theo số của bạn.» | spec cũ §13.7 |
 | Gói bị nâng | «nâng vì chọn N nhóm việc» *(dòng phụ dưới tên gói)* | ⏸ đề xuất 29/09 — đi cùng luật mới |
 | Báo giá riêng | «Báo giá riêng sau khảo sát» *(cột BAIKA)* | ⏸ đề xuất 29/09 — đi cùng luật mới |
+
+
+### 4.6 Ước tính điền sẵn vào form Liên hệ ✅ *(#6 — Thắng chốt 01/10)*
+
+Bấm nút «Gửi yêu cầu theo ước tính này» → đoạn sau được điền vào **đầu** ô «Mô tả vấn đề» của form R9. Số lấy đúng lúc bấm.
+
+```
+Ước tính từ công cụ trên trang Remote Office:
+• 2 người · lương 10.000.000 đ/người
+• 3 nhóm việc: Hành chính – văn thư, Nhân sự – tiền lương, Kế toán – thuế
+• Tự tuyển 28.300.000 đ/tháng
+• Gói Vận hành 9.900.000 đ/tháng
+• Chênh lệch ≈ 18.400.000 đ/tháng
+```
+
+| Trạng thái | Khác ở đâu |
+| --- | --- |
+| Báo giá riêng | dòng gói thành «• Gói BAIKA: báo giá riêng sau khảo sát» · không có dòng chênh lệch |
+| Khối lượng nhỏ | không có dòng chênh lệch |
+| Chưa chọn nhóm việc | dòng nhóm thành «• Chưa chọn nhóm việc» · không có dòng gói, dòng chênh lệch |
+
+**Luật:**
+
+1. Dòng đầu «Ước tính từ công cụ trên trang Remote Office:» là **dấu mốc**. Bấm lại sau khi đổi số → code tìm dấu mốc, **thay** đoạn ước tính cũ (tới dòng trống đầu tiên), **giữ** chữ khách đã viết bên dưới.
+2. Khách xoá dấu mốc rồi bấm lại → đoạn mới được thêm lên đầu, chữ cũ giữ nguyên.
+3. Tắt JavaScript → nút chỉ cuộn xuống form, không điền.
+4. Mail về BAIKA: đoạn này nằm ở mục «Mô tả vấn đề» — API không đổi.
 
 ---
 

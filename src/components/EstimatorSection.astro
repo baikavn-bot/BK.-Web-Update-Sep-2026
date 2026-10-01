@@ -14,7 +14,6 @@
 // ─── ⏸ CHỜ CHỐT — đang dùng phương án tạm, đổi được ở MỘT chỗ ───────────
 //   #14 Luật chọn gói         → `LUAT_CHON_GOI` trong uoc-tinh.ts (tạm: luật mới)
 //   #5  Con số 1.800.000      → `THAM_SO.chiPhiCoDinh` trong uoc-tinh.ts
-//   #6  Nút gửi dẫn đi đâu    → tạm: cuộn xuống form Liên hệ (#lien-he)
 //   #11 Khoảng 10px trong ô bấm ‹ › → tạm `--s-3` (12)
 //   Lương: chỉ bấm ‹ › (bước 500.000). Gõ tay là đề xuất chưa duyệt — chưa làm.
 //
@@ -26,6 +25,14 @@
 //   • Mở ra thì ĐẨY nội dung bên dưới xuống (không nổi đè) — mobile không che bảng.
 //   • Dùng <details>/<summary> gốc của trình duyệt: mở/đóng chạy cả khi tắt JS,
 //     bàn phím (Enter/Space) và trình đọc màn hình hiểu sẵn.
+//
+// ─── Nút «Gửi yêu cầu theo ước tính này» — ✅ Thắng chốt #6 ngày 01/10 ───
+//   Bấm → ĐIỀN SẴN bản tóm tắt ước tính vào ô «Mô tả vấn đề» của form Liên hệ
+//   (khối R9, cuối trang) → cuộn xuống → con trỏ đặt vào ô «Tên».
+//   Khách thấy, sửa, viết thêm được. Gửi form → API /api/contact gửi mail về
+//   hộp thư BAIKA như mọi form khác — KHÔNG sửa API, 7 trang dịch vụ không đổi.
+//   Bấm lại sau khi đổi số → thay đoạn ước tính cũ, giữ nguyên chữ khách đã viết.
+//   Tắt JS → nút chỉ là đường dẫn #lien-he, cuộn xuống form, không điền sẵn.
 import Button2 from './Button2.astro';
 import IconChevronDown from './IconChevronDown.astro';
 import CheckItem from './CheckItem.astro';
@@ -208,6 +215,50 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
       });
     });
     oNhom.addEventListener('change', ve);
+
+    // ─── #6: điền ước tính vào form Liên hệ ─────────────────────────────
+    // Dòng đầu là "dấu mốc": bấm lại thì tìm dấu mốc này để THAY đoạn cũ.
+    const DAU_MOC = 'Ước tính từ công cụ trên trang Remote Office:';
+
+    function vanBanUocTinh(): string {
+      const chon = Array.from(oNhom.querySelectorAll<HTMLInputElement>('input[name="nhom"]:checked')).map((o) => o.value);
+      const kq = uocTinh(giaTri.nguoi, giaTri.luong, chon.length);
+      const dong = [
+        DAU_MOC,
+        `• ${giaTri.nguoi} người · lương ${dinhDangTien(giaTri.luong)}/người`,
+        chon.length ? `• ${chon.length} nhóm việc: ${chon.join(', ')}` : '• Chưa chọn nhóm việc',
+        `• Tự tuyển ${dinhDangTien(kq.tuTuyen)}/tháng`,
+      ];
+      if (kq.goi && kq.giaGoi !== null) dong.push(`• Gói ${THAM_SO.goi[kq.goi].ten} ${dinhDangTien(kq.giaGoi)}/tháng`);
+      else if (kq.trangThai === 'bao-gia-rieng') dong.push('• Gói BAIKA: báo giá riêng sau khảo sát');
+      if (kq.chenhLechThang !== null) dong.push(`• Chênh lệch ≈ ${dinhDangTien(kq.chenhLechThang)}/tháng`);
+      return dong.join('\n');
+    }
+
+    const nutGui = goc.querySelector<HTMLAnchorElement>('.ut__nut a');
+    nutGui?.addEventListener('click', (e) => {
+      const moTa = document.querySelector<HTMLTextAreaElement>('#lien-he textarea[name="mota"]');
+      const ten = document.querySelector<HTMLInputElement>('#lien-he input[name="ten"]');
+      const dich = document.getElementById('lien-he');
+      if (!moTa || !dich) return;               // không có form → để đường dẫn tự cuộn
+      e.preventDefault();
+
+      const moi = vanBanUocTinh();
+      const cu = moTa.value;
+      if (cu.startsWith(DAU_MOC)) {
+        // Thay đoạn ước tính cũ (tới dòng trống đầu tiên), giữ phần khách tự viết.
+        const het = cu.indexOf('\n\n');
+        moTa.value = moi + (het >= 0 ? cu.slice(het) : '\n\n');
+      } else {
+        moTa.value = moi + '\n\n' + cu;
+      }
+      moTa.dispatchEvent(new Event('input', { bubbles: true }));
+      moTa.scrollTop = 0;                       // ô dài → cho thấy dòng đầu của ước tính
+
+      const giamChuyenDong = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      dich.scrollIntoView({ behavior: giamChuyenDong ? 'auto' : 'smooth', block: 'start' });
+      ten?.focus({ preventScroll: true });
+    });
     ve();
   }
 </script>
