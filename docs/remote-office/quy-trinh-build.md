@@ -129,13 +129,13 @@ const { chromium } = require('playwright');
 
 ### 4.4 Công cụ ước tính
 
-Chạy đủ 9 ca trong `spec-noi-dung.md` §4.3 (theo luật chọn gói sếp đã duyệt). Thêm: tắt JavaScript → trang vẫn đọc được, hiện ca mẫu.
+Chạy đủ 11 ca trong `spec-noi-dung.md` §4.3 (theo luật chọn gói sếp đã duyệt). Thêm: tắt JavaScript → trang vẫn đọc được, hiện ca mẫu.
 
 ```bash
-node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts   # Node ≥ 22.6 · phải ra 9/9
+node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts   # Node ≥ 22.6 · phải ra 11/11
 ```
 
-Rồi kiểm trên trang thật (trình duyệt): mặc định ra 18.400.000 · chọn 4 nhóm → Trọn gói + dòng «nâng vì…» · 5 người → Báo giá riêng, nút `›` mờ · 1 người × 7 tr × 4 nhóm → câu «Khối lượng nhỏ». Ở 375 chọn 3 người × 25 tr (số dài nhất «98.025.000 đ») — không tràn ô.
+Rồi kiểm trên trang thật (trình duyệt): mặc định ra 18.400.000 · chọn 4 nhóm → Trọn gói + dòng «nâng vì…» · 5 người → Báo giá riêng, nút `›` mờ · 1 người × 7 tr × 4 nhóm → câu «Khối lượng nhỏ» · bỏ tick hết → «0 nhóm việc» + câu «Chọn ít nhất một nhóm việc…» · mở/đóng danh sách tick bằng Enter, Tab vào từng ô, Space để tick. Ở 375 chọn 3 người × 25 tr (số dài nhất «98.025.000 đ») — không tràn ô.
 
 ### 4.5 Bàn phím
 

@@ -77,7 +77,9 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | --- | --- |
 | «Số người định tuyển» | |
 | «Lương mỗi người» | đổi từ «Lương dự kiến» 30/09 |
-| «Nhóm công việc» | |
+| «Nhóm công việc» | ô ghi «N nhóm việc» (N = số ô đang tick, kể cả «0 nhóm việc») |
+
+**Danh sách tick nhóm việc** ✅ *(#4 chốt 01/10)* — đúng **8 mục của khối R3** (§3), cùng chữ, cùng thứ tự: «Hành chính – văn thư» · «Nhân sự – tiền lương» · «Kế toán – thuế» · «Tuân thủ – quy chế» · «Chăm sóc khách hàng» · «Hỗ trợ kinh doanh» · «Nội dung – livestream» · «Số liệu – báo cáo». **Tick sẵn 3 mục đầu.** Code không chép lại 8 tên này — lấy thẳng từ dữ liệu R3, nên sửa tên ở §3 là danh sách tự đổi theo.
 
 **Bảng kết quả** ✅ *(chỉ Figma có)* — đầu cột «Tự tuyển» · «Gói BAIKA» *(L18, 01/10)*; ô mẫu «2 người» · «Gói Vận hành» · «14.150.000 đ» · «-» · «28.300.000 đ» · «9.900.000 đ»
 
@@ -107,6 +109,7 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | Gói "thay được" | nửa vị trí · 1,5–2 · 3–4 vị trí | ✅ bảng giá spec cũ · ⚠️ chưa khớp số đơn vị công việc (100 đơn vị × 30 phút = 50 giờ/tháng mà "thay 1,5–2 người") — sếp cần có câu trả lời khi khách hỏi |
 | Lương nhập được | 7.000.000 – 25.000.000 đ · nút ‹ › nhảy 500.000 | ✅ khoảng từ spec cũ |
 | Số người nhập được | spec cũ: 1–5 · đề xuất mới: 1–4, từ 5 → "Báo giá riêng" | ⏸ Master §7 #14 |
+| Số nhóm việc | = số ô tick, 0–8 · mặc định 3 · 0 → trạng thái «Chưa chọn nhóm việc» · từ 6 → "Báo giá riêng" (luật mới) | ✅ #4 chốt 01/10 |
 
 ```
 chi phí tự tuyển 1 người / tháng = lương × 1,235 + 1.800.000     (1,235 = 1 + 21,5% + 2%)
@@ -121,7 +124,7 @@ chênh lệch / năm                  = chênh lệch / tháng × 12
 
 Hai phương án. **Build không tự chọn** — dựng sao cho đổi luật chỉ sửa một hàm.
 
-⏸ **Code đang chạy TẠM luật MỚI** (01/10) — trang phải hiện *một* con số, và luật mới là phương án **chặt hơn**: không bao giờ hứa gói nhỏ hơn khối lượng việc khách chọn. 9 ca §4.3 cũng viết theo luật mới. **Đây chưa phải quyết định** — sếp chọn luật cũ thì đổi một dòng `LUAT_CHON_GOI = 'cu'` ở `src/lib/uoc-tinh.ts` và sửa cột ca kiểm thử.
+⏸ **Code đang chạy TẠM luật MỚI** (01/10) — trang phải hiện *một* con số, và luật mới là phương án **chặt hơn**: không bao giờ hứa gói nhỏ hơn khối lượng việc khách chọn. 11 ca §4.3 cũng viết theo luật mới. **Đây chưa phải quyết định** — sếp chọn luật cũ thì đổi một dòng `LUAT_CHON_GOI = 'cu'` ở `src/lib/uoc-tinh.ts` và sửa cột ca kiểm thử.
 
 | | Luật cũ (spec v3 §13.7) | Luật mới đề xuất (29/09) |
 | --- | --- | --- |
@@ -151,6 +154,8 @@ Theo **luật mới**. Nếu sếp chọn luật cũ, ca 3, 5, 6, 7 đổi — c
 | 7 | 2 | 10.000.000 | 6 | — | 28.300.000 | — | — | Báo giá riêng | Trọn gói · 8.400.000 |
 | 8 | 2 | 3.000.000 *(gõ tay → kẹp 7 tr)* | 3 | Vận hành | 20.890.000 | 10.990.000 | 131.880.000 | Bình thường + dòng nhắc | giống |
 | 9 | 2 | 10.300.000 *(gõ tay)* | 3 | Vận hành | 29.041.000 | 19.141.000 | 229.692.000 | Bình thường | giống |
+| 10 | 2 | 10.000.000 | **0** *(bỏ tick hết)* | — | 28.300.000 | — | — | Chưa chọn nhóm việc | giống |
+| 11 | 2 | 10.000.000 | **8** *(tick hết)* | — | 28.300.000 | — | — | Báo giá riêng | Trọn gói · 8.400.000 |
 
 ### 4.4 Định dạng số
 
@@ -306,7 +311,7 @@ Bản nháp từng nằm ở đây đã được dựng thật — **không còn
 | Gì | Ở đâu |
 | --- | --- |
 | Tham số (lương, số người, số nhóm, giá gói, 1.800.000…), luật chọn gói, hàm tính, định dạng tiền | `src/lib/uoc-tinh.ts` — tham số ở **đầu file** |
-| 9 ca kiểm thử §4.3 | `tools/kiem-tra-uoc-tinh.mts` — chạy `node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts` (Node ≥ 22.6), phải ra `9/9` |
+| 11 ca kiểm thử §4.3 | `tools/kiem-tra-uoc-tinh.mts` — chạy `node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts` (Node ≥ 22.6), phải ra `11/11` |
 | Giao diện gọi hàm rồi vẽ theo `trangThai` | `src/components/EstimatorSection.astro` |
 
 Khác bản nháp: giới hạn số người để **1–5** (5 → Báo giá riêng), đúng bảng chọn gói §4.2.

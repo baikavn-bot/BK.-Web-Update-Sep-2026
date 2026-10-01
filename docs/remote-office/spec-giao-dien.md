@@ -44,7 +44,8 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | --- | --- | --- | --- | --- |
 | `Data` | `834:7502` | `Component` | `State` = `Cost row` · `Total` × `Type` = `Desktop` (682 rộng) · `Mobile` (327 rộng) *(đổi 30/09)* | R2 (5 dòng) |
 | `Table Item` | `842:7837` | `Component` *(đã chuyển 30/09)* | `Locate` = `Head·Body·Foot` × `Type` = `Default·Light` × `Device` = `Desktop/Tablet` (padding `--s-4`/`--s-8`) · `Mobile` (padding `--s-2`/`--s-4`) *(Thắng thêm 01/10 — L16)* | R4 (8 ô) · R6 (20 ô) |
-| `Find Job` | `854:8113` | `Component` | `Property 1` = `Default` *(đóng)* · `Variant2` *(mở)* | R4 |
+| `Find Job` | `854:8113` | `Component` | `Property 1` = `Default` *(đóng)* · `Variant2` *(mở — 8 dòng `Check`)* | R4 |
+| `Check` | `836:7698` | `Component` | `Property 1` = `Default` *(chưa tick)* · `Choose` *(đã tick)* | R4 — mỗi dòng trong `Find Job` |
 
 **`Data`** — một dòng số liệu. Rộng theo cột chứa · ngang · padding `var(--s-4)` / `var(--s-2)` · canh hai đầu · viền dưới 1px `var(--gray-600)`.
 
@@ -62,8 +63,9 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 `Head` → chữ `H-3` · `Body` / `Foot` → chữ `body` · tất cả `--gray-50`. `Head` bo góc trên, `Foot` bo góc dưới — **đọc bán kính từ Figma**, không đoán.
 
-**`Find Job`** — ô chọn nhóm công việc. 300 × 56 · nền `var(--opacity-white)` · padding `var(--s-4)` · chữ `H-3` + icon `chevron-down`. Mở: icon `chevron-up` + danh sách 300 × 336, mỗi dòng 300 × 48 · padding `var(--s-3)` / `var(--s-4)` · nền `var(--opacity-white)`.
-⚠️ Danh sách mở ra trong Figma là **7 dòng chữ mẫu giống nhau** — nội dung và kiểu chọn chờ chốt (Master §7 #4).
+**`Find Job`** — ô chọn nhóm công việc. 300 × 56 · nền `var(--opacity-white)` · padding `var(--s-4)` · chữ `H-3` + icon `chevron-down`. Mở: icon `chevron-up` + danh sách cách ô 10 ⏸ *(#11)* · **8 dòng `Check`** 300 × 48, sát nhau (gap 0).
+**`Check`** — một dòng tick: padding `var(--s-3)` / `var(--s-4)` · nền `var(--opacity-white)` · chữ `H-3` bên trái · ô `Checkbox` `29:2685` 24 × 24 bên phải (component gốc 20, Figma kéo lên 24) · canh hai đầu. `Choose` = ô đã tick.
+✅ #4 chốt 01/10: 8 dòng = 8 mục R3 · desktop vẽ sẵn 3 dòng đầu `Choose`.
 
 ---
 
@@ -130,7 +132,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | Phần | Code đang làm | Ghi chú |
 | --- | --- | --- |
 | Stepper | `<button>` 44 × 44 (`calc(var(--s-10) + var(--s-1))`) + `<output aria-live>` · 10 → `--s-3` ⏸ #11 | Vùng chạm ≥ 44 (WCAG). Hover / Active / Focus theo luật chung, Disabled `--gray-700` |
-| Nhóm việc | `<select>` gốc của trình duyệt: «1 nhóm việc»…«5 nhóm việc» · «6 nhóm việc trở lên» | ⏸ #4 — `<select>` gốc dùng được bằng bàn phím + trình đọc màn hình mà không cần JS. Đổi sang danh sách tự vẽ khi #4 chốt |
+| Nhóm việc | `<details>` + `<summary>` (ô «N nhóm việc» + mũi tên) → danh sách `CheckItem.astro` (= Figma `Check`), mỗi dòng một `<input type="checkbox">` thật trong `<fieldset>` | ✅ #4. `<details>` là ô mở/đóng có sẵn của trình duyệt: chạy cả khi tắt JS, Enter/Space mở được, trình đọc màn hình đọc được "đang mở/đóng". Cả dòng là vùng bấm (48 cao). 8 tên lấy từ prop `nhomViec` — trang truyền dữ liệu R3 vào |
 | Lương gõ tay | **Chưa làm** — chỉ nút `‹ ›` | Đề xuất 29/09, chưa ai duyệt |
 | Nút gửi | `Button2` Lg, `href="#lien-he"` — chỉ cuộn xuống | ⏸ #6 |
 | Không JS | Server vẽ sẵn ca 1 + `<noscript>` «Bật JavaScript để tính theo số của bạn.» | |
@@ -146,7 +148,7 @@ Kiểm hành vi (01/10, Playwright): mặc định 18.400.000 / ≈220.800.000 /
 | Công thức, tham số, luật chọn gói, ca kiểm thử → **`spec-noi-dung.md` §4.1–4.3** — không chép số vào đây | |
 | **Số người**: số nguyên, mặc định 2. Dưới 1 → đưa về 1. Nút `‹` **Disabled** ở 1. Giới hạn trên: spec cũ **5** · đề xuất mới **từ 5 → trạng thái "Báo giá riêng"** | ⏸ Master §7 #14 |
 | **Lương**: mặc định 10.000.000. Nút `‹ ›` nhảy 500.000, Disabled ở 7.000.000 / 25.000.000. **Gõ tay được** → giữ đúng số khách gõ (làm tròn tới 1.000 đ), chỉ kẹp trong 7–25 triệu, kèm dòng nhắc nhỏ khi bị kẹp. Tự thêm dấu chấm ngăn nghìn khi gõ | Khoảng 7–25 tr: spec cũ §13.7 · cách gõ tay: **[đề xuất 29/09]** ⏸ |
-| **Nhóm việc**: `Find Job` — kiểu chọn chờ chốt | ⏸ Master §7 #4 |
+| **Nhóm việc**: tick từng nhóm trong 8 nhóm R3, số nhóm = số ô tick. Mặc định tick 3 nhóm đầu. Mở danh sách → **đẩy** phần bên dưới xuống (≥ 768: nhãn «Nhóm công việc» vẫn ngang ô 56) | ✅ Master §7 #4 (01/10) |
 | Chạm giới hạn → nút `‹` hoặc `›` chuyển **`Disabled`** (`--gray-700`, giữ `opacity: 1`) | Luật chung `CLAUDE.md` |
 | Chênh lệch ≤ 0 → **không hiện số âm**, chuyển trạng thái "Khối lượng nhỏ" | spec cũ §13.6–13.7 |
 | **Mọi tham số ở MỘT chỗ trong code**; giao diện chỉ gọi hàm tính rồi vẽ theo `trangThai` — đổi luật chọn gói chỉ sửa một hàm | [đề xuất 29/09] |
@@ -160,7 +162,7 @@ Kiểm hành vi (01/10, Playwright): mặc định 18.400.000 / ≈220.800.000 /
 | **Gói bị nâng** ⏸ *đi cùng luật mới* | Gói theo cả người + nhóm lớn hơn gói chỉ theo số người | Như trên + dòng phụ dưới tên gói |
 | **Khối lượng nhỏ** | Chênh lệch ≤ 0 | Vẫn hiện hai cột chi phí, **không** hiện số tiết kiệm · câu "Khối lượng nhỏ" |
 | **Báo giá riêng** ⏸ *đi cùng luật mới* | Từ 5 người hoặc từ 6 nhóm | Cột tự tuyển vẫn hiện số · cột BAIKA ghi "Báo giá riêng sau khảo sát" · không hiện chênh lệch · nút gửi vẫn bấm được |
-| **Chưa chọn nhóm việc** | 0 nhóm *(nếu ô cho phép — Master §7 #4)* | Số chính thay bằng dấu gạch · câu nhắc |
+| **Chưa chọn nhóm việc** | Bỏ tick hết (0 nhóm) | Ô ghi «0 nhóm việc» · cột BAIKA «-» · số chính «—» · câu nhắc §4.5 *(đã dựng)* |
 | **Không có JS** | Trình duyệt tắt JS | Bảng + kết quả **ca 1** (2 người · 10 triệu · 3 nhóm) + câu "Bật JavaScript…"; nút gửi vẫn dùng được |
 
 ### 4.3 Truy cập (accessibility)
@@ -277,7 +279,7 @@ Hai ô viền sát nhau (tiêu chí · tự tuyển) bỏ viền trái ô sau �
 | --- | --- | --- | --- |
 | 1 | ~~`Table Item` `842:7837` nằm ở page `UI`~~ | ✅ **Đã chuyển** sang page `Component` (30/09) | — |
 | 2 | `Table Item` · `Find Job` | Tên trục `Property 1`; giá trị `Variant2` *(`Data` đã sửa 30/09: `State` × `Type`)* | `Row` · `State = Close·Open` |
-| 3 | `Find Job` | Chỉ có đóng/mở, thiếu `Hover` · `Focus` · dòng **đang chọn** | Bổ sung |
+| 3 | `Find Job` | Chỉ có đóng/mở, thiếu `Hover` · `Focus` *(dòng **đang chọn** ✅ đã có từ 01/10: `Check` `Choose`)* | Bổ sung Hover · Focus — code đang theo luật chung |
 | 4 | Stepper R4 | Vẽ tay, không phải component, thiếu trạng thái | Tạo component `Stepper` |
 | 5 | Nút CTA hero — **mọi trang** | Instance để `State=Hover` | Về `Normal` |
 | 6 | Frame `922:3801` | Tên "Gói dịch vụ" trùng `913:4823` | → `So sánh` |
@@ -297,6 +299,7 @@ Hai ô viền sát nhau (tiêu chí · tự tuyển) bỏ viền trái ô sau �
 
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
+| 01/10/2026 | `854:8114` `Find Job` Variant2 · `913:4733` | **Thắng:** mở sẵn danh sách tick ở desktop R4 (`Find Job` = Variant2, component `Check` `836:7698`). **Claude theo #4 chốt:** thêm dòng thứ 8 (`947:58`) · đổi 8 chữ mẫu «Hành chính - văn thư» thành 8 tên R3 · instance desktop tick 3 dòng đầu (`Choose`). Tablet `923:4266` / mobile `922:3648` vẫn vẽ trạng thái đóng — đúng, không cần thêm frame | Có — `CheckItem.astro` + `EstimatorSection` | commit này |
 | 01/10/2026 | `933:4613` Mobile R6 | **Thắng chốt:** viền = tự tuyển, nền sáng = BAIKA, thêm chú giải đầu bảng. **Claude:** bỏ tiền tố «Tự tuyển · » / «BAIKA · » ở 12 ô · tên tiêu chí từ ô `Head Default` thành chữ H-3 trần (`936:5`…`936:25`) để không lẫn với "ô viền = tự tuyển" · thêm hàng `Chú giải` `936:6386` · khoảng trong khối 4 → 8 (`--s-2`), giữa khối 12 → 16 (`--s-4`) | Có | commit này |
 | 01/10/2026 | R6 tablet/mobile | **D1 = (a)**: Claude thay `923:4293` → `933:3544` (Tablet) và `922:3962` → `933:4613` (Mobile), xoá section đề xuất `933:3543`, đổi tên frame «So sánh · Tablet/Mobile». Dời 2 frame xuống để hết chồng lên frame Ước tính (tablet y 4706, mobile y 4809). **Thắng** đổi padding dọc `Table Item Device=Mobile` 8 → 16 (`--s-4`) | Có — `CompareSection` | commit này |
 | 01/10/2026 | R4 · R6 tablet/mobile | **Thắng:** `Table Item` thêm trục `Device` (Mobile padding `--s-2`/`--s-4`) · mobile R4 nhãn đặt trên điều khiển, bảng thành GRID. Đổi tên `825:6072` → «Remote Office cũ / Desktop 1280». **Claude áp L15–L20:** `923:4261` · `922:3643` «10.000.000 đ» · bảng tablet/mobile «14.150.000 đ» «28.300.000 đ» «9.900.000 đ» · `Find Job` «3 nhóm việc» · nút «Gửi yêu cầu theo ước tính này» · so sánh «Doanh nghiệp tự đóng, tăng theo mỗi người» · **desktop** `913:4739` «Giao cho BAIKA» → «Gói BAIKA» (L18 áp cả 3 khổ). Vẽ đề xuất D1 trong section `933:3543` | Chưa dựng | commit này |

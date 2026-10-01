@@ -16,8 +16,10 @@ export const THAM_SO = {
   chiPhiCoDinh: 1_800_000,
   luong: { min: 7_000_000, max: 25_000_000, buoc: 500_000, macDinh: 10_000_000 },
   soNguoi: { min: 1, max: 5, macDinh: 2 },
-  /** Ô "Nhóm công việc": 1…5 và "6 trở lên" (giá trị 6). ⏸ SPEC-MASTER §7 #4 */
-  soNhom: { min: 1, max: 6, macDinh: 3 },
+  /** Ô "Nhóm công việc" = danh sách TICK 8 nhóm (Thắng chốt #4 ngày 01/10).
+   *  Số nhóm = số ô đang tick (0…8). Mặc định tick sẵn 3 nhóm đầu.
+   *  Tên 8 nhóm KHÔNG nằm ở đây — lấy từ khối R3 trên trang (một nguồn chữ). */
+  soNhom: { min: 0, max: 8, macDinh: 3 },
   goi: {
     'khoi-dau': { ten: 'Khởi đầu', gia: 4_900_000, nhomToiDa: 1, nguoiToiDa: 0.5 },
     'van-hanh': { ten: 'Vận hành', gia: 9_900_000, nhomToiDa: 3, nguoiToiDa: 2 },
@@ -33,7 +35,7 @@ export const THAM_SO = {
 export const LUAT_CHON_GOI: 'moi' | 'cu' = 'moi';
 
 export type MaGoi = keyof typeof THAM_SO.goi;
-export type TrangThai = 'binh-thuong' | 'goi-bi-nang' | 'khoi-luong-nho' | 'bao-gia-rieng';
+export type TrangThai = 'binh-thuong' | 'goi-bi-nang' | 'khoi-luong-nho' | 'bao-gia-rieng' | 'chua-chon-nhom';
 
 export interface KetQua {
   trangThai: TrangThai;
@@ -70,6 +72,11 @@ export function uocTinh(nguoi: number, luong: number, nhom: number): KetQua {
   const l = kepLuong(luong);
   const tuTuyenMotNguoi = Math.round((l * THAM_SO.heSoLuongPhanNghin) / 1000) + THAM_SO.chiPhiCoDinh;
   const tuTuyen = tuTuyenMotNguoi * nguoi;
+
+  // Bỏ tick hết → chưa có gì để so (spec-noi-dung §4.5 «Chưa chọn nhóm việc»).
+  if (nhom < 1) {
+    return { trangThai: 'chua-chon-nhom', goi: null, tuTuyenMotNguoi, tuTuyen, giaGoi: null, chenhLechThang: null, chenhLechNam: null };
+  }
 
   let goi: MaGoi | null;
   let biNang = false;

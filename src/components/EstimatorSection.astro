@@ -14,18 +14,29 @@
 // ─── ⏸ CHỜ CHỐT — đang dùng phương án tạm, đổi được ở MỘT chỗ ───────────
 //   #14 Luật chọn gói         → `LUAT_CHON_GOI` trong uoc-tinh.ts (tạm: luật mới)
 //   #5  Con số 1.800.000      → `THAM_SO.chiPhiCoDinh` trong uoc-tinh.ts
-//   #4  Ô "Nhóm công việc"    → tạm: ô chọn SỐ nhóm 1…5 và «6 nhóm việc trở lên»
-//                                (ô chọn gốc của trình duyệt — dùng được bàn phím,
-//                                trình đọc màn hình, không cần JS riêng)
 //   #6  Nút gửi dẫn đi đâu    → tạm: cuộn xuống form Liên hệ (#lien-he)
 //   #11 Khoảng 10px trong ô bấm ‹ › → tạm `--s-3` (12)
 //   Lương: chỉ bấm ‹ › (bước 500.000). Gõ tay là đề xuất chưa duyệt — chưa làm.
+//
+// ─── Ô "Nhóm công việc" — ✅ Thắng chốt #4 ngày 01/10 ────────────────────
+//   Figma `Find Job` `854:8113` (đóng / mở) + `Check` `836:7698` (mỗi dòng tick).
+//   • 8 nhóm = đúng 8 mục của khối R3 — trang truyền vào qua prop `nhomViec`,
+//     chữ chỉ nằm MỘT chỗ (remote-office.astro).
+//   • Tick sẵn 3 nhóm đầu → trang mở ra có số 18.400.000 đ như Figma.
+//   • Mở ra thì ĐẨY nội dung bên dưới xuống (không nổi đè) — mobile không che bảng.
+//   • Dùng <details>/<summary> gốc của trình duyệt: mở/đóng chạy cả khi tắt JS,
+//     bàn phím (Enter/Space) và trình đọc màn hình hiểu sẵn.
 import Button2 from './Button2.astro';
 import IconChevronDown from './IconChevronDown.astro';
+import CheckItem from './CheckItem.astro';
 import { THAM_SO, uocTinh, dinhDangTien } from '../lib/uoc-tinh';
 
-interface Props { heading?: string; }
-const { heading = 'Ước tính khoản chênh lệch của bạn' } = Astro.props;
+interface Props {
+  heading?: string;
+  /** Tên các nhóm việc cho danh sách tick — trang lấy từ khối R3. */
+  nhomViec: string[];
+}
+const { heading = 'Ước tính khoản chênh lệch của bạn', nhomViec } = Astro.props;
 
 // Ca mẫu — đúng số trên Figma. Vẽ sẵn lúc build để không có JS vẫn đọc được.
 const nguoi0 = THAM_SO.soNguoi.macDinh;
@@ -34,10 +45,6 @@ const nhom0 = THAM_SO.soNhom.macDinh;
 const kq0 = uocTinh(nguoi0, luong0, nhom0);
 const tenGoi0 = kq0.goi ? `Gói ${THAM_SO.goi[kq0.goi].ten}` : 'Báo giá riêng sau khảo sát';
 
-const luaChonNhom = Array.from({ length: THAM_SO.soNhom.max }, (_, i) => i + 1).map((n) => ({
-  n,
-  ten: n === THAM_SO.soNhom.max ? `${n} nhóm việc trở lên` : `${n} nhóm việc`,
-}));
 
 const congThuc = 'Chi phí tự tuyển = lương + 21,5% bảo hiểm + 2% kinh phí công đoàn + khoảng 1,8 triệu chỗ ngồi, thiết bị, tuyển dụng.';
 const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính thức theo báo giá sau buổi khảo sát 45 phút.';
@@ -76,13 +83,17 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
       </div>
 
       <div class="ut__dong">
-        <label class="ut__nhan" for="ut-nhom">Nhóm công việc</label>
-        <div class="ut__chon-nhom">
-          <select id="ut-nhom" data-vao="nhom">
-            {luaChonNhom.map((o) => <option value={o.n} selected={o.n === nhom0}>{o.ten}</option>)}
-          </select>
-          <span class="ut__mui-ten"><IconChevronDown /></span>
-        </div>
+        <span class="ut__nhan" aria-hidden="true">Nhóm công việc</span>
+        <details class="ut__nhom" data-vao="nhom">
+          <summary class="ut__nhom-o">
+            <span><span class="sr-only">Nhóm công việc: </span><span data-ra="so-nhom">{nhom0}</span> nhóm việc</span>
+            <span class="ut__mui-ten"><IconChevronDown /></span>
+          </summary>
+          <fieldset class="ut__nhom-ds">
+            <legend class="sr-only">Chọn các nhóm công việc muốn giao cho BAIKA</legend>
+            {nhomViec.map((ten, i) => <CheckItem name="nhom" value={ten} label={ten} checked={i < nhom0} />)}
+          </fieldset>
+        </details>
       </div>
     </div>
 
@@ -142,13 +153,14 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
   if (timGoc) {
     const goc: HTMLElement = timGoc;
     const ra = (ten: string) => goc.querySelector<HTMLElement>(`[data-ra="${ten}"]`)!;
-    const chonNhom = goc.querySelector<HTMLSelectElement>('[data-vao="nhom"]')!;
+    const oNhom = goc.querySelector<HTMLElement>('[data-vao="nhom"]')!;
     const giaTri: { nguoi: number; luong: number } = { nguoi: THAM_SO.soNguoi.macDinh, luong: THAM_SO.luong.macDinh };
 
     const CHU_NHO = 'Khối lượng việc bạn chọn còn nhỏ. Giữ người làm trong công ty vẫn rẻ hơn — cứ liên hệ khi cần giao thêm.';
+    const CHU_CHUA_CHON = 'Chọn ít nhất một nhóm việc để BAIKA ước tính giúp bạn.';
 
     function ve() {
-      const nhom = Number(chonNhom.value);
+      const nhom = oNhom.querySelectorAll('input[name="nhom"]:checked').length;
       const kq = uocTinh(giaTri.nguoi, giaTri.luong, nhom);
 
       ra('nguoi').textContent = String(giaTri.nguoi);
@@ -156,7 +168,9 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
       ra('so-nguoi').textContent = `${giaTri.nguoi} người`;
       ra('mot-nguoi').textContent = dinhDangTien(kq.tuTuyenMotNguoi);
       ra('tu-tuyen').textContent = dinhDangTien(kq.tuTuyen);
-      ra('ten-goi').textContent = kq.goi ? `Gói ${THAM_SO.goi[kq.goi].ten}` : 'Báo giá riêng sau khảo sát';
+      ra('so-nhom').textContent = String(nhom);
+      ra('ten-goi').textContent = kq.goi ? `Gói ${THAM_SO.goi[kq.goi].ten}`
+        : kq.trangThai === 'bao-gia-rieng' ? 'Báo giá riêng sau khảo sát' : '-';
       ra('gia-goi').textContent = kq.giaGoi !== null ? dinhDangTien(kq.giaGoi) : '-';
 
       const nang = ra('nang');
@@ -166,8 +180,9 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
       ra('chenh-thang').textContent = kq.chenhLechThang !== null ? dinhDangTien(kq.chenhLechThang) : '—';
       ra('chenh-nam').textContent = kq.chenhLechNam !== null ? `≈${dinhDangTien(kq.chenhLechNam)}/năm` : '';
       const loi = ra('loi');
-      loi.hidden = kq.trangThai !== 'khoi-luong-nho';
-      loi.textContent = kq.trangThai === 'khoi-luong-nho' ? CHU_NHO : '';
+      loi.textContent = kq.trangThai === 'khoi-luong-nho' ? CHU_NHO
+        : kq.trangThai === 'chua-chon-nhom' ? CHU_CHUA_CHON : '';
+      loi.hidden = loi.textContent === '';
 
       // Nút ‹ › chuyển Disabled khi chạm giới hạn.
       goc.querySelectorAll<HTMLButtonElement>('[data-buoc]').forEach((b) => {
@@ -192,7 +207,7 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
         ve();
       });
     });
-    chonNhom.addEventListener('change', ve);
+    oNhom.addEventListener('change', ve);
     ve();
   }
 </script>
@@ -272,16 +287,17 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
   .ut__nut-buoc:focus-visible { outline: none; box-shadow: var(--shadow-drop-inner); }
   .ut__nut-buoc:disabled { color: var(--gray-700); cursor: not-allowed; }
 
-  /* Ô "Nhóm công việc" — component Figma `Find Job`. */
-  .ut__chon-nhom { position: relative; }
-  .ut__chon-nhom select {
-    appearance: none;
-    width: 100%;
+  /* Ô "Nhóm công việc" — Figma `Find Job` `854:8113`.
+     Đóng: một ô 56 cao như ô ‹ › bên trên. Mở: danh sách tick hiện NGAY DƯỚI,
+     đẩy phần bên dưới xuống. */
+  .ut__nhom { display: flex; flex-direction: column; gap: var(--s-3); }  /* ⏸ Figma 10 — #11 */
+  .ut__nhom-o {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
     min-height: calc(var(--s-12) + var(--s-2));   /* 56 */
     padding: var(--s-4);
-    padding-right: calc(var(--s-4) * 2 + var(--s-6));  /* chừa chỗ mũi tên */
-    border: 0;
-    border-radius: 0;
     background: var(--opacity-white);
     color: var(--gray-50);
     font-family: var(--font-heading);
@@ -289,20 +305,23 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
     line-height: var(--lh-h3);
     font-weight: var(--fw-h3);
     cursor: pointer;
+    list-style: none;                  /* bỏ hình tam giác mặc định của <summary> */
     transition: box-shadow 120ms ease;
   }
-  .ut__chon-nhom select:hover { box-shadow: var(--shadow-inner); }
-  .ut__chon-nhom select:focus-visible { outline: none; box-shadow: var(--shadow-drop-inner); }
-  /* Danh sách thả xuống do trình duyệt vẽ — cho nền tối để chữ sáng đọc được. */
-  .ut__chon-nhom option { background: var(--gray-950); color: var(--gray-50); }
-  .ut__mui-ten {
-    position: absolute;
-    right: var(--s-4);
-    top: 50%;
-    transform: translateY(-50%);
-    display: inline-flex;
-    color: var(--gray-50);
-    pointer-events: none;
+  .ut__nhom-o::-webkit-details-marker { display: none; }
+  .ut__nhom-o:hover { box-shadow: var(--shadow-inner); }
+  .ut__nhom-o:focus-visible { outline: none; box-shadow: var(--shadow-drop-inner); }
+  .ut__mui-ten { display: inline-flex; transition: transform 120ms ease; }
+  /* Mở → mũi tên quay lên (Figma: chevron-up) */
+  .ut__nhom[open] .ut__mui-ten { transform: rotate(180deg); }
+
+  .ut__nhom-ds {
+    display: flex;
+    flex-direction: column;            /* Figma `List`: các dòng sát nhau, gap 0 */
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
   }
 
   /* ─── Kết quả ─────────────────────────────────────────────────── */
@@ -410,8 +429,13 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
     .ut__dong {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 5fr);   /* nhãn ~120 · ô lấp đầy */
-      align-items: center;
+      align-items: start;              /* danh sách tick mở ra → nhãn vẫn ngang ô 56 */
       gap: var(--s-3);
+    }
+    .ut__nhan {
+      display: flex;
+      align-items: center;
+      min-height: calc(var(--s-12) + var(--s-2));   /* 56 — ngang tâm ô bên cạnh */
     }
     .ut__o { padding: var(--s-4) var(--s-6); }
   }

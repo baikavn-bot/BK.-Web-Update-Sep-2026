@@ -132,8 +132,9 @@ const cauHoi = [
   <StepsSection groups={baikaLamGi} />
 
   {/* R4 — spec-noi-dung §4 · dựng 01/10. Neo #uoc-tinh (nút Hero trỏ tới) nằm trong khối.
-      ⏸ Đang chạy phương án TẠM cho Master §7 #4 #5 #6 #14 — xem đầu EstimatorSection.astro. */}
-  <EstimatorSection />
+      Danh sách tick nhóm việc = 8 mục của R3 ở trên (#4 chốt 01/10) — chữ chỉ nằm MỘT chỗ.
+      ⏸ Đang chạy phương án TẠM cho Master §7 #5 #6 #14 — xem đầu EstimatorSection.astro. */}
+  <EstimatorSection nhomViec={baikaLamGi.flatMap((cum) => cum.items.map((muc) => muc.title))} />
 
   {/* R5 — spec-noi-dung §5 ✅ */}
   <BenefitsSection items={ketQua} />

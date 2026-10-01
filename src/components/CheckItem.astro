@@ -1,0 +1,80 @@
+---
+// MỘT DÒNG TICK — Figma `Check` `836:7698` (page Component).
+//   Variant `Default` = chưa tick · `Choose` = đã tick. Hai variant chỉ khác ô tick.
+//   Dòng 48 cao · padding `--s-3` / `--s-4` · nền `--opacity-white`
+//   · chữ H-3 bên TRÁI · ô tick 24 bên PHẢI (canh hai đầu).
+//
+// Ô tick vẽ đúng hình `Checkbox` `29:2685` — cùng SVG với Checkbox.astro (đọc
+// comment ở đó để biết vì sao vẽ bằng SVG). Ở dòng này Figma kéo ô tick lên 24×24
+// (component gốc 20×20), nên SVG ở đây hiện 24.
+//
+// Khác Checkbox.astro (ô tick của form Liên hệ): CẢ DÒNG là vùng bấm (thẻ <label>
+// bọc hết) → vùng chạm 48px, đạt mức 44px trên mobile mà không cần nới ô tick.
+//
+// Trạng thái — Figma chưa vẽ cho dòng này, dùng ngôn ngữ chung (CLAUDE.md §4):
+//   Hover → `--shadow-inner` · Focus (bàn phím) → quầng `--shadow-drop-inner`
+interface Props {
+  name: string;
+  value: string;
+  label: string;
+  checked?: boolean;
+}
+const { name, value, label, checked = false } = Astro.props;
+---
+
+<label class="ck">
+  <span class="ck__chu">{label}</span>
+  <span class="ck__o">
+    <input class="ck__input" type="checkbox" name={name} value={value} checked={checked} />
+    <svg class="ck__svg" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+      <rect class="ck__khung" x="2.5" y="2.5" width="15.333" height="15.333" rx="1.917"
+            stroke="currentColor" stroke-width="1" stroke-linejoin="round" />
+      <path class="ck__tick" d="M13.96 7 L8.66 13.417 L6.38 10.85"
+            stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </span>
+</label>
+
+<style>
+  .ck {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);                   /* ⏸ Figma 10 — SPEC-MASTER §7 #11 */
+    padding: var(--s-3) var(--s-4);    /* 12 / 16 → dòng cao 48 */
+    background: var(--opacity-white);
+    color: var(--gray-50);
+    cursor: pointer;
+    transition: box-shadow 120ms ease;
+  }
+  .ck:hover { box-shadow: var(--shadow-inner); }
+  .ck:has(.ck__input:focus-visible) { box-shadow: var(--shadow-drop-inner); }
+
+  .ck__chu {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+  }
+
+  .ck__o {
+    position: relative;
+    flex: none;
+    width: var(--s-6);                 /* 24 — như Figma */
+    height: var(--s-6);
+  }
+  /* <input> thật, trong suốt, phủ lên SVG — bàn phím + trình đọc màn hình chạy sẵn. */
+  .ck__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .ck__svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+  .ck__tick { opacity: 0; }
+  .ck__input:checked + .ck__svg .ck__khung { fill: var(--gray-950); }
+  .ck__input:checked + .ck__svg .ck__tick { opacity: 1; }
+</style>

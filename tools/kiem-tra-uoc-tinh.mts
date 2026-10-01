@@ -1,10 +1,10 @@
-// KIỂM TRA CÔNG CỤ ƯỚC TÍNH — chạy 9 ca của docs/remote-office/spec-noi-dung.md §4.3
+// KIỂM TRA CÔNG CỤ ƯỚC TÍNH — chạy 11 ca của docs/remote-office/spec-noi-dung.md §4.3
 //
 // Chạy:   node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts
 // Cần Node 22.6 trở lên (để Node đọc thẳng file .ts). Repo dùng Node 20 để build —
 // file này chỉ dành cho agent kiểm tra, không nằm trong site.
 //
-// Ra «9/9» là đúng. Sếp đổi luật chọn gói (#14) hay con số 1.800.000 (#5) → sửa bảng
+// Ra «11/11» là đúng. Sếp đổi luật chọn gói (#14) hay con số 1.800.000 (#5) → sửa bảng
 // ca bên dưới theo spec mới TRƯỚC, rồi mới sửa src/lib/uoc-tinh.ts.
 // Ca 8: lương 3 triệu → hàm tự kẹp về 7 triệu (ô gõ tay chưa làm, nhưng hàm đã chịu được).
 
@@ -22,6 +22,8 @@ const ca: Ca[] = [
  [7,2,10_000_000,6,null,28_300_000,null,null,'bao-gia-rieng'],
  [8,2,3_000_000,3,'van-hanh',20_890_000,10_990_000,131_880_000,'binh-thuong'],
  [9,2,10_300_000,3,'van-hanh',29_041_000,19_141_000,229_692_000,'binh-thuong'],
+ [10,2,10_000_000,0,null,28_300_000,null,null,'chua-chon-nhom'],
+ [11,2,10_000_000,8,null,28_300_000,null,null,'bao-gia-rieng'],
 ];
 let ok = 0;
 for (const [i,n,l,g,goi,tt,cl,nam,st] of ca) {
@@ -30,5 +32,5 @@ for (const [i,n,l,g,goi,tt,cl,nam,st] of ca) {
   if (pass) ok++;
   console.log(`ca ${i}: ${pass?'DUNG':'SAI '} goi=${r.goi} tuTuyen=${r.tuTuyen} chenh=${r.chenhLechThang} nam=${r.chenhLechNam} ${r.trangThai}`);
 }
-console.log(dinhDangTien(18400000), '|', ok+'/9');
+console.log(dinhDangTien(18400000), '|', ok + '/' + ca.length);
 if (ok !== ca.length) process.exit(1);
