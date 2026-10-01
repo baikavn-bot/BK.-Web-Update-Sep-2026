@@ -9,12 +9,16 @@
 //
 // ─── Hai dạng, MỘT bảng ──────────────────────────────────────────────────
 //   ≥ 768  : bảng 3 cột — tiêu chí · tự tuyển · BAIKA (cột BAIKA nền sáng, bên PHẢI)
-//   < 768  : MỖI TIÊU CHÍ MỘT KHỐI — tên tiêu chí → «Tự tuyển · …» → «BAIKA · …»
+//   < 768  : CHÚ GIẢI ở đầu (ô viền = tự tuyển · ô nền sáng = BAIKA) rồi MỖI
+//            TIÊU CHÍ MỘT KHỐI — tên tiêu chí (chữ H-3, không khung) → ô viền → ô sáng
+//            (Thắng chốt 01/10: bỏ chữ «Tự tuyển ·» / «BAIKA ·» lặp 6 lần.)
 //
 // Vì sao không làm hai bản HTML rồi ẩn một: chữ chỉ nằm ở MỘT chỗ, sửa một lần
-// là đúng cả hai khổ. Ở mobile chỉ đổi `display` của chính các ô bảng.
-// Chữ «Tự tuyển · » / «BAIKA · » ở mobile là CHỮ THẬT trong HTML (không phải
-// `content:` của CSS) — trình đọc màn hình nào cũng đọc được.
+// là đúng cả hai khổ. Ở mobile chỉ đổi `display` của chính các ô bảng; hàng đầu
+// (`thead`) của bảng trở thành dòng chú giải.
+// Mắt thường phân biệt hai bên bằng viền / nền. Trình đọc màn hình không "thấy"
+// viền, nên mỗi ô vẫn có chữ «Tự tuyển: » / «BAIKA: » ẩn khỏi mắt (`sr-only`)
+// — đúng WCAG 1.4.1: không truyền thông tin chỉ bằng hình thức.
 //
 // ─── Component Figma `Table Item` `842:7837` ─────────────────────────────
 //   Desktop/Tablet: padding `--s-4` / `--s-6` · Mobile: padding `--s-4` / `--s-4`
@@ -62,10 +66,10 @@ const {
           <tr class="ss__hang">
             <th scope="row" class="ss__o ss__o--vien ss__o--tieu-chi">{h.tieuChi}</th>
             <td class="ss__o ss__o--vien ss__o--tu-tuyen">
-              <span class="ss__nhan">Tự tuyển · </span>{h.tuTuyen}
+              <span class="sr-only">Tự tuyển: </span>{h.tuTuyen}
             </td>
             <td class:list={['ss__o ss__o--sang ss__o--baika', { 'ss__o--cuoi': cuoi }]}>
-              <span class="ss__nhan">BAIKA · </span>{h.baika}
+              <span class="sr-only">BAIKA: </span>{h.baika}
             </td>
           </tr>
         );
@@ -116,31 +120,46 @@ const {
     color: var(--gray-50);
   }
 
-  /* ─── MOBILE < 768: mỗi tiêu chí một khối ─────────────────────────
-     Bảng thôi xếp theo lưới; mỗi hàng `<tr>` thành một khối dọc gồm 3 ô:
-       tên tiêu chí  (Head Default — bo hai góc trên)
-       Tự tuyển · …  (Body Default)
-       BAIKA · …     (Foot Light — bo hai góc dưới)
-     Hàng đầu (`thead`) ẩn đi: nhãn đã nằm ngay trong từng ô. */
+  /* ─── MOBILE < 768: chú giải + mỗi tiêu chí một khối ─────────────
+     Figma `933:4613` (Thắng chốt 01/10):
+       Chú giải   ô viền «Tuyển thêm nhân viên» | ô sáng «BAIKA Remote Office»
+       Khối       tên tiêu chí (H-3, không khung)
+                  ô viền  = bên tự tuyển   (Body Default)
+                  ô sáng  = bên BAIKA      (Foot Light — bo hai góc dưới)
+     Khoảng cách: giữa chú giải và các khối `--s-4` · trong khối `--s-2`. */
   @media (max-width: 767px) {
     .ss__bang,
     .ss__bang tbody {
       display: flex;
       flex-direction: column;
-      gap: var(--s-3);                 /* 12 — giữa các khối */
+      gap: var(--s-4);                 /* 16 */
     }
-    .ss__bang thead { display: none; }
+    .ss__bang thead { display: block; }
+    .ss__bang thead tr {
+      display: flex;
+      gap: var(--s-1);                 /* 4 — hai ô chú giải */
+    }
+    .ss__goc { display: none; }
+    /* Ô chú giải dùng chữ body (Body Default / Body Light), không phải H-3. */
+    .ss__bang thead .ss__o {
+      flex: 1 1 0;
+      font-family: var(--font-body);
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      font-weight: var(--fw-body);
+    }
     .ss__hang {
       display: flex;
       flex-direction: column;
-      gap: var(--s-1);                 /* 4 — trong một khối */
+      gap: var(--s-2);                 /* 8 */
     }
     .ss__o { display: block; }
-    .ss__o--tieu-chi { border-radius: var(--r-sm) var(--r-sm) 0 0; }
+    /* Tên tiêu chí: chữ H-3 trần — có khung thì lẫn với "ô viền = tự tuyển". */
+    .ss__o--tieu-chi {
+      padding: 0;
+      border: 0;
+    }
     .ss__o--baika { border-radius: 0 0 var(--r-sm) var(--r-sm); }
-    /* Nhãn bên: đậm hơn chữ thường một bậc — Figma đề xuất D1 dùng Medium,
-       trùng độ đậm của thang H-3 (500). */
-    .ss__nhan { font-weight: var(--fw-h3); }
   }
 
   /* ─── TABLET + DESKTOP ≥ 768: bảng 3 cột ─────────────────────────── */
@@ -152,7 +171,6 @@ const {
       border-spacing: 0 var(--s-1);    /* 4 giữa các hàng · 0 giữa các cột */
       margin-block: calc(var(--s-1) * -1);  /* bù khoảng thừa trên đầu + dưới chân bảng */
     }
-    .ss__nhan { display: none; }
     .ss__o { padding: var(--s-4) var(--s-6); }   /* 16 / 24 */
 
     /* Tiêu chí ở bảng là chữ body (Body Default), không phải H-3. */

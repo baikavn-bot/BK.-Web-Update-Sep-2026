@@ -59,6 +59,16 @@ Kiểm trước khi báo Thắng push: `git log --format='%an <%ae>' -1` phải 
 
 Trang mới, lớn, có JS → nên làm trên nhánh riêng `remote-office`, để Vercel dựng **bản preview** mà không đụng bản đang chạy. Thắng duyệt preview rồi mới gộp vào `main`. *(7 trang trước đây đẩy thẳng `main`.)*
 
+### 3.3a Lệnh push khi có hai nhánh *(01/10 — Thắng hỏi "tưởng `git push` là xong")*
+
+`git push` chỉ đẩy **nhánh đang đứng**. Agent luôn trả máy Thắng về `main` sau khi commit, nên nhánh `remote-office` không tự lên. **Báo Thắng đúng một lệnh**, đẩy cả hai nhánh:
+
+```
+git push origin main remote-office
+```
+
+Kiểm trước khi báo: `git branch -vv` trên máy Thắng — nhánh nào ghi `ahead N` là còn N commit chưa đẩy.
+
 ### 3.4 Sự cố hay gặp
 
 | Triệu chứng | Nguyên nhân | Xử lý |

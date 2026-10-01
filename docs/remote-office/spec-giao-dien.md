@@ -232,11 +232,11 @@ Cả ba khổ **cùng một cấu trúc**: tiêu đề → `Cost Container` ngan
 | | Desktop | Tablet | Mobile |
 | --- | --- | --- | --- |
 | Padding section | `--s-20` / `--s-10` | `--s-20` / `--s-6` *(Figma — code dùng `--le-trang` = `--s-10` như các khối khác của trang, Master §7 #17)* | `--s-20` / `--s-6` |
-| Bảng | **3 cột** bằng nhau: tiêu chí · tự tuyển · BAIKA | **3 cột** như desktop (D1) | **mỗi tiêu chí một khối** (D1): `Head Default` tên tiêu chí → `Body Default` «**Tự tuyển** · …» → `Foot Light` «**BAIKA** · …» · trong khối `--s-1` · giữa khối `--s-3` |
+| Bảng | **3 cột** bằng nhau: tiêu chí · tự tuyển · BAIKA | **3 cột** như desktop (D1) | **chú giải** ở đầu: ô viền «Tuyển thêm nhân viên» · ô sáng «BAIKA Remote Office» (`Body Default` · `Body Light`) → **mỗi tiêu chí một khối**: tên tiêu chí chữ **H-3 trần, không khung** → `Body Default` (bên tự tuyển) → `Foot Light` (bên BAIKA) · trong khối `--s-2` · giữa khối và chú giải `--s-4` *(Thắng chốt 01/10: bỏ chữ «Tự tuyển ·» / «BAIKA ·» lặp lại)* |
 | Ô | `Table Item Device=Desktop/Tablet` · padding `--s-4`/`--s-6` · Figma cao cố định 66 *(Master §7 #16 — code để cao theo nội dung)* | như desktop | `Table Item Device=Mobile` · padding `--s-4`/`--s-4` |
 | Ô cùng hàng | cao bằng nhau | cao bằng nhau | — |
 
-**Code** (`src/components/CompareSection.astro`): **một** `<table>` cho cả 3 khổ. Dưới 768 các ô đổi `display` thành khối; nhãn «Tự tuyển · » / «BAIKA · » là chữ thật trong HTML, chỉ hiện ở mobile. Hàng đầu (`thead`) ẩn ở mobile vì nhãn đã nằm trong từng ô.
+**Code** (`src/components/CompareSection.astro`): **một** `<table>` cho cả 3 khổ. Dưới 768 các ô đổi `display` thành khối, hàng đầu (`thead`) thành dòng chú giải. Mỗi ô có chữ «Tự tuyển: » / «BAIKA: » **ẩn khỏi mắt** (`sr-only`) để trình đọc màn hình vẫn biết ô thuộc bên nào — viền / nền là thông tin chỉ mắt thấy (WCAG 1.4.1).
 Hai ô viền sát nhau (tiêu chí · tự tuyển) bỏ viền trái ô sau → vạch 1px như Figma (viền "giữa" chồng nhau).
 
 --- | --- | --- | --- |
@@ -276,6 +276,7 @@ Hai ô viền sát nhau (tiêu chí · tự tuyển) bỏ viền trái ô sau �
 
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
+| 01/10/2026 | `933:4613` Mobile R6 | **Thắng chốt:** viền = tự tuyển, nền sáng = BAIKA, thêm chú giải đầu bảng. **Claude:** bỏ tiền tố «Tự tuyển · » / «BAIKA · » ở 12 ô · tên tiêu chí từ ô `Head Default` thành chữ H-3 trần (`936:5`…`936:25`) để không lẫn với "ô viền = tự tuyển" · thêm hàng `Chú giải` `936:6386` · khoảng trong khối 4 → 8 (`--s-2`), giữa khối 12 → 16 (`--s-4`) | Có | commit này |
 | 01/10/2026 | R6 tablet/mobile | **D1 = (a)**: Claude thay `923:4293` → `933:3544` (Tablet) và `922:3962` → `933:4613` (Mobile), xoá section đề xuất `933:3543`, đổi tên frame «So sánh · Tablet/Mobile». Dời 2 frame xuống để hết chồng lên frame Ước tính (tablet y 4706, mobile y 4809). **Thắng** đổi padding dọc `Table Item Device=Mobile` 8 → 16 (`--s-4`) | Có — `CompareSection` | commit này |
 | 01/10/2026 | R4 · R6 tablet/mobile | **Thắng:** `Table Item` thêm trục `Device` (Mobile padding `--s-2`/`--s-4`) · mobile R4 nhãn đặt trên điều khiển, bảng thành GRID. Đổi tên `825:6072` → «Remote Office cũ / Desktop 1280». **Claude áp L15–L20:** `923:4261` · `922:3643` «10.000.000 đ» · bảng tablet/mobile «14.150.000 đ» «28.300.000 đ» «9.900.000 đ» · `Find Job` «3 nhóm việc» · nút «Gửi yêu cầu theo ước tính này» · so sánh «Doanh nghiệp tự đóng, tăng theo mỗi người» · **desktop** `913:4739` «Giao cho BAIKA» → «Gói BAIKA» (L18 áp cả 3 khổ). Vẽ đề xuất D1 trong section `933:3543` | Chưa dựng | commit này |
 | 01/10/2026 | Tablet · Mobile | **Thắng vẽ** R2 · R4 · R6 cho 768 + 375 (§7). **Claude áp các chữ đã chốt** sang 6 frame mới: «Lương mỗi người» `923:4259` · `922:3641` (L6) · tiêu đề «Tuyển thêm người hay giao cho BAIKA?» `923:4294` · `922:3963` (L8) · đầu cột «Tuyển thêm nhân viên» `923:4296` · `922:3965` (L9) · thêm chú thích công thức `928:65` · `928:66` (L7) · thêm chú thích so sánh `928:67` · `928:68` (L10). Chữ rút gọn khác (L15–L20) **chưa đụng**, chờ chốt | Chưa dựng | commit này |
