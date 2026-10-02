@@ -147,13 +147,15 @@ Chỉ dùng phím Tab / Shift+Tab / Enter / Space / mũi tên: đi qua được 
 
 ## 5. Gắn domain `baika.website` *(viết lại 01/10 — Thắng chốt: gắn vào NHÁNH `remote-office` trước, giữ `noindex`)*
 
+> **Trạng thái 02/10:** Vercel đã thêm domain (Preview · nhánh `remote-office`) · ZoneDNS đã có bản ghi `A @ 216.198.79.1` · **CHẶN:** tên miền bị nhà đăng ký (Nhân Hòa) tạm khoá vì chưa xác minh chủ thể — nameserver đang là `ns1/ns2.verification-hold.suspended-domain.com` (tra ICANN Lookup 01/10). Đã gửi yêu cầu mở khoá. Mở xong → kiểm nameserver phải về ZoneDNS.
+
 Mục tiêu: khách gõ `baika.website` → thấy trang Remote Office, thanh địa chỉ **giữ nguyên** `baika.website`.
 
 ### 5.1 Vì sao dùng `routes`, không dùng `rewrites` **[xác minh 01/10]**
 
 Bản kế hoạch 29/09 định dùng `rewrites` cho đường dẫn `/`. **Không chạy được:** trên Vercel, file tĩnh có sẵn được ưu tiên trước `rewrites` — tài liệu Vercel: *"precedence is given to the filesystem prior to rewrites being applied"*. Repo có `dist/index.html` (trang chủ baika.vn) nên `/` luôn ra trang chủ, rewrite bị bỏ qua. Người của Vercel xác nhận cùng điều này ở github.com/vercel/vercel/discussions/5723.
 
-→ Dùng `routes` trong `vercel.json`: các dòng `routes` được xét **theo thứ tự**, trước khi tìm file. **[suy luận từ tài liệu — chưa thấy chạy thật; kiểm ở bước 5.3]**
+→ Dùng `routes` trong `vercel.json`: các dòng `routes` được xét **theo thứ tự**, trước khi tìm file. **[✅ xác minh 02/10 — Thắng mở `/?thu-baika-website` trên preview `a39573b` → ra trang Remote Office, tức `routes` đè được `index.html`]**
 
 ### 5.2 `vercel.json` làm gì — đọc từ trên xuống
 
@@ -182,7 +184,7 @@ Sau khi push nhánh `remote-office`, mở bản preview mới nhất của nhán
 4. Vào trang quản lý tên miền nơi anh mua `baika.website` → mục DNS → thêm 2 bản ghi đó. Có bản ghi A / CNAME cũ cho cùng tên thì **xoá bản cũ** (trùng là Vercel báo "Invalid Configuration").
 5. Chờ Vercel báo dòng domain **Valid Configuration** (vài phút tới vài giờ).
 
-### 5.5 ⚠️ Hai điều xảy ra do gắn vào NHÁNH (Preview), không phải bản chính **[xác minh — tài liệu Vercel 01/10]**
+### 5.5 ⚠️ Hai điều xảy ra do gắn vào NHÁNH (Preview), không phải bản chính **[xác minh — tài liệu Vercel 01/10 · 02/10: 3 biến gửi mail đã `true` trên Preview]**
 
 1. **Khoá đăng nhập.** Mặc định Vercel bật *Deployment Protection — Standard Protection*: *"protects all domains except production domains"*. `baika.website` gắn vào nhánh là domain Preview → **người chưa đăng nhập Vercel sẽ thấy trang bắt đăng nhập**, không thấy Remote Office. Hợp với giai đoạn duyệt nội bộ; muốn người ngoài (sếp) xem thì: Settings → **Deployment Protection** → tắt cho Preview, hoặc gộp `main` và chuyển domain sang Production.
 2. **Biến môi trường gửi mail.** Form gửi mail cần 3 biến (`RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM`) **bật cho môi trường Preview**. Kiểm: mở `https://baika.website/api/health` → cả ba `true`.

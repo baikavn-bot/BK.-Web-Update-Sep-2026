@@ -196,7 +196,8 @@ Bấm nút «Gửi yêu cầu theo ước tính này» → đoạn sau được 
 1. Dòng đầu «Ước tính từ công cụ trên trang Remote Office:» là **dấu mốc**. Bấm lại sau khi đổi số → code tìm dấu mốc, **thay** đoạn ước tính cũ (tới dòng trống đầu tiên), **giữ** chữ khách đã viết bên dưới.
 2. Khách xoá dấu mốc rồi bấm lại → đoạn mới được thêm lên đầu, chữ cũ giữ nguyên.
 3. Tắt JavaScript → nút chỉ cuộn xuống form, không điền.
-4. Mail về BAIKA: đoạn này nằm ở mục «Mô tả vấn đề» — API không đổi.
+4. Mail về BAIKA: đoạn này nằm ở mục «Mô tả vấn đề». **Từ 02/10** (Thắng duyệt): mail có đoạn này thì tiêu đề là «[baika.website] Yêu cầu theo ước tính — <Tên>» và dòng «Gửi từ: baika.website/». `api/contact.ts` nhận ra bằng chính dòng dấu mốc ở luật 1 (`DAU_MOC_UOC_TINH`) — **đổi chữ dấu mốc thì đổi cả hai nơi**.
+5. Đã gửi thử thật 02/10 (bản preview `a39573b`): mail về đủ đoạn ước tính, số khớp trang.
 
 ---
 

@@ -218,6 +218,8 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
 
     // ─── #6: điền ước tính vào form Liên hệ ─────────────────────────────
     // Dòng đầu là "dấu mốc": bấm lại thì tìm dấu mốc này để THAY đoạn cũ.
+    // ⚠️ api/contact.ts dùng đúng câu này để đặt tiêu đề mail «Yêu cầu theo ước tính» —
+    // đổi ở đây thì đổi cả DAU_MOC_UOC_TINH ở đó.
     const DAU_MOC = 'Ước tính từ công cụ trên trang Remote Office:';
 
     function vanBanUocTinh(): string {

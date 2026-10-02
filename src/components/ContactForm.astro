@@ -329,7 +329,10 @@ const laDichVu = variant === 'dich-vu';
       // `FormData` BỎ QUA mọi ô đang `disabled` — đó là quy định của HTML,
       // không phải lỗi trình duyệt. Bản đầu gọi setBusy(true) trước rồi mới
       // đọc FormData, nên gửi lên một object RỖNG và lần nào cũng hỏng.
-      const payload = Object.fromEntries(new FormData(form).entries());
+      const payload: Record<string, FormDataEntryValue> = Object.fromEntries(new FormData(form).entries());
+      // Gửi kèm trang khách đang mở (vd. "baika.website/", "baika.vn/finance/")
+      // để mail ghi đúng nơi khách gửi — 02/10, Thắng duyệt. Khách không thấy ô này.
+      payload.trang = location.host + location.pathname;
 
       setBusy(true);
       try {

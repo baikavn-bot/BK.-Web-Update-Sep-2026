@@ -3,7 +3,8 @@
  * =================
  *
  * File này KHÔNG chạy trên trình duyệt. Nó chạy trên máy chủ của Vercel,
- * mỗi lần có người bấm "liên hệ" trên trang /lien-he.
+ * mỗi lần có người gửi form liên hệ — ở trang /lien-he, 7 trang dịch vụ và
+ * trang Remote Office (baika.website). Mail ghi rõ trang gửi (trường `trang`).
  *
  * Vì sao phải có nó: website là trang TĨNH — chỉ có file HTML gửi cho
  * trình duyệt, không có gì chạy ngầm để nhận dữ liệu và gửi mail. Thư mục
@@ -54,6 +55,16 @@ const phoneOk = (v: string) => /^(\+84|0)[\s.-]?\d(?:[\s.-]?\d){7,9}$/.test(v);
 /** Chặn chèn dòng vào tiêu đề thư (header injection). */
 const oneLine = (v: string) => v.replace(/[\r\n]+/g, ' ');
 
+/** Trang khách gửi form, dạng "tên-miền/đường-dẫn" (vd. "baika.website/",
+ *  "baika.vn/finance/"). Form tự gửi kèm — 02/10.
+ *  Chỉ nhận chữ, số và . - / _ : — thứ gì khác (xuống dòng, khoảng trắng, dấu
+ *  ngoặc…) bị bỏ hẳn, để không ai chèn được nội dung lạ vào tiêu đề thư. */
+const trangOk = (v: string) => /^[a-z0-9.-]+(:\d+)?\/[a-z0-9._\/-]*$/i.test(v);
+
+/** Dòng đầu của đoạn ước tính mà nút «Gửi yêu cầu theo ước tính này» điền vào ô
+ *  Mô tả (src/components/EstimatorSection.astro · DAU_MOC). ĐỔI Ở ĐÓ THÌ ĐỔI Ở ĐÂY. */
+const DAU_MOC_UOC_TINH = 'Ước tính từ công cụ trên trang Remote Office:';
+
 export default async function handler(req: Req, res: Res): Promise<void> {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Chỉ nhận POST' });
@@ -78,6 +89,13 @@ export default async function handler(req: Req, res: Res): Promise<void> {
   const donvi = clean(body.donvi, 200);
   const linhvuc = clean(body.linhvuc, 120);
   const dongy = body.dongy === 'on' || body.dongy === true || body.dongy === 'true';
+  // Trang gửi — không bắt buộc. Form cũ chưa gửi trường này → ghi "không rõ".
+  const trangTho = clean(body.trang, 200);
+  const trang = trangOk(trangTho) ? trangTho : '';
+  const tenMien = trang ? trang.split('/')[0] : 'baika.vn';
+  const theoUocTinh = mota.startsWith(DAU_MOC_UOC_TINH);
+  const loaiThu = theoUocTinh ? 'Yêu cầu theo ước tính' : 'Liên hệ mới';
+  const guiTu = trang || '(không rõ trang)';
 
   // Kiểm lại trên máy chủ. Kiểm ở trình duyệt là để người dùng thấy lỗi
   // sớm; nó KHÔNG phải lớp bảo vệ — ai cũng gửi thẳng vào đây được.
@@ -123,14 +141,14 @@ export default async function handler(req: Req, res: Res): Promise<void> {
      Bắt buộc phải có, không phải cho đẹp: một số ứng dụng mail và phần
      lớn bộ lọc rác đọc bản này. Mail chỉ có HTML dễ bị đẩy vào Spam hơn. */
   const banChu = [
-    'LIÊN HỆ MỚI TỪ baika.vn',
+    `${loaiThu.toUpperCase()} TỪ ${tenMien}`,
     '='.repeat(40),
     '',
     ...dong.map(([k, v]) => `${k}:\n  ${v.replace(/\n/g, '\n  ')}\n`),
     '-'.repeat(40),
     'Khách đã đồng ý để BAIKA liên hệ và xử lý thông tin.',
     `Nhận lúc: ${nhanLuc} (giờ Việt Nam)`,
-    'Gửi từ: trang /lien-he',
+    `Gửi từ: ${guiTu}`,
     '',
     'Bấm Trả lời để trả lời thẳng cho khách.',
   ].join('\n');
@@ -158,8 +176,8 @@ export default async function handler(req: Req, res: Res): Promise<void> {
   <table role="presentation" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#f8f8f8;border:1px solid #e3e3e3;border-radius:8px;">
     <tr>
       <td style="padding:20px 24px;background:#0d538b;border-radius:8px 8px 0 0;">
-        <div style="color:#f8f8f8;font-size:18px;font-weight:bold;">BAIKA · Liên hệ mới</div>
-        <div style="color:#d6ebfa;font-size:13px;padding-top:4px;">Gửi từ biểu mẫu trang /lien-he</div>
+        <div style="color:#f8f8f8;font-size:18px;font-weight:bold;">BAIKA · ${esc(loaiThu)}</div>
+        <div style="color:#d6ebfa;font-size:13px;padding-top:4px;">Gửi từ biểu mẫu trang ${esc(guiTu)}</div>
       </td>
     </tr>
     <tr>
@@ -192,7 +210,7 @@ export default async function handler(req: Req, res: Res): Promise<void> {
         to: [to],
         // Bấm Trả lời là trả lời cho KHÁCH, không phải cho hệ thống.
         reply_to: email,
-        subject: oneLine(`[baika.vn] Liên hệ mới — ${ten}`),
+        subject: oneLine(`[${tenMien}] ${loaiThu} — ${ten}`),
         text: banChu,
         html: banHtml,
       }),
