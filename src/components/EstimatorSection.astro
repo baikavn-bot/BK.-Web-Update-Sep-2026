@@ -11,9 +11,11 @@
 //   Không có JavaScript → vẫn hiện ca mẫu (2 người · 10 triệu · 3 nhóm) đã tính
 //   sẵn lúc build, kèm dòng «Bật JavaScript để tính theo số của bạn.»
 //
-// ─── ⏸ CHỜ CHỐT — đang dùng phương án tạm, đổi được ở MỘT chỗ ───────────
-//   #14 Luật chọn gói         → `LUAT_CHON_GOI` trong uoc-tinh.ts (tạm: luật mới)
-//   #5  Con số 1.800.000      → `THAM_SO.chiPhiCoDinh` trong uoc-tinh.ts
+// ─── ✅ Logic tính: sếp chốt 02/10 — theo LOGIC BAN ĐẦU (Spec v3 §13.6–13.7) ─
+//   Gói theo SỐ NHÓM việc (1 → Khởi đầu · 2–3 → Vận hành · từ 4 → Trọn gói),
+//   1.800.000 chi phí cố định, tick sẵn 3 nhóm theo Spec v3. Chi tiết: uoc-tinh.ts.
+//
+// ─── ⏸ CHỜ CHỐT ─────────────────────────────────────────────────────────
 //   #11 Khoảng 10px trong ô bấm ‹ › → tạm `--s-3` (12)
 //   Lương: chỉ bấm ‹ › (bước 500.000). Gõ tay là đề xuất chưa duyệt — chưa làm.
 //
@@ -21,7 +23,8 @@
 //   Figma `Find Job` `854:8113` (đóng / mở) + `Check` `836:7698` (mỗi dòng tick).
 //   • 8 nhóm = đúng 8 mục của khối R3 — trang truyền vào qua prop `nhomViec`,
 //     chữ chỉ nằm MỘT chỗ (remote-office.astro).
-//   • Tick sẵn 3 nhóm đầu → trang mở ra có số 18.400.000 đ như Figma.
+//   • Tick sẵn 3 nhóm theo Spec v3 §13.7 (`THAM_SO.nhomMacDinh`: Hành chính · Nhân sự ·
+//     Chăm sóc khách hàng) → trang mở ra có số 18.400.000 đ như Figma.
 //   • Mở ra thì ĐẨY nội dung bên dưới xuống (không nổi đè) — mobile không che bảng.
 //   • Dùng <details>/<summary> gốc của trình duyệt: mở/đóng chạy cả khi tắt JS,
 //     bàn phím (Enter/Space) và trình đọc màn hình hiểu sẵn.
@@ -30,7 +33,7 @@
 //   Bấm → ĐIỀN SẴN bản tóm tắt ước tính vào ô «Mô tả vấn đề» của form Liên hệ
 //   (khối R9, cuối trang) → cuộn xuống → con trỏ đặt vào ô «Tên».
 //   Khách thấy, sửa, viết thêm được. Gửi form → API /api/contact gửi mail về
-//   hộp thư BAIKA như mọi form khác — KHÔNG sửa API, 7 trang dịch vụ không đổi.
+//   hộp thư BAIKA; tiêu đề mail «Yêu cầu theo ước tính» (api/contact.ts, 02/10).
 //   Bấm lại sau khi đổi số → thay đoạn ước tính cũ, giữ nguyên chữ khách đã viết.
 //   Tắt JS → nút chỉ là đường dẫn #lien-he, cuộn xuống form, không điền sẵn.
 import Button2 from './Button2.astro';
@@ -48,9 +51,10 @@ const { heading = 'Ước tính khoản chênh lệch của bạn', nhomViec } =
 // Ca mẫu — đúng số trên Figma. Vẽ sẵn lúc build để không có JS vẫn đọc được.
 const nguoi0 = THAM_SO.soNguoi.macDinh;
 const luong0 = THAM_SO.luong.macDinh;
-const nhom0 = THAM_SO.soNhom.macDinh;
+const nhomTick0 = new Set<string>(THAM_SO.nhomMacDinh);
+const nhom0 = nhomViec.filter((ten) => nhomTick0.has(ten)).length;
 const kq0 = uocTinh(nguoi0, luong0, nhom0);
-const tenGoi0 = kq0.goi ? `Gói ${THAM_SO.goi[kq0.goi].ten}` : 'Báo giá riêng sau khảo sát';
+const tenGoi0 = kq0.goi ? `Gói ${THAM_SO.goi[kq0.goi].ten}` : '-';
 
 
 const congThuc = 'Chi phí tự tuyển = lương + 21,5% bảo hiểm + 2% kinh phí công đoàn + khoảng 1,8 triệu chỗ ngồi, thiết bị, tuyển dụng.';
@@ -98,7 +102,7 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
           </summary>
           <fieldset class="ut__nhom-ds">
             <legend class="sr-only">Chọn các nhóm công việc muốn giao cho BAIKA</legend>
-            {nhomViec.map((ten, i) => <CheckItem name="nhom" value={ten} label={ten} checked={i < nhom0} />)}
+            {nhomViec.map((ten) => <CheckItem name="nhom" value={ten} label={ten} checked={nhomTick0.has(ten)} />)}
           </fieldset>
         </details>
       </div>
@@ -119,7 +123,6 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
               <td class="ut__o" data-ra="so-nguoi">{nguoi0} người</td>
               <td class="ut__o">
                 <span data-ra="ten-goi">{tenGoi0}</span>
-                <span class="ut__phu" data-ra="nang" hidden></span>
               </td>
             </tr>
             <tr>
@@ -176,13 +179,8 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
       ra('mot-nguoi').textContent = dinhDangTien(kq.tuTuyenMotNguoi);
       ra('tu-tuyen').textContent = dinhDangTien(kq.tuTuyen);
       ra('so-nhom').textContent = String(nhom);
-      ra('ten-goi').textContent = kq.goi ? `Gói ${THAM_SO.goi[kq.goi].ten}`
-        : kq.trangThai === 'bao-gia-rieng' ? 'Báo giá riêng sau khảo sát' : '-';
+      ra('ten-goi').textContent = kq.goi ? `Gói ${THAM_SO.goi[kq.goi].ten}` : '-';
       ra('gia-goi').textContent = kq.giaGoi !== null ? dinhDangTien(kq.giaGoi) : '-';
-
-      const nang = ra('nang');
-      nang.hidden = kq.trangThai !== 'goi-bi-nang';
-      nang.textContent = kq.trangThai === 'goi-bi-nang' ? `nâng vì chọn ${nhom} nhóm việc` : '';
 
       ra('chenh-thang').textContent = kq.chenhLechThang !== null ? dinhDangTien(kq.chenhLechThang) : '—';
       ra('chenh-nam').textContent = kq.chenhLechNam !== null ? `≈${dinhDangTien(kq.chenhLechNam)}/năm` : '';
@@ -232,7 +230,6 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
         `• Tự tuyển ${dinhDangTien(kq.tuTuyen)}/tháng`,
       ];
       if (kq.goi && kq.giaGoi !== null) dong.push(`• Gói ${THAM_SO.goi[kq.goi].ten} ${dinhDangTien(kq.giaGoi)}/tháng`);
-      else if (kq.trangThai === 'bao-gia-rieng') dong.push('• Gói BAIKA: báo giá riêng sau khảo sát');
       if (kq.chenhLechThang !== null) dong.push(`• Chênh lệch ≈ ${dinhDangTien(kq.chenhLechThang)}/tháng`);
       return dong.join('\n');
     }
@@ -417,11 +414,6 @@ const luuY = 'Con số mang tính tham khảo, chưa gồm VAT. Giá chính th�
     border-radius: var(--r-sm) var(--r-sm) 0 0;
   }
   .ut__o--chan { border-radius: 0 0 var(--r-sm) var(--r-sm); }
-  .ut__phu {
-    display: block;
-    font-size: var(--fs-caption);
-    line-height: var(--lh-caption);
-  }
 
   .ut__chu-thich {
     margin: 0;

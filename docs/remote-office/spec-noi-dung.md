@@ -79,7 +79,7 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | «Lương mỗi người» | đổi từ «Lương dự kiến» 30/09 |
 | «Nhóm công việc» | ô ghi «N nhóm việc» (N = số ô đang tick, kể cả «0 nhóm việc») |
 
-**Danh sách tick nhóm việc** ✅ *(#4 chốt 01/10)* — đúng **8 mục của khối R3** (§3), cùng chữ, cùng thứ tự: «Hành chính – văn thư» · «Nhân sự – tiền lương» · «Kế toán – thuế» · «Tuân thủ – quy chế» · «Chăm sóc khách hàng» · «Hỗ trợ kinh doanh» · «Nội dung – livestream» · «Số liệu – báo cáo». **Tick sẵn 3 mục đầu.** Code không chép lại 8 tên này — lấy thẳng từ dữ liệu R3, nên sửa tên ở §3 là danh sách tự đổi theo.
+**Danh sách tick nhóm việc** ✅ *(#4 chốt 01/10)* — đúng **8 mục của khối R3** (§3), cùng chữ, cùng thứ tự: «Hành chính – văn thư» · «Nhân sự – tiền lương» · «Kế toán – thuế» · «Tuân thủ – quy chế» · «Chăm sóc khách hàng» · «Hỗ trợ kinh doanh» · «Nội dung – livestream» · «Số liệu – báo cáo». **Tick sẵn 3 nhóm: «Hành chính – văn thư» · «Nhân sự – tiền lương» · «Chăm sóc khách hàng»** *(Spec v3 §13.7 — sếp chốt logic ban đầu 02/10; thay cho «3 mục đầu» chốt 01/10)*. Code không chép lại 8 tên này — lấy thẳng từ dữ liệu R3, nên sửa tên ở §3 là danh sách tự đổi theo.
 
 **Bảng kết quả** ✅ *(chỉ Figma có)* — đầu cột «Tự tuyển» · «Gói BAIKA» *(L18, 01/10)*; ô mẫu «2 người» · «Gói Vận hành» · «14.150.000 đ» · «-» · «28.300.000 đ» · «9.900.000 đ»
 
@@ -103,13 +103,13 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | --- | --- | --- |
 | Bảo hiểm phần doanh nghiệp đóng | 21,5% lương | ✅ khớp bảng chi phí §2 · *chưa ai đối chiếu văn bản luật* |
 | Kinh phí công đoàn | 2% lương | ✅ khớp §2 |
-| Chi phí cố định mỗi người (chỗ ngồi, thiết bị, tuyển dụng) | 1.800.000 đ | ⏸ spec cũ ghi **"giả định"** — nằm trong khoảng 1,5–2,5 triệu nhưng không phải điểm giữa · Master §7 #5 |
+| Chi phí cố định mỗi người (chỗ ngồi, thiết bị, tuyển dụng) | 1.800.000 đ | ✅ 02/10 — giữ theo logic ban đầu sếp chốt (Master §7 #5) |
 | Giá gói Khởi đầu · Vận hành · Trọn gói | 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, chưa VAT | ✅ **công khai, con số đã chốt** (Thắng 29/09) |
 | Số nhóm việc tối đa của gói | 1 · 3 · 5 | ✅ bảng giá spec cũ |
 | Gói "thay được" | nửa vị trí · 1,5–2 · 3–4 vị trí | ✅ bảng giá spec cũ · ⚠️ chưa khớp số đơn vị công việc (100 đơn vị × 30 phút = 50 giờ/tháng mà "thay 1,5–2 người") — sếp cần có câu trả lời khi khách hỏi |
 | Lương nhập được | 7.000.000 – 25.000.000 đ · nút ‹ › nhảy 500.000 | ✅ khoảng từ spec cũ |
-| Số người nhập được | spec cũ: 1–5 · đề xuất mới: 1–4, từ 5 → "Báo giá riêng" | ⏸ Master §7 #14 |
-| Số nhóm việc | = số ô tick, 0–8 · mặc định 3 · 0 → trạng thái «Chưa chọn nhóm việc» · từ 6 → "Báo giá riêng" (luật mới) | ✅ #4 chốt 01/10 |
+| Số người nhập được | 1–5, mặc định 2 | ✅ Spec v3 §13.7 (sếp chốt 02/10) |
+| Số nhóm việc | = số ô tick, 0–8 · tick sẵn 3 · 0 → trạng thái «Chưa chọn nhóm việc» | ✅ #4 (01/10) · logic Spec v3 (02/10) |
 
 ```
 chi phí tự tuyển 1 người / tháng = lương × 1,235 + 1.800.000     (1,235 = 1 + 21,5% + 2%)
@@ -120,42 +120,36 @@ chênh lệch / năm                  = chênh lệch / tháng × 12
 
 **Tính bằng số nguyên**: `lương × 1235 / 1000`, làm tròn — không nhân số lẻ trực tiếp, tránh lệch vài đồng do máy cộng số thập phân.
 
-### 4.2 Luật chọn gói — ⏸ CHỜ SẾP DUYỆT (Master §7 #14)
+### 4.2 Luật chọn gói — ✅ SẾP CHỐT 02/10: LOGIC BAN ĐẦU (Spec v3 §13.6–13.7 (repo `remote-office-Sep-2026`, file `spec/BAIKA_Spec_v3_RemoteOffice_20260925.md`))
 
-Hai phương án. **Build không tự chọn** — dựng sao cho đổi luật chỉ sửa một hàm.
+Gói gợi ý **chỉ theo số nhóm việc** khách tick:
 
-⏸ **Code đang chạy TẠM luật MỚI** (01/10) — trang phải hiện *một* con số, và luật mới là phương án **chặt hơn**: không bao giờ hứa gói nhỏ hơn khối lượng việc khách chọn. 11 ca §4.3 cũng viết theo luật mới. **Đây chưa phải quyết định** — sếp chọn luật cũ thì đổi một dòng `LUAT_CHON_GOI = 'cu'` ở `src/lib/uoc-tinh.ts` và sửa cột ca kiểm thử.
-
-| | Luật cũ (spec v3 §13.7) | Luật mới đề xuất (29/09) |
+| Số nhóm tick | Gói | Giá |
 | --- | --- | --- |
-| Cách chọn | Chỉ theo **số nhóm việc**: 1 → Khởi đầu · 2–3 → Vận hành · từ 4 → Trọn gói | **Gói nhỏ nhất đáp ứng CẢ HAI**: số người ≤ "thay được" của gói **và** số nhóm ≤ số nhóm tối đa của gói |
-| Vấn đề | Tiền tự tuyển tính theo người, gói chọn theo nhóm → hai đầu vào không liên quan. Giữ 2 người: 1 nhóm báo tiết kiệm 23,4 tr · 3 nhóm 18,4 tr · 5 nhóm 8,4 tr (tick càng nhiều càng "tiết kiệm ít"). 1 nhóm + 5 người lương 25 tr → báo tiết kiệm **158 tr/tháng** với gói "thay được nửa vị trí" | Nút ‹ › nhảy số nguyên → **gói Khởi đầu không bao giờ được chọn** (nó chỉ thay nửa vị trí). Muốn nó xuất hiện phải thêm mức «Chưa tới 1 người» ⏸ |
+| 0 | — *(trạng thái «Chưa chọn nhóm việc»)* | — |
+| 1 | Khởi đầu | 4.900.000 |
+| 2–3 | Vận hành | 9.900.000 |
+| 4 trở lên | Trọn gói | 19.900.000 |
 
-Bảng chọn gói theo luật mới:
+Chênh lệch = chi phí tự tuyển × số người − giá gói, **không để âm** (≤ 0 → «Khối lượng nhỏ»). Số người không ảnh hưởng tới gói.
 
-| Số người \ Số nhóm | 1 | 2–3 | 4–5 | 6+ |
-| --- | --- | --- | --- | --- |
-| 1–2 | Vận hành | Vận hành | Trọn gói | Báo giá riêng |
-| 3–4 | Trọn gói | Trọn gói | Trọn gói | Báo giá riêng |
-| 5+ | Báo giá riêng | Báo giá riêng | Báo giá riêng | Báo giá riêng |
+*Đã bỏ:* luật mới đề xuất 29/09 (gói theo cả số người lẫn số nhóm · trạng thái «Báo giá riêng» · «Gói bị nâng»). Lý do đề xuất khi ấy xem lịch sử git của file này trước 02/10.
 
-### 4.3 Ca kiểm thử — code phải ra đúng **[chạy lại bằng code 29/09, khớp file công thức]**
+### 4.3 Ca kiểm thử — code phải ra đúng **[chạy bằng code 02/10 — 11/11]**
 
-Theo **luật mới**. Nếu sếp chọn luật cũ, ca 3, 5, 6, 7 đổi — cột cuối ghi kết quả luật cũ.
-
-| # | Người | Lương | Nhóm | Gói | Tự tuyển | Chênh lệch / tháng | Theo năm | Trạng thái | Luật cũ ra |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 2 | 10.000.000 | 3 | Vận hành | 28.300.000 | **18.400.000** | **220.800.000** | Bình thường *(= Figma)* | giống |
-| 2 | 2 | 10.000.000 | 4 | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Gói bị nâng | giống (không có trạng thái "bị nâng") |
-| 3 | 1 | 7.000.000 | 1 | Vận hành | 10.445.000 | 545.000 | 6.540.000 | Bình thường | Khởi đầu · 5.545.000 |
-| 4 | 1 | 7.000.000 | 4 | Trọn gói | 10.445.000 | — | — | Khối lượng nhỏ | giống |
-| 5 | 3 | 25.000.000 | 2 | Trọn gói | 98.025.000 | 78.125.000 | 937.500.000 | Bình thường | Vận hành · 88.125.000 |
-| 6 | 5 | 10.000.000 | 3 | — | 70.750.000 | — | — | Báo giá riêng | Vận hành · 60.850.000 |
-| 7 | 2 | 10.000.000 | 6 | — | 28.300.000 | — | — | Báo giá riêng | Trọn gói · 8.400.000 |
-| 8 | 2 | 3.000.000 *(gõ tay → kẹp 7 tr)* | 3 | Vận hành | 20.890.000 | 10.990.000 | 131.880.000 | Bình thường + dòng nhắc | giống |
-| 9 | 2 | 10.300.000 *(gõ tay)* | 3 | Vận hành | 29.041.000 | 19.141.000 | 229.692.000 | Bình thường | giống |
-| 10 | 2 | 10.000.000 | **0** *(bỏ tick hết)* | — | 28.300.000 | — | — | Chưa chọn nhóm việc | giống |
-| 11 | 2 | 10.000.000 | **8** *(tick hết)* | — | 28.300.000 | — | — | Báo giá riêng | Trọn gói · 8.400.000 |
+| # | Người | Lương | Nhóm | Gói | Tự tuyển | Chênh lệch / tháng | Theo năm | Trạng thái |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 2 | 10.000.000 | 3 | Vận hành | 28.300.000 | **18.400.000** | **220.800.000** | Bình thường *(= Figma)* |
+| 2 | 2 | 10.000.000 | 4 | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Bình thường |
+| 3 | 1 | 7.000.000 | 1 | Khởi đầu | 10.445.000 | 5.545.000 | 66.540.000 | Bình thường |
+| 4 | 1 | 7.000.000 | 4 | Trọn gói | 10.445.000 | — | — | Khối lượng nhỏ |
+| 5 | 3 | 25.000.000 | 2 | Vận hành | 98.025.000 | 88.125.000 | 1.057.500.000 | Bình thường |
+| 6 | 5 | 10.000.000 | 3 | Vận hành | 70.750.000 | 60.850.000 | 730.200.000 | Bình thường |
+| 7 | 2 | 10.000.000 | 6 | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Bình thường |
+| 8 | 2 | 3.000.000 *(kẹp về 7 tr)* | 3 | Vận hành | 20.890.000 | 10.990.000 | 131.880.000 | Bình thường |
+| 9 | 2 | 10.300.000 | 3 | Vận hành | 29.041.000 | 19.141.000 | 229.692.000 | Bình thường |
+| 10 | 2 | 10.000.000 | **0** *(bỏ tick hết)* | — | 28.300.000 | — | — | Chưa chọn nhóm việc |
+| 11 | 2 | 10.000.000 | **8** *(tick hết)* | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Bình thường |
 
 ### 4.4 Định dạng số
 
@@ -168,8 +162,6 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 | Chưa chọn nhóm việc | «Chọn ít nhất một nhóm việc để BAIKA ước tính giúp bạn.» | spec cũ §13.6 |
 | Khối lượng nhỏ | «Khối lượng việc bạn chọn còn nhỏ. Giữ người làm trong công ty vẫn rẻ hơn — cứ liên hệ khi cần giao thêm.» | spec cũ §13.6 |
 | Tắt JavaScript | «Bật JavaScript để tính theo số của bạn.» | spec cũ §13.7 |
-| Gói bị nâng | «nâng vì chọn N nhóm việc» *(dòng phụ dưới tên gói)* | ⏸ đề xuất 29/09 — đi cùng luật mới |
-| Báo giá riêng | «Báo giá riêng sau khảo sát» *(cột BAIKA)* | ⏸ đề xuất 29/09 — đi cùng luật mới |
 
 
 ### 4.6 Ước tính điền sẵn vào form Liên hệ ✅ *(#6 — Thắng chốt 01/10)*
@@ -187,7 +179,6 @@ Bấm nút «Gửi yêu cầu theo ước tính này» → đoạn sau được 
 
 | Trạng thái | Khác ở đâu |
 | --- | --- |
-| Báo giá riêng | dòng gói thành «• Gói BAIKA: báo giá riêng sau khảo sát» · không có dòng chênh lệch |
 | Khối lượng nhỏ | không có dòng chênh lệch |
 | Chưa chọn nhóm việc | dòng nhóm thành «• Chưa chọn nhóm việc» · không có dòng gói, dòng chênh lệch |
 
@@ -342,4 +333,4 @@ Bản nháp từng nằm ở đây đã được dựng thật — **không còn
 | 11 ca kiểm thử §4.3 | `tools/kiem-tra-uoc-tinh.mts` — chạy `node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts` (Node ≥ 22.6), phải ra `11/11` |
 | Giao diện gọi hàm rồi vẽ theo `trangThai` | `src/components/EstimatorSection.astro` |
 
-Khác bản nháp: giới hạn số người để **1–5** (5 → Báo giá riêng), đúng bảng chọn gói §4.2.
+Từ 02/10 code theo luật chọn gói §4.2 (logic ban đầu Spec v3) — bản nháp này viết theo luật mới đã bỏ.

@@ -65,7 +65,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 
 **`Find Job`** — ô chọn nhóm công việc. 300 × 56 · nền `var(--opacity-white)` · padding `var(--s-4)` · chữ `H-3` + icon `chevron-down`. Mở: icon `chevron-up` + danh sách cách ô 10 ⏸ *(#11)* · **8 dòng `Check`** 300 × 48, sát nhau (gap 0).
 **`Check`** — một dòng tick: padding `var(--s-3)` / `var(--s-4)` · nền `var(--opacity-white)` · chữ `H-3` bên trái · ô `Checkbox` `29:2685` 24 × 24 bên phải (component gốc 20, Figma kéo lên 24) · canh hai đầu. `Choose` = ô đã tick.
-✅ #4 chốt 01/10: 8 dòng = 8 mục R3 · desktop vẽ sẵn 3 dòng đầu `Choose`.
+✅ #4 chốt 01/10: 8 dòng = 8 mục R3 · desktop vẽ sẵn 3 dòng `Choose`: Hành chính · Nhân sự · Chăm sóc khách hàng *(02/10 — theo logic ban đầu Spec v3, sếp chốt)*.
 
 ---
 
@@ -138,7 +138,7 @@ Trang dựng trên `ServicePageLayout` (có sẵn Header + Footer + màu trụ q
 | Không JS | Server vẽ sẵn ca 1 + `<noscript>` «Bật JavaScript để tính theo số của bạn.» | |
 | Mái vòm khối R5 | Khối R4 đặt `position: relative; z-index: 1` | Quầng `.nhan__cung` của R5 trồi lên 450px, che mờ nút gửi nếu thiếu dòng này — cùng cách `ServicesSection` đang làm |
 
-Kiểm hành vi (01/10, Playwright): mặc định 18.400.000 / ≈220.800.000 / Vận hành · 4 nhóm → Trọn gói + «nâng vì chọn 4 nhóm việc» · 5 người → Báo giá riêng, nút `›` Disabled · 1 người × 7 tr × 4 nhóm → Khối lượng nhỏ · tắt JS → ca 1.
+Kiểm hành vi (02/10, Playwright — logic ban đầu): tick sẵn Hành chính · Nhân sự · CSKH → 18.400.000 / Vận hành · 1 nhóm → Khởi đầu, 23.400.000 · 4 nhóm → Trọn gói, 8.400.000 · 5 người → nút `›` Disabled, vẫn tính số · bỏ tick hết → «0 nhóm việc» + câu nhắc · tắt JS → ca 1.
 
 ### 4.1 Hành vi
 
@@ -146,9 +146,9 @@ Kiểm hành vi (01/10, Playwright): mặc định 18.400.000 / ≈220.800.000 /
 | --- | --- |
 | **Tính lại ngay** khi đổi bất kỳ đầu vào nào — không có nút "Tính" | Figma không có nút tính · spec cũ §13.7 |
 | Công thức, tham số, luật chọn gói, ca kiểm thử → **`spec-noi-dung.md` §4.1–4.3** — không chép số vào đây | |
-| **Số người**: số nguyên, mặc định 2. Dưới 1 → đưa về 1. Nút `‹` **Disabled** ở 1. Giới hạn trên: spec cũ **5** · đề xuất mới **từ 5 → trạng thái "Báo giá riêng"** | ⏸ Master §7 #14 |
+| **Số người**: số nguyên 1–5, mặc định 2. Nút `‹` **Disabled** ở 1, `›` **Disabled** ở 5. Số người chỉ đổi tiền tự tuyển, **không** đổi gói | ✅ Spec v3 §13.7 (sếp chốt 02/10) |
 | **Lương**: mặc định 10.000.000. Nút `‹ ›` nhảy 500.000, Disabled ở 7.000.000 / 25.000.000. **Gõ tay được** → giữ đúng số khách gõ (làm tròn tới 1.000 đ), chỉ kẹp trong 7–25 triệu, kèm dòng nhắc nhỏ khi bị kẹp. Tự thêm dấu chấm ngăn nghìn khi gõ | Khoảng 7–25 tr: spec cũ §13.7 · cách gõ tay: **[đề xuất 29/09]** ⏸ |
-| **Nhóm việc**: tick từng nhóm trong 8 nhóm R3, số nhóm = số ô tick. Mặc định tick 3 nhóm đầu. Mở danh sách → **đẩy** phần bên dưới xuống (≥ 768: nhãn «Nhóm công việc» vẫn ngang ô 56) | ✅ Master §7 #4 (01/10) |
+| **Nhóm việc**: tick từng nhóm trong 8 nhóm R3, số nhóm = số ô tick → quyết định gói (§4.2 spec-noi-dung). Mặc định tick Hành chính · Nhân sự · Chăm sóc khách hàng (`THAM_SO.nhomMacDinh`). Mở danh sách → **đẩy** phần bên dưới xuống (≥ 768: nhãn «Nhóm công việc» vẫn ngang ô 56) | ✅ #4 (01/10) · Spec v3 (02/10) |
 | Chạm giới hạn → nút `‹` hoặc `›` chuyển **`Disabled`** (`--gray-700`, giữ `opacity: 1`) | Luật chung `CLAUDE.md` |
 | Chênh lệch ≤ 0 → **không hiện số âm**, chuyển trạng thái "Khối lượng nhỏ" | spec cũ §13.6–13.7 |
 | **Mọi tham số ở MỘT chỗ trong code**; giao diện chỉ gọi hàm tính rồi vẽ theo `trangThai` — đổi luật chọn gói chỉ sửa một hàm | [đề xuất 29/09] |
@@ -159,9 +159,7 @@ Kiểm hành vi (01/10, Playwright): mặc định 18.400.000 / ≈220.800.000 /
 | Trạng thái | Khi nào | Hiện gì |
 | --- | --- | --- |
 | **Bình thường** | Chênh lệch > 0 | Như Figma: bảng 2 cột + số chênh lệch + theo năm + chú thích VAT |
-| **Gói bị nâng** ⏸ *đi cùng luật mới* | Gói theo cả người + nhóm lớn hơn gói chỉ theo số người | Như trên + dòng phụ dưới tên gói |
 | **Khối lượng nhỏ** | Chênh lệch ≤ 0 | Vẫn hiện hai cột chi phí, **không** hiện số tiết kiệm · câu "Khối lượng nhỏ" |
-| **Báo giá riêng** ⏸ *đi cùng luật mới* | Từ 5 người hoặc từ 6 nhóm | Cột tự tuyển vẫn hiện số · cột BAIKA ghi "Báo giá riêng sau khảo sát" · không hiện chênh lệch · nút gửi vẫn bấm được |
 | **Chưa chọn nhóm việc** | Bỏ tick hết (0 nhóm) | Ô ghi «0 nhóm việc» · cột BAIKA «-» · số chính «—» · câu nhắc §4.5 *(đã dựng)* |
 | **Không có JS** | Trình duyệt tắt JS | Bảng + kết quả **ca 1** (2 người · 10 triệu · 3 nhóm) + câu "Bật JavaScript…"; nút gửi vẫn dùng được |
 
@@ -248,7 +246,7 @@ Cả ba khổ **cùng một cấu trúc**: tiêu đề → `Cost Container` ngan
 | Nút gửi | 500, `Button 2 · Lg` | lấp đầy | lấp đầy |
 
 ✅ **Một bộ chữ cho mọi khổ** (L15–L19 chốt 01/10). Chữ đầy đủ vừa chỗ nhờ Thắng sửa bố cục mobile: nhãn đặt trên điều khiển (ô lương rộng 327 → «10.000.000 đ» 115px vừa) và ô bảng mobile giảm padding ngang còn `--s-4` (chỗ cho chữ 132px → «28.300.000 đ» 102px vừa).
-⚠️ Ca số dài nhất cần thử khi dựng: «98.025.000 đ» (ca 5, §4.3) và «Báo giá riêng sau khảo sát» — kiểm ở 375 không tràn ô.
+⚠️ Ca số dài nhất cần thử khi dựng: «98.025.000 đ» và «≈1.057.500.000 đ/năm» (ca 5, §4.3) — kiểm ở 375 không tràn ô.
 
 ### 7.3 R6 So sánh — ✅ D1 = (a), Thắng chốt 01/10 · đã dựng
 
@@ -299,6 +297,7 @@ Hai ô viền sát nhau (tiêu chí · tự tuyển) bỏ viền trái ô sau �
 
 | Ngày | Node | Đổi gì | Code đã theo? | Commit |
 | --- | --- | --- | --- | --- |
+| 02/10/2026 | `913:4733` `Find Job` desktop | **Sếp chốt logic ban đầu (Spec v3).** Claude đổi 3 dòng tick sẵn: Hành chính · Nhân sự · **Chăm sóc khách hàng** (bỏ tick «Kế toán – thuế») | Có — `THAM_SO.nhomMacDinh` | commit này |
 | 01/10/2026 | `834:7503` · `913:5167` `Data` Total | **Thắng chốt #18 (b). Claude:** nền 2 variant Total `Colors/Opacity/Light` → `Colors/Opacity/White`. 3 instance R2 (`923:4235` · `923:4327` · `923:4114`) theo component, không có ghi đè — đã kiểm | Có — `CostSection.astro` | commit này |
 | 01/10/2026 | `854:8114` `Find Job` Variant2 · `913:4733` | **Thắng:** mở sẵn danh sách tick ở desktop R4 (`Find Job` = Variant2, component `Check` `836:7698`). **Claude theo #4 chốt:** thêm dòng thứ 8 (`947:58`) · đổi 8 chữ mẫu «Hành chính - văn thư» thành 8 tên R3 · instance desktop tick 3 dòng đầu (`Choose`). Tablet `923:4266` / mobile `922:3648` vẫn vẽ trạng thái đóng — đúng, không cần thêm frame | Có — `CheckItem.astro` + `EstimatorSection` | commit này |
 | 01/10/2026 | `933:4613` Mobile R6 | **Thắng chốt:** viền = tự tuyển, nền sáng = BAIKA, thêm chú giải đầu bảng. **Claude:** bỏ tiền tố «Tự tuyển · » / «BAIKA · » ở 12 ô · tên tiêu chí từ ô `Head Default` thành chữ H-3 trần (`936:5`…`936:25`) để không lẫn với "ô viền = tự tuyển" · thêm hàng `Chú giải` `936:6386` · khoảng trong khối 4 → 8 (`--s-2`), giữa khối 12 → 16 (`--s-4`) | Có | commit này |
