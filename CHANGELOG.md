@@ -21,7 +21,10 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 **Quyết định**
 - `baika.tech` là bản thử; sau này `baika.vn` thay. #10 #11 #16 #17 gom vào buổi xem Figma.
-- #13: thêm mục Remote Office vào menu chung — chờ Figma. Trang Remote Office giữ menu dẫn sang 7 trang.
+- #13: thêm mục Remote Office vào menu chung. Trang Remote Office giữ menu dẫn sang 7 trang.
+
+**Thêm**
+- Menu chung có mục **«Remote Office»** đứng đầu (9 mục), mở `baika.website`. Trên trang Remote Office, mục này được đánh dấu là trang hiện tại. Figma vẽ cùng lúc (luật đồng bộ ngược).
 
 **Sửa lỗi**
 - Trang chủ có tiêu đề chính `<h1>`: dòng mô tả dưới logo (trước đây trang chủ không có h1 nào). Nhìn không đổi.

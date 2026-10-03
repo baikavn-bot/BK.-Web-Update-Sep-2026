@@ -1,6 +1,6 @@
 # TRẠNG THÁI DỰ ÁN — đọc file này đầu tiên mỗi phiên
 
-*Cập nhật **03/10/2026** (chiều) · Ai sửa trạng thái thì sửa ngày ở dòng này.*
+*Cập nhật **04/10/2026** · Ai sửa trạng thái thì sửa ngày ở dòng này.*
 
 File này trả lời câu: **"Dự án đang ở đâu, cái gì chạy, cái gì kẹt, làm gì tiếp?"**
 Luật làm việc nằm ở `CLAUDE.md`. Lịch sử thay đổi nằm ở `CHANGELOG.md`.
@@ -72,7 +72,7 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | 10 | Số «23,5» cỡ 100px (Figma, ngoài thang chữ) hay 80px? — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 80px (`--fs-display-1`) |
 | 11 | Khoảng `10px` (ngoài thang) — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 12px (`--s-3`) |
 | 12 | ✅ Chốt TẠM 04/10: ô «Lĩnh vực» = 8 lựa chọn (Remote Office + 7 trụ) — đã dựng. Danh sách chính thức chốt sau | Thắng | 8 lựa chọn |
-| 13 | ✅ Chốt 04/10: **thêm** mục Remote Office vào menu (8 → 9 mục) | **Thắng vẽ Figma trước** | Chưa có — chờ Figma |
+| 13 | ✅ Chốt 04/10: **thêm** mục «Remote Office» **đứng đầu** menu (8 → 9 mục) — đã vẽ Figma + dựng code | — | Có trên `remote-office`; lên `main` qua PR `menu-remote-office` |
 | 16 | Ô bảng cao cố định 66px hay theo nội dung — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | Theo nội dung |
 | 17 | Lề trang tablet 24 hay 40 — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 40 |
 | L14 | ✅ Chốt 04/10: dòng pháp lý **dưới form Liên hệ** — đã dựng | — | Đã có (nhánh `remote-office`) · Figma đã vẽ `960:3633` |

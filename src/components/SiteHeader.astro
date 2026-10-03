@@ -26,9 +26,12 @@ interface Props {
 }
 const { current, logoHref = '/' } = Astro.props;
 
-// 8 mục menu, đúng thứ tự và nguyên văn nhãn trong Figma (biến thể State=Open).
+// 9 mục menu, đúng thứ tự và nguyên văn nhãn trong Figma (biến thể State=Open).
 // Slug lấy từ DEC-019 — giữ nguyên từ site cũ.
+// 04/10: thêm «Remote Office» ĐỨNG ĐẦU (Thắng chốt #13) — trỏ tên miền riêng của
+// landing. Figma: Nav Button 961:3746 (Desktop) · 961:3748 (Tablet) · 961:3750 (Mobile).
 const menu = [
+  { label: 'Remote Office',            href: 'https://baika.website/' },
   { label: 'Trạm kết nối',             href: undefined },   // ngoài phạm vi v1
   { label: 'Đào tạo CEO',              href: '/ceo-blueprint' },
   { label: 'Pháp lý & Thuế',           href: '/legal-tax' },
