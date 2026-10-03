@@ -14,6 +14,7 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 | Thư mục | Chứa gì | Tình trạng |
 | --- | --- | --- |
 | `remote-office/` | Bộ spec 4 file của trang Remote Office (`baika.website`). Bắt đầu từ `SPEC-MASTER.md` | **Đang dùng** — cập nhật cùng code |
+| `nhat-ky-figma-chung.md` | Nhật ký Figma của **component dùng chung** (menu, chân trang, thẻ gói…) — mỗi lần agent hoặc Thắng sửa | **Đang dùng** |
 | `huong-dan-github.md` | Cho Thắng: push, nhãn phiên bản, khoá nhánh `main`, quay lui trên Vercel | **Đang dùng** |
 | `_chung/` | Tài liệu chung cho 7 trang dịch vụ + trang chủ + Liên hệ, **chép nguyên văn** từ project Claude ngày 03/10/2026 | **Lưu trữ có ghi chú** — đầu mỗi file ghi rõ chỗ nào đã lỗi thời |
 

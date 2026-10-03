@@ -1,0 +1,12 @@
+# Nhật ký Figma — component dùng chung
+
+*Lập 04/10/2026.* Ghi mỗi lần **component dùng chung cả site** trong Figma đổi (menu, chân trang, thẻ gói…). Thay đổi riêng một trang thì ghi ở «Nhật ký Figma» của spec trang đó (vd. `remote-office/spec-giao-dien.md` §9).
+
+Luật: `CLAUDE.md` §3 — *Luật đồng bộ ngược*. File Figma `YmcXg1lQqGVjQOFrVtdOgW`, page `Component` `660:2939`. Mới nhất ở trên.
+
+| Ngày | Component · node | Đổi gì | Instance bị ảnh hưởng (page `UI`) | Code đã theo? |
+| --- | --- | --- | --- | --- |
+| 04/10/2026 | `Footer` `450:5263` — chữ `Baika` `217:2647` (Desktop) · `489:3000` (Tablet) · `450:5278` (Mobile) | **Đồng bộ ngược** việc Thắng chốt 28/09: ① hạ chữ cho chân chữ chạm vành sáng hành tinh — `y` 0 → **102** · 46 → **211** · 129 → **273** (đo từ bản dựng ở 1280 / 768 / 375) · ② kéo lớp `Baika` từ trên cùng xuống **dưới `Planet`** (thân hành tinh che chân chữ). Đã chụp nhìn cả 3 khổ trong trang thật | 13 — Desktop 11 · Tablet 1 · Mobile 1. Không instance nào ghi đè vị trí chữ | Có, từ 28/09 (`SiteFooter.astro`) |
+| 04/10/2026 | `Các gói` `365:785` — `Button 2` trong 7 biến thể: `273:372` · `365:792` · `450:5375` · `450:5395` · `488:2667` · `488:2687` · `634:3691` | **Đồng bộ ngược DEC-091** (Thắng chốt 25/09): nút đổi `Type` **Md → Lg**. Thẻ vẫn cao cố định 448: phần chữ không bị cắt, chỉ ăn bớt lề dưới (Desktop 40 → 34 · Tablet/Mobile 40 → 16). Code dùng `min-height: 448px` nên thẻ tự cao thêm — không lệch về nội dung. Ghi chú: biến thể `Normal · Lg` tắt icon co còn **46**, `Hover · Lg` là **48** — chuyện của bộ `Button 2`, chưa sửa | 44 — Desktop Default 26 · Desktop Focus 10 · Tablet 4 · Mobile 4. Không instance nào ghi đè `Type` | Có, từ 25/09 (`PricingCard.astro`, `size="lg"`) |
+| 04/10/2026 | `Các gói` `365:785` — quầng sáng | **KHÔNG đổi Figma** (DEC-090). Thắng 04/10: *«giữ nguyên trên Figma vì source đang làm xấu hơn, tôi chỉ tạm chưa rà soát đến»*. Hiện **Figma và code lệch nhau**: Figma để `DROP_SHADOW` ở Hover, code (theo DEC-090 (a)) để ở Focus. Chờ Thắng rà — **đừng** sửa Figma theo code, cũng đừng sửa code theo Figma khi chưa có chốt mới | — | Lệch — chờ Thắng |
+| 04/10/2026 | `NVG header` `452:6600` — Nav Button `961:3746` (Desktop) · `961:3748` (Tablet) · `961:3750` (Mobile) | **Đồng bộ ngược #13:** mục «Remote Office» đứng đầu menu, 9 mục. Nền panel (vector `466:7063` · `484:2512` · `472:4967`) cao thêm 48. Chi tiết: `remote-office/spec-giao-dien.md` §9 | Open Desktop 1 · bản Close (14) không đổi | Có (`SiteHeader.astro`) |

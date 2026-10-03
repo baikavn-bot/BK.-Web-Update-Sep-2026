@@ -17,6 +17,7 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 - Remote Office: logo dẫn về site chính (`www.baika.tech`) thay vì chính landing. Ô «Lĩnh vực» có 8 lựa chọn tạm (Remote Office + 7 trụ).
 
 **Tài liệu**
+- Figma đồng bộ ngược 2 việc đã chốt từ trước: nút thẻ gói cỡ **Lg** (DEC-091) · chữ BAIKA ở chân trang hạ xuống, nằm dưới hành tinh (28/09). DEC-090 (quầng sáng thẻ gói) **giữ nguyên Figma**, chờ Thắng rà. Nhật ký mới: `docs/nhat-ky-figma-chung.md`. Nhìn trên web không đổi.
 - Luật đồng bộ ngược (`CLAUDE.md` §3): điều Thắng chốt mà Figma chưa có → agent tự vẽ vào Figma, ghi Nhật ký Figma. Áp dụng ngay: dòng pháp lý L14 (`960:3633`).
 
 **Quyết định**

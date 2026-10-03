@@ -80,6 +80,7 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | — | Nâng **Vercel Pro** trước khi ra mắt (Hobby chỉ cho dùng phi thương mại) | Sếp | Hobby |
 | ✅ | Chốt 04/10: **`baika.tech` là bản THỬ** — sau này `baika.vn` trỏ sang repo này và thay nó. Canonical 9 trang đã trỏ `baika.vn` từ trước, đúng hướng | — | — |
 | ~~—~~ | ~~Trang chủ không có `<h1>`~~ — ✅ **chốt 04/10:** dòng mô tả dưới logo làm `<h1>`, nhìn không đổi (so ảnh giống từng pixel). Lên bản chính qua Pull Request `sua-h1-trang-chu` | — | — |
+| DEC-090 | Quầng sáng thẻ gói: Figma để ở **Hover**, code để ở **Focus** — Thắng 04/10: giữ Figma, code «đang làm xấu hơn», **chưa rà** | Thắng | Lệch, để nguyên cả hai — `docs/nhat-ky-figma-chung.md` |
 
 Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bento…): `CLAUDE.md` §11.
 

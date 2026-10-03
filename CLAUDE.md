@@ -145,7 +145,7 @@ Khi Thắng **duyệt / cập nhật / thêm** một điều trong phiên làm v
 | **Phạm vi** | Chỉ thêm / sửa đúng node của điều đã chốt. **Không** xoá, đổi tên, dọn dẹp node khác |
 | **Component dùng chung** | Sửa main component (vd. menu, Footer) → báo trước **số instance bị ảnh hưởng**, rồi mới ghi |
 | **Thiếu thông tin để vẽ** | Vd. chốt «thêm mục menu» nhưng chưa có vị trí / chữ → **hỏi**, không tự chọn |
-| **Sau khi ghi** | ① chụp node ra **nhìn** (bài học `DEC-035-A`) · ② ghi «Nhật ký Figma» của spec trang: ngày · node ID · đổi gì · ③ báo Thắng node ID để mở xem |
+| **Sau khi ghi** | ① chụp node ra **nhìn** (bài học `DEC-035-A`) · ② ghi «Nhật ký Figma» của spec trang (component dùng chung: `docs/nhat-ky-figma-chung.md`): ngày · node ID · đổi gì · ③ báo Thắng node ID để mở xem |
 
 **Đọc nhật ký quyết định trước khi kết luận điều gì** — nhiều thứ trông như lỗi thật ra đã được chốt có lý do.
 
