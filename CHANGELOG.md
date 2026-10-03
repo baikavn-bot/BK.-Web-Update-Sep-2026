@@ -10,6 +10,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 ## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
 
 ### 04/10/2026
+**Quyết định**
+- #13: thêm mục Remote Office vào menu chung — chờ Figma. Trang Remote Office giữ menu dẫn sang 7 trang.
+
 **Sửa lỗi**
 - Trang chủ có tiêu đề chính `<h1>`: dòng mô tả dưới logo (trước đây trang chủ không có h1 nào). Nhìn không đổi.
 

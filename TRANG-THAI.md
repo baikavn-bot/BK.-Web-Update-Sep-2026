@@ -72,7 +72,7 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | 10 | Số «23,5» cỡ 100px (Figma, ngoài thang chữ) hay 80px? | Thắng | 80px (`--fs-display-1`) |
 | 11 | Khoảng `10px` (ngoài thang) | Thắng | 12px (`--s-3`) |
 | 12 | Danh sách ô «Lĩnh vực» của form Remote Office | Thắng | Để trống (không có lựa chọn) |
-| 13 | Remote Office có mục trong menu `baika.vn` không? | Thắng | Không có |
+| 13 | ✅ Chốt 04/10: **thêm** mục Remote Office vào menu (8 → 9 mục) | **Thắng vẽ Figma trước** | Chưa có — chờ Figma |
 | 16 | Ô bảng cao cố định 66px hay theo nội dung | Thắng | Theo nội dung |
 | 17 | Lề trang tablet 24 hay 40 | Thắng | 40 |
 | L14 | Dòng pháp lý đặt ở đâu | Thắng | Chưa đặt |
