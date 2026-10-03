@@ -69,7 +69,7 @@ Bố cục / token / component lệch giữa Figma và `spec-giao-dien.md` → *
 | --- | --- | --- |
 | **Code** làm đổi chữ / số / hành vi | `spec-noi-dung.md` hoặc `spec-giao-dien.md` | Cùng commit |
 | **Figma** | `spec-giao-dien.md` §"Nhật ký Figma": ngày · node · đổi gì — và code nếu đã dựng | Figma **không nằm trong git** → spec là chỗ ghi lại. Nên đặt tên phiên bản trong Figma (*File → Save to version history*) trùng tên commit |
-| **Spec** (quyết định mới) | Code, và báo Thắng nếu Figma cần sửa | Chưa dựng kịp thì đánh dấu dòng đó `⏳ chưa đồng bộ` — **không** để spec nói điều code chưa làm mà không ghi chú |
+| **Spec** (quyết định mới) | Code, **và Figma — agent tự vẽ** điều đã chốt (`CLAUDE.md` §3 «Luật đồng bộ ngược», Thắng chốt 04/10) | Chưa dựng kịp thì đánh dấu dòng đó `⏳ chưa đồng bộ` — **không** để spec nói điều code chưa làm mà không ghi chú |
 
 **Commit đúng cách** — "commit toàn bộ nguồn" nghĩa là **đủ các file liên quan**, **không** phải `git add -A` mù:
 

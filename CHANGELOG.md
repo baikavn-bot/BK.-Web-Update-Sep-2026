@@ -16,6 +16,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 **Thêm**
 - Remote Office: logo dẫn về site chính (`www.baika.tech`) thay vì chính landing. Ô «Lĩnh vực» có 8 lựa chọn tạm (Remote Office + 7 trụ).
 
+**Tài liệu**
+- Luật đồng bộ ngược (`CLAUDE.md` §3): điều Thắng chốt mà Figma chưa có → agent tự vẽ vào Figma, ghi Nhật ký Figma. Áp dụng ngay: dòng pháp lý L14 (`960:3633`).
+
 **Quyết định**
 - `baika.tech` là bản thử; sau này `baika.vn` thay. #10 #11 #16 #17 gom vào buổi xem Figma.
 - #13: thêm mục Remote Office vào menu chung — chờ Figma. Trang Remote Office giữ menu dẫn sang 7 trang.

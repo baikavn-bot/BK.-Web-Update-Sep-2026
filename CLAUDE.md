@@ -134,6 +134,19 @@ Mỗi thư mục con theo cùng một khung 4 file:
 | `docs/remote-office/` | Remote Office — `baika.website`. Bắt đầu từ `SPEC-MASTER.md`. Cách gắn tên miền (`vercel.json` dùng **`routes`**, không dùng `rewrites`): `quy-trinh-build.md` §5 |
 | `docs/_chung/` | Tài liệu chung 7 trang dịch vụ + trang chủ + Liên hệ: **nhật ký quyết định `DEC-001`…`DEC-100`**, Design Spec, Implementation Spec, spec bàn giao, sitemap, vận hành sau launch. **Chép nguyên văn** từ project Claude ngày 03/10/2026 — đầu mỗi file ghi chỗ đã lỗi thời. Mục lục: `docs/README.md` |
 
+### Luật đồng bộ ngược: chốt ở Claude → agent vẽ vào Figma *(Thắng chốt 04/10/2026)*
+
+Khi Thắng **duyệt / cập nhật / thêm** một điều trong phiên làm việc với agent mà **Figma chưa có hoặc chưa cập nhật**, **agent tự vào Figma tạo đúng điều đã chốt**. Mục tiêu: Figma luôn là bản mới nhất, chuẩn hoá — để luật «Figma thắng» không bao giờ kéo code về bản cũ.
+
+| | |
+| --- | --- |
+| **Áp dụng cho** | Chỉ điều **Thắng đã chốt rõ** (trong phiên, hoặc ghi ✅ trong spec). Đề xuất của agent chưa được duyệt **không** vẽ |
+| **Cách vẽ** | Chỉ dùng component · text style · biến màu / spacing **có sẵn**. Thiếu token → dừng, hỏi (luật §4 không đổi) |
+| **Phạm vi** | Chỉ thêm / sửa đúng node của điều đã chốt. **Không** xoá, đổi tên, dọn dẹp node khác |
+| **Component dùng chung** | Sửa main component (vd. menu, Footer) → báo trước **số instance bị ảnh hưởng**, rồi mới ghi |
+| **Thiếu thông tin để vẽ** | Vd. chốt «thêm mục menu» nhưng chưa có vị trí / chữ → **hỏi**, không tự chọn |
+| **Sau khi ghi** | ① chụp node ra **nhìn** (bài học `DEC-035-A`) · ② ghi «Nhật ký Figma» của spec trang: ngày · node ID · đổi gì · ③ báo Thắng node ID để mở xem |
+
 **Đọc nhật ký quyết định trước khi kết luận điều gì** — nhiều thứ trông như lỗi thật ra đã được chốt có lý do.
 
 ⚠️ `docs/_chung/noi-dung-day-du.md` là chữ của **site cũ** chép để audit, **không phải** chữ site mới. Chữ đang chạy = Figma + `src/pages/`.
