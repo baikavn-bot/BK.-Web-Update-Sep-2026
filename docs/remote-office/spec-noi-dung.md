@@ -267,7 +267,7 @@ Bấm nút «Gửi yêu cầu theo ước tính này» → đoạn sau được 
 **Nút** ✅ «Đặt lịch khảo sát» *(`L13` — riêng trang này; 7 trang dịch vụ giữ «Đăng ký rà soát»)*
 **Danh sách ô "Lĩnh vực"** — ⏸ **chưa có** ở cả hai nguồn (`SPEC-MASTER.md` §7 #12)
 
-**Dòng pháp lý cuối trang** ⏸ `L14` — Thắng hỏi đặt ở đâu (30/09). Đề xuất: dòng `caption` ngay **dưới form Liên hệ**, không đưa vào Footer chung. Spec cũ: «Nội dung trên trang mang tính giới thiệu dịch vụ, không phải đề nghị giao kết hợp đồng. Điều khoản chính thức theo hợp đồng dịch vụ ký giữa hai bên.»
+**Dòng pháp lý cuối trang** ✅ `L14` — **Thắng chốt 04/10: dòng `caption` ngay dưới form Liên hệ**, màu `--gray-400`, chỉ ở trang Remote Office, không vào Footer chung. Code: prop `ghiChuPhapLy` của `ContactSection`. Chữ: Spec cũ: «Nội dung trên trang mang tính giới thiệu dịch vụ, không phải đề nghị giao kết hợp đồng. Điều khoản chính thức theo hợp đồng dịch vụ ký giữa hai bên.»
 
 ---
 
@@ -313,7 +313,7 @@ Mỗi dòng Thắng chốt một chữ: **F** (theo Figma) · **N** (theo spec c
 | `L11` | Nhãn nhỏ thẻ gói | «Kiểm tra » · «Hệ thống hóa» · «Hỗ trợ» *(nhãn của 7 trang dịch vụ)* | *(không có)* | **khác: thay bằng giá** — «4.900.000 đ/tháng» · «9.900.000 đ/tháng» · «19.900.000 đ/tháng» | 29/09 |
 | `L12` | Cam kết / FAQ | 3 ô cam kết nằm trong FAQ, mất «Cam kết bằng hợp đồng» | Khối Cam kết riêng 4 ô + FAQ 5 câu — «Cam kết bằng hợp đồng» — «Mỗi đầu việc có hạn trả kết quả rõ ràng. Trễ hạn thì BAIKA chịu phạt theo hợp đồng.» · FAQ 2 «Tôi có được chỉ đạo trực tiếp người làm không?» — «Bạn làm việc với điều phối viên và gửi yêu cầu qua cổng. BAIKA chọn người phù hợp và chịu trách nhiệm về kết quả, nhờ vậy dịch vụ không gián đoạn khi có người nghỉ.» · FAQ 3 «Dùng hết đơn vị công việc trong tháng thì sao?» — «BAIKA báo trước khi gần hết. Bạn mua thêm theo đơn giá của gói hoặc nâng gói từ tháng sau.» · FAQ 4 «Dữ liệu công ty tôi được giữ thế nào?» — «Hai bên ký cam kết bảo mật. Mỗi nhân sự chỉ truy cập phần dữ liệu cần cho việc mình làm, và mọi truy cập đều được ghi lại.» · FAQ 5 «Bao lâu thì bắt đầu được?» — «Trong 7 ngày làm việc sau khi ký hợp đồng.» | **N** — FAQ 5 câu theo spec cũ; không dựng khối Cam kết | 30/09 |
 | `L13` | Nút form | «Đăng ký rà soát» | «Đặt lịch khảo sát» | **N** «Đặt lịch khảo sát» | 30/09 |
-| `L14` | Dòng pháp lý cuối trang | *(không có)* | xem §9 | ⏸ Thắng hỏi chỗ đặt — đề xuất dưới form Liên hệ, chờ chốt |  |
+| `L14` | Dòng pháp lý cuối trang | *(không có)* | xem §9 | ✅ 04/10 — dưới form Liên hệ, chữ caption `--gray-400` |  |
 | `L15` | Ước tính — ô lương *(tablet · mobile)* | «10tr» | «10.000.000 đ» *(desktop, §4.4)* | **N** «10.000.000 đ» — Thắng sửa bố cục mobile (nhãn trên điều khiển) cho vừa | 01/10 |
 | `L16` | Ước tính — số trong bảng *(tablet · mobile)* | «14tr150» · «28tr300» · «9tr900» | «14.150.000 đ» · «28.300.000 đ» · «9.900.000 đ» | **N** — Thắng thêm biến thể `Table Item` Mobile padding `--s-4` | 01/10 |
 | `L17` | Ước tính — ô nhóm việc *(tablet · mobile)* | «3 nhóm» | «3 nhóm việc» | **N** «3 nhóm việc» | 01/10 |

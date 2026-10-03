@@ -42,12 +42,16 @@ interface Props {
   hienSocial?: boolean;
   /** Chữ nút gửi. Bỏ trống = «Đăng ký rà soát» (7 trang dịch vụ). */
   submitLabel?: string;
+  /** Dòng pháp lý nhỏ ngay dưới form. Bỏ trống = không hiện.
+   *  Hiện chỉ Remote Office dùng (L14, Thắng chốt 04/10) — trang có giá công khai. */
+  ghiChuPhapLy?: string;
 }
 const {
   heading = 'Liên hệ',
   linhVuc = [],
   hienSocial = false,
   submitLabel,
+  ghiChuPhapLy,
   socials = [
     { label: 'Facebook',  href: undefined },
     { label: 'Instagram', href: undefined },
@@ -80,6 +84,7 @@ const {
 
   <div class="lh__phai">
     <ContactForm variant="dich-vu" linhVucOptions={linhVuc} submitLabel={submitLabel} />
+    {ghiChuPhapLy && <p class="lh__phap-ly">{ghiChuPhapLy}</p>}
   </div>
 </section>
 
@@ -118,6 +123,15 @@ const {
     gap: var(--s-10);
   }
 
+
+  /* Dòng pháp lý (L14): chữ caption, xám nhạt nhưng vẫn đạt tương phản AA trên nền tối. */
+  .lh__phap-ly {
+    margin: var(--s-6) 0 0;            /* 24 */
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    font-weight: var(--fw-caption);
+    color: var(--gray-400);
+  }
 
   .lh__social {
     display: flex;

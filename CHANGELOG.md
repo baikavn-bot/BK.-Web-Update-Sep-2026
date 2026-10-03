@@ -10,6 +10,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 ## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
 
 ### 04/10/2026
+**Thêm**
+- Remote Office: dòng pháp lý nhỏ dưới form Liên hệ (L14) — «Nội dung trên trang mang tính giới thiệu dịch vụ…».
+
 **Quyết định**
 - #13: thêm mục Remote Office vào menu chung — chờ Figma. Trang Remote Office giữ menu dẫn sang 7 trang.
 

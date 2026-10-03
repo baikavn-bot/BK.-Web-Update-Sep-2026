@@ -121,7 +121,7 @@ Gặp mục nào dưới đây: **dựng phần còn lại, để trống chỗ 
 | 5 | ✅ **02/10 — Con số 1.800.000**: giữ, vì nằm trong logic ban đầu sếp chốt (Spec v3 §13.7) **[suy luận từ câu chốt của sếp — Thắng xác nhận lại nếu sếp muốn số khác]** | — |
 | 6 | ✅ **ĐÃ CHỐT 01/10 — Nút «Gửi yêu cầu theo ước tính này»**: gửi ước tính **kèm** thông tin cá nhân của khách, API đưa về mail BAIKA. Cách làm (Thắng chọn): bấm nút → **điền sẵn bản tóm tắt ước tính vào ô «Mô tả vấn đề»** của form R9 → cuộn xuống → con trỏ vào ô «Tên». Khách sửa / viết thêm được. **Không sửa API** — mail về như mọi form khác. Chữ mẫu: `spec-noi-dung.md` §4.6 | — |
 | 7 | ✅ **ĐÃ CHỐT 30/09 (L12)** — FAQ 5 câu theo spec cũ; **không** dựng khối Cam kết riêng | — |
-| 8 | ✅ **ĐÃ CHỐT 30/09 — L1–L13** (`spec-noi-dung.md` §12). **Còn `L14`**: dòng pháp lý — đặt ở đâu | Liên hệ |
+| 8 | ✅ **ĐÃ CHỐT 30/09 — L1–L13** (`spec-noi-dung.md` §12). ~~Còn `L14`~~ ✅ **04/10: dưới form Liên hệ** (caption, chỉ trang này) | — |
 | 9 | ✅ **Tablet / Mobile cho R2 · R4 · R6** — Thắng vẽ 01/10 (`spec-giao-dien.md` §7). `L15`–`L20` ✅ chốt 01/10. **Còn:** bảng so sánh `#15` | Responsive |
 | 10 | **Cỡ chữ số lớn "23,5"** — Figma vẽ 100px (ngoài thang, `display-1` = 80) · ⏸ **Đang chạy TẠM** `--fs-display-1` (80) — `CostSection.astro` | Khối chi phí |
 | 11 | **Khoảng `10px`** trong stepper và `Table Item` — ngoài thang spacing (thang có 8 · 12) · ⏸ **Đang chạy TẠM** `--s-3` (12) | Ước tính · So sánh |

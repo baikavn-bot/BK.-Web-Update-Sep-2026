@@ -75,7 +75,7 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | 13 | ✅ Chốt 04/10: **thêm** mục Remote Office vào menu (8 → 9 mục) | **Thắng vẽ Figma trước** | Chưa có — chờ Figma |
 | 16 | Ô bảng cao cố định 66px hay theo nội dung | Thắng | Theo nội dung |
 | 17 | Lề trang tablet 24 hay 40 | Thắng | 40 |
-| L14 | Dòng pháp lý đặt ở đâu | Thắng | Chưa đặt |
+| L14 | ✅ Chốt 04/10: dòng pháp lý **dưới form Liên hệ** — đã dựng | — | Đã có (nhánh `remote-office`) · **Figma chưa vẽ** |
 | — | Logo trên `baika.website` dẫn về đâu | Thắng | Về chính landing |
 | — | Nâng **Vercel Pro** trước khi ra mắt (Hobby chỉ cho dùng phi thương mại) | Sếp | Hobby |
 | — | `baika.tech` là bản chính thật hay bản thử? Thẻ `canonical` trỏ đâu? | Thắng | — |
