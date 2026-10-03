@@ -30,9 +30,12 @@ const { area } = Astro.props;
     fetchpriority="high"
   />
 
-  <p class="hero__tagline">
+  {/* Tiêu đề chính <h1> của trang chủ (Thắng chốt 04/10): dùng chính dòng mô tả có
+      sẵn trong Figma — chữ thật nhìn thấy được, không thêm chữ mới. Trước 04/10 là <p>
+      nên trang chủ không có h1 nào (Google + trình đọc màn hình cần đúng một h1). */}
+  <h1 class="hero__tagline">
     BAIKA rà soát và dựng lại hệ thống vận hành — từ mô hình kinh doanh đến tài chính, pháp lý, công nghệ.
-  </p>
+  </h1>
 
   {/* Figma: Home có đúng 3 instance Button 1 — Lg ở Desktop (534:3846, 128×44),
       Md ở Tablet (117×36), Sm ở Mobile (108×34). Trục Type = breakpoint,
@@ -100,6 +103,9 @@ const { area } = Astro.props;
 
   .hero__tagline {
     margin: 0;
+    /* h1 mặc định lấy chữ tiêu đề (global.css) — giữ đúng chữ thường như khi còn là <p>. */
+    font-family: inherit;
+    font-weight: inherit;
     max-width: 464px;
     font-size: var(--fs-body-lg);
     line-height: var(--lh-body-lg);
