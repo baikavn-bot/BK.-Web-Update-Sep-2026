@@ -79,7 +79,7 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | — | Logo trên `baika.website` dẫn về đâu | Thắng | Về chính landing |
 | — | Nâng **Vercel Pro** trước khi ra mắt (Hobby chỉ cho dùng phi thương mại) | Sếp | Hobby |
 | — | `baika.tech` là bản chính thật hay bản thử? Thẻ `canonical` trỏ đâu? | Thắng | — |
-| — | **Trang chủ không có thẻ `<h1>`** (tiêu đề chính của trang — Google và trình đọc màn hình dựa vào nó). Đề xuất: thêm một `<h1>` ẩn khỏi mắt nhưng máy đọc được, ví dụ «BAIKA — kiến tạo hệ thống vận hành cho doanh nghiệp». Cần Thắng chốt câu chữ **[xác minh 03/10 — `pnpm kiem-tra:trang`: `/` có h1=0]** | Thắng | Không có |
+| ~~—~~ | ~~Trang chủ không có `<h1>`~~ — ✅ **chốt 04/10:** dòng mô tả dưới logo làm `<h1>`, nhìn không đổi (so ảnh giống từng pixel). Lên bản chính qua Pull Request `sua-h1-trang-chu` | — | — |
 
 Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bento…): `CLAUDE.md` §11.
 

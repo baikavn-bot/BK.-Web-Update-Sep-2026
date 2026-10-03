@@ -10,6 +10,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 ## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
 
 ### 04/10/2026
+**Sửa lỗi**
+- Trang chủ có tiêu đề chính `<h1>`: dòng mô tả dưới logo (trước đây trang chủ không có h1 nào). Nhìn không đổi.
+
 **Đổi**
 - Tên miền Remote Office xong: `baika.website` + `www.baika.website` chạy, khách ngoài xem được (tắt khoá đăng nhập Vercel cho Preview). 6 mục kiểm đạt.
 - `baika.website/<8 trang khác>` chuyển sang `www.baika.tech` thay vì `baika.vn` — `baika.vn` vẫn là site cũ. Xoá dòng thử `?thu-baika-website`.
