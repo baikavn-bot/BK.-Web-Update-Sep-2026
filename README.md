@@ -1,24 +1,69 @@
 # baika-website
 
-Website marketing tĩnh cho `baika.vn` — 7 trang dịch vụ, trang chủ, liên hệ.
+Website giới thiệu của **BAIKA**, công ty tư vấn và kiến tạo hệ thống vận hành cho doanh nghiệp.
 
-**Đọc `CLAUDE.md` trước khi sửa bất cứ dòng nào.** Nó chứa luật token, bản đồ Figma,
-nguyên tắc REBUILD và danh sách những thứ còn treo.
+| Trang | Địa chỉ | Trạng thái |
+| --- | --- | --- |
+| Trang chủ · 7 trang dịch vụ · Liên hệ | `baika.vn` (về sau) · hiện chạy ở `baika.tech` | Đã chạy |
+| Landing Remote Office | `baika.website` | Dựng xong, chờ tên miền mở khoá |
 
-## Chạy local
+Mọi trang và landing **chung một source** này, dù chạy ở tên miền nào.
+
+**Đang ở đâu, cái gì kẹt:** xem [`TRANG-THAI.md`](TRANG-THAI.md).
+**Luật trước khi sửa code:** xem [`CLAUDE.md`](CLAUDE.md).
+
+---
+
+## Ai làm gì
+
+Công ty **không có lập trình viên**. Code do agent (Claude) viết. **Thắng Trương** (designer) duyệt và tự chạy `git push`. Vercel tự dựng lại site sau mỗi lần push.
+
+---
+
+## Chạy trên máy
+
+Cần **Node 20.11** trở lên (xem `.nvmrc`) và **pnpm 9**.
 
 ```bash
-pnpm install
-pnpm dev      # http://localhost:4321
+pnpm install    # cài lần đầu
+pnpm dev        # mở http://localhost:4321
 ```
 
-## Dựng bản production
+Ở `pnpm dev`, form Liên hệ **không gửi được mail**. Thư mục `api/` chỉ chạy trên Vercel, đó là bình thường.
+
+## Dựng và kiểm tra
 
 ```bash
-pnpm build    # kiểm tra kiểu + xuất ra dist/
-pnpm preview
+pnpm build         # kiểm tra kiểu + dựng ra dist/ — phải 0 lỗi
+pnpm kiem-tra      # luật màu, #FFFFFF, khoá bí mật — 1 giây
+pnpm preview       # xem bản đã dựng
 ```
+
+Các bài kiểm tra cần trình duyệt (tràn ngang, ảnh chụp, so ảnh trước/sau): [`tools/kiem-tra/README.md`](tools/kiem-tra/README.md).
+
+---
 
 ## Nền tảng
 
-Astro (tĩnh) · TypeScript · CSS Modules + CSS Variables · pnpm · Node 20.11 · Vercel
+Astro 4 (site tĩnh) · TypeScript · CSS Variables · pnpm · GitHub · Vercel.
+
+- **Token** (màu, chữ, khoảng cách) sinh từ Figma, nằm ở `src/styles/tokens.css`. Không tự chế giá trị mới.
+- **Figma** `YmcXg1lQqGVjQOFrVtdOgW` là nguồn chân lý về giao diện. Code lệch Figma thì Figma thắng.
+- **Form Liên hệ** gửi mail qua Resend. Cần 3 biến môi trường trên Vercel (tên biến: `.env.example`). Kiểm tra nhanh bằng cách mở `/api/health`.
+
+## Thư mục
+
+| Thư mục / file | Chứa gì |
+| --- | --- |
+| `src/pages/` | Mỗi file một trang |
+| `src/components/` | Các khối giao diện, mỗi khối một file `.astro` |
+| `src/styles/` | Token + CSS dùng chung |
+| `src/lib/` | Phần tính toán (công cụ ước tính Remote Office) |
+| `api/` | Hàm gửi mail và trang tự kiểm, chạy trên Vercel |
+| `docs/` | Spec để dựng từng trang, mỗi trang một thư mục |
+| `tools/` | Script kiểm tra, không nằm trong site |
+| `vercel.json` | Luật tên miền `baika.website` |
+
+## Lịch sử
+
+[`CHANGELOG.md`](CHANGELOG.md)
