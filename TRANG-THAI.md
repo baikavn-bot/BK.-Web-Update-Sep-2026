@@ -95,7 +95,7 @@ Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bent
 
 1. **Theo dõi Nhân Hòa.** Mở khoá xong → làm 4 bước ở mục 4.
 2. **Chốt các mục ở mục 5** — ít nhất #5 (sếp) và Vercel Pro, vì hai mục này chặn ra mắt.
-3. **Đợt 3 hoàn thiện repo:** chuyển nhật ký quyết định, spec 7 trang và tài liệu vận hành từ project Claude vào `docs/`. *(Đợt 1–2 xong 03/10.)*
+3. **Đợt 4 hoàn thiện repo:** gắn nhãn phiên bản `v1.0`, khoá nhánh `main` (branch protection), LICENSE. *(Đợt 1–3 xong 03/10.)*
 
 ---
 

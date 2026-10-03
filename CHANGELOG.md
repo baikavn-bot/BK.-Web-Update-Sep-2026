@@ -9,6 +9,11 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## Chưa phát hành — nhánh `remote-office`
 
+### 03/10/2026 — đợt 3
+**Tài liệu**
+- Chuyển 9 tài liệu chung từ project Claude vào `docs/_chung/`: nhật ký quyết định `DEC-001`…`DEC-100`, Design Spec, Implementation Spec, spec bàn giao, nội dung site cũ, bản đồ section, sitemap, vận hành sau launch. Chép nguyên văn, đầu mỗi file ghi chỗ đã lỗi thời; che 3 chỗ email cá nhân.
+- Thêm `docs/README.md` (mục lục + chỗ tìm từng số `DEC`). `CLAUDE.md` §3 trỏ về `docs/` thay vì project Claude.
+
 ### 03/10/2026 — đợt 2
 **Thêm**
 - Kiểm tra tự động trên GitHub (`.github/workflows/kiem-tra.yml`): mỗi lần push chạy build + luật tĩnh + 11 ca ước tính.

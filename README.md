@@ -62,7 +62,7 @@ Astro 4 (site tĩnh) · TypeScript · CSS Variables · pnpm · GitHub · Vercel.
 | `src/styles/` | Token + CSS dùng chung |
 | `src/lib/` | Phần tính toán (công cụ ước tính Remote Office) |
 | `api/` | Hàm gửi mail và trang tự kiểm, chạy trên Vercel |
-| `docs/` | Spec để dựng từng trang, mỗi trang một thư mục |
+| `docs/` | Spec dựng từng trang + nhật ký quyết định. Mục lục: [`docs/README.md`](docs/README.md) |
 | `tools/` | Script kiểm tra, không nằm trong site |
 | `.github/` | Kiểm tra tự động (CI), Dependabot, mẫu Pull Request |
 | `vercel.json` | Luật tên miền `baika.website` |

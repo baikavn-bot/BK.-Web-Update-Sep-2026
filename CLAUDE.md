@@ -120,22 +120,15 @@ Mỗi thư mục con theo cùng một khung 4 file:
 | Thư mục | Trang |
 | --- | --- |
 | `docs/remote-office/` | Remote Office — `baika.website`. Bắt đầu từ `SPEC-MASTER.md`. Cách gắn tên miền (`vercel.json` dùng **`routes`**, không dùng `rewrites`): `quy-trinh-build.md` §5 |
+| `docs/_chung/` | Tài liệu chung 7 trang dịch vụ + trang chủ + Liên hệ: **nhật ký quyết định `DEC-001`…`DEC-100`**, Design Spec, Implementation Spec, spec bàn giao, sitemap, vận hành sau launch. **Chép nguyên văn** từ project Claude ngày 03/10/2026 — đầu mỗi file ghi chỗ đã lỗi thời. Mục lục: `docs/README.md` |
 
-⚠️ Spec của 7 trang dịch vụ + trang chủ **chưa** chuyển vào `docs/` — vẫn nằm ở project Claude (bảng dưới). Sẽ chuyển dần sau 01/10/2026.
+**Đọc nhật ký quyết định trước khi kết luận điều gì** — nhiều thứ trông như lỗi thật ra đã được chốt có lý do.
+
+⚠️ `docs/_chung/noi-dung-day-du.md` là chữ của **site cũ** chép để audit, **không phải** chữ site mới. Chữ đang chạy = Figma + `src/pages/`.
 
 **Luật đồng bộ (Thắng chốt 29/09):** sửa code làm đổi chữ, số hay hành vi → sửa spec trong `docs/` **cùng commit**. Figma đổi → ghi vào "Nhật ký Figma" của spec. `git add` từng file, không `git add -A` khi chưa đọc `git status`.
 
-### Tài liệu — nằm trong Claude Project "BaiKa"
-
-| File | Chứa gì |
-| --- | --- |
-| `claude/website-agent-decisions.md` | **Nhật ký quyết định `DEC-001`…`DEC-036`. Đọc trước khi kết luận điều gì** |
-| `claude/website-agent-design-spec.md` | Design Spec · `LOCKED` |
-| `claude/website-agent-implementation-spec.md` | Implementation Spec · `LOCKED` |
-| `claude/ban-giao-ky-thuat.md` | Spec bàn giao — token, component, trạng thái, checklist nghiệm thu |
-| `claude/noi-dung-day-du.md` | Nội dung nguyên văn 7 trang |
-| `claude/ban-do-section.md` | Khung section 7 trang |
-| `claude/van-hanh-sau-launch.md` | Vận hành sau khi lên — không có dev thì sửa bug thế nào |
+**Project Claude "BaiKa.vn"** vẫn giữ vài tài liệu chưa chuyển (danh sách: `docs/README.md`) và `claude/viec-cho-nhac.md` — việc chờ nhắc Thắng. Bản nào đã vào `docs/` thì **bản trong repo là bản chính**.
 
 ---
 
