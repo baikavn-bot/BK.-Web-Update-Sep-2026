@@ -46,18 +46,24 @@ Quy ước số: `v1.0.0` → sửa lỗi nhỏ thành `v1.0.1` · thêm trang /
 
 **Làm khi nào:** sau khi push xong mục 1 **và** tab **Actions** đã có ít nhất một lượt «Kiem tra» chạy xanh. Chưa có lượt chạy nào thì GitHub chưa biết có bước kiểm tên `kiem-tra` để chọn ở bước 5 dưới đây.
 
-**Các bước** *(GitHub đổi giao diện thường xuyên — chữ trên màn có thể hơi khác. Không thấy đúng chỗ thì chụp màn gửi agent)*:
+**Trạng thái:** ✅ **đã bật 04/10/2026** — ruleset `bao-ve-main`, Active, danh sách vượt khoá trống. Các bước dưới để làm lại khi cần (repo mới, landing mới…).
 
-1. Repo trên GitHub → **Settings** (thanh trên cùng, bên phải).
-2. Cột trái → **Branches** → **Add branch protection rule** (hoặc **Add classic branch protection rule**).
-3. **Branch name pattern:** gõ `main`.
-4. Tick **Require a pull request before merging**.
-   - **Bỏ tick** *Require approvals* — repo chỉ có một người, không ai tự duyệt PR của chính mình được. Tick vào là anh không gộp được gì.
-5. Tick **Require status checks to pass before merging** → ô tìm kiếm gõ `kiem-tra` → chọn nó.
-6. **Để trống** *Do not allow bypassing the above settings*. Lý do: lúc khẩn cấp anh (chủ repo) vẫn vượt được khoá. Muốn chặt hơn thì bật sau.
-7. Kéo xuống cuối → **Create**.
+**Các bước — giao diện Rulesets** *(GitHub đổi giao diện thường xuyên — không thấy đúng chỗ thì chụp màn gửi agent)*:
 
-**Kiểm:** quay lại **Settings → Branches** thấy dòng `main` có quy tắc. Thử `git push origin main` từ máy (khi có commit mới trên `main`) → GitHub phải **từ chối** và nhắc dùng Pull Request. Bị từ chối là khoá đang chạy đúng.
+1. Repo trên GitHub → **Settings** → cột trái **Rules → Rulesets** → **New ruleset** → **New branch ruleset**.
+2. **Ruleset Name:** `bao-ve-main`.
+3. **Enforcement status:** đổi **Disabled → Active**. Để Disabled là luật không có tác dụng.
+4. **Bypass list:** **để trống.** Repo dùng chung tài khoản `baikavn-bot` — cho chủ repo vượt khoá là ai cũng vượt được. Lúc khẩn cấp: quay lui trên Vercel (mục 4), hoặc tạm đổi ruleset về Disabled, sửa xong bật lại.
+5. **Target branches:** **Add target → Include default branch** (= `main`).
+6. **Rules** — tick đúng 4 ô:
+   - **Restrict deletions** — cấm xoá `main`
+   - **Block force pushes** — cấm ghi đè lịch sử
+   - **Require a pull request before merging** → **Required approvals = 0** (repo một người, để 1 là không gộp được gì)
+   - **Require status checks to pass** → **Add checks** → gõ `kiem-tra` → chọn. **Không** chọn check tên Vercel.
+   - **Không** tick *Restrict creations / updates* (chặn luôn cả gộp bằng Pull Request), *signed commits*, *linear history*.
+7. Cuối trang → **Create**.
+
+**Kiểm:** **Settings → Rules → Rulesets** thấy `bao-ve-main` · **Active**. Thử `git push origin main` từ máy (khi có commit mới trên `main`) → GitHub phải **từ chối** và nhắc dùng Pull Request. Bị từ chối là khoá đang chạy đúng.
 
 **Sau khi khoá, cách đưa thay đổi lên `main`:**
 

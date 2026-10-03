@@ -17,7 +17,7 @@ Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy lu�
 
 ## 2. Nhánh (branch) — mỗi nhánh là một bản riêng của code
 
-Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý, xác nhận 03/10). Nhãn phiên bản: `v1.0.0` = `main` `aac95de` *(gắn trên máy Thắng 03/10, chờ push)*. Khoá nhánh `main`: **chưa bật** — xem `docs/huong-dan-github.md`.
+Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý, xác nhận 03/10). Nhãn phiên bản: `v1.0.0` = `main` `aac95de` — đã lên GitHub **[xác minh 03/10]**. Kiểm tra tự động (CI): chạy xanh trên `remote-office` **[xác minh 04/10 — ảnh tab Actions]**. Khoá nhánh `main`: **đã bật** — ruleset `bao-ve-main`, Active, không ai được vượt khoá **[xác minh 04/10 — ảnh chụp]**; đưa thay đổi lên `main` chỉ qua Pull Request — `docs/huong-dan-github.md`.
 
 | Nhánh | Commit mới nhất | Chứa gì | Đã lên GitHub |
 | --- | --- | --- | --- |
@@ -92,7 +92,7 @@ Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bent
 
 1. **Xong tên miền Remote Office:** thêm `www.baika.website` → chạy danh sách kiểm §5.6 (cửa sổ ẩn danh) → agent xoá dòng thử. Xem mục 4.
 2. **Chốt các mục ở mục 5** — ít nhất #5 (sếp) và Vercel Pro, vì hai mục này chặn ra mắt.
-3. **Thắng làm trên GitHub** (`docs/huong-dan-github.md`): push nhánh `remote-office` + nhãn `v1.0.0` → xem CI xanh → bật khoá nhánh `main`. *(Đợt 1–4 hoàn thiện repo xong 03/10.)*
+3. **Báo sếp:** `main` đã khoá — agent của sếp cũng phải đi qua Pull Request. *(Hoàn thiện repo xong: 4 đợt + CI + khoá nhánh, 03–04/10.)*
 
 ---
 

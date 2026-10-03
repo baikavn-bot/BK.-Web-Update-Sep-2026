@@ -313,7 +313,7 @@ Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắ
 - `git add` **từng file**. Không `git add -A` khi chưa đọc `git status`. Không bao giờ commit `.env` hay `Claude outputs/`.
 - Sửa code làm đổi chữ, số hay hành vi → sửa spec trong `docs/` **cùng commit** (§3), và thêm một dòng vào `CHANGELOG.md`. Trạng thái dự án đổi (nhánh, tên miền, việc kẹt) → sửa `TRANG-THAI.md`.
 - Mỗi trang mới làm trên **nhánh riêng**, gộp vào `main` khi ra mắt. Hiện có nhánh `remote-office` — xem `TRANG-THAI.md` §2.
-- **Gộp vào `main` bằng Pull Request** trên GitHub, không gộp thẳng ở máy. PR tự điền mẫu `.github/pull_request_template.md`.
+- **`main` đã khoá** (ruleset `bao-ve-main`, từ 04/10/2026): **chỉ gộp bằng Pull Request** trên GitHub, kiểm tra `kiem-tra` phải xanh, không ai được vượt khoá. Push thẳng `main` sẽ bị từ chối — đừng tìm cách lách. PR tự điền mẫu `.github/pull_request_template.md`.
 
 **Kiểm tra tự động (CI — `.github/workflows/kiem-tra.yml`):** mỗi lần push, GitHub tự chạy `pnpm build` + `pnpm kiem-tra` + bài kiểm 11 ca ước tính. ✓ xanh / ✗ đỏ hiện cạnh commit. **Đỏ thì không gộp.** CI không thay được bước chụp ảnh và mở ra nhìn (§10).
 

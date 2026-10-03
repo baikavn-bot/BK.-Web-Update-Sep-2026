@@ -9,6 +9,10 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
 
+### 04/10/2026
+**Đổi**
+- Khoá nhánh `main` bằng ruleset `bao-ve-main`: chỉ gộp qua Pull Request, kiểm tra tự động `kiem-tra` phải xanh, cấm xoá / ghi đè. `docs/huong-dan-github.md` viết lại theo giao diện Rulesets.
+
 ### 03/10/2026 — tên miền
 **Đổi**
 - `baika.website` đã chạy (Nhân Hòa mở khoá). `www.baika.website` chưa có DNS — đang làm.
