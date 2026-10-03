@@ -30,7 +30,7 @@ Trang phải làm được hai việc: **nói rõ khách tiết kiệm bao nhiê
 
 | | |
 | --- | --- |
-| Domain | `baika.website` — gắn vào **cùng dự án Vercel** với `baika.vn` bằng rewrite *(chưa chạy thử — xem `quy-trinh-build.md` §5)* |
+| Domain | `baika.website` — gắn vào **cùng dự án Vercel** với site chính (đang chạy ở `baika.tech`) bằng `routes` trong `vercel.json` · **đã chạy 04/10** — `quy-trinh-build.md` §5 |
 | Đường dẫn trong repo | `src/pages/remote-office.astro` *(đề xuất — [suy luận])* |
 | Figma | [`YmcXg1lQqGVjQOFrVtdOgW` → frame `Remote office` `913:4649`](https://www.figma.com/design/YmcXg1lQqGVjQOFrVtdOgW/Baika-Design-system?node-id=913-4649) — **chỉ có Desktop 1280**. ⚠️ Không dựng theo `825:6072` (bản vẽ cũ) |
 | Khác 7 trang dịch vụ | Có **công cụ ước tính** tính trên trang · có **bảng so sánh** · là trang bán **một sản phẩm** |

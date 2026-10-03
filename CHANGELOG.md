@@ -11,6 +11,8 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ### 04/10/2026
 **Đổi**
+- Tên miền Remote Office xong: `baika.website` + `www.baika.website` chạy, khách ngoài xem được (tắt khoá đăng nhập Vercel cho Preview). 6 mục kiểm đạt.
+- `baika.website/<8 trang khác>` chuyển sang `www.baika.tech` thay vì `baika.vn` — `baika.vn` vẫn là site cũ. Xoá dòng thử `?thu-baika-website`.
 - Khoá nhánh `main` bằng ruleset `bao-ve-main`: chỉ gộp qua Pull Request, kiểm tra tự động `kiem-tra` phải xanh, cấm xoá / ghi đè. `docs/huong-dan-github.md` viết lại theo giao diện Rulesets.
 
 ### 03/10/2026 — tên miền

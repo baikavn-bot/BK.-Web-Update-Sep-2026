@@ -3,24 +3,38 @@
   "routes": [
     {
       "src": "/remote-office/?",
-      "has": [{ "type": "host", "value": "baika.website" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "baika.website"
+        }
+      ],
       "status": 308,
-      "headers": { "Location": "/" }
+      "headers": {
+        "Location": "/"
+      }
     },
     {
       "src": "/(advisory|ai-os|ceo-blueprint|finance|legal-tax|lien-he|marketing|remote-ops)/?",
-      "has": [{ "type": "host", "value": "baika.website" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "baika.website"
+        }
+      ],
       "status": 307,
-      "headers": { "Location": "https://baika.vn/$1" }
+      "headers": {
+        "Location": "https://www.baika.tech/$1"
+      }
     },
     {
       "src": "/",
-      "has": [{ "type": "host", "value": "baika.website" }],
-      "dest": "/remote-office/index.html"
-    },
-    {
-      "src": "/",
-      "has": [{ "type": "query", "key": "thu-baika-website" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "baika.website"
+        }
+      ],
       "dest": "/remote-office/index.html"
     }
   ]

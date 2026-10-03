@@ -147,7 +147,9 @@ Chỉ dùng phím Tab / Shift+Tab / Enter / Space / mũi tên: đi qua được 
 
 ## 5. Gắn domain `baika.website` *(viết lại 01/10 — Thắng chốt: gắn vào NHÁNH `remote-office` trước, giữ `noindex`)*
 
-> **Trạng thái 03/10:** Nhân Hòa đã mở khoá — `baika.website` trỏ `216.198.79.1` **[xác minh 03/10, tra DNS]**, Thắng mở được trang. **Còn:** `www.baika.website` chưa có bản ghi DNS **[xác minh 03/10]** → làm bước 5.4 cho `www` · chạy danh sách 5.6 · rồi xoá dòng thử. Quy ước `www`: địa chỉ chính **không** `www` (`CLAUDE.md` §2, Thắng chốt 03/10).
+> **✅ Trạng thái 04/10 — XONG:** `baika.website` + `www.baika.website` đều chạy **[xác minh 04/10, tra DNS]** · 6 mục kiểm §5.6 **đạt** (Thắng kiểm 04/10) · Deployment Protection **đã tắt** để khách ngoài xem được (Thắng làm 04/10, xem 5.5) · dòng thử đã xoá · chuyển hướng 8 trang sang `www.baika.tech` (Thắng chốt A, 04/10 — xem 5.2). Quy ước `www`: địa chỉ chính **không** `www` (`CLAUDE.md` §2). Còn lại: ra mắt thật — 5.7.
+>
+> *Trạng thái 03/10 (lịch sử):* Nhân Hòa đã mở khoá — `baika.website` trỏ `216.198.79.1`, `www` chưa có DNS.
 >
 > *Trạng thái 02/10 (lịch sử):* Vercel đã thêm domain (Preview · nhánh `remote-office`) · ZoneDNS đã có bản ghi `A @ 216.198.79.1` · **CHẶN:** tên miền bị nhà đăng ký (Nhân Hòa) tạm khoá vì chưa xác minh chủ thể — nameserver đang là `ns1/ns2.verification-hold.suspended-domain.com` (tra ICANN Lookup 01/10). Đã gửi yêu cầu mở khoá. Mở xong → kiểm nameserver phải về ZoneDNS.
 
@@ -155,7 +157,7 @@ Mục tiêu: khách gõ `baika.website` → thấy trang Remote Office, thanh đ
 
 ### 5.1 Vì sao dùng `routes`, không dùng `rewrites` **[xác minh 01/10]**
 
-Bản kế hoạch 29/09 định dùng `rewrites` cho đường dẫn `/`. **Không chạy được:** trên Vercel, file tĩnh có sẵn được ưu tiên trước `rewrites` — tài liệu Vercel: *"precedence is given to the filesystem prior to rewrites being applied"*. Repo có `dist/index.html` (trang chủ baika.vn) nên `/` luôn ra trang chủ, rewrite bị bỏ qua. Người của Vercel xác nhận cùng điều này ở github.com/vercel/vercel/discussions/5723.
+Bản kế hoạch 29/09 định dùng `rewrites` cho đường dẫn `/`. **Không chạy được:** trên Vercel, file tĩnh có sẵn được ưu tiên trước `rewrites` — tài liệu Vercel: *"precedence is given to the filesystem prior to rewrites being applied"*. Repo có `dist/index.html` (trang chủ site mới) nên `/` luôn ra trang chủ, rewrite bị bỏ qua. Người của Vercel xác nhận cùng điều này ở github.com/vercel/vercel/discussions/5723.
 
 → Dùng `routes` trong `vercel.json`: các dòng `routes` được xét **theo thứ tự**, trước khi tìm file. **[✅ xác minh 02/10 — Thắng mở `/?thu-baika-website` trên preview `a39573b` → ra trang Remote Office, tức `routes` đè được `index.html`]**
 
@@ -164,9 +166,9 @@ Bản kế hoạch 29/09 định dùng `rewrites` cho đường dẫn `/`. **Kh�
 | # | Khi nào | Làm gì |
 | --- | --- | --- |
 | 1 | Ở `baika.website`, mở `/remote-office` | Chuyển về `/` (308) — một trang chỉ một địa chỉ |
-| 2 | Ở `baika.website`, mở trang của baika.vn (`/advisory` … `/lien-he`) | Chuyển sang `https://baika.vn/<trang>` (307 — tạm, đổi được) |
+| 2 | Ở `baika.website`, mở 8 trang còn lại (`/advisory` … `/lien-he`) | Chuyển sang `https://www.baika.tech/<trang>` (307 — tạm, đổi được). **Vì sao:** `baika.website` (nhánh `remote-office`) và `baika.tech` (nhánh `main`) cùng một repo, nên 8 trang này có sẵn ở `baika.website` — chuyển đi để mỗi trang chỉ một địa chỉ. Đích là `baika.tech` vì đó là nơi bản mới đang chạy; `baika.vn` hiện **vẫn là site cũ, không thuộc repo này** (Thắng chốt 04/10). Trỏ thẳng `www.baika.tech` vì `baika.tech` chuyển về `www` — tránh chuyển hai lần. **⚠️ Ngày `baika.vn` trỏ sang repo này: đổi dòng này về `https://baika.vn/$1`** |
 | 3 | Ở `baika.website`, mở `/` | **Mở trang Remote Office**, thanh địa chỉ không đổi |
-| 4 | Bất kỳ tên miền nào, mở `/?thu-baika-website` | Mở trang Remote Office — **dòng KIỂM THỬ** cho bước 5.3, xoá khi domain đã chạy |
+| ~~4~~ | ~~`/?thu-baika-website`~~ | Dòng kiểm thử cho 5.3 — **đã xoá 04/10** sau khi domain chạy |
 
 Không đụng: `/api/*` (form gửi mail), `/_astro/*`, `/img/*`, `favicon.svg` — vẫn chạy ở `baika.website` như ở mọi domain.
 `www.baika.website` → chuyển về `baika.website` bằng cài đặt Domains của Vercel (bước 5.4), không viết trong `vercel.json`.
@@ -176,7 +178,7 @@ Không đụng: `/api/*` (form gửi mail), `/_astro/*`, `/img/*`, `favicon.svg`
 Sau khi push nhánh `remote-office`, mở bản preview mới nhất của nhánh, **thêm `/?thu-baika-website` vào cuối**:
 
 - Ra trang **Remote Office** → `routes` đè được file tĩnh → dòng 3 sẽ chạy khi có domain. Đi tiếp 5.4.
-- Ra **trang chủ baika.vn** → `routes` cũng thua file tĩnh → **dừng**, báo Agent. Phương án dự phòng: Routing Middleware (một file chạy trước mọi request) — phức tạp hơn, chưa làm.
+- Ra **trang chủ** (không phải Remote Office) → `routes` cũng thua file tĩnh → **dừng**, báo Agent. Phương án dự phòng: Routing Middleware (một file chạy trước mọi request) — phức tạp hơn, chưa làm.
 
 ### 5.4 Thắng làm trên Vercel + nơi mua tên miền *(Agent không làm — cần đăng nhập của anh)*
 
@@ -188,7 +190,7 @@ Sau khi push nhánh `remote-office`, mở bản preview mới nhất của nhán
 
 ### 5.5 ⚠️ Hai điều xảy ra do gắn vào NHÁNH (Preview), không phải bản chính **[xác minh — tài liệu Vercel 01/10 · 02/10: 3 biến gửi mail đã `true` trên Preview]**
 
-1. **Khoá đăng nhập.** Mặc định Vercel bật *Deployment Protection — Standard Protection*: *"protects all domains except production domains"*. `baika.website` gắn vào nhánh là domain Preview → **người chưa đăng nhập Vercel sẽ thấy trang bắt đăng nhập**, không thấy Remote Office. Hợp với giai đoạn duyệt nội bộ; muốn người ngoài (sếp) xem thì: Settings → **Deployment Protection** → tắt cho Preview, hoặc gộp `main` và chuyển domain sang Production.
+1. **Khoá đăng nhập.** Mặc định Vercel bật *Deployment Protection — Standard Protection*: *"protects all domains except production domains"*. `baika.website` gắn vào nhánh là domain Preview → **người chưa đăng nhập Vercel sẽ thấy trang bắt đăng nhập**, không thấy Remote Office. Hợp với giai đoạn duyệt nội bộ; muốn người ngoài (sếp) xem thì: Settings → **Deployment Protection** → tắt cho Preview, hoặc gộp `main` và chuyển domain sang Production. **[✅ 04/10: Thắng tắt *Vercel Authentication* (Require Log In) — khách ngoài đã xem được, kiểm bằng cửa sổ ẩn danh. Hệ quả: mọi bản preview của mọi nhánh đều xem được nếu có link. Bật lại: cùng trang → Require Log In → Save]**
 2. **Biến môi trường gửi mail.** Form gửi mail cần 3 biến (`RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM`) **bật cho môi trường Preview**. Kiểm: mở `https://baika.website/api/health` → cả ba `true`.
 
 ### 5.6 Kiểm sau khi domain chạy
@@ -196,11 +198,11 @@ Sau khi push nhánh `remote-office`, mở bản preview mới nhất của nhán
 - `baika.website` → trang Remote Office, thanh địa chỉ vẫn `baika.website`
 - `www.baika.website` → chuyển về `baika.website`
 - `baika.website/remote-office` → chuyển về `baika.website`
-- `baika.website/advisory` → chuyển sang `baika.vn/advisory`
+- `baika.website/advisory` → chuyển sang `www.baika.tech/advisory` *(04/10: lúc kiểm còn trỏ `baika.vn` — đã đổi, kiểm lại sau khi push)*
 - Bấm «Gửi yêu cầu theo ước tính này» → điền form → gửi → mail về hộp thư BAIKA
 - Xem mã nguồn trang: `<link rel="canonical" href="https://baika.website/">` + `noindex` còn đó
-- Xong → **xoá dòng 4 (kiểm thử)** trong `vercel.json`
+- Xong → **xoá dòng 4 (kiểm thử)** trong `vercel.json` — ✅ **đạt cả 6 mục, 04/10; đã xoá dòng thử**
 
 ### 5.7 Khi ra mắt thật *(chưa làm — #5 #14 sếp đã chốt 02/10; còn chờ tên miền mở khoá + quyết định gỡ `noindex`)*
 
-Gộp `remote-office` vào `main` → Domains: chuyển `baika.website` từ Preview sang **Production** → gỡ `noindex` → ô bento Remote Office trên trang chủ đã trỏ `https://baika.website` sẵn. ⚠️ Vercel gói **Hobby** chỉ cho *"non-commercial, personal use"* — trang bán dịch vụ cần gói **Pro** trước khi ra mắt (sếp quyết).
+Gộp `remote-office` vào `main` **bằng Pull Request** (`main` đã khoá) → Domains: chuyển `baika.website` từ Preview sang **Production** → gỡ `noindex` → ô bento Remote Office trên trang chủ đã trỏ `https://baika.website` sẵn. ⚠️ Vercel gói **Hobby** chỉ cho *"non-commercial, personal use"* — trang bán dịch vụ cần gói **Pro** trước khi ra mắt (sếp quyết).

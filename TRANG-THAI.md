@@ -11,7 +11,7 @@ Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy lu�
 
 ## 1. Tóm tắt một dòng
 
-7 trang dịch vụ, trang chủ và Liên hệ đã chạy trên nhánh `main`. Trang **Remote Office** dựng xong 9/9 khối trên nhánh `remote-office`. Tên miền `baika.website` **đã mở khoá và chạy** (03/10) — còn thiếu `www.baika.website` và danh sách kiểm §5.6.
+7 trang dịch vụ, trang chủ và Liên hệ đã chạy trên nhánh `main`. Trang **Remote Office** dựng xong 9/9 khối trên nhánh `remote-office`. Tên miền `baika.website` **chạy đầy đủ, khách xem được** (04/10). Chưa ra mắt thật: vẫn `noindex`, chưa gộp vào `main`.
 
 ---
 
@@ -37,10 +37,10 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 | Địa chỉ | Lấy code từ | Ghi chú |
 | --- | --- | --- |
 | `baika.tech` · `www.baika.tech` · `bk-web-update-sep-2026.vercel.app` | `main` (Production) | Bản chính hiện tại |
-| Bản preview của nhánh `remote-office` | `remote-office` (Preview) | Bị khoá đăng nhập Vercel (*Deployment Protection — Standard*) |
-| `baika.website` | `remote-office` (Preview) | **Đã chạy** — DNS trỏ `216.198.79.1` **[xác minh 03/10]**, Thắng mở được trang. Người ngoài (chưa đăng nhập Vercel) xem được không: **chưa kiểm** |
-| `www.baika.website` | — | **Chưa chạy** — chưa có bản ghi DNS **[xác minh 03/10]**. Cần: Vercel thêm `www` chuyển về `baika.website` + ZoneDNS thêm `CNAME www` |
-| `baika.vn` | — | **Chưa** trỏ về project này. Vẫn là site cũ, chỉ dùng để tham khảo *[suy luận — chưa kiểm lại sau 29/09]* |
+| Bản preview của nhánh `remote-office` | `remote-office` (Preview) | **Ai có link cũng xem được** — Thắng tắt *Vercel Authentication* 04/10 để khách xem `baika.website` |
+| `baika.website` | `remote-office` (Preview) | **Đã chạy, khách ngoài xem được** — 6 mục kiểm §5.6 đạt **[Thắng kiểm 04/10, cửa sổ ẩn danh]**. Vẫn `noindex`. 8 trang khác chuyển sang `www.baika.tech` |
+| `www.baika.website` | — | **Đã chạy** — chuyển 308 về `baika.website` · DNS `CNAME www` **[xác minh 04/10]** |
+| `baika.vn` | — (hosting riêng, sếp giữ) | **Không thuộc repo này.** Vẫn là site cũ (Next.js), chỉ để tham khảo. Ngày trỏ sang repo này: đổi chuyển hướng trong `vercel.json` từ `www.baika.tech` về `baika.vn` (`quy-trinh-build.md` §5.2 dòng 2) *[suy luận — chưa kiểm lại sau 29/09]* |
 
 **Biến môi trường (environment variable** — giá trị cài trên Vercel, không nằm trong code**)** cho form gửi mail: `RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM`. Cả ba đã bật cho Preview **[xác minh 02/10 — `/api/health` trả `true` cả ba]**. Giá trị thật **không bao giờ** ghi vào repo.
 
@@ -56,12 +56,9 @@ File `vercel.json` dùng **`routes`, không dùng `rewrites`**. Lý do: `rewrite
 
 ## 4. 🔴 Đang kẹt / đang làm
 
-| Việc | Tình trạng | Ai làm |
-| --- | --- | --- |
-| ~~Nhân Hòa khoá `baika.website`~~ | **Đã gỡ** — tên miền chạy 03/10 | — |
-| **`www.baika.website` không mở được** | Thiếu bản ghi DNS. Làm theo `docs/remote-office/quy-trinh-build.md` §5.4 | Thắng (Vercel + ZoneDNS) |
-| **Danh sách kiểm sau khi có tên miền** | Chưa chạy. `quy-trinh-build.md` §5.6 — làm trong **cửa sổ ẩn danh** để biết người ngoài có bị Vercel bắt đăng nhập không | Thắng mở, gửi kết quả |
-| Xoá dòng thử `thu-baika-website` trong `vercel.json` | Chờ §5.6 đạt | Agent |
+Không còn việc kẹt về kỹ thuật. Tên miền Remote Office **xong 04/10** (`baika.website` + `www`, khách xem được, 6 mục kiểm đạt).
+
+Còn lại là **quyết định** — mục 5 — và **ra mắt thật** — mục 7.
 
 ---
 
@@ -90,7 +87,7 @@ Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bent
 
 ## 6. Ba việc tiếp theo
 
-1. **Xong tên miền Remote Office:** thêm `www.baika.website` → chạy danh sách kiểm §5.6 (cửa sổ ẩn danh) → agent xoá dòng thử. Xem mục 4.
+1. **Sếp duyệt để ra mắt Remote Office:** con số 1,8 triệu (#5) · gói Vercel Pro · gỡ `noindex` → rồi làm mục 7.
 2. **Chốt các mục ở mục 5** — ít nhất #5 (sếp) và Vercel Pro, vì hai mục này chặn ra mắt.
 3. **Báo sếp:** `main` đã khoá — agent của sếp cũng phải đi qua Pull Request. *(Hoàn thiện repo xong: 4 đợt + CI + khoá nhánh, 03–04/10.)*
 

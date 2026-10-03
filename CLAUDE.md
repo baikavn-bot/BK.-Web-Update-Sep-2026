@@ -28,6 +28,8 @@ Không phải công ty bán khoá học online — bản brief cũ hiểu sai ch
 
 Repo này là **website marketing tĩnh** cho `baika.vn`:
 
+> **Tên miền hôm nay** *(04/10/2026)*: site mới chạy ở **`baika.tech`** (nhánh `main`) và **`baika.website`** (nhánh `remote-office`). **`baika.vn` vẫn là site CŨ, không thuộc repo này** — sẽ trỏ sang sau. Viết «baika.vn» trong tài liệu = đích tương lai, không phải nơi đang chạy. Chi tiết: `TRANG-THAI.md` §3.
+
 | Nhóm trang | Số | Ghi chú |
 | --- | --- | --- |
 | Trang dịch vụ | 7 | Mỗi trang một trụ, mỗi trụ một bộ màu |
