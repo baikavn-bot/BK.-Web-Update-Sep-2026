@@ -61,7 +61,7 @@ Nó **không** phải codebase, design, kiến trúc, component hay asset baseli
 | Ngôn ngữ | **TypeScript** |
 | CSS | **CSS Modules + CSS Variables**. Không Tailwind, không CSS-in-JS |
 | Package manager | **pnpm** |
-| Nguồn | **GitHub** (org của BAIKA) |
+| Nguồn | **GitHub** — tài khoản `baikavn-bot`, repo công khai (`DEC-038`, §9) |
 | Hosting | **Vercel** |
 | Node | **20.11.0** — xem `.nvmrc` |
 
@@ -234,6 +234,7 @@ baika-website/
 ├── CLAUDE.md              ← file này — luật của repo
 ├── AGENTS.md              ← trỏ về CLAUDE.md, cho agent không phải Claude
 ├── CHANGELOG.md           ← đã đổi gì, ngày nào
+├── LICENSE                ← giữ mọi quyền — repo công khai để xem, không để dùng lại
 ├── .github/               ← kiểm tra tự động (CI) · Dependabot · mẫu Pull Request — xem §9b
 ├── docs/                  ← tài liệu dựng từng trang, mỗi trang một thư mục — xem §3
 ├── api/                   ← hàm chạy trên Vercel: contact.ts (gửi mail) · health.ts — xem §2
@@ -283,6 +284,15 @@ Key nằm trong **biến môi trường** ở Vercel. File `.env` đã bị `.gi
 
 Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắc anh thu hồi key đó.** Xoá commit thôi là chưa đủ — key đã lộ là đã lộ.
 
+### ⚠️ Repo này CÔNG KHAI *(sếp chốt — xác nhận lại 03/10/2026)*
+
+**Ai cũng đọc được mọi file và mọi commit cũ**, không cần đăng nhập. Hệ quả cho agent:
+
+- Trước khi commit, tự hỏi: *"Có ổn không nếu người ngoài công ty đọc dòng này?"* Không chắc → hỏi Thắng.
+- **Không** đưa vào repo: khoá bí mật, email / số điện thoại cá nhân, dữ liệu khách hàng, nội dung form khách gửi, tài liệu tài chính – pháp lý – nhân sự.
+- Đã push là **không rút lại được** — lịch sử commit giữ bản cũ mãi.
+- Công khai **không** có nghĩa người khác được dùng lại: `LICENSE` giữ mọi quyền.
+
 ---
 
 ## 9b. Git — ai làm gì
@@ -318,7 +328,7 @@ Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắ
 
 *Mục chung cả site. Việc kẹt + quyết định đang chờ của Remote Office: `TRANG-THAI.md` §4–§5.*
 
-- **`Nav Button` `472:4918` thiếu `Hover` + `Focus`** — là mục menu bấm được, WCAG 2.4.7 đòi focus nhìn thấy. **Chặn Release Candidate**
+- ~~`Nav Button` thiếu `Hover` + `Focus`~~ — **đã đủ 4 biến thể** (`DEC-071`, 25/09). Còn lại: Figma dùng `Focus` để đánh dấu trang hiện tại (`VD-005`); code đã tách — `aria-current="page"` cho trang hiện tại, `:focus-visible` cho bàn phím
 - **Hai ô bento `Trạm Ý Tưởng` + `Trạm Kết Nối` trỏ đi đâu** — cả hai ngoài phạm vi v1, để nguyên là 2 link chết trên trang chủ lúc launch
 - **`Button 1 · Active`** dùng `--shadow-inner-press` vốn thiết kế cho nút tối; trên nút trắng có thể quá nặng
 - **`Checkbox` `29:2685` chưa gán effect style** — đang dùng giá trị thô

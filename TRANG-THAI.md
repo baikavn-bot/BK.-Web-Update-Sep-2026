@@ -17,6 +17,8 @@ Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy lu�
 
 ## 2. Nhánh (branch) — mỗi nhánh là một bản riêng của code
 
+Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý, xác nhận 03/10). Nhãn phiên bản: `v1.0.0` = `main` `aac95de` *(gắn trên máy Thắng 03/10, chờ push)*. Khoá nhánh `main`: **chưa bật** — xem `docs/huong-dan-github.md`.
+
 | Nhánh | Commit mới nhất | Chứa gì | Đã lên GitHub |
 | --- | --- | --- | --- |
 | `main` | `aac95de` (29/09) | 7 trang dịch vụ · trang chủ · Liên hệ · spec Remote Office | ✅ **[xác minh 03/10]** |
@@ -95,7 +97,7 @@ Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bent
 
 1. **Theo dõi Nhân Hòa.** Mở khoá xong → làm 4 bước ở mục 4.
 2. **Chốt các mục ở mục 5** — ít nhất #5 (sếp) và Vercel Pro, vì hai mục này chặn ra mắt.
-3. **Đợt 4 hoàn thiện repo:** gắn nhãn phiên bản `v1.0`, khoá nhánh `main` (branch protection), LICENSE. *(Đợt 1–3 xong 03/10.)*
+3. **Thắng làm trên GitHub** (`docs/huong-dan-github.md`): push nhánh `remote-office` + nhãn `v1.0.0` → xem CI xanh → bật khoá nhánh `main`. *(Đợt 1–4 hoàn thiện repo xong 03/10.)*
 
 ---
 

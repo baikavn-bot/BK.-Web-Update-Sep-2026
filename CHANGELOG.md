@@ -7,7 +7,17 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ---
 
-## Chưa phát hành — nhánh `remote-office`
+## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
+
+### 03/10/2026 — đợt 4
+**Thêm**
+- `LICENSE`: giữ mọi quyền — repo công khai để xem, không được dùng lại (sếp đồng ý công khai 03/10).
+- Nhãn `v1.0.0` gắn vào `main` `aac95de` — bản đang chạy production.
+- `docs/huong-dan-github.md`: cách push, gắn nhãn phiên bản, khoá nhánh `main`.
+
+**Tài liệu**
+- `CLAUDE.md` §9: repo công khai → mọi thứ commit lên là ai cũng đọc được.
+
 
 ### 03/10/2026 — đợt 3
 **Tài liệu**
@@ -56,7 +66,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ---
 
-## `main` — đang chạy ở bản chính
+## `v1.0.0` — 29/09/2026 · `main` `aac95de`, đang chạy ở bản chính
+
+7 trang dịch vụ · trang chủ · Liên hệ · form gửi mail. Nhãn gắn ngày 03/10/2026.
 
 ### 29/09/2026
 **Tài liệu**
