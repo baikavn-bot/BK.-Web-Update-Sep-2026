@@ -9,6 +9,13 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
 
+### 03/10/2026 — tên miền
+**Đổi**
+- `baika.website` đã chạy (Nhân Hòa mở khoá). `www.baika.website` chưa có DNS — đang làm.
+
+**Tài liệu**
+- Chốt quy ước: mọi tên miền lấy địa chỉ **không `www`** làm chính (`CLAUDE.md` §2). `baika.tech` là ngoại lệ tạm.
+
 ### 03/10/2026 — đợt 4
 **Thêm**
 - `LICENSE`: giữ mọi quyền — repo công khai để xem, không được dùng lại (sếp đồng ý công khai 03/10).

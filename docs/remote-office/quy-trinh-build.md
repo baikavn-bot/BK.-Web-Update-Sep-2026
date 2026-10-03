@@ -147,7 +147,9 @@ Chỉ dùng phím Tab / Shift+Tab / Enter / Space / mũi tên: đi qua được 
 
 ## 5. Gắn domain `baika.website` *(viết lại 01/10 — Thắng chốt: gắn vào NHÁNH `remote-office` trước, giữ `noindex`)*
 
-> **Trạng thái 02/10:** Vercel đã thêm domain (Preview · nhánh `remote-office`) · ZoneDNS đã có bản ghi `A @ 216.198.79.1` · **CHẶN:** tên miền bị nhà đăng ký (Nhân Hòa) tạm khoá vì chưa xác minh chủ thể — nameserver đang là `ns1/ns2.verification-hold.suspended-domain.com` (tra ICANN Lookup 01/10). Đã gửi yêu cầu mở khoá. Mở xong → kiểm nameserver phải về ZoneDNS.
+> **Trạng thái 03/10:** Nhân Hòa đã mở khoá — `baika.website` trỏ `216.198.79.1` **[xác minh 03/10, tra DNS]**, Thắng mở được trang. **Còn:** `www.baika.website` chưa có bản ghi DNS **[xác minh 03/10]** → làm bước 5.4 cho `www` · chạy danh sách 5.6 · rồi xoá dòng thử. Quy ước `www`: địa chỉ chính **không** `www` (`CLAUDE.md` §2, Thắng chốt 03/10).
+>
+> *Trạng thái 02/10 (lịch sử):* Vercel đã thêm domain (Preview · nhánh `remote-office`) · ZoneDNS đã có bản ghi `A @ 216.198.79.1` · **CHẶN:** tên miền bị nhà đăng ký (Nhân Hòa) tạm khoá vì chưa xác minh chủ thể — nameserver đang là `ns1/ns2.verification-hold.suspended-domain.com` (tra ICANN Lookup 01/10). Đã gửi yêu cầu mở khoá. Mở xong → kiểm nameserver phải về ZoneDNS.
 
 Mục tiêu: khách gõ `baika.website` → thấy trang Remote Office, thanh địa chỉ **giữ nguyên** `baika.website`.
 

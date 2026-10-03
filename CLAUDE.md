@@ -78,6 +78,16 @@ Sửa nội dung = sửa cả thiết kế, không phải sửa riêng chữ.
 
 Một site tĩnh **không cần ai chăm cũng sống**. Với công ty không có dev, đó là lý do quan trọng nhất.
 
+### Tên miền — quy ước `www` *(Thắng chốt 03/10/2026)*
+
+**Mọi tên miền lấy địa chỉ KHÔNG có `www` làm địa chỉ chính.** `www.<tên-miền>` chỉ chuyển hướng (308) về địa chỉ chính — cài ở Vercel → Settings → Domains, cần bản ghi `CNAME www` ở DNS.
+
+- Áp dụng cho `baika.website`, `baika.vn` và mọi landing sau này.
+- Code (luật `host` trong `vercel.json`, thẻ `canonical`) **luôn ghi địa chỉ không `www`**. Ghi `www` ở code là sai quy ước.
+- **Ngoại lệ:** `baika.tech` — tên miền tạm, đang để `www` làm chính từ trước. Giữ nguyên, không đảo.
+- Vì sao: ngắn, khớp chữ in trên tài liệu, code đã viết theo kiểu này. Đánh đổi đã biết: địa chỉ không `www` trỏ bằng IP cố định (bản ghi A) — Vercel đổi IP thì phải sửa DNS tay; Vercel sẽ báo «Invalid Configuration» ở trang Domains.
+- Trình duyệt **không** tự thêm hay bỏ `www` — chuyển hướng là việc của Vercel.
+
 ### Hình ảnh
 
 Ưu tiên **SVG / CSS** hơn file ảnh. Cần ảnh thật thì **WebP / AVIF**.

@@ -1,6 +1,6 @@
 # TRẠNG THÁI DỰ ÁN — đọc file này đầu tiên mỗi phiên
 
-*Cập nhật **03/10/2026** · Ai sửa trạng thái thì sửa ngày ở dòng này.*
+*Cập nhật **03/10/2026** (chiều) · Ai sửa trạng thái thì sửa ngày ở dòng này.*
 
 File này trả lời câu: **"Dự án đang ở đâu, cái gì chạy, cái gì kẹt, làm gì tiếp?"**
 Luật làm việc nằm ở `CLAUDE.md`. Lịch sử thay đổi nằm ở `CHANGELOG.md`.
@@ -11,7 +11,7 @@ Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy lu�
 
 ## 1. Tóm tắt một dòng
 
-7 trang dịch vụ, trang chủ và Liên hệ đã chạy trên nhánh `main`. Trang **Remote Office** dựng xong 9/9 khối trên nhánh `remote-office`. Đang **chờ nhà đăng ký mở khoá tên miền `baika.website`**.
+7 trang dịch vụ, trang chủ và Liên hệ đã chạy trên nhánh `main`. Trang **Remote Office** dựng xong 9/9 khối trên nhánh `remote-office`. Tên miền `baika.website` **đã mở khoá và chạy** (03/10) — còn thiếu `www.baika.website` và danh sách kiểm §5.6.
 
 ---
 
@@ -38,7 +38,8 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 | --- | --- | --- |
 | `baika.tech` · `www.baika.tech` · `bk-web-update-sep-2026.vercel.app` | `main` (Production) | Bản chính hiện tại |
 | Bản preview của nhánh `remote-office` | `remote-office` (Preview) | Bị khoá đăng nhập Vercel (*Deployment Protection — Standard*) |
-| `baika.website` | `remote-office` (Preview) | Đã thêm trên Vercel. **Chưa chạy**, xem mục 4 |
+| `baika.website` | `remote-office` (Preview) | **Đã chạy** — DNS trỏ `216.198.79.1` **[xác minh 03/10]**, Thắng mở được trang. Người ngoài (chưa đăng nhập Vercel) xem được không: **chưa kiểm** |
+| `www.baika.website` | — | **Chưa chạy** — chưa có bản ghi DNS **[xác minh 03/10]**. Cần: Vercel thêm `www` chuyển về `baika.website` + ZoneDNS thêm `CNAME www` |
 | `baika.vn` | — | **Chưa** trỏ về project này. Vẫn là site cũ, chỉ dùng để tham khảo *[suy luận — chưa kiểm lại sau 29/09]* |
 
 **Biến môi trường (environment variable** — giá trị cài trên Vercel, không nằm trong code**)** cho form gửi mail: `RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM`. Cả ba đã bật cho Preview **[xác minh 02/10 — `/api/health` trả `true` cả ba]**. Giá trị thật **không bao giờ** ghi vào repo.
@@ -53,20 +54,14 @@ File `vercel.json` dùng **`routes`, không dùng `rewrites`**. Lý do: `rewrite
 
 ---
 
-## 4. 🔴 Đang kẹt
+## 4. 🔴 Đang kẹt / đang làm
 
-| Việc | Kẹt ở đâu | Ai gỡ |
+| Việc | Tình trạng | Ai làm |
 | --- | --- | --- |
-| **`baika.website` chưa mở được** | Nhân Hòa (nơi mua tên miền) **tạm khoá vì chưa xác minh chủ thể**. Nameserver đang là `ns1/ns2.verification-hold.suspended-domain.com` **[xác minh 01/10 — ICANN Lookup]**. Tên miền tạo 14/08, bị khoá từ 30/08. Đã gửi yêu cầu mở khoá | Thắng ↔ Nhân Hòa |
-
-ZoneDNS đã có bản ghi `A @ → 216.198.79.1`, nhưng chưa có tác dụng khi nameserver còn bị khoá.
-
-**Mở khoá xong thì làm theo thứ tự:**
-
-1. Kiểm nameserver đã về ZoneDNS (ICANN Lookup).
-2. Vercel → Domains: dòng `baika.website` báo **Valid Configuration**.
-3. Chạy hết danh sách kiểm ở `docs/remote-office/quy-trinh-build.md` §5.6.
-4. Xoá dòng thử `thu-baika-website` trong `vercel.json`.
+| ~~Nhân Hòa khoá `baika.website`~~ | **Đã gỡ** — tên miền chạy 03/10 | — |
+| **`www.baika.website` không mở được** | Thiếu bản ghi DNS. Làm theo `docs/remote-office/quy-trinh-build.md` §5.4 | Thắng (Vercel + ZoneDNS) |
+| **Danh sách kiểm sau khi có tên miền** | Chưa chạy. `quy-trinh-build.md` §5.6 — làm trong **cửa sổ ẩn danh** để biết người ngoài có bị Vercel bắt đăng nhập không | Thắng mở, gửi kết quả |
+| Xoá dòng thử `thu-baika-website` trong `vercel.json` | Chờ §5.6 đạt | Agent |
 
 ---
 
@@ -95,7 +90,7 @@ Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bent
 
 ## 6. Ba việc tiếp theo
 
-1. **Theo dõi Nhân Hòa.** Mở khoá xong → làm 4 bước ở mục 4.
+1. **Xong tên miền Remote Office:** thêm `www.baika.website` → chạy danh sách kiểm §5.6 (cửa sổ ẩn danh) → agent xoá dòng thử. Xem mục 4.
 2. **Chốt các mục ở mục 5** — ít nhất #5 (sếp) và Vercel Pro, vì hai mục này chặn ra mắt.
 3. **Thắng làm trên GitHub** (`docs/huong-dan-github.md`): push nhánh `remote-office` + nhãn `v1.0.0` → xem CI xanh → bật khoá nhánh `main`. *(Đợt 1–4 hoàn thiện repo xong 03/10.)*
 
