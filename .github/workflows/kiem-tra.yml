@@ -53,11 +53,15 @@ jobs:
 
       # Bài kiểm công cụ ước tính cần Node ≥ 22.6 (đọc thẳng file .ts).
       # Site vẫn build bằng Node 20 ở trên; Node 22 chỉ dùng cho bước này.
+      # Chỉ chạy khi nhánh có công cụ ước tính (Remote Office). Nhánh `main` trước
+      # khi gộp Remote Office chưa có file này → bỏ qua 2 bước dưới, không báo đỏ.
       - name: Đổi sang Node 22 cho bài kiểm ước tính
+        if: hashFiles('tools/kiem-tra-uoc-tinh.mts') != ''
         uses: actions/setup-node@v6
         with:
           node-version: 22
           package-manager-cache: false
 
       - name: Công cụ ước tính Remote Office — phải 11/11
+        if: hashFiles('tools/kiem-tra-uoc-tinh.mts') != ''
         run: node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts
