@@ -1,0 +1,44 @@
+# DEPENDABOT — robot của GitHub, tự mở Pull Request khi thư viện có bản mới
+# ======================================================================
+# Đặt cho một công ty KHÔNG CÓ DEV, nên cố ý giữ ÍT và AN TOÀN:
+#   · Mỗi THÁNG kiểm một lần, không phải mỗi ngày.
+#   · Gộp mọi bản vá nhỏ (patch) + bản nhỏ (minor) vào MỘT Pull Request.
+#   · BỎ QUA bản lớn (major, vd. Astro 4 → 5) — bản lớn hay làm vỡ code,
+#     phải có người chủ động nâng cùng agent, không để robot tự đề xuất.
+#   · Tối đa 2 Pull Request mở cùng lúc.
+#
+# Robot chỉ ĐỀ XUẤT. Không có gì vào code cho tới khi người bấm Merge.
+# Trước khi Merge: xem CI (kiểm tra tự động) xanh chưa.
+#
+# ⚠️ GitHub chỉ đọc file này ở nhánh MẶC ĐỊNH (`main`). Nằm ở nhánh khác thì
+#    chưa có tác dụng.
+#
+# Riêng CẢNH BÁO BẢO MẬT (thư viện có lỗ hổng) là tính năng khác — bật ở
+# Settings → Code security → Dependabot alerts. File này không bật cái đó.
+
+version: 2
+updates:
+  - package-ecosystem: npm          # "npm" = mọi thư viện JavaScript, kể cả khi dùng pnpm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 2
+    groups:
+      ban-va-va-ban-nho:
+        update-types: [minor, patch]
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
+    commit-message:
+      prefix: 'Thu vien'
+
+  - package-ecosystem: github-actions   # các "action" dùng trong .github/workflows/
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 1
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: 'CI'

@@ -11,7 +11,11 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "kiem-tra": "node tools/kiem-tra/kiem-luat.mjs",
+    "kiem-tra:uoc-tinh": "node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts",
+    "kiem-tra:trang": "node tools/kiem-tra/kiem-trang.mjs",
+    "chup": "node tools/kiem-tra/chup.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0"
