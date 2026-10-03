@@ -265,7 +265,7 @@ Bấm nút «Gửi yêu cầu theo ước tính này» → đoạn sau được 
 **Ô form** ✅ «Tên» · «Đơn vị / Doanh nghiệp» · «Email» · «Số điện thoại» · «Lĩnh vực» · «Mô tả vấn đề» — giống 7 trang dịch vụ
 **Checkbox** ✅ «Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật»
 **Nút** ✅ «Đặt lịch khảo sát» *(`L13` — riêng trang này; 7 trang dịch vụ giữ «Đăng ký rà soát»)*
-**Danh sách ô "Lĩnh vực"** — ⏸ **chưa có** ở cả hai nguồn (`SPEC-MASTER.md` §7 #12)
+**Danh sách ô "Lĩnh vực"** — ✅ **TẠM (Thắng chốt 04/10, #12):** «Remote Office» · «Đào tạo CEO» · «Pháp lý & Thuế» · «Tư vấn doanh nghiệp» · «Tài chính & Dòng tiền» · «Hệ thống hóa vận hành» · «Marketing & Tăng trưởng» · «Công nghệ & AI ứng dụng» — đúng nhãn menu. Danh sách chính thức chốt sau
 
 **Dòng pháp lý cuối trang** ✅ `L14` — **Thắng chốt 04/10: dòng `caption` ngay dưới form Liên hệ**, màu `--gray-400`, chỉ ở trang Remote Office, không vào Footer chung. Code: prop `ghiChuPhapLy` của `ContactSection`. Chữ: Spec cũ: «Nội dung trên trang mang tính giới thiệu dịch vụ, không phải đề nghị giao kết hợp đồng. Điều khoản chính thức theo hợp đồng dịch vụ ký giữa hai bên.»
 

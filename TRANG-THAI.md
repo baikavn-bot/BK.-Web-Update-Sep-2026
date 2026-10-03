@@ -36,7 +36,7 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 
 | Địa chỉ | Lấy code từ | Ghi chú |
 | --- | --- | --- |
-| `baika.tech` · `www.baika.tech` · `bk-web-update-sep-2026.vercel.app` | `main` (Production) | Bản chính hiện tại |
+| `baika.tech` · `www.baika.tech` · `bk-web-update-sep-2026.vercel.app` | `main` (Production) | Bản chính hiện tại — **bản thử** (Thắng chốt 04/10), sẽ được `baika.vn` thay. Ngày trỏ `baika.vn`: đổi `src/lib/ten-mien.ts` **và** `vercel.json` cùng lúc |
 | Bản preview của nhánh `remote-office` | `remote-office` (Preview) | **Ai có link cũng xem được** — Thắng tắt *Vercel Authentication* 04/10 để khách xem `baika.website` |
 | `baika.website` | `remote-office` (Preview) | **Đã chạy, khách ngoài xem được** — 6 mục kiểm §5.6 đạt **[Thắng kiểm 04/10, cửa sổ ẩn danh]**. Vẫn `noindex`. 8 trang khác chuyển sang `www.baika.tech` |
 | `www.baika.website` | — | **Đã chạy** — chuyển 308 về `baika.website` · DNS `CNAME www` **[xác minh 04/10]** |
@@ -69,16 +69,16 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | # | Câu hỏi | Ai quyết | Đang chạy tạm |
 | --- | --- | --- | --- |
 | 5 | Giữ chi phí cố định **1.800.000 đ/người**? | Sếp | Giữ, theo Spec v3 — **[suy luận từ câu chốt của sếp]** |
-| 10 | Số «23,5» cỡ 100px (Figma, ngoài thang chữ) hay 80px? | Thắng | 80px (`--fs-display-1`) |
-| 11 | Khoảng `10px` (ngoài thang) | Thắng | 12px (`--s-3`) |
-| 12 | Danh sách ô «Lĩnh vực» của form Remote Office | Thắng | Để trống (không có lựa chọn) |
+| 10 | Số «23,5» cỡ 100px (Figma, ngoài thang chữ) hay 80px? — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 80px (`--fs-display-1`) |
+| 11 | Khoảng `10px` (ngoài thang) — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 12px (`--s-3`) |
+| 12 | ✅ Chốt TẠM 04/10: ô «Lĩnh vực» = 8 lựa chọn (Remote Office + 7 trụ) — đã dựng. Danh sách chính thức chốt sau | Thắng | 8 lựa chọn |
 | 13 | ✅ Chốt 04/10: **thêm** mục Remote Office vào menu (8 → 9 mục) | **Thắng vẽ Figma trước** | Chưa có — chờ Figma |
-| 16 | Ô bảng cao cố định 66px hay theo nội dung | Thắng | Theo nội dung |
-| 17 | Lề trang tablet 24 hay 40 | Thắng | 40 |
+| 16 | Ô bảng cao cố định 66px hay theo nội dung — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | Theo nội dung |
+| 17 | Lề trang tablet 24 hay 40 — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 40 |
 | L14 | ✅ Chốt 04/10: dòng pháp lý **dưới form Liên hệ** — đã dựng | — | Đã có (nhánh `remote-office`) · **Figma chưa vẽ** |
-| — | Logo trên `baika.website` dẫn về đâu | Thắng | Về chính landing |
+| ✅ | Chốt 04/10: logo trên `baika.website` dẫn về **site chính** (`www.baika.tech`, khai ở `src/lib/ten-mien.ts`) — đã dựng | — | — |
 | — | Nâng **Vercel Pro** trước khi ra mắt (Hobby chỉ cho dùng phi thương mại) | Sếp | Hobby |
-| — | `baika.tech` là bản chính thật hay bản thử? Thẻ `canonical` trỏ đâu? | Thắng | — |
+| ✅ | Chốt 04/10: **`baika.tech` là bản THỬ** — sau này `baika.vn` trỏ sang repo này và thay nó. Canonical 9 trang đã trỏ `baika.vn` từ trước, đúng hướng | — | — |
 | ~~—~~ | ~~Trang chủ không có `<h1>`~~ — ✅ **chốt 04/10:** dòng mô tả dưới logo làm `<h1>`, nhìn không đổi (so ảnh giống từng pixel). Lên bản chính qua Pull Request `sua-h1-trang-chu` | — | — |
 
 Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bento…): `CLAUDE.md` §11.

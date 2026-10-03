@@ -13,7 +13,11 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 **Thêm**
 - Remote Office: dòng pháp lý nhỏ dưới form Liên hệ (L14) — «Nội dung trên trang mang tính giới thiệu dịch vụ…».
 
+**Thêm**
+- Remote Office: logo dẫn về site chính (`www.baika.tech`) thay vì chính landing. Ô «Lĩnh vực» có 8 lựa chọn tạm (Remote Office + 7 trụ).
+
 **Quyết định**
+- `baika.tech` là bản thử; sau này `baika.vn` thay. #10 #11 #16 #17 gom vào buổi xem Figma.
 - #13: thêm mục Remote Office vào menu chung — chờ Figma. Trang Remote Office giữ menu dẫn sang 7 trang.
 
 **Sửa lỗi**

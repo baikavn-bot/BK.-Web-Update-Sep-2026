@@ -31,6 +31,7 @@ import CompareSection from '../components/CompareSection.astro';
 import PricingSection from '../components/PricingSection.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ContactSection from '../components/ContactSection.astro';
+import { SITE_CHINH } from '../lib/ten-mien';
 
 // R2 — spec-noi-dung §2 ✅ (L1–L4). Dòng Tổng luôn CUỐI.
 const chiPhi = [
@@ -118,6 +119,7 @@ const cauHoi = [
   pillar="remote-office"
   canonical="https://baika.website/"
   noindex
+  logoHref={`${SITE_CHINH}/`}
 >
   {/* R1 — spec-noi-dung §1 ✅ */}
   <HeroSection
@@ -152,10 +154,21 @@ const cauHoi = [
   <FaqSection items={cauHoi} />
 
   {/* R9 — nút «Đặt lịch khảo sát» (L13 chốt 30/09, khớp Figma I913:4868;26:2449).
-      Danh sách ô "Lĩnh vực" chưa có ở cả hai nguồn (Master §7 #12) → để trống.
+      Ô "Lĩnh vực" (#12, Thắng chốt 04/10): TẠM dùng 8 trang — Remote Office + 7 trụ dịch vụ,
+      chữ lấy đúng nhãn menu (SiteHeader). Danh sách chính thức sẽ chốt sau.
       Dòng pháp lý L14: ngay dưới form, không vào Footer chung (Thắng chốt 04/10). */}
   <ContactSection
     submitLabel="Đặt lịch khảo sát"
+    linhVuc={[
+      'Remote Office',
+      'Đào tạo CEO',
+      'Pháp lý & Thuế',
+      'Tư vấn doanh nghiệp',
+      'Tài chính & Dòng tiền',
+      'Hệ thống hóa vận hành',
+      'Marketing & Tăng trưởng',
+      'Công nghệ & AI ứng dụng',
+    ]}
     ghiChuPhapLy="Nội dung trên trang mang tính giới thiệu dịch vụ, không phải đề nghị giao kết hợp đồng. Điều khoản chính thức theo hợp đồng dịch vụ ký giữa hai bên."
   />
 </ServicePageLayout>

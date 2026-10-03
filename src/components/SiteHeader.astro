@@ -20,8 +20,11 @@
 interface Props {
   /** Đường dẫn trang đang mở — để đánh dấu mục menu tương ứng. */
   current?: string;
+  /** Logo dẫn về đâu. Mặc định `/` (trang chủ). Landing chạy ở tên miền riêng
+   *  truyền địa chỉ site chính — vd. Remote Office (Thắng chốt 04/10). */
+  logoHref?: string;
 }
-const { current } = Astro.props;
+const { current, logoHref = '/' } = Astro.props;
 
 // 8 mục menu, đúng thứ tự và nguyên văn nhãn trong Figma (biến thể State=Open).
 // Slug lấy từ DEC-019 — giữ nguyên từ site cũ.
@@ -38,7 +41,7 @@ const menu = [
 ---
 
 <header class="hdr">
-  <a class="hdr__logo" href="/" aria-label="BAIKA — về trang chủ">
+  <a class="hdr__logo" href={logoHref} aria-label="BAIKA — về trang chủ">
     <img src="/img/logo/baika-lockup-white.svg" alt="" width="130" height="48" />
   </a>
 
