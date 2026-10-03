@@ -9,7 +9,13 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## Chưa phát hành — nhánh `remote-office`
 
-### 03/10/2026
+### 03/10/2026 — đợt 2
+**Thêm**
+- Kiểm tra tự động trên GitHub (`.github/workflows/kiem-tra.yml`): mỗi lần push chạy build + luật tĩnh + 11 ca ước tính.
+- Dependabot (`.github/dependabot.yml`): mỗi tháng đề xuất nâng thư viện bản nhỏ, bỏ qua bản lớn. Có tác dụng khi file này lên `main`.
+- Mẫu mô tả Pull Request (`.github/pull_request_template.md`).
+
+### 03/10/2026 — đợt 1
 **Tài liệu**
 - Thêm `TRANG-THAI.md` (trạng thái dự án), `AGENTS.md`, `CHANGELOG.md`; viết lại `README.md`.
 - `CLAUDE.md`: sửa cấu trúc thư mục cho khớp code thật, thêm mục Git, ghi `api/` là ngoại lệ của site tĩnh.

@@ -1,0 +1,63 @@
+# KIỂM TRA TỰ ĐỘNG (CI — Continuous Integration)
+# ==============================================
+# Mỗi lần có commit được push lên GitHub (bất kỳ nhánh nào), GitHub tự mượn
+# một máy Linux, tải code về và chạy đúng những lệnh mà agent phải chạy tay
+# trước khi báo "xong". Kết quả hiện ở tab "Actions" của repo và cạnh mỗi
+# commit: ✓ xanh = qua · ✗ đỏ = hỏng, bấm vào để xem bước nào hỏng.
+#
+# Việc này KHÔNG chặn Vercel deploy — Vercel vẫn dựng bản preview như cũ.
+# CI chỉ BÁO. Muốn nó CHẶN gộp nhánh khi đỏ thì cần bật "branch protection"
+# (đợt 4, chưa làm).
+#
+# Không cần khoá bí mật nào: các bước dưới không gửi mail, không gọi Vercel.
+
+name: Kiem tra
+
+on:
+  push:
+    branches: ['**']
+  workflow_dispatch:      # cho phép bấm chạy tay ở tab Actions
+
+permissions:
+  contents: read          # chỉ đọc code — không ghi gì lên repo
+
+concurrency:              # push liên tiếp → huỷ lượt cũ, chỉ chạy lượt mới nhất
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kiem-tra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Tải code
+        uses: actions/checkout@v6
+
+      - name: Cài Node đúng bản của repo (.nvmrc = 20.11)
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+
+      - name: Cài pnpm đúng bản ghi trong package.json
+        run: npm install -g pnpm@9.12.0
+
+      - name: Cài thư viện theo đúng pnpm-lock.yaml
+        run: pnpm install --frozen-lockfile
+
+      - name: Dựng site (kiểm kiểu + build) — phải 0 lỗi
+        run: pnpm build
+
+      - name: Luật tĩnh — màu viết cứng, #FFFFFF, khoá bí mật
+        run: pnpm kiem-tra
+
+      # Bài kiểm công cụ ước tính cần Node ≥ 22.6 (đọc thẳng file .ts).
+      # Site vẫn build bằng Node 20 ở trên; Node 22 chỉ dùng cho bước này.
+      - name: Đổi sang Node 22 cho bài kiểm ước tính
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Công cụ ước tính Remote Office — phải 11/11
+        run: node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts

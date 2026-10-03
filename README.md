@@ -39,6 +39,8 @@ pnpm kiem-tra      # luật màu, #FFFFFF, khoá bí mật — 1 giây
 pnpm preview       # xem bản đã dựng
 ```
 
+Mỗi lần push, GitHub **tự chạy** `pnpm build` + `pnpm kiem-tra` (tab **Actions** của repo). ✓ xanh mới gộp.
+
 Các bài kiểm tra cần trình duyệt (tràn ngang, ảnh chụp, so ảnh trước/sau): [`tools/kiem-tra/README.md`](tools/kiem-tra/README.md).
 
 ---
@@ -62,6 +64,7 @@ Astro 4 (site tĩnh) · TypeScript · CSS Variables · pnpm · GitHub · Vercel.
 | `api/` | Hàm gửi mail và trang tự kiểm, chạy trên Vercel |
 | `docs/` | Spec để dựng từng trang, mỗi trang một thư mục |
 | `tools/` | Script kiểm tra, không nằm trong site |
+| `.github/` | Kiểm tra tự động (CI), Dependabot, mẫu Pull Request |
 | `vercel.json` | Luật tên miền `baika.website` |
 
 ## Lịch sử

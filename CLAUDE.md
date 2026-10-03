@@ -241,6 +241,7 @@ baika-website/
 ├── CLAUDE.md              ← file này — luật của repo
 ├── AGENTS.md              ← trỏ về CLAUDE.md, cho agent không phải Claude
 ├── CHANGELOG.md           ← đã đổi gì, ngày nào
+├── .github/               ← kiểm tra tự động (CI) · Dependabot · mẫu Pull Request — xem §9b
 ├── docs/                  ← tài liệu dựng từng trang, mỗi trang một thư mục — xem §3
 ├── api/                   ← hàm chạy trên Vercel: contact.ts (gửi mail) · health.ts — xem §2
 ├── tools/                 ← script kiểm tra, KHÔNG nằm trong site — xem §8
@@ -299,6 +300,11 @@ Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắ
 - `git add` **từng file**. Không `git add -A` khi chưa đọc `git status`. Không bao giờ commit `.env` hay `Claude outputs/`.
 - Sửa code làm đổi chữ, số hay hành vi → sửa spec trong `docs/` **cùng commit** (§3), và thêm một dòng vào `CHANGELOG.md`. Trạng thái dự án đổi (nhánh, tên miền, việc kẹt) → sửa `TRANG-THAI.md`.
 - Mỗi trang mới làm trên **nhánh riêng**, gộp vào `main` khi ra mắt. Hiện có nhánh `remote-office` — xem `TRANG-THAI.md` §2.
+- **Gộp vào `main` bằng Pull Request** trên GitHub, không gộp thẳng ở máy. PR tự điền mẫu `.github/pull_request_template.md`.
+
+**Kiểm tra tự động (CI — `.github/workflows/kiem-tra.yml`):** mỗi lần push, GitHub tự chạy `pnpm build` + `pnpm kiem-tra` + bài kiểm 11 ca ước tính. ✓ xanh / ✗ đỏ hiện cạnh commit. **Đỏ thì không gộp.** CI không thay được bước chụp ảnh và mở ra nhìn (§10).
+
+**Dependabot (`.github/dependabot.yml`):** mỗi tháng tự mở tối đa 2 PR nâng thư viện (chỉ bản nhỏ, bỏ qua bản lớn). Agent đọc PR đó, kiểm CI + preview, rồi mới đề xuất Thắng gộp. Nâng bản lớn (vd. Astro 4 → 5) là một việc riêng, có kế hoạch.
 
 ---
 
