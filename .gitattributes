@@ -1,0 +1,3 @@
+# Mọi file chữ lưu trong git với xuống dòng kiểu Unix (LF), kể cả khi sửa trên Windows.
+# Tránh việc máy Windows làm cả repo trông như "đã sửa" chỉ vì đổi kiểu xuống dòng.
+* text=auto eol=lf
