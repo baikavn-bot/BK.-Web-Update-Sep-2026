@@ -2,7 +2,7 @@
 
 **Trạng thái:** `DRAFT` — chờ Thắng duyệt · Lập 29/09/2026
 **Quyền:** file này quyết **chữ · con số · công thức · điều được / không được hứa** (xem `SPEC-MASTER.md` §2).
-**Nguồn:** chữ đọc trực tiếp từ Figma `825:6535` ngày 29/09 **[xác minh]**, đối chiếu với spec v3 §13.3 ngày 25/09 trong repo `baikavn-bot/remote-office-Sep-2026` **[kế thừa]**.
+**Nguồn:** chữ đọc trực tiếp từ Figma `913:4649` ngày 01/10 *(frame cũ `825:6535` đã bị thay — xem `spec-giao-dien.md`)* **[xác minh]**, đối chiếu với spec v3 §13.3 ngày 25/09 trong repo `baikavn-bot/remote-office-Sep-2026` **[kế thừa]**.
 
 Cách đọc mỗi khối:
 
@@ -29,7 +29,7 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 
 **Tiêu đề** ✅ «Một nhân viên lương 10 triệu tốn của bạn 14–15 triệu»
 
-**Bảng chi phí** ✅ *(chữ khớp; Figma thêm «đ» sau số — xem `L4`)*
+**Bảng chi phí** ✅ *(số có «đ» — `L4` chốt theo Figma)*
 
 | Nhãn | Số |
 | --- | --- |
@@ -39,18 +39,18 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | «Chỗ ngồi, thiết bị, tuyển dụng, ngày nghỉ» | «1.500.000 đ – 2.500.000 đ» |
 | **«Tổng chi phí thật»** *(dòng Total)* | **«≈ 14 – 15 triệu/tháng»** |
 
-**Cột trái** ⚠️ `L2`
+**Cột trái** ✅ *(`L2` · `L3` chốt theo Figma — bỏ 3 mốc của spec cũ)*
 
-- Figma: số lớn «23,5» «%» · «Bảo hiểm» · «Công đoàn» · đoạn «Hợp đồng mang tên cộng tác hay dịch vụ, nếu có trả công và có quản lý, vẫn phải đóng BHXH bắt buộc từ 01/07/2025»
-- Spec cũ: ba mốc «+7,2%» · «01/7/2025» · «2%» (nguyên văn ở §12)
+- Số lớn «23,5» «%» · «Bảo hiểm» · «Công đoàn»
+- Đoạn «Hợp đồng mang tên cộng tác hay dịch vụ, nếu có trả công và có quản lý, vẫn phải đóng BHXH bắt buộc từ 01/07/2025»
 
-**Chú thích dưới bảng** ➕ `L1` — spec cũ có, Figma không có.
+**Chú thích dưới bảng** ✅ `L1` — «Số liệu minh hoạ cho một vị trí lương 10 triệu, con số thực tế tuỳ từng doanh nghiệp.» *(Thắng tự thêm vào Figma; dấu phẩy, không phải chấm phẩy như spec cũ)*
 
 ---
 
 ## 3. BAIKA sẽ làm gì
 
-**Tiêu đề** ⚠️ `L5` — Figma «BAIKA sẽ làm gì» · spec cũ «BAIKA làm thay tám nhóm việc»
+**Tiêu đề** ✅ «BAIKA sẽ làm gì» *(`L5` chốt theo Figma)*
 
 **Nội dung** ✅ — 4 cụm × 2 mục:
 
@@ -71,15 +71,17 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 
 **Tiêu đề** ✅ «Ước tính khoản chênh lệch của bạn» *(chỉ Figma có tiêu đề; spec cũ không đặt)*
 
-**Nhãn ô nhập** ⚠️ `L6`
+**Nhãn ô nhập** ✅ *(`L6` — giữ nhãn ngắn của Figma vì nhãn dài vỡ bố cục, nhất là trên mobile; riêng nhãn lương đổi cho rõ là lương **mỗi người**)*
 
-| Figma | Spec cũ |
+| Nhãn | Ghi chú |
 | --- | --- |
-| «Số người định tuyển» | «Số vị trí nếu tự tuyển» |
-| «Lương dự kiến» | «Mức lương dự kiến mỗi người» |
-| «Nhóm công việc» | «Chọn nhóm việc bạn muốn giao» |
+| «Số người định tuyển» | |
+| «Lương mỗi người» | đổi từ «Lương dự kiến» 30/09 |
+| «Nhóm công việc» | ô ghi «N nhóm việc» (N = số ô đang tick, kể cả «0 nhóm việc») |
 
-**Bảng kết quả** ✅ *(chỉ Figma có)* — đầu cột «Tự tuyển» · «Giao cho BAIKA»; ô mẫu «2 người» · «Gói Vận hành» · «14.150.000 đ» · «-» · «28.300.000 đ» · «9.900.000 đ»
+**Danh sách tick nhóm việc** ✅ *(#4 chốt 01/10)* — đúng **8 mục của khối R3** (§3), cùng chữ, cùng thứ tự: «Hành chính – văn thư» · «Nhân sự – tiền lương» · «Kế toán – thuế» · «Tuân thủ – quy chế» · «Chăm sóc khách hàng» · «Hỗ trợ kinh doanh» · «Nội dung – livestream» · «Số liệu – báo cáo». **Tick sẵn 3 nhóm: «Hành chính – văn thư» · «Nhân sự – tiền lương» · «Chăm sóc khách hàng»** *(Spec v3 §13.7 — sếp chốt logic ban đầu 02/10; thay cho «3 mục đầu» chốt 01/10)*. Code không chép lại 8 tên này — lấy thẳng từ dữ liệu R3, nên sửa tên ở §3 là danh sách tự đổi theo.
+
+**Bảng kết quả** ✅ *(chỉ Figma có)* — đầu cột «Tự tuyển» · «Gói BAIKA» *(L18, 01/10)*; ô mẫu «2 người» · «Gói Vận hành» · «14.150.000 đ» · «-» · «28.300.000 đ» · «9.900.000 đ»
 
 **Khối kết quả** ✅
 
@@ -89,9 +91,9 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | Số chính | «18.400.000 đ» *(ca mẫu)* |
 | Quy ra năm | «≈220.800.000 đ/năm» *(ca mẫu)* |
 | Chú thích — **luôn hiện** | «Con số mang tính tham khảo, chưa gồm VAT. Giá chính thức theo báo giá sau buổi khảo sát 45 phút.» |
-| Nút | «Gửi yêu cầu theo ước tính này» — đích đến: **chờ chốt** (`SPEC-MASTER.md` §7 #6) |
+| Nút | «Gửi yêu cầu theo ước tính này» — ✅ #6: điền sẵn ước tính vào form Liên hệ (§4.6) |
 
-**Chú thích công thức** ➕ `L7` — spec cũ có, Figma không có.
+**Chú thích công thức** ✅ `L7` — nằm **dưới bảng kết quả**: «Chi phí tự tuyển = lương + 21,5% bảo hiểm + 2% kinh phí công đoàn + khoảng 1,8 triệu chỗ ngồi, thiết bị, tuyển dụng.» ⚠️ con số «1,8 triệu» vẫn chờ sếp (Master §7 #5) — đổi số thì đổi cả câu này.
 
 ### 4.1 Tham số và công thức **[kế thừa — spec v3 §13.7 · gộp `claude/remote-office-cong-thuc-uoc-tinh.md` 29/09 · số khớp Figma, đã chạy lại bằng code 29/09]**
 
@@ -101,12 +103,13 @@ Chữ trong «» là **nguyên văn** — không sửa dấu, không đổi ch�
 | --- | --- | --- |
 | Bảo hiểm phần doanh nghiệp đóng | 21,5% lương | ✅ khớp bảng chi phí §2 · *chưa ai đối chiếu văn bản luật* |
 | Kinh phí công đoàn | 2% lương | ✅ khớp §2 |
-| Chi phí cố định mỗi người (chỗ ngồi, thiết bị, tuyển dụng) | 1.800.000 đ | ⏸ spec cũ ghi **"giả định"** — nằm trong khoảng 1,5–2,5 triệu nhưng không phải điểm giữa · Master §7 #5 |
+| Chi phí cố định mỗi người (chỗ ngồi, thiết bị, tuyển dụng) | 1.800.000 đ | ✅ 02/10 — giữ theo logic ban đầu sếp chốt (Master §7 #5) |
 | Giá gói Khởi đầu · Vận hành · Trọn gói | 4.900.000 · 9.900.000 · 19.900.000 đ/tháng, chưa VAT | ✅ **công khai, con số đã chốt** (Thắng 29/09) |
 | Số nhóm việc tối đa của gói | 1 · 3 · 5 | ✅ bảng giá spec cũ |
 | Gói "thay được" | nửa vị trí · 1,5–2 · 3–4 vị trí | ✅ bảng giá spec cũ · ⚠️ chưa khớp số đơn vị công việc (100 đơn vị × 30 phút = 50 giờ/tháng mà "thay 1,5–2 người") — sếp cần có câu trả lời khi khách hỏi |
 | Lương nhập được | 7.000.000 – 25.000.000 đ · nút ‹ › nhảy 500.000 | ✅ khoảng từ spec cũ |
-| Số người nhập được | spec cũ: 1–5 · đề xuất mới: 1–4, từ 5 → "Báo giá riêng" | ⏸ Master §7 #14 |
+| Số người nhập được | 1–5, mặc định 2 | ✅ Spec v3 §13.7 (sếp chốt 02/10) |
+| Số nhóm việc | = số ô tick, 0–8 · tick sẵn 3 · 0 → trạng thái «Chưa chọn nhóm việc» | ✅ #4 (01/10) · logic Spec v3 (02/10) |
 
 ```
 chi phí tự tuyển 1 người / tháng = lương × 1,235 + 1.800.000     (1,235 = 1 + 21,5% + 2%)
@@ -117,38 +120,36 @@ chênh lệch / năm                  = chênh lệch / tháng × 12
 
 **Tính bằng số nguyên**: `lương × 1235 / 1000`, làm tròn — không nhân số lẻ trực tiếp, tránh lệch vài đồng do máy cộng số thập phân.
 
-### 4.2 Luật chọn gói — ⏸ CHỜ SẾP DUYỆT (Master §7 #14)
+### 4.2 Luật chọn gói — ✅ SẾP CHỐT 02/10: LOGIC BAN ĐẦU (Spec v3 §13.6–13.7 (repo `remote-office-Sep-2026`, file `spec/BAIKA_Spec_v3_RemoteOffice_20260925.md`))
 
-Hai phương án. **Build không tự chọn** — dựng sao cho đổi luật chỉ sửa một hàm.
+Gói gợi ý **chỉ theo số nhóm việc** khách tick:
 
-| | Luật cũ (spec v3 §13.7) | Luật mới đề xuất (29/09) |
+| Số nhóm tick | Gói | Giá |
 | --- | --- | --- |
-| Cách chọn | Chỉ theo **số nhóm việc**: 1 → Khởi đầu · 2–3 → Vận hành · từ 4 → Trọn gói | **Gói nhỏ nhất đáp ứng CẢ HAI**: số người ≤ "thay được" của gói **và** số nhóm ≤ số nhóm tối đa của gói |
-| Vấn đề | Tiền tự tuyển tính theo người, gói chọn theo nhóm → hai đầu vào không liên quan. Giữ 2 người: 1 nhóm báo tiết kiệm 23,4 tr · 3 nhóm 18,4 tr · 5 nhóm 8,4 tr (tick càng nhiều càng "tiết kiệm ít"). 1 nhóm + 5 người lương 25 tr → báo tiết kiệm **158 tr/tháng** với gói "thay được nửa vị trí" | Nút ‹ › nhảy số nguyên → **gói Khởi đầu không bao giờ được chọn** (nó chỉ thay nửa vị trí). Muốn nó xuất hiện phải thêm mức «Chưa tới 1 người» ⏸ |
+| 0 | — *(trạng thái «Chưa chọn nhóm việc»)* | — |
+| 1 | Khởi đầu | 4.900.000 |
+| 2–3 | Vận hành | 9.900.000 |
+| 4 trở lên | Trọn gói | 19.900.000 |
 
-Bảng chọn gói theo luật mới:
+Chênh lệch = chi phí tự tuyển × số người − giá gói, **không để âm** (≤ 0 → «Khối lượng nhỏ»). Số người không ảnh hưởng tới gói.
 
-| Số người \ Số nhóm | 1 | 2–3 | 4–5 | 6+ |
-| --- | --- | --- | --- | --- |
-| 1–2 | Vận hành | Vận hành | Trọn gói | Báo giá riêng |
-| 3–4 | Trọn gói | Trọn gói | Trọn gói | Báo giá riêng |
-| 5+ | Báo giá riêng | Báo giá riêng | Báo giá riêng | Báo giá riêng |
+*Đã bỏ:* luật mới đề xuất 29/09 (gói theo cả số người lẫn số nhóm · trạng thái «Báo giá riêng» · «Gói bị nâng»). Lý do đề xuất khi ấy xem lịch sử git của file này trước 02/10.
 
-### 4.3 Ca kiểm thử — code phải ra đúng **[chạy lại bằng code 29/09, khớp file công thức]**
+### 4.3 Ca kiểm thử — code phải ra đúng **[chạy bằng code 02/10 — 11/11]**
 
-Theo **luật mới**. Nếu sếp chọn luật cũ, ca 3, 5, 6, 7 đổi — cột cuối ghi kết quả luật cũ.
-
-| # | Người | Lương | Nhóm | Gói | Tự tuyển | Chênh lệch / tháng | Theo năm | Trạng thái | Luật cũ ra |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | 2 | 10.000.000 | 3 | Vận hành | 28.300.000 | **18.400.000** | **220.800.000** | Bình thường *(= Figma)* | giống |
-| 2 | 2 | 10.000.000 | 4 | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Gói bị nâng | giống (không có trạng thái "bị nâng") |
-| 3 | 1 | 7.000.000 | 1 | Vận hành | 10.445.000 | 545.000 | 6.540.000 | Bình thường | Khởi đầu · 5.545.000 |
-| 4 | 1 | 7.000.000 | 4 | Trọn gói | 10.445.000 | — | — | Khối lượng nhỏ | giống |
-| 5 | 3 | 25.000.000 | 2 | Trọn gói | 98.025.000 | 78.125.000 | 937.500.000 | Bình thường | Vận hành · 88.125.000 |
-| 6 | 5 | 10.000.000 | 3 | — | 70.750.000 | — | — | Báo giá riêng | Vận hành · 60.850.000 |
-| 7 | 2 | 10.000.000 | 6 | — | 28.300.000 | — | — | Báo giá riêng | Trọn gói · 8.400.000 |
-| 8 | 2 | 3.000.000 *(gõ tay → kẹp 7 tr)* | 3 | Vận hành | 20.890.000 | 10.990.000 | 131.880.000 | Bình thường + dòng nhắc | giống |
-| 9 | 2 | 10.300.000 *(gõ tay)* | 3 | Vận hành | 29.041.000 | 19.141.000 | 229.692.000 | Bình thường | giống |
+| # | Người | Lương | Nhóm | Gói | Tự tuyển | Chênh lệch / tháng | Theo năm | Trạng thái |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 2 | 10.000.000 | 3 | Vận hành | 28.300.000 | **18.400.000** | **220.800.000** | Bình thường *(= Figma)* |
+| 2 | 2 | 10.000.000 | 4 | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Bình thường |
+| 3 | 1 | 7.000.000 | 1 | Khởi đầu | 10.445.000 | 5.545.000 | 66.540.000 | Bình thường |
+| 4 | 1 | 7.000.000 | 4 | Trọn gói | 10.445.000 | — | — | Khối lượng nhỏ |
+| 5 | 3 | 25.000.000 | 2 | Vận hành | 98.025.000 | 88.125.000 | 1.057.500.000 | Bình thường |
+| 6 | 5 | 10.000.000 | 3 | Vận hành | 70.750.000 | 60.850.000 | 730.200.000 | Bình thường |
+| 7 | 2 | 10.000.000 | 6 | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Bình thường |
+| 8 | 2 | 3.000.000 *(kẹp về 7 tr)* | 3 | Vận hành | 20.890.000 | 10.990.000 | 131.880.000 | Bình thường |
+| 9 | 2 | 10.300.000 | 3 | Vận hành | 29.041.000 | 19.141.000 | 229.692.000 | Bình thường |
+| 10 | 2 | 10.000.000 | **0** *(bỏ tick hết)* | — | 28.300.000 | — | — | Chưa chọn nhóm việc |
+| 11 | 2 | 10.000.000 | **8** *(tick hết)* | Trọn gói | 28.300.000 | 8.400.000 | 100.800.000 | Bình thường |
 
 ### 4.4 Định dạng số
 
@@ -161,8 +162,33 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 | Chưa chọn nhóm việc | «Chọn ít nhất một nhóm việc để BAIKA ước tính giúp bạn.» | spec cũ §13.6 |
 | Khối lượng nhỏ | «Khối lượng việc bạn chọn còn nhỏ. Giữ người làm trong công ty vẫn rẻ hơn — cứ liên hệ khi cần giao thêm.» | spec cũ §13.6 |
 | Tắt JavaScript | «Bật JavaScript để tính theo số của bạn.» | spec cũ §13.7 |
-| Gói bị nâng | «nâng vì chọn N nhóm việc» *(dòng phụ dưới tên gói)* | ⏸ đề xuất 29/09 — đi cùng luật mới |
-| Báo giá riêng | «Báo giá riêng sau khảo sát» *(cột BAIKA)* | ⏸ đề xuất 29/09 — đi cùng luật mới |
+
+
+### 4.6 Ước tính điền sẵn vào form Liên hệ ✅ *(#6 — Thắng chốt 01/10)*
+
+Bấm nút «Gửi yêu cầu theo ước tính này» → đoạn sau được điền vào **đầu** ô «Mô tả vấn đề» của form R9. Số lấy đúng lúc bấm.
+
+```
+Ước tính từ công cụ trên trang Remote Office:
+• 2 người · lương 10.000.000 đ/người
+• 3 nhóm việc: Hành chính – văn thư, Nhân sự – tiền lương, Kế toán – thuế
+• Tự tuyển 28.300.000 đ/tháng
+• Gói Vận hành 9.900.000 đ/tháng
+• Chênh lệch ≈ 18.400.000 đ/tháng
+```
+
+| Trạng thái | Khác ở đâu |
+| --- | --- |
+| Khối lượng nhỏ | không có dòng chênh lệch |
+| Chưa chọn nhóm việc | dòng nhóm thành «• Chưa chọn nhóm việc» · không có dòng gói, dòng chênh lệch |
+
+**Luật:**
+
+1. Dòng đầu «Ước tính từ công cụ trên trang Remote Office:» là **dấu mốc**. Bấm lại sau khi đổi số → code tìm dấu mốc, **thay** đoạn ước tính cũ (tới dòng trống đầu tiên), **giữ** chữ khách đã viết bên dưới.
+2. Khách xoá dấu mốc rồi bấm lại → đoạn mới được thêm lên đầu, chữ cũ giữ nguyên.
+3. Tắt JavaScript → nút chỉ cuộn xuống form, không điền.
+4. Mail về BAIKA: đoạn này nằm ở mục «Mô tả vấn đề». **Từ 02/10** (Thắng duyệt): mail có đoạn này thì tiêu đề là «[baika.website] Yêu cầu theo ước tính — <Tên>» và dòng «Gửi từ: baika.website/». `api/contact.ts` nhận ra bằng chính dòng dấu mốc ở luật 1 (`DAU_MOC_UOC_TINH`) — **đổi chữ dấu mốc thì đổi cả hai nơi**.
+5. Đã gửi thử thật 02/10 (bản preview `a39573b`): mail về đủ đoạn ước tính, số khớp trang.
 
 ---
 
@@ -181,11 +207,11 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 
 ## 6. Bảng so sánh
 
-**Tiêu đề** ⚠️ `L8` — Figma «Tuyển thêm người hay giao cho Baika» · spec cũ «Tuyển thêm người hay giao cho BAIKA?»
+**Tiêu đề** ✅ «Tuyển thêm người hay giao cho BAIKA?» *(`L8`)*
 
-**Đầu cột** ⚠️ `L9` — Figma «Tuyển  nhân viên» *(2 dấu cách, thiếu «thêm»)* · spec cũ «Tuyển thêm nhân viên» · cột phải ✅ «BAIKA Remote Office»
+**Đầu cột** ✅ «Tuyển thêm nhân viên» *(`L9`)* · «BAIKA Remote Office»
 
-**6 hàng** ✅
+**6 hàng** ✅ *(code: `soSanh` trong `src/pages/remote-office.astro`, dựng 01/10)*
 
 | Tiêu chí | Tự tuyển | BAIKA |
 | --- | --- | --- |
@@ -196,7 +222,7 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 | «Quản lý, chấm công» | «Doanh nghiệp tự làm» | «Không cần» |
 | «Chứng từ chi phí» | «Bảng lương, hồ sơ bảo hiểm» | «Hoá đơn VAT» |
 
-**Chú thích dưới bảng** ➕ `L10` — spec cũ có, Figma không có. ⚠️ Câu này đang **gánh ranh giới nội dung** về BHXH (§8).
+**Chú thích dưới bảng** ✅ `L10` — «Phần tiết kiệm đến từ việc không phải tuyển thêm người cho những việc BAIKA làm thay. Nghĩa vụ bảo hiểm với nhân viên bạn đang trực tiếp sử dụng vẫn giữ nguyên.» 🔒 câu này **gánh ranh giới BHXH** (§10) — không bỏ.
 
 ---
 
@@ -219,16 +245,17 @@ Dấu chấm ngăn nghìn + « đ»: `18.400.000 đ`. Số thập phân dùng d�
 
 **Tiêu đề** ✅ «Các câu hỏi thường gặp»
 
-Figma có 4 mục — **chỉ mục 1 là câu hỏi thật**, 3 mục sau là khối "Cam kết" của spec cũ chuyển sang ⚠️ `L12`:
+**5 câu** ✅ *(`L12` — theo spec cũ; Figma `913:4830` đã sửa khớp 30/09)*. Khối "Cam kết" **không** dựng.
 
-| # | Tiêu đề mục | Nội dung |
+| # | Câu hỏi | Trả lời |
 | --- | --- | --- |
 | 1 | «Dùng dịch vụ này thì doanh nghiệp có hết nghĩa vụ đóng BHXH không?» | «Với nhân viên bạn đang trực tiếp sử dụng thì nghĩa vụ vẫn giữ nguyên. Cái bạn tiết kiệm được là không phải tuyển thêm người cho những việc BAIKA làm thay.» 🔒 **câu bắt buộc giữ** |
-| 2 | «Đúng quy định» | «Nhân sự BAIKA do BAIKA tuyển dụng, ký hợp đồng lao động và đóng bảo hiểm đầy đủ. Bạn nghiệm thu theo kết quả.» |
-| 3 | «Giữ bí mật dữ liệu» | «Ký cam kết bảo mật, xử lý dữ liệu cá nhân theo Luật Bảo vệ dữ liệu cá nhân, phân quyền truy cập theo từng người.» |
-| 4 | «Dễ hạch toán, linh hoạt» | «Phí dịch vụ có hoá đơn VAT, tính vào chi phí được trừ. Không bắt ký dài hạn, đổi gói theo tháng.» |
+| 2 | «Tôi có được chỉ đạo trực tiếp người làm không?» | «Bạn làm việc với điều phối viên và gửi yêu cầu qua cổng. BAIKA chọn người phù hợp và chịu trách nhiệm về kết quả, nhờ vậy dịch vụ không gián đoạn khi có người nghỉ.» |
+| 3 | «Dùng hết đơn vị công việc trong tháng thì sao?» | «BAIKA báo trước khi gần hết. Bạn mua thêm theo đơn giá của gói hoặc nâng gói từ tháng sau.» |
+| 4 | «Dữ liệu công ty tôi được giữ thế nào?» | «Hai bên ký cam kết bảo mật. Mỗi nhân sự chỉ truy cập phần dữ liệu cần cho việc mình làm, và mọi truy cập đều được ghi lại.» |
+| 5 | «Bao lâu thì bắt đầu được?» | «Trong 7 ngày làm việc sau khi ký hợp đồng.» |
 
-➕ **Chỉ có ở spec cũ** (nguyên văn ở §12 `L12`): ô cam kết «Cam kết bằng hợp đồng» · 4 câu FAQ về chỉ đạo người làm, hết đơn vị công việc, giữ dữ liệu, thời gian bắt đầu.
+⚠️ Câu 3 hứa «đơn giá của gói» khi mua thêm — **chưa có đơn giá** ở đâu trong spec. Khách hỏi thì sếp cần có số.
 
 ---
 
@@ -237,10 +264,10 @@ Figma có 4 mục — **chỉ mục 1 là câu hỏi thật**, 3 mục sau là k
 **Tiêu đề** ✅ «Liên hệ»
 **Ô form** ✅ «Tên» · «Đơn vị / Doanh nghiệp» · «Email» · «Số điện thoại» · «Lĩnh vực» · «Mô tả vấn đề» — giống 7 trang dịch vụ
 **Checkbox** ✅ «Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật»
-**Nút** ⚠️ `L13` — Figma «Đăng ký rà soát» · spec cũ đề xuất «Đặt lịch khảo sát»
-**Danh sách ô "Lĩnh vực"** — ⏸ **chưa có** ở cả hai nguồn (`SPEC-MASTER.md` §7 #12)
+**Nút** ✅ «Đặt lịch khảo sát» *(`L13` — riêng trang này; 7 trang dịch vụ giữ «Đăng ký rà soát»)*
+**Danh sách ô "Lĩnh vực"** — ✅ **TẠM (Thắng chốt 04/10, #12):** «Remote Office» · «Đào tạo CEO» · «Pháp lý & Thuế» · «Tư vấn doanh nghiệp» · «Tài chính & Dòng tiền» · «Hệ thống hóa vận hành» · «Marketing & Tăng trưởng» · «Công nghệ & AI ứng dụng» — đúng nhãn menu. Danh sách chính thức chốt sau
 
-**Dòng pháp lý cuối trang** ➕ `L14` — spec cũ: «Nội dung trên trang mang tính giới thiệu dịch vụ, không phải đề nghị giao kết hợp đồng. Điều khoản chính thức theo hợp đồng dịch vụ ký giữa hai bên.»
+**Dòng pháp lý cuối trang** ✅ `L14` — **Thắng chốt 04/10: dòng `caption` ngay dưới form Liên hệ**, màu `--gray-400`, chỉ ở trang Remote Office, không vào Footer chung. Code: prop `ghiChuPhapLy` của `ContactSection`. Chữ: Spec cũ: «Nội dung trên trang mang tính giới thiệu dịch vụ, không phải đề nghị giao kết hợp đồng. Điều khoản chính thức theo hợp đồng dịch vụ ký giữa hai bên.»
 
 ---
 
@@ -265,65 +292,45 @@ Figma có 4 mục — **chỉ mục 1 là câu hỏi thật**, 3 mục sau là k
 
 ---
 
-## 12. Chỗ lệch chờ chốt
+## 12. Chỗ lệch — Thắng đã chốt L1–L13 (30/09) · L15–L20 (01/10) · còn L14
+
+`L15`–`L20` (01/10): Figma tablet/mobile rút gọn chữ so với desktop. **Một trang = một bộ chữ** cho mọi khổ, trừ khi Thắng chốt khác — code đổi chữ theo khổ màn phải in cả hai bản rồi ẩn một, dễ lệch.
 
 Mỗi dòng Thắng chốt một chữ: **F** (theo Figma) · **N** (theo spec cũ) · **khác** (ghi chữ mới) · **bỏ**.
 
 | Mã | Khối | Figma | Spec cũ | Thắng chốt | Ngày |
 | --- | --- | --- | --- | --- | --- |
-| `L1` | Chi phí — chú thích | *(không có)* | «Số liệu minh hoạ cho một vị trí lương 10 triệu; con số thực tế tuỳ từng doanh nghiệp.» | | |
-| `L2` | Chi phí — cột trái | số lớn «23,5» «%» · «Bảo hiểm» · «Công đoàn» + 1 câu mốc «01/07/2025» | 3 mốc: «+7,2%» — «Lương tối thiểu vùng tăng từ đầu năm 2026, mức sàn đóng bảo hiểm tăng theo.» · «01/7/2025» — «Hợp đồng mang tên cộng tác hay dịch vụ, nếu có trả công và có quản lý, vẫn phải đóng BHXH bắt buộc.» · «2%» — «Kinh phí công đoàn tính trên quỹ lương đóng bảo hiểm, cộng dồn theo từng người tuyển thêm.» | | |
-| `L3` | Chi phí — ngày | «01/07/2025» | «01/7/2025» | | |
-| `L4` | Chi phí — đơn vị | số có «đ» | số không có «đ» | | |
-| `L5` | Tiêu đề khối 3 | «BAIKA sẽ làm gì» | «BAIKA làm thay tám nhóm việc» | | |
-| `L6` | Nhãn ô ước tính | xem §4 | xem §4 | | |
-| `L7` | Ước tính — chú thích công thức | *(không có)* | «Chi phí tự tuyển = lương + 21,5% bảo hiểm + 2% kinh phí công đoàn + khoảng 1,8 triệu chỗ ngồi, thiết bị, tuyển dụng.» | | |
-| `L8` | Tiêu đề so sánh | «…giao cho Baika» | «…giao cho BAIKA?» | | |
-| `L9` | Đầu cột so sánh | «Tuyển  nhân viên» | «Tuyển thêm nhân viên» | | |
-| `L10` | So sánh — chú thích | *(không có)* | «Phần tiết kiệm đến từ việc không phải tuyển thêm người cho những việc BAIKA làm thay. Nghĩa vụ bảo hiểm với nhân viên bạn đang trực tiếp sử dụng vẫn giữ nguyên.» | | |
+| `L1` | Chi phí — chú thích | *(không có)* | «Số liệu minh hoạ cho một vị trí lương 10 triệu; con số thực tế tuỳ từng doanh nghiệp.» | «Số liệu minh hoạ cho một vị trí lương 10 triệu, con số thực tế tuỳ từng doanh nghiệp.» *(Thắng tự thêm vào Figma, dấu phẩy)* | 30/09 |
+| `L2` | Chi phí — cột trái | số lớn «23,5» «%» · «Bảo hiểm» · «Công đoàn» + 1 câu mốc «01/07/2025» | 3 mốc: «+7,2%» — «Lương tối thiểu vùng tăng từ đầu năm 2026, mức sàn đóng bảo hiểm tăng theo.» · «01/7/2025» — «Hợp đồng mang tên cộng tác hay dịch vụ, nếu có trả công và có quản lý, vẫn phải đóng BHXH bắt buộc.» · «2%» — «Kinh phí công đoàn tính trên quỹ lương đóng bảo hiểm, cộng dồn theo từng người tuyển thêm.» | **F** — bỏ 3 mốc | 30/09 |
+| `L3` | Chi phí — ngày | «01/07/2025» | «01/7/2025» | **F** «01/07/2025» | 30/09 |
+| `L4` | Chi phí — đơn vị | số có «đ» | số không có «đ» | **F** — có «đ» | 30/09 |
+| `L5` | Tiêu đề khối 3 | «BAIKA sẽ làm gì» | «BAIKA làm thay tám nhóm việc» | **F** «BAIKA sẽ làm gì» | 30/09 |
+| `L6` | Nhãn ô ước tính | xem §4 | xem §4 | **F**, trừ «Lương dự kiến» → **«Lương mỗi người»**. Lý do: nhãn dài vỡ bố cục, nhất là mobile | 30/09 |
+| `L7` | Ước tính — chú thích công thức | *(không có)* | «Chi phí tự tuyển = lương + 21,5% bảo hiểm + 2% kinh phí công đoàn + khoảng 1,8 triệu chỗ ngồi, thiết bị, tuyển dụng.» | **N** — đặt dưới bảng ước tính | 30/09 |
+| `L8` | Tiêu đề so sánh | «…giao cho Baika» | «…giao cho BAIKA?» | **N** «Tuyển thêm người hay giao cho BAIKA?» | 30/09 |
+| `L9` | Đầu cột so sánh | «Tuyển  nhân viên» | «Tuyển thêm nhân viên» | **N** «Tuyển thêm nhân viên» | 30/09 |
+| `L10` | So sánh — chú thích | *(không có)* | «Phần tiết kiệm đến từ việc không phải tuyển thêm người cho những việc BAIKA làm thay. Nghĩa vụ bảo hiểm với nhân viên bạn đang trực tiếp sử dụng vẫn giữ nguyên.» | **N** — đặt dưới bảng so sánh | 30/09 |
 | `L11` | Nhãn nhỏ thẻ gói | «Kiểm tra » · «Hệ thống hóa» · «Hỗ trợ» *(nhãn của 7 trang dịch vụ)* | *(không có)* | **khác: thay bằng giá** — «4.900.000 đ/tháng» · «9.900.000 đ/tháng» · «19.900.000 đ/tháng» | 29/09 |
-| `L12` | Cam kết / FAQ | 3 ô cam kết nằm trong FAQ, mất «Cam kết bằng hợp đồng» | Khối Cam kết riêng 4 ô + FAQ 5 câu — «Cam kết bằng hợp đồng» — «Mỗi đầu việc có hạn trả kết quả rõ ràng. Trễ hạn thì BAIKA chịu phạt theo hợp đồng.» · FAQ 2 «Tôi có được chỉ đạo trực tiếp người làm không?» — «Bạn làm việc với điều phối viên và gửi yêu cầu qua cổng. BAIKA chọn người phù hợp và chịu trách nhiệm về kết quả, nhờ vậy dịch vụ không gián đoạn khi có người nghỉ.» · FAQ 3 «Dùng hết đơn vị công việc trong tháng thì sao?» — «BAIKA báo trước khi gần hết. Bạn mua thêm theo đơn giá của gói hoặc nâng gói từ tháng sau.» · FAQ 4 «Dữ liệu công ty tôi được giữ thế nào?» — «Hai bên ký cam kết bảo mật. Mỗi nhân sự chỉ truy cập phần dữ liệu cần cho việc mình làm, và mọi truy cập đều được ghi lại.» · FAQ 5 «Bao lâu thì bắt đầu được?» — «Trong 7 ngày làm việc sau khi ký hợp đồng.» | | |
-| `L13` | Nút form | «Đăng ký rà soát» | «Đặt lịch khảo sát» | | |
-| `L14` | Dòng pháp lý cuối trang | *(không có)* | xem §9 | | |
+| `L12` | Cam kết / FAQ | 3 ô cam kết nằm trong FAQ, mất «Cam kết bằng hợp đồng» | Khối Cam kết riêng 4 ô + FAQ 5 câu — «Cam kết bằng hợp đồng» — «Mỗi đầu việc có hạn trả kết quả rõ ràng. Trễ hạn thì BAIKA chịu phạt theo hợp đồng.» · FAQ 2 «Tôi có được chỉ đạo trực tiếp người làm không?» — «Bạn làm việc với điều phối viên và gửi yêu cầu qua cổng. BAIKA chọn người phù hợp và chịu trách nhiệm về kết quả, nhờ vậy dịch vụ không gián đoạn khi có người nghỉ.» · FAQ 3 «Dùng hết đơn vị công việc trong tháng thì sao?» — «BAIKA báo trước khi gần hết. Bạn mua thêm theo đơn giá của gói hoặc nâng gói từ tháng sau.» · FAQ 4 «Dữ liệu công ty tôi được giữ thế nào?» — «Hai bên ký cam kết bảo mật. Mỗi nhân sự chỉ truy cập phần dữ liệu cần cho việc mình làm, và mọi truy cập đều được ghi lại.» · FAQ 5 «Bao lâu thì bắt đầu được?» — «Trong 7 ngày làm việc sau khi ký hợp đồng.» | **N** — FAQ 5 câu theo spec cũ; không dựng khối Cam kết | 30/09 |
+| `L13` | Nút form | «Đăng ký rà soát» | «Đặt lịch khảo sát» | **N** «Đặt lịch khảo sát» | 30/09 |
+| `L14` | Dòng pháp lý cuối trang | *(không có)* | xem §9 | ✅ 04/10 — dưới form Liên hệ, chữ caption `--gray-400` |  |
+| `L15` | Ước tính — ô lương *(tablet · mobile)* | «10tr» | «10.000.000 đ» *(desktop, §4.4)* | **N** «10.000.000 đ» — Thắng sửa bố cục mobile (nhãn trên điều khiển) cho vừa | 01/10 |
+| `L16` | Ước tính — số trong bảng *(tablet · mobile)* | «14tr150» · «28tr300» · «9tr900» | «14.150.000 đ» · «28.300.000 đ» · «9.900.000 đ» | **N** — Thắng thêm biến thể `Table Item` Mobile padding `--s-4` | 01/10 |
+| `L17` | Ước tính — ô nhóm việc *(tablet · mobile)* | «3 nhóm» | «3 nhóm việc» | **N** «3 nhóm việc» | 01/10 |
+| `L18` | Ước tính — đầu cột phải *(tablet · mobile)* | «Gói BAIKA» | «Giao cho BAIKA» | **F** «Gói BAIKA» — áp **cả desktop** | 01/10 |
+| `L19` | Ước tính — nút *(tablet · mobile)* | «Gửi yêu cầu theo ước tính» | «Gửi yêu cầu theo ước tính này» | **N** «Gửi yêu cầu theo ước tính này» | 01/10 |
+| `L20` | So sánh — hàng 2 cột tự tuyển *(tablet · mobile)* | «Doanh nghiệp tự đóng» | «Doanh nghiệp tự đóng, tăng theo mỗi người» | **N** «Doanh nghiệp tự đóng, tăng theo mỗi người» | 01/10 |
 
 ---
 
-## Phụ lục A — Bản nháp hàm tính · ⚠️ THAM KHẢO, CHƯA DUYỆT
+## Phụ lục A — Hàm tính → đã chuyển vào code *(01/10)*
 
-Nguồn: `claude/remote-office-cong-thuc-uoc-tinh.md` (29/09). Viết theo **luật mới**, đã chạy ra đúng 9 ca ở §4.3.
-**Không chép thẳng vào `src/`.** Khi Build dựng thật: đặt ở một file riêng (vd. `src/lib/uoc-tinh.ts`), tách phần tham số ra đầu file, rồi **xoá phụ lục này** và ghi đường dẫn file code vào đây — để không có hai bản code.
+Bản nháp từng nằm ở đây đã được dựng thật — **không còn hai bản code**:
 
-```js
-export const THAM_SO = {
-  bhxhPhanNghin: 215,        // 21,5%
-  congDoanPhanNghin: 20,     // 2%
-  chiPhiCoDinh: 1_800_000,   // GIẢ ĐỊNH — chờ xác nhận
-  nguoi: { min: 1, max: 4 },
-  luong: { min: 7_000_000, max: 25_000_000, buoc: 500_000 },
-};
-export const GOI = [
-  { ten: 'Khởi đầu', gia: 4_900_000,  toiDaNhom: 1, toiDaNguoi: 0.5, thayDuoc: 'nửa vị trí' },
-  { ten: 'Vận hành', gia: 9_900_000,  toiDaNhom: 3, toiDaNguoi: 2,   thayDuoc: '1,5 – 2 vị trí' },
-  { ten: 'Trọn gói', gia: 19_900_000, toiDaNhom: 5, toiDaNguoi: 4,   thayDuoc: '3 – 4 vị trí' },
-];
-const kep = (x, a, b) => Math.min(Math.max(x, a), b);
+| Gì | Ở đâu |
+| --- | --- |
+| Tham số (lương, số người, số nhóm, giá gói, 1.800.000…), luật chọn gói, hàm tính, định dạng tiền | `src/lib/uoc-tinh.ts` — tham số ở **đầu file** |
+| 11 ca kiểm thử §4.3 | `tools/kiem-tra-uoc-tinh.mts` — chạy `node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts` (Node ≥ 22.6), phải ra `11/11` |
+| Giao diện gọi hàm rồi vẽ theo `trangThai` | `src/components/EstimatorSection.astro` |
 
-export function uocTinh({ soNguoi, luong, soNhom }) {
-  const P = THAM_SO;
-  const l = kep(Math.round(luong / 1000) * 1000, P.luong.min, P.luong.max);
-  const n = Math.max(1, Math.floor(soNguoi));
-  const k = Math.max(0, Math.floor(soNhom));
-  const motNguoi = Math.round(l * (1000 + P.bhxhPhanNghin + P.congDoanPhanNghin) / 1000) + P.chiPhiCoDinh;
-  const tuTuyen = motNguoi * n;
-  const base = { soNguoi: n, luong: l, soNhom: k, motNguoi, tuTuyen };
-  if (k === 0) return { ...base, trangThai: 'chua-chon-nhom' };
-  const goi = GOI.find(g => n <= g.toiDaNguoi && k <= g.toiDaNhom); // gói nhỏ nhất đáp ứng cả hai
-  if (!goi) return { ...base, trangThai: 'bao-gia-rieng' };
-  const chenhLech = tuTuyen - goi.gia;
-  if (chenhLech <= 0) return { ...base, goi, trangThai: 'khoi-luong-nho' };
-  return { ...base, goi, chenhLech, theoNam: chenhLech * 12, trangThai: 'binh-thuong' };
-}
-```
-
-Trạng thái "Gói bị nâng" = giao diện tự so gói trả về với gói chỉ tính theo số người.
-
+Từ 02/10 code theo luật chọn gói §4.2 (logic ban đầu Spec v3) — bản nháp này viết theo luật mới đã bỏ.

@@ -6,8 +6,8 @@
 # commit: ✓ xanh = qua · ✗ đỏ = hỏng, bấm vào để xem bước nào hỏng.
 #
 # Việc này KHÔNG chặn Vercel deploy — Vercel vẫn dựng bản preview như cũ.
-# CI chỉ BÁO. Muốn nó CHẶN gộp nhánh khi đỏ thì cần bật "branch protection"
-# (đợt 4, chưa làm).
+# CI CHẶN gộp vào `main` khi đỏ: ruleset `bao-ve-main` (bật 04/10/2026) bắt
+# buộc job `kiem-tra` xanh. Đổi tên job này thì phải sửa cả ruleset.
 #
 # Không cần khoá bí mật nào: các bước dưới không gửi mail, không gọi Vercel.
 

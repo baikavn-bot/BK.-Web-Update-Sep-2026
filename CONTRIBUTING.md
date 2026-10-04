@@ -15,6 +15,18 @@ Công ty **không có dev**. Website do agent dựng; người duyệt là Thắ
 | Duyệt bằng mắt bản preview trước khi gộp | Thắng |
 | Quyết định nội dung, giá, ra mắt | Sếp |
 
+### Cần quyền gì — xin ai
+
+| Để làm | Cần | Xin |
+| --- | --- | --- |
+| Đọc code, tài liệu | Không cần gì — repo công khai | — |
+| Đẩy nhánh, mở / gộp Pull Request | Quyền ghi repo GitHub | Thắng |
+| Đọc thiết kế | Quyền xem file Figma `YmcXg1lQqGVjQOFrVtdOgW` | Thắng |
+| Xem bản preview, quay lui bản chính | Thành viên project Vercel `bk-web-update-sep-2026` | Thắng |
+| Tên miền, DNS, biến môi trường form | — | Sếp quyết, Thắng thao tác |
+
+Không ai gửi mật khẩu hay khoá qua chat, email hay file trong repo. Mỗi người / agent một quyền riêng, thu hồi được riêng.
+
 ## 2. Nhánh (branch)
 
 - **`main`** = bản đang chạy cho khách. **Đã khoá**: không push thẳng, không xoá, không ghi đè lịch sử. Chỉ thay đổi được qua **Pull Request** (PR — đề nghị gộp, xem được thay đổi trước khi gộp).
