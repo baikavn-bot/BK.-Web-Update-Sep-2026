@@ -4,7 +4,12 @@
 
 Mỗi câu: **đang chạy tạm** là cái khách đang thấy trên web hôm nay. Không chốt thì cái tạm đó ở lại khi ra mắt — không có câu nào chặn ra mắt.
 
-## A. Trang Remote Office (`docs/remote-office/SPEC-MASTER.md` §7)
+## A. Trang Remote Office — ✅ XONG 04/10
+
+Thắng chốt: agent tự đọc Figma, **chuẩn hoá Figma về token** (code giữ nguyên). Kết quả: #10 = 80 · #11 = 12 · #16 = theo nội dung · #17 = 40. Chi tiết: `remote-office/spec-giao-dien.md` §9.
+
+<details><summary>Bảng câu hỏi gốc</summary>
+
 
 | # | Câu hỏi | Figma | Đang chạy tạm | Agent gợi ý |
 | --- | --- | --- | --- | --- |
@@ -13,7 +18,9 @@ Mỗi câu: **đang chạy tạm** là cái khách đang thấy trên web hôm n
 | 16 | Ô bảng so sánh / ước tính: cao **cố định 66** hay **theo nội dung**? | 66 cố định | Theo nội dung (ô 1 dòng ≈ 54) | Theo nội dung — chữ dài không bị cắt. Nếu thích ô cao hơn: tăng padding bằng token, không đặt 66 |
 | 17 | Lề trang tablet **24** hay **40**? | R2 · R4 · R6 = 24 · khối dùng lại = 40 | 40 cả trang | 40 — mọi khối thẳng một mép; `CLAUDE.md` §5 ghi tablet 24 → nếu chốt 40 thì sửa bảng §5 |
 
-## B. Component dùng chung (`docs/nhat-ky-figma-chung.md`)
+</details>
+
+## B. Component dùng chung — còn chờ Thắng (`docs/nhat-ky-figma-chung.md`)
 
 | # | Câu hỏi | Figma | Code | Cần Thắng |
 | --- | --- | --- | --- | --- |

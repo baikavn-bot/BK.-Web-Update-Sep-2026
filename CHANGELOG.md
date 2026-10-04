@@ -16,6 +16,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 **Thêm**
 - Remote Office: logo dẫn về site chính (`www.baika.tech`) thay vì chính landing. Ô «Lĩnh vực» có 8 lựa chọn tạm (Remote Office + 7 trụ).
 
+**Tài liệu**
+- #10 #11 #16 #17 chốt: Figma chuẩn hoá về token theo code (80px · 12 · ô theo nội dung · lề tablet 40). Web không đổi.
+
 **Đổi** *(trên `main`, đã chạy ở `baika.tech`)*
 - Menu có mục «Remote Office» đứng đầu — PR #4.
 - Dependabot: `@types/node` 26.6.2 → 26.6.3 (PR #3) · máy kiểm tra dùng `actions/checkout` + `actions/setup-node` v7 (PR #2). Khách không thấy gì khác. Cách xử lý PR Dependabot: `CLAUDE.md` §9b.

@@ -69,12 +69,12 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | # | Câu hỏi | Ai quyết | Đang chạy tạm |
 | --- | --- | --- | --- |
 | 5 | Giữ chi phí cố định **1.800.000 đ/người**? | Sếp | Giữ, theo Spec v3 — **[suy luận từ câu chốt của sếp]** |
-| 10 | Số «23,5» cỡ 100px (Figma, ngoài thang chữ) hay 80px? — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 80px (`--fs-display-1`) |
-| 11 | Khoảng `10px` (ngoài thang) — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 12px (`--s-3`) |
+| 10 | ✅ Chốt 04/10: số «23,5» = **80px** — chuẩn hoá Figma theo token | — | Code + Figma khớp |
+| 11 | ✅ Chốt 04/10: khoảng **12** (`--s-3`) — Figma đã sửa | — | Code + Figma khớp |
 | 12 | ✅ Chốt TẠM 04/10: ô «Lĩnh vực» = 8 lựa chọn (Remote Office + 7 trụ) — đã dựng. Danh sách chính thức chốt sau | Thắng | 8 lựa chọn |
 | 13 | ✅ Chốt 04/10: **thêm** mục «Remote Office» **đứng đầu** menu (8 → 9 mục) — đã vẽ Figma + dựng code | — | ✅ **Đã lên bản chính** — PR #4, `main` `3d9c30a` · Thắng kiểm `www.baika.tech` 04/10: đủ 9 mục |
-| 16 | Ô bảng cao cố định 66px hay theo nội dung — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | Theo nội dung |
-| 17 | Lề trang tablet 24 hay 40 — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 40 |
+| 16 | ✅ Chốt 04/10: ô bảng cao **theo nội dung** — Figma đã sửa | — | Code + Figma khớp |
+| 17 | ✅ Chốt 04/10: lề trang tablet **40** — Figma đã sửa | — | Code + Figma khớp |
 | L14 | ✅ Chốt 04/10: dòng pháp lý **dưới form Liên hệ** — đã dựng | — | Đã có (nhánh `remote-office`) · Figma đã vẽ `960:3633` |
 | ✅ | Chốt 04/10: logo trên `baika.website` dẫn về **site chính** (`www.baika.tech`, khai ở `src/lib/ten-mien.ts`) — đã dựng | — | — |
 | — | Nâng **Vercel Pro** trước khi ra mắt (Hobby chỉ cho dùng phi thương mại) | Sếp | Hobby |
@@ -82,7 +82,7 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | ~~—~~ | ~~Trang chủ không có `<h1>`~~ — ✅ **chốt 04/10:** dòng mô tả dưới logo làm `<h1>`, nhìn không đổi (so ảnh giống từng pixel). Lên bản chính qua Pull Request `sua-h1-trang-chu` | — | — |
 | DEC-090 | Quầng sáng thẻ gói: Figma để ở **Hover**, code để ở **Focus** — Thắng 04/10: giữ Figma, code «đang làm xấu hơn», **chưa rà** | Thắng | Lệch, để nguyên cả hai — `docs/nhat-ky-figma-chung.md` |
 
-Bốn mục #10 #11 #16 #17 + DEC-090 + 2 việc phát sinh 04/10: gom trong `docs/buoi-xem-figma.md`.
+DEC-090 + 2 việc phát sinh 04/10 (chữ BAIKA mờ, nút Lg 46/48): `docs/buoi-xem-figma.md`. #10 #11 #16 #17 đã xong 04/10.
 
 Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bento…): `CLAUDE.md` §11.
 

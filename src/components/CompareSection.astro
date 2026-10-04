@@ -26,9 +26,8 @@
 //   Head: bo `--r-sm` hai góc trên · Foot: bo `--r-sm` hai góc dưới
 //   Head → chữ H-3 · Body / Foot → chữ body · tất cả `--gray-50`
 //
-// ⏸ CHỜ CHỐT (SPEC-MASTER §7 #16): ô Desktop/Tablet trong Figma cao CỐ ĐỊNH 66px
-//   — ngoài thang khoảng cách. Code để ô cao theo nội dung (padding `--s-4`),
-//   ô một dòng thấp hơn Figma ~14px. Chưa có quyết định thì không tự đặt 66.
+// ✅ #16 chốt 04/10: ô cao THEO NỘI DUNG (padding `--s-4`). Figma đã sửa theo:
+//   `Table Item` hết cao cố định 66, các lưới bảng xếp hàng theo nội dung.
 
 interface Props {
   heading?: string;

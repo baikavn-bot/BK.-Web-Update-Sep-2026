@@ -13,9 +13,8 @@
 //          mà không cần số 140.
 //   PHẢI : 4 dòng chi phí + 1 dòng Tổng (component `Data`) + chú thích L1.
 //
-// ⏸ TẠM — chờ chốt SPEC-MASTER §7 #10:
-//   Số «23,5» Figma vẽ Chakra Petch SemiBold **100px** — ngoài thang chữ.
-//   Đang dùng cỡ lớn nhất có trong hệ (`--fs-display-1` 80px). Màu Figma là
+// ✅ #10 chốt 04/10 (chuẩn hoá Figma theo token): số «23,5» = Chakra Petch
+//   SemiBold cỡ `--fs-display-1` 80px. Figma đã sửa 100 → 80 (`923:4225`·`923:4104`·`923:4317`). Màu Figma là
 //   `#FFFFFF` thô → dùng `--gray-50` theo luật repo.
 // ⏸ TẠM — mobile: Figma cột trái cao cố định 451 (khoảng 140). Xếp dọc thì
 //   `space-between` không còn tác dụng → tạm dùng khoảng `--s-10`.
@@ -114,7 +113,7 @@ const {
   }
   .cp__so-lon {
     font-family: var(--font-heading);
-    font-size: var(--fs-display-1);    /* ⏸ TẠM 80 — Figma 100, #10 */
+    font-size: var(--fs-display-1);    /* 80 — #10 ✅ 04/10, Figma đã về 80 */
     line-height: var(--lh-display-1);
     font-weight: var(--fw-display-1);
   }

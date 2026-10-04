@@ -215,7 +215,7 @@ Style tên `label` trước đây tên `label-mono` — tên cũ **nói dối fo
 | Tên | Rộng | Cột | Gutter | Lề |
 | --- | --- | --- | --- | --- |
 | `sm` mobile | **375** | 4 | 16 | 16 |
-| `md` tablet | **768** | 8 | 16 | 24 |
+| `md` tablet | **768** | 8 | 16 | 24 *(lưới Figma)* · **lề trang thật = 40** (`--le-trang`, #17 chốt 04/10) |
 | `lg` desktop | **1280** | 12 | 20 | 32 |
 | `xl` | 1440+ | 12 | 24 | 32 |
 
