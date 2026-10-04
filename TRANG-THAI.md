@@ -17,7 +17,7 @@ Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy lu�
 
 ## 2. Nhánh (branch) — mỗi nhánh là một bản riêng của code
 
-Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý, xác nhận 03/10). Nhãn phiên bản: `v1.0.0` = `main` `aac95de` — đã lên GitHub **[xác minh 03/10]**. Kiểm tra tự động (CI): chạy xanh trên `remote-office` **[xác minh 04/10 — ảnh tab Actions]**. Khoá nhánh `main`: **đã bật** — ruleset `bao-ve-main`, Active, không ai được vượt khoá **[xác minh 04/10 — ảnh chụp]**; đưa thay đổi lên `main` chỉ qua Pull Request — `docs/huong-dan-github.md`.
+Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý, xác nhận 03/10). Nhãn phiên bản: `v1.0.0` = `main` `aac95de` — đã lên GitHub **[xác minh 03/10]**. Kiểm tra tự động (CI): chạy xanh trên `remote-office` **[xác minh 04/10 — ảnh tab Actions]**. Khoá nhánh `main`: **đã bật** — ruleset `bao-ve-main`, Active, không ai được vượt khoá **[xác minh 04/10 — ảnh chụp]**; đưa thay đổi lên `main` chỉ qua Pull Request — `docs/huong-dan-github.md`. Bảo mật tài khoản / repo **[xác minh 04/10 — ảnh chụp]**: xác thực 2 lớp đã bật · **Secret Protection + Push protection** đã bật (GitHub chặn push có khoá bí mật) · nhánh tự xoá sau khi gộp PR.
 
 | Nhánh | Commit mới nhất | Chứa gì | Đã lên GitHub |
 | --- | --- | --- | --- |
