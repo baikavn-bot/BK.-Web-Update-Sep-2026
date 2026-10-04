@@ -1,6 +1,8 @@
 # CLAUDE.md — luật của repo `baika-website`
 
-*Cập nhật 29/09/2026 · Đọc hết file này trước khi sửa bất cứ dòng nào.*
+*Cập nhật 03/10/2026 · Đọc hết file này trước khi sửa bất cứ dòng nào.*
+
+> **Mỗi phiên, đọc theo thứ tự:** `TRANG-THAI.md` (dự án đang ở đâu, cái gì kẹt) → file này (luật) → `docs/<trang>/SPEC-MASTER.md` nếu làm một trang cụ thể. Lịch sử thay đổi: `CHANGELOG.md`.
 
 ---
 
@@ -26,11 +28,16 @@ Không phải công ty bán khoá học online — bản brief cũ hiểu sai ch
 
 Repo này là **website marketing tĩnh** cho `baika.vn`:
 
+> **Tên miền hôm nay** *(04/10/2026)*: site mới chạy ở **`baika.tech`** (nhánh `main`) và **`baika.website`** (nhánh `remote-office`). **`baika.vn` vẫn là site CŨ, không thuộc repo này** — sẽ trỏ sang sau. Viết «baika.vn» trong tài liệu = đích tương lai, không phải nơi đang chạy. Chi tiết: `TRANG-THAI.md` §3.
+
 | Nhóm trang | Số | Ghi chú |
 | --- | --- | --- |
 | Trang dịch vụ | 7 | Mỗi trang một trụ, mỗi trụ một bộ màu |
 | Trang chủ | 1 | Lưới bento dẫn vào 7 trang |
 | Liên hệ | 1 | Form + FAQ |
+| Landing **Remote Office** | 1 | Tên miền riêng `baika.website` · nhánh `remote-office` · spec ở `docs/remote-office/` |
+
+Mọi trang và landing, dù chạy ở tên miền nào, **chung một source** này. Code agent, kho dữ liệu, backend **không** vào repo này.
 
 Ngoài phạm vi v1: trang **Giới thiệu**, trang **Trạm Ý Tưởng**.
 
@@ -56,16 +63,32 @@ Nó **không** phải codebase, design, kiến trúc, component hay asset baseli
 | Ngôn ngữ | **TypeScript** |
 | CSS | **CSS Modules + CSS Variables**. Không Tailwind, không CSS-in-JS |
 | Package manager | **pnpm** |
-| Nguồn | **GitHub** (org của BAIKA) |
+| Nguồn | **GitHub** — tài khoản `baikavn-bot`, repo công khai (`DEC-038`, §9) |
 | Hosting | **Vercel** |
 | Node | **20.11.0** — xem `.nvmrc` |
 
 ### Vì sao tĩnh
 
-Nội dung site **cố định** (`DEC-017`). Không CMS, không database, không API lúc chạy.
+Nội dung site **cố định** (`DEC-017`). Không CMS, không database.
+
+**Ngoại lệ duy nhất:** thư mục `api/` — hai hàm nhỏ chạy trên Vercel (*serverless function* — đoạn code chỉ chạy khi có người gọi, không cần máy chủ riêng):
+
+- `api/contact.ts` nhận form, gửi mail qua Resend. Mail ghi rõ **tên miền + trang gửi** (trường `trang` do form gửi lên) và loại thư («Liên hệ mới» / «Yêu cầu theo ước tính»).
+- `api/health.ts` trả về CÓ/KHÔNG cho 3 biến môi trường của form. Không bao giờ trả giá trị thật.
+
 Sửa nội dung = sửa cả thiết kế, không phải sửa riêng chữ.
 
 Một site tĩnh **không cần ai chăm cũng sống**. Với công ty không có dev, đó là lý do quan trọng nhất.
+
+### Tên miền — quy ước `www` *(Thắng chốt 03/10/2026)*
+
+**Mọi tên miền lấy địa chỉ KHÔNG có `www` làm địa chỉ chính.** `www.<tên-miền>` chỉ chuyển hướng (308) về địa chỉ chính — cài ở Vercel → Settings → Domains, cần bản ghi `CNAME www` ở DNS.
+
+- Áp dụng cho `baika.website`, `baika.vn` và mọi landing sau này.
+- Code (luật `host` trong `vercel.json`, thẻ `canonical`) **luôn ghi địa chỉ không `www`**. Ghi `www` ở code là sai quy ước.
+- **Ngoại lệ:** `baika.tech` — tên miền tạm, đang để `www` làm chính từ trước. Giữ nguyên, không đảo.
+- Vì sao: ngắn, khớp chữ in trên tài liệu, code đã viết theo kiểu này. Đánh đổi đã biết: địa chỉ không `www` trỏ bằng IP cố định (bản ghi A) — Vercel đổi IP thì phải sửa DNS tay; Vercel sẽ báo «Invalid Configuration» ở trang Domains.
+- Trình duyệt **không** tự thêm hay bỏ `www` — chuyển hướng là việc của Vercel.
 
 ### Hình ảnh
 
@@ -108,23 +131,29 @@ Mỗi thư mục con theo cùng một khung 4 file:
 
 | Thư mục | Trang |
 | --- | --- |
-| `docs/remote-office/` | Remote Office — `baika.website`. Bắt đầu từ `SPEC-MASTER.md` |
+| `docs/remote-office/` | Remote Office — `baika.website`. Bắt đầu từ `SPEC-MASTER.md`. Cách gắn tên miền (`vercel.json` dùng **`routes`**, không dùng `rewrites`): `quy-trinh-build.md` §5 |
+| `docs/_chung/` | Tài liệu chung 7 trang dịch vụ + trang chủ + Liên hệ: **nhật ký quyết định `DEC-001`…`DEC-100`**, Design Spec, Implementation Spec, spec bàn giao, sitemap, vận hành sau launch. **Chép nguyên văn** từ project Claude ngày 03/10/2026 — đầu mỗi file ghi chỗ đã lỗi thời. Mục lục: `docs/README.md` |
 
-⚠️ Spec của 7 trang dịch vụ + trang chủ **chưa** chuyển vào `docs/` — vẫn nằm ở project Claude (bảng dưới). Sẽ chuyển dần sau 01/10/2026.
+### Luật đồng bộ ngược: chốt ở Claude → agent vẽ vào Figma *(Thắng chốt 04/10/2026)*
+
+Khi Thắng **duyệt / cập nhật / thêm** một điều trong phiên làm việc với agent mà **Figma chưa có hoặc chưa cập nhật**, **agent tự vào Figma tạo đúng điều đã chốt**. Mục tiêu: Figma luôn là bản mới nhất, chuẩn hoá — để luật «Figma thắng» không bao giờ kéo code về bản cũ.
+
+| | |
+| --- | --- |
+| **Áp dụng cho** | Chỉ điều **Thắng đã chốt rõ** (trong phiên, hoặc ghi ✅ trong spec). Đề xuất của agent chưa được duyệt **không** vẽ |
+| **Cách vẽ** | Chỉ dùng component · text style · biến màu / spacing **có sẵn**. Thiếu token → dừng, hỏi (luật §4 không đổi) |
+| **Phạm vi** | Chỉ thêm / sửa đúng node của điều đã chốt. **Không** xoá, đổi tên, dọn dẹp node khác |
+| **Component dùng chung** | Sửa main component (vd. menu, Footer) → báo trước **số instance bị ảnh hưởng**, rồi mới ghi |
+| **Thiếu thông tin để vẽ** | Vd. chốt «thêm mục menu» nhưng chưa có vị trí / chữ → **hỏi**, không tự chọn |
+| **Sau khi ghi** | ① chụp node ra **nhìn** (bài học `DEC-035-A`) · ② ghi «Nhật ký Figma» của spec trang (component dùng chung: `docs/nhat-ky-figma-chung.md`): ngày · node ID · đổi gì · ③ báo Thắng node ID để mở xem |
+
+**Đọc nhật ký quyết định trước khi kết luận điều gì** — nhiều thứ trông như lỗi thật ra đã được chốt có lý do.
+
+⚠️ `docs/_chung/noi-dung-day-du.md` là chữ của **site cũ** chép để audit, **không phải** chữ site mới. Chữ đang chạy = Figma + `src/pages/`.
 
 **Luật đồng bộ (Thắng chốt 29/09):** sửa code làm đổi chữ, số hay hành vi → sửa spec trong `docs/` **cùng commit**. Figma đổi → ghi vào "Nhật ký Figma" của spec. `git add` từng file, không `git add -A` khi chưa đọc `git status`.
 
-### Tài liệu — nằm trong Claude Project "BaiKa"
-
-| File | Chứa gì |
-| --- | --- |
-| `claude/website-agent-decisions.md` | **Nhật ký quyết định `DEC-001`…`DEC-036`. Đọc trước khi kết luận điều gì** |
-| `claude/website-agent-design-spec.md` | Design Spec · `LOCKED` |
-| `claude/website-agent-implementation-spec.md` | Implementation Spec · `LOCKED` |
-| `claude/ban-giao-ky-thuat.md` | Spec bàn giao — token, component, trạng thái, checklist nghiệm thu |
-| `claude/noi-dung-day-du.md` | Nội dung nguyên văn 7 trang |
-| `claude/ban-do-section.md` | Khung section 7 trang |
-| `claude/van-hanh-sau-launch.md` | Vận hành sau khi lên — không có dev thì sửa bug thế nào |
+**Project Claude "BaiKa.vn"** vẫn giữ vài tài liệu chưa chuyển (danh sách: `docs/README.md`). **Việc chờ nhắc Thắng** nay ở `docs/viec-cho.md` (chuyển 04/10) — agent đọc mỗi phiên. Bản nào đã vào `docs/` thì **bản trong repo là bản chính**.
 
 ---
 
@@ -186,7 +215,7 @@ Style tên `label` trước đây tên `label-mono` — tên cũ **nói dối fo
 | Tên | Rộng | Cột | Gutter | Lề |
 | --- | --- | --- | --- | --- |
 | `sm` mobile | **375** | 4 | 16 | 16 |
-| `md` tablet | **768** | 8 | 16 | 24 |
+| `md` tablet | **768** | 8 | 16 | 24 *(lưới Figma)* · **lề trang thật = 40** (`--le-trang`, #17 chốt 04/10) |
 | `lg` desktop | **1280** | 12 | 20 | 32 |
 | `xl` | 1440+ | 12 | 24 | 32 |
 
@@ -226,33 +255,49 @@ Site tĩnh, không framework UI ở client. JS chỉ dùng cho thứ thật sự
 
 ```
 baika-website/
-├── CLAUDE.md              ← file này
+├── TRANG-THAI.md          ← ĐỌC ĐẦU TIÊN: đang ở đâu, cái gì kẹt, làm gì tiếp
+├── CLAUDE.md              ← file này — luật của repo
+├── AGENTS.md              ← trỏ về CLAUDE.md, cho agent không phải Claude
+├── CHANGELOG.md           ← đã đổi gì, ngày nào
+├── LICENSE                ← giữ mọi quyền — repo công khai để xem, không để dùng lại
+├── .github/               ← kiểm tra tự động (CI) · Dependabot · mẫu Pull Request — xem §9b
 ├── docs/                  ← tài liệu dựng từng trang, mỗi trang một thư mục — xem §3
+├── api/                   ← hàm chạy trên Vercel: contact.ts (gửi mail) · health.ts — xem §2
+├── tools/                 ← script kiểm tra, KHÔNG nằm trong site — xem §8
+├── vercel.json            ← luật tên miền baika.website (routes)
 ├── astro.config.mjs       ← site tĩnh, không adapter
 ├── src/
 │   ├── styles/
 │   │   ├── tokens.css     ← 82 biến Figma. KHÔNG sửa tay
 │   │   ├── reset.css
 │   │   └── global.css     ← chỉ thứ dùng ở MỌI trang
-│   ├── layouts/
-│   │   └── BaseLayout.astro
-│   ├── components/        ← một component = một thư mục: .astro + .module.css
+│   ├── layouts/           ← BaseLayout (mọi trang) · ServicePageLayout (7 trang dịch vụ)
+│   ├── components/        ← một component = MỘT file .astro, CSS nằm trong thẻ <style> của file đó
+│   ├── lib/               ← phần tính toán không có giao diện (vd. uoc-tinh.ts)
 │   └── pages/             ← mỗi file = một URL
 └── public/                ← file tĩnh phục vụ nguyên trạng
 ```
 
-**Quy tắc:** cái gì dùng ở mọi trang → `global.css`. Cái gì thuộc về một khối → CSS Module của khối đó. Không có đường thứ ba.
+**CSS trong component [xác minh 03/10]:** thẻ `<style>` của Astro tự giới hạn phạm vi trong component đó (*scoped* — tác dụng như CSS Modules: class `.nut` ở component này không đè `.nut` ở component khác). Repo **không** dùng file `.module.css` riêng. Viết theo cách đang có, đừng tách file.
+
+**Quy tắc:** cái gì dùng ở mọi trang → `global.css`. Cái gì thuộc về một khối → `<style>` của component đó. Không có đường thứ ba.
 
 ---
 
 ## 8. Lệnh
 
 ```bash
-pnpm install     # cài lần đầu
-pnpm dev         # chạy local, mở http://localhost:4321
-pnpm build       # kiểm tra kiểu + dựng bản production vào dist/
-pnpm preview     # xem thử bản đã dựng
+pnpm install            # cài lần đầu
+pnpm dev                # chạy local, mở http://localhost:4321  (api/ không chạy ở đây — chỉ chạy trên Vercel)
+pnpm build              # kiểm tra kiểu + dựng bản production vào dist/
+pnpm preview            # xem thử bản đã dựng
+pnpm kiem-tra           # luật tĩnh: màu viết cứng, #FFFFFF, khoá bí mật — 1 giây, không cần trình duyệt
+pnpm kiem-tra:uoc-tinh  # 11 ca của công cụ ước tính Remote Office — cần Node ≥ 22.6
+pnpm kiem-tra:trang     # tràn ngang, <h1>, alt, lỗi JS ở mọi trang × 4 khổ — cần Playwright + pnpm preview đang chạy
+pnpm chup               # chụp ảnh trang để đặt cạnh Figma
 ```
+
+**Trước khi báo "xong":** `pnpm build` sạch → `pnpm kiem-tra` OK → chụp ảnh và **mở ra nhìn** (§10). Chi tiết + cách so ảnh trước/sau: `tools/kiem-tra/README.md`.
 
 ---
 
@@ -264,6 +309,36 @@ Key nằm trong **biến môi trường** ở Vercel. File `.env` đã bị `.gi
 
 Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắc anh thu hồi key đó.** Xoá commit thôi là chưa đủ — key đã lộ là đã lộ.
 
+### ⚠️ Repo này CÔNG KHAI *(sếp chốt — xác nhận lại 03/10/2026)*
+
+**Ai cũng đọc được mọi file và mọi commit cũ**, không cần đăng nhập. Hệ quả cho agent:
+
+- Trước khi commit, tự hỏi: *"Có ổn không nếu người ngoài công ty đọc dòng này?"* Không chắc → hỏi Thắng.
+- **Không** đưa vào repo: khoá bí mật, email / số điện thoại cá nhân, dữ liệu khách hàng, nội dung form khách gửi, tài liệu tài chính – pháp lý – nhân sự.
+- Đã push là **không rút lại được** — lịch sử commit giữ bản cũ mãi.
+- Công khai **không** có nghĩa người khác được dùng lại: `LICENSE` giữ mọi quyền.
+
+---
+
+## 9b. Git — ai làm gì
+
+- **Agent commit, Thắng `git push`.** Agent không đụng tài khoản đăng nhập GitHub / Vercel.
+- Commit bằng **danh tính có sẵn của repo** (`BAIKA` · email `noreply` của `baikavn-bot`). Vercel chỉ deploy commit của danh tính này. Không dùng `git -c user.name=…` để đổi danh tính.
+- **Không force push.** Không viết lại lịch sử đã push.
+- `git add` **từng file**. Không `git add -A` khi chưa đọc `git status`. Không bao giờ commit `.env` hay `Claude outputs/`.
+- Sửa code làm đổi chữ, số hay hành vi → sửa spec trong `docs/` **cùng commit** (§3), và thêm một dòng vào `CHANGELOG.md`. Trạng thái dự án đổi (nhánh, tên miền, việc kẹt) → sửa `TRANG-THAI.md`.
+- Mỗi trang mới làm trên **nhánh riêng**, gộp vào `main` khi ra mắt. Hiện có nhánh `remote-office` — xem `TRANG-THAI.md` §2.
+- **`main` đã khoá** (ruleset `bao-ve-main`, từ 04/10/2026): **chỉ gộp bằng Pull Request** trên GitHub, kiểm tra `kiem-tra` phải xanh, không ai được vượt khoá. Push thẳng `main` sẽ bị từ chối — đừng tìm cách lách. PR tự điền mẫu `.github/pull_request_template.md`.
+
+**Kiểm tra tự động (CI — `.github/workflows/kiem-tra.yml`):** mỗi lần push, GitHub tự chạy `pnpm build` + `pnpm kiem-tra` + bài kiểm 11 ca ước tính. ✓ xanh / ✗ đỏ hiện cạnh commit. **Đỏ thì không gộp.** CI không thay được bước chụp ảnh và mở ra nhìn (§10).
+
+**Dependabot (`.github/dependabot.yml`):** mỗi tháng tự mở PR. Hai loại, xử lý khác nhau *(Thắng + agent thống nhất 04/10)*:
+
+| Nhãn PR | Là gì | Xử lý |
+| --- | --- | --- |
+| `javascript` | Thư viện của site (chỉ bản nhỏ — bản lớn bị bỏ qua) | Gửi agent đọc trước, kiểm CI + preview, rồi mới gộp. Nâng bản lớn (vd. Astro 4 → 5) là việc riêng, có kế hoạch |
+| `github_actions` | Các bước có sẵn của máy kiểm tra (vd. `actions/checkout`) — **cho phép cả bản lớn** | CI ✓ xanh → Thắng gộp luôn · ✗ đỏ → gửi agent. Vì sao không chặn bản lớn: PR tự chạy kiểm tra bằng chính bản mới, xanh = chạy được; còn bỏ qua mãi thì GitHub ngừng hỗ trợ bản cũ → CI hỏng đột ngột, mà `main` khoá thì không gộp được gì |
+
 ---
 
 ## 10. Bài học đã trả giá — đừng lặp lại
@@ -272,6 +347,7 @@ Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắ
 | --- | --- |
 | **Sau mỗi lượt ghi hàng loạt, phải mở ra NHÌN.** Số đếm khớp không chứng minh kết quả đúng | `DEC-035-A` — bind 566 paint "thành công, 0 lỗi", nhưng làm mất opacity và 8 ô bento trang chủ thành khối trắng đặc |
 | **Kiểm một thuộc tính thì đọc cả giá trị lẫn styleId** | `DEC-022` — kết luận nhầm "shadow không có token", thật ra file có 7 effect style |
+| **Trên Vercel, `rewrites` thua file tĩnh** — muốn đè `/` (đã có `index.html`) thì dùng `routes` | Gắn `baika.website` 01/10 — `docs/remote-office/quy-trinh-build.md` §5.1 |
 | **Thao tác theo tên node thì kiểm kích thước kết quả trước khi ghi** | Componentise nhầm cả khối form 840×528 vì vòng lặp đi ngược quá xa |
 | **Dữ liệu mẫu trong file demo ≠ yêu cầu dự án** | Từng có cả một "luồng B — landing page ClearWork" sinh ra từ một khối demo trong file HTML. Sai đó sống qua nhiều phiên |
 | **Đổi tên trục variant thì ghi lại instance trước, đổi cả bộ một lượt, đối chiếu lại sau** | `DEC-036` — 213 instance, 0 gãy, nhờ làm đúng trình tự này |
@@ -280,7 +356,9 @@ Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắ
 
 ## 11. Còn treo — đọc trước khi tưởng mọi thứ đã xong
 
-- **`Nav Button` `472:4918` thiếu `Hover` + `Focus`** — là mục menu bấm được, WCAG 2.4.7 đòi focus nhìn thấy. **Chặn Release Candidate**
+*Mục chung cả site. Việc kẹt + quyết định đang chờ của Remote Office: `TRANG-THAI.md` §4–§5.*
+
+- ~~`Nav Button` thiếu `Hover` + `Focus`~~ — **đã đủ 4 biến thể** (`DEC-071`, 25/09). Còn lại: Figma dùng `Focus` để đánh dấu trang hiện tại (`VD-005`); code đã tách — `aria-current="page"` cho trang hiện tại, `:focus-visible` cho bàn phím
 - **Hai ô bento `Trạm Ý Tưởng` + `Trạm Kết Nối` trỏ đi đâu** — cả hai ngoài phạm vi v1, để nguyên là 2 link chết trên trang chủ lúc launch
 - **`Button 1 · Active`** dùng `--shadow-inner-press` vốn thiết kế cho nút tối; trên nút trắng có thể quá nặng
 - **`Checkbox` `29:2685` chưa gán effect style** — đang dùng giá trị thô

@@ -14,6 +14,7 @@ node_modules/
 # he dieu hanh / editor
 .DS_Store
 Thumbs.db
+desktop.ini
 .vscode/*
 !.vscode/extensions.json
 .idea/
@@ -28,3 +29,6 @@ pnpm-debug.log*
 
 # anh chup man hinh / file nhap cua Claude - khong day len repo
 Claude outputs/
+
+# anh do bo kiem tra (tools/kiem-tra) sinh ra
+kiem-tra-anh/
