@@ -1,6 +1,6 @@
 # SPEC MASTER — Trang Remote Office (`baika.website`)
 
-**Trạng thái:** `DRAFT` — chờ Thắng duyệt · Lập 29/09/2026
+**Trạng thái:** **Đang dùng** — trang đã dựng xong, chạy bản thử ở `baika.website`; các mục chốt dần ở §7 · Lập 29/09/2026 · cập nhật 04/10/2026
 **Người quyết cuối:** Thắng Trương (designer, phụ trách website). Công ty **không có dev** — code do agent viết, Thắng duyệt và tự `git push`.
 
 > **Agent đọc file này TRƯỚC TIÊN.** Nó nói: trang này là gì · tài liệu nào có quyền quyết cái gì · làm gì khi hai nguồn nói khác nhau · khi nào phải dừng lại hỏi.

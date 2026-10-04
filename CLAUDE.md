@@ -1,6 +1,6 @@
 # CLAUDE.md — luật của repo `baika-website`
 
-*Cập nhật 03/10/2026 · Đọc hết file này trước khi sửa bất cứ dòng nào.*
+*Cập nhật 04/10/2026 · Đọc hết file này trước khi sửa bất cứ dòng nào.*
 
 > **Mỗi phiên, đọc theo thứ tự:** `TRANG-THAI.md` (dự án đang ở đâu, cái gì kẹt) → file này (luật) → `docs/<trang>/SPEC-MASTER.md` nếu làm một trang cụ thể. Lịch sử thay đổi: `CHANGELOG.md`.
 
@@ -61,7 +61,7 @@ Nó **không** phải codebase, design, kiến trúc, component hay asset baseli
 | --- | --- |
 | Framework | **Astro** — site tĩnh, không SSR, không adapter |
 | Ngôn ngữ | **TypeScript** |
-| CSS | **CSS Modules + CSS Variables**. Không Tailwind, không CSS-in-JS |
+| CSS | **CSS có phạm vi riêng từng component** (thẻ `<style>` của Astro — tác dụng như CSS Modules, không có file `.module.css`, xem §7) **+ CSS Variables**. Không Tailwind, không CSS-in-JS |
 | Package manager | **pnpm** |
 | Nguồn | **GitHub** — tài khoản `baikavn-bot`, repo công khai (`DEC-038`, §9) |
 | Hosting | **Vercel** |
