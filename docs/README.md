@@ -14,6 +14,8 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 | Thư mục | Chứa gì | Tình trạng |
 | --- | --- | --- |
 | `remote-office/` | Bộ spec 4 file của trang Remote Office (`baika.website`). Bắt đầu từ `SPEC-MASTER.md` | **Đang dùng** — cập nhật cùng code |
+| `viec-cho.md` | **Việc đang chờ** — agent đọc mỗi phiên, nhắc Thắng mục nào tới điều kiện (chuyển từ project Claude 04/10) | **Đang dùng** |
+| `buoi-xem-figma.md` | Câu hỏi giao diện còn chờ Thắng nhìn | **Đang dùng** |
 | `nhat-ky-figma-chung.md` | Nhật ký Figma của **component dùng chung** (menu, chân trang, thẻ gói…) — mỗi lần agent hoặc Thắng sửa | **Đang dùng** |
 | `huong-dan-github.md` | Cho Thắng: push, nhãn phiên bản, khoá nhánh `main`, quay lui trên Vercel | **Đang dùng** |
 | `_chung/` | Tài liệu chung cho 7 trang dịch vụ + trang chủ + Liên hệ, **chép nguyên văn** từ project Claude ngày 03/10/2026 | **Lưu trữ có ghi chú** — đầu mỗi file ghi rõ chỗ nào đã lỗi thời |
@@ -40,7 +42,7 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 | --- | --- |
 | `DEC-001` → `DEC-092` | `_chung/website-agent-decisions.md` |
 | `DEC-093` → `DEC-100` | `_chung/website-agent-decisions-2.md` |
-| `DEC-102` (dọn nợ + trang CEO) | **Chưa chuyển** — project Claude, `claude/dec-102-don-no-va-trang-ceo.md` |
+| `DEC-102` (dọn nợ + trang CEO) | `_chung/dec-102-don-no-va-trang-ceo.md` (chuyển 04/10) |
 | Remote Office (từ 29/09) | `remote-office/SPEC-MASTER.md` §7 (quyết định) + §9 (nhật ký) |
 | Mọi thay đổi theo ngày | `../CHANGELOG.md` |
 
@@ -48,7 +50,7 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 
 Các file `_chung/` có nhắc tới những file dưới đây. Chúng **chưa** vào repo — hoặc thuộc luồng khác, hoặc là bản rà soát đã xong việc:
 
-`claude/framer-cms-schema.md` (phương án đã loại) · `claude/ban-giao-tuan.md` (tên cũ của `ban-giao-ky-thuat.md`) · `claude/he-thong-button.md` · `claude/noi-dung-theo-section.md` · `claude/noi-dung-7-trang.md` · `claude/ra-soat-system-2509.md` · `claude/ke-hoach-build-7-trang.md` · `claude/tien-do-24-09.md` · `claude/website-agent-figma-gap-audit.md` · `claude/huong-dan-git-vercel.md` · `claude/quy-uoc-ban-giao.md` · `claude/dec-102-don-no-va-trang-ceo.md` · `project-brief.md` · `design-log.md`
+`claude/framer-cms-schema.md` (phương án đã loại) · `claude/ban-giao-tuan.md` (tên cũ của `ban-giao-ky-thuat.md`) · `claude/he-thong-button.md` · `claude/noi-dung-theo-section.md` · `claude/noi-dung-7-trang.md` · `claude/ra-soat-system-2509.md` · `claude/ke-hoach-build-7-trang.md` · `claude/tien-do-24-09.md` · `claude/website-agent-figma-gap-audit.md` · `claude/huong-dan-git-vercel.md` · `claude/quy-uoc-ban-giao.md` · `project-brief.md` · `design-log.md`
 
 Agent không vào được project Claude thì hỏi Thắng.
 

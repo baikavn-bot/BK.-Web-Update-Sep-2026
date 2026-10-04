@@ -153,7 +153,7 @@ Khi Thắng **duyệt / cập nhật / thêm** một điều trong phiên làm v
 
 **Luật đồng bộ (Thắng chốt 29/09):** sửa code làm đổi chữ, số hay hành vi → sửa spec trong `docs/` **cùng commit**. Figma đổi → ghi vào "Nhật ký Figma" của spec. `git add` từng file, không `git add -A` khi chưa đọc `git status`.
 
-**Project Claude "BaiKa.vn"** vẫn giữ vài tài liệu chưa chuyển (danh sách: `docs/README.md`) và `claude/viec-cho-nhac.md` — việc chờ nhắc Thắng. Bản nào đã vào `docs/` thì **bản trong repo là bản chính**.
+**Project Claude "BaiKa.vn"** vẫn giữ vài tài liệu chưa chuyển (danh sách: `docs/README.md`). **Việc chờ nhắc Thắng** nay ở `docs/viec-cho.md` (chuyển 04/10) — agent đọc mỗi phiên. Bản nào đã vào `docs/` thì **bản trong repo là bản chính**.
 
 ---
 

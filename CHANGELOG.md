@@ -10,6 +10,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 ## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
 
 ### 04/10/2026
+**Tài liệu**
+- Đưa toàn bộ tài liệu lên `main` (PR riêng, không đụng code) — người mới mở repo thấy ngay trạng thái, luật, nhật ký quyết định, LICENSE. Chuyển nốt danh sách việc chờ (`docs/viec-cho.md`) và `DEC-102` từ project Claude vào repo. `CONTRIBUTING.md` thêm bảng «cần quyền gì — xin ai». README có thứ tự đọc cho người mới.
+
 **Thêm**
 - Remote Office: dòng pháp lý nhỏ dưới form Liên hệ (L14) — «Nội dung trên trang mang tính giới thiệu dịch vụ…».
 

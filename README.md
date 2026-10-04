@@ -5,12 +5,21 @@ Website giới thiệu của **BAIKA**, công ty tư vấn và kiến tạo hệ
 | Trang | Địa chỉ | Trạng thái |
 | --- | --- | --- |
 | Trang chủ · 7 trang dịch vụ · Liên hệ | `baika.vn` (về sau) · hiện chạy ở `baika.tech` | Đã chạy |
-| Landing Remote Office | `baika.website` | Dựng xong, chờ tên miền mở khoá |
+| Landing Remote Office | `baika.website` | Chạy bản thử (`noindex`, nhánh `remote-office`) — chờ sếp duyệt ra mắt |
 
 Mọi trang và landing **chung một source** này, dù chạy ở tên miền nào.
 
-**Đang ở đâu, cái gì kẹt:** xem [`TRANG-THAI.md`](TRANG-THAI.md).
-**Luật trước khi sửa code:** xem [`CLAUDE.md`](CLAUDE.md).
+**Người mới / agent mới — đọc theo thứ tự:**
+
+1. [`TRANG-THAI.md`](TRANG-THAI.md) — đang ở đâu, cái gì kẹt, làm gì tiếp.
+2. [`CONTRIBUTING.md`](CONTRIBUTING.md) — quy trình nhánh, commit, Pull Request, cần quyền gì.
+3. [`CLAUDE.md`](CLAUDE.md) — luật trước khi sửa code (token, Figma, bảo mật).
+4. [`docs/viec-cho.md`](docs/viec-cho.md) — việc đang chờ, khi nào nhắc.
+5. [`docs/README.md`](docs/README.md) — mục lục tài liệu, nhật ký quyết định `DEC-…`.
+
+Báo lỗ hổng bảo mật: [`SECURITY.md`](SECURITY.md).
+
+> ⚠️ Trang Remote Office (`src/pages/remote-office.astro`, `vercel.json`…) **chỉ có trên nhánh `remote-office`** cho tới ngày ra mắt. Tài liệu thì có ở cả hai nhánh.
 
 ---
 

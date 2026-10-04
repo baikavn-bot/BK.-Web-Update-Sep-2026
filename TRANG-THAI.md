@@ -3,7 +3,7 @@
 *Cập nhật **04/10/2026** · Ai sửa trạng thái thì sửa ngày ở dòng này.*
 
 File này trả lời câu: **"Dự án đang ở đâu, cái gì chạy, cái gì kẹt, làm gì tiếp?"**
-Luật làm việc nằm ở `CLAUDE.md`. Lịch sử thay đổi nằm ở `CHANGELOG.md`.
+Luật làm việc nằm ở `CLAUDE.md`. Quy trình GitHub: `CONTRIBUTING.md`. **Việc chờ nhắc: `docs/viec-cho.md`.** Lịch sử thay đổi nằm ở `CHANGELOG.md`.
 
 Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy luận]** = suy ra từ tài liệu, chưa kiểm.
 
@@ -21,7 +21,7 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 
 | Nhánh | Commit mới nhất | Chứa gì | Đã lên GitHub |
 | --- | --- | --- | --- |
-| `main` | `1ba629b` (04/10) | 7 trang dịch vụ · trang chủ · Liên hệ · spec Remote Office · CI + bộ kiểm tra · `<h1>` trang chủ (PR #1) · menu Remote Office (PR #4) · 2 PR Dependabot (#2, #3) | ✅ **[xác minh 04/10 — ảnh tab Actions, 3 lượt xanh]** |
+| `main` | PR `tai-lieu-len-main` (04/10) | 7 trang dịch vụ · trang chủ · Liên hệ · CI + bộ kiểm tra · `<h1>` trang chủ (PR #1) · menu Remote Office (PR #4) · Dependabot (#2, #3) · CONTRIBUTING/SECURITY (#5) · **toàn bộ tài liệu** (PR tài liệu, 04/10) | ✅ đến PR #5 **[xác minh 04/10]** |
 | `remote-office` | `ca25e16` (02/10) + các commit sau đó | Mọi thứ của `main` + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + tài liệu repo | ✅ đến `ca25e16` **[xác minh 03/10]** |
 
 `remote-office` **chưa gộp (merge)** vào `main`. ✅ Đã kéo `main` (PR #1–#4) vào `remote-office` ngày 04/10 — commit `4e41d85`, build sạch, 11/11 ca ước tính. Gộp ra mắt sau này sẽ không còn xung đột (trừ khi `main` có thêm commit). Gộp khi ra mắt Remote Office thật — xem mục 7.
