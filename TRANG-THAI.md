@@ -24,7 +24,7 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 | `main` | `1ba629b` (04/10) | 7 trang dịch vụ · trang chủ · Liên hệ · spec Remote Office · CI + bộ kiểm tra · `<h1>` trang chủ (PR #1) · menu Remote Office (PR #4) · 2 PR Dependabot (#2, #3) | ✅ **[xác minh 04/10 — ảnh tab Actions, 3 lượt xanh]** |
 | `remote-office` | `ca25e16` (02/10) + các commit sau đó | Mọi thứ của `main` + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + tài liệu repo | ✅ đến `ca25e16` **[xác minh 03/10]** |
 
-`remote-office` **chưa gộp (merge)** vào `main`. Từ 04/10 `main` cũng có commit riêng (PR #1–#4) — trước khi ra mắt, kéo `main` vào `remote-office` một lần cho đồng bộ. Gộp khi ra mắt Remote Office thật — xem mục 7.
+`remote-office` **chưa gộp (merge)** vào `main`. ✅ Đã kéo `main` (PR #1–#4) vào `remote-office` ngày 04/10 — commit `4e41d85`, build sạch, 11/11 ca ước tính. Gộp ra mắt sau này sẽ không còn xung đột (trừ khi `main` có thêm commit). Gộp khi ra mắt Remote Office thật — xem mục 7.
 
 ⚠️ Bản sửa "mail ghi đúng trang gửi" (`ContactForm.astro` + `api/contact.ts`) dùng chung cho cả 9 trang, nhưng hiện **chỉ có trên `remote-office`**. Form ở `main` vẫn ghi «Gửi từ: trang /lien-he» cho mọi trang. Sẽ tự hết khi gộp nhánh.
 
@@ -82,6 +82,8 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | ~~—~~ | ~~Trang chủ không có `<h1>`~~ — ✅ **chốt 04/10:** dòng mô tả dưới logo làm `<h1>`, nhìn không đổi (so ảnh giống từng pixel). Lên bản chính qua Pull Request `sua-h1-trang-chu` | — | — |
 | DEC-090 | Quầng sáng thẻ gói: Figma để ở **Hover**, code để ở **Focus** — Thắng 04/10: giữ Figma, code «đang làm xấu hơn», **chưa rà** | Thắng | Lệch, để nguyên cả hai — `docs/nhat-ky-figma-chung.md` |
 
+Bốn mục #10 #11 #16 #17 + DEC-090 + 2 việc phát sinh 04/10: gom trong `docs/buoi-xem-figma.md`.
+
 Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bento…): `CLAUDE.md` §11.
 
 ---
@@ -108,3 +110,4 @@ Chi tiết: `docs/remote-office/quy-trinh-build.md` §5.7.
 - Commit bằng danh tính có sẵn của repo (`BAIKA`, email `noreply` của `baikavn-bot`). Vercel chỉ deploy commit của danh tính này **[xác minh 26/09]**.
 - **Phiên agent mới chưa có quyền xoá file** trên máy Thắng. Lệnh `git switch` / `git status` có thể để lại file khoá `.git/index.lock`, làm các lệnh git sau báo lỗi. Cách gỡ: xin quyền xoá, rồi xoá `.git/index.lock`.
 - Thư mục `Claude outputs/` (ảnh chụp, bản vá) đã bị `.gitignore` chặn — không lên GitHub.
+- **Xuống dòng kiểu Windows (CRLF) [xác minh 04/10]:** git trên máy Thắng tự đổi file sang CRLF khi `git switch`. Agent nhìn từ máy ảo sẽ thấy ~40 file «đã sửa» dù nội dung không đổi. Cách đúng: chạy git trong máy ảo với `git -c core.autocrlf=true …` (status, add, commit). **Không** `git merge` trực tiếp trong thư mục của Thắng — sẽ ghi nhầm CRLF vào commit; gộp trong một bản clone tạm rồi `merge --ff-only` về.
