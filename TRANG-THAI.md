@@ -21,10 +21,10 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 
 | Nhánh | Commit mới nhất | Chứa gì | Đã lên GitHub |
 | --- | --- | --- | --- |
-| `main` | `aac95de` (29/09) | 7 trang dịch vụ · trang chủ · Liên hệ · spec Remote Office | ✅ **[xác minh 03/10]** |
+| `main` | `1ba629b` (04/10) | 7 trang dịch vụ · trang chủ · Liên hệ · spec Remote Office · CI + bộ kiểm tra · `<h1>` trang chủ (PR #1) · menu Remote Office (PR #4) · 2 PR Dependabot (#2, #3) | ✅ **[xác minh 04/10 — ảnh tab Actions, 3 lượt xanh]** |
 | `remote-office` | `ca25e16` (02/10) + các commit sau đó | Mọi thứ của `main` + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + tài liệu repo | ✅ đến `ca25e16` **[xác minh 03/10]** |
 
-`remote-office` đi trước `main` 13 commit và **chưa gộp (merge)**. Gộp khi ra mắt Remote Office thật — xem mục 7.
+`remote-office` **chưa gộp (merge)** vào `main`. Từ 04/10 `main` cũng có commit riêng (PR #1–#4) — trước khi ra mắt, kéo `main` vào `remote-office` một lần cho đồng bộ. Gộp khi ra mắt Remote Office thật — xem mục 7.
 
 ⚠️ Bản sửa "mail ghi đúng trang gửi" (`ContactForm.astro` + `api/contact.ts`) dùng chung cho cả 9 trang, nhưng hiện **chỉ có trên `remote-office`**. Form ở `main` vẫn ghi «Gửi từ: trang /lien-he» cho mọi trang. Sẽ tự hết khi gộp nhánh.
 
@@ -72,7 +72,7 @@ Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md`
 | 10 | Số «23,5» cỡ 100px (Figma, ngoài thang chữ) hay 80px? — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 80px (`--fs-display-1`) |
 | 11 | Khoảng `10px` (ngoài thang) — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 12px (`--s-3`) |
 | 12 | ✅ Chốt TẠM 04/10: ô «Lĩnh vực» = 8 lựa chọn (Remote Office + 7 trụ) — đã dựng. Danh sách chính thức chốt sau | Thắng | 8 lựa chọn |
-| 13 | ✅ Chốt 04/10: **thêm** mục «Remote Office» **đứng đầu** menu (8 → 9 mục) — đã vẽ Figma + dựng code | — | Có trên `remote-office`; lên `main` qua PR `menu-remote-office` |
+| 13 | ✅ Chốt 04/10: **thêm** mục «Remote Office» **đứng đầu** menu (8 → 9 mục) — đã vẽ Figma + dựng code | — | ✅ **Đã lên bản chính** — PR #4, `main` `3d9c30a` · Thắng kiểm `www.baika.tech` 04/10: đủ 9 mục |
 | 16 | Ô bảng cao cố định 66px hay theo nội dung — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | Theo nội dung |
 | 17 | Lề trang tablet 24 hay 40 — **Buổi xem Figma** (Thắng chốt 04/10: gom 4 mục giao diện, xem cùng Figma) | Thắng | 40 |
 | L14 | ✅ Chốt 04/10: dòng pháp lý **dưới form Liên hệ** — đã dựng | — | Đã có (nhánh `remote-office`) · Figma đã vẽ `960:3633` |

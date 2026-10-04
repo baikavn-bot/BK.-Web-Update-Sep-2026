@@ -332,7 +332,12 @@ Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắ
 
 **Kiểm tra tự động (CI — `.github/workflows/kiem-tra.yml`):** mỗi lần push, GitHub tự chạy `pnpm build` + `pnpm kiem-tra` + bài kiểm 11 ca ước tính. ✓ xanh / ✗ đỏ hiện cạnh commit. **Đỏ thì không gộp.** CI không thay được bước chụp ảnh và mở ra nhìn (§10).
 
-**Dependabot (`.github/dependabot.yml`):** mỗi tháng tự mở tối đa 2 PR nâng thư viện (chỉ bản nhỏ, bỏ qua bản lớn). Agent đọc PR đó, kiểm CI + preview, rồi mới đề xuất Thắng gộp. Nâng bản lớn (vd. Astro 4 → 5) là một việc riêng, có kế hoạch.
+**Dependabot (`.github/dependabot.yml`):** mỗi tháng tự mở PR. Hai loại, xử lý khác nhau *(Thắng + agent thống nhất 04/10)*:
+
+| Nhãn PR | Là gì | Xử lý |
+| --- | --- | --- |
+| `javascript` | Thư viện của site (chỉ bản nhỏ — bản lớn bị bỏ qua) | Gửi agent đọc trước, kiểm CI + preview, rồi mới gộp. Nâng bản lớn (vd. Astro 4 → 5) là việc riêng, có kế hoạch |
+| `github_actions` | Các bước có sẵn của máy kiểm tra (vd. `actions/checkout`) — **cho phép cả bản lớn** | CI ✓ xanh → Thắng gộp luôn · ✗ đỏ → gửi agent. Vì sao không chặn bản lớn: PR tự chạy kiểm tra bằng chính bản mới, xanh = chạy được; còn bỏ qua mãi thì GitHub ngừng hỗ trợ bản cũ → CI hỏng đột ngột, mà `main` khoá thì không gộp được gì |
 
 ---
 
