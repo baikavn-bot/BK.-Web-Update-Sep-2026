@@ -40,7 +40,7 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 | Bản preview của nhánh `remote-office` | `remote-office` (Preview) | **Ai có link cũng xem được** — Thắng tắt *Vercel Authentication* 04/10 để khách xem `baika.website` |
 | `baika.website` | `remote-office` (Preview) | **Đã chạy, khách ngoài xem được** — 6 mục kiểm §5.6 đạt **[Thắng kiểm 04/10, cửa sổ ẩn danh]**. Vẫn `noindex`. 8 trang khác chuyển sang `www.baika.tech` |
 | `www.baika.website` | — | **Đã chạy** — chuyển 308 về `baika.website` · DNS `CNAME www` **[xác minh 04/10]** |
-| `baika.vn` | — (hosting riêng, sếp giữ) | **Không thuộc repo này.** Vẫn là site cũ (Next.js), chỉ để tham khảo. Ngày trỏ sang repo này: đổi chuyển hướng trong `vercel.json` từ `www.baika.tech` về `baika.vn` (`quy-trinh-build.md` §5.2 dòng 2) *[suy luận — chưa kiểm lại sau 29/09]* |
+| `baika.vn` | — (hosting riêng, sếp giữ) | **Không thuộc repo này.** Vẫn là site cũ (Next.js), chỉ để tham khảo. Ngày trỏ sang repo này: đổi chuyển hướng trong `vercel.json` từ `www.baika.tech` về `baika.vn` (`docs/remote-office/quy-trinh-build.md` §5.2 dòng 2) *[suy luận — chưa kiểm lại sau 29/09]* |
 
 **Biến môi trường (environment variable** — giá trị cài trên Vercel, không nằm trong code**)** cho form gửi mail: `RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM`. Cả ba đã bật cho Preview **[xác minh 02/10 — `/api/health` trả `true` cả ba]**. Giá trị thật **không bao giờ** ghi vào repo.
 

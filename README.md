@@ -19,6 +19,8 @@ Mọi trang và landing **chung một source** này, dù chạy ở tên miền 
 
 Báo lỗ hổng bảo mật: [`SECURITY.md`](SECURITY.md).
 
+**Thuật ngữ hay gặp:** **Sếp** — lãnh đạo BAIKA, quyết nội dung, giá, ra mắt · **Thắng** — designer, chủ Figma, duyệt mọi thay đổi · **8 Trụ** — 8 mảng dịch vụ của BAIKA, mỗi trang dịch vụ một trụ, mỗi trụ một bộ màu · **Bento** — lưới ô kích thước khác nhau ở trang chủ · **`DEC-…`** — một quyết định đã chốt, có lý do (`docs/_chung/`) · **`VD-…`** — sai lệch có chủ ý, QA không báo lỗi · **§** — mục số trong một file.
+
 > ⚠️ Trang Remote Office (`src/pages/remote-office.astro`, `vercel.json`…) **chỉ có trên nhánh `remote-office`** cho tới ngày ra mắt. Tài liệu thì có ở cả hai nhánh.
 
 ---
@@ -69,12 +71,12 @@ Astro 4 (site tĩnh) · TypeScript · CSS Variables · pnpm · GitHub · Vercel.
 | `src/pages/` | Mỗi file một trang |
 | `src/components/` | Các khối giao diện, mỗi khối một file `.astro` |
 | `src/styles/` | Token + CSS dùng chung |
-| `src/lib/` | Phần tính toán (công cụ ước tính Remote Office) |
+| `src/lib/` | Phần tính toán (công cụ ước tính Remote Office) — *chỉ trên nhánh `remote-office` tới ngày ra mắt* |
 | `api/` | Hàm gửi mail và trang tự kiểm, chạy trên Vercel |
 | `docs/` | Spec dựng từng trang + nhật ký quyết định. Mục lục: [`docs/README.md`](docs/README.md) |
 | `tools/` | Script kiểm tra, không nằm trong site |
 | `.github/` | Kiểm tra tự động (CI), Dependabot, mẫu Pull Request |
-| `vercel.json` | Luật tên miền `baika.website` |
+| `vercel.json` | Luật tên miền `baika.website` — *chỉ trên nhánh `remote-office` tới ngày ra mắt* |
 
 ## Lịch sử
 
