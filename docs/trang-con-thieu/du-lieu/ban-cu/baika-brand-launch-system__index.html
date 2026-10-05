@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAIKA Brand Launch System — Định vị thương hiệu đến kế hoạch ra thị trường</title>
+<meta name="description" content="BAIKA Brand Launch System — chẩn đoán thương hiệu, chiến lược định vị, hệ thông điệp, IMC blueprint, kế hoạch launch và sales enablement cho doanh nghiệp.">
+<link rel="icon" href="/baika-suite/baika-brand-launch-system/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/baika-suite/shared/animated-logo.css">
+<style>
+:root{
+  --void:#0D0605; --void2:#150B08; --panel:rgba(255,255,255,.05); --panel2:rgba(255,255,255,.08); --bd:rgba(255,255,255,.12);
+  --ember:#FF6B35; --logoc1:linear-gradient(135deg,var(--ember),var(--magenta),var(--violet)); --logoc2:var(--magenta); --logourl:url("/baika-suite/baika-brand-launch-system/logo-emblem.png"); --magenta:#FF3D7F; --violet:#8B5CF6; --live:#FF3B3B;
+  --tx:#FBF3EE; --tx2:#B8A99F; --tx3:#85756B;
+  --disp:'Unbounded',sans-serif; --mono:'DM Mono',monospace; --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--tx);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;position:relative;max-width:100vw}
+::selection{background:var(--magenta);color:#160404}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);line-height:1.22}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.mono{font-family:var(--mono)}
+.kick{display:flex;align-items:center;gap:10px;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-size:12px;font-weight:500;margin-bottom:14px;
+  background:linear-gradient(90deg,var(--ember),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent}
+.kick::before{content:"";width:16px;height:1px;background:var(--magenta);flex-shrink:0}
+h2.h{font-size:clamp(26px,3.6vw,36px);margin-bottom:14px;font-weight:700}
+.lead{color:var(--tx2);max-width:680px;font-size:16.5px}
+.sec{padding:56px 0;position:relative}
+@media (max-width:640px){.sec{padding:32px 0}}
+
+/* ===== nen: glow blob mem, troi cham (khac han 5 web truoc) ===== */
+#glowBg{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.28}
+.blob1{width:520px;height:520px;background:var(--ember);top:-160px;right:-100px;animation:drift1 22s ease-in-out infinite}
+.blob2{width:480px;height:480px;background:var(--violet);bottom:-140px;left:-120px;animation:drift2 26s ease-in-out infinite}
+.blob3{width:380px;height:380px;background:var(--magenta);top:40%;left:50%;animation:drift3 19s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,50px)}}
+@keyframes drift2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-40px)}}
+@keyframes drift3{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,-60px)}}
+@media (prefers-reduced-motion: reduce){.blob{animation:none}}
+
+/* ===== topbar ===== */
+.top{position:sticky;top:0;z-index:50;background:rgba(13,6,5,.8);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--bd)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.home{flex-shrink:0;color:var(--tx2);text-decoration:none;font-size:13.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:color .2s}
+.home svg{width:15px;height:15px;flex-shrink:0}
+.home:hover{color:var(--tx)}
+.home .lbl{display:none}
+@media (min-width:560px){.home .lbl{display:inline}}
+
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:700;letter-spacing:0;font-size:13px;white-space:nowrap;overflow:hidden;min-width:0}
+.brand .live-dot{width:8px;height:8px;border-radius:50%;background:var(--live);box-shadow:0 0 12px var(--live);flex-shrink:0;animation:livepulse 1.3s ease-in-out infinite}
+@keyframes livepulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(1.35)}}
+.brand .full{display:none}.brand .short{display:inline}
+@media (min-width:640px){.brand .full{display:inline}.brand .short{display:none}}
+.top .sp{flex:1;min-width:4px}
+.navstat{flex-shrink:0;display:flex;align-items:center;gap:8px;color:var(--tx3);font-family:var(--mono);font-size:11px;white-space:nowrap}
+.navstat b{color:var(--ember);font-weight:500}
+@media (max-width:900px){.navstat{display:none}}
+
+/* ===== buttons ===== */
+/* ===== focus-visible: vien ro rang cho dieu huong ban phim ===== */
+a:focus-visible, button:focus-visible, .car-dot:focus-visible, .car-btn:focus-visible, summary:focus-visible, .chk:focus-within{
+  outline:2px solid var(--magenta); outline-offset:2px; border-radius:6px;
+}
+.btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:12px;font-weight:600;font-size:15px;line-height:1.2;
+  text-decoration:none;cursor:pointer;border:1px solid transparent;font-family:var(--body);overflow:hidden;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.bp{background:linear-gradient(120deg,var(--ember),var(--magenta),var(--violet));background-size:220% 100%;color:#fff;box-shadow:0 8px 28px rgba(255,61,127,.32);animation:gflow 5s linear infinite}
+@keyframes gflow{to{background-position:220% 0}}
+.bp::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);transform:translateX(-120%);transition:transform .7s ease}
+.bp:hover::after{transform:translateX(120%)}
+.bo{background:rgba(255,255,255,.04);color:var(--tx);border-color:var(--bd);backdrop-filter:blur(6px)}
+.bo:hover{border-color:var(--magenta);color:var(--magenta)}
+.magnet{will-change:transform}
+.top .diagbtn{flex-shrink:0;white-space:nowrap;padding:8px 13px;font-size:13px;gap:6px}
+.top .diagbtn .lbl-full{display:none}.top .diagbtn .lbl-short{display:inline}
+@media (min-width:480px){.top .diagbtn{padding:11px 20px;font-size:14.5px}.top .diagbtn .lbl-full{display:inline}.top .diagbtn .lbl-short{display:none}}
+@media (prefers-reduced-motion: reduce){.bp{animation:none;background-position:0 0}}
+
+/* ===== hero ===== */
+.hero{padding:88px 0 56px;position:relative}
+.onair{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--bd);border-radius:999px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;margin-bottom:26px;background:rgba(255,59,59,.06)}
+.onair .ld{width:7px;height:7px;border-radius:50%;background:var(--live);box-shadow:0 0 10px var(--live);animation:livepulse 1.3s ease-in-out infinite}
+.hero h1{font-size:clamp(30px,5.4vw,54px);max-width:900px;font-weight:800}
+.hero h1 .gtext{background:linear-gradient(100deg,var(--ember),var(--magenta),var(--violet),var(--ember));background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:gtext 7s linear infinite}
+@keyframes gtext{to{background-position:300% 0}}
+@media (prefers-reduced-motion: reduce){.hero h1 .gtext{animation:none;background-position:0 0}}
+.hero .sub{color:var(--tx);font-family:var(--disp);font-weight:600;font-size:clamp(16px,2.1vw,20px);margin:18px 0 14px}
+.hero p.lead{margin-bottom:30px;font-size:17px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.trust{color:var(--tx3);font-size:13px;font-family:var(--mono)}
+
+/* ===== waveform teaser: chay lien tuc vo han (khac 1-lan cua cac web truoc) ===== */
+.waveteaser{display:flex;align-items:center;gap:24px;margin-top:36px;padding:24px 26px;border-radius:18px;text-decoration:none;
+  position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--bd);transition:border-color .35s,transform .35s}
+.waveteaser:hover{border-color:var(--magenta);transform:translateY(-3px)}
+.wt-wave{display:flex;align-items:center;gap:2.5px;height:48px;flex-shrink:0;width:80px}
+.wt-wave i{display:block;flex:1;border-radius:2px;background:linear-gradient(180deg,var(--ember),var(--magenta));animation:wv 1.1s ease-in-out infinite}
+@keyframes wv{0%,100%{height:20%}50%{height:100%}}
+@media (prefers-reduced-motion: reduce){.wt-wave i{animation:none;height:55%}}
+.wt-txt{flex:1;min-width:0}
+.wt-kick{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;color:var(--magenta)}
+.wt-txt h3{font-size:clamp(16px,2.3vw,19px);margin-bottom:6px;color:var(--tx);font-weight:700}
+.wt-txt p{color:var(--tx2);font-size:13.6px}
+.wt-arrow{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;color:var(--ember);transition:transform .3s}
+.wt-arrow svg{width:17px;height:17px}
+.waveteaser:hover .wt-arrow{transform:translateX(4px)}
+@media (max-width:640px){.waveteaser{flex-wrap:wrap;padding:20px}.wt-arrow{display:none}}
+
+.readout{display:flex;gap:0;margin-top:22px;border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02)}
+.readout .cell{flex:1;padding:16px 18px;border-right:1px solid var(--bd)}
+.readout .cell:last-child{border-right:none}
+.readout .cell .k{font-family:var(--mono);font-size:10.5px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px}
+.readout .cell .v{font-family:var(--disp);font-size:18px;font-weight:700;color:var(--tx)}
+@media (max-width:760px){.readout{flex-wrap:wrap}.readout .cell{flex:1 1 50%;border-bottom:1px solid var(--bd)}}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .32s ease-out,transform .32s ease-out}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none} html{scroll-behavior:auto}}
+
+/* ===== carousel ===== */
+.carousel{position:relative;margin-top:28px}
+.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px;margin:-2px -2px -8px;cursor:grab;user-select:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track.grabbing{cursor:grabbing;scroll-snap-type:none}
+.car-track>*{scroll-snap-align:start;flex:0 0 auto}
+.car-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.car-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:rgba(255,255,255,.03);color:var(--tx2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,opacity .2s;flex-shrink:0}
+.car-btn svg{width:16px;height:16px}
+.car-btn:hover:not(:disabled){border-color:var(--magenta);color:var(--magenta)}
+.car-btn:disabled{opacity:.28;cursor:default}
+.car-dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:200px}
+.car-dot{width:22px;height:22px;border-radius:50%;background:transparent;transition:none;cursor:pointer;flex-shrink:0;border:none;padding:0;display:flex;align-items:center;justify-content:center;position:relative}
+.car-dot::after{content:"";display:block;width:6px;height:6px;border-radius:50%;background:var(--bd);transition:width .25s,background .25s}
+.car-dot.on::after{width:16px;border-radius:99px;background:var(--magenta)}
+
+
+/* ===== pains ===== */
+.pcard{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:16px;padding:24px;width:min(78vw,260px);transition:border-color .3s}
+.pcard:hover{border-color:rgba(255,107,53,.4)}
+.pcard h3{font-size:16.5px;margin-bottom:8px;font-weight:700}
+.pcard p{color:var(--tx2);font-size:14px}
+
+/* ===== channel lineup (chu ky chinh, khac han 5 web truoc) ===== */
+.ep{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:16px;padding:0;width:min(80vw,270px);overflow:hidden;transition:transform .3s,border-color .3s}
+.ep:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.25)}
+.ep-thumb{height:8px;width:100%}
+.ep-body{padding:20px 22px}
+.ep-num{font-family:var(--mono);font-size:11px;color:var(--tx3);letter-spacing:.08em;margin-bottom:10px}
+.ep h4{font-size:16px;margin-bottom:8px;font-weight:700}
+.ep p{color:var(--tx2);font-size:13.6px}
+
+/* ===== packages (subscription-tier) ===== */
+.pkg{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:18px;padding:28px 24px;display:flex;flex-direction:column;overflow:hidden;width:min(84vw,300px)}
+.pkg.feat{border-color:transparent;background:linear-gradient(var(--void2),var(--void2)) padding-box,linear-gradient(120deg,var(--ember),var(--magenta),var(--violet)) border-box;
+  border:1px solid transparent;box-shadow:0 14px 46px rgba(255,61,127,.22)}
+.pkg.feat::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(255,61,127,.26),transparent 30%);animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pkg.feat>*{position:relative;z-index:1}
+.ptag{position:absolute;top:-13px;left:22px;background:linear-gradient(120deg,var(--ember),var(--magenta));color:#fff;font-size:11.5px;
+  font-weight:700;padding:4px 13px;border-radius:999px;font-family:var(--mono);letter-spacing:.02em;z-index:2}
+.pkg h3{font-size:18px;margin-bottom:8px}
+.pdesc{color:var(--tx2);font-size:13.6px;margin-bottom:16px}
+.pkg ul{list-style:none;margin:0 0 22px;display:grid;gap:9px;flex:1}
+.pkg li{color:var(--tx2);font-size:13.8px;padding-left:22px;position:relative}
+.pkg li::before{content:"◆";position:absolute;left:0;color:var(--magenta);font-size:9px;top:5px}
+
+/* ===== outcomes ===== */
+.outs{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 30px;margin-top:22px}
+.outs li{padding-left:32px;position:relative;color:var(--tx2);font-size:15px}
+.outs li svg{position:absolute;left:0;top:3px;width:20px;height:20px}
+.outs li svg path{stroke:var(--ember);stroke-width:2.4;fill:none;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .6s ease}
+.outs li.on svg path{stroke-dashoffset:0}
+@media (max-width:640px){.outs{grid-template-columns:1fr}}
+
+/* ===== audience/diffs ===== */
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:22px;transition:border-color .3s;width:min(78vw,270px)}
+.card:hover{border-color:rgba(255,255,255,.25)}
+.card h4{font-size:15.5px;margin-bottom:7px;font-weight:700}
+.card p{color:var(--tx2);font-size:13.8px}
+
+/* ===== faq ===== */
+.faqs{display:grid;gap:10px;margin-top:24px}
+.faq{background:var(--panel);border:1px solid var(--bd);border-radius:14px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;display:flex;align-items:center;gap:12px;font-size:15px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"›";font-family:var(--mono);color:var(--magenta);font-size:18px;transition:transform .3s}
+.faq[open] summary::before{transform:rotate(90deg)}
+.faq p{padding:0 20px 18px 44px;color:var(--tx2);font-size:14.3px}
+
+/* ===== form ===== */
+.formbox{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bd);border-radius:20px;padding:34px;margin-top:28px}
+.frm{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:12px;color:var(--tx2);font-weight:600;font-family:var(--mono);letter-spacing:.02em;text-transform:uppercase}
+.fld input,.fld select,.fld textarea{background:rgba(0,0,0,.35);border:1px solid var(--bd);border-radius:11px;padding:13px 15px;color:var(--tx);
+  font-family:var(--body);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--magenta);box-shadow:0 0 0 3px rgba(255,61,127,.15)}
+.fld.err input,.fld.err textarea{border-color:#E24B4A}
+.needs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;min-width:0}
+.chk{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.25);border:1px solid var(--bd);border-radius:10px;padding:10px 13px;cursor:pointer;font-size:13.6px;color:var(--tx2);transition:.2s}
+.chk:has(input:checked){border-color:var(--magenta);color:var(--tx);background:rgba(255,61,127,.08)}
+.chk input{accent-color:var(--magenta)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13.2px;color:var(--tx2)}
+.fmsg{grid-column:1/-1;font-size:14px;min-height:20px}
+.fmsg.ok{color:var(--ember)}.fmsg.bad{color:#F09595}
+
+/* ===== footer ===== */
+.foot{border-top:1px solid var(--bd);padding:40px 0;color:var(--tx3);font-size:13.5px}
+.foot .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.foot a{color:var(--tx2);text-decoration:none}
+.foot a:hover{color:var(--magenta)}
+  #baikaAnimBg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.8}
+</style>
+<script src="/shield.js" defer></script>
+  <link rel="stylesheet" href="/baika-suite/shared/mobile-fixes.css">
+</head>
+<body>
+<canvas id="baikaAnimBg"></canvas>
+<div id="glowBg"><div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div></div>
+
+<header class="top"><div class="wrap">
+  <a class="home" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg><span class="lbl">Trang chủ</span></a>
+  <div class="brand"><span class="logo-stage"><div class="logo-halo"></div><div class="logo-mask"></div></span><span class="full">BRAND LAUNCH SYSTEM</span><span class="short">BRAND</span></div>
+  <div class="sp"></div>
+  <span class="navstat"><b>● ON AIR</b> · 9 TẦNG HỆ THỐNG</span>
+  <a class="btn bp magnet diagbtn" href="/marketing/diagnostic"><span class="lbl-full">Chẩn đoán thương hiệu miễn phí</span><span class="lbl-short">Chẩn đoán</span></a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <span class="onair"><span class="ld"></span>◆ ON AIR — HỆ THỐNG 9 TẦNG ĐANG PHÁT SÓNG</span>
+  <h1 id="heroTitle">BAIKA <span class="gtext">Brand Launch</span> System</h1>
+  <div class="sub" id="heroSub">Từ định vị thương hiệu đến kế hoạch ra thị trường — trong một hệ thống</div>
+  <p class="lead" id="heroDesc">Không làm thương hiệu kiểu chắp vá: BAIKA xây nền định vị, hệ thông điệp, kế hoạch IMC và bộ công cụ bán hàng như một hệ thống hoàn chỉnh để ra mắt và tăng trưởng.</p>
+  <div class="cta">
+    <a class="btn bp magnet" href="/marketing/diagnostic" id="heroCta1">Chẩn đoán thương hiệu miễn phí</a>
+    <a class="btn bo magnet" href="#goi">Xem gói dịch vụ</a>
+  </div>
+  <p class="trust">// 5 PHÚT CHẨN ĐOÁN — BIẾT NGAY ĐANG Ở TẦNG NÀO CỦA HỆ THỐNG</p>
+
+  <a class="waveteaser rv" href="/marketing/diagnostic">
+    <div class="wt-wave" id="wtWave"></div>
+    <div class="wt-txt">
+      <div class="wt-kick">◆ Điểm khởi đầu miễn phí</div>
+      <h3>Chẩn đoán thương hiệu — chấm điểm mức độ sẵn sàng</h3>
+      <p>5 phút · nhận điểm số và đề xuất gói phù hợp trước khi bạn quyết định đầu tư.</p>
+    </div>
+    <span class="wt-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+
+  <div class="readout rv">
+    <div class="cell"><div class="k">Tầng hệ thống</div><div class="v">09</div></div>
+    <div class="cell"><div class="k">Gói dịch vụ</div><div class="v">03</div></div>
+    <div class="cell"><div class="k">Đối tượng phù hợp</div><div class="v">06</div></div>
+    <div class="cell"><div class="k">Điểm khác biệt</div><div class="v">04</div></div>
+  </div>
+</div></section>
+
+<section class="sec" id="van-de"><div class="wrap">
+  <p class="kick">Chẩn đoán hiện trạng</p>
+  <h2 class="h">Thương hiệu của bạn có đang gặp tình trạng này?</h2>
+  <div class="carousel">
+    <div class="pgrid car-track" id="painsTrack"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="painsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="giai-phap"><div class="wrap">
+  <p class="kick">Kiến trúc hệ thống</p>
+  <h2 class="h">Hệ thống thương hiệu 9 tầng của BAIKA</h2>
+  <p class="lead">Mỗi tầng giải quyết một khâu — từ chẩn đoán, chiến lược đến công cụ thực thi và đo lường. Doanh nghiệp có thể vào từ tầng phù hợp với hiện trạng. Vuốt để xem toàn bộ chương trình phát sóng.</p>
+  <div class="carousel">
+    <div class="epgrid car-track" id="epTrack"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="epDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+
+<section class="sec" id="tru-cot-v2"><div class="wrap">
+  <p class="kick">Hệ sinh thái dịch vụ</p>
+  <h2 class="h">Một mái nhà, đủ mọi vũ khí</h2>
+  <div class="carousel">
+    <div class="car-track" id="v2PillarsGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="v2PillarsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+
+<section class="sec" id="dichvu"><div class="wrap">
+  <p class="kick">Kho vũ khí đầy đủ</p>
+  <h2 class="h">8 dịch vụ — một hệ sinh thái marketing hoàn chỉnh</h2>
+  <p class="lead">Từ nền tảng thương hiệu đến chạy kênh thực chiến — BAIKA cung cấp trọn bộ, không cần tìm thêm đối tác nào khác.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="dichvuGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="dichvuDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="imc" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">Truyền thông tích hợp</p>
+  <h2 class="h">Chiến dịch chạm mọi điểm</h2>
+  <p class="lead">IMC Blueprint 6 thành phần — một thông điệp, nhiều kênh, cùng một nhịp khuếch đại.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="imcGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="imcDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="kol"><div class="wrap">
+  <p class="kick">KOL / KOC Network</p>
+  <h2 class="h">Chọn gương mặt cho thương hiệu</h2>
+  <p class="lead">Mạng lưới KOL/KOC theo lĩnh vực & nền tảng — đo lường hiệu quả rõ ràng, không chọn theo cảm tính.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="kolGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="kolDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="case" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">Kết quả thực chiến</p>
+  <h2 class="h">Những con số biết cháy</h2>
+  <p class="lead">Số liệu thực từ các chiến dịch BAIKA đã triển khai — không phải cam kết, là kết quả đo được.</p>
+  <div class="readout rv" id="caseStats" style="margin-top:24px"></div>
+</div></section>
+
+<section class="sec" id="uudai"><div class="wrap">
+  <p class="kick">Ưu đãi & Gói đặc biệt</p>
+  <h2 class="h">Gói combo bốc lửa</h2>
+  <p class="lead">Combo theo mùa, gói định kỳ và giải pháp cho chiến dịch đột xuất — chọn đúng gói, tiết kiệm ngân sách tối đa.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="uudaiGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="uudaiDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="goi"><div class="wrap">
+  <p class="kick">Gói dịch vụ</p>
+  <h2 class="h">Chọn điểm bắt đầu phù hợp</h2>
+  <p class="lead">Mỗi gói là một điểm vào — có thể nâng cấp dần theo mức độ sẵn sàng của doanh nghiệp.</p>
+  <div class="carousel">
+    <div class="pkgs car-track" id="pkgsBox"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="pkgDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="ket-qua"><div class="wrap">
+  <p class="kick">Kết quả nhận được</p>
+  <h2 class="h">Sau khi triển khai cùng BAIKA</h2>
+  <ul class="outs" id="outsList"></ul>
+</div></section>
+
+<section class="sec" id="phu-hop"><div class="wrap">
+  <p class="kick">Đối tượng phù hợp</p>
+  <h2 class="h">Dịch vụ này dành cho ai?</h2>
+  <div class="carousel">
+    <div class="car-track" id="audGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="audDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="khac-biet"><div class="wrap">
+  <p class="kick">Điểm khác biệt</p>
+  <h2 class="h">Vì sao chọn BAIKA?</h2>
+  <div class="carousel">
+    <div class="car-track" id="difGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="difDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="faq"><div class="wrap">
+  <p class="kick">Câu hỏi thường gặp</p>
+  <h2 class="h">FAQ</h2>
+  <div class="faqs" id="faqBox"></div>
+</div></section>
+
+<section class="sec" id="lien-he"><div class="wrap">
+  <p class="kick">Bắt đầu</p>
+  <h2 class="h">Nhận tư vấn thương hiệu cùng BAIKA</h2>
+  <p class="lead">Điền thông tin — đội ngũ BAIKA sẽ liên hệ trong 24 giờ làm việc.</p>
+  <div class="formbox"><form id="leadForm" class="frm" novalidate>
+    <div class="fld"><label>Họ và tên *</label><input name="full_name" type="text" placeholder="Nguyễn Văn A" required></div>
+    <div class="fld"><label>Số điện thoại *</label><input name="phone" type="tel" placeholder="09xx xxx xxx" required></div>
+    <div class="fld"><label>Email</label><input name="email" type="email" placeholder="ban@congty.vn"></div>
+    <div class="fld"><label>Doanh nghiệp</label><input name="company" type="text" placeholder="Tên công ty (nếu có)"></div>
+    <div class="fld full"><label>Nhu cầu của bạn * (chọn 1 hoặc nhiều)</label><div class="needs" id="needsBox"></div></div>
+    <div class="fld full"><label>Gói quan tâm</label><select name="pkg" id="pkgSel"><option value="">— Chưa chọn —</option></select></div>
+    <div class="fld full"><label>Mô tả ngắn vấn đề đang gặp</label><textarea name="msg" rows="3" placeholder="Ví dụ: sắp ra mắt sản phẩm mới nhưng chưa có kế hoạch truyền thông..."></textarea></div>
+    <div class="fld full consent"><input type="checkbox" id="consent"><label for="consent">Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo chính sách bảo mật.</label></div>
+    <div class="fmsg" id="fmsg"></div>
+    <div class="fld full"><button type="submit" class="btn bp magnet" id="sbm">Gửi yêu cầu tư vấn</button></div>
+  </form></div>
+</div></section>
+
+<footer style="border-top: 1px solid var(--bd); padding: 60px 0; background: var(--void); color: var(--tx2); font-family: var(--body); font-size: 14px; line-height: 1.8;">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 32px; text-align: left;">
+    <!-- Logo & Status -->
+    <div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        
+        <div style="font-family: var(--disp), sans-serif; font-weight: 800; font-size: 26px; color: #FFF; letter-spacing: 3px;">BAIKA</div>
+        <div style="font-family: var(--mono), monospace; font-size: 11px; color: #FFF; border: 1px solid rgba(255,255,255,0.4); padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 1px;">JSC</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 4px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #4FE5FF; box-shadow: 0 0 10px #4FE5FF;"></span>
+        <span style="font-family: var(--mono), monospace; font-size: 11px; color: #8A98B3; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Hệ thống đang vận hành</span>
+      </div>
+    </div>
+
+    <!-- Company Name -->
+    <div>
+      <div style="font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 4px;">CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA</div>
+      <div style="font-size: 14px; color: #8A98B3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">BAIKA TECHNOLOGICAL JOINT STOCK COMPANY</div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="display: flex; flex-direction: column; gap: 16px; font-size: 15px;">
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Địa chỉ:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">Tầng 15, 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh, Việt Nam</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Hotline:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">0905.247.365</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Email:</span>
+        <span style="color: #8A98B3;">baika.vn@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/baika-suite/shared/site-common.js"></script>
+<script>
+(function(){
+  var wireCarousel = window.BaikaSite.wireCarousel;
+  /* ---------- DATA ---------- */
+  var PAINS=[
+    ["Thương hiệu mờ nhạt","Khách không phân biệt được bạn với đối thủ; giá trị thật của sản phẩm không được truyền tải."],
+    ["Truyền thông rời rạc","Mỗi kênh nói một kiểu, thông điệp thay đổi theo cảm hứng; chạy quảng cáo nhưng không đọng lại gì."],
+    ["Launch thiếu kế hoạch","Ra sản phẩm mới theo kiểu 'đăng bài rồi tính tiếp'; không có lộ trình, mốc và ngân sách rõ ràng."],
+    ["Đội sales thiếu công cụ","Nhân viên bán hàng tự chế tài liệu; câu chuyện thương hiệu mỗi người kể một khác."]
+  ];
+  var EPISODES=[
+    ["Brand Diagnosis","Chẩn đoán hiện trạng thương hiệu: mức độ nhận biết, tính nhất quán, khoảng cách giữa định vị mong muốn và cảm nhận thực tế của khách hàng."],
+    ["Brand Strategy","Chiến lược định vị: chọn phân khúc, điểm khác biệt, lời hứa thương hiệu và kiến trúc thương hiệu phù hợp mô hình kinh doanh."],
+    ["Messaging System","Hệ thông điệp phân tầng: thông điệp lõi, thông điệp theo nhóm khách hàng, theo kênh và theo giai đoạn hành trình mua."],
+    ["Visual Identity Direction","Định hướng nhận diện thị giác: tinh thần thiết kế, bảng màu, typography và nguyên tắc ứng dụng — nhất quán trên mọi điểm chạm."],
+    ["IMC Blueprint","Bản thiết kế truyền thông tích hợp: mục tiêu từng kênh, vai trò từng loại nội dung, nhịp truyền thông và phối hợp giữa các kênh."],
+    ["Launch Plan","Kế hoạch ra mắt theo mốc: pre-launch, launch, post-launch với hạng mục, ngân sách, KPI và kịch bản dự phòng."],
+    ["Sales Enablement Kit","Bộ công cụ cho đội bán hàng: sales deck, kịch bản tư vấn, xử lý từ chối, one-pager — kể cùng một câu chuyện thương hiệu."],
+    ["Content Production Direction","Định hướng sản xuất nội dung: trục nội dung, guideline giọng điệu, khung biên tập để đội in-house hoặc agency thực thi đúng chuẩn."],
+    ["Launch Dashboard","Bộ chỉ số theo dõi chiến dịch: nhận biết, tương tác, chuyển đổi — biết cái gì hiệu quả để dồn ngân sách đúng chỗ."]
+  ];
+  var PACKAGES=[
+    {name:"Brand Foundation",feat:false,desc:"Xây nền thương hiệu: định vị, thông điệp, định hướng nhận diện.",items:["Brand Diagnosis","Brand Strategy & định vị","Messaging System","Visual Identity Direction"]},
+    {name:"IMC Launch Blueprint",feat:false,desc:"Thiết kế hệ truyền thông tích hợp và kế hoạch ra mắt.",items:["Toàn bộ Brand Foundation","IMC Blueprint","Launch Plan theo mốc","Định hướng content"]},
+    {name:"Brand-to-Market Launch",feat:true,desc:"Trọn bộ từ nền thương hiệu đến công cụ bán hàng và dashboard.",items:["Toàn bộ IMC Launch Blueprint","Sales Enablement Kit","Launch Dashboard","Đồng hành giai đoạn ra mắt"]}
+  ];
+  var OUTCOMES=["Định vị rõ ràng — khách hàng hiểu bạn khác gì đối thủ","Một hệ thông điệp nhất quán trên mọi kênh, mọi nhân sự","Kế hoạch launch có mốc, ngân sách và KPI thay vì ngẫu hứng","Đội sales có bộ công cụ chuẩn, kể cùng một câu chuyện","Nội dung sản xuất theo định hướng, không lệch tông","Dashboard đo lường để biết ngân sách đang sinh hiệu quả ở đâu"];
+  var AUDIENCE=[["Doanh nghiệp sắp ra mắt sản phẩm","Cần một kế hoạch launch bài bản thay vì đăng bài cầu may."],["Thương hiệu đang mờ nhạt","Bán được hàng nhưng thương hiệu không đọng lại trong tâm trí khách."],["Doanh nghiệp tái định vị","Đổi phân khúc, đổi mô hình — cần kể lại câu chuyện thương hiệu từ đầu."],["Đội marketing thiếu khung","Có người chạy kênh nhưng thiếu chiến lược và hệ thông điệp phía trên."],["Doanh nghiệp B2B cần sales kit","Chu trình bán dài, cần công cụ thuyết phục nhất quán cho đội ngũ."],["Founder chuẩn bị gọi vốn","Cần câu chuyện thương hiệu chặt chẽ trước nhà đầu tư và thị trường."]];
+  var DIFFS=[["Hệ thống, không phải dự án lẻ","9 tầng liên kết với nhau — làm tầng nào cũng đặt trong tổng thể."],["Chiến lược gắn với thực thi","Không dừng ở slide đẹp: có kế hoạch, công cụ và dashboard để chạy thật."],["Bắt đầu bằng chẩn đoán","Có công cụ chẩn đoán thương hiệu để đề xuất đúng gói — không bán thừa."],["Đồng bộ với hệ sinh thái BAIKA","Kết nối với tư vấn vận hành, tài chính, công nghệ khi tăng trưởng cần."]];
+  var FAQ=[["Tôi chưa biết mình cần gì thì bắt đầu từ đâu?","Làm bài chẩn đoán thương hiệu miễn phí (5 phút) — hệ thống chấm điểm mức độ sẵn sàng và đề xuất gói phù hợp trước khi bạn quyết định."],["BAIKA có thiết kế logo / chạy quảng cáo không?","BAIKA làm tầng chiến lược và định hướng (bao gồm định hướng nhận diện, định hướng content). Phần sản xuất thiết kế và chạy kênh có thể do đội của bạn, agency, hoặc BAIKA giới thiệu đối tác thực thi theo đúng định hướng."],["Thời gian triển khai bao lâu?","Brand Foundation khoảng 4–6 tuần; trọn bộ Brand-to-Market Launch 8–12 tuần tùy phạm vi."],["Doanh nghiệp B2B có phù hợp không?","Rất phù hợp — hệ thông điệp phân tầng và Sales Enablement Kit được thiết kế đặc biệt hiệu quả cho chu trình bán B2B."]];
+  var NEEDS=["Branding / định vị","Truyền thông tích hợp (IMC)","Kế hoạch launch","Sales Enablement","Định hướng content","Dashboard đo lường","Nhu cầu khác"];
+  var GRAD=["linear-gradient(90deg,#FF6B35,#FF3D7F)","linear-gradient(90deg,#FF5060,#FF3D7F)","linear-gradient(90deg,#FF3D7F,#C34FE0)","linear-gradient(90deg,#D048E8,#8B5CF6)","linear-gradient(90deg,#8B5CF6,#6E7BF2)","linear-gradient(90deg,#6E7BF2,#4FA8F2)","linear-gradient(90deg,#4FA8F2,#4FE0D8)","linear-gradient(90deg,#FF9D4D,#FF6B35)","linear-gradient(90deg,#FFB347,#FF6B35)"];
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  /* ---------- carousel ---------- */
+  
+
+  /* ---------- render ---------- */
+  document.getElementById('painsTrack').innerHTML = PAINS.map(function(p){ return '<div class="pcard rv"><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>'; }).join('');
+  wireCarousel('painsTrack','painsDots');
+
+  document.getElementById('epTrack').innerHTML = EPISODES.map(function(m,i){
+    return '<div class="ep rv"><div class="ep-thumb" style="background:'+GRAD[i]+'"></div><div class="ep-body"><div class="ep-num mono">EP.'+String(i+1).padStart(2,'0')+' — TẦNG '+(i+1)+'/9</div><h4>'+esc(m[0])+'</h4><p>'+esc(m[1])+'</p></div></div>';
+  }).join('');
+  wireCarousel('epTrack','epDots');
+
+  function pkgHTML(list){
+    return list.map(function(p){
+      var items=(p.items||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+      return '<div class="pkg rv'+(p.feat?' feat':'')+'">'+(p.feat?'<div class="ptag">ĐỀ XUẤT</div>':'')+
+        '<h3>'+esc(p.name)+'</h3><p class="pdesc">'+esc(p.desc||'')+'</p><ul>'+items+'</ul>'+
+        '<button class="btn '+(p.feat?'bp':'bo')+' magnet" data-pkg="'+esc(p.name)+'">Chọn gói này</button></div>';
+    }).join('');
+  }
+  document.getElementById('pkgsBox').innerHTML = pkgHTML(PACKAGES);
+  document.getElementById('pkgSel').innerHTML = '<option value="">— Chưa chọn —</option>'+PACKAGES.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+  wireCarousel('pkgsBox','pkgDots');
+
+  document.getElementById('outsList').innerHTML = OUTCOMES.map(function(o){ return '<li class="rv"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-8"/></svg>'+esc(o)+'</li>'; }).join('');
+
+  document.getElementById('audGrid').innerHTML = AUDIENCE.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('audGrid','audDots');
+  document.getElementById('difGrid').innerHTML = DIFFS.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('difGrid','difDots');
+  document.getElementById('faqBox').innerHTML = FAQ.map(function(f){return '<details class="faq rv"><summary>'+esc(f[0])+'</summary><p>'+esc(f[1])+'</p></details>';}).join('');
+  document.getElementById('needsBox').innerHTML = NEEDS.map(function(n){return '<label class="chk"><input type="checkbox" name="needs" value="'+esc(n)+'"><span>'+esc(n)+'</span></label>';}).join('');
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var wtWave=document.getElementById('wtWave');
+  var wbars=18, whtml='';
+  for(var i=0;i<wbars;i++){
+    var dur=(0.7+Math.random()*0.8).toFixed(2), delay=(Math.random()*0.6).toFixed(2);
+    whtml+='<i style="animation-duration:'+dur+'s;animation-delay:-'+delay+'s"></i>';
+  }
+  wtWave.innerHTML=whtml;
+
+  function bindPkgButtons(){
+    document.querySelectorAll('[data-pkg]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var s=document.getElementById('pkgSel'); s.value=b.getAttribute('data-pkg');
+        document.getElementById('lien-he').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  }
+  bindPkgButtons();
+
+  /* ---------- reveal on scroll ---------- */
+
+
+
+
+  var V2_PILLARS = [
+    ["Xây dựng Content", "Chiến lược nội dung, content pillar, kịch bản viral, storytelling."],
+    ["Xây kênh (Owned Media)", "Vận hành TikTok, YouTube, Fanpage và Website chuẩn SEO."],
+    ["Digital Marketing", "Performance ads, SEO, Email automation — tối ưu chuyển đổi."],
+    ["Thiết kế chiến dịch IMC", "Truyền thông tích hợp: một thông điệp, nhiều kênh."],
+    ["Thương hiệu tổng thể", "Định vị, bộ nhận diện, tông giọng và hệ thống hình ảnh."],
+    ["Booking KOL / KOC", "Mạng lưới KOL/KOC theo lĩnh vực, đo lường hiệu quả rõ ràng."],
+    ["Sự kiện & Activation", "Tổ chức sự kiện, roadshow, activation chuyên nghiệp."],
+    ["Quay dựng & Sản xuất", "TVC, phim viral, video review, photoshoot in-house."]
+  ];
+
+  var V2_TOOLS = [
+    ["Seasonal Ignite", "từ 35tr/chiến dịch. Thiết kế dành riêng cho mùa lễ hội."],
+    ["Growth Engine", "từ 28tr/tháng. Đóng gói cho vận hành dài hạn."],
+    ["Rapid Strike", "Báo giá riêng. Triển khai hỏa tốc các chiến dịch đặc thù."]
+  ];
+
+  if (document.getElementById('v2PillarsGrid')) {
+    document.getElementById('v2PillarsGrid').innerHTML = V2_PILLARS.map(function(p){
+      return '<div class="card rv"><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('v2PillarsGrid', 'v2PillarsDots');
+  }
+
+  if (document.getElementById('v2ToolsGrid')) {
+    document.getElementById('v2ToolsGrid').innerHTML = V2_TOOLS.map(function(p, i){
+      return '<div class="st3card rv"><div class="stn mono">COMBO 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+
+
+  /* -------- LÔ 1: MARKETING SECTIONS -------- */
+  var DICHVU_DATA = [
+    ["Xây dựng Content", "Chiến lược nội dung, content pillar, kịch bản viral, storytelling thương hiệu — xây từ nền, không đăng vô tội vạ."],
+    ["Xây kênh (Owned Media)", "Vận hành & nuôi lớn TikTok, YouTube, Fanpage và Website chuẩn SEO — kênh tự sở hữu, không phụ thuộc thuật toán mãi mãi."],
+    ["Digital Marketing", "Performance ads, SEO, Email automation — tối ưu chuyển đổi theo dữ liệu thực, không đốt ngân sách mù."],
+    ["Thiết kế chiến dịch IMC", "Truyền thông tích hợp: một thông điệp, nhiều kênh, cùng một nhịp khuếch đại."],
+    ["Thương hiệu tổng thể", "Định vị, bộ nhận diện, tông giọng và hệ thống hình ảnh — xây thương hiệu nhớ lâu, yêu lâu."],
+    ["Booking KOL / KOC", "Mạng lưới KOL/KOC theo lĩnh vực & nền tảng, đo lường hiệu quả rõ ràng thay vì chọn theo cảm tính."],
+    ["Sự kiện & Activation", "Tổ chức sự kiện, roadshow, activation — biến khoảnh khắc thành trải nghiệm thương hiệu không quên."],
+    ["Quay dựng & Sản xuất", "TVC, phim viral, video review, photoshoot — đội ngũ sản xuất in-house, chất lượng nhất quán."]
+  ];
+
+  var IMC_DATA = [
+    ["Nội dung (Content)", "Trục nội dung & lịch biên tập đồng bộ trên mọi kênh — giọng điệu nhất quán, tần suất đều đặn."],
+    ["Truyền thông trả phí", "Performance ads: Meta, Google, TikTok — phân bổ ngân sách theo dữ liệu, tối ưu ROAS liên tục."],
+    ["Owned Media", "Website, fanpage, kênh YouTube — tài sản số tự sở hữu tăng giá trị theo thời gian."],
+    ["Earned Media", "PR, báo chí, viral organic — khuếch đại bằng uy tín thay vì chỉ bằng tiền."],
+    ["KOL / KOC", "Gương mặt đại diện phù hợp thương hiệu — không chọn theo follower, chọn theo độ khớp & engagement thật."],
+    ["Sự kiện & Activation", "Điểm chạm ngoài đời thực — kết nối cảm xúc, tạo trải nghiệm nhớ lâu."]
+  ];
+
+  var KOL_DATA = [
+    ["Mega KOL (>1M followers)", "Phù hợp với chiến dịch nhận diện thương hiệu diện rộng, ra mắt sản phẩm mới cần độ phủ cao."],
+    ["Macro KOL (100K–1M)", "Cân bằng giữa độ phủ & tương tác — hiệu quả cho chiến dịch thương hiệu & bán hàng tích hợp."],
+    ["Micro KOC (10K–100K)", "Engagement thật, cộng đồng trung thành — ROI cao nhất cho nhóm sản phẩm đặc thù, ngách."],
+    ["Nano KOC (<10K)", "Uy tín trong cộng đồng nhỏ, review chân thực — phù hợp F&B, lifestyle, beauty địa phương."],
+    ["Tìm KOL theo ngành", "Lọc theo lĩnh vực: F&B, thời trang, công nghệ, tài chính, giáo dục, sức khỏe & làm đẹp."],
+    ["Đo lường sau chiến dịch", "Báo cáo reach, engagement, conversion & brand sentiment — biết rõ đồng tiền sinh hiệu quả ở đâu."]
+  ];
+
+  var UUDAI_DATA = [
+    {name:"Seasonal Ignite", tag:"MÙA LỄ HỘI", price:"từ 35tr/chiến dịch", desc:"Gói chiến dịch trọn bộ cho mùa lễ hội: Tết, 8/3, 10/10, Black Friday — content, ads & KOC. Ký trước hạn nhận thêm 1 video viral tặng kèm.", hot:true},
+    {name:"Growth Engine", tag:"ĐỊNH KỲ", price:"từ 28tr/tháng", desc:"Gói vận hành kênh dài hạn: content, owned media, performance ads, báo cáo tháng — phù hợp cho doanh nghiệp muốn tăng trưởng bền vững.", hot:false},
+    {name:"Rapid Strike", tag:"HỎA TỐC", price:"Báo giá riêng", desc:"Triển khai nhanh cho chiến dịch đặc thù, deadline gấp — đội ngũ BAIKA phản hồi trong 4 giờ, lên plan trong 24 giờ.", hot:false}
+  ];
+
+  var CASE_DATA = [
+    {k:"Tăng trưởng đơn hàng", v:"+340%", sub:"3 tháng nhờ chiến dịch IMC kết hợp TikTok owned media & KOC review"},
+    {k:"Lượt xem viral", v:"12M+", sub:"1 TVC + chuỗi video review lan tỏa tự nhiên, cháy hàng ngay tuần đầu"},
+    {k:"ROAS quảng cáo", v:"8.4x", sub:"Tối ưu funnel & nội dung, giảm 38% chi phí mỗi lead trong 6 tháng"},
+    {k:"Thương hiệu phủ sóng", v:"95%", sub:"Brand awareness tăng từ 31% lên 95% trong cộng đồng mục tiêu sau 6 tháng"}
+  ];
+
+  /* render dichvu */
+  if(document.getElementById('dichvuGrid')){
+    document.getElementById('dichvuGrid').innerHTML = DICHVU_DATA.map(function(p,i){
+      var icons = ['✍️','📡','📊','🎯','🎨','🤝','🎪','🎬'];
+      return '<div class="card rv" style="min-width:220px"><div style="font-size:28px;margin-bottom:10px">'+icons[i]+'</div><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('dichvuGrid','dichvuDots');
+  }
+
+  /* render imc */
+  if(document.getElementById('imcGrid')){
+    document.getElementById('imcGrid').innerHTML = IMC_DATA.map(function(p,i){
+      return '<div class="card rv" style="min-width:220px"><div class="stn mono" style="font-size:11px;color:var(--magenta);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">THÀNH PHẦN 0'+(i+1)+'</div><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('imcGrid','imcDots');
+  }
+
+  /* render kol */
+  if(document.getElementById('kolGrid')){
+    document.getElementById('kolGrid').innerHTML = KOL_DATA.map(function(p){
+      return '<div class="card rv" style="min-width:220px"><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('kolGrid','kolDots');
+  }
+
+  /* render case stats */
+  if(document.getElementById('caseStats')){
+    document.getElementById('caseStats').innerHTML = CASE_DATA.map(function(c){
+      return '<div class="cell"><div class="k">'+esc(c.k)+'</div><div class="v" style="font-size:clamp(22px,3.5vw,36px);background:linear-gradient(90deg,var(--ember),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent">'+esc(c.v)+'</div><div style="font-size:12px;color:var(--tx3);margin-top:4px">'+esc(c.sub)+'</div></div>';
+    }).join('');
+  }
+
+  /* render uudai */
+  if(document.getElementById('uudaiGrid')){
+    document.getElementById('uudaiGrid').innerHTML = UUDAI_DATA.map(function(p){
+      return '<div class="pkg rv'+(p.hot?' feat':'')+'">'+
+        (p.hot?'<div class="ptag">'+esc(p.tag)+'</div>':'')+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<p class="pdesc" style="color:var(--ember);font-family:var(--mono);font-size:13px;margin-bottom:8px">'+esc(p.price)+'</p>'+
+        '<p class="pdesc">'+esc(p.desc)+'</p>'+
+        '<a class="btn '+(p.hot?'bp':'bo')+' magnet" href="#lien-he">Tư vấn ngay</a>'+
+        '</div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('uudaiGrid','uudaiDots');
+  }
+
+window.BaikaSite.wireReveal();
+
+  /* ---------- magnetic buttons ---------- */
+window.BaikaSite.wireMagnet(reduce);
+
+  /* ---------- form submit ---------- */
+  var form=document.getElementById('leadForm'), msg=document.getElementById('fmsg'), btn=document.getElementById('sbm');
+  function setMsg(t,ok){ msg.textContent=t; msg.className='fmsg '+(ok?'ok':'bad'); }
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var name=form.full_name.value.trim(), phone=form.phone.value.replace(/[^\d+]/g,'');
+    var needs=[].slice.call(form.querySelectorAll('input[name=needs]:checked')).map(function(c){return c.value;});
+    form.querySelectorAll('.fld').forEach(function(f){f.classList.remove('err');});
+    if(!name){ setMsg('Vui lòng nhập họ tên.',false); form.full_name.closest('.fld').classList.add('err'); return; }
+    if(!/^\+?\d{9,12}$/.test(phone)){ setMsg('Số điện thoại chưa đúng định dạng.',false); form.phone.closest('.fld').classList.add('err'); return; }
+    if(form.email.value && !/^\S+@\S+\.\S+$/.test(form.email.value)){ setMsg('Email chưa đúng định dạng.',false); form.email.closest('.fld').classList.add('err'); return; }
+    if(needs.length<1){ setMsg('Vui lòng chọn ít nhất một nhu cầu.',false); return; }
+    if(!document.getElementById('consent').checked){ setMsg('Vui lòng đồng ý chính sách bảo mật để BAIKA có thể liên hệ.',false); return; }
+    var extras=[];
+    if(form.company.value) extras.push('Cty: '+form.company.value);
+    if(form.pkg.value) extras.push('Goi: '+form.pkg.value);
+    if(form.msg.value) extras.push(form.msg.value);
+    var payload={ fullName:name, phone:phone, email:form.email.value||null, serviceNeeds:needs,
+      siteId:'marketing', sourcePage:location.pathname, privacyConsent:true,
+      interestedPackage: form.pkg.value||null, problemDescription: extras.join(' | ')||null };
+    btn.disabled=true; btn.textContent='Đang gửi...';
+    try{
+      var res=await fetch('/api/v1/public/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(res.ok){ setMsg('Đã gửi thành công! BAIKA sẽ liên hệ với bạn trong 24 giờ làm việc.',true); form.reset(); }
+      else if(res.status===422||res.status===429){ var er=await res.json().catch(function(){return{};}); setMsg(er.message||er.error||'Dữ liệu chưa hợp lệ.',false); }
+      else{ throw new Error('endpoint '+res.status); }
+    }catch(err){
+      try{ var k='baika_leads_marketing'; var arr=JSON.parse(localStorage.getItem(k)||'[]'); arr.push(Object.assign({created_at:new Date().toISOString()},payload)); localStorage.setItem(k,JSON.stringify(arr));
+        setMsg('Đã ghi nhận yêu cầu (chế độ demo — máy chủ chưa kết nối). BAIKA sẽ liên hệ khi hệ thống hoạt động.',true); form.reset();
+      }catch(e2){ setMsg('Không gửi được. Vui lòng gọi trực tiếp 0905 247 365.',false); }
+    }
+    btn.disabled=false; btn.textContent='Gửi yêu cầu tư vấn';
+  });
+
+  /* ---------- GD4 CMS overlay ---------- */
+  fetch('/api/v1/public/site-content?site_id=marketing').then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.data) return;
+    var d=j.data;
+    if(d.hero){
+      if(d.hero.title){ document.getElementById('heroTitle').textContent=d.hero.title; }
+      if(d.hero.subtitle!=null) document.getElementById('heroSub').textContent=d.hero.subtitle;
+      if(d.hero.desc!=null) document.getElementById('heroDesc').textContent=d.hero.desc;
+      if(d.hero.cta1) document.getElementById('heroCta1').textContent=d.hero.cta1;
+    }
+    if(Array.isArray(d.packages)&&d.packages.length){
+      var merged=d.packages.map(function(p,i){ return {name:p.name,desc:p.desc,items:p.items,feat:PACKAGES[i]?PACKAGES[i].feat:false}; });
+      document.getElementById('pkgsBox').innerHTML=pkgHTML(merged); bindPkgButtons(); wireCarousel('pkgsBox','pkgDots');
+      document.getElementById('pkgSel').innerHTML='<option value="">— Chưa chọn —</option>'+merged.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+    }
+    if(Array.isArray(d.faq)&&d.faq.length){
+      document.getElementById('faqBox').innerHTML=d.faq.map(function(f){return '<details class="faq on"><summary>'+esc(f.q)+'</summary><p>'+esc(f.a||'')+'</p></details>';}).join('');
+    }
+  }).catch(function(){});
+})();
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+<script>
+
+  /* BAIKA Brand Launch System: Fluid Energy Waves */
+  (function(){
+    var c=document.getElementById('baikaAnimBg'); if(!c) return;
+    var ctx=c.getContext('2d'), w=0, h=0, time=0, active=true;
+    function r(){ w=c.width=window.innerWidth; h=c.height=window.innerHeight; }
+    window.addEventListener('resize', r); r();
+    var observer = new IntersectionObserver(es => { active = es[0].isIntersecting; });
+    observer.observe(document.body);
+    function draw(){
+      if(!active){ requestAnimationFrame(draw); return; }
+      ctx.clearRect(0,0,w,h); time+=0.01;
+      for(var i=0; i<3; i++){
+        ctx.beginPath();
+        for(var x=0; x<=w; x+=50){
+          var y = h*0.7 + Math.sin(x*0.005 + time + i)*100 + Math.sin(x*0.01 - time)*50;
+          if(x==0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        }
+        ctx.lineTo(w,h); ctx.lineTo(0,h);
+        var grad = ctx.createLinearGradient(0,h*0.5,w,h);
+        grad.addColorStop(0, 'rgba(255,107,53,'+(0.05-i*0.01)+')');
+        grad.addColorStop(1, 'rgba(255,61,127,'+(0.05-i*0.01)+')');
+        ctx.fillStyle=grad; ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+</script>
+</body>
+</html>

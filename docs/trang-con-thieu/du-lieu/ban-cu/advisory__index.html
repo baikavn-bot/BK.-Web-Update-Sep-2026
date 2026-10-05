@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAIKA Business Advisory — Chẩn đoán 7 trục doanh nghiệp</title>
+<meta name="description" content="BAIKA Business Advisory — tư vấn doanh nghiệp theo 7 trục hệ thống: mô hình kinh doanh, vận hành, marketing, tài chính, pháp lý thuế, công nghệ, năng lực CEO.">
+<link rel="icon" href="/baika-suite/advisory/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/baika-suite/shared/animated-logo.css">
+<style>
+:root{
+  --void:#0A0904; --void2:#120F08; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.07); --bd:rgba(255,255,255,.11);
+  --brass:#C9A15A; --logoc1:var(--brass); --logoc2:var(--scan); --logourl:url("/baika-suite/advisory/logo-emblem.png"); --brass-deep:#8A6624; --scan:#FF8A3D; --depth:#4A7A8C;
+  --tx:#F3EEE3; --tx2:#A69C87; --tx3:#817764;
+  --disp:'Fraunces',serif; --mono:'Space Mono',monospace; --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--tx);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;position:relative;max-width:100vw}
+::selection{background:var(--brass);color:#160F04}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);line-height:1.16}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.mono{font-family:var(--mono)}
+.kick{display:flex;align-items:center;gap:10px;color:var(--scan);font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;font-size:12px;font-weight:700;margin-bottom:14px}
+.kick::before{content:"";width:16px;height:1px;background:var(--scan);flex-shrink:0}
+h2.h{font-size:clamp(26px,3.6vw,40px);margin-bottom:14px;font-weight:600}
+.lead{color:var(--tx2);max-width:680px;font-size:16.5px}
+.sec{padding:56px 0;position:relative}
+@media (max-width:640px){.sec{padding:32px 0}}
+
+/* ===== nen contour tinh, khong canvas ===== */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(900px 500px at 88% -6%, rgba(201,161,90,.10), transparent 60%),
+    radial-gradient(700px 460px at -6% 50%, rgba(74,122,140,.09), transparent 60%);}
+.contour{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+
+/* ===== topbar (chuan tu bai hoc AI-OS: gon, khong vo dong, 1 CTA duy nhat) ===== */
+.top{position:sticky;top:0;z-index:50;background:rgba(10,9,4,.8);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--bd)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.home{flex-shrink:0;color:var(--tx2);text-decoration:none;font-size:13.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:color .2s}
+.home svg{width:15px;height:15px;flex-shrink:0}
+.home:hover{color:var(--tx)}
+.home .lbl{display:none}
+@media (min-width:560px){.home .lbl{display:inline}}
+
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:700;letter-spacing:.01em;font-size:15px;white-space:nowrap;overflow:hidden;min-width:0}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--brass);box-shadow:0 0 12px var(--brass);flex-shrink:0;animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.brand .full{display:none}.brand .short{display:inline}
+@media (min-width:640px){.brand .full{display:inline}.brand .short{display:none}}
+.top .sp{flex:1;min-width:4px}
+.navstat{flex-shrink:0;display:flex;align-items:center;gap:8px;color:var(--tx3);font-family:var(--mono);font-size:11px;white-space:nowrap}
+.navstat b{color:var(--scan);font-weight:700}
+@media (max-width:900px){.navstat{display:none}}
+
+/* ===== buttons ===== */
+/* ===== focus-visible: vien ro rang cho dieu huong ban phim ===== */
+a:focus-visible, button:focus-visible, .car-dot:focus-visible, .car-btn:focus-visible, summary:focus-visible, .chk:focus-within{
+  outline:2px solid var(--scan); outline-offset:2px; border-radius:6px;
+}
+.btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:11px;font-weight:600;font-size:15px;line-height:1.2;
+  text-decoration:none;cursor:pointer;border:1px solid transparent;font-family:var(--body);overflow:hidden;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.bp{background:linear-gradient(135deg,var(--brass),var(--brass-deep));color:#160F04;box-shadow:0 8px 28px rgba(201,161,90,.3)}
+.bp::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.4) 45%,transparent 60%);transform:translateX(-120%);transition:transform .7s ease}
+.bp:hover::after{transform:translateX(120%)}
+.bo{background:rgba(255,255,255,.03);color:var(--tx);border-color:var(--bd);backdrop-filter:blur(6px)}
+.bo:hover{border-color:var(--brass);color:var(--brass)}
+.magnet{will-change:transform}
+.top .diagbtn{flex-shrink:0;white-space:nowrap;padding:8px 13px;font-size:13px;gap:6px}
+.top .diagbtn .lbl-full{display:none}.top .diagbtn .lbl-short{display:inline}
+@media (min-width:480px){.top .diagbtn{padding:11px 20px;font-size:14.5px}.top .diagbtn .lbl-full{display:inline}.top .diagbtn .lbl-short{display:none}}
+
+/* ===== depth-rail: thanh tia quet chieu sau (chu ky "luat choi moi") ===== */
+.depthrail{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:3px;
+  padding:14px 10px;background:rgba(18,15,8,.55);backdrop-filter:blur(10px);border:1px solid var(--bd);border-radius:14px}
+.depthrail .seg{width:26px;height:15px;border-radius:3px;background:rgba(255,255,255,.06);position:relative;cursor:pointer;transition:background .3s}
+.depthrail .seg.on{background:linear-gradient(90deg,var(--brass),var(--scan));box-shadow:0 0 10px rgba(255,138,61,.5)}
+.depthrail .seg .tip{position:absolute;left:36px;top:50%;transform:translateY(-50%);background:var(--void2);border:1px solid var(--bd);border-radius:8px;
+  padding:5px 10px;font-family:var(--mono);font-size:11px;color:var(--tx2);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+.depthrail .seg:hover .tip{opacity:1}
+@media (max-width:1180px){.depthrail{display:none}}
+.depthbar{display:none}
+@media (max-width:1180px){
+  .depthbar{display:flex;gap:3px;position:sticky;top:60px;z-index:39;padding:10px 24px;background:rgba(10,9,4,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd)}
+  .depthbar .seg{flex:1;height:4px;border-radius:3px;background:rgba(255,255,255,.08);transition:background .3s}
+  .depthbar .seg.on{background:linear-gradient(90deg,var(--brass),var(--scan))}
+}
+
+/* ===== hero ===== */
+.hero{padding:88px 0 56px;position:relative}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--bd);border-radius:999px;color:var(--tx2);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;margin-bottom:26px;background:rgba(255,255,255,.02)}
+.badge b{color:var(--scan);font-weight:700}
+.hero h1{font-size:clamp(32px,5.6vw,58px);max-width:880px;font-weight:600;overflow:hidden}
+.hero h1 .xline{display:block;clip-path:inset(0 100% 0 0);animation:xwipe 1.1s cubic-bezier(.3,.9,.2,1) forwards}
+.hero h1 .xline:nth-child(2){animation-delay:.15s}
+@keyframes xwipe{to{clip-path:inset(0 0 0 0)}}
+.hero .sub{color:var(--brass);font-family:var(--disp);font-weight:600;font-style:italic;font-size:clamp(18px,2.4vw,23px);margin:18px 0 14px}
+.hero p.lead{margin-bottom:30px;font-size:17px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.trust{color:var(--tx3);font-size:13px;font-family:var(--mono)}
+@media (prefers-reduced-motion: reduce){.hero h1 .xline{animation:none;clip-path:inset(0 0 0 0)}}
+
+/* ===== scan teaser (chu ky - thay the vi tri "cong cu chan doan") ===== */
+.scanteaser{display:flex;align-items:center;gap:24px;margin-top:36px;padding:24px 26px;border-radius:18px;text-decoration:none;
+  position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--bd);transition:border-color .35s,transform .35s}
+.scanteaser:hover{border-color:var(--brass);transform:translateY(-3px)}
+.st-bars{display:flex;align-items:flex-end;gap:3px;height:52px;flex-shrink:0;width:74px}
+.st-bars i{display:block;flex:1;background:rgba(255,255,255,.08);border-radius:2px 2px 0 0;height:14%;transition:height .5s cubic-bezier(.3,.9,.2,1),background .5s}
+.st-bars i.on{background:linear-gradient(180deg,var(--scan),var(--brass))}
+.st-txt{flex:1;min-width:0}
+.st-kick{font-family:var(--mono);color:var(--scan);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.st-txt h3{font-size:clamp(16px,2.3vw,19px);margin-bottom:6px;color:var(--tx);font-weight:600}
+.st-txt p{color:var(--tx2);font-size:13.6px}
+.st-arrow{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;color:var(--brass);transition:transform .3s}
+.st-arrow svg{width:17px;height:17px}
+.scanteaser:hover .st-arrow{transform:translateX(4px)}
+@media (max-width:640px){.scanteaser{flex-wrap:wrap;padding:20px}.st-arrow{display:none}}
+
+/* hero readout */
+.readout{display:flex;gap:0;margin-top:22px;border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.02)}
+.readout .cell{flex:1;padding:16px 18px;border-right:1px solid var(--bd)}
+.readout .cell:last-child{border-right:none}
+.readout .cell .k{font-family:var(--mono);font-size:10.5px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}
+.readout .cell .v{font-family:var(--disp);font-size:18px;font-weight:700;color:var(--tx)}
+@media (max-width:760px){.readout{flex-wrap:wrap}.readout .cell{flex:1 1 50%;border-bottom:1px solid var(--bd)}}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .32s ease-out,transform .32s ease-out}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none} html{scroll-behavior:auto} .hero h1 .xline{animation:none}}
+
+/* ===== carousel (tai dung tu AI-OS, doi mau brass) ===== */
+.carousel{position:relative;margin-top:28px}
+.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px;margin:-2px -2px -8px;cursor:grab;user-select:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track.grabbing{cursor:grabbing;scroll-snap-type:none}
+.car-track>*{scroll-snap-align:start;flex:0 0 auto}
+.car-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.car-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:rgba(255,255,255,.03);color:var(--tx2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,opacity .2s;flex-shrink:0}
+.car-btn svg{width:16px;height:16px}
+.car-btn:hover:not(:disabled){border-color:var(--brass);color:var(--brass)}
+.car-btn:disabled{opacity:.28;cursor:default}
+.car-dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:200px}
+.car-dot{width:22px;height:22px;border-radius:50%;background:transparent;transition:none;cursor:pointer;flex-shrink:0;border:none;padding:0;display:flex;align-items:center;justify-content:center;position:relative}
+.car-dot::after{content:"";display:block;width:6px;height:6px;border-radius:50%;background:var(--bd);transition:width .25s,background .25s}
+.car-dot.on::after{width:16px;border-radius:99px}
+.car-dot.on::after{background:var(--scan)}
+
+/* ===== stacked-sheet card (chieu sau vat ly, dung chung nhieu noi) ===== */
+.sheet{position:relative}
+.sheet::before,.sheet::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1px solid var(--bd);background:var(--void2);z-index:-1;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.sheet::before{transform:translate(6px,6px)}
+.sheet::after{transform:translate(11px,11px);opacity:.6}
+.sheet:hover::before{transform:translate(9px,9px)}
+.sheet:hover::after{transform:translate(17px,17px)}
+
+/* ===== pains ===== */
+.pcard{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:24px;width:min(78vw,260px)}
+.pcard .tag{font-family:var(--mono);color:var(--tx3);font-size:11px;letter-spacing:.1em;margin-bottom:12px}
+.pcard h3{font-size:16.5px;margin-bottom:8px;font-weight:600}
+.pcard p{color:var(--tx2);font-size:14px}
+
+/* ===== 7-layer strata (KHONG carousel — chuoi that, chu ky cua trang) ===== */
+.strata{margin-top:36px;display:flex;flex-direction:column;gap:22px}
+.stratum{position:relative;display:flex;align-items:center;gap:32px;padding:30px 32px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bd)}
+.stratum:nth-child(even){flex-direction:row-reverse}
+.stratum .sidx{flex-shrink:0;width:64px;height:64px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;color:var(--scan);background:var(--void2);position:relative}
+.stratum .sidx::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid transparent;
+  background:linear-gradient(135deg,var(--brass),var(--scan)) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .3s}
+.stratum:hover .sidx::after{opacity:1}
+.stratum h3{font-size:clamp(18px,2.6vw,23px);margin-bottom:8px;font-weight:600}
+.stratum p{color:var(--tx2);font-size:14.6px;max-width:600px}
+@media (max-width:760px){.stratum,.stratum:nth-child(even){flex-direction:column;align-items:flex-start;gap:16px;padding:24px 22px}}
+
+/* ===== packages ===== */
+.pkg{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:18px;padding:28px 24px;display:flex;flex-direction:column;overflow:hidden;width:min(84vw,300px)}
+.pkg.feat{border-color:transparent;background:linear-gradient(var(--void2),var(--void2)) padding-box,linear-gradient(135deg,var(--brass),var(--scan)) border-box;
+  border:1px solid transparent;box-shadow:0 14px 46px rgba(201,161,90,.2)}
+.pkg.feat::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(201,161,90,.28),transparent 30%);animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pkg.feat>*{position:relative;z-index:1}
+.ptag{position:absolute;top:-13px;left:22px;background:linear-gradient(135deg,var(--brass),var(--scan));color:#160F04;font-size:11.5px;
+  font-weight:700;padding:4px 13px;border-radius:999px;font-family:var(--mono);letter-spacing:.04em;z-index:2}
+.pkg h3{font-size:18px;margin-bottom:8px}
+.pdesc{color:var(--tx2);font-size:13.6px;margin-bottom:16px}
+.pkg ul{list-style:none;margin:0 0 22px;display:grid;gap:9px;flex:1}
+.pkg li{color:var(--tx2);font-size:13.8px;padding-left:22px;position:relative}
+.pkg li::before{content:"◆";position:absolute;left:0;color:var(--scan);font-size:9px;top:5px}
+
+/* ===== outcomes ===== */
+.outs{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 30px;margin-top:22px}
+.outs li{padding-left:32px;position:relative;color:var(--tx2);font-size:15px}
+.outs li svg{position:absolute;left:0;top:3px;width:20px;height:20px}
+.outs li svg path{stroke:var(--scan);stroke-width:2.4;fill:none;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .6s ease}
+.outs li.on svg path{stroke-dashoffset:0}
+@media (max-width:640px){.outs{grid-template-columns:1fr}}
+
+/* ===== audience/diffs cards ===== */
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:22px;transition:border-color .3s;width:min(78vw,270px)}
+.card:hover{border-color:rgba(255,255,255,.25)}
+.card h4{font-size:15.5px;margin-bottom:7px}
+.card p{color:var(--tx2);font-size:13.8px}
+
+/* ===== faq ===== */
+.faqs{display:grid;gap:10px;margin-top:24px}
+.faq{background:var(--panel);border:1px solid var(--bd);border-radius:12px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;display:flex;align-items:center;gap:12px;font-size:15px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"›";font-family:var(--mono);color:var(--scan);font-size:18px;transition:transform .3s}
+.faq[open] summary::before{transform:rotate(90deg)}
+.faq p{padding:0 20px 18px 44px;color:var(--tx2);font-size:14.3px}
+
+/* ===== form ===== */
+.formbox{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bd);border-radius:20px;padding:34px;margin-top:28px}
+.frm{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:12px;color:var(--tx2);font-weight:600;font-family:var(--mono);letter-spacing:.02em;text-transform:uppercase}
+.fld input,.fld select,.fld textarea{background:rgba(0,0,0,.35);border:1px solid var(--bd);border-radius:10px;padding:13px 15px;color:var(--tx);
+  font-family:var(--body);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--brass);box-shadow:0 0 0 3px rgba(201,161,90,.15)}
+.fld.err input,.fld.err textarea{border-color:#E24B4A}
+.needs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;min-width:0}
+.chk{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.25);border:1px solid var(--bd);border-radius:10px;padding:10px 13px;cursor:pointer;font-size:13.6px;color:var(--tx2);transition:.2s}
+.chk:has(input:checked){border-color:var(--brass);color:var(--tx);background:rgba(201,161,90,.08)}
+.chk input{accent-color:var(--brass)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13.2px;color:var(--tx2)}
+.fmsg{grid-column:1/-1;font-size:14px;min-height:20px}
+.fmsg.ok{color:var(--scan)}.fmsg.bad{color:#F09595}
+
+/* ===== footer ===== */
+.foot{border-top:1px solid var(--bd);padding:40px 0;color:var(--tx3);font-size:13.5px}
+.foot .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.foot a{color:var(--tx2);text-decoration:none}
+.foot a:hover{color:var(--scan)}
+  #baikaAnimBg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.8}
+</style>
+<script src="/shield.js" defer></script>
+  <link rel="stylesheet" href="/baika-suite/shared/mobile-fixes.css">
+</head>
+<body>
+<canvas id="baikaAnimBg"></canvas>
+<svg class="contour" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="rgba(201,161,90,.05)" stroke-width="1">
+    <path d="M-100 200 Q 300 100 700 220 T 1300 180"/>
+    <path d="M-100 400 Q 320 320 720 430 T 1300 380"/>
+    <path d="M-100 620 Q 300 540 700 640 T 1300 600"/>
+    <path d="M-100 900 Q 340 820 740 920 T 1300 880"/>
+    <path d="M-100 1200 Q 320 1120 700 1220 T 1300 1180"/>
+    <path d="M-100 1450 Q 300 1380 700 1470 T 1300 1430"/>
+  </g>
+</svg>
+
+<div class="depthrail" id="depthRail"></div>
+
+<header class="top"><div class="wrap">
+  <a class="home" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg><span class="lbl">Trang chủ</span></a>
+  <div class="brand"><span class="logo-stage"><div class="logo-halo"></div><div class="logo-mask"></div></span><span class="full">BUSINESS ADVISORY</span><span class="short">ADVISORY</span></div>
+  <div class="sp"></div>
+  <span class="navstat">7 TRỤC · <b>HEALTH CHECK</b></span>
+  <a class="btn bp magnet diagbtn" href="#lien-he"><span class="lbl-full">Đặt lịch chẩn đoán</span><span class="lbl-short">Đặt lịch</span></a>
+</div></header>
+
+<div class="depthbar" id="depthBar"></div>
+
+<section class="hero"><div class="wrap">
+  <span class="badge">◆ <b>7</b> TRỤC HỆ THỐNG · <b>4</b> GÓI ĐỒNG HÀNH</span>
+  <h1 id="heroTitle"><span class="xline">BAIKA Business</span><span class="xline">Advisory</span></h1>
+  <div class="sub" id="heroSub">Đồng hành cùng CEO từ chiến lược đến vận hành</div>
+  <p class="lead" id="heroDesc">Dịch vụ tư vấn doanh nghiệp theo tư duy hệ thống: chẩn đoán đúng hiện trạng, thiết kế mô hình phù hợp và đồng hành triển khai — thay vì đưa lời khuyên chung chung.</p>
+  <div class="cta">
+    <a class="btn bp magnet" href="#lien-he" id="heroCta1">Đặt lịch chẩn đoán cùng BAIKA</a>
+    <a class="btn bo magnet" href="#goi">Xem gói đồng hành</a>
+  </div>
+  <p class="trust">// KHÔNG TƯ VẤN CHUNG CHUNG — MỌI KHUYẾN NGHỊ BẮT ĐẦU TỪ CHẨN ĐOÁN ĐÚNG HIỆN TRẠNG</p>
+
+  <a class="scanteaser rv" href="#goi">
+    <div class="st-bars" id="stBars"></div>
+    <div class="st-txt">
+      <div class="st-kick">◆ Điểm khởi đầu được khuyên dùng</div>
+      <h3>Business Health Check — khám tổng thể 7 trục doanh nghiệp</h3>
+      <p>Một buổi làm việc · nhận báo cáo điểm mạnh – điểm nghẽn · bản đồ ưu tiên hành động cho 90 ngày tới.</p>
+    </div>
+    <span class="st-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+
+  <div class="readout rv">
+    <div class="cell"><div class="k">Trục hệ thống</div><div class="v">07</div></div>
+    <div class="cell"><div class="k">Gói đồng hành</div><div class="v">04</div></div>
+    <div class="cell"><div class="k">Đối tượng phù hợp</div><div class="v">06</div></div>
+    <div class="cell"><div class="k">Điểm khác biệt</div><div class="v">05</div></div>
+  </div>
+</div></section>
+
+<section class="sec" id="van-de" data-layer="0"><div class="wrap">
+  <p class="kick">Chẩn đoán hiện trạng</p>
+  <h2 class="h">Doanh nghiệp của bạn đang ở tình huống nào?</h2>
+  <div class="carousel">
+    <div class="pgrid car-track" id="painsTrack">
+      <div class="pcard sheet rv"><h3>Mở doanh nghiệp nhưng chưa rõ mô hình</h3><p>Có ý tưởng, có vốn, nhưng chưa trả lời được: bán gì, cho ai, kiếm tiền bằng cách nào và cần bộ máy ra sao.</p></div>
+      <div class="pcard sheet rv"><h3>Vận hành bắt đầu rối</h3><p>Doanh thu tăng nhưng mọi việc dồn về CEO; quy trình nằm trong đầu từng người, sai sót lặp lại không ai chịu trách nhiệm.</p></div>
+      <div class="pcard sheet rv"><h3>Tổ chức thiếu cấu trúc</h3><p>Tuyển người nhưng không rõ vai trò; phòng ban chồng chéo; nhân sự giỏi đến rồi đi vì không có hệ thống giữ chân.</p></div>
+      <div class="pcard sheet rv"><h3>Tăng trưởng thiếu chiến lược</h3><p>Chạy theo cơ hội ngắn hạn; mở rộng nhưng lãi mỏng dần; không có bản đồ ưu tiên cho 1–3 năm tới.</p></div>
+    </div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="painsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="giai-phap"><div class="wrap">
+  <p class="kick">Kiến trúc tư vấn</p>
+  <h2 class="h">Tư vấn theo 7 trục hệ thống doanh nghiệp</h2>
+  <p class="lead">BAIKA không tư vấn rời rạc từng mảng. Mọi khuyến nghị đều đặt trong bức tranh tổng thể 7 trục — vì vấn đề ở trục này thường có gốc rễ ở trục khác. Cuộn qua từng tầng để xem phạm vi cụ thể.</p>
+  <div class="strata" id="strataList"></div>
+</div></section>
+
+
+<section class="sec" id="tru-cot-v2"><div class="wrap">
+  <p class="kick">Dịch vụ trọng tâm</p>
+  <h2 class="h">Các mảng dịch vụ chính</h2>
+  <div class="carousel">
+    <div class="car-track" id="v2PillarsGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="v2PillarsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="cong-cu-v2"><div class="wrap">
+  <p class="kick">Tiện ích tương tác</p>
+  <h2 class="h">Công cụ hỗ trợ & Đánh giá</h2>
+  <p class="lead">Trải nghiệm các công cụ tự động để có cái nhìn trực quan nhất.</p>
+  <div class="stack3" id="v2ToolsGrid"></div>
+</div></section>
+
+<section class="sec" id="uu-dai-v2"><div class="wrap">
+  <p class="kick">Chương trình & ưu đãi</p>
+  <h2 class="h">Ưu đãi & Các gói đặc biệt</h2>
+  <div class="formbox" style="margin-top:20px; padding:28px;">
+    <div class="risktag crit" style="margin-bottom:12px;">ƯU ĐÃI CÓ HẠN</div>
+    
+    <div style="margin-bottom:24px;">
+        <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; font-family:var(--disp);">Gói Chẩn đoán giữa năm</h3>
+        <p style="color:var(--tx2); font-size:15px; margin-bottom:16px;">Rà soát lại nửa năm đã qua và tái ưu tiên cho hai quý còn lại trước mùa lập kế hoạch năm sau.</p>
+    </div>
+
+    <div style="margin-bottom:24px;">
+        <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; font-family:var(--disp);">Đồng hành trọn năm</h3>
+        <p style="color:var(--tx2); font-size:15px; margin-bottom:16px;">Cam kết cố vấn theo quý đủ 4 kỳ trong năm — chốt trước, giữ nguyên đơn giá cả năm.</p>
+    </div>
+
+    <div style="margin-bottom:24px;">
+        <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; font-family:var(--disp);">Bệ phóng khởi nghiệp</h3>
+        <p style="color:var(--tx2); font-size:15px; margin-bottom:16px;">Hỗ trợ đặc biệt cho startup dưới 24 tháng tuổi muốn chuẩn hoá mô hình trước vòng gọi vốn đầu tiên.</p>
+    </div>
+
+    <a class="btn bp magnet" href="#lien-he">Nhận ưu đãi ngay</a>
+  </div>
+</div></section>
+
+<section class="sec" id="dichvu" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <h2 class="h">Bốn tầng can thiệp — một mạch tư duy</h2>
+  <p class="lead">Từ chẩn đoán điểm nghẽn, tới chiến lược tăng trưởng, tới mô hình kinh doanh và đồng hành theo quý — BAIKA can thiệp đúng tầng bạn đang cần.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="advDichVuGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="advDichVuDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+<section class="sec" id="tools"><div class="wrap">
+  <h2 class="h">Thử ngay — không cần đăng ký</h2>
+  <p class="lead">Hai công cụ chẩn đoán miễn phí giúp bạn tự đánh giá thực trạng doanh nghiệp trước khi gặp cố vấn.</p>
+  <div class="stack3" id="advToolsGrid" style="margin-top:24px"></div>
+</div></section>
+<section class="sec" id="uudai" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">Chương trình ưu đãi</p>
+  <h2 class="h">Đầu tư đúng lúc, chi phí nhẹ hơn</h2>
+  <p class="lead">Các gói ưu đãi theo mùa và theo giai đoạn phát triển của doanh nghiệp.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="advUuDaiGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="advUuDaiDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+<section class="sec" id="goi"><div class="wrap">
+  <p class="kick">Gói đồng hành</p>
+  <h2 class="h">Chọn điểm bắt đầu phù hợp</h2>
+  <p class="lead">Mỗi gói là một điểm vào — có thể nâng cấp dần theo mức độ sẵn sàng của doanh nghiệp.</p>
+  <div class="carousel">
+    <div class="pkgs car-track" id="pkgsBox"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="pkgDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="ket-qua"><div class="wrap">
+  <p class="kick">Kết quả nhận được</p>
+  <h2 class="h">Sau khi đồng hành cùng BAIKA</h2>
+  <ul class="outs" id="outsList"></ul>
+</div></section>
+
+<section class="sec" id="phu-hop"><div class="wrap">
+  <p class="kick">Đối tượng phù hợp</p>
+  <h2 class="h">Dịch vụ này dành cho ai?</h2>
+  <div class="carousel">
+    <div class="car-track" id="audGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="audDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="khac-biet"><div class="wrap">
+  <p class="kick">Điểm khác biệt</p>
+  <h2 class="h">Vì sao chọn BAIKA?</h2>
+  <div class="carousel">
+    <div class="car-track" id="difGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="difDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="faq"><div class="wrap">
+  <p class="kick">Câu hỏi thường gặp</p>
+  <h2 class="h">FAQ</h2>
+  <div class="faqs" id="faqBox"></div>
+</div></section>
+
+<section class="sec" id="lien-he"><div class="wrap">
+  <p class="kick">Bắt đầu</p>
+  <h2 class="h">Nhận phiên chẩn đoán sơ bộ miễn phí</h2>
+  <p class="lead">Điền thông tin — đội ngũ BAIKA sẽ liên hệ trong 24 giờ làm việc. Có thể chọn luôn ngày giờ nếu muốn đặt lịch chắc chắn.</p>
+  <div class="formbox"><form id="leadForm" class="frm" novalidate>
+    <div class="fld"><label>Họ và tên *</label><input name="full_name" type="text" placeholder="Nguyễn Văn A" required></div>
+    <div class="fld"><label>Số điện thoại *</label><input name="phone" type="tel" placeholder="09xx xxx xxx" required></div>
+    <div class="fld"><label>Email</label><input name="email" type="email" placeholder="ban@congty.vn"></div>
+    <div class="fld"><label>Doanh nghiệp</label><input name="company" type="text" placeholder="Tên công ty (nếu có)"></div>
+    <div class="fld full"><label>Nhu cầu của bạn * (chọn 1 hoặc nhiều)</label><div class="needs" id="needsBox"></div></div>
+    <div class="fld"><label>Gói quan tâm</label><select name="pkg" id="pkgSel"><option value="">— Chưa chọn —</option></select></div>
+    <div class="fld"><label>Đặt lịch (tùy chọn) — chọn ngày</label><input type="date" name="bkdate" id="bkDate"></div>
+    <div class="fld"><label>Khung giờ mong muốn</label><select name="bkslot"><option value="FLEXIBLE">Linh hoạt</option><option value="MORNING">Sáng (9:00–11:00)</option><option value="AFTERNOON">Chiều (14:00–16:00)</option><option value="EVENING">Tối (19:00–20:30)</option></select></div>
+    <div class="fld full"><label>Mô tả ngắn vấn đề đang gặp</label><textarea name="msg" rows="3" placeholder="Ví dụ: doanh nghiệp tăng doanh thu nhưng vận hành rối..."></textarea></div>
+    <div class="fld full consent"><input type="checkbox" id="consent"><label for="consent">Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo chính sách bảo mật.</label></div>
+    <div class="fmsg" id="fmsg"></div>
+    <div class="fld full"><button type="submit" class="btn bp magnet" id="sbm">Gửi yêu cầu tư vấn</button></div>
+  </form></div>
+</div></section>
+
+<footer style="border-top: 1px solid var(--bd); padding: 60px 0; background: var(--void); color: var(--tx2); font-family: var(--body); font-size: 14px; line-height: 1.8;">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 32px; text-align: left;">
+    <!-- Logo & Status -->
+    <div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        
+        <div style="font-family: var(--disp), sans-serif; font-weight: 800; font-size: 26px; color: #FFF; letter-spacing: 3px;">BAIKA</div>
+        <div style="font-family: var(--mono), monospace; font-size: 11px; color: #FFF; border: 1px solid rgba(255,255,255,0.4); padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 1px;">JSC</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 4px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #4FE5FF; box-shadow: 0 0 10px #4FE5FF;"></span>
+        <span style="font-family: var(--mono), monospace; font-size: 11px; color: #8A98B3; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Hệ thống đang vận hành</span>
+      </div>
+    </div>
+
+    <!-- Company Name -->
+    <div>
+      <div style="font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 4px;">CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA</div>
+      <div style="font-size: 14px; color: #8A98B3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">BAIKA TECHNOLOGICAL JOINT STOCK COMPANY</div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="display: flex; flex-direction: column; gap: 16px; font-size: 15px;">
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Địa chỉ:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">Tầng 15, 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh, Việt Nam</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Hotline:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">0905.247.365</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Email:</span>
+        <span style="color: #8A98B3;">baika.vn@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/baika-suite/shared/site-common.js"></script>
+<script>
+(function(){
+  var wireCarousel = window.BaikaSite.wireCarousel;
+  /* ---------- DATA ---------- */
+  var PILLARS=["Mô hình kinh doanh","Vận hành","Marketing","Tài chính","Pháp lý – Thuế","Công nghệ","Năng lực CEO"];
+  var MODULES=[
+    ["Mô hình kinh doanh","Rà soát và thiết kế mô hình: phân khúc khách hàng, giá trị cốt lõi, kênh bán, cấu trúc doanh thu – chi phí, lợi thế cạnh tranh và điều kiện nhân rộng."],
+    ["Vận hành","Chuẩn hóa quy trình lõi, phân định vai trò – trách nhiệm, thiết kế cơ chế phối hợp giữa các bộ phận và hệ thống đo lường hiệu quả vận hành."],
+    ["Marketing & tăng trưởng","Định vị, thông điệp, cấu trúc kênh và kế hoạch tăng trưởng gắn với năng lực thật của doanh nghiệp — không chạy chiến dịch khi nền chưa vững."],
+    ["Tài chính","Đọc sức khỏe tài chính, cấu trúc chi phí, điểm hòa vốn, kỷ luật dòng tiền và chuẩn bị nền tảng số liệu cho quyết định của CEO."],
+    ["Pháp lý – Thuế","Nhận diện rủi ro pháp lý và thuế trong mô hình hiện tại; khuyến nghị cấu trúc hợp đồng, sở hữu và tuân thủ trước khi rủi ro thành chi phí."],
+    ["Công nghệ","Đánh giá mức độ phù hợp của công cụ đang dùng; lộ trình số hóa và ứng dụng AI theo đúng bài toán, tránh đầu tư công nghệ lãng phí."],
+    ["Năng lực CEO","Cố vấn trực tiếp cho người đứng đầu: khung ra quyết định, quản trị ưu tiên, xây dựng đội ngũ kế cận và kỷ luật điều hành."]
+  ];
+  var PACKAGES=[
+    {name:"Business Start",feat:false,desc:"Cho người chuẩn bị mở doanh nghiệp hoặc dưới 12 tháng tuổi.",items:["Định hình mô hình kinh doanh","Kiểm tra tính khả thi & điểm hòa vốn","Lộ trình khởi động 90 ngày","Checklist pháp lý khi thành lập"]},
+    {name:"Business Health Check",feat:true,desc:"Khám tổng thể doanh nghiệp trên cả 7 trục — điểm khởi đầu được khuyên dùng.",items:["Chẩn đoán 7 trục hệ thống","Báo cáo điểm mạnh – điểm nghẽn","Bản đồ ưu tiên hành động","Phiên trình bày trực tiếp với CEO"]},
+    {name:"Business Improvement",feat:false,desc:"Đồng hành cải thiện các trục yếu sau chẩn đoán.",items:["Kế hoạch cải thiện theo trục","Chuẩn hóa quy trình & vai trò","Đồng hành triển khai theo giai đoạn","Đo lường kết quả từng mốc"]},
+    {name:"CEO Strategic Advisory",feat:false,desc:"Cố vấn chiến lược định kỳ dành riêng cho người đứng đầu.",items:["Phiên cố vấn 1-1 định kỳ","Khung ra quyết định cho CEO","Đồng hành các quyết định lớn","Kênh trao đổi ưu tiên"]}
+  ];
+  var OUTCOMES=["Nhìn rõ bức tranh doanh nghiệp trên 7 trục thay vì cảm tính","Bản đồ hành động có thứ tự ưu tiên cho 90 ngày – 1 năm","Quy trình và vai trò được chuẩn hóa, giảm phụ thuộc cá nhân","CEO thoát dần khỏi vận hành vụn để tập trung quyết định lớn","Rủi ro tài chính – pháp lý – thuế được nhận diện sớm","Có cố vấn đồng hành thay vì tự mò mẫm một mình"];
+  var AUDIENCE=[["Người chuẩn bị mở doanh nghiệp","Muốn bắt đầu đúng ngay từ mô hình, tránh trả giá bằng 2–3 năm đầu."],["Founder giai đoạn đầu","Đã chạy được nhưng cảm thấy mọi thứ dựa vào mình quá nhiều."],["CEO doanh nghiệp SME","Doanh nghiệp 1–3 năm tuổi trở lên, cần hệ thống hóa để lớn tiếp."],["Công ty gia đình","Cần tách bạch sở hữu – điều hành và chuẩn bị chuyển giao."],["Doanh nghiệp đang tăng trưởng","Tăng doanh thu nhanh nhưng bộ máy không theo kịp."],["CEO cần người cố vấn","Muốn có góc nhìn độc lập, thẳng thắn trước các quyết định lớn."]];
+  var DIFFS=[["Tư duy hệ thống","Mọi khuyến nghị đặt trong bức tranh 7 trục, xử lý gốc rễ thay vì triệu chứng."],["Thực chiến SME Việt Nam","Kinh nghiệm trực tiếp với doanh nghiệp vừa và nhỏ, không bê nguyên lý thuyết tập đoàn."],["Từ tư vấn đến triển khai","Không dừng ở bản khuyến nghị — đồng hành đến khi vận hành được."],["Đa năng lực trong một đầu mối","Chiến lược, vận hành, tài chính, pháp lý, công nghệ trong cùng một hệ tư vấn."],["Tập trung vào quyết định của CEO","Mục tiêu cuối là giúp người đứng đầu quyết định đúng và nhanh hơn."]];
+  var FAQ=[["Doanh nghiệp nhỏ có phù hợp không?","Có. BAIKA thiết kế gói theo giai đoạn — từ chuẩn bị thành lập đến doanh nghiệp đang tăng trưởng. Gói Business Start dành riêng cho giai đoạn sớm."],["Bắt đầu như thế nào?","Bước đầu luôn là chẩn đoán (Business Health Check hoặc phiên chẩn đoán sơ bộ miễn phí khi bạn gửi form) để biết chính xác nên làm gì trước."],["Tư vấn online hay trực tiếp?","Cả hai. Các phiên làm việc có thể trực tuyến; giai đoạn khảo sát chuyên sâu có thể thực hiện tại doanh nghiệp."],["Chi phí tính như thế nào?","Theo gói và phạm vi thống nhất trước khi bắt đầu — không phát sinh ẩn. Sau chẩn đoán sơ bộ, BAIKA gửi đề xuất phạm vi và chi phí rõ ràng."]];
+  var NEEDS=["Mở doanh nghiệp mới","Khám sức khỏe doanh nghiệp","Cải thiện vận hành","Tổ chức & nhân sự","Chiến lược kinh doanh","Tài chính – pháp lý – thuế","Cố vấn CEO","Chuyển đổi số","Nhu cầu khác"];
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  /* ---------- carousel: vuot ngang thong minh ---------- */
+  
+
+  /* ---------- render noi dung ---------- */
+  document.getElementById('strataList').innerHTML = MODULES.map(function(m,i){
+    return '<div class="stratum rv" id="stratum-'+i+'"><div class="sidx mono">'+String(i+1).padStart(2,'0')+'</div><div><h3>'+esc(m[0])+'</h3><p>'+esc(m[1])+'</p></div></div>';
+  }).join('');
+
+  function pkgHTML(list){
+    return list.map(function(p){
+      var items=(p.items||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+      return '<div class="pkg sheet rv'+(p.feat?' feat':'')+'">'+(p.feat?'<div class="ptag">ĐỀ XUẤT</div>':'')+
+        '<h3>'+esc(p.name)+'</h3><p class="pdesc">'+esc(p.desc||'')+'</p><ul>'+items+'</ul>'+
+        '<button class="btn '+(p.feat?'bp':'bo')+' magnet" data-pkg="'+esc(p.name)+'">Chọn gói này</button></div>';
+    }).join('');
+  }
+  document.getElementById('pkgsBox').innerHTML = pkgHTML(PACKAGES);
+  document.getElementById('pkgSel').innerHTML = '<option value="">— Chưa chọn —</option>'+PACKAGES.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+  wireCarousel('pkgsBox','pkgDots');
+
+  document.getElementById('outsList').innerHTML = OUTCOMES.map(function(o){
+    return '<li class="rv"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-8"/></svg>'+esc(o)+'</li>';
+  }).join('');
+
+  document.getElementById('audGrid').innerHTML = AUDIENCE.map(function(a){return '<div class="card sheet rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('audGrid','audDots');
+  document.getElementById('difGrid').innerHTML = DIFFS.map(function(a){return '<div class="card sheet rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('difGrid','difDots');
+  document.getElementById('faqBox').innerHTML = FAQ.map(function(f){return '<details class="faq rv"><summary>'+esc(f[0])+'</summary><p>'+esc(f[1])+'</p></details>';}).join('');
+  document.getElementById('needsBox').innerHTML = NEEDS.map(function(n){return '<label class="chk"><input type="checkbox" name="needs" value="'+esc(n)+'"><span>'+esc(n)+'</span></label>';}).join('');
+  wireCarousel('painsTrack','painsDots');
+
+  function bindPkgButtons(){
+    document.querySelectorAll('[data-pkg]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var s=document.getElementById('pkgSel'); s.value=b.getAttribute('data-pkg');
+        document.getElementById('lien-he').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  }
+  bindPkgButtons();
+
+  /* ---------- reveal on scroll ---------- */
+
+  var V2_PILLARS = [["Chẩn đoán Doanh nghiệp", "Quét toàn diện 9 điểm nghẽn: thị trường, sản phẩm, dòng tiền, vận hành, con người..."], ["Chiến lược tăng trưởng", "Xác định đòn bẩy tăng trưởng thật, dựng lộ trình 12 tháng gắn với chỉ số đo được."], ["Mô hình kinh doanh", "Tái thiết kế mô hình qua Business Model Canvas: giá trị cốt lõi, dòng doanh thu..."], ["Cố vấn đồng hành theo quý", "Một cố vấn ngồi cạnh ban lãnh đạo, review theo quý, giữ nhịp thực thi và điều chỉnh."]];
+  var V2_TOOLS = [["Chẩn đoán 9 điểm nghẽn", "Cho điểm mỗi mảng theo thang 1–4 (1 = rất yếu, 4 = rất tốt). Kết quả cập nhật tức thì."], ["Business Model Canvas", "Phác thảo mô hình kinh doanh của bạn trên 9 ô kinh điển. Gõ trực tiếp — bộ đếm số ô đã điền."]];
+
+  if (document.getElementById('v2PillarsGrid') && typeof V2_PILLARS !== 'undefined' && V2_PILLARS.length > 0) {
+    document.getElementById('v2PillarsGrid').innerHTML = V2_PILLARS.map(function(p){
+      return '<div class="card rv"><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    wireCarousel('v2PillarsGrid', 'v2PillarsDots');
+  }
+
+  if (document.getElementById('v2ToolsGrid') && typeof V2_TOOLS !== 'undefined' && V2_TOOLS.length > 0) {
+    document.getElementById('v2ToolsGrid').innerHTML = V2_TOOLS.map(function(p, i){
+      return '<div class="st3card rv"><div class="stn mono">TIỆN ÍCH 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+
+  var ADV_DICHVU = [
+    ["Chẩn đoán Doanh nghiệp","Quét toàn diện 9 điểm nghẽn: thị trường, sản phẩm, dòng tiền, vận hành, con người — biết đúng bệnh trước khi ra thuốc."],
+    ["Chiến lược tăng trưởng","Xác định đòn bẩy tăng trưởng thật, dựng lộ trình 12 tháng gắn với chỉ số đo được — không còn tăng trưởng theo cảm tính."],
+    ["Mô hình kinh doanh","Tái thiết kế mô hình qua Business Model Canvas: giá trị cốt lõi, dòng doanh thu, kênh phân phối và cơ cấu chi phí."],
+    ["Cố vấn đồng hành theo quý","Một cố vấn ngồi cạnh ban lãnh đạo, review theo quý, giữ nhịp thực thi và điều chỉnh khi thị trường thay đổi."]
+  ];
+  if(document.getElementById('advDichVuGrid')){
+    document.getElementById('advDichVuGrid').innerHTML=ADV_DICHVU.map(function(p,i){
+      var icons=['🔬','📈','🗺️','🤝'];
+      return '<div class="card rv" style="min-width:220px"><div style="font-size:28px;margin-bottom:10px">'+icons[i]+'</div><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel!=='undefined') wireCarousel('advDichVuGrid','advDichVuDots');
+  }
+  var ADV_TOOLS = [
+    ["Chẩn đoán 9 điểm nghẽn","Cho điểm mỗi mảng theo thang 1–4 (1=rất yếu, 4=rất tốt). Kết quả cập nhật tức thì — biết ngay doanh nghiệp đang yếu ở đâu."],
+    ["Business Model Canvas","Phác thảo mô hình kinh doanh của bạn trên 9 ô kinh điển. Gõ trực tiếp — bộ đếm số ô đã điền hiển thị mức độ hoàn thiện."]
+  ];
+  if(document.getElementById('advToolsGrid')){
+    document.getElementById('advToolsGrid').innerHTML=ADV_TOOLS.map(function(p,i){
+      return '<div class="st3card rv"><div class="stn mono">CÔNG CỤ 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+  var ADV_UUDAI = [
+    {name:"Gói Chẩn đoán giữa năm",tag:"CÓ HẠN",price:"Ưu đãi mùa hè",desc:"Rà soát lại nửa năm đã qua và tái ưu tiên cho hai quý còn lại trước mùa lập kế hoạch năm sau.",hot:true},
+    {name:"Đồng hành trọn năm",tag:"CAM KẾT",price:"Giữ nguyên đơn giá",desc:"Cam kết cố vấn theo quý đủ 4 kỳ trong năm — chốt trước, giữ nguyên đơn giá cả năm dù thị trường có biến động.",hot:false},
+    {name:"Bệ phóng khởi nghiệp",tag:"STARTUP",price:"Ưu đãi đặc biệt",desc:"Hỗ trợ đặc biệt cho startup dưới 24 tháng tuổi muốn chuẩn hoá mô hình trước vòng gọi vốn đầu tiên.",hot:false},
+    {name:"Chẩn đoán trước, trả sau",tag:"0 RỦI RO",price:"Miễn phí 60 phút",desc:"Đăng ký trong đợt này: nhận buổi chẩn đoán sơ bộ 60 phút miễn phí, chỉ thanh toán khi có lộ trình rõ ràng.",hot:false}
+  ];
+  if(document.getElementById('advUuDaiGrid')){
+    document.getElementById('advUuDaiGrid').innerHTML=ADV_UUDAI.map(function(p){
+      return '<div class="pkg rv'+(p.hot?' feat':'')+'">'+
+        (p.hot?'<div class="ptag">'+esc(p.tag)+'</div>':'')+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<p class="pdesc" style="color:var(--ember);font-family:var(--mono);font-size:13px;margin-bottom:8px">'+esc(p.price)+'</p>'+
+        '<p class="pdesc">'+esc(p.desc)+'</p>'+
+        '<a class="btn '+(p.hot?'bp':'bo')+' magnet" href="#lien-he">Đăng ký ngay</a>'+
+        '</div>';
+    }).join('');
+    if(typeof wireCarousel!=='undefined') wireCarousel('advUuDaiGrid','advUuDaiDots');
+  }
+window.BaikaSite.wireReveal();
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- depth-rail: thanh tia quet 7 tang, scroll-spy that ---------- */
+  var railEl=document.getElementById('depthRail'), barEl=document.getElementById('depthBar');
+  railEl.innerHTML = PILLARS.map(function(p,i){ return '<div class="seg" data-i="'+i+'"><span class="tip">'+esc(p)+'</span></div>'; }).join('');
+  barEl.innerHTML = PILLARS.map(function(p,i){ return '<div class="seg" data-i="'+i+'"></div>'; }).join('');
+  railEl.querySelectorAll('.seg').forEach(function(s){ s.addEventListener('click', function(){ var el=document.getElementById('stratum-'+s.getAttribute('data-i')); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); }); });
+  function setActiveLayer(i){
+    railEl.querySelectorAll('.seg').forEach(function(s,idx){ s.classList.toggle('on', idx===i); });
+    barEl.querySelectorAll('.seg').forEach(function(s,idx){ s.classList.toggle('on', idx===i); });
+  }
+  var stratumEls=[].slice.call(document.querySelectorAll('.stratum'));
+  var tickScheduled=false;
+  function updateActiveLayer(){
+    tickScheduled=false;
+    var giaiPhap=document.getElementById('giai-phap');
+    var gpRect=giaiPhap.getBoundingClientRect();
+    if(gpRect.bottom<0 || gpRect.top>window.innerHeight) return; // ngoai khu vuc 7 tang, giu nguyen trang thai cuoi
+    var refY=window.innerHeight*0.42, best=0, bestDist=Infinity;
+    stratumEls.forEach(function(el,i){
+      var r=el.getBoundingClientRect();
+      var center=r.top+r.height/2;
+      var dist=Math.abs(center-refY);
+      if(dist<bestDist){ bestDist=dist; best=i; }
+    });
+    setActiveLayer(best);
+  }
+  window.addEventListener('scroll', function(){ if(!tickScheduled){ tickScheduled=true; requestAnimationFrame(updateActiveLayer); } }, {passive:true});
+  updateActiveLayer();
+
+  /* ---------- scan teaser: 7 thanh sang tuan tu (lap) ---------- */
+  var stBars=document.getElementById('stBars');
+  var heights=[38,62,45,80,52,68,90];
+  stBars.innerHTML = heights.map(function(){ return '<i></i>'; }).join('');
+  var barEls=stBars.querySelectorAll('i');
+  function loopBars(){
+    if(reduce){ barEls.forEach(function(b,i){ b.style.height=heights[i]+'%'; b.classList.add('on'); }); return; }
+    var i=0;
+    function step(){
+      barEls.forEach(function(b,j){ b.classList.toggle('on', j<=i); b.style.height=(j<=i?heights[j]:14)+'%'; });
+      i++;
+      if(i<=heights.length){ setTimeout(step, 160); }
+      else { setTimeout(function(){ i=0; step(); }, 1800); }
+    }
+    step();
+  }
+  var stObs=('IntersectionObserver' in window)?new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ loopBars(); stObs.disconnect(); } }); },{threshold:.4}):null;
+  if(stObs) stObs.observe(document.querySelector('.scanteaser')); else loopBars();
+
+  /* ---------- magnetic buttons ---------- */
+window.BaikaSite.wireMagnet(reduce);
+
+  /* ---------- form submit (co nhanh dat lich) ---------- */
+  var form=document.getElementById('leadForm'), msg=document.getElementById('fmsg'), btn=document.getElementById('sbm');
+  if(form.bkdate){ form.bkdate.min=new Date().toISOString().slice(0,10); }
+  function setMsg(t,ok){ msg.textContent=t; msg.className='fmsg '+(ok?'ok':'bad'); }
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var name=form.full_name.value.trim(), phone=form.phone.value.replace(/[^\d+]/g,'');
+    var needs=[].slice.call(form.querySelectorAll('input[name=needs]:checked')).map(function(c){return c.value;});
+    form.querySelectorAll('.fld').forEach(function(f){f.classList.remove('err');});
+    if(!name){ setMsg('Vui lòng nhập họ tên.',false); form.full_name.closest('.fld').classList.add('err'); return; }
+    if(!/^\+?\d{9,12}$/.test(phone)){ setMsg('Số điện thoại chưa đúng định dạng.',false); form.phone.closest('.fld').classList.add('err'); return; }
+    if(form.email.value && !/^\S+@\S+\.\S+$/.test(form.email.value)){ setMsg('Email chưa đúng định dạng.',false); form.email.closest('.fld').classList.add('err'); return; }
+    if(needs.length<1){ setMsg('Vui lòng chọn ít nhất một nhu cầu.',false); return; }
+    if(!document.getElementById('consent').checked){ setMsg('Vui lòng đồng ý chính sách bảo mật để BAIKA có thể liên hệ.',false); return; }
+    var extras=[];
+    if(form.company.value) extras.push('Cty: '+form.company.value);
+    if(form.pkg.value) extras.push('Goi: '+form.pkg.value);
+    if(form.msg.value) extras.push(form.msg.value);
+    var payload={ fullName:name, phone:phone, email:form.email.value||null, serviceNeeds:needs,
+      siteId:'advisory', sourcePage:location.pathname, privacyConsent:true,
+      interestedPackage: form.pkg.value||null, problemDescription: extras.join(' | ')||null };
+    var bkd=(form.bkdate&&form.bkdate.value)?form.bkdate.value:'';
+    var endpoint=bkd?'/api/v1/public/bookings':'/api/v1/public/leads';
+    if(bkd){ payload={ siteId:'advisory', fullName:name, phone:phone, email:form.email.value||null,
+      companyName:form.company.value||null, preferredDate:bkd, preferredSlot:form.bkslot.value,
+      topic:needs.join(', '), note:extras.join(' | ')||null, sourcePage:location.pathname }; }
+    var okMsg=bkd?'Đã nhận lịch hẹn! BAIKA sẽ gọi xác nhận với bạn trước buổi tư vấn.':'Đã gửi thành công! BAIKA sẽ liên hệ với bạn trong 24 giờ làm việc.';
+    btn.disabled=true; btn.textContent='Đang gửi...';
+    try{
+      var res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(res.ok){ setMsg(okMsg,true); form.reset(); }
+      else if(res.status===422||res.status===429){ var er=await res.json().catch(function(){return{};}); setMsg(er.message||er.error||'Dữ liệu chưa hợp lệ, vui lòng kiểm tra lại.',false); }
+      else{ throw new Error('endpoint '+res.status); }
+    }catch(err){
+      try{ var k=(bkd?'baika_bookings_':'baika_leads_')+'advisory'; var arr=JSON.parse(localStorage.getItem(k)||'[]'); arr.push(Object.assign({created_at:new Date().toISOString()},payload)); localStorage.setItem(k,JSON.stringify(arr));
+        setMsg((bkd?'Đã ghi nhận lịch hẹn':'Đã ghi nhận yêu cầu')+' (chế độ demo — máy chủ chưa kết nối). BAIKA sẽ liên hệ khi hệ thống hoạt động.',true); form.reset();
+      }catch(e2){ setMsg('Không gửi được. Vui lòng gọi trực tiếp 0905 247 365.',false); }
+    }
+    btn.disabled=false; btn.textContent='Gửi yêu cầu tư vấn';
+  });
+
+  /* ---------- GD4 CMS overlay ---------- */
+  fetch('/api/v1/public/site-content?site_id=advisory').then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.data) return;
+    var d=j.data;
+    if(d.hero){
+      if(d.hero.title){ document.getElementById('heroTitle').textContent=d.hero.title; }
+      if(d.hero.subtitle!=null) document.getElementById('heroSub').textContent=d.hero.subtitle;
+      if(d.hero.desc!=null) document.getElementById('heroDesc').textContent=d.hero.desc;
+      if(d.hero.cta1) document.getElementById('heroCta1').textContent=d.hero.cta1;
+    }
+    if(Array.isArray(d.packages)&&d.packages.length){
+      var merged=d.packages.map(function(p,i){ return {name:p.name,desc:p.desc,items:p.items,feat:PACKAGES[i]?PACKAGES[i].feat:false}; });
+      document.getElementById('pkgsBox').innerHTML=pkgHTML(merged); bindPkgButtons(); wireCarousel('pkgsBox','pkgDots');
+      document.getElementById('pkgSel').innerHTML='<option value="">— Chưa chọn —</option>'+merged.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+    }
+    if(Array.isArray(d.faq)&&d.faq.length){
+      document.getElementById('faqBox').innerHTML=d.faq.map(function(f){return '<details class="faq on"><summary>'+esc(f.q)+'</summary><p>'+esc(f.a||'')+'</p></details>';}).join('');
+    }
+  }).catch(function(){});
+})();
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+<script>
+
+  /* Advisory: Radar Pulse */
+  (function(){
+    var c=document.getElementById('baikaAnimBg'); if(!c) return;
+    var ctx=c.getContext('2d'), w=0, h=0, pulses=[], active=true;
+    function r(){ w=c.width=window.innerWidth; h=c.height=window.innerHeight; }
+    window.addEventListener('resize', r); r();
+    var observer = new IntersectionObserver(es => { active = es[0].isIntersecting; });
+    observer.observe(document.body);
+    setInterval(function(){ if(active) pulses.push(0); }, 3000);
+    function draw(){
+      if(!active){ requestAnimationFrame(draw); return; }
+      ctx.clearRect(0,0,w,h);
+      var cx=w*0.8, cy=h*0.3;
+      for(var i=0; i<pulses.length; i++){
+        pulses[i]+=2;
+        if(pulses[i]>Math.max(w,h)) { pulses.splice(i,1); i--; continue; }
+        ctx.beginPath(); ctx.arc(cx,cy,pulses[i],0,Math.PI*2);
+        var alpha = Math.max(0, 0.2 - pulses[i]/3000);
+        ctx.strokeStyle='rgba(255,138,61,'+alpha+')'; ctx.lineWidth=2; ctx.stroke();
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+</script>
+</body>
+</html>
