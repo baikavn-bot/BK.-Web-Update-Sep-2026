@@ -7,6 +7,12 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ---
 
+## 05/10/2026 — trên `main` qua Pull Request
+
+**Thêm**
+- Trang **Chính sách bảo mật** `/chinh-sach-bao-mat` — **bản nháp, chờ Pháp lý duyệt** (còn chỗ [ngoặc vuông]). Mobile: bảng nhà cung cấp xếp thành khối dọc.
+- Chân trang có link «Chính sách bảo mật». Câu đồng ý dưới mọi form: cụm «chính sách bảo mật» thành link mở trang này (tab mới, không mất chữ đang điền).
+
 ## Chưa phát hành — nhánh `remote-office` *(sẽ là `v1.1.0` khi ra mắt Remote Office)*
 
 ### 04/10/2026

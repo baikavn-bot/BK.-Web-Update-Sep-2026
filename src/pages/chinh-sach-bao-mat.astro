@@ -1,0 +1,280 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+// TRANG CHÍNH SÁCH BẢO MẬT — /chinh-sach-bao-mat
+// Figma: section «Chính sách bảo mật — NHÁP…» 971:3638 trên page UI —
+// Desktop 971:3639 · Mobile 972:6555. Dựng 05/10/2026.
+//
+// ⚠️ NỘI DUNG LÀ BẢN NHÁP, CHƯA ĐƯỢC PHÁP LÝ DUYỆT (Thắng chốt 05/10: dựng
+// trước, có bản duyệt thì cập nhật). Chỗ trong [ngoặc vuông] là thông tin công
+// ty / Pháp lý phải điền. Bản nháp gốc + 9 câu hỏi cho Pháp lý: project Claude
+// `claude/chinh-sach-bao-mat-ban-nhap.md`.
+//
+// Nội dung chỉ mô tả đúng những gì website đang làm (đối chiếu code 05/10):
+// form thu 7 thông tin → api/contact.ts → Resend → hộp thư Gmail; không cookie
+// theo dõi, không công cụ phân tích. Website thu thêm dữ liệu gì → sửa trang này
+// TRƯỚC.
+
+const CAP_NHAT = '[ngày đăng]';
+
+// Bảng có `xepDocMobile`: dưới 768px mỗi hàng thành một khối dọc (Thắng chốt
+// 05/10, phương án a) — bảng 3 cột chật quá ở khổ 375.
+const muc = [
+  {
+    tieuDe: '1. Chúng tôi thu thập dữ liệu gì',
+    doan: [
+      'Website chỉ thu thập dữ liệu khi bạn tự điền và gửi form liên hệ. Bạn có thể đọc toàn bộ nội dung website mà không cần cung cấp thông tin nào.',
+      'Khi bạn gửi form, chúng tôi nhận:',
+    ],
+    bang: {
+      xepDocMobile: false,
+      cot: ['Thông tin', 'Bắt buộc?'],
+      hang: [
+        ['Họ tên', 'Có'],
+        ['Email', 'Có'],
+        ['Số điện thoại', 'Có'],
+        ['Tên đơn vị / doanh nghiệp', 'Không'],
+        ['Lĩnh vực bạn quan tâm', 'Không'],
+        ['Mô tả vấn đề (ở trang Remote Office: kèm bản tóm tắt ước tính)', 'Không'],
+        ['Trang web nơi bạn gửi form', 'Tự động ghi nhận'],
+      ],
+    },
+    sauBang: [
+      'Vui lòng không ghi vào ô «Mô tả vấn đề» các thông tin nhạy cảm như số tài khoản ngân hàng, mật khẩu, tình trạng sức khoẻ hay thông tin của người khác.',
+      'Chúng tôi không dùng cookie theo dõi, không gắn công cụ phân tích hành vi hay quảng cáo trên website.',
+      'Giống mọi website, khi bạn truy cập, máy chủ lưu trữ website và dịch vụ phông chữ có thể ghi nhận thông tin kỹ thuật như địa chỉ IP, loại trình duyệt và thời điểm truy cập, nhằm vận hành và bảo vệ hệ thống.',
+    ],
+  },
+  {
+    tieuDe: '2. Chúng tôi dùng dữ liệu để làm gì',
+    ds: [
+      'Liên hệ lại với bạn để trao đổi về nhu cầu bạn đã nêu.',
+      'Tư vấn, gửi báo giá hoặc đặt lịch khảo sát theo yêu cầu của bạn.',
+    ],
+    sauBang: ['Chúng tôi không bán dữ liệu của bạn, và không dùng dữ liệu để gửi quảng cáo khi chưa có sự đồng ý riêng của bạn.'],
+  },
+  {
+    tieuDe: '3. Căn cứ xử lý',
+    doan: ['Chúng tôi xử lý dữ liệu dựa trên sự đồng ý của bạn, thể hiện khi bạn đánh dấu ô «Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật» trước khi gửi form. Form không gửi được nếu ô này chưa được đánh dấu.'],
+  },
+  {
+    tieuDe: '4. Chúng tôi chia sẻ dữ liệu với ai',
+    doan: ['Dữ liệu chỉ được những nhân sự BAIKA phụ trách tư vấn tiếp cận. Để website hoạt động, chúng tôi dùng các nhà cung cấp dịch vụ sau, chỉ trong phạm vi cần thiết:'],
+    bang: {
+      xepDocMobile: true,
+      cot: ['Nhà cung cấp', 'Vai trò', 'Nơi đặt máy chủ'],
+      hang: [
+        ['Vercel Inc.', 'Lưu trữ và vận hành website', '[Pháp lý kiểm]'],
+        ['Resend', 'Chuyển nội dung form thành email gửi về BAIKA', '[Pháp lý kiểm]'],
+        ['Google (Gmail)', 'Hộp thư nhận yêu cầu của BAIKA', '[Pháp lý kiểm]'],
+        ['Google Fonts', 'Cung cấp phông chữ (chỉ nhận thông tin kỹ thuật như IP)', '[Pháp lý kiểm]'],
+      ],
+    },
+    sauBang: ['Ngoài ra, chúng tôi chỉ cung cấp dữ liệu cho cơ quan nhà nước có thẩm quyền khi pháp luật yêu cầu.'],
+  },
+  {
+    tieuDe: '5. Chúng tôi giữ dữ liệu trong bao lâu',
+    doan: ['Chúng tôi giữ dữ liệu từ form trong [thời hạn — Pháp lý chốt] kể từ lần liên hệ cuối cùng, hoặc lâu hơn nếu bạn trở thành khách hàng và hợp đồng hay pháp luật yêu cầu. Hết thời hạn, dữ liệu được xoá.'],
+  },
+  {
+    tieuDe: '6. Quyền của bạn',
+    doan: ['Theo Luật Bảo vệ dữ liệu cá nhân, bạn có quyền:'],
+    ds: [
+      'Được biết dữ liệu của bạn đang được xử lý thế nào.',
+      'Đồng ý hoặc rút lại sự đồng ý.',
+      'Xem, yêu cầu sửa hoặc xoá dữ liệu.',
+      'Yêu cầu hạn chế việc xử lý.',
+      'Khiếu nại và yêu cầu bồi thường theo quy định pháp luật.',
+    ],
+    sauBang: ['Để thực hiện các quyền này, gửi email tới baika.vn@gmail.com với tiêu đề «[Dữ liệu cá nhân] …». Chúng tôi phản hồi trong vòng [số ngày — Pháp lý chốt] ngày làm việc.'],
+  },
+  {
+    tieuDe: '7. Bảo vệ dữ liệu',
+    doan: ['Kết nối tới website được mã hoá (HTTPS). Tài khoản quản trị các hệ thống liên quan được bảo vệ bằng xác thực hai lớp. Chỉ nhân sự có nhiệm vụ mới được tiếp cận dữ liệu.'],
+  },
+  {
+    tieuDe: '8. Thay đổi chính sách',
+    doan: ['Khi chính sách thay đổi, chúng tôi cập nhật trang này và ngày «Cập nhật lần cuối» ở đầu trang.'],
+  },
+] as const;
+---
+
+<BaseLayout
+  title="Chính sách bảo mật — BAIKA"
+  description="BAIKA thu thập dữ liệu cá nhân nào qua website, dùng vào việc gì, chia sẻ cho ai, giữ bao lâu và quyền của bạn."
+>
+  <SiteHeader slot="header" />
+
+  <article class="cs">
+    <header class="cs__dau">
+      <h1 class="cs__h1">Chính sách bảo mật</h1>
+      <p class="cs__ngay">Cập nhật lần cuối: {CAP_NHAT}</p>
+    </header>
+
+    <div class="cs__mo">
+      <p>[Tên pháp lý đầy đủ của công ty] («BAIKA», «chúng tôi») tôn trọng quyền riêng tư của bạn. Trang này giải thích BAIKA thu thập dữ liệu cá nhân nào qua website, dùng vào việc gì, chia sẻ cho ai, giữ trong bao lâu, và bạn có những quyền gì.</p>
+      <p>Chính sách áp dụng cho các website: [baika.vn], baika.website [và các tên miền khác của BAIKA].</p>
+    </div>
+
+    {muc.map((m) => (
+      <section class="cs__muc">
+        <h2 class="cs__h2">{m.tieuDe}</h2>
+        {'doan' in m && m.doan?.map((p) => <p>{p}</p>)}
+        {'ds' in m && m.ds && (
+          <ul class="cs__ds">{m.ds.map((x) => <li>{x}</li>)}</ul>
+        )}
+        {'bang' in m && m.bang && (
+          <table class:list={['cs__bang', { 'cs__bang--xep-doc': m.bang.xepDocMobile }]}>
+            <thead>
+              <tr>{m.bang.cot.map((c) => <th scope="col">{c}</th>)}</tr>
+            </thead>
+            <tbody>
+              {m.bang.hang.map((h) => (
+                <tr>{h.map((o, i) => <td data-cot={m.bang.cot[i]}>{o}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {'sauBang' in m && m.sauBang?.map((p) => <p>{p}</p>)}
+      </section>
+    ))}
+
+    <section class="cs__muc">
+      <h2 class="cs__h2">9. Liên hệ</h2>
+      <p>
+        [Tên pháp lý đầy đủ của công ty]<br />
+        Mã số doanh nghiệp: [MST]<br />
+        Địa chỉ: Tầng 15, 72 Lê Thánh Tôn, P. Sài Gòn, Thành phố Hồ Chí Minh<br />
+        Email: <a href="mailto:baika.vn@gmail.com">baika.vn@gmail.com</a> · Điện thoại: <a href="tel:0905247365">0905 247 365</a>
+      </p>
+    </section>
+  </article>
+
+  <SiteFooter slot="footer" />
+</BaseLayout>
+
+<style>
+  /* Figma 971:3639: nền --gray-950 · cột chữ 800 căn giữa · trên --s-20,
+     dưới --s-24, hai bên --s-10 (mobile --s-6) · giữa các mục --s-10,
+     trong mục --s-4. Tiêu đề H-1 / mục H-2 / mở đầu body-lg / nội dung body. */
+  :global(body) { background: var(--gray-950); }
+
+  .cs {
+    box-sizing: content-box;
+    max-width: 800px;
+    margin: 0 auto;
+    /* Header nằm ĐÈ lên trang (position absolute, cao 128 = 40 + 48 + 40),
+       nên lề trên = 128 + --s-20 — đúng Figma: header 128 rồi mới tới lề 80. */
+    padding: calc(var(--s-10) * 2 + var(--s-12) + var(--s-20)) var(--s-6) var(--s-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-10);
+    color: var(--gray-50);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--fw-body);
+  }
+  @media (min-width: 768px) {
+    .cs { padding-inline: var(--s-10); }
+  }
+
+  .cs p { margin: 0; }
+  .cs a { color: inherit; }
+
+  .cs__dau { display: flex; flex-direction: column; gap: var(--s-3); }
+  .cs__h1 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h1);
+    line-height: var(--lh-h1);
+    font-weight: var(--fw-h1);
+  }
+  .cs__ngay {
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    font-weight: var(--fw-caption);
+    color: var(--gray-400);
+  }
+
+  .cs__mo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-4);
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    font-weight: var(--fw-body-lg);
+  }
+
+  .cs__muc { display: flex; flex-direction: column; gap: var(--s-4); }
+  .cs__h2 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: var(--fw-h2);
+  }
+
+  .cs__ds { margin: 0; padding-left: var(--s-6); display: flex; flex-direction: column; gap: var(--s-1); }
+
+  /* Bảng — theo component Figma `Table Item` 842:7837 (Default):
+     viền 1px --gray-900 · bo --r-sm ở góc ngoài · ô cách nhau --s-1 ·
+     padding --s-4 / --s-6 (mobile --s-4 / --s-4) · ô đầu chữ H-3. */
+  .cs__bang {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: var(--s-1);
+    margin: 0 calc(var(--s-1) * -1);
+    width: calc(100% + var(--s-1) * 2);
+  }
+  .cs__bang th,
+  .cs__bang td {
+    padding: var(--s-4);
+    border: 1px solid var(--gray-900);
+    text-align: left;
+    vertical-align: middle;
+  }
+  .cs__bang th {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+  }
+  .cs__bang thead th:first-child { border-top-left-radius: var(--r-sm); }
+  .cs__bang thead th:last-child  { border-top-right-radius: var(--r-sm); }
+  .cs__bang tbody tr:last-child td:first-child { border-bottom-left-radius: var(--r-sm); }
+  .cs__bang tbody tr:last-child td:last-child  { border-bottom-right-radius: var(--r-sm); }
+  @media (min-width: 768px) {
+    .cs__bang th, .cs__bang td { padding: var(--s-4) var(--s-6); }
+  }
+
+  /* Mobile < 768: bảng 3 cột thành từng khối dọc. Ô đầu mỗi hàng là tên
+     (chữ H-3), các ô sau ghi kèm tên cột nhỏ phía trên. */
+  @media (max-width: 767.98px) {
+    .cs__bang--xep-doc,
+    .cs__bang--xep-doc tbody,
+    .cs__bang--xep-doc tr,
+    .cs__bang--xep-doc td { display: block; width: auto; margin: 0; }
+    .cs__bang--xep-doc thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .cs__bang--xep-doc tbody { display: flex; flex-direction: column; gap: var(--s-3); }
+    .cs__bang--xep-doc tr { border: 1px solid var(--gray-900); border-radius: var(--r-sm); }
+    .cs__bang--xep-doc td { border: 0; border-radius: 0 !important; padding-bottom: 0; }
+    .cs__bang--xep-doc td:last-child { padding-bottom: var(--s-4); }
+    .cs__bang--xep-doc td:first-child {
+      font-family: var(--font-heading);
+      font-size: var(--fs-h3);
+      line-height: var(--lh-h3);
+      font-weight: var(--fw-h3);
+    }
+    .cs__bang--xep-doc td + td { padding-top: var(--s-3); }
+    .cs__bang--xep-doc td + td::before {
+      content: attr(data-cot);
+      display: block;
+      font-size: var(--fs-caption);
+      line-height: var(--lh-caption);
+      color: var(--gray-400);
+    }
+  }
+</style>
