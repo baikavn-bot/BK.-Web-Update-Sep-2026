@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+
+// TRANG «SẮP RA MẮT» — mọi chỗ chưa có trang riêng dẫn về đây (viec-cho #12).
+// Hiện dùng cho: ô Trạm Ý Tưởng + Trạm Kết Nối (trang chủ) và 2 mục Trạm ở header.
+// Figma: section `Coming soon` 975:4678 — Desktop 975:4512 · Tablet 975:4574 ·
+// Mobile 975:4602 (cùng cao 832). Đo 05/10/2026.
+//
+// Đã đối chiếu và KHÔNG dựng:
+//   · `Planet` — visible = false ở cả ba khổ.
+//   · Không có chân trang trong bản vẽ → trang này không có Footer.
+//
+// Nền: nhóm `Frame 2121454393` (5 hình, LayerBlur 120–200) → ẢNH
+//   public/img/sap-ra-mat-bg.webp (1280×832, 14 KB). Lấy SVG xuất thẳng từ
+//   Figma, vẽ lại bằng Chromium trên nền --gray-950. Blur nặng nên không vẽ
+//   bằng CSS (cùng lý do với ảnh nền trang chủ). Màu thô trong nhóm này
+//   (#1A5A8D · #FDFEFF · #2698ED) nằm trong ảnh, không vào CSS.
+//   Ba khổ trong Figma dùng CÙNG một nhóm, cùng neo góc trên-trái → một ảnh,
+//   `cover` + neo trái-trên là ra đúng phần cắt của Tablet và Mobile.
+//
+// Chữ «Coming soon»: Chakra Petch Regular, cao dòng 75%, giãn chữ −10px.
+//   Cỡ: 300 / 200 / 100 (Desktop / Tablet / Mobile) — ngoài thang chữ, cùng
+//   loại chữ trang trí cỡ lớn với «Contact» ở trang Liên hệ → tính theo vw.
+//   Tô gradient dọc --blue-100 → trong suốt, độ mờ 50%.
+//   ⚠️ Điểm cuối gradient Figma là #1D6297 alpha 0 (không phải token). Vì
+//   alpha 0 nên chỉ ảnh hưởng dải giữa; code dùng --blue-700 alpha 0 (gần nhất).
+---
+
+<BaseLayout
+  title="Sắp ra mắt — BAIKA"
+  description="Nội dung này đang được BAIKA hoàn thiện và sẽ sớm ra mắt."
+>
+  <SiteHeader slot="header" />
+
+  <section class="srm">
+    <h1 class="srm__chu" lang="en">Coming<br />soon</h1>
+    <p class="sr-only">Nội dung này sắp ra mắt. Bạn có thể xem các dịch vụ khác trong menu phía trên.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(body) { background: var(--gray-950); }
+
+  .srm {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 266px var(--s-5) var(--s-12);    /* Mobile: Figma y 266 (không căn giữa) */
+    background: var(--gray-950) url('/img/sap-ra-mat-bg.webp') left top / cover no-repeat;
+    overflow: hidden;
+  }
+
+  .srm__chu {
+    margin: 0;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 400;                          /* Chakra Petch Regular */
+    font-size: 26.67vw;                        /* 100 / 375 */
+    line-height: 0.75;
+    letter-spacing: -0.1em;                    /* −10px ở cỡ 100 */
+    background: linear-gradient(180deg,
+      var(--blue-100) 25.3%,
+      color-mix(in srgb, var(--blue-700) 0%, transparent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0.5;
+  }
+
+  /* Desktop + Tablet: Figma neo chữ GIỮA khung (constraints Center/Center). */
+  @media (min-width: 768px) {
+    .srm { justify-content: center; padding-top: 0; padding-bottom: 0; }
+    .srm__chu { font-size: 26.04vw; letter-spacing: -0.05em; }     /* 200 / 768 */
+  }
+  @media (min-width: 1280px) {
+    .srm__chu { font-size: 23.44vw; letter-spacing: -0.0333em; }   /* 300 / 1280 */
+  }
+</style>

@@ -13,6 +13,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 - Trang **Chính sách bảo mật** `/chinh-sach-bao-mat` — **bản nháp, chờ Pháp lý duyệt** (còn chỗ [ngoặc vuông]). Mobile: bảng nhà cung cấp xếp thành khối dọc.
 - Mạng xã hội ở trang Liên hệ: chỉ hiện mục đã có đường dẫn (hiện ẩn cả 3).
 
+**Thêm**
+- Trang **«Sắp ra mắt»** `/sap-ra-mat`. Ô Trạm Ý Tưởng + Trạm Kết Nối ở trang chủ và 2 mục Trạm trên header giờ bấm được, dẫn về trang này (trước đó không bấm được).
+
 **Đổi**
 - **Header mới** (Thắng vẽ lại 05/10): thấp hơn (96). Máy tính/tablet: thanh chữ «Trạm ý tưởng · Trạm kết nối · Dịch vụ · Liên hệ» thay cho nút 3 gạch; bấm «Dịch vụ» mở bảng 8 dịch vụ (Remote Office đứng đầu), bấm lại / Esc / bấm ra ngoài thì đóng. Điện thoại: vẫn nút 3 gạch, menu thêm 2 Trạm (chưa bấm được) và nút «Liên hệ».
 
