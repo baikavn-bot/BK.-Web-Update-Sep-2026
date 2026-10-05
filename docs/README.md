@@ -14,6 +14,7 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 | Thư mục | Chứa gì | Tình trạng |
 | --- | --- | --- |
 | `remote-office/` | Bộ spec 4 file của trang Remote Office (`baika.website`). Bắt đầu từ `SPEC-MASTER.md` | **Đang dùng** — cập nhật cùng code |
+| `trang-con-thieu/` | Spec nội dung **4 trang chưa dựng** (Trạm Ý Tưởng · Kho mô hình · Kho Tài Nguyên · Về BAIKA), chép nguyên văn từ site cũ baika.vn 05/10/2026 + dữ liệu 155 mô hình (`du-lieu/`) | **Bản thu thập** — chưa duyệt, xem §6 trước khi dùng |
 | `viec-cho.md` | **Việc đang chờ** — agent đọc mỗi phiên, nhắc Thắng mục nào tới điều kiện (chuyển từ project Claude 04/10) | **Đang dùng** |
 | `buoi-xem-figma.md` | Câu hỏi giao diện còn chờ Thắng nhìn | **Đang dùng** |
 | `nhat-ky-figma-chung.md` | Nhật ký Figma của **component dùng chung** (menu, chân trang, thẻ gói…) — mỗi lần agent hoặc Thắng sửa | **Đang dùng** |

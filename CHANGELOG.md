@@ -9,6 +9,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 05/10/2026 — trên `main` qua Pull Request
 
+**Tài liệu**
+- Spec nội dung 4 trang chưa dựng, chép nguyên văn từ site cũ baika.vn (`docs/trang-con-thieu/`) + dữ liệu 155 mô hình kinh doanh. Chưa đổi gì trên site.
+
 **Thêm**
 - Trang **Chính sách bảo mật** `/chinh-sach-bao-mat` — **bản nháp, chờ Pháp lý duyệt** (còn chỗ [ngoặc vuông]). Mobile: bảng nhà cung cấp xếp thành khối dọc.
 - Mạng xã hội ở trang Liên hệ: chỉ hiện mục đã có đường dẫn (hiện ẩn cả 3).
