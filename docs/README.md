@@ -15,7 +15,7 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 | --- | --- | --- |
 | `remote-office/` | Bộ spec 4 file của trang Remote Office (`baika.website`). Bắt đầu từ `SPEC-MASTER.md` | **Đang dùng** — cập nhật cùng code |
 | `chuyen-baika-vn.md` | **Việc phải xong trước khi trỏ baika.vn sang v2** (chặn · nên xong · ngày chuyển) + bảng đường dẫn bản cũ | **Đang dùng** |
-| **v1 có gì?** | **v1** = bản cũ (site Next.js ở baika.vn tới 10/2026) · **v2** = baika-website-v2 = repo này. Nội dung v1 đọc ở `trang-con-thieu/noi-dung-v1.md` (gói, FAQ, ưu đãi, công cụ…) + `trang-con-thieu/du-lieu/ban-cu/noi-dung/` (chữ từng trang) + `trang-con-thieu/spec-noi-dung.md` (Trạm Ý Tưởng, Tài nguyên, Về BAIKA). Mục lục: `trang-con-thieu/du-lieu/ban-cu/README.md` | Bản chụp 05/10/2026 |
+| **v1 có gì?** | **v1** = bản cũ (site Next.js ở baika.vn tới 10/2026) · **v2** = baika-website-v2 = repo này. Nội dung v1 đọc ở `trang-con-thieu/noi-dung-v1.md` (gói, FAQ, ưu đãi, công cụ…) + `trang-con-thieu/du-lieu/ban-cu/noi-dung/` (chữ từng trang) + `trang-con-thieu/spec-noi-dung.md` (Trạm Ý Tưởng, Tài nguyên, Về BAIKA). 5 công cụ chẩn đoán (công thức, luật chọn gói): `trang-con-thieu/cong-cu-chan-doan-v1.md`. Mục lục: `trang-con-thieu/du-lieu/ban-cu/README.md` | Bản chụp 05/10/2026 |
 | `trang-con-thieu/` | Spec nội dung **4 trang chưa dựng** (Trạm Ý Tưởng · Kho mô hình · Kho Tài Nguyên · Về BAIKA), chép nguyên văn từ site cũ baika.vn 05/10/2026 + dữ liệu 155 mô hình (`du-lieu/`) | **Bản thu thập** — chưa duyệt, xem §6 trước khi dùng |
 | `viec-cho.md` | **Việc đang chờ** — agent đọc mỗi phiên, nhắc Thắng mục nào tới điều kiện (chuyển từ project Claude 04/10) | **Đang dùng** |
 | `buoi-xem-figma.md` | Câu hỏi giao diện còn chờ Thắng nhìn | **Đang dùng** |
