@@ -1,0 +1,7 @@
+# robots.txt — hướng dẫn cho máy tìm kiếm (Google, Bing…) được đọc trang nào.
+# Thêm 05/10/2026. Site tĩnh: mọi trang đều cho đọc, trừ API gửi form.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://baika.vn/sitemap.xml
