@@ -9,6 +9,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 05/10/2026 — trên `main` qua Pull Request
 
+**Thêm (cho máy tìm kiếm)**
+- `robots.txt` và `sitemap.xml` (danh sách trang, tự sinh lúc build). Người xem không thấy gì khác; giúp Google đọc đủ trang khi baika.vn chuyển sang v2.
+
 **Tài liệu**
 - Spec nội dung 4 trang chưa dựng, chép nguyên văn từ site cũ baika.vn (`docs/trang-con-thieu/`) + dữ liệu 155 mô hình kinh doanh. Chưa đổi gì trên site.
 
