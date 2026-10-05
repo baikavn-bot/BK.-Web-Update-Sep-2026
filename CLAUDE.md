@@ -71,10 +71,11 @@ Nó **không** phải codebase, design, kiến trúc, component hay asset baseli
 
 Nội dung site **cố định** (`DEC-017`). Không CMS, không database.
 
-**Ngoại lệ duy nhất:** thư mục `api/` — hai hàm nhỏ chạy trên Vercel (*serverless function* — đoạn code chỉ chạy khi có người gọi, không cần máy chủ riêng):
+**Ngoại lệ duy nhất:** thư mục `api/` — ba hàm nhỏ chạy trên Vercel (*serverless function* — đoạn code chỉ chạy khi có người gọi, không cần máy chủ riêng):
 
 - `api/contact.ts` nhận form, gửi mail qua Resend. Mail ghi rõ **tên miền + trang gửi** (trường `trang` do form gửi lên) và loại thư («Liên hệ mới» / «Yêu cầu theo ước tính»).
 - `api/health.ts` trả về CÓ/KHÔNG cho 3 biến môi trường của form. Không bao giờ trả giá trị thật.
+- `api/chan-doan.ts` nhận kết quả 5 công cụ chẩn đoán, gửi mail về BAIKA qua Resend — dùng lại đúng 3 biến môi trường của form. Không lưu gì (`docs/cong-cu-chan-doan/`).
 
 Sửa nội dung = sửa cả thiết kế, không phải sửa riêng chữ.
 
@@ -132,6 +133,7 @@ Mỗi thư mục con theo cùng một khung 4 file:
 | Thư mục | Trang |
 | --- | --- |
 | `docs/remote-office/` | Remote Office — `baika.website`. Bắt đầu từ `SPEC-MASTER.md`. Cách gắn tên miền (`vercel.json` dùng **`routes`**, không dùng `rewrites`): `quy-trinh-build.md` §5 |
+| `docs/cong-cu-chan-doan/` | 5 công cụ chẩn đoán miễn phí (logic giữ y site cũ, sếp chốt 05/10). Chỉ có `SPEC-MASTER.md` |
 | `docs/_chung/` | Tài liệu chung 7 trang dịch vụ + trang chủ + Liên hệ: **nhật ký quyết định `DEC-001`…`DEC-100`**, Design Spec, Implementation Spec, spec bàn giao, sitemap, vận hành sau launch. **Chép nguyên văn** từ project Claude ngày 03/10/2026 — đầu mỗi file ghi chỗ đã lỗi thời. Mục lục: `docs/README.md` |
 
 ### Luật đồng bộ ngược: chốt ở Claude → agent vẽ vào Figma *(Thắng chốt 04/10/2026)*
@@ -262,7 +264,7 @@ baika-website/
 ├── LICENSE                ← giữ mọi quyền — repo công khai để xem, không để dùng lại
 ├── .github/               ← kiểm tra tự động (CI) · Dependabot · mẫu Pull Request — xem §9b
 ├── docs/                  ← tài liệu dựng từng trang, mỗi trang một thư mục — xem §3
-├── api/                   ← hàm chạy trên Vercel: contact.ts (gửi mail) · health.ts — xem §2
+├── api/                   ← hàm chạy trên Vercel: contact.ts (gửi mail) · chan-doan.ts · health.ts — xem §2
 ├── tools/                 ← script kiểm tra, KHÔNG nằm trong site — xem §8
 ├── vercel.json            ← luật tên miền baika.website (routes)
 ├── astro.config.mjs       ← site tĩnh, không adapter
@@ -273,7 +275,7 @@ baika-website/
 │   │   └── global.css     ← chỉ thứ dùng ở MỌI trang
 │   ├── layouts/           ← BaseLayout (mọi trang) · ServicePageLayout (7 trang dịch vụ)
 │   ├── components/        ← một component = MỘT file .astro, CSS nằm trong thẻ <style> của file đó
-│   ├── lib/               ← phần tính toán không có giao diện (vd. uoc-tinh.ts)
+│   ├── lib/               ← phần tính toán không có giao diện (vd. uoc-tinh.ts, chan-doan/)
 │   └── pages/             ← mỗi file = một URL
 └── public/                ← file tĩnh phục vụ nguyên trạng
 ```
@@ -293,6 +295,7 @@ pnpm build              # kiểm tra kiểu + dựng bản production vào dist/
 pnpm preview            # xem thử bản đã dựng
 pnpm kiem-tra           # luật tĩnh: màu viết cứng, #FFFFFF, khoá bí mật — 1 giây, không cần trình duyệt
 pnpm kiem-tra:uoc-tinh  # 11 ca của công cụ ước tính Remote Office — cần Node ≥ 22.6
+pnpm kiem-tra:chan-doan # 23 ca của 5 công cụ chẩn đoán (logic giữ y v1) — cần Node ≥ 22.6
 pnpm kiem-tra:trang     # tràn ngang, <h1>, alt, lỗi JS ở mọi trang × 4 khổ — cần Playwright + pnpm preview đang chạy
 pnpm chup               # chụp ảnh trang để đặt cạnh Figma
 ```

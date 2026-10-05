@@ -1,0 +1,339 @@
+---
+// CÔNG CỤ CHẨN ĐOÁN AI — AI Readiness Diagnosis (/ai-os/diagnosis)
+// ===================================================================
+// Figma MVP (page UI): section 1000:4670 — 9 bước + kết quả, desktop + mobile.
+// Câu chữ + cách tính: src/lib/chan-doan/ai.ts (nguyên văn v1, sếp chốt 05/10/2026).
+//
+// Cả 9 bước nằm trong MỘT <form>: nhấn Enter = bấm «Tiếp tục». Mỗi lúc chỉ một
+// bước hiện (`hidden`). JS chỉ chuyển bước, kiểm câu bắt buộc, tính điểm và gửi.
+//
+// Bỏ so với v1, có chủ ý: (1) lưu nháp — v1 lưu vào bộ nhớ tạm của trang nên
+// thật ra không giữ được gì; (2) ghi sự kiện theo dõi (`track`) — Chính sách bảo
+// mật cam kết không gắn công cụ theo dõi hành vi.
+import CongCuKhung from './CongCuKhung.astro';
+import LuaChon from './LuaChon.astro';
+import Button2 from './Button2.astro';
+import TextField from './TextField.astro';
+import Checkbox from './Checkbox.astro';
+import {
+  MUC_SAN_SANG, QUY_MO, DAU_HIEU, DU_LIEU_PHAN_TAN, CONG_CU_DANG_DUNG, VAI_TRO_AI,
+  QUY_TRINH_TU_DONG, PHAN_MEM_RIENG, NGAN_SACH, THOI_GIAN, BUOC,
+} from '../lib/chan-doan/ai';
+
+const nutPhu = { size: 'md' as const, iconLeft: false, iconRight: false };
+
+/** Câu hỏi 3 mức (bắt buộc). */
+const cauMuc = (name: string, cau: string) => ({ name, cau });
+type NhieuChon = { name: string; cau: string; goiY?: string; ds: Array<{ gt: string; nhan: string }> };
+---
+
+<CongCuKhung congCu="ai-os">
+  <section class="cc-man" data-man="buoc">
+    <div class="cc-dau">
+      <p class="cc-mat">BAIKA AI Diagnosis · AI Readiness Diagnosis</p>
+      <h1 class="cc-h1">Khảo sát cơ hội ứng dụng AI</h1>
+      <p class="cc-mo">9 bước · ~3 phút · nhận điểm sẵn sàng AI và gói triển khai đề xuất.</p>
+    </div>
+
+    <div class="cc-tiendo">
+      <div class="cc-tiendo__tren"><span data-o="tien-do">Bước 1/9 · {BUOC[0].ten}</span></div>
+      <div class="cc-ray" data-thanh="tien-do"><span class="cc-ray__day"></span></div>
+    </div>
+
+    <form class="cc-man" novalidate>
+      {/* Bước 1 — Thông tin doanh nghiệp */}
+      <div class="cc-nhom" data-buoc="0">
+        <h2 class="sr-only" data-tieu-de tabindex="-1">Bước 1: {BUOC[0].ten}</h2>
+        <div class="cc-form" data-cot="2">
+          <div class="cc-rong"><TextField id="ai-company_name" name="company_name" label="Tên doanh nghiệp *" required autocomplete="organization" /></div>
+          <TextField id="ai-industry" name="industry" label="Ngành" />
+          <TextField id="ai-company_size" name="company_size" label="Quy mô *" required options={QUY_MO.map((x) => x.nhan)} />
+          <div class="cc-rong"><TextField id="ai-business_model" name="business_model" label="Mô hình kinh doanh (ngắn gọn)" multiline height={96} /></div>
+        </div>
+      </div>
+
+      {/* Bước 2–8 */}
+      {[
+        { buoc: 1, muc: [cauMuc('process_documented', 'Quy trình cốt lõi đã được mô tả/tài liệu hóa rõ chưa? *')],
+          nhieu: [{ name: 'auto_signals', cau: 'Dấu hiệu cơ hội tự động hóa (chọn những điều đúng)', goiY: 'Càng nhiều dấu hiệu, cơ hội tự động hóa càng cao.', ds: DAU_HIEU }] as NhieuChon[] },
+        { buoc: 2, muc: [cauMuc('data_structured', 'Dữ liệu của doanh nghiệp đã có cấu trúc chưa? *')],
+          nhieu: [{ name: 'auto_signals', cau: 'Tình trạng phân tán dữ liệu', ds: [DU_LIEU_PHAN_TAN] }] as NhieuChon[] },
+        { buoc: 3, nhieuTruoc: true, muc: [cauMuc('tools_api', 'Công cụ hiện tại có khả năng API / export dữ liệu không? *')],
+          nhieu: [{ name: 'tools', cau: 'Bạn đang dùng những loại công cụ nào? (chọn nhiều)', ds: CONG_CU_DANG_DUNG }] as NhieuChon[] },
+        { buoc: 4, muc: [], nhieu: [{ name: 'ai_roles', cau: 'Bạn muốn xây AI Agent cho phòng ban nào? (chọn nhiều, có thể bỏ trống)', goiY: 'Không bắt buộc — bỏ trống nếu chưa rõ.', ds: VAI_TRO_AI }] as NhieuChon[] },
+        { buoc: 5, muc: [], nhieu: [{ name: 'workflows', cau: 'Bạn muốn tự động hóa quy trình nào? (chọn nhiều, có thể bỏ trống)', ds: QUY_TRINH_TU_DONG }] as NhieuChon[] },
+        { buoc: 6, muc: [], nhieu: [{ name: 'software_needs', cau: 'Bạn có nhu cầu phần mềm riêng nào? (chọn nhiều, có thể bỏ trống)', goiY: 'Có nhu cầu CRM/ERP/dashboard/internal tool sẽ ưu tiên gói Custom AI Software.', ds: PHAN_MEM_RIENG }] as NhieuChon[] },
+        { buoc: 7, nhieu: [] as NhieuChon[], muc: [
+          cauMuc('team_ready', 'Đội ngũ có sẵn sàng thay đổi cách làm việc không? *'),
+          cauMuc('leadership_goal', 'CEO/quản lý đã có mục tiêu ứng dụng AI rõ ràng chưa? *'),
+          cauMuc('budget_ready', 'Doanh nghiệp đã sẵn ngân sách triển khai chưa? *'),
+        ] },
+      ].map((b) => {
+        const theMuc = b.muc.map((m) => (
+          <fieldset class="cc-the" data-cau={m.name}>
+            <legend class="cc-lon">{m.cau}</legend>
+            <div class="cc-luachon" data-cot="3">
+              {MUC_SAN_SANG.map((x) => <LuaChon name={m.name} value={x.gt} label={x.nhan} phu={x.phu} />)}
+            </div>
+          </fieldset>
+        ));
+        const theNhieu = b.nhieu.map((n) => (
+          <fieldset class="cc-the">
+            <legend class="cc-lon">{n.cau}</legend>
+            <div class="cc-luachon" data-cot="2">
+              {n.ds.map((x) => <LuaChon kieu="checkbox" name={n.name} value={x.gt} label={x.nhan} />)}
+            </div>
+            {n.goiY && <p class="cc-phu">{n.goiY}</p>}
+          </fieldset>
+        ));
+        return (
+          <div class="cc-nhom" data-buoc={b.buoc} hidden>
+            <h2 class="sr-only" data-tieu-de tabindex="-1">Bước {b.buoc + 1}: {BUOC[b.buoc].ten}</h2>
+            {b.nhieuTruoc ? [theNhieu, theMuc] : [theMuc, theNhieu]}
+          </div>
+        );
+      })}
+
+      {/* Bước 9 — Gửi yêu cầu tư vấn */}
+      <div class="cc-nhom" data-buoc="8" hidden>
+        <h2 class="sr-only" data-tieu-de tabindex="-1">Bước 9: {BUOC[8].ten}</h2>
+        <div class="cc-form" data-cot="2">
+          <TextField id="ai-ten" name="ten" label="Họ và tên *" required autocomplete="name" />
+          <TextField id="ai-sdt" name="sdt" label="Số điện thoại *" type="tel" required autocomplete="tel" />
+          <div class="cc-rong"><TextField id="ai-email" name="email" label="Email" type="email" autocomplete="email" /></div>
+          <TextField id="ai-budget_range" name="budget_range" label="Ngân sách dự kiến" options={NGAN_SACH.map((x) => x.nhan)} />
+          <TextField id="ai-timeline" name="implementation_timeline" label="Thời gian triển khai" options={THOI_GIAN.map((x) => x.nhan)} />
+          <div class="cc-rong"><TextField id="ai-pain_points" name="pain_points" label="Vấn đề lớn nhất hiện tại" multiline height={96} /></div>
+          <div class="cc-rong"><TextField id="ai-expected_outcomes" name="expected_outcomes" label="Kết quả mong đợi từ AI" multiline height={96} /></div>
+          <div class="sr-only" aria-hidden="true">
+            <label for="ai-website">Đừng điền ô này</label>
+            <input id="ai-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="cc-rong">
+            <Checkbox id="ai-dongy" name="dongy" required>
+              Tôi đồng ý để BAIKA liên hệ tư vấn theo <a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">chính sách bảo mật</a>. *
+            </Checkbox>
+          </div>
+        </div>
+      </div>
+
+      <p class="cc-loi" data-o="loi" role="alert" hidden></p>
+      <div class="cc-nut">
+        <span data-nut="lui"><Button2 label="← Quay lại" {...nutPhu} /></span>
+        <span data-nut="tiep"><Button2 label="Tiếp tục →" type="submit" {...nutPhu} /></span>
+      </div>
+    </form>
+  </section>
+
+  {/* ── Kết quả ── */}
+  <section class="cc-man" data-man="ket-qua" hidden>
+    <div class="cc-diem">
+      <div class="cc-vong" data-vong>
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="cc-vong__nen" cx="50" cy="50" r="47" fill="none" stroke-width="6" pathLength="100" />
+          <circle class="cc-vong__day" cx="50" cy="50" r="47" fill="none" stroke-width="6" pathLength="100" stroke-dasharray="0 100" />
+        </svg>
+        <div class="cc-vong__so"><b>0</b><span>/100</span></div>
+      </div>
+      <div class="cc-diem__chu">
+        <p class="cc-mat">Kết quả sơ bộ · Mức độ sẵn sàng AI của bạn</p>
+        <h2 class="cc-h2" data-tieu-de tabindex="-1" data-o="muc"></h2>
+        <p class="cc-mo">Đây là điểm sơ bộ để ưu tiên xử lý — chưa phải kết luận tư vấn cuối cùng.</p>
+        <div class="cc-thanh" data-thanh-nhom="auto">
+          <span class="cc-thanh__ten">Automation Opportunity</span>
+          <span class="cc-ray" aria-hidden="true"><span class="cc-ray__day"></span></span>
+          <span class="cc-thanh__so" data-o="tu-dong-hoa">0</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="cc-canhbao" data-o="pham-vi" hidden>Bạn chọn nhiều nhu cầu — BAIKA sẽ tư vấn lộ trình triển khai theo giai đoạn để tránh quá tải.</p>
+
+    <section class="cc-the cc-goi">
+      <p class="cc-mat">Gói đề xuất</p>
+      <h3 class="cc-h3" data-o="goi"></h3>
+      <p class="cc-mo" data-o="goi-mo-ta"></p>
+      <ul data-o-ds="goi-hang-muc"></ul>
+    </section>
+
+    <section class="cc-dau">
+      <h3 class="cc-h3">Bước tiếp theo</h3>
+      <p class="cc-mo">BAIKA sẽ liên hệ tư vấn và xây roadmap 30-60-90 cho doanh nghiệp của bạn.</p>
+    </section>
+    <div class="cc-nut" data-trai>
+      <Button2 label="Đặt lịch tư vấn" href="/ai-os#lien-he" {...nutPhu} />
+      <Button2 label="Về trang dịch vụ" href="/ai-os" {...nutPhu} />
+    </div>
+    <p class="cc-phu" role="status"><span data-o="ma-ho-so"></span> · <span data-o="trang-thai-gui"></span></p>
+  </section>
+</CongCuKhung>
+
+<style>
+  /* Thanh «Automation Opportunity» nằm trong cột chữ cạnh vòng điểm → luôn xếp 2 dòng
+     (tên ở trên, thanh + số ở dưới) và rộng tối đa 240 như v1. */
+  .cc-thanh[data-thanh-nhom='auto'] {
+    max-width: calc(var(--s-20) * 3);
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'ten ten' 'ray so';
+    gap: var(--s-2) var(--s-3);
+  }
+</style>
+
+<script>
+  import { tinhAI, BUOC, GOI_AI, MUC_SAN_SANG, DAU_HIEU, DU_LIEU_PHAN_TAN, CONG_CU_DANG_DUNG, VAI_TRO_AI, QUY_TRINH_TU_DONG, PHAN_MEM_RIENG } from '../lib/chan-doan/ai';
+  import {
+    hienMan, veDauKhoi, toThanh, toVong, ghi, chuNut, nut,
+    datLoi, giaTri, nhanDaChon, sdtDung, emailDung, taoMaHoSo, guiKetQua,
+  } from '../lib/chan-doan/trinh-duyet';
+
+  const goc = document.querySelector<HTMLElement>('.cc[data-cong-cu="ai-os"]');
+  const form = goc?.querySelector<HTMLFormElement>('form');
+
+  if (goc && form) {
+    const SO_BUOC = BUOC.length;   // 9
+    let cur = 0;
+
+    const mucDaChon = (ten: string) => form.querySelector<HTMLInputElement>(`[name="${ten}"]:checked`)?.value ?? '';
+    const cacOChon = (ten: string) => [...form.querySelectorAll<HTMLInputElement>(`[name="${ten}"]:checked`)].map((x) => x.value);
+    const nhanCua = (ds: Array<{ gt: string; nhan: string }>, ma: string[]) =>
+      ma.map((m) => ds.find((x) => x.gt === m)?.nhan ?? m).join(', ') || '(không chọn)';
+    const nhanMuc = (v: string) => MUC_SAN_SANG.find((x) => x.gt === v)?.nhan ?? '(chưa chọn)';
+
+    const veBuoc = (dichChuyen = true) => {
+      form.querySelectorAll<HTMLElement>('[data-buoc]').forEach((el) => { el.hidden = Number(el.dataset.buoc) !== cur; });
+      ghi(goc, 'tien-do', `Bước ${cur + 1}/${SO_BUOC} · ${BUOC[cur].ten}`);
+      toThanh(goc.querySelector('[data-thanh="tien-do"]'), cur / (SO_BUOC - 1));
+      const lui = goc.querySelector<HTMLElement>('[data-nut="lui"]');
+      if (lui) lui.style.visibility = cur === 0 ? 'hidden' : 'visible';
+      chuNut(goc, 'tiep', cur < SO_BUOC - 1 ? 'Tiếp tục →' : 'Xem kết quả & gửi');
+      const loi = goc.querySelector<HTMLElement>('[data-o="loi"]');
+      if (loi) loi.hidden = true;
+      if (dichChuyen) veDauKhoi(form);
+    };
+
+    /** Kiểm câu bắt buộc của bước hiện tại — đúng các điều kiện `validate` của v1. */
+    const kiemBuoc = (): string | null => {
+      const loi: Array<[string, string]> = [];
+      const batBuocMuc = (ten: string, cau: string) => {
+        const the = form.querySelector<HTMLElement>(`.cc-the[data-cau="${ten}"]`);
+        const ok = mucDaChon(ten) !== '';
+        if (the) { if (ok) the.removeAttribute('data-loi'); else the.dataset.loi = 'true'; }
+        if (!ok) loi.push([ten, cau]);
+      };
+      if (cur === 0) {
+        datLoi(form, 'company_name', null); datLoi(form, 'company_size', null);
+        if (!giaTri(form, 'company_name')) { loi.push(['company_name', 'Vui lòng nhập tên doanh nghiệp.']); datLoi(form, 'company_name', 'Vui lòng nhập tên doanh nghiệp.'); }
+        if (!giaTri(form, 'company_size')) { loi.push(['company_size', 'Vui lòng chọn quy mô.']); datLoi(form, 'company_size', 'Vui lòng chọn quy mô.'); }
+      }
+      if (cur === 1) batBuocMuc('process_documented', 'Vui lòng chọn một mức.');
+      if (cur === 2) batBuocMuc('data_structured', 'Vui lòng chọn một mức.');
+      if (cur === 3) batBuocMuc('tools_api', 'Vui lòng chọn một mức.');
+      if (cur === 7) for (const f of ['team_ready', 'leadership_goal', 'budget_ready']) batBuocMuc(f, 'Vui lòng chọn đủ 3 câu.');
+      if (cur === 8) {
+        for (const n of ['ten', 'sdt', 'email', 'dongy']) datLoi(form, n, null);
+        const them = (n: string, m: string) => { loi.push([n, m]); datLoi(form, n, m); };
+        if (!giaTri(form, 'ten')) them('ten', 'Vui lòng nhập họ tên.');
+        if (!sdtDung(giaTri(form, 'sdt'))) them('sdt', 'SĐT chưa hợp lệ.');
+        const em = giaTri(form, 'email');
+        if (em && !emailDung(em)) them('email', 'Email chưa hợp lệ.');
+        if (!form.querySelector<HTMLInputElement>('[name="dongy"]')?.checked) them('dongy', 'Vui lòng đồng ý chính sách bảo mật.');
+      }
+      if (!loi.length) return null;
+      form.querySelector<HTMLElement>(`[name="${loi[0][0]}"]`)?.focus();
+      return loi[0][1];
+    };
+
+    form.addEventListener('change', (e) => {
+      const t = e.target as HTMLInputElement;
+      if (t.type === 'radio') t.closest('.cc-the')?.removeAttribute('data-loi');
+    });
+
+    nut(goc, 'lui')?.addEventListener('click', () => { if (cur > 0) { cur--; veBuoc(); } });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const loi = kiemBuoc();
+      const hop = goc.querySelector<HTMLElement>('[data-o="loi"]');
+      if (loi) { if (hop) { hop.textContent = loi; hop.hidden = false; } return; }
+      if (cur < SO_BUOC - 1) { cur++; veBuoc(); return; }
+
+      // ── Bước cuối: tính điểm + gửi ──
+      const d = {
+        process_documented: mucDaChon('process_documented'),
+        data_structured: mucDaChon('data_structured'),
+        tools_api: mucDaChon('tools_api'),
+        team_ready: mucDaChon('team_ready'),
+        leadership_goal: mucDaChon('leadership_goal'),
+        budget_ready: mucDaChon('budget_ready'),
+        auto_signals: cacOChon('auto_signals'),
+        ai_roles: cacOChon('ai_roles'),
+        workflows: cacOChon('workflows'),
+        software_needs: cacOChon('software_needs'),
+      };
+      const kq = tinhAI(d);
+      const goi = GOI_AI[kq.goi];
+      const maHoSo = taoMaHoSo();
+
+      const nutGui = nut(goc, 'tiep');
+      if (nutGui) nutGui.disabled = true;
+      chuNut(goc, 'tiep', 'Đang tính điểm…');
+
+      const { thongBao } = await guiKetQua({
+        congCu: 'ai-os',
+        maHoSo,
+        ten: giaTri(form, 'ten'),
+        sdt: giaTri(form, 'sdt'),
+        email: giaTri(form, 'email'),
+        donvi: giaTri(form, 'company_name'),
+        dongy: true,
+        website: giaTri(form, 'website'),
+        trang: location.pathname,
+        diem: kq.sanSang,
+        muc: kq.muc,
+        goi: goi.ten,
+        chiTiet: [
+          ['Điểm cơ hội tự động hoá', `${kq.tuDongHoa}/100`],
+          ['Ngành', giaTri(form, 'industry') || '(để trống)'],
+          ['Quy mô', nhanDaChon(form, 'company_size')],
+          ['Mô hình kinh doanh', giaTri(form, 'business_model') || '(để trống)'],
+          ['Quy trình cốt lõi đã tài liệu hóa', nhanMuc(d.process_documented)],
+          ['Dữ liệu đã có cấu trúc', nhanMuc(d.data_structured)],
+          ['Công cụ có API / export', nhanMuc(d.tools_api)],
+          ['Đội ngũ sẵn sàng thay đổi', nhanMuc(d.team_ready)],
+          ['CEO/quản lý có mục tiêu AI', nhanMuc(d.leadership_goal)],
+          ['Đã sẵn ngân sách triển khai', nhanMuc(d.budget_ready)],
+          ['Dấu hiệu tự động hoá', nhanCua([...DAU_HIEU, DU_LIEU_PHAN_TAN], d.auto_signals)],
+          ['Công cụ đang dùng', nhanCua(CONG_CU_DANG_DUNG, cacOChon('tools'))],
+          ['AI Agent muốn xây', nhanCua(VAI_TRO_AI, d.ai_roles)],
+          ['Quy trình muốn tự động hoá', nhanCua(QUY_TRINH_TU_DONG, d.workflows)],
+          ['Phần mềm riêng', nhanCua(PHAN_MEM_RIENG, d.software_needs)],
+          ['Ngân sách dự kiến', nhanDaChon(form, 'budget_range') || '(không chọn)'],
+          ['Thời gian triển khai', nhanDaChon(form, 'implementation_timeline') || '(không chọn)'],
+          ['Vấn đề lớn nhất hiện tại', giaTri(form, 'pain_points') || '(để trống)'],
+          ['Kết quả mong đợi từ AI', giaTri(form, 'expected_outcomes') || '(để trống)'],
+          ...(kq.phamViLon ? [['Ghi chú', 'Khách chọn nhiều nhu cầu (> 8) — nên tư vấn theo giai đoạn.'] as [string, string]] : []),
+        ],
+      });
+
+      if (nutGui) nutGui.disabled = false;
+      chuNut(goc, 'tiep', 'Xem kết quả & gửi');
+
+      const man = goc.querySelector<HTMLElement>('[data-man="ket-qua"]')!;
+      toVong(man.querySelector('[data-vong]'), kq.sanSang);
+      ghi(man, 'muc', kq.muc);
+      ghi(man, 'tu-dong-hoa', String(kq.tuDongHoa));
+      toThanh(man.querySelector('[data-thanh-nhom="auto"] .cc-ray'), kq.tuDongHoa / 100);
+      const phamVi = man.querySelector<HTMLElement>('[data-o="pham-vi"]');
+      if (phamVi) phamVi.hidden = !kq.phamViLon;
+      ghi(man, 'goi', goi.ten);
+      ghi(man, 'goi-mo-ta', goi.moTa);
+      const ds = man.querySelector('[data-o-ds="goi-hang-muc"]');
+      if (ds) ds.replaceChildren(...goi.hangMuc.map((x) => Object.assign(document.createElement('li'), { textContent: x })));
+      ghi(man, 'ma-ho-so', `Mã hồ sơ: ${maHoSo}`);
+      ghi(man, 'trang-thai-gui', thongBao);
+      hienMan(goc, 'ket-qua');
+    });
+
+    veBuoc(false);   // lần đầu mở trang: không kéo con trỏ, không cuộn
+  }
+</script>

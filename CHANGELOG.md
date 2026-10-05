@@ -9,6 +9,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 05/10/2026 — trên `main` qua Pull Request
 
+**Thêm**
+- **5 công cụ chẩn đoán miễn phí** — nút Hero «… miễn phí» ở 5 trang dịch vụ giờ dẫn tới công cụ thật (trước đó trỏ về form liên hệ): `/ceo-blueprint/assessment` · `/finance/assessment` · `/remote-ops/survey` · `/ai-os/diagnosis` · `/marketing/diagnostic` (đường dẫn giữ như site cũ). Câu hỏi, cách tính điểm, gói đề xuất giữ y bản cũ (sếp chốt). Khách xem kết quả ngay; kết quả gửi mail về BAIKA. Spec: `docs/cong-cu-chan-doan/SPEC-MASTER.md`.
+
 **Đổi**
 - Trang **Chính sách bảo mật** dùng **bản chính thức** Kapi đã sửa và duyệt (Figma `971:3638`): điền tên công ty, mã số doanh nghiệp, thời hạn lưu 24 tháng, thời hạn phản hồi, nơi đặt máy chủ; thêm phần công cụ chẩn đoán, chuyển dữ liệu ra nước ngoài, rút lại đồng ý. Hết chỗ [ngoặc vuông]. Ngày cập nhật: 05/10/2026. Bỏ câu «gửi kết quả qua email» vì công cụ chưa có chức năng này.
 

@@ -14,6 +14,7 @@
     "check": "astro check",
     "kiem-tra": "node tools/kiem-tra/kiem-luat.mjs",
     "kiem-tra:uoc-tinh": "node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts",
+    "kiem-tra:chan-doan": "node --experimental-strip-types tools/kiem-tra-chan-doan.mts",
     "kiem-tra:trang": "node tools/kiem-tra/kiem-trang.mjs",
     "chup": "node tools/kiem-tra/chup.mjs"
   },

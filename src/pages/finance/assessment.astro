@@ -1,0 +1,19 @@
+---
+// Finance Readiness Assessment — công cụ chẩn đoán miễn phí. Logic + câu chữ giữ y v1 (sếp chốt 05/10/2026).
+// Nút Hero trang /finance dẫn tới đây. Spec: docs/cong-cu-chan-doan/SPEC-MASTER.md
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import CongCuKieuA from '../../components/CongCuKieuA.astro';
+import { FINANCE } from '../../lib/chan-doan/kieu-a';
+---
+
+<BaseLayout
+  title="Finance Readiness Assessment — BAIKA"
+  description="Tự đánh giá mức độ sẵn sàng của hệ thống tài chính doanh nghiệp trên 8 khu vực trọng yếu — 16 câu hỏi, khoảng 5 phút, kết quả hiển thị ngay."
+  pillar="tai-chinh"
+>
+  <SiteHeader slot="header" current="/finance" />
+  <CongCuKieuA cc={FINANCE} />
+  <SiteFooter slot="footer" />
+</BaseLayout>
