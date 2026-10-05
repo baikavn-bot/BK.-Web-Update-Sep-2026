@@ -20,9 +20,9 @@ import BentoCard from '../components/BentoCard.astro';
 //   Figma Tablet/Mobile CHƯA vẽ Remote Office → vị trí ở hai khổ này do
 //   Thắng chốt 28/09 ("đặt lên vị trí nổi bật"), xem ghi chú từng khổ.
 //
-// ⚠️ Hai ô CHƯA CÓ ĐÍCH: `Trạm Ý Tưởng` và `Trạm Kết Nối` đều ngoài phạm vi v1.
-//    Để href = undefined → ô hiện bình thường nhưng KHÔNG bấm được.
-//    Cố ý: thà không bấm được còn hơn link chết trả về 404.
+// `Trạm Ý Tưởng` và `Trạm Kết Nối` chưa có trang riêng (ngoài phạm vi v1).
+//    05/10: cả hai dẫn về trang «Sắp ra mắt» `/sap-ra-mat` (Figma 975:4678).
+//    Khi trạm nào có trang thật: đổi href ở đây + ở SiteHeader.
 const tiles = [
   { area: 'legal', label: 'PHÁP LÝ & THUẾ',              href: '/legal-tax' },
   { area: 'mkt',   label: 'MARKETING\nTĂNG TRƯỞNG',      href: '/marketing' },
@@ -34,8 +34,8 @@ const tiles = [
   //    đi đâu thì ô flagship này thành link chết. Kiểm trước khi go-live.
   { area: 'remote', label: 'REMOTE OFFICE',              href: 'https://baika.website', flagship: true },
   // Trạm Ý Tưởng: từ 28/09 là ô thường (Figma `State=Default`).
-  { area: 'idea',  label: 'TRẠM Ý TƯỞNG',                href: undefined },
-  { area: 'conn',  label: 'TRẠM KẾT NỐI',                href: undefined },
+  { area: 'idea',  label: 'TRẠM Ý TƯỞNG',                href: '/sap-ra-mat' },
+  { area: 'conn',  label: 'TRẠM KẾT NỐI',                href: '/sap-ra-mat' },
   // Figma đặt ô này ở `State=Focus` — clipsContent=false nên gradient tràn
   // ra thành quầng sáng. Trạm Ý Tưởng ở `State=Hover` nên KHÔNG có quầng.
   { area: 'adv',   label: 'TƯ VẤN\nDOANH NGHIỆP',        href: '/advisory', featured: true, glow: true },
