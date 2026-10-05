@@ -53,11 +53,11 @@ Cột «Quyết»: ✅ = map thẳng, agent tự làm · ❓ = Thắng/sếp ch�
 | `/legal-tax` | Legal & Tax Control | Có, cùng đường dẫn | giữ nguyên | ✅ |
 | `/marketing` | Brand Launch System | Có, cùng đường dẫn | giữ nguyên | ✅ |
 | `/remote-ops` | Remote Ops | Có, cùng đường dẫn | giữ nguyên | ✅ |
-| `/tram-y-tuong` (+ `?tab=ideas`) | Trạm Ý Tưởng: 3 gói + kho mô hình | Chưa | `/sap-ra-mat` | ❓ |
-| `/tram-y-tuong/<slug>` — **155 trang**, mỗi mô hình 1 trang riêng, có tiêu đề riêng (vd. «Nền tảng đặt thợ sửa chữa tại nhà (managed) \| Trạm Ý Tưởng BAIKA») | Chi tiết mô hình | Chưa | `/sap-ra-mat` (gộp 1 quy tắc) | ❓ |
-| `/tai-nguyen` | Kho Tài Nguyên (nút tải chưa chạy) | Chưa | `/sap-ra-mat` | ❓ |
-| `/ve-baika` | Tầm nhìn · Sứ mệnh · Giá trị cốt lõi | Chưa | `/` hoặc `/sap-ra-mat` | ❓ |
-| `/tram-ket-noi` | Trang **trắng**, không có nội dung **[xác minh]**. Trang chủ cũ trỏ Trạm Kết Nối ra ngoài: `https://tramketnoi.com/` | Chưa | `https://tramketnoi.com/` hoặc `/sap-ra-mat` | ❓ |
+| `/tram-y-tuong` (+ `?tab=ideas`) | Trạm Ý Tưởng: 3 gói + kho mô hình | Chưa | `/sap-ra-mat` | ✅ Thắng chốt 05/10 |
+| `/tram-y-tuong/<slug>` — **155 trang**, mỗi mô hình 1 trang riêng, có tiêu đề riêng (vd. «Nền tảng đặt thợ sửa chữa tại nhà (managed) \| Trạm Ý Tưởng BAIKA») | Chi tiết mô hình | Chưa | `/sap-ra-mat` (gộp 1 quy tắc) | ✅ Thắng chốt 05/10 |
+| `/tai-nguyen` | Kho Tài Nguyên (nút tải chưa chạy) | Chưa | `/sap-ra-mat` | ✅ Thắng chốt 05/10 |
+| `/ve-baika` | Tầm nhìn · Sứ mệnh · Giá trị cốt lõi | Chưa | `/` (trang chủ) | ✅ Thắng chốt 05/10 |
+| `/tram-ket-noi` | Trang **trắng**, không có nội dung **[xác minh]**. Trang chủ cũ trỏ Trạm Kết Nối ra ngoài: `https://tramketnoi.com/` | Chưa | `https://tramketnoi.com/` | ✅ Thắng chốt 05/10 |
 | `/#lead` | Form liên hệ ở trang chủ cũ | `/lien-he` | (`#` không chuyển được bằng máy chủ — chỉ ảnh hưởng link nội bộ cũ) | — |
 
 ### 4.2 🔴 Công cụ chẩn đoán — bản cũ ĐANG CÓ, v2 chưa có
