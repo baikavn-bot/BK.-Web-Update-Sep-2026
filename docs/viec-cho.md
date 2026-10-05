@@ -29,6 +29,7 @@
 | 20 | **Báo sếp: nhánh `main` đã khoá** (ruleset `bao-ve-main`, 04/10) — mọi agent, kể cả agent của sếp, sửa bản chính phải mở Pull Request. Cùng buổi: quy trình tài khoản và quyền truy cập GitHub cho từng người/agent · #5 · Vercel Pro · duyệt ra mắt Remote Office. | **Thứ 2, 05/10/2026** | 04/10 |
 | 21 | **CODEOWNERS** (file tự giao PR cho người duyệt) — chưa cần vì repo chỉ có một tài khoản. | **Khi có từ 2 tài khoản GitHub riêng** cùng sửa repo (sau khi có quyết định tài khoản ở mục 20), hoặc khi nâng số người duyệt PR lên 1 | 04/10 |
 | 22 | **Mẫu Issue** (`.github/ISSUE_TEMPLATE/`) — chưa cần vì việc treo đang ghi ở file này, chưa ai mở Issue trên GitHub. | **Khi có người ngoài Thắng/agent cần báo lỗi hoặc giao việc qua GitHub** (vd. agent của sếp, đối tác), hoặc khi chuyển danh sách việc chờ sang GitHub Issues | 04/10 |
+| 23 | **Trang Chính sách bảo mật đang là BẢN NHÁP** (dựng 05/10, `/chinh-sach-bao-mat`, Figma `971:3638`). Còn [ngoặc vuông]: tên pháp lý · mã số doanh nghiệp · thời hạn lưu · thời hạn phản hồi · nơi đặt máy chủ. Bản nháp + 9 câu hỏi cho Pháp lý: project Claude `claude/chinh-sach-bao-mat-ban-nhap.md`. Khi Pháp lý trả lời: sửa chữ trong code + Figma cùng lúc, xoá chữ «NHÁP» ở tên section Figma, đổi ngày «Cập nhật lần cuối» | **Khi có bản Pháp lý duyệt** — và nhắc Thắng **trước khi gộp vào `main`** nếu Pháp lý chưa trả lời (trang có ngoặc vuông sẽ hiện công khai) | 05/10 |
 
 ## Đã xong / đã chốt
 
