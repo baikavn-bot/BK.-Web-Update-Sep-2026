@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAIKA AI Operating System — Đưa AI vào vận hành thật</title>
+<meta name="description" content="BAIKA AI Operating System — AI Agent, tự động hóa quy trình, knowledge base, phần mềm tùy chỉnh, dashboard dữ liệu, AI governance và đào tạo AI cho doanh nghiệp.">
+<link rel="icon" href="/baika-suite/baika-ai-operating-system/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/baika-suite/shared/animated-logo.css">
+<style>
+:root{
+  --void:#060814; --void2:#0A0E22; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.07); --bd:rgba(255,255,255,.10);
+  --violet:#9B7CF0; --logoc1:var(--violet); --logoc2:var(--cyan); --logourl:url("/baika-suite/baika-ai-operating-system/logo-emblem.png"); --violet-deep:#5B21B6; --pink:#F472B6; --cyan:#5EEAD4;
+  --tx:#EDF1FB; --tx2:#9FA8C7; --tx3:#6D76A0;
+  --disp:'Bricolage Grotesque',sans-serif; --mono:'IBM Plex Mono',monospace; --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--tx);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;position:relative;max-width:100vw}
+::selection{background:var(--violet);color:#04081A}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);line-height:1.15;letter-spacing:-0.01em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.mono{font-family:var(--mono)}
+.kick{display:flex;align-items:center;gap:10px;color:var(--cyan);font-family:var(--mono);letter-spacing:.16em;text-transform:uppercase;font-size:12px;font-weight:500;margin-bottom:14px}
+.kick::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);flex-shrink:0}
+h2.h{font-size:clamp(26px,3.6vw,38px);margin-bottom:14px;font-weight:700}
+.lead{color:var(--tx2);max-width:680px;font-size:16.5px}
+.sec{padding:56px 0;position:relative}
+@media (max-width:640px){.sec{padding:32px 0}}
+
+/* ===== ambient background ===== */
+
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.02;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 560px at 82% -8%, rgba(155,124,240,.13), transparent 60%),
+             radial-gradient(700px 460px at -8% 40%, rgba(94,234,212,.08), transparent 60%);}
+
+/* ===== topbar (thiet ke lai: chac chan khong vo dong o bat ky do rong nao) ===== */
+.top{position:sticky;top:0;z-index:50;background:rgba(6,8,20,.78);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--bd)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.home{flex-shrink:0;color:var(--tx2);text-decoration:none;font-size:13.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:color .2s}
+.home svg{width:15px;height:15px;flex-shrink:0}
+.home:hover{color:var(--tx)}
+.home .lbl{display:none}
+@media (min-width:560px){.home .lbl{display:inline}}
+
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:700;letter-spacing:.02em;font-size:14px;white-space:nowrap;overflow:hidden;flex-shrink:1;min-width:0}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--violet);box-shadow:0 0 12px var(--violet);flex-shrink:0;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.35)}}
+.brand .full{display:none}
+.brand .short{display:inline}
+@media (min-width:640px){.brand .full{display:inline}.brand .short{display:none}}
+.top .sp{flex:1;min-width:4px}
+.navstat{flex-shrink:0;display:flex;align-items:center;gap:8px;color:var(--tx3);font-family:var(--mono);font-size:11.5px;white-space:nowrap}
+.navstat b{color:var(--cyan);font-weight:500}
+@media (max-width:900px){.navstat{display:none}}
+.top .diagbtn{flex-shrink:0;white-space:nowrap;padding:8px 13px;font-size:13px;gap:6px}
+.top .diagbtn .lbl-full{display:none}
+.top .diagbtn .lbl-short{display:inline}
+@media (min-width:480px){.top .diagbtn{padding:11px 20px;font-size:14.5px}.top .diagbtn .lbl-full{display:inline}.top .diagbtn .lbl-short{display:none}}
+
+/* ===== buttons ===== */
+/* ===== focus-visible: vien ro rang cho dieu huong ban phim ===== */
+a:focus-visible, button:focus-visible, .car-dot:focus-visible, .car-btn:focus-visible, summary:focus-visible, .chk:focus-within{
+  outline:2px solid var(--cyan); outline-offset:2px; border-radius:6px;
+}
+.btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:13px;font-weight:600;font-size:15px;line-height:1.2;
+  text-decoration:none;cursor:pointer;border:1px solid transparent;font-family:var(--body);overflow:hidden;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.bp{background:linear-gradient(135deg,var(--violet),var(--violet-deep));color:#fff;box-shadow:0 8px 30px rgba(155,124,240,.35)}
+.bp::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);
+  transform:translateX(-120%);transition:transform .7s ease}
+.bp:hover::after{transform:translateX(120%)}
+.bo{background:rgba(255,255,255,.03);color:var(--tx);border-color:var(--bd);backdrop-filter:blur(6px)}
+.bo:hover{border-color:var(--violet);color:var(--cyan)}
+.magnet{will-change:transform}
+
+/* ===== hero ===== */
+.hero{padding:96px 0 60px;position:relative;overflow:hidden}
+.spotlight{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,20%), rgba(155,124,240,.14), transparent 65%)}
+.hero .inner{position:relative}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--bd);border-radius:999px;color:var(--tx2);
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;margin-bottom:24px;background:rgba(255,255,255,.02)}
+.badge b{color:var(--cyan);font-weight:500}
+.hero h1{font-size:clamp(34px,6vw,64px);max-width:920px;font-weight:800}
+.type-cursor{display:inline-block;width:3px;height:.85em;background:var(--cyan);margin-left:4px;vertical-align:-2px;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+.hero .sub{color:var(--violet);font-family:var(--disp);font-weight:600;font-size:clamp(17px,2.2vw,21px);margin:18px 0 14px}
+.hero p.lead{margin-bottom:32px;font-size:17px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+.trust{color:var(--tx3);font-size:13px;font-family:var(--mono)}
+
+/* hero readout strip */
+.readout{display:flex;gap:0;margin-top:22px;border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02)}
+.readout .cell{flex:1;padding:16px 18px;border-right:1px solid var(--bd)}
+.readout .cell:last-child{border-right:none}
+.readout .cell .k{font-family:var(--mono);font-size:10.5px;color:var(--tx3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.readout .cell .v{font-family:var(--disp);font-size:18px;font-weight:700;color:var(--tx)}
+@media (max-width:760px){.readout{flex-wrap:wrap}.readout .cell{flex:1 1 50%;border-bottom:1px solid var(--bd)}}
+
+/* ===== diagnostic teaser — chu ky cua hero, uu tien so 1 ===== */
+.diagteaser{display:flex;align-items:center;gap:22px;margin-top:36px;padding:24px 26px;border-radius:22px;text-decoration:none;
+  position:relative;overflow:hidden;background:linear-gradient(var(--void2),var(--void2)) padding-box,
+  linear-gradient(120deg,var(--cyan),var(--violet),var(--pink)) border-box;border:1.5px solid transparent;
+  box-shadow:0 16px 50px rgba(94,234,212,.14);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.diagteaser:hover{transform:translateY(-3px);box-shadow:0 22px 60px rgba(94,234,212,.22)}
+.diagteaser::before{content:"";position:absolute;inset:-60%;background:conic-gradient(from 0deg,transparent,rgba(94,234,212,.16),transparent 30%);
+  animation:spin 8s linear infinite;pointer-events:none}
+.dt-gauge{position:relative;width:74px;height:74px;flex-shrink:0}
+.dt-gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dt-track{fill:none;stroke:rgba(255,255,255,.09);stroke-width:5}
+.dt-fill{fill:none;stroke:url(#dtGrad);stroke-width:5;stroke-linecap:round;stroke-dasharray:170;stroke-dashoffset:170;transition:stroke-dashoffset 1.4s cubic-bezier(.16,.8,.2,1)}
+.dt-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:700;font-size:19px;color:var(--tx)}
+.dt-txt{flex:1;min-width:0}
+.dt-kick{font-family:var(--mono);color:var(--cyan);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.dt-txt h3{font-size:clamp(16px,2.4vw,20px);margin-bottom:6px;color:var(--tx)}
+.dt-txt p{color:var(--tx2);font-size:13.6px}
+.dt-arrow{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;color:var(--cyan);transition:transform .3s,background .3s}
+.dt-arrow svg{width:17px;height:17px}
+.diagteaser:hover .dt-arrow{transform:translateX(4px);background:rgba(94,234,212,.1)}
+@media (max-width:640px){.diagteaser{flex-wrap:wrap;padding:20px}.dt-arrow{display:none}.dt-gauge{width:60px;height:60px}.dt-num{font-size:16px}}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .32s ease-out,transform .32s ease-out}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none} html{scroll-behavior:auto} .type-cursor{animation:none}}
+
+/* ===== carousel — vuot ngang thong minh, thay the cuon doc dai ===== */
+.carousel{position:relative;margin-top:28px}
+.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px;margin:-2px -2px -8px;cursor:grab;user-select:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track.grabbing{cursor:grabbing;scroll-snap-type:none}
+.car-track>*{scroll-snap-align:start;flex:0 0 auto}
+.car-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.car-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:rgba(255,255,255,.03);color:var(--tx2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,opacity .2s;flex-shrink:0}
+.car-btn svg{width:16px;height:16px}
+.car-btn:hover:not(:disabled){border-color:var(--violet);color:var(--cyan)}
+.car-btn:disabled{opacity:.28;cursor:default}
+.car-dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:200px}
+.car-dot{width:22px;height:22px;border-radius:50%;background:transparent;transition:none;cursor:pointer;flex-shrink:0;border:none;padding:0;display:flex;align-items:center;justify-content:center;position:relative}
+.car-dot::after{content:"";display:block;width:6px;height:6px;border-radius:50%;background:var(--bd);transition:width .25s,background .25s}
+.car-dot.on::after{width:16px;border-radius:99px}
+.car-dot.on::after{background:var(--cyan)}
+.pcard{width:min(78vw,260px)}
+.pcard{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:16px;padding:24px;overflow:hidden}
+.pcard::before{content:"";position:absolute;left:0;right:0;top:-100%;height:40%;
+  background:linear-gradient(180deg,rgba(94,234,212,.16),transparent);transition:top .8s ease}
+.pcard:hover::before{top:120%}
+.pcard .tag{font-family:var(--mono);color:var(--tx3);font-size:11px;letter-spacing:.1em;margin-bottom:12px}
+.pcard h3{font-size:16.5px;margin-bottom:8px;font-weight:600}
+.pcard p{color:var(--tx2);font-size:14px}
+
+
+/* ===== solution layers (3 stacked depth cards) ===== */
+.stack{display:grid;gap:16px;margin-top:32px}
+.layer{position:relative;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  border:1px solid var(--bd);border-radius:20px;padding:30px 32px;display:flex;align-items:center;gap:26px;transition:transform .4s ease,border-color .4s}
+.layer:hover{transform:translateX(6px);border-color:rgba(155,124,240,.4)}
+.layer .idx{font-family:var(--mono);font-size:13px;color:var(--cyan);flex-shrink:0;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:.1em}
+.layer h3{font-size:19px;margin-bottom:6px}
+.layer p{color:var(--tx2);font-size:14.5px}
+@media (max-width:640px){.layer{padding:22px 20px;gap:16px}.layer .idx{writing-mode:horizontal-tb}}
+
+/* ===== modules — system panel grid ===== */
+.modcard{background:var(--panel);border:1px solid var(--bd);border-radius:16px;padding:22px;cursor:pointer;transition:border-color .3s,background .3s;width:min(84vw,320px)}
+.modcard:hover{border-color:rgba(94,234,212,.4);background:rgba(94,234,212,.03)}
+.modcard .mid{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.1em;display:flex;align-items:center;justify-content:space-between}
+.modcard .mid .st{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.modcard h4{font-size:16px;margin:10px 0 8px;font-weight:600}
+.modcard p{color:var(--tx2);font-size:13.8px;max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .35s ease}
+.modcard.on p{max-height:200px;opacity:1;margin-top:4px}
+
+/* ===== usecase matrix ===== */
+.uc{background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:18px;transition:transform .3s,border-color .3s;width:min(58vw,210px)}
+.uc:hover{transform:translateY(-4px);border-color:var(--violet)}
+.uc h4{font-size:14.5px;color:var(--cyan);margin-bottom:6px;font-family:var(--mono);letter-spacing:.03em}
+.uc p{color:var(--tx2);font-size:13.2px}
+
+/* ===== packages — holographic tier cards ===== */
+.pkg{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;overflow:hidden;width:min(84vw,300px)}
+.pkg.feat{border-color:transparent;background:
+  linear-gradient(var(--void2),var(--void2)) padding-box,
+  linear-gradient(135deg,var(--violet),var(--cyan),var(--pink)) border-box;
+  border:1px solid transparent;box-shadow:0 14px 50px rgba(155,124,240,.22)}
+.pkg.feat::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(155,124,240,.25),transparent 30%);
+  animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pkg.feat>*{position:relative;z-index:1}
+.ptag{position:absolute;top:-13px;left:22px;background:linear-gradient(135deg,var(--violet),var(--pink));color:#fff;font-size:11.5px;
+  font-weight:700;padding:4px 13px;border-radius:999px;font-family:var(--mono);letter-spacing:.05em;z-index:2}
+.pkg h3{font-size:18px;margin-bottom:8px}
+.pdesc{color:var(--tx2);font-size:13.6px;margin-bottom:16px}
+.pkg ul{list-style:none;margin:0 0 22px;display:grid;gap:9px;flex:1}
+.pkg li{color:var(--tx2);font-size:13.8px;padding-left:22px;position:relative}
+.pkg li::before{content:"◆";position:absolute;left:0;color:var(--cyan);font-size:9px;top:5px}
+
+/* ===== outcomes — checklist draw-in ===== */
+.outs{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 30px;margin-top:22px}
+.outs li{padding-left:32px;position:relative;color:var(--tx2);font-size:15px}
+.outs li svg{position:absolute;left:0;top:3px;width:20px;height:20px}
+.outs li svg path{stroke:var(--cyan);stroke-width:2.4;fill:none;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .6s ease}
+.outs li.on svg path{stroke-dashoffset:0}
+@media (max-width:640px){.outs{grid-template-columns:1fr}}
+
+/* ===== audience / diffs — vuot ngang ===== */
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:16px;padding:22px;transition:border-color .3s;width:min(78vw,270px)}
+.card:hover{border-color:rgba(255,255,255,.22)}
+.card h4{font-size:15.5px;margin-bottom:7px}
+.card p{color:var(--tx2);font-size:13.8px}
+
+/* ===== faq ===== */
+.faqs{display:grid;gap:10px;margin-top:24px}
+.faq{background:var(--panel);border:1px solid var(--bd);border-radius:14px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;display:flex;align-items:center;gap:12px;font-size:15px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"›";font-family:var(--mono);color:var(--cyan);font-size:18px;transition:transform .3s}
+.faq[open] summary::before{transform:rotate(90deg)}
+.faq p{padding:0 20px 18px 44px;color:var(--tx2);font-size:14.3px}
+
+/* ===== form ===== */
+.formbox{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bd);border-radius:22px;padding:34px;margin-top:28px}
+.frm{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:12.5px;color:var(--tx2);font-weight:600;font-family:var(--mono);letter-spacing:.03em;text-transform:uppercase}
+.fld input,.fld select,.fld textarea{background:rgba(0,0,0,.35);border:1px solid var(--bd);border-radius:11px;padding:13px 15px;color:var(--tx);
+  font-family:var(--body);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(155,124,240,.15)}
+.fld.err input,.fld.err textarea{border-color:#E24B4A}
+.needs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;min-width:0}
+.chk{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.25);border:1px solid var(--bd);border-radius:10px;padding:10px 13px;cursor:pointer;font-size:13.6px;color:var(--tx2);transition:.2s}
+.chk:has(input:checked){border-color:var(--violet);color:var(--tx);background:rgba(155,124,240,.08)}
+.chk input{accent-color:var(--violet)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13.2px;color:var(--tx2)}
+.fmsg{grid-column:1/-1;font-size:14px;min-height:20px}
+.fmsg.ok{color:var(--cyan)}.fmsg.bad{color:#F09595}
+
+/* ===== footer ===== */
+.foot{border-top:1px solid var(--bd);padding:40px 0;color:var(--tx3);font-size:13.5px}
+.foot .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.foot a{color:var(--tx2);text-decoration:none}
+.foot a:hover{color:var(--cyan)}
+  #baikaAnimBg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.8}
+</style>
+<script src="/shield.js" defer></script>
+  <link rel="stylesheet" href="/baika-suite/shared/mobile-fixes.css">
+</head>
+<body>
+<canvas id="baikaAnimBg"></canvas>
+<div class="grain"></div>
+
+<header class="top"><div class="wrap">
+  <a class="home" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg><span class="lbl">Trang chủ</span></a>
+  <div class="brand"><span class="logo-stage"><div class="logo-halo"></div><div class="logo-mask"></div></span><span class="full">AI OPERATING SYSTEM</span><span class="short">AI·OS</span></div>
+  <div class="sp"></div>
+  <span class="navstat">SYS <b>ONLINE</b> · LAT <b>12ms</b></span>
+  <a class="btn bp magnet diagbtn" href="/ai-os/diagnosis"><span class="lbl-full">Bắt đầu chẩn đoán AI</span><span class="lbl-short">Chẩn đoán</span></a>
+</div></header>
+
+<section class="hero"><div class="spotlight"></div><div class="wrap inner">
+  <span class="badge">◆ <b>8</b> MODULE VẬN HÀNH · <b>5</b> GÓI TRIỂN KHAI</span>
+  <h1 id="heroTitle"><span id="typeTarget">BAIKA AI Operating System</span><span class="type-cursor"></span></h1>
+  <div class="sub" id="heroSub">Đưa AI vào vận hành thật — không phải trào lưu, không phải demo</div>
+  <p class="lead" id="heroDesc">BAIKA xây hệ điều hành AI cho doanh nghiệp: AI Agent làm việc thật, quy trình được tự động hóa, dữ liệu quy về một mối và phần mềm may đo đúng bài toán của bạn.</p>
+  <div class="cta">
+    <a class="btn bp magnet" href="/ai-os/diagnosis" id="heroCta1">Bắt đầu chẩn đoán AI — miễn phí</a>
+    <a class="btn bo magnet" href="#lien-he">Đặt lịch tư vấn trực tiếp</a>
+  </div>
+  <p class="trust">// KHÔNG CAM KẾT ẢO — BẮT ĐẦU BẰNG CHẨN ĐOÁN ĐÚNG HIỆN TRẠNG DOANH NGHIỆP CỦA BẠN</p>
+
+  <a class="diagteaser rv" href="/ai-os/diagnosis">
+    <div class="dt-gauge">
+      <svg viewBox="0 0 64 64"><defs><linearGradient id="dtGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5EEAD4"/><stop offset="100%" stop-color="#9B7CF0"/></linearGradient></defs><circle class="dt-track" cx="32" cy="32" r="27"/><circle class="dt-fill" id="dtFill" cx="32" cy="32" r="27"/></svg>
+      <span class="dt-num"><span id="dtNum">0</span></span>
+    </div>
+    <div class="dt-txt">
+      <div class="dt-kick">◆ Công cụ quan trọng nhất — bắt đầu tại đây</div>
+      <h3>Chẩn đoán mức độ sẵn sàng AI của doanh nghiệp bạn</h3>
+      <p>16 câu hỏi · 5 phút · nhận điểm số và lộ trình phù hợp ngay lập tức, không cần chờ tư vấn viên.</p>
+    </div>
+    <span class="dt-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </span>
+  </a>
+
+  <div class="readout rv">
+    <div class="cell"><div class="k">Lớp giải pháp</div><div class="v">03</div></div>
+    <div class="cell"><div class="k">Module dịch vụ</div><div class="v">08</div></div>
+    <div class="cell"><div class="k">Phòng ban ứng dụng</div><div class="v">08</div></div>
+    <div class="cell"><div class="k">Gói triển khai</div><div class="v">05</div></div>
+  </div>
+</div></section>
+
+<section class="sec" id="van-de"><div class="wrap">
+  <p class="kick">Chẩn đoán hiện trạng</p>
+  <h2 class="h">Doanh nghiệp bạn có đang dùng AI kiểu này?</h2>
+  <div class="carousel">
+    <div class="pgrid car-track" id="painsTrack">
+      <div class="pcard rv"><h3>AI dùng rời rạc</h3><p>Vài nhân viên tự dùng chatbot cho việc cá nhân; không quy trình, không kiểm soát, không nhân rộng được.</p></div>
+      <div class="pcard rv"><h3>Dữ liệu phân tán</h3><p>Dữ liệu nằm rải trong Excel, Zalo, email, phần mềm lẻ — AI không có nền dữ liệu để phát huy.</p></div>
+      <div class="pcard rv"><h3>Quy trình vẫn thủ công</h3><p>Nhập liệu tay, đối chiếu tay, báo cáo tay — những việc lặp lại chiếm phần lớn thời gian đội ngũ.</p></div>
+      <div class="pcard rv"><h3>Phần mềm không khớp nhu cầu</h3><p>Mua phần mềm đóng gói rồi dùng 20% tính năng; nghiệp vụ đặc thù vẫn phải xử lý ngoài hệ thống.</p></div>
+    </div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="painsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="giai-phap"><div class="wrap">
+  <p class="kick">Kiến trúc giải pháp</p>
+  <h2 class="h">Ba lớp giải pháp của AI Operating System</h2>
+  <p class="lead">Không bắt đầu bằng công nghệ — bắt đầu bằng bài toán. Ba lớp giải pháp được lắp theo đúng hiện trạng và mức độ sẵn sàng của doanh nghiệp.</p>
+  <div class="stack">
+    <div class="layer rv"><span class="idx mono">L·01</span><div><h3>AI Agent — trợ lý làm việc thật</h3><p>Trợ lý CSKH, sales, nội bộ được huấn luyện trên dữ liệu doanh nghiệp, làm việc trong quy trình thật.</p></div></div>
+    <div class="layer rv"><span class="idx mono">L·02</span><div><h3>AI Workflow — tự động hóa quy trình</h3><p>Nối các công cụ đang dùng thành dòng chảy tự động, loại bỏ thao tác lặp lại tốn giờ công.</p></div></div>
+    <div class="layer rv"><span class="idx mono">L·03</span><div><h3>Custom Software — phần mềm may đo</h3><p>Phần mềm cho nghiệp vụ đặc thù mà phần mềm đóng gói không xử lý được, AI trong lõi thiết kế.</p></div></div>
+  </div>
+</div></section>
+
+<section class="sec" id="pham-vi"><div class="wrap">
+  <p class="kick">Phạm vi dịch vụ</p>
+  <h2 class="h">8 module vận hành — vuốt để xem, bấm để mở chi tiết</h2>
+  <div class="carousel">
+    <div class="modgrid car-track" id="modGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="modDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="usecase"><div class="wrap">
+  <p class="kick">Ứng dụng theo phòng ban</p>
+  <h2 class="h">AI làm được gì cho từng bộ phận?</h2>
+  <div class="carousel">
+    <div class="matrix car-track" id="ucGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="ucDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+
+<section class="sec" id="tru-cot-v2"><div class="wrap">
+  <p class="kick">Dịch vụ trọng tâm</p>
+  <h2 class="h">Các mảng dịch vụ chính</h2>
+  <div class="carousel">
+    <div class="car-track" id="v2PillarsGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="v2PillarsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="cong-cu-v2"><div class="wrap">
+  <p class="kick">Tiện ích tương tác</p>
+  <h2 class="h">Công cụ hỗ trợ & Đánh giá</h2>
+  <p class="lead">Trải nghiệm các công cụ tự động để có cái nhìn trực quan nhất.</p>
+  <div class="stack3" id="v2ToolsGrid"></div>
+</div></section>
+
+<section class="sec" id="uu-dai-v2"><div class="wrap">
+  <p class="kick">Chương trình & ưu đãi</p>
+  <h2 class="h">Ưu đãi & Các gói đặc biệt</h2>
+  <div class="formbox" style="margin-top:20px; padding:28px;">
+    <div class="risktag crit" style="margin-bottom:12px;">ƯU ĐÃI CÓ HẠN</div>
+    
+    <div style="margin-bottom:24px;">
+        <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; font-family:var(--disp);">BAIKA AI SUMMER</h3>
+        <p style="color:var(--tx2); font-size:15px; margin-bottom:16px;">Giảm 25% gói AI Agent. Đăng ký triển khai trong mùa hè 2026, tặng kèm 3 tháng vận hành & bảo trì.</p>
+    </div>
+
+    <a class="btn bp magnet" href="#lien-he">Nhận ưu đãi ngay</a>
+  </div>
+</div></section>
+
+
+<section class="sec" id="showcase" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">9 giải pháp may đo</p>
+  <h2 class="h">Công nghệ đúng bài toán — không bán thứ bạn không cần</h2>
+  <p class="lead">Từ AI Agent đến CRM/ERP tùy biến — BAIKA phân tích bài toán doanh nghiệp và đề xuất giải pháp công nghệ phù hợp nhất, không bán gói có sẵn.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="showcaseGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="showcaseDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="process"><div class="wrap">
+  <p class="kick">Quy trình triển khai</p>
+  <h2 class="h">5 bước minh bạch từ ý tưởng đến hệ thống chạy thật</h2>
+  <p class="lead">Không có hộp đen — mỗi bước có deliverable rõ ràng, bạn kiểm soát toàn bộ tiến trình.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="processGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="processDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="offers" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">Đầu tư đúng thời điểm</p>
+  <h2 class="h">Đầu tư công nghệ đúng thời điểm vàng</h2>
+  <p class="lead">Các chương trình ưu đãi theo mùa và theo loại dự án — để công nghệ không còn là rào cản với doanh nghiệp vừa và nhỏ.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="aiOffersGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="aiOffersDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="tools" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <h2 class="h">Trải nghiệm sức mạnh AI & tự động hóa</h2>
+  <p class="lead">Ba công cụ tương tác giúp bạn khám phá ứng dụng AI thực tế cho ngành của mình trước khi quyết định đầu tư.</p>
+  <div class="stack3" id="aiToolsGrid" style="margin-top:24px"></div>
+</div></section>
+<section class="sec" id="signup"><div class="wrap">
+  <p class="kick">Bắt đầu ngay</p>
+  <h2 class="h">Đặt lịch demo giải pháp riêng cho bạn</h2>
+  <p class="lead">BAIKA phân tích bài toán của bạn và đề xuất giải pháp công nghệ phù hợp nhất — miễn phí, không ràng buộc.</p>
+  <div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+    <a class="btn bp magnet" href="#lien-he">Đặt lịch demo miễn phí</a>
+    <span style="color:var(--tx3);font-family:var(--mono);font-size:13px">// Phản hồi trong 4 giờ làm việc</span>
+  </div>
+</div></section>
+<section class="sec" id="goi"><div class="wrap">
+  <p class="kick">Gói triển khai</p>
+  <h2 class="h">Chọn điểm bắt đầu phù hợp</h2>
+  <p class="lead">Mỗi gói là một điểm vào — có thể nâng cấp dần theo mức độ sẵn sàng của doanh nghiệp.</p>
+  <div class="carousel">
+    <div class="pkgs car-track" id="pkgsBox"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="pkgDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="ket-qua"><div class="wrap">
+  <p class="kick">Kết quả nhận được</p>
+  <h2 class="h">Sau khi triển khai cùng BAIKA</h2>
+  <ul class="outs" id="outsList"></ul>
+</div></section>
+
+<section class="sec" id="phu-hop"><div class="wrap">
+  <p class="kick">Đối tượng phù hợp</p>
+  <h2 class="h">Dịch vụ này dành cho ai?</h2>
+  <div class="carousel">
+    <div class="car-track" id="audGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="audDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="khac-biet"><div class="wrap">
+  <p class="kick">Điểm khác biệt</p>
+  <h2 class="h">Vì sao chọn BAIKA?</h2>
+  <div class="carousel">
+    <div class="car-track" id="difGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="difDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+
+<section class="sec" id="faq"><div class="wrap">
+  <p class="kick">Câu hỏi thường gặp</p>
+  <h2 class="h">FAQ</h2>
+  <div class="faqs" id="faqBox"></div>
+</div></section>
+
+<section class="sec" id="lien-he"><div class="wrap">
+  <p class="kick">Bắt đầu</p>
+  <h2 class="h">Đặt lịch khảo sát AI cùng BAIKA</h2>
+  <p class="lead">Điền thông tin — đội ngũ BAIKA sẽ liên hệ trong 24 giờ làm việc để chẩn đoán sơ bộ miễn phí.</p>
+  <div class="formbox"><form id="leadForm" class="frm" novalidate>
+    <div class="fld"><label>Họ và tên *</label><input name="full_name" type="text" placeholder="Nguyễn Văn A" required></div>
+    <div class="fld"><label>Số điện thoại *</label><input name="phone" type="tel" placeholder="09xx xxx xxx" required></div>
+    <div class="fld"><label>Email</label><input name="email" type="email" placeholder="ban@congty.vn"></div>
+    <div class="fld"><label>Doanh nghiệp</label><input name="company" type="text" placeholder="Tên công ty (nếu có)"></div>
+    <div class="fld full"><label>Nhu cầu của bạn * (chọn 1 hoặc nhiều)</label><div class="needs" id="needsBox"></div></div>
+    <div class="fld"><label>Gói quan tâm</label><select name="pkg" id="pkgSel"><option value="">— Chưa chọn —</option></select></div>
+    <div class="fld full"><label>Mô tả ngắn vấn đề đang gặp</label><textarea name="msg" rows="3" placeholder="Ví dụ: doanh nghiệp muốn tự động hóa quy trình chăm sóc khách hàng..."></textarea></div>
+    <div class="fld full consent"><input type="checkbox" id="consent"><label for="consent">Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo chính sách bảo mật.</label></div>
+    <div class="fmsg" id="fmsg"></div>
+    <div class="fld full"><button type="submit" class="btn bp magnet" id="sbm">Gửi yêu cầu tư vấn</button></div>
+  </form></div>
+</div></section>
+
+<footer style="border-top: 1px solid var(--bd); padding: 60px 0; background: var(--void); color: var(--tx2); font-family: var(--body); font-size: 14px; line-height: 1.8;">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 32px; text-align: left;">
+    <!-- Logo & Status -->
+    <div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        
+        <div style="font-family: var(--disp), sans-serif; font-weight: 800; font-size: 26px; color: #FFF; letter-spacing: 3px;">BAIKA</div>
+        <div style="font-family: var(--mono), monospace; font-size: 11px; color: #FFF; border: 1px solid rgba(255,255,255,0.4); padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 1px;">JSC</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 4px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #4FE5FF; box-shadow: 0 0 10px #4FE5FF;"></span>
+        <span style="font-family: var(--mono), monospace; font-size: 11px; color: #8A98B3; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Hệ thống đang vận hành</span>
+      </div>
+    </div>
+
+    <!-- Company Name -->
+    <div>
+      <div style="font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 4px;">CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA</div>
+      <div style="font-size: 14px; color: #8A98B3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">BAIKA TECHNOLOGICAL JOINT STOCK COMPANY</div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="display: flex; flex-direction: column; gap: 16px; font-size: 15px;">
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Địa chỉ:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">Tầng 15, 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh, Việt Nam</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Hotline:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">0905.247.365</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Email:</span>
+        <span style="color: #8A98B3;">baika.vn@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/baika-suite/shared/site-common.js"></script>
+<script>
+(function(){
+  var wireCarousel = window.BaikaSite.wireCarousel;
+  /* ---------- DATA (giữ nguyên nội dung, chỉ đổi trình bày) ---------- */
+  var MODULES=[
+    ["AI Opportunity Diagnosis","Khảo sát hiện trạng quy trình, dữ liệu, công cụ; chấm điểm mức độ sẵn sàng AI và điểm cơ hội tự động hóa; đề xuất lộ trình 30–60–90 ngày."],
+    ["AI Agent","Xây AI Agent theo vai trò: trợ lý CSKH, trợ lý sales, trợ lý nội bộ — được huấn luyện trên dữ liệu doanh nghiệp, làm việc trong quy trình thật."],
+    ["AI Workflow Automation","Tự động hóa quy trình lặp lại: nhập liệu, đối chiếu, tổng hợp báo cáo, luân chuyển hồ sơ — nối các công cụ đang dùng thành dòng chảy tự động."],
+    ["Knowledge Base","Quy tri thức doanh nghiệp về một mối: tài liệu, quy trình, hỏi đáp nội bộ — nền để AI trả lời đúng theo cách doanh nghiệp bạn làm việc."],
+    ["Custom Software","Phần mềm may đo cho nghiệp vụ đặc thù mà phần mềm đóng gói không xử lý được — tích hợp AI ngay trong thiết kế."],
+    ["Data & Dashboard","Gom dữ liệu phân tán về kho chung; dashboard điều hành cập nhật tự động thay cho báo cáo tay cuối tuần."],
+    ["AI Governance","Quy tắc sử dụng AI trong doanh nghiệp: dữ liệu nào được đưa vào AI, ai được dùng gì, kiểm soát chất lượng đầu ra và rủi ro."],
+    ["AI Training","Đào tạo đội ngũ dùng AI đúng cách theo từng vai trò — để hệ thống được dùng thật thay vì bỏ xó sau bàn giao."]
+  ];
+  var USECASES=[
+    ["Sales","Trợ lý soạn báo giá, chăm lead tự động, tóm tắt lịch sử khách trước cuộc gọi."],
+    ["Marketing","Sản xuất nội dung theo guideline, phân tích chiến dịch, đề xuất tối ưu ngân sách."],
+    ["CSKH","AI Agent trả lời 24/7 trên nền tri thức doanh nghiệp, chuyển ca phức tạp cho người."],
+    ["Tài chính","Đối chiếu chứng từ tự động, cảnh báo bất thường, tổng hợp báo cáo quản trị."],
+    ["Pháp lý – Thuế","Soát xét hợp đồng sơ bộ, nhắc lịch tuân thủ, tra cứu quy định nội bộ."],
+    ["Nhân sự","Sàng lọc hồ sơ, trợ lý onboarding, giải đáp chính sách cho nhân viên."],
+    ["CEO","Dashboard điều hành, tóm tắt báo cáo các phòng, chuẩn bị dữ liệu cho quyết định."],
+    ["Vận hành","Tự động luân chuyển hồ sơ giữa các khâu, cảnh báo task trễ, cập nhật tiến độ."]
+  ];
+  var PACKAGES=[
+    {name:"AI Opportunity Audit",feat:false,desc:"Khảo sát và chấm điểm cơ hội AI — biết nên tự động hóa cái gì trước.",items:["Khảo sát quy trình – dữ liệu – công cụ","Điểm sẵn sàng AI & cơ hội tự động hóa","Danh mục use case xếp hạng ROI","Lộ trình 30–60–90 ngày"]},
+    {name:"AI Agent Starter Kit",feat:false,desc:"AI Agent đầu tiên chạy thật trong một quy trình cụ thể.",items:["1 AI Agent theo vai trò chọn trước","Huấn luyện trên dữ liệu doanh nghiệp","Tích hợp vào kênh đang dùng","Đo lường hiệu quả sau 30 ngày"]},
+    {name:"AI Workflow Automation",feat:true,desc:"Tự động hóa các quy trình lặp lại ngốn nhiều giờ công nhất.",items:["Thiết kế lại quy trình trước khi tự động","Kết nối các công cụ hiện có","Knowledge base cho quy trình liên quan","Bàn giao kèm đào tạo vận hành"]},
+    {name:"Custom AI Software",feat:false,desc:"Phần mềm may đo cho nghiệp vụ đặc thù, AI trong lõi thiết kế.",items:["Phân tích nghiệp vụ chuyên sâu","Thiết kế & phát triển theo giai đoạn","Tích hợp hệ thống hiện hữu","Bảo hành & phát triển tiếp"]},
+    {name:"AI Operating System Partner",feat:false,desc:"BAIKA làm đối tác AI dài hạn — xây và vận hành cả hệ điều hành AI.",items:["Toàn bộ các lớp giải pháp theo lộ trình","Data platform & dashboard điều hành","AI Governance & đào tạo toàn công ty","Đội đồng hành phát triển liên tục"]}
+  ];
+  var OUTCOMES=["Những việc lặp lại được tự động — đội ngũ dồn thời gian cho việc tạo giá trị","AI Agent làm việc thật trong quy trình, không phải bản demo trình diễn","Dữ liệu quy về một mối, dashboard điều hành cập nhật tự động","Tri thức doanh nghiệp được hệ thống hóa, không thất thoát khi người rời đi","Có quy tắc dùng AI an toàn — kiểm soát dữ liệu và chất lượng đầu ra","Lộ trình AI rõ ràng theo ROI thay vì chạy theo trào lưu"];
+  var AUDIENCE=[["Doanh nghiệp nhiều việc lặp lại","Nhập liệu, đối chiếu, báo cáo tay đang ngốn giờ công lớn mỗi tuần."],["Doanh nghiệp muốn dùng AI nghiêm túc","Đã thử lẻ tẻ, giờ muốn triển khai có hệ thống và đo được hiệu quả."],["Doanh nghiệp có dữ liệu nhưng không dùng được","Số liệu nằm rải rác, muốn quy về một mối để điều hành."],["Doanh nghiệp cần phần mềm đặc thù","Nghiệp vụ riêng mà phần mềm đóng gói không đáp ứng."],["CSKH / Sales tải lớn","Cần AI Agent gánh phần tương tác lặp lại, người tập trung ca khó."],["CEO muốn dashboard điều hành","Chán cảnh chờ báo cáo tay tổng hợp mỗi cuối tuần."]];
+  var DIFFS=[["Bài toán trước, công nghệ sau","Bắt đầu bằng chẩn đoán và ROI — không bán công nghệ theo trào lưu."],["AI chạy trong quy trình thật","Tiêu chí nghiệm thu là vận hành thật với người dùng thật, không phải demo."],["Hiểu vận hành doanh nghiệp Việt","AI được lắp vào quy trình, dữ liệu và thói quen làm việc thực tế của SME."],["Trọn hệ, một đầu mối","Từ agent, workflow, dữ liệu đến phần mềm may đo — không vá ghép nhiều nhà cung cấp."]];
+  var FAQ=[["Doanh nghiệp tôi chưa có dữ liệu chuẩn, làm AI được không?","Được — và đó là lý do lộ trình luôn bắt đầu bằng chẩn đoán. Nhiều use case đầu tiên (như AI Agent trên tri thức nội bộ) chạy được ngay trong khi nền dữ liệu được xây song song."],["Chi phí triển khai AI có đắt không?","BAIKA xếp hạng use case theo ROI và bắt đầu từ điểm hoàn vốn nhanh nhất. Gói Audit giúp bạn biết con số cụ thể trước khi cam kết đầu tư lớn."],["Dữ liệu doanh nghiệp có an toàn khi dùng AI?","Đây là hạng mục AI Governance: phân loại dữ liệu nào được đưa vào AI, chọn mô hình/hạ tầng phù hợp và kiểm soát truy cập theo vai trò."],["Nhân viên không rành công nghệ có dùng được không?","Hệ thống thiết kế theo nguyên tắc lắp vào công cụ đang dùng, kèm gói đào tạo theo vai trò — không bắt đội ngũ học lại từ đầu."]];
+  var NEEDS=["Khảo sát cơ hội AI","AI Agent (CSKH / Sales / nội bộ)","Tự động hóa quy trình","Knowledge Base nội bộ","Phần mềm tùy chỉnh","Dashboard dữ liệu điều hành","Đào tạo AI cho đội ngũ","Nhu cầu khác"];
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  /* ---------- carousel: vuot ngang thong minh (keo tay, wheel, phim mui ten, cham) ---------- */
+  
+
+  document.getElementById('modGrid').innerHTML = MODULES.map(function(m,i){
+    var id='MODULE_'+String(i+1).padStart(2,'0');
+    return '<div class="modcard rv" data-i="'+i+'"><div class="mid">'+id+'<span class="st"></span></div><h4>'+esc(m[0])+'</h4><p>'+esc(m[1])+'</p></div>';
+  }).join('');
+  document.querySelectorAll('.modcard').forEach(function(c){ c.addEventListener('click',function(){ c.classList.toggle('on'); }); });
+  wireCarousel('modGrid','modDots');
+
+  document.getElementById('ucGrid').innerHTML = USECASES.map(function(u){
+    return '<div class="uc rv"><h4>'+esc(u[0])+'</h4><p>'+esc(u[1])+'</p></div>';
+  }).join('');
+  wireCarousel('ucGrid','ucDots');
+
+  function pkgHTML(list){
+    return list.map(function(p){
+      var items=(p.items||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+      return '<div class="pkg rv'+(p.feat?' feat':'')+'">'+(p.feat?'<div class="ptag">ĐỀ XUẤT</div>':'')+
+        '<h3>'+esc(p.name)+'</h3><p class="pdesc">'+esc(p.desc||'')+'</p><ul>'+items+'</ul>'+
+        '<button class="btn '+(p.feat?'bp':'bo')+' magnet" data-pkg="'+esc(p.name)+'">Chọn gói này</button></div>';
+    }).join('');
+  }
+  document.getElementById('pkgsBox').innerHTML = pkgHTML(PACKAGES);
+  document.getElementById('pkgSel').innerHTML = '<option value="">— Chưa chọn —</option>'+PACKAGES.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+  wireCarousel('pkgsBox','pkgDots');
+
+  document.getElementById('outsList').innerHTML = OUTCOMES.map(function(o){
+    return '<li class="rv"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-8"/></svg>'+esc(o)+'</li>';
+  }).join('');
+
+  document.getElementById('audGrid').innerHTML = AUDIENCE.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('audGrid','audDots');
+  document.getElementById('difGrid').innerHTML = DIFFS.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('difGrid','difDots');
+  document.getElementById('faqBox').innerHTML = FAQ.map(function(f){return '<details class="faq rv"><summary>'+esc(f[0])+'</summary><p>'+esc(f[1])+'</p></details>';}).join('');
+  document.getElementById('needsBox').innerHTML = NEEDS.map(function(n){return '<label class="chk"><input type="checkbox" name="needs" value="'+esc(n)+'"><span>'+esc(n)+'</span></label>';}).join('');
+  wireCarousel('painsTrack','painsDots');
+
+  function bindPkgButtons(){
+    document.querySelectorAll('[data-pkg]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var s=document.getElementById('pkgSel'); s.value=b.getAttribute('data-pkg');
+        document.getElementById('lien-he').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  }
+  bindPkgButtons();
+
+  /* ---------- reveal on scroll (stagger theo section) ---------- */
+
+  var V2_PILLARS = [["Xây dựng AI Agent", "Trợ lý AI riêng của doanh nghiệp — trả lời khách hàng, tra cứu dữ liệu nội bộ."], ["Ứng dụng AI theo ngành", "Lọc theo lĩnh vực để xem những bài toán AI & tự động hóa đã được triển khai."]];
+  var V2_TOOLS = [["Bạn tiết kiệm được bao nhiêu?", "Điều chỉnh thông số dưới đây để ước tính chi phí tiết kiệm khi tự động hóa công việc."], ["Trò chuyện thử với trợ lý BAIKA", "Hỏi về dịch vụ, quy trình, chi phí — trợ lý mô phỏng sẽ trả lời ngay (demo)."]];
+
+  if (document.getElementById('v2PillarsGrid') && typeof V2_PILLARS !== 'undefined' && V2_PILLARS.length > 0) {
+    document.getElementById('v2PillarsGrid').innerHTML = V2_PILLARS.map(function(p){
+      return '<div class="card rv"><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    wireCarousel('v2PillarsGrid', 'v2PillarsDots');
+  }
+
+  if (document.getElementById('v2ToolsGrid') && typeof V2_TOOLS !== 'undefined' && V2_TOOLS.length > 0) {
+    document.getElementById('v2ToolsGrid').innerHTML = V2_TOOLS.map(function(p, i){
+      return '<div class="st3card rv"><div class="stn mono">TIỆN ÍCH 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+
+
+  /* -------- LÔ 5: BAIKA AI SECTIONS -------- */
+  var SHOWCASE_DATA = [
+    {icon:"🤖", title:"Xây dựng AI Agent", desc:"Trợ lý AI riêng của doanh nghiệp — trả lời khách hàng, tra cứu dữ liệu nội bộ, xử lý yêu cầu 24/7 không cần nhân sự."},
+    {icon:"🎯", title:"Thiết kế CRM may đo", desc:"Hệ thống quản lý khách hàng & bán hàng tùy biến — theo dõi lead, pipeline và chăm sóc sau bán theo quy trình riêng của bạn."},
+    {icon:"🏗️", title:"Thiết kế ERP", desc:"Nền tảng ERP hợp nhất bán hàng, kho, mua hàng, kế toán và sản xuất — một nguồn dữ liệu duy nhất, không còn báo cáo chắp vá."},
+    {icon:"💻", title:"Phần mềm quản lý DN", desc:"Công cụ quản lý công việc, dự án, tài sản, nhân sự & phê duyệt — đội ngũ làm việc minh bạch, CEO theo dõi real-time."},
+    {icon:"🔧", title:"Gia công phần mềm theo yêu cầu", desc:"Đội ngũ dev tận tâm nhận triển khai từng phần hoặc trọn gói — phù hợp khi bạn có ý tưởng cần đội kỹ thuật thực thi."},
+    {icon:"🎨", title:"Thiết kế phần mềm theo yêu cầu", desc:"Từ ý tưởng đến sản phẩm chạy thật — phân tích nghiệp vụ, thiết kế UX/UI, phát triển và bàn giao theo sprint."},
+    {icon:"⚡", title:"Tự động hóa quy trình (RPA)", desc:"Thay thế các tác vụ lặp đi lặp lại bằng robot xử lý — giảm lỗi con người, tăng tốc độ và giải phóng nhân sự cho việc sáng tạo."},
+    {icon:"📊", title:"Data Analytics & Dashboard", desc:"Biến dữ liệu thô thành insight kinh doanh — dashboard real-time giúp ban lãnh đạo ra quyết định dựa trên số liệu thực."},
+    {icon:"🔗", title:"Tích hợp hệ thống (Integration)", desc:"Kết nối các phần mềm đang dùng — CRM, kế toán, bán hàng, vận chuyển — thành một luồng dữ liệu thông suốt."}
+  ];
+
+  var PROCESS_DATA = [
+    {step:"01", title:"Khảo sát", desc:"Phân tích quy trình, dữ liệu & điểm nghẽn hiện tại. Deliverable: báo cáo hiện trạng & đề xuất giải pháp."},
+    {step:"02", title:"Thiết kế", desc:"Đề xuất kiến trúc, UX/UI & kế hoạch tự động hóa cụ thể. Deliverable: prototype & roadmap triển khai."},
+    {step:"03", title:"Phát triển", desc:"Xây dựng theo sprint 2 tuần, bàn giao từng phần chạy thật để bạn dùng và phản hồi ngay."},
+    {step:"04", title:"Triển khai", desc:"Tích hợp hệ thống, di trú dữ liệu & đào tạo đội ngũ. Deliverable: hệ thống live, tài liệu hướng dẫn."},
+    {step:"05", title:"Vận hành", desc:"Theo dõi hiệu quả, tối ưu & bảo trì dài hạn. SLA rõ ràng, phản hồi sự cố trong 4 giờ làm việc."}
+  ];
+
+  var AI_OFFERS_DATA = [
+    {name:"BAIKA AI SUMMER", tag:"MÙA HÈ 2026", price:"Giảm 25% gói AI Agent", desc:"Đăng ký triển khai AI Agent trong mùa hè 2026, tặng kèm 3 tháng vận hành & bảo trì. Số lượng có hạn.", hot:true},
+    {name:"Ưu đãi khởi động quý", tag:"ĐẦU QUÝ", price:"Giảm phí thiết kế", desc:"Đầu mỗi quý, giảm phí thiết kế cho dự án CRM/ERP mới ký kết — phù hợp cho kế hoạch số hóa trong năm.", hot:false},
+    {name:"Gói bảo trì & đồng hành", tag:"ĐỊNH KỲ THÁNG", price:"Từ 8tr/tháng", desc:"Hợp đồng vận hành theo tháng — cập nhật, tối ưu & hỗ trợ ưu tiên. Đảm bảo hệ thống luôn hoạt động.", hot:false},
+    {name:"Flash số hóa dữ liệu", tag:"ĐỘT XUẤT", price:"Theo volume", desc:"Chương trình mở đột xuất — số hóa & xây database khối lượng lớn với chi phí ưu đãi đặc biệt.", hot:false}
+  ];
+
+  if(document.getElementById('showcaseGrid')){
+    document.getElementById('showcaseGrid').innerHTML = SHOWCASE_DATA.map(function(p){
+      return '<div class="card rv" style="min-width:220px"><div style="font-size:28px;margin-bottom:10px">'+p.icon+'</div><h4>'+esc(p.title)+'</h4><p>'+esc(p.desc)+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('showcaseGrid','showcaseDots');
+  }
+
+  if(document.getElementById('processGrid')){
+    document.getElementById('processGrid').innerHTML = PROCESS_DATA.map(function(p){
+      return '<div class="card rv" style="min-width:200px;position:relative">'+
+        '<div style="font-family:var(--mono);font-size:36px;font-weight:800;color:rgba(139,92,246,.15);position:absolute;top:12px;right:16px">'+p.step+'</div>'+
+        '<div style="font-family:var(--mono);font-size:11px;color:var(--violet);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">BƯỚC '+p.step+'</div>'+
+        '<h4>'+esc(p.title)+'</h4><p>'+esc(p.desc)+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('processGrid','processDots');
+  }
+
+  if(document.getElementById('aiOffersGrid')){
+    document.getElementById('aiOffersGrid').innerHTML = AI_OFFERS_DATA.map(function(p){
+      return '<div class="pkg rv'+(p.hot?' feat':'')+'">'+
+        (p.hot?'<div class="ptag">'+esc(p.tag)+'</div>':'')+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<p class="pdesc" style="color:var(--ember);font-family:var(--mono);font-size:13px;margin-bottom:8px">'+esc(p.price)+'</p>'+
+        '<p class="pdesc">'+esc(p.desc)+'</p>'+
+        '<a class="btn '+(p.hot?'bp':'bo')+' magnet" href="#lien-he">Tư vấn ngay</a>'+
+        '</div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('aiOffersGrid','aiOffersDots');
+  }
+
+  var AI_TOOLS = [
+    ["Ứng dụng AI theo ngành của bạn","Lọc theo lĩnh vực để xem những bài toán AI & tự động hóa đã được triển khai — tìm ngay use case phù hợp doanh nghiệp bạn."],
+    ["Bạn tiết kiệm được bao nhiêu?","Điều chỉnh thông số số lượng nhân sự, giờ làm và chi phí — hệ thống ước tính chi phí tiết kiệm khi tự động hóa quy trình."],
+    ["Trò chuyện thử với trợ lý BAIKA","Hỏi về dịch vụ, quy trình, chi phí — trợ lý mô phỏng sẽ trả lời ngay (demo canvas, không cần đăng ký)."]
+  ];
+  if(document.getElementById('aiToolsGrid')){
+    document.getElementById('aiToolsGrid').innerHTML=AI_TOOLS.map(function(p,i){
+      return '<div class="st3card rv"><div class="stn mono">TRẢI NGHIỆM 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+window.BaikaSite.wireReveal();
+
+  /* ---------- hero: text materialize + spotlight theo con tro ---------- */
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- gauge chan doan: dem so song dong khi vao khung nhin ---------- */
+  var gaugeEl=document.querySelector('.diagteaser'), gaugeDone=false;
+  function runGauge(){
+    if(gaugeDone) return; gaugeDone=true;
+    var target=42, circumference=170, dur=1200, t0=null;
+    var fillEl=document.getElementById('dtFill'), numEl=document.getElementById('dtNum');
+    fillEl.style.strokeDashoffset = circumference - (circumference*target/100);
+    function step(ts){
+      if(!t0) t0=ts;
+      var p=Math.min(1,(ts-t0)/dur);
+      numEl.textContent=Math.round(p*target);
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if(gaugeEl){
+    if(reduce){ document.getElementById('dtFill').style.strokeDashoffset=170-(170*42/100); document.getElementById('dtNum').textContent='42'; }
+    else{
+      var gio=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ runGauge(); gio.disconnect(); } }); },{threshold:.4});
+      gio.observe(gaugeEl);
+    }
+  }
+
+  var tt=document.getElementById('typeTarget');
+  if(tt && !reduce){
+    var full=tt.textContent, i=0; tt.textContent='';
+    (function type(){ if(i<=full.length){ tt.textContent=full.slice(0,i); i++; setTimeout(type, 28); } })();
+  }
+  var heroEl=document.querySelector('.hero');
+  if(heroEl && !reduce){
+    heroEl.addEventListener('mousemove', function(e){
+      var r=heroEl.getBoundingClientRect();
+      heroEl.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
+      heroEl.style.setProperty('--my', ((e.clientY-r.top)/r.height*100)+'%');
+    });
+  }
+
+  /* ---------- magnetic buttons ---------- */
+window.BaikaSite.wireMagnet(reduce);
+
+  /* ---------- canvas: mang neural song dong ---------- */
+  var canvas=document.getElementById('neuralBg'), ctx=canvas.getContext('2d'), heroBox=document.querySelector('.hero');
+  var W,H,nodes=[],mouse={x:-9999,y:-9999};
+  function resize(){ var r=heroBox.getBoundingClientRect(); W=canvas.width=r.width; H=canvas.height=r.height; }
+  function initNodes(){
+    var n=Math.min(46, Math.floor(W/34));
+    nodes=[]; for(var i=0;i<n;i++){ nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18}); }
+  }
+  resize(); initNodes();
+  window.addEventListener('resize', function(){ resize(); initNodes(); });
+  heroBox.addEventListener('mousemove', function(e){ var r=heroBox.getBoundingClientRect(); mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top; });
+  heroBox.addEventListener('mouseleave', function(){ mouse.x=-9999; mouse.y=-9999; });
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<nodes.length;i++){
+      var a=nodes[i];
+      a.x+=a.vx; a.y+=a.vy;
+      if(a.x<0||a.x>W)a.vx*=-1; if(a.y<0||a.y>H)a.vy*=-1;
+      var dxm=a.x-mouse.x, dym=a.y-mouse.y, dm=Math.sqrt(dxm*dxm+dym*dym);
+      if(dm<140){ a.x+=dxm/dm*0.6; a.y+=dym/dm*0.6; }
+      for(var j=i+1;j<nodes.length;j++){
+        var b=nodes[j], dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d<128){
+          ctx.strokeStyle='rgba(155,124,240,'+(0.16*(1-d/128))+')';
+          ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+    }
+    for(var k=0;k<nodes.length;k++){
+      ctx.beginPath(); ctx.arc(nodes[k].x,nodes[k].y,1.6,0,7);
+      ctx.fillStyle='rgba(94,234,212,.55)'; ctx.fill();
+    }
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  if(!reduce) requestAnimationFrame(frame); else { frame(); }
+
+  /* ---------- form submit ---------- */
+  var form=document.getElementById('leadForm'), msg=document.getElementById('fmsg'), btn=document.getElementById('sbm');
+  function setMsg(t,ok){ msg.textContent=t; msg.className='fmsg '+(ok?'ok':'bad'); }
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var name=form.full_name.value.trim(), phone=form.phone.value.replace(/[^\d+]/g,'');
+    var needs=[].slice.call(form.querySelectorAll('input[name=needs]:checked')).map(function(c){return c.value;});
+    form.querySelectorAll('.fld').forEach(function(f){f.classList.remove('err');});
+    if(!name){ setMsg('Vui lòng nhập họ tên.',false); form.full_name.closest('.fld').classList.add('err'); return; }
+    if(!/^\+?\d{9,12}$/.test(phone)){ setMsg('Số điện thoại chưa đúng định dạng.',false); form.phone.closest('.fld').classList.add('err'); return; }
+    if(form.email.value && !/^\S+@\S+\.\S+$/.test(form.email.value)){ setMsg('Email chưa đúng định dạng.',false); form.email.closest('.fld').classList.add('err'); return; }
+    if(needs.length<1){ setMsg('Vui lòng chọn ít nhất một nhu cầu.',false); return; }
+    if(!document.getElementById('consent').checked){ setMsg('Vui lòng đồng ý chính sách bảo mật để BAIKA có thể liên hệ.',false); return; }
+    var extras=[];
+    if(form.company.value) extras.push('Cty: '+form.company.value);
+    if(form.pkg.value) extras.push('Goi: '+form.pkg.value);
+    if(form.msg.value) extras.push(form.msg.value);
+    var payload={ fullName:name, phone:phone, email:form.email.value||null, serviceNeeds:needs,
+      siteId:'ai-os', sourcePage:location.pathname, privacyConsent:true,
+      interestedPackage: form.pkg.value||null, problemDescription: extras.join(' | ')||null };
+    btn.disabled=true; btn.textContent='Đang gửi...';
+    try{
+      var res=await fetch('/api/v1/public/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(res.ok){ setMsg('Đã gửi thành công! BAIKA sẽ liên hệ với bạn trong 24 giờ làm việc.',true); form.reset(); }
+      else if(res.status===422||res.status===429){ var er=await res.json().catch(function(){return{};}); setMsg(er.message||er.error||'Dữ liệu chưa hợp lệ.',false); }
+      else{ throw new Error('endpoint '+res.status); }
+    }catch(err){
+      try{ var k='baika_leads_ai-os'; var arr=JSON.parse(localStorage.getItem(k)||'[]'); arr.push(Object.assign({created_at:new Date().toISOString()},payload)); localStorage.setItem(k,JSON.stringify(arr));
+        setMsg('Đã ghi nhận yêu cầu (chế độ demo — máy chủ chưa kết nối). BAIKA sẽ liên hệ khi hệ thống hoạt động.',true); form.reset();
+      }catch(e2){ setMsg('Không gửi được. Vui lòng gọi trực tiếp 0905 247 365.',false); }
+    }
+    btn.disabled=false; btn.textContent='Gửi yêu cầu tư vấn';
+  });
+
+  /* ---------- GD4 CMS overlay (giu tuong thich voi khu quan tri) ---------- */
+  fetch('/api/v1/public/site-content?site_id=ai-os').then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.data) return;
+    var d=j.data;
+    if(d.hero){
+      if(d.hero.title){ document.getElementById('heroTitle').textContent=d.hero.title; }
+      if(d.hero.subtitle!=null) document.getElementById('heroSub').textContent=d.hero.subtitle;
+      if(d.hero.desc!=null) document.getElementById('heroDesc').textContent=d.hero.desc;
+      if(d.hero.cta1) document.getElementById('heroCta1').textContent=d.hero.cta1;
+    }
+    if(Array.isArray(d.packages)&&d.packages.length){
+      var merged=d.packages.map(function(p,i){ return {name:p.name,desc:p.desc,items:p.items,feat:PACKAGES[i]?PACKAGES[i].feat:false}; });
+      document.getElementById('pkgsBox').innerHTML=pkgHTML(merged); bindPkgButtons(); wireCarousel('pkgsBox','pkgDots');
+      document.getElementById('pkgSel').innerHTML='<option value="">— Chưa chọn —</option>'+merged.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+    }
+    if(Array.isArray(d.faq)&&d.faq.length){
+      document.getElementById('faqBox').innerHTML=d.faq.map(function(f){return '<details class="faq on"><summary>'+esc(f.q)+'</summary><p>'+esc(f.a||'')+'</p></details>';}).join('');
+    }
+  }).catch(function(){});
+})();
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+<script>
+
+  /* BAIKA AI Operating System: Neural Network */
+  (function(){
+    var c=document.getElementById('baikaAnimBg'); if(!c) return;
+    var ctx=c.getContext('2d'), w=0, h=0, pts=[], active=true;
+    function r(){ w=c.width=window.innerWidth; h=c.height=window.innerHeight; }
+    window.addEventListener('resize', r); r();
+    var observer = new IntersectionObserver(es => { active = es[0].isIntersecting; });
+    observer.observe(document.body);
+    for(var i=0; i<60; i++) pts.push({x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-.5)*0.5, vy:(Math.random()-.5)*0.5, c: Math.random()>0.5?'rgba(155,124,240,':'rgba(94,234,212,'});
+    function draw(){
+      if(!active){ requestAnimationFrame(draw); return; }
+      ctx.clearRect(0,0,w,h);
+      for(var i=0; i<pts.length; i++){
+        var p=pts[i]; p.x+=p.vx; p.y+=p.vy;
+        if(p.x<0||p.x>w) p.vx*=-1; if(p.y<0||p.y>h) p.vy*=-1;
+        ctx.beginPath(); ctx.arc(p.x,p.y,1.5,0,Math.PI*2); ctx.fillStyle=p.c+'0.8)'; ctx.fill();
+        for(var j=i+1; j<pts.length; j++){
+          var p2=pts[j], dx=p.x-p2.x, dy=p.y-p2.y, d2=dx*dx+dy*dy;
+          if(d2<20000){
+            ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y);
+            ctx.strokeStyle=p.c+(1-d2/20000)*0.2+')'; ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+</script>
+</body>
+</html>

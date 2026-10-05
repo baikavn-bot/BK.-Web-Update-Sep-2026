@@ -11,7 +11,7 @@ Ký hiệu: 🔴 chặn — chưa xong không trỏ · 🟡 nên xong trước �
 | # | Việc | Ai | Tình trạng |
 | --- | --- | --- | --- |
 | C1 | **Vercel Pro** — gói Hobby chỉ cho dùng cá nhân, phi thương mại (điều khoản Vercel) | Sếp | Thắng báo sếp |
-| C2 | **Danh sách toàn bộ đường dẫn bản cũ** + bảng chuyển hướng sang v2 — tránh link cũ ra 404. Đã biết bản cũ có `/tram-y-tuong` · `/tram-y-tuong?tab=ideas` · `/tai-nguyen` · `/ve-baika` mà v2 chưa có **[xác minh 05/10]** | Agent rà · Thắng quyết | Rà xong 05/10 → §4. Còn các ô ❓ chờ quyết |
+| C2 | **Danh sách toàn bộ đường dẫn bản cũ** + bảng chuyển hướng sang v2 — tránh link cũ ra 404. Đã biết bản cũ có `/tram-y-tuong` · `/tram-y-tuong?tab=ideas` · `/tai-nguyen` · `/ve-baika` mà v2 chưa có **[xác minh 05/10]** | Agent rà · Thắng quyết | Rà xong 05/10 (2 lượt, 176 địa chỉ) → §4, nội dung thiếu → §5. Còn các ô ❓ chờ quyết |
 | C3 | **Bản cũ có đăng nhập + dữ liệu?** Bản cũ gọi `/api/auth/session` và `/api/ideas` **[xác minh]**. Cần sếp trả lời: (a) đã có ai thật sự đăng nhập / tạo tài khoản chưa, hay chỉ là demo? (b) đăng nhập xong người dùng có thêm những gì? (c) nếu có, thông tin tài khoản và dữ liệu đang lưu ở đâu, ai quản lý? | Sếp | Chờ — `viec-cho.md` #25 |
 | C4 | **Chính sách bảo mật** còn là bản nháp — **Kapi (agent của sếp) rà soát và viết lại** khi sếp tới công ty | Sếp + Kapi | Chờ — `viec-cho.md` #23 |
 | C5 | **Lời hứa chưa duyệt:** 5 nút «… miễn phí» trỏ tới công cụ chưa có (`viec-cho` #1, #2) — **bộ công cụ do sếp + Kapi tạo**, xong thì cập nhật lên repo để agent tích hợp vào source · SLA trang AI (#6) · ô mức khẩn cấp trang Pháp lý (#3) | Sếp + Kapi · Thắng | Chờ |
@@ -91,3 +91,73 @@ Tạm thời khi chuyển: chuyển 5 đường dẫn về **trang dịch vụ t
 ### 4.4 Không tồn tại trên bản cũ (404) — không cần chuyển
 
 `/lien-he` · `/blog` · `/tin-tuc` · `/about` · `/contact` · `/privacy` · `/chinh-sach-bao-mat` · `/dang-nhap` · `/login` · `/sign-up` · `/dashboard` · `/remote-office` · `/ideas` · `/tai-nguyen/<slug>` và các mẫu tương tự **[xác minh 05/10]**.
+
+### 4.5 Bản sao tĩnh `/baika-suite/` — trùng nội dung, cũng phải chuyển
+
+Lượt rà sâu (05/10 chiều) phát hiện 7 trang dịch vụ và 5 công cụ của bản cũ thực chất là **file HTML tĩnh** nằm ở `/baika-suite/…`, và mỗi trang mở được bằng **2 địa chỉ** (giống hệt từng ký tự) **[xác minh]**:
+
+| Địa chỉ phụ (bản sao) | Trùng với | Chuyển về (v2) |
+| --- | --- | --- |
+| `/baika-suite/advisory/` · `…/index.html` | `/advisory` | `/advisory` ✅ |
+| `/baika-suite/baika-ai-operating-system/` · `…/index.html` · `…/diagnosis.html` | `/ai-os` · `/ai-os/diagnosis` | `/ai-os` ✅ |
+| `/baika-suite/ceo-blueprint/` · `…/index.html` · `…/assessment.html` | `/ceo-blueprint` · `…/assessment` | `/ceo-blueprint` ✅ |
+| `/baika-suite/finance/` · `…/index.html` · `…/assessment.html` | `/finance` · `…/assessment` | `/finance` ✅ |
+| `/baika-suite/legal-tax/` · `…/index.html` | `/legal-tax` | `/legal-tax` ✅ |
+| `/baika-suite/baika-brand-launch-system/` · `…/index.html` · `…/diagnostic.html` | `/marketing` · `…/diagnostic` | `/marketing` ✅ |
+| `/baika-suite/remote-ops/` · `…/index.html` · `…/survey.html` | `/remote-ops` · `…/survey` | `/remote-ops` ✅ |
+
+→ Một quy tắc `/baika-suite/:path*` là đủ cho cả nhóm. Ảnh logo từng dịch vụ cũng nằm ở đây (`/baika-suite/<dịch vụ>/logo-emblem.png`) — không cần giữ.
+
+Lỗi nhỏ trên bản cũ: trang `/ai-os/diagnosis` có link tới `/index.html` → **404** **[xác minh]**. Không ảnh hưởng v2.
+
+### 4.6 Bản cũ đang thu dữ liệu khách qua 3 cửa
+
+Mã các trang dịch vụ cũ gửi dữ liệu về máy chủ cũ qua **3 API** **[xác minh: đọc mã, không gửi thử]**:
+
+| API | Từ đâu | Nghĩa |
+| --- | --- | --- |
+| `/api/v1/public/leads` | Form liên hệ ở cả 7 trang dịch vụ | Kho «khách để lại thông tin» |
+| `/api/v1/public/bookings` | Trang Tư vấn + trang CEO | Kho **đặt lịch** |
+| `/api/v1/public/assessments` | 5 công cụ chẩn đoán | Kho câu trả lời tự đánh giá |
+| `/api/v1/public/site` · `/api/v1/me/sites` (401) | 7 trang dịch vụ | Cấu hình site lấy từ máy chủ — gợi ý bản cũ là một **hệ quản trị nhiều site** **[suy luận]** |
+
+v2 không lưu gì — form chỉ gửi mail qua Resend. Nên khi chuyển: **dữ liệu cũ nằm lại máy chủ cũ**. Bổ sung cho `viec-cho` #25.
+
+### 4.7 Tổng kết lượt rà
+
+- **176 địa chỉ** đã kiểm: 175 trả 200, 1 trả 404 (`/index.html`). Gồm 155 trang mô hình — **cả 155 đều mở được** **[xác minh từng trang]**.
+- Ngoài ra ~110 địa chỉ đoán thử (đăng nhập, admin, blog, chính sách, API…) — chỉ những cái ghi trong §4.1–4.6 là tồn tại.
+- Link ra ngoài trên bản cũ: `https://tramketnoi.com/` · `https://zalo.me/0905247365` · `tel:0905247365` · `mailto:baika.vn@gmail.com`. 🟡 **v2 chưa có nút Zalo** — trang chủ cũ có nút «Chat Zalo» nổi.
+- Ảnh chia sẻ (og:image) của trang chẩn đoán thương hiệu cũ trỏ tên miền khác: `https://baikamkt.com/og-image.png` — gợi ý từng có site marketing riêng **[suy luận]**.
+- **Bản chụp toàn bộ** chữ 176 trang + mã HTML gốc 14 file: `docs/trang-con-thieu/du-lieu/ban-cu/`. Đã dò: không có khoá bí mật, chỉ có email/điện thoại công ty và số mẫu.
+
+## 5. Nội dung bản cũ CHƯA có trên v2 — cần Thắng xác nhận «cắt có chủ ý»
+
+So từng khối (section) của 7 trang dịch vụ cũ với v2 **[xác minh bằng máy, rồi agent đọc lại từng tên khối]**. Mỗi trang cũ có **14–18 khối**; v2 có **6 khối** (Vấn đề · BAIKA sẽ làm gì · Bạn sẽ nhận được gì · Các gói · FAQ · Liên hệ). Phần lớn chênh lệch là do **thiết kế lại có chủ ý** (xem «danh sách cắt» trong `_chung/ban-do-section.md`), nhưng cần Thắng xác nhận từng nhóm để không mất thông tin ngoài ý muốn. Nguyên văn mọi khối nằm trong bản chụp.
+
+**Khối có ở gần như MỌI trang cũ, v2 không có:**
+
+| Khối cũ | Có ở | Ghi chú |
+| --- | --- | --- |
+| «Công cụ hỗ trợ & Đánh giá» / «Thử ngay — không cần đăng ký» / «Tự tính, tự thấy» | 7/7 | Máy tính nhỏ + link 5 công cụ chẩn đoán (§4.2) |
+| «Ưu đãi & Các gói đặc biệt» / ưu đãi theo mùa | 6/7 | **Ưu đãi giá** — cam kết với khách, sếp duyệt nếu đưa lại |
+| «Dịch vụ này dành cho ai?» | 7/7 | Đối tượng phù hợp |
+| «Vì sao chọn BAIKA?» | 7/7 | Điểm khác biệt |
+| «Sau khi triển khai cùng BAIKA» | 7/7 | Có thể đã gộp vào «Bạn sẽ nhận được gì» — cần đối chiếu |
+| «Phạm vi — 8 module / 8 nhóm dịch vụ» | 4/7 (AI, Tài chính, Pháp lý, Vận hành) | Bảng module chi tiết |
+
+**Khối riêng từng trang:**
+
+| Trang | Khối cũ không có trên v2 |
+| --- | --- |
+| Tư vấn | «Tư vấn theo 7 trục hệ thống» · «Bốn tầng can thiệp» |
+| AI | «Ba lớp giải pháp» · «AI làm được gì cho từng bộ phận?» · «Công nghệ đúng bài toán» (showcase) · «Đặt lịch demo» |
+| CEO | «5 câu hỏi mọi CEO phải trả lời được» · «Một bản đồ — 10 trụ cột» · «BAIKA Academy» · «Chọn chương trình» · «Sáu học phần cốt lõi» · «Đăng ký tư vấn lộ trình đào tạo» |
+| Tài chính | «Khung 4 bước» · «Bốn trụ cột tài chính» · «Tài chính đủ vững…» (điểm mạnh) · «Đồng hành theo mùa vụ» · chỉ số minh hoạ «LEDGER» |
+| Pháp lý | «Từ bị động sang chủ động» · «Năm trụ cột» · «Ba công cụ hỗ trợ quyết định» · «Đồng hành theo mùa, định kỳ & đột xuất» |
+| Marketing | «Hệ thống thương hiệu 9 tầng» · «Một mái nhà, đủ mọi vũ khí» · «8 dịch vụ» · «Chiến dịch chạm mọi điểm» (IMC) · «Chọn gương mặt cho thương hiệu» (KOL) · «Những con số biết cháy» (**số liệu case study**) · «Gói combo bốc lửa» |
+| Vận hành | «6 cấu phần» · «Khi vận hành là hệ thống…» (sơ đồ) · «Bốn hạng mục» · «Chọn nhịp phù hợp» · «Bắt đầu bằng một buổi chẩn đoán» |
+
+**Khác (không phải trang dịch vụ):** trang chủ cũ có tagline «Hệ sinh thái tăng trưởng doanh nghiệp» và câu mô tả ngắn cho từng trụ (vd. «Định hướng chiến lược, mô hình và lộ trình tăng trưởng.») — v2 trang chủ chỉ có tên trụ; nút «Chat Zalo».
+
+❓ **Thắng chọn cho mỗi nhóm:** (a) đã cắt có chủ ý — bỏ · (b) đưa vào v2 sau (thiết kế thêm khối) · (c) giữ trong bản chụp để tham khảo.
