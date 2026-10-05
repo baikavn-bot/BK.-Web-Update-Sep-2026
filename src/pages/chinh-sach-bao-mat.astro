@@ -9,6 +9,9 @@ import SiteFooter from '../components/SiteFooter.astro';
 //
 // NỘI DUNG: bản Kapi (agent của sếp) sửa và duyệt trực tiếp trên Figma 971:3638,
 // Thắng báo 05/10/2026. Chép nguyên văn từ Figma — sửa chữ thì sửa Figma trước.
+// 05/10 Thắng chốt: bỏ «gửi kết quả qua email nếu bạn yêu cầu» (công cụ giữ y v1,
+// không có nút gửi kết quả cho khách) — đã sửa cả Figma 972:3714 · 972:6594.
+// «Google Sheets»: giữ — BAIKA tự lưu yêu cầu vào Sheets, website KHÔNG ghi vào Sheets.
 //
 // Trang phải mô tả ĐÚNG những gì website làm (đối chiếu code 05/10): form thu
 // thông tin → api/contact.ts → Resend → hộp thư Gmail; không cookie theo dõi,
@@ -50,7 +53,7 @@ const muc = [
     ds: [
       'Liên hệ lại với bạn để trao đổi về nhu cầu bạn đã nêu.',
       'Tư vấn, gửi báo giá hoặc đặt lịch khảo sát theo yêu cầu của bạn.',
-      'Hiển thị kết quả công cụ chẩn đoán, và gửi kết quả qua email nếu bạn yêu cầu.',
+      'Hiển thị kết quả công cụ chẩn đoán.',
     ],
     sauBang: ['Kết quả chẩn đoán được tính tự động từ câu trả lời của bạn và chỉ để tham khảo. Chúng tôi không mua bán dữ liệu của bạn, và không dùng dữ liệu để gửi quảng cáo khi chưa có sự đồng ý riêng của bạn.'],
   },
