@@ -17,7 +17,7 @@
 // Thắng chốt 05/10:
 //   · Remote Office ĐỨNG ĐẦU bảng dịch vụ ở mọi khổ (Figma Desktop/Tablet chưa có → đã thêm).
 //   · Menu mobile thêm «Trạm ý tưởng», «Trạm kết nối», «Liên hệ».
-//   · 2 Trạm: hiện chữ, CHƯA bấm được (chờ trang «Sắp ra mắt» — viec-cho #12).
+//   · 2 Trạm: dẫn về trang «Sắp ra mắt» `/sap-ra-mat` (Figma 975:4678, dựng 05/10).
 //   · Bảng dịch vụ mở/đóng bằng BẤM (không phải rê chuột). Esc + bấm ra ngoài cũng đóng.
 //
 // Chỗ code KHÁC Figma (có chủ ý — đã ghi nhat-ky-figma-chung.md 05/10):
@@ -40,7 +40,8 @@ interface Props {
 }
 const { current, logoHref = '/' } = Astro.props;
 
-// 2 Trạm: chưa có trang đích → hiện chữ, không bấm được (không để link chết).
+// 2 Trạm chưa có trang riêng → cùng dẫn về trang «Sắp ra mắt» (viec-cho #12).
+const SAP_RA_MAT = '/sap-ra-mat';
 const tram = ['Trạm ý tưởng', 'Trạm kết nối'];
 
 // Bảng dịch vụ — nguyên văn nhãn Figma. Slug từ DEC-019.
@@ -64,7 +65,7 @@ const dichVu = [
 
   {/* ===== ≥ 768: thanh điều hướng ===== */}
   <nav class="hdr__nav" aria-label="Menu chính">
-    {tram.map((t) => <span class="hdr__muc hdr__muc--off">{t}</span>)}
+    {tram.map((t) => <a class="hdr__muc hdr__tram" href={SAP_RA_MAT}>{t}</a>)}
 
     <button
       class="hdr__muc hdr__dv"
@@ -115,7 +116,7 @@ const dichVu = [
   <nav class="hdr__bang hdr__bang--mb" id="hdr-mobile" hidden aria-label="Menu chính">
     <span class="hdr__vet" aria-hidden="true"></span>
     <ul class="hdr__luoi">
-      {tram.map((t) => <li><span class="navbtn navbtn--off">{t}</span></li>)}
+      {tram.map((t) => <li><a class="navbtn" href={SAP_RA_MAT}>{t}</a></li>)}
       {dichVu.map((m) => (
         <li>
           <a class="navbtn" href={m.href}
@@ -185,7 +186,10 @@ const dichVu = [
     font-weight: var(--fw-h3);
     color: var(--gray-50);
   }
-  .hdr__muc--off { cursor: default; }
+  /* Figma chưa vẽ trạng thái Hover/Focus cho mục chữ — tạm: không gạch chân,
+     focus bàn phím dùng quầng sáng chung. */
+  .hdr__tram { text-decoration: none; }
+  .hdr__tram:focus-visible { outline: none; box-shadow: var(--shadow-drop-inner); }
   .hdr__dv { cursor: pointer; }
   .hdr__dv:focus-visible { outline: none; box-shadow: var(--shadow-drop-inner); }
   /* Figma: Close dùng chevron-down, Open dùng chevron-up → ở đây xoay 180°. */
@@ -289,8 +293,6 @@ const dichVu = [
   /* Trang đang mở: cùng màu Focus, nhưng không có quầng sáng (VD-005). */
   .navbtn[aria-current='page'] { color: var(--gray-50); }
   .navbtn:focus-visible { outline: none; color: var(--gray-50); box-shadow: var(--shadow-drop-inner); }
-  .navbtn--off { cursor: default; }
-  .navbtn--off:hover { color: var(--gray-600); }
 
   /* Nút «Liên hệ» mobile: Figma đặt ở x 24, thẳng mép HỘP các mục trên. */
 
