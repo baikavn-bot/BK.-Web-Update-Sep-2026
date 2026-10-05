@@ -50,8 +50,11 @@ const socials = [
       <div class="contact__info">
         <h1 class="contact__intro">{intro}</h1>
 
+        {/* 05/10 — Thắng chốt: chỉ hiện mạng xã hội ĐÃ có đường dẫn. Thêm href
+            vào mảng `socials` ở đầu file là mục đó tự hiện. */}
+        {socials.some((s) => s.href) && (
         <ul class="contact__social">
-          {socials.map((s) => (
+          {socials.filter((s) => s.href).map((s) => (
             <li>
               {s.href
                 ? <a class="contact__sociallink" href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
@@ -59,6 +62,7 @@ const socials = [
             </li>
           ))}
         </ul>
+        )}
 
         <address class="contact__details">
           <a href="tel:+84905247365">0905 247 365</a>
