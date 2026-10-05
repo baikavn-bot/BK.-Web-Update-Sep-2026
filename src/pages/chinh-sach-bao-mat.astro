@@ -7,17 +7,14 @@ import SiteFooter from '../components/SiteFooter.astro';
 // Figma: section «Chính sách bảo mật — NHÁP…» 971:3638 trên page UI —
 // Desktop 971:3639 · Mobile 972:6555. Dựng 05/10/2026.
 //
-// ⚠️ NỘI DUNG LÀ BẢN NHÁP, CHƯA ĐƯỢC PHÁP LÝ DUYỆT (Thắng chốt 05/10: dựng
-// trước, có bản duyệt thì cập nhật). Chỗ trong [ngoặc vuông] là thông tin công
-// ty / Pháp lý phải điền. Bản nháp gốc + 9 câu hỏi cho Pháp lý: project Claude
-// `claude/chinh-sach-bao-mat-ban-nhap.md`.
+// NỘI DUNG: bản Kapi (agent của sếp) sửa và duyệt trực tiếp trên Figma 971:3638,
+// Thắng báo 05/10/2026. Chép nguyên văn từ Figma — sửa chữ thì sửa Figma trước.
 //
-// Nội dung chỉ mô tả đúng những gì website đang làm (đối chiếu code 05/10):
-// form thu 7 thông tin → api/contact.ts → Resend → hộp thư Gmail; không cookie
-// theo dõi, không công cụ phân tích. Website thu thêm dữ liệu gì → sửa trang này
-// TRƯỚC.
+// Trang phải mô tả ĐÚNG những gì website làm (đối chiếu code 05/10): form thu
+// thông tin → api/contact.ts → Resend → hộp thư Gmail; không cookie theo dõi,
+// không công cụ phân tích. Website thu thêm dữ liệu gì → sửa trang này TRƯỚC.
 
-const CAP_NHAT = '[ngày đăng]';
+const CAP_NHAT = '05/10/2026';
 
 // Bảng có `xepDocMobile`: dưới 768px mỗi hàng thành một khối dọc (Thắng chốt
 // 05/10, phương án a) — bảng 3 cột chật quá ở khổ 375.
@@ -25,7 +22,7 @@ const muc = [
   {
     tieuDe: '1. Chúng tôi thu thập dữ liệu gì',
     doan: [
-      'Website chỉ thu thập dữ liệu khi bạn tự điền và gửi form liên hệ. Bạn có thể đọc toàn bộ nội dung website mà không cần cung cấp thông tin nào.',
+      'Website chỉ thu thập dữ liệu khi bạn tự điền và gửi form liên hệ, hoặc form ở bước cuối của công cụ chẩn đoán trực tuyến. Bạn có thể đọc toàn bộ nội dung website mà không cần cung cấp thông tin nào.',
       'Khi bạn gửi form, chúng tôi nhận:',
     ],
     bang: {
@@ -42,9 +39,10 @@ const muc = [
       ],
     },
     sauBang: [
-      'Vui lòng không ghi vào ô «Mô tả vấn đề» các thông tin nhạy cảm như số tài khoản ngân hàng, mật khẩu, tình trạng sức khoẻ hay thông tin của người khác.',
+      'Nếu bạn dùng công cụ chẩn đoán, chúng tôi nhận thêm các câu trả lời của bạn về doanh nghiệp (ví dụ: ngành nghề, quy mô, hiện trạng vận hành, ngân sách dự kiến) và kết quả đánh giá. Ở các công cụ này, email là thông tin không bắt buộc.',
+      'Vui lòng không ghi vào form các thông tin nhạy cảm như số tài khoản ngân hàng, mật khẩu, tình trạng sức khoẻ hay thông tin của người khác. Website không yêu cầu loại dữ liệu này.',
       'Chúng tôi không dùng cookie theo dõi, không gắn công cụ phân tích hành vi hay quảng cáo trên website.',
-      'Giống mọi website, khi bạn truy cập, máy chủ lưu trữ website và dịch vụ phông chữ có thể ghi nhận thông tin kỹ thuật như địa chỉ IP, loại trình duyệt và thời điểm truy cập, nhằm vận hành và bảo vệ hệ thống.',
+      'Giống mọi website, khi bạn truy cập, máy chủ lưu trữ website và dịch vụ phông chữ có thể ghi nhận thông tin kỹ thuật như địa chỉ IP, loại trình duyệt và thời điểm truy cập, để vận hành và bảo vệ hệ thống.',
     ],
   },
   {
@@ -52,12 +50,16 @@ const muc = [
     ds: [
       'Liên hệ lại với bạn để trao đổi về nhu cầu bạn đã nêu.',
       'Tư vấn, gửi báo giá hoặc đặt lịch khảo sát theo yêu cầu của bạn.',
+      'Hiển thị kết quả công cụ chẩn đoán, và gửi kết quả qua email nếu bạn yêu cầu.',
     ],
-    sauBang: ['Chúng tôi không bán dữ liệu của bạn, và không dùng dữ liệu để gửi quảng cáo khi chưa có sự đồng ý riêng của bạn.'],
+    sauBang: ['Kết quả chẩn đoán được tính tự động từ câu trả lời của bạn và chỉ để tham khảo. Chúng tôi không mua bán dữ liệu của bạn, và không dùng dữ liệu để gửi quảng cáo khi chưa có sự đồng ý riêng của bạn.'],
   },
   {
     tieuDe: '3. Căn cứ xử lý',
-    doan: ['Chúng tôi xử lý dữ liệu dựa trên sự đồng ý của bạn, thể hiện khi bạn đánh dấu ô «Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật» trước khi gửi form. Form không gửi được nếu ô này chưa được đánh dấu.'],
+    doan: [
+      'Chúng tôi xử lý dữ liệu dựa trên sự đồng ý của bạn. Bạn thể hiện sự đồng ý khi tự đánh dấu ô đồng ý ở cuối form, trước khi gửi. Ô này không được đánh dấu sẵn, và form không gửi được nếu ô chưa được đánh dấu.',
+      'Sự đồng ý có hiệu lực cho đến khi bạn rút lại. Bạn có thể rút lại bất cứ lúc nào theo hướng dẫn ở mục 6. Yêu cầu rút lại không áp dụng cho phần xử lý đã diễn ra trước thời điểm bạn yêu cầu.',
+    ],
   },
   {
     tieuDe: '4. Chúng tôi chia sẻ dữ liệu với ai',
@@ -66,37 +68,49 @@ const muc = [
       xepDocMobile: true,
       cot: ['Nhà cung cấp', 'Vai trò', 'Nơi đặt máy chủ'],
       hang: [
-        ['Vercel Inc.', 'Lưu trữ và vận hành website', '[Pháp lý kiểm]'],
-        ['Resend', 'Chuyển nội dung form thành email gửi về BAIKA', '[Pháp lý kiểm]'],
-        ['Google (Gmail)', 'Hộp thư nhận yêu cầu của BAIKA', '[Pháp lý kiểm]'],
-        ['Google Fonts', 'Cung cấp phông chữ (chỉ nhận thông tin kỹ thuật như IP)', '[Pháp lý kiểm]'],
+        ['Vercel Inc.', 'Lưu trữ và vận hành website', 'Ngoài Việt Nam (Hoa Kỳ và các khu vực khác)'],
+        ['Resend', 'Chuyển nội dung form thành email gửi về BAIKA', 'Ngoài Việt Nam (Hoa Kỳ)'],
+        ['Google (Gmail, Google Sheets)', 'Hộp thư và bảng lưu yêu cầu của BAIKA', 'Ngoài Việt Nam (các trung tâm dữ liệu của Google)'],
+        ['Google Fonts', 'Cung cấp phông chữ (chỉ nhận thông tin kỹ thuật như IP)', 'Mạng máy chủ toàn cầu của Google'],
       ],
     },
-    sauBang: ['Ngoài ra, chúng tôi chỉ cung cấp dữ liệu cho cơ quan nhà nước có thẩm quyền khi pháp luật yêu cầu.'],
+    sauBang: [
+      'Các nhà cung cấp trên đặt máy chủ ngoài Việt Nam, nên dữ liệu của bạn được chuyển và lưu trữ ở nước ngoài. Sự đồng ý của bạn ở mục 3 bao gồm việc chuyển dữ liệu này. BAIKA thực hiện các nghĩa vụ về chuyển dữ liệu cá nhân xuyên biên giới theo quy định của pháp luật.',
+      'Ngoài ra, chúng tôi chỉ cung cấp dữ liệu cho cơ quan nhà nước có thẩm quyền khi pháp luật yêu cầu.',
+    ],
   },
   {
     tieuDe: '5. Chúng tôi giữ dữ liệu trong bao lâu',
-    doan: ['Chúng tôi giữ dữ liệu từ form trong [thời hạn — Pháp lý chốt] kể từ lần liên hệ cuối cùng, hoặc lâu hơn nếu bạn trở thành khách hàng và hợp đồng hay pháp luật yêu cầu. Hết thời hạn, dữ liệu được xoá.'],
+    doan: ['Chúng tôi giữ dữ liệu từ form trong 24 tháng kể từ lần liên hệ cuối cùng, hoặc lâu hơn nếu bạn trở thành khách hàng và hợp đồng hay pháp luật yêu cầu. Hết thời hạn, dữ liệu được xoá. Bạn cũng có thể yêu cầu xoá sớm hơn theo mục 6.'],
   },
   {
     tieuDe: '6. Quyền của bạn',
     doan: ['Theo Luật Bảo vệ dữ liệu cá nhân, bạn có quyền:'],
     ds: [
       'Được biết dữ liệu của bạn đang được xử lý thế nào.',
-      'Đồng ý hoặc rút lại sự đồng ý.',
-      'Xem, yêu cầu sửa hoặc xoá dữ liệu.',
-      'Yêu cầu hạn chế việc xử lý.',
-      'Khiếu nại và yêu cầu bồi thường theo quy định pháp luật.',
+      'Đồng ý, không đồng ý hoặc rút lại sự đồng ý.',
+      'Xem, chỉnh sửa hoặc yêu cầu chỉnh sửa dữ liệu.',
+      'Yêu cầu cung cấp, xoá, hạn chế xử lý dữ liệu; phản đối việc xử lý.',
+      'Khiếu nại, tố cáo, khởi kiện và yêu cầu bồi thường thiệt hại theo quy định pháp luật.',
+      'Yêu cầu cơ quan có thẩm quyền áp dụng biện pháp bảo vệ dữ liệu của bạn.',
     ],
-    sauBang: ['Để thực hiện các quyền này, gửi email tới baika.vn@gmail.com với tiêu đề «[Dữ liệu cá nhân] …». Chúng tôi phản hồi trong vòng [số ngày — Pháp lý chốt] ngày làm việc.'],
+    sauBang: [
+      'Để thực hiện các quyền này, gửi email tới baika.vn@gmail.com với tiêu đề «[Dữ liệu cá nhân] …», kèm họ tên và số điện thoại hoặc email bạn đã dùng khi gửi form để chúng tôi xác định đúng dữ liệu.',
+      'Chúng tôi phản hồi trong 02 ngày làm việc và hoàn tất trong thời hạn luật định: 10 ngày với yêu cầu xem, chỉnh sửa, cung cấp dữ liệu; 15 ngày với yêu cầu rút lại sự đồng ý, hạn chế hoặc phản đối xử lý; 20 ngày với yêu cầu xoá. Thời hạn có thể dài hơn theo quy định khi yêu cầu phức tạp hoặc cần phối hợp với nhà cung cấp dịch vụ. Khi đó chúng tôi báo trước và nêu rõ lý do.',
+      'Về phía mình, bạn có trách nhiệm cung cấp thông tin chính xác và tôn trọng dữ liệu cá nhân của người khác.',
+      'Nếu chưa hài lòng với cách chúng tôi giải quyết, bạn có thể phản ánh tới cơ quan chuyên trách bảo vệ dữ liệu cá nhân thuộc Bộ Công an.',
+    ],
   },
   {
     tieuDe: '7. Bảo vệ dữ liệu',
-    doan: ['Kết nối tới website được mã hoá (HTTPS). Tài khoản quản trị các hệ thống liên quan được bảo vệ bằng xác thực hai lớp. Chỉ nhân sự có nhiệm vụ mới được tiếp cận dữ liệu.'],
+    doan: [
+      'Kết nối tới website được mã hoá (HTTPS). Tài khoản quản trị các hệ thống liên quan được bảo vệ bằng xác thực hai lớp. Chỉ nhân sự có nhiệm vụ mới được tiếp cận dữ liệu.',
+      'Nếu xảy ra sự cố lộ, mất dữ liệu, chúng tôi xử lý và thông báo theo quy định của pháp luật.',
+    ],
   },
   {
     tieuDe: '8. Thay đổi chính sách',
-    doan: ['Khi chính sách thay đổi, chúng tôi cập nhật trang này và ngày «Cập nhật lần cuối» ở đầu trang.'],
+    doan: ['Khi chính sách thay đổi, chúng tôi cập nhật trang này và ngày «Cập nhật lần cuối» ở đầu trang. Nếu thay đổi làm phát sinh mục đích xử lý mới, chúng tôi xin lại sự đồng ý của bạn trước khi thực hiện.'],
   },
 ] as const;
 ---
@@ -114,8 +128,8 @@ const muc = [
     </header>
 
     <div class="cs__mo">
-      <p>[Tên pháp lý đầy đủ của công ty] («BAIKA», «chúng tôi») tôn trọng quyền riêng tư của bạn. Trang này giải thích BAIKA thu thập dữ liệu cá nhân nào qua website, dùng vào việc gì, chia sẻ cho ai, giữ trong bao lâu, và bạn có những quyền gì.</p>
-      <p>Chính sách áp dụng cho các website: [baika.vn], baika.website [và các tên miền khác của BAIKA].</p>
+      <p>Công ty Cổ phần Công nghệ BAIKA («BAIKA», «chúng tôi») tôn trọng quyền riêng tư của bạn. Trang này giải thích BAIKA thu thập dữ liệu cá nhân nào qua website, dùng vào việc gì, chia sẻ cho ai, giữ trong bao lâu, và bạn có những quyền gì.</p>
+      <p>BAIKA là bên kiểm soát và xử lý dữ liệu cá nhân theo Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15. Chính sách áp dụng cho website baika.vn, baika.website và các tên miền khác do BAIKA vận hành.</p>
     </div>
 
     {muc.map((m) => (
@@ -144,9 +158,9 @@ const muc = [
     <section class="cs__muc">
       <h2 class="cs__h2">9. Liên hệ</h2>
       <p>
-        [Tên pháp lý đầy đủ của công ty]<br />
-        Mã số doanh nghiệp: [MST]<br />
-        Địa chỉ: Tầng 15, 72 Lê Thánh Tôn, P. Sài Gòn, Thành phố Hồ Chí Minh<br />
+        CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA<br />
+        Mã số doanh nghiệp: 0319512450<br />
+        Địa chỉ: Tầng 15, 72 Lê Thánh Tôn, Phường Sài Gòn, Thành phố Hồ Chí Minh<br />
         Email: <a href="mailto:baika.vn@gmail.com">baika.vn@gmail.com</a> · Điện thoại: <a href="tel:0905247365">0905 247 365</a>
       </p>
     </section>

@@ -9,6 +9,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 05/10/2026 — trên `main` qua Pull Request
 
+**Đổi**
+- Trang **Chính sách bảo mật** dùng **bản chính thức** Kapi đã sửa và duyệt (Figma `971:3638`): điền tên công ty, mã số doanh nghiệp, thời hạn lưu 24 tháng, thời hạn phản hồi, nơi đặt máy chủ; thêm phần công cụ chẩn đoán, chuyển dữ liệu ra nước ngoài, rút lại đồng ý. Hết chỗ [ngoặc vuông]. Ngày cập nhật: 05/10/2026.
+
 **Thêm (cho máy tìm kiếm)**
 - `robots.txt` và `sitemap.xml` (danh sách trang, tự sinh lúc build). Người xem không thấy gì khác; giúp Google đọc đủ trang khi baika.vn chuyển sang v2.
 
