@@ -103,8 +103,8 @@ Thông tin phụ thu thêm (không chấm điểm): giai đoạn sản phẩm (�
 
 Gợi ý đem vào buổi làm việc:
 
-1. Công thức kiểu A **làm tròn 2 lần** → lệch tới ±5 điểm, có thể đẩy khách sang mức cao hơn thực tế. Nên tính tổng từ điểm thô rồi mới làm tròn.
-2. Brand Diagnostic **không bắt trả lời** câu chấm điểm và bỏ câu trống khỏi mẫu số → khách trả lời 1 câu «Rồi» là được 100. Nên bắt trả lời đủ, hoặc tính câu trống = 0.
+1. **[05/10 — sếp chốt GIỮ NGUYÊN như v1]** Công thức kiểu A **làm tròn 2 lần** → lệch tới ±5 điểm, có thể đẩy khách sang mức cao hơn thực tế. Nên tính tổng từ điểm thô rồi mới làm tròn.
+2. **[05/10 — sếp chốt GIỮ NGUYÊN như v1]** Brand Diagnostic **không bắt trả lời** câu chấm điểm và bỏ câu trống khỏi mẫu số → khách trả lời 1 câu «Rồi» là được 100. Nên bắt trả lời đủ, hoặc tính câu trống = 0.
 3. ~~Lỗi «dữ liệu phân tán» ở công cụ AI~~ — ghi nhầm, lựa chọn có ở bước 3 (sửa 05/10).
 4. ~~Thêm ô đồng ý~~ — v1 **đã có** ô đồng ý bắt buộc ở cả 5 công cụ (sửa 05/10). Chỉ cần cập nhật link «chính sách bảo mật» sang trang mới của v2.
 5. v2 không có máy chủ lưu dữ liệu → bộ công cụ mới cần quyết **kết quả lưu ở đâu** (luồng F) hay chỉ gửi mail như form liên hệ.
