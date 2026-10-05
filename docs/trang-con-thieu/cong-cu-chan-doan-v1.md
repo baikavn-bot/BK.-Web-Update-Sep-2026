@@ -22,7 +22,7 @@ Có **2 kiểu** công cụ:
 3. Xếp mức theo tổng điểm → mỗi mức gợi ý 1 gói
 4. Kết quả hiện: vòng tròn điểm · thanh điểm từng nhóm · **3 nhóm thấp nhất được tô «yếu»**
 
-Câu chưa trả lời tính 0.
+Phải trả lời **đủ mọi câu trong nhóm** mới bấm «Tiếp tục» được **[xác minh: hàm `groupDone`]** — nên thực tế không có câu bỏ trống. Có điểm ước tính chạy trực tiếp («Điểm ước tính hiện tại … /100») trong lúc làm.
 
 | Công cụ | Nhóm × câu | 0–39 | 40–69 | 70–100 |
 | --- | --- | --- | --- | --- |
@@ -78,7 +78,7 @@ Kèm cờ «phạm vi phức tạp» khi (số bộ phận + số quy trình + s
 | Content | Lịch nội dung (1) · Năng lực sản xuất nội dung (1) |
 | Đo lường | Kế hoạch đo lường (1) · Dashboard theo dõi (1) |
 
-**Điểm trục** = tổng(điểm × trọng số) ÷ tổng trọng số **của câu đã trả lời** × 100. **Điểm tổng (Brand Readiness Score)** tính cùng cách trên cả 15 câu. Câu bỏ trống **không tính** (khác kiểu A — kiểu A tính 0). Kết quả vẽ biểu đồ radar 6 trục.
+**Điểm trục** = tổng(điểm × trọng số) ÷ tổng trọng số **của câu đã trả lời** × 100. **Điểm tổng (Brand Readiness Score)** tính cùng cách trên cả 15 câu. Câu bỏ trống **không tính** vào mẫu số **[xác minh trong công thức; chưa kiểm form có bắt trả lời đủ không]**. Kết quả vẽ biểu đồ radar 6 trục.
 
 **Luật chọn gói (theo thứ tự):**
 
@@ -97,14 +97,14 @@ Thông tin phụ thu thêm (không chấm điểm): giai đoạn sản phẩm (�
 
 - **Kết quả hiện ngay trên trang** sau bước cuối — khách không cần chờ BAIKA.
 - **Thông tin khách + toàn bộ câu trả lời + điểm + gói gợi ý** gửi về máy chủ cũ `/api/v1/public/assessments`. Nếu máy chủ lỗi, bản ghi được **lưu tạm trong trình duyệt của khách** (localStorage) — BAIKA không nhận được. Kiểu B còn **lưu nháp** để khách quay lại làm tiếp.
-- Thu: họ tên, điện thoại (bắt buộc), email, tên công ty — **chưa thấy ô đồng ý xử lý dữ liệu** **[cần kiểm lại khi dựng; liên quan Chính sách bảo mật #23]**.
+- Thu: họ tên, điện thoại (bắt buộc), email, tên công ty + **ô đồng ý bắt buộc** — kiểu A: «Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo chính sách bảo mật.» · kiểu B: «Tôi đồng ý để BAIKA liên hệ tư vấn theo chính sách bảo mật.» **[xác minh 05/10 lượt 2 — lượt đầu ghi nhầm là thiếu]**. Kiểu A hỏi thông tin liên hệ **ở bước cuối**, kiểu B hỏi **ở bước đầu**.
 
 ## Khi sếp + Kapi làm bộ công cụ mới (`viec-cho` #1 #2)
 
 Gợi ý đem vào buổi làm việc:
 
 1. Công thức kiểu A **làm tròn 2 lần** → lệch tới ±5 điểm, có thể đẩy khách sang mức cao hơn thực tế. Nên tính tổng từ điểm thô rồi mới làm tròn.
-2. Kiểu A và B **xử lý câu bỏ trống khác nhau** (0 điểm vs bỏ qua). Nên thống nhất.
+2. Kiểu B cho phép tính điểm khi thiếu câu (bỏ khỏi mẫu số) — cần kiểm form có bắt trả lời đủ không.
 3. Lỗi «dữ liệu phân tán» ở công cụ AI — thêm lựa chọn hoặc bỏ khỏi bảng điểm.
-4. Thêm ô đồng ý xử lý dữ liệu trước khi gửi.
+4. ~~Thêm ô đồng ý~~ — v1 **đã có** ô đồng ý bắt buộc ở cả 5 công cụ (sửa 05/10). Chỉ cần cập nhật link «chính sách bảo mật» sang trang mới của v2.
 5. v2 không có máy chủ lưu dữ liệu → bộ công cụ mới cần quyết **kết quả lưu ở đâu** (luồng F) hay chỉ gửi mail như form liên hệ.
