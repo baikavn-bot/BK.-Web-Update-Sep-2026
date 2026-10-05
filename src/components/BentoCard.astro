@@ -74,6 +74,10 @@ const glow = flagship || (props.glow ?? false);
 const hoverStyle = flagship ? 'bento-2' : (props.hoverStyle ?? 'bento');
 const lines = label.split('\n');
 const isLink = variant === 'card' && !!href;
+// 05/10 — Thắng chốt: ô có nhãn mà CHƯA có trang (Trạm Ý Tưởng, Trạm Kết Nối —
+// ngoài phạm vi v1) không hiện mũi tên ↗ (trông như bấm được), thay bằng nhãn
+// «Sắp ra mắt». Có href là tự trở lại ô thường.
+const sapRaMat = variant === 'card' && !!label && !href;
 const Tag = isLink ? 'a' : 'div';
 ---
 
@@ -103,7 +107,9 @@ const Tag = isLink ? 'a' : 'div';
       {/* Lớp `Hover BG`. Figma: visible=true ở Hover và Focus, visible=false ở
           Active và ở mọi trạng thái Default. Đã kiểm từng biến thể. */}
       <span class="tile__hoverbg" aria-hidden="true"></span>
-      <span class="tile__arrow" aria-hidden="true"><ArrowUpRight size={24} /></span>
+      {sapRaMat
+        ? <span class="tile__soon">Sắp ra mắt</span>
+        : <span class="tile__arrow" aria-hidden="true"><ArrowUpRight size={24} /></span>}
       <h2 class="tile__title">
         {lines.map((line, i) => <>{i > 0 && <br />}{line}</>)}
       </h2>
@@ -221,6 +227,19 @@ const Tag = isLink ? 'a' : 'div';
      Figma: instance 24×24, fill --blue-700, cornerRadius 0.
      Glyph 10×10 tại (7,7), stroke --gray-50, width 2.
      SVG dùng viewBox 24 nên glyph và nét tự khớp khi hộp = 24. */
+  /* Nhãn «Sắp ra mắt» — cùng chỗ mũi tên, chữ style `label` (Be Vietnam Pro
+     Light 11px), luôn hiện ở mọi khổ. */
+  .tile__soon {
+    position: absolute;
+    z-index: 1;
+    top: var(--s-6);
+    right: var(--s-6);
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+    font-weight: var(--fw-label);
+    color: var(--gray-50);
+  }
+
   .tile__arrow {
     position: absolute;
     z-index: 1;

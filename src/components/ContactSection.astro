@@ -69,9 +69,9 @@ const {
     {/* 26/09 — Thắng chốt: ẨN mạng xã hội. Chưa có đường dẫn thật (VD-010)
         và chưa có icon 48×48 đúng bản vẽ. Code vẫn giữ nguyên bên dưới —
         muốn hiện lại chỉ cần truyền `hienSocial={true}` khi gọi section. */}
-    {hienSocial && (
+    {hienSocial && socials.some((s) => s.href) && (
     <ul class="lh__social">
-      {socials.map((s) => (
+      {socials.filter((s) => s.href).map((s) => (
         <li>
           {s.href
             ? <a class="lh__link" href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>

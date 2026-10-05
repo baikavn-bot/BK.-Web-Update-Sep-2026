@@ -96,6 +96,8 @@ const {
 
   <div class="ft__legal">
     <p class="ft__rights">All rights reserved for Baika</p>
+    {/* 05/10 — Thắng chốt: link Chính sách bảo mật ở dòng cuối chân trang */}
+    <p class="ft__cs"><a href="/chinh-sach-bao-mat">Chính sách bảo mật</a></p>
     <p class="ft__by">Design by Baika</p>
   </div>
 </footer>
@@ -336,6 +338,7 @@ const {
     color: var(--gray-50);
     white-space: nowrap;
   }
+  .ft__cs a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 
   /* =====================================================================
      MOBILE < 768 — khác desktop/tablet ở ba chỗ

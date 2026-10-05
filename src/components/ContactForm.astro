@@ -111,7 +111,7 @@ const laDichVu = variant === 'dich-vu';
           )}
 
           <Checkbox id="dongy" name="dongy" required>
-            Tôi đồng ý để Baika liên hệ và xử lý thông tin theo chính sách bảo mật
+            Tôi đồng ý để Baika liên hệ và xử lý thông tin theo <a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">chính sách bảo mật</a>
           </Checkbox>
 
           {/* Dải báo lỗi chung — đặt NGAY TRÊN nút gửi, đúng như frame
@@ -243,6 +243,8 @@ const laDichVu = variant === 'dich-vu';
     text-decoration: underline;
     cursor: pointer;
   }
+  /* 05/10 — link «chính sách bảo mật» trong câu đồng ý: cùng màu chữ, gạch chân */
+  a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 </style>
 
 <script>

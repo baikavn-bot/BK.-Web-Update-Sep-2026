@@ -21,7 +21,7 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý,
 
 | Nhánh | Commit mới nhất | Chứa gì | Đã lên GitHub |
 | --- | --- | --- | --- |
-| `main` | PR `tai-lieu-len-main` (04/10) | 7 trang dịch vụ · trang chủ · Liên hệ · CI + bộ kiểm tra · `<h1>` trang chủ (PR #1) · menu Remote Office (PR #4) · Dependabot (#2, #3) · CONTRIBUTING/SECURITY (#5) · **toàn bộ tài liệu** (PR tài liệu, 04/10) | ✅ đến PR #5 **[xác minh 04/10]** |
+| `main` | PR #8 (05/10) | 7 trang dịch vụ · trang chủ · Liên hệ · CI · toàn bộ tài liệu · **trang Chính sách bảo mật — bản nháp** (PR #7) · **bỏ link chết: 2 Trạm «Sắp ra mắt», ẩn mạng xã hội** (PR #8) | ✅ **[xác minh 05/10]** |
 | `remote-office` | `ca25e16` (02/10) + các commit sau đó | Mọi thứ của `main` + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + tài liệu repo | ✅ đến `ca25e16` **[xác minh 03/10]** |
 
 `remote-office` **chưa gộp (merge)** vào `main`. ✅ Đã kéo `main` (PR #1–#4) vào `remote-office` ngày 04/10 — commit `4e41d85`, build sạch, 11/11 ca ước tính. Gộp ra mắt sau này sẽ không còn xung đột (trừ khi `main` có thêm commit). Gộp khi ra mắt Remote Office thật — xem mục 7.
