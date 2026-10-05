@@ -131,9 +131,16 @@ v2 không lưu gì — form chỉ gửi mail qua Resend. Nên khi chuyển: **d�
 - Ảnh chia sẻ (og:image) của trang chẩn đoán thương hiệu cũ trỏ tên miền khác: `https://baikamkt.com/og-image.png` — gợi ý từng có site marketing riêng **[suy luận]**.
 - **Bản chụp toàn bộ** chữ 176 trang + mã HTML gốc 14 file: `docs/trang-con-thieu/du-lieu/ban-cu/`. Đã dò: không có khoá bí mật, chỉ có email/điện thoại công ty và số mẫu.
 
+### 4.8 Lượt rà 3 (05/10 chiều) — trang quản trị từng dịch vụ + tên miền liên quan
+
+- **Mỗi dịch vụ có trang quản trị riêng:** `/<dịch vụ>/admin` (chuyển về đăng nhập) + bản tĩnh `/baika-suite/<dịch vụ>/admin.html` (vd. «Quản trị — Finance Readiness | BAIKA»). Mã `shared-auth.js` ghi: mỗi «web con» có người quản trị riêng, quyền do máy chủ kiểm. → Bản cũ là **hệ quản trị nhiều web con**, mỗi dịch vụ một khu quản trị. Bổ sung câu hỏi #25: ai đang quản trị từng dịch vụ?
+- **Nội dung khách thấy = dữ liệu trong mã trang.** API ghi đè nội dung `/api/v1/public/site-content` trả 404 cho cả 7 dịch vụ **[xác minh]** → bản chụp trong repo là đầy đủ.
+- **`tramketnoi.com`** (Trạm Kết Nối — trụ 08 trên trang chủ cũ): **site riêng, đang chạy**, không phải một phần của baika.vn → **không bị ảnh hưởng** khi chuyển. Có 10 trang: `/` · `/directory` · `/analytics.html` · `/pricing` · `/login` · `/wizard` · `/edit-profile` · `/stories` · `/terms` · `/privacy`. Có **Chính sách bảo mật riêng** (`/privacy`) — tham khảo được cho việc Kapi viết lại (#23). Không chụp nội dung (ngoài phạm vi chuyển).
+- **`baikamkt.com`**: trả **502 Bad Gateway** (máy chủ hỏng hoặc đã tắt) **[xác minh 05/10]**. Chỉ còn được nhắc trong ảnh chia sẻ của trang chẩn đoán thương hiệu cũ.
+
 ## 5. Nội dung bản cũ CHƯA có trên v2 — cần Thắng xác nhận «cắt có chủ ý»
 
-So từng khối (section) của 7 trang dịch vụ cũ với v2 **[xác minh bằng máy, rồi agent đọc lại từng tên khối]**. Mỗi trang cũ có **14–18 khối**; v2 có **6 khối** (Vấn đề · BAIKA sẽ làm gì · Bạn sẽ nhận được gì · Các gói · FAQ · Liên hệ). Phần lớn chênh lệch là do **thiết kế lại có chủ ý** (xem «danh sách cắt» trong `_chung/ban-do-section.md`), nhưng cần Thắng xác nhận từng nhóm để không mất thông tin ngoài ý muốn. Nguyên văn mọi khối nằm trong bản chụp.
+So từng khối (section) của 7 trang dịch vụ cũ với v2 **[xác minh bằng máy, rồi agent đọc lại từng tên khối]**. Mỗi trang cũ có **14–18 khối**; v2 có **6 khối** (Vấn đề · BAIKA sẽ làm gì · Bạn sẽ nhận được gì · Các gói · FAQ · Liên hệ). Phần lớn chênh lệch là do **thiết kế lại có chủ ý** (xem «danh sách cắt» trong `_chung/ban-do-section.md`), nhưng cần Thắng xác nhận từng nhóm để không mất thông tin ngoài ý muốn. Nguyên văn mọi khối: **`docs/trang-con-thieu/noi-dung-v1.md`** (bản đọc được) và `du-lieu/ban-cu/noi-dung/` (chữ hiển thị từng trang).
 
 **Khối có ở gần như MỌI trang cũ, v2 không có:**
 
