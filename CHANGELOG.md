@@ -17,7 +17,7 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 - Trang **«Sắp ra mắt»** `/sap-ra-mat`. Ô Trạm Ý Tưởng + Trạm Kết Nối ở trang chủ và 2 mục Trạm trên header giờ bấm được, dẫn về trang này (trước đó không bấm được).
 
 **Đổi**
-- **Header mới** (Thắng vẽ lại 05/10): thấp hơn (96). Máy tính/tablet: thanh chữ «Trạm ý tưởng · Trạm kết nối · Dịch vụ · Liên hệ» thay cho nút 3 gạch; bấm «Dịch vụ» mở bảng 8 dịch vụ (Remote Office đứng đầu), bấm lại / Esc / bấm ra ngoài thì đóng. Điện thoại: vẫn nút 3 gạch, menu thêm 2 Trạm (chưa bấm được) và nút «Liên hệ».
+- **Header mới** (Thắng vẽ lại 05/10): thấp hơn (96). Máy tính/tablet: thanh chữ «Trạm ý tưởng · Trạm kết nối · Dịch vụ · Liên hệ» thay cho nút 3 gạch; bấm «Dịch vụ» mở bảng 8 dịch vụ (Remote Office đứng đầu, nền tối đặc), bấm lại / Esc / bấm ra ngoài thì đóng. Điện thoại: vẫn nút 3 gạch, menu thêm 2 Trạm (chưa bấm được) và nút «Liên hệ».
 
 **Đổi lại**
 - Bỏ chữ «Sắp ra mắt» trên 2 ô Trạm + menu (thêm ở PR #8, Thắng đổi ý cùng ngày): ô trở lại như trước. Sắp tới Thắng thiết kế một **trang «Sắp ra mắt»** để mọi chỗ chưa có trang dẫn về đó.

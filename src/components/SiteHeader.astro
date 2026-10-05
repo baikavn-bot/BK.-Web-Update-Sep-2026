@@ -10,7 +10,7 @@
 //       Mỗi mục chữ: H-3, pad 0/12 (--s-3), cách nhau 12 (--s-3).
 //   · Bấm «Dịch vụ» (Open Desktop 464:7012 · Open Tablet 484:2508): bảng
 //       «Các dịch vụ» ngay dưới header, canh phải, rộng 768 (tablet = cả màn),
-//       lưới 3 cột, gap 24, pad 24, nền --opacity-dark, có vệt sáng mờ trang trí.
+//       lưới 3 cột, gap 24, pad 24, nền --gray-950 đặc (Thắng đổi 05/10 chiều).
 //   · < 768 (Close Mobile 452:6601 · Open Mobile 472:4957): logo + hamburger 48;
 //       bảng 1 cột phủ cả bề ngang.
 //
@@ -26,7 +26,6 @@
 //     không phải kiểu trang trí (VD-005).
 //   · Header Figma có Background blur PROGRESSIVE 100 → 0. Thang --blur-* không có
 //     mức tương ứng (Figma 100 = CSS 50px) → CHƯA làm, chờ Thắng chốt.
-//   · Vệt sáng trong bảng: Figma LayerBlur 82.5 → dùng --blur-80 (gần nhất).
 //
 // Logo: `Logo / Lockup` 861:8828 — public/img/logo/baika-lockup-white.svg (xuất
 // thẳng từ Figma, màu trắng nằm trong file ảnh — ngoại lệ đã ghi từ 28/09).
@@ -84,7 +83,6 @@ const dichVu = [
   </nav>
 
   <div class="hdr__bang hdr__bang--dv" id="hdr-dichvu" hidden>
-    <span class="hdr__vet" aria-hidden="true"></span>
     <ul class="hdr__luoi">
       {dichVu.map((m) => (
         <li>
@@ -114,7 +112,6 @@ const dichVu = [
   </button>
 
   <nav class="hdr__bang hdr__bang--mb" id="hdr-mobile" hidden aria-label="Menu chính">
-    <span class="hdr__vet" aria-hidden="true"></span>
     <ul class="hdr__luoi">
       {tram.map((t) => <li><a class="navbtn" href={SAP_RA_MAT}>{t}</a></li>)}
       {dichVu.map((m) => (
@@ -224,8 +221,10 @@ const dichVu = [
   .hdr__toggle[aria-expanded='true'] .hdr__bar--3 { transform: translateY(-6px); opacity: 0; }
 
   /* --- Bảng «Các dịch vụ» ---------------------------------------------
-     Figma: ngay dưới header (y 96) · nền --opacity-dark · pad 24 · gap 24 ·
-     cắt phần tràn. Desktop rộng 768 canh phải; Tablet/Mobile cả bề ngang. */
+     Figma: ngay dưới header (y 96) · pad 24 · gap 24 · cắt phần tràn.
+     Desktop rộng 768 canh phải; Tablet/Mobile cả bề ngang.
+     🔴 05/10 (chiều) — Thắng đổi nền: --opacity-dark (50%, nhìn xuyên thấy
+     chữ Hero) → --gray-950 ĐẶC, và ẩn vệt sáng `Vector 1` → code bỏ vệt sáng. */
   .hdr__bang {
     position: absolute;
     top: 96px;
@@ -233,7 +232,7 @@ const dichVu = [
     width: 100%;
     padding: var(--s-6);
     overflow: hidden;
-    background: var(--opacity-dark);
+    background: var(--gray-950);
   }
   @media (min-width: 769px) {
     .hdr__bang--dv { width: 768px; }
@@ -243,25 +242,8 @@ const dichVu = [
     overflow-y: auto;
   }
 
-  /* Vệt sáng trang trí — Figma `Vector 1` 388×471 tại (383, −6), gradient
-     tuyến tính trong suốt → trắng, độ mờ 43%, LayerBlur 82.5 (≈ --blur-80). */
-  .hdr__vet {
-    position: absolute;
-    top: -6px;
-    left: 383px;
-    width: 388px;
-    height: 471px;
-    background: linear-gradient(135deg,
-      color-mix(in srgb, var(--gray-50) 0%, transparent) 0%,
-      var(--gray-50) 100%);
-    opacity: 0.43;
-    filter: blur(var(--blur-80));
-    pointer-events: none;
-  }
-  .hdr__bang--mb .hdr__vet { left: -10px; }
-
   .hdr__luoi {
-    position: relative;                 /* nổi trên vệt sáng */
+    position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
