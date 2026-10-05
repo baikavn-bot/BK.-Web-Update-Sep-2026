@@ -9,6 +9,10 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 05/10/2026 — trên `main` qua Pull Request
 
+**Đổi**
+- **Header đứng yên khi cuộn trang** (cố định ở mép trên, mọi trang). Bấm link tới một mục (vd. «Liên hệ») thì mục đó không bị header che.
+- Nút **«Liên hệ»** trên header (desktop + menu mobile) mặc định hiện ở trạng thái **Active** (bóng chìm), theo Figma.
+
 **Thêm**
 - **5 công cụ chẩn đoán miễn phí** — nút Hero «… miễn phí» ở 5 trang dịch vụ giờ dẫn tới công cụ thật (trước đó trỏ về form liên hệ): `/ceo-blueprint/assessment` · `/finance/assessment` · `/remote-ops/survey` · `/ai-os/diagnosis` · `/marketing/diagnostic` (đường dẫn giữ như site cũ). Câu hỏi, cách tính điểm, gói đề xuất giữ y bản cũ (sếp chốt). Khách xem kết quả ngay; kết quả gửi mail về BAIKA. Spec: `docs/cong-cu-chan-doan/SPEC-MASTER.md`.
 

@@ -156,3 +156,9 @@ h3, .h3 {
     color-mix(in srgb, var(--gray-900) 85%, var(--gray-950)) 100%
   );
 }
+
+/* --- Header cố định (05/10/2026) ------------------------------------
+   Header nằm đè, cao 96 (= --s-24). Bấm link tới một mục trong trang
+   (vd. «#lien-he») thì trình duyệt cuộn mục đó lên ĐẦU màn — không chừa
+   chỗ này thì tiêu đề mục bị header che mất. */
+html { scroll-padding-top: var(--s-24); }
