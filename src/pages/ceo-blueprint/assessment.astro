@@ -1,0 +1,19 @@
+---
+// Business Blueprint Assessment — công cụ chẩn đoán miễn phí. Logic + câu chữ giữ y v1 (sếp chốt 05/10/2026).
+// Nút Hero trang /ceo-blueprint dẫn tới đây. Spec: docs/cong-cu-chan-doan/SPEC-MASTER.md
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import CongCuKieuA from '../../components/CongCuKieuA.astro';
+import { CEO_BLUEPRINT } from '../../lib/chan-doan/kieu-a';
+---
+
+<BaseLayout
+  title="Business Blueprint Assessment — BAIKA"
+  description="Tự đánh giá doanh nghiệp theo 10 trụ cột — nhận bản đồ điểm mạnh, điểm yếu và lộ trình phù hợp. 30 câu hỏi, khoảng 7 phút."
+  pillar="dao-tao-ceo"
+>
+  <SiteHeader slot="header" current="/ceo-blueprint" />
+  <CongCuKieuA cc={CEO_BLUEPRINT} />
+  <SiteFooter slot="footer" />
+</BaseLayout>

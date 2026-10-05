@@ -65,3 +65,15 @@ jobs:
       - name: Công cụ ước tính Remote Office — phải 11/11
         if: hashFiles('tools/kiem-tra-uoc-tinh.mts') != ''
         run: node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts
+
+      # 5 công cụ chẩn đoán (logic giữ y v1) — cũng cần Node ≥ 22.6 để đọc file .ts.
+      - name: Đổi sang Node 22 cho bài kiểm công cụ chẩn đoán
+        if: hashFiles('tools/kiem-tra-chan-doan.mts') != ''
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: 5 công cụ chẩn đoán — phải đúng hết các ca
+        if: hashFiles('tools/kiem-tra-chan-doan.mts') != ''
+        run: node --experimental-strip-types tools/kiem-tra-chan-doan.mts

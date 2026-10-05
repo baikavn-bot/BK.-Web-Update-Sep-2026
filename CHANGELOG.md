@@ -9,6 +9,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 05/10/2026 — trên `main` qua Pull Request
 
+**Thêm**
+- **5 công cụ chẩn đoán miễn phí** — nút Hero «… miễn phí» ở 5 trang dịch vụ giờ dẫn tới công cụ thật (trước đó trỏ về form liên hệ): `/ceo-blueprint/assessment` · `/finance/assessment` · `/remote-ops/survey` · `/ai-os/diagnosis` · `/marketing/diagnostic` (đường dẫn giữ như site cũ). Câu hỏi, cách tính điểm, gói đề xuất giữ y bản cũ (sếp chốt). Khách xem kết quả ngay; kết quả gửi mail về BAIKA. Spec: `docs/cong-cu-chan-doan/SPEC-MASTER.md`.
+
 **Thêm (cho máy tìm kiếm)**
 - `robots.txt` và `sitemap.xml` (danh sách trang, tự sinh lúc build). Người xem không thấy gì khác; giúp Google đọc đủ trang khi baika.vn chuyển sang v2.
 

@@ -1,0 +1,18 @@
+---
+// Chẩn đoán thương hiệu — công cụ chẩn đoán miễn phí. Logic + câu chữ giữ y v1 (sếp chốt 05/10/2026).
+// Nút Hero trang /marketing dẫn tới đây. Spec: docs/cong-cu-chan-doan/SPEC-MASTER.md
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import CongCuThuongHieu from '../../components/CongCuThuongHieu.astro';
+---
+
+<BaseLayout
+  title="Chẩn đoán thương hiệu — BAIKA"
+  description="Brand Diagnostic — đo mức độ sẵn sàng đưa thương hiệu ra thị trường trên 6 trục và nhận gói đề xuất."
+  pillar="marketing"
+>
+  <SiteHeader slot="header" current="/marketing" />
+  <CongCuThuongHieu />
+  <SiteFooter slot="footer" />
+</BaseLayout>
