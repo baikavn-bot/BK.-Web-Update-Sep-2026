@@ -79,7 +79,7 @@ const menu = [
           ) : (
             /* Trạm kết nối chưa có trang đích (ngoài phạm vi v1) — hiện chữ
                nhưng không bấm được, thà vậy còn hơn link chết trả 404. */
-            <span class="navbtn navbtn--off">{m.label} <span class="navbtn__soon">· Sắp ra mắt</span></span>
+            <span class="navbtn navbtn--off">{m.label}</span>
           )}
         </li>
       ))}
@@ -238,12 +238,6 @@ const menu = [
   .navbtn--off {
     color: var(--gray-700);
     cursor: default;
-  }
-  /* 05/10 — mục chưa có trang ghi rõ «Sắp ra mắt» (Thắng chốt) */
-  .navbtn__soon {
-    font-size: var(--fs-label);
-    line-height: var(--lh-label);
-    font-weight: var(--fw-label);
   }
 </style>
 
