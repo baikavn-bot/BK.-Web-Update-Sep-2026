@@ -7,6 +7,11 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ---
 
+## 06/10/2026 — trên `main` qua Pull Request
+
+**Tài liệu**
+- Chuẩn bị chuyển sang **Claude Code**: `.claude/settings.json` (lệnh agent được chạy / phải hỏi / bị cấm), `docs/chuyen-sang-claude-code.md` (checklist ngày đầu). Luật git đổi: **agent push nhánh riêng, Thắng gộp PR**; không ai push `main`. Người xem site không thấy gì khác.
+
 ## 05/10/2026 — trên `main` qua Pull Request
 
 **Đổi**

@@ -2,6 +2,8 @@
 
 *Cập nhật 04/10/2026 · Đọc hết file này trước khi sửa bất cứ dòng nào.*
 
+> **Claude Code (từ 06/10/2026):** nếu có `CLAUDE.local.md` ở gốc (file riêng trên máy Thắng, không lên GitHub) — đọc nó TRƯỚC: cách làm việc với Thắng. Quyền chạy lệnh: `.claude/settings.json`. Checklist chuyển sang Claude Code: `docs/chuyen-sang-claude-code.md`.
+>
 > **Mỗi phiên, đọc theo thứ tự:** `TRANG-THAI.md` (dự án đang ở đâu, cái gì kẹt) → file này (luật) → `docs/<trang>/SPEC-MASTER.md` nếu làm một trang cụ thể. Lịch sử thay đổi: `CHANGELOG.md`.
 
 ---
@@ -325,7 +327,7 @@ Nếu phát hiện key bị commit: **dừng lại, báo Thắng ngay, và nhắ
 
 ## 9b. Git — ai làm gì
 
-- **Agent commit, Thắng `git push`.** Agent không đụng tài khoản đăng nhập GitHub / Vercel.
+- **Agent commit + `git push` NHÁNH RIÊNG; Thắng mở/duyệt/gộp Pull Request** *(Thắng chốt 06/10/2026, khi chuyển sang Claude Code)*. **Không bao giờ push `main`**, không force push, không xoá nhánh trên GitHub — `.claude/settings.json` chặn các lệnh này. Push dùng phiên đăng nhập đã lưu trên máy Thắng; agent không đọc, không nhập mật khẩu / token. Agent không đụng cài đặt GitHub / Vercel.
 - Commit bằng **danh tính có sẵn của repo** (`BAIKA` · email `noreply` của `baikavn-bot`). Vercel chỉ deploy commit của danh tính này. Không dùng `git -c user.name=…` để đổi danh tính.
 - **Không force push.** Không viết lại lịch sử đã push.
 - `git add` **từng file**. Không `git add -A` khi chưa đọc `git status`. Không bao giờ commit `.env` hay `Claude outputs/`.
