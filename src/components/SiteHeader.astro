@@ -21,9 +21,11 @@
 //   · Bảng dịch vụ mở/đóng bằng BẤM (không phải rê chuột). Esc + bấm ra ngoài cũng đóng.
 //
 // Chỗ code KHÁC Figma (có chủ ý — đã ghi nhat-ky-figma-chung.md 05/10):
-//   · Nút «Liên hệ» trong Figma đặt State=Focus (có quầng sáng). Code dùng trạng
-//     thái thường; quầng sáng chỉ hiện khi focus bàn phím — Focus là trạng thái,
-//     không phải kiểu trang trí (VD-005).
+//   · ✅ 05/10 (tối) — Thắng chốt: nút «Liên hệ» MẶC ĐỊNH ở trạng thái `Active`
+//     (bóng chìm --shadow-inner-press), cả desktop lẫn menu mobile. Figma đã đổi
+//     theo (5 biến thể header). Quầng sáng Focus vẫn chỉ hiện khi focus bàn phím (VD-005).
+//   · ✅ 05/10 (tối) — Thắng chốt: header CỐ ĐỊNH theo trang («Fixed to page») —
+//     cuộn trang thì header đứng yên ở trên. Figma: cả 71 instance đã đặt cố định.
 //   · Header Figma có Background blur PROGRESSIVE 100 → 0. Thang --blur-* không có
 //     mức tương ứng (Figma 100 = CSS 50px) → CHƯA làm, chờ Thắng chốt.
 //
@@ -79,7 +81,7 @@ const dichVu = [
            stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
     </button>
 
-    <Button2 label="Liên hệ" href="/lien-he" size="sm" iconLeft={false} iconRight={false} />
+    <Button2 label="Liên hệ" href="/lien-he" size="sm" iconLeft={false} iconRight={false} active />
   </nav>
 
   <div class="hdr__bang hdr__bang--dv" id="hdr-dichvu" hidden>
@@ -121,7 +123,7 @@ const dichVu = [
         </li>
       ))}
       <li class="hdr__lh">
-        <Button2 label="Liên hệ" href="/lien-he" size="sm" iconLeft={false} iconRight={false} />
+        <Button2 label="Liên hệ" href="/lien-he" size="sm" iconLeft={false} iconRight={false} active />
       </li>
     </ul>
   </nav>
@@ -129,7 +131,10 @@ const dichVu = [
 
 <style>
   .hdr {
-    position: absolute;
+    /* Cố định theo màn hình khi cuộn (Thắng chốt 05/10). Nền vẫn trong suốt như
+       Figma → nội dung cuộn qua sẽ hiện SAU header. Lớp mờ nền (blur) chưa làm —
+       xem viec-cho #24. */
+    position: fixed;
     inset: 0 0 auto 0;
     z-index: 20;
     height: 96px;

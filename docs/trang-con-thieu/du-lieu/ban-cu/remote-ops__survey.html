@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khảo sát Vận hành Doanh nghiệp — BAIKA</title>
+<meta name="description" content="Đo mức độ hệ thống hóa của bộ máy vận hành trên 8 khu vực — biết doanh nghiệp đang tắc ở đâu">
+<link rel="icon" href="/baika-suite/remote-ops/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Overpass+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--pri:#2DD4BF;--priDeep:#0E8C7A;--acc:#FFB020;--void:#050B09;--void2:#081410;--panel:rgba(255,255,255,.045);--bd:rgba(255,255,255,.10);
+--tx:#E9F5F2;--tx2:#94A8A3;--tx3:#697D77;--disp:'Space Grotesk',sans-serif;--mono:'Overpass Mono',monospace;--body:'Inter',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--void);color:var(--tx);font-family:var(--body);font-size:16px;line-height:1.65;min-height:100vh;position:relative;overflow-x:hidden;max-width:100vw}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(800px 460px at 80% -10%, color-mix(in srgb, var(--pri) 12%, transparent), transparent 60%)}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px;position:relative;z-index:1}
+h1,h2,h3{font-family:var(--disp);line-height:1.25}
+.mono{font-family:var(--mono)}
+.top{position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--void) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--bd)}
+.top .wrap{display:flex;align-items:center;gap:12px;height:58px;max-width:1000px}
+.top a{color:var(--tx2);text-decoration:none;font-size:14px}
+.top a:hover{color:var(--tx)}
+.top .bn{font-family:var(--disp);font-weight:700;letter-spacing:.03em;color:var(--tx)}
+/* logo dong — ban day du cho khach hang */
+.logo-stage{position:relative;width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-halo{position:absolute;inset:-3px;border-radius:50%;background:radial-gradient(circle,var(--pri) 0%,transparent 68%);filter:blur(3px);opacity:.4;animation:logoHalo 3s ease-in-out infinite}
+@keyframes logoHalo{0%,100%{opacity:.3;transform:scale(.92)}50%{opacity:.65;transform:scale(1.08)}}
+.logo-mask{position:absolute;inset:5px;background:var(--pri);-webkit-mask:url("/baika-suite/remote-ops/logo-emblem.png") center/contain no-repeat;mask:url("/baika-suite/remote-ops/logo-emblem.png") center/contain no-repeat;animation:logoFloat 5s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
+@media (prefers-reduced-motion: reduce){.logo-halo,.logo-mask{animation:none}}
+.btn{display:inline-block;padding:12px 24px;border-radius:11px;font-weight:600;font-size:15px;cursor:pointer;border:1px solid transparent;text-decoration:none;font-family:var(--body);transition:transform .2s}
+.btn:hover{transform:translateY(-1px)}
+.bp{background:linear-gradient(135deg,var(--pri),var(--priDeep));color:#04101E}
+.bo{background:transparent;color:var(--tx);border-color:var(--bd)}
+.bo:hover{border-color:var(--pri)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}
+.scr{display:none;padding:54px 0 80px}
+.scr.active{display:block}
+.kick{color:var(--acc);letter-spacing:.18em;text-transform:uppercase;font-size:12px;font-weight:600;margin-bottom:10px;font-family:var(--mono)}
+.intro h1{font-size:clamp(28px,4.5vw,42px);margin-bottom:14px}
+.intro p{color:var(--tx2);max-width:640px;margin-bottom:10px}
+.meta{color:var(--tx3);font-size:14px;margin:14px 0 28px;font-family:var(--mono)}
+.prog{height:6px;background:var(--bd);border-radius:99px;overflow:hidden;margin:22px 0 6px}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pri),var(--acc));transition:width .3s ease}
+.pstep{color:var(--tx3);font-size:13px;margin-bottom:22px;font-family:var(--mono)}
+
+/* Bang trang thai N den LED = tien trinh THAT theo tung khu vuc khao sat */
+.statusprog{display:grid;grid-template-columns:repeat(8,1fr);gap:5px;margin:20px 0 8px}
+.statusprog .led{height:5px;border-radius:3px;background:var(--bd);transition:background .3s,box-shadow .3s}
+.statusprog .led.done{background:var(--pri);box-shadow:0 0 6px var(--pri)}
+.statusprog .led.cur{background:var(--acc);box-shadow:0 0 8px var(--acc)}
+.statuslabel{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--tx3);margin-bottom:18px}
+.statuslabel b{color:var(--acc)}
+
+.gname{font-size:clamp(20px,3vw,26px);margin-bottom:20px}
+.q{background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:14px}
+.q p{font-weight:600;margin-bottom:14px;padding-right:70px}
+.opts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.opt{border:1px solid var(--bd);border-radius:9px;padding:10px 8px;text-align:center;font-size:12.5px;color:var(--tx2);cursor:pointer;user-select:none;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--pri)}
+.opt.sel{border-color:var(--pri);background:color-mix(in srgb, var(--pri) 16%, transparent);color:var(--tx);font-weight:600}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+.warn{color:#F09595;font-size:14px;min-height:20px;margin-top:10px}
+.frm{display:grid;grid-template-columns:1fr 1fr;gap:14px;background:var(--panel);border:1px solid var(--bd);border-radius:16px;padding:26px}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:12.5px;color:var(--tx2);font-weight:600;font-family:var(--mono);text-transform:uppercase;letter-spacing:.02em}
+.fld input{background:color-mix(in srgb, var(--void) 70%, black);border:1px solid var(--bd);border-radius:9px;padding:12px 14px;color:var(--tx);font-size:15px;outline:none;font-family:var(--body)}
+.fld input:focus{border-color:var(--pri)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--tx2)}
+.score{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin:24px 0}
+.ring{width:132px;height:132px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--pri) 0deg, var(--bd) 0deg);position:relative;flex-shrink:0}
+.ring::before{content:"";position:absolute;inset:10px;border-radius:50%;background:var(--void)}
+.ring b{position:relative;font-family:var(--disp);font-size:34px}
+.lvl{font-family:var(--disp);font-size:clamp(20px,3vw,26px)}
+.lvld{color:var(--tx2);max-width:520px;font-size:15px}
+.bars{margin:26px 0;display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:220px 1fr 44px;align-items:center;gap:12px;font-size:14px}
+.bar .tr{height:9px;background:var(--bd);border-radius:99px;overflow:hidden}
+.bar .tr i{display:block;height:100%;background:linear-gradient(90deg,var(--pri),var(--acc));border-radius:99px}
+.bar.weak .nm{color:#F09595}
+.bar .vl{text-align:right;color:var(--tx2);font-family:var(--mono)}
+.reco{background:var(--panel);border:1px solid color-mix(in srgb, var(--pri) 55%, transparent);border-radius:14px;padding:22px;margin:20px 0}
+.reco h3{margin-bottom:8px}
+.reco p{color:var(--tx2);font-size:14.5px}
+.note{color:var(--tx3);font-size:13px;margin-top:16px}
+a:focus-visible, button:focus-visible, .opt:focus-visible{outline:2px solid var(--pri);outline-offset:2px;border-radius:6px}
+@media (max-width:640px){ .opts{grid-template-columns:repeat(2,1fr)} .frm{grid-template-columns:1fr} .bar{grid-template-columns:120px 1fr 40px} .statusprog{grid-template-columns:repeat(4,1fr)} }
+@media (prefers-reduced-motion: reduce){ .prog i{transition:none} .fl-plane,.fl-fill{transition:none} }
+</style>
+<script src="/shield.js" defer></script>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a href="/">← Trang chủ</a><span style="color:var(--tx3)">·</span>
+  
+  <a href="/remote-ops" class="bn">REMOTE OPS</a>
+</div></header>
+
+<section class="scr intro active" id="scrIntro"><div class="wrap">
+  <p class="kick">Công cụ tự đánh giá</p>
+  <h1>Khảo sát Vận hành Doanh nghiệp</h1>
+  <p>Đo mức độ hệ thống hóa của bộ máy vận hành trên 8 khu vực — biết doanh nghiệp đang tắc ở đâu</p>
+  <p class="meta">16 câu hỏi · 8 khu vực · khoảng 5 phút · kết quả hiển thị ngay</p>
+  <button class="btn bp" id="startBtn">Bắt đầu đánh giá</button>
+  <p class="note">Câu trả lời của bạn được dùng để tính điểm và đề xuất lộ trình. Thông tin liên hệ chỉ hỏi ở bước cuối.</p>
+</div></section>
+
+<section class="scr" id="scrQuiz"><div class="wrap">
+  <div class="statusprog"><div class="led" id="led0"></div><div class="led" id="led1"></div><div class="led" id="led2"></div><div class="led" id="led3"></div><div class="led" id="led4"></div><div class="led" id="led5"></div><div class="led" id="led6"></div><div class="led" id="led7"></div></div>
+    <div class="statuslabel"><span id="pstep"></span><b id="statusPct">0%</b></div>
+  <p class="kick" id="gkick"></p>
+  <h2 class="gname" id="gname"></h2>
+  <div id="qbox"></div>
+  <p class="warn" id="qwarn"></p>
+  <div class="nav">
+    <button class="btn bo" id="backBtn">← Quay lại</button>
+    <button class="btn bp" id="nextBtn">Tiếp tục →</button>
+  </div>
+</div></section>
+
+<section class="scr" id="scrContact"><div class="wrap">
+  <p class="kick">Bước cuối</p>
+  <h2 class="gname">Nhận kết quả đánh giá</h2>
+  <p style="color:var(--tx2);margin-bottom:18px">Kết quả hiển thị ngay sau khi bạn xác nhận thông tin. BAIKA có thể liên hệ để trao đổi sâu hơn về bản đồ điểm của bạn.</p>
+  <div class="frm">
+    <div class="fld"><label>Họ và tên *</label><input id="cName" placeholder="Nguyễn Văn A"></div>
+    <div class="fld"><label>Số điện thoại *</label><input id="cPhone" placeholder="09xx xxx xxx"></div>
+    <div class="fld"><label>Email</label><input id="cEmail" placeholder="ban@congty.vn"></div>
+    <div class="fld"><label>Doanh nghiệp</label><input id="cCompany" placeholder="Tên công ty"></div>
+    <div class="fld full consent"><input type="checkbox" id="cConsent"><label for="cConsent">Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo chính sách bảo mật.</label></div>
+    <p class="warn" id="cwarn" style="grid-column:1/-1"></p>
+    <div class="fld full" style="flex-direction:row;gap:12px">
+      <button class="btn bo" id="cBack">← Quay lại</button>
+      <button class="btn bp" id="cSubmit">Xem kết quả</button>
+    </div>
+  </div>
+</div></section>
+
+<section class="scr" id="scrResult"><div class="wrap">
+  <p class="kick">Kết quả của bạn</p>
+  <div class="score">
+    <div class="ring" id="ring"><b id="rTotal">0</b></div>
+    <div><div class="lvl" id="rLevel"></div><p class="lvld" id="rDesc"></p></div>
+  </div>
+  <h3 style="margin-bottom:6px">Điểm theo từng khu vực (0–10)</h3>
+  <p style="color:var(--tx3);font-size:13px">Ba khu vực thấp nhất được đánh dấu đỏ — đó là nơi nên bắt đầu.</p>
+  <div class="bars" id="rBars"></div>
+  <div class="reco"><h3 id="rPkg"></h3><p id="rPkgD"></p></div>
+  <a class="btn bp" href="/remote-ops#lien-he">Đặt lịch tư vấn Remote Ops</a>
+  <a class="btn bo" href="/remote-ops" style="margin-left:10px">Về trang dịch vụ</a>
+  <p class="note" id="saveNote"></p>
+</div></section>
+
+<script>
+var GROUPS=[{"code": "PROCESS", "name": "Quy trình", "qs": ["Các quy trình lõi được viết thành văn bản và đội ngũ làm theo.", "Người mới đọc tài liệu là làm được các việc cơ bản của vị trí."]}, {"code": "ROLES", "name": "Tổ chức & vai trò", "qs": ["Mỗi vị trí có mô tả vai trò – trách nhiệm – quyền quyết định rõ ràng.", "Không có việc quan trọng bị rơi giữa hai người vì không rõ ai phụ trách."]}, {"code": "TASKS", "name": "Giao việc & theo dõi", "qs": ["Công việc có người phụ trách, thời hạn và trạng thái trên hệ thống chung.", "Task trễ hạn được phát hiện tự động, không phụ thuộc ai đó nhớ ra."]}, {"code": "RHYTHM", "name": "Nhịp điều hành", "qs": ["Có nhịp họp điều hành định kỳ với chương trình và thời lượng rõ.", "Quyết định sau họp được ghi lại và theo dõi đến khi hoàn thành."]}, {"code": "KPI", "name": "Đo lường hiệu suất", "qs": ["Mỗi bộ phận có bộ chỉ số hiệu suất (KPI) rõ ràng.", "Chỉ số được cập nhật định kỳ, không đợi tổng hợp thủ công."]}, {"code": "REPORTING", "name": "Báo cáo & cảnh báo", "qs": ["CEO nhận báo cáo vận hành định kỳ, đúng hạn.", "Báo cáo làm nổi các điểm nghẽn cần can thiệp, không chỉ liệt kê số liệu."]}, {"code": "DEPENDENCE", "name": "Phụ thuộc cá nhân", "qs": ["Doanh nghiệp vận hành bình thường khi một nhân sự chủ chốt vắng 2 tuần.", "Tri thức công việc được lưu trong hệ thống, không chỉ trong đầu vài người."]}, {"code": "TOOLS", "name": "Công cụ & dữ liệu", "qs": ["Các công cụ đang dùng phục vụ tốt quy trình chính.", "Dữ liệu vận hành nằm trong hệ thống, truy xuất được nhanh."]}];
+var BANDS=[[0, 39, "Vận hành đang phụ thuộc cá nhân", "Bộ máy chạy chủ yếu nhờ vài người 'biết việc' — rủi ro cao khi biến động nhân sự. Bắt đầu bằng Ops Diagnosis để chẩn đoán chính xác và xếp thứ tự xử lý.", "Ops Diagnosis"], [40, 69, "Có nền nhưng chưa thành hệ thống", "Một số khu vực đã có nề nếp nhưng chưa nối thành hệ điều hành hoàn chỉnh. Ops Blueprint là bước phù hợp: dựng trọn bộ tổ chức, quy trình và KPI.", "Ops Blueprint"], [70, 100, "Nền vận hành khá vững", "Doanh nghiệp đã có hệ thống tốt. Giai đoạn này phù hợp với Remote Ops Partner — vận hành đồng hành, tinh chỉnh và cảnh báo điểm nghẽn liên tục.", "Remote Ops Partner"]];
+var SCALE=["Chưa có gì", "Mới manh nha", "Có nhưng chưa ổn định", "Đã thành hệ thống"];
+var SITE='remote-ops', TOOL='OPS_SURVEY', NQ=16;
+var ans={}, cur=0;
+function $(s){return document.querySelector(s);}
+function show(id){document.querySelectorAll('.scr').forEach(function(s){s.classList.remove('active');});$(id).classList.add('active');window.scrollTo({top:0});}
+function qid(gi,qi){return GROUPS[gi].code+'_'+(qi+1);}
+
+    function updateProgress(){
+      for(var i=0;i<GROUPS.length;i++){
+        var el=document.getElementById('led'+i);
+        if(!el) continue;
+        el.classList.remove('done','cur');
+        if(i<cur) el.classList.add('done'); else if(i===cur) el.classList.add('cur');
+      }
+      var pct = Math.round((Object.keys(ans).length/NQ)*100);
+      document.getElementById('statusPct').textContent = pct+'%';
+    }
+function renderGroup(){
+  var g=GROUPS[cur];
+  $('#gkick').textContent='Khu vực '+(cur+1)+' / '+GROUPS.length;
+  $('#gname').textContent=g.name;
+  var done=Object.keys(ans).length;
+  $('#pstep').textContent='Đã trả lời '+done+' / '+NQ+' câu';
+  $('#qwarn').textContent='';
+  var h='';
+  g.qs.forEach(function(q,qi){
+    var id=qid(cur,qi);
+    h+='<div class="q" data-code="'+g.code+'_'+(qi+1)+'"><p>'+q+'</p><div class="opts">';
+    SCALE.forEach(function(lb,v){
+      h+='<div class="opt'+(ans[id]===v?' sel':'')+'" data-q="'+id+'" data-v="'+v+'">'+lb+'</div>';
+    });
+    h+='</div></div>';
+  });
+  $('#qbox').innerHTML=h;
+  $('#backBtn').style.visibility=cur===0?'hidden':'visible';
+  $('#nextBtn').textContent=cur===GROUPS.length-1?'Hoàn tất →':'Tiếp tục →';
+  updateProgress();
+  document.querySelectorAll('.opt').forEach(function(o){
+    o.addEventListener('click',function(){
+      ans[o.getAttribute('data-q')]=parseInt(o.getAttribute('data-v'));
+      renderGroup();
+    });
+  });
+}
+function groupDone(){ return GROUPS[cur].qs.every(function(_,qi){return typeof ans[qid(cur,qi)]==='number';}); }
+function calc(){
+  var per=GROUPS.map(function(g,gi){
+    var s=0,m=g.qs.length*3;
+    g.qs.forEach(function(_,qi){s+=ans[qid(gi,qi)]||0;});
+    return {code:g.code,name:g.name,score:Math.round(s/m*10)};
+  });
+  var total=Math.round(per.reduce(function(a,p){return a+p.score;},0)/per.length*10);
+  var band=BANDS.find(function(b){return total>=b[0]&&total<=b[1];})||BANDS[0];
+  return {per:per,total:total,band:band};
+}
+$('#startBtn').addEventListener('click',function(){show('#scrQuiz');renderGroup();});
+$('#backBtn').addEventListener('click',function(){if(cur>0){cur--;renderGroup();}});
+$('#nextBtn').addEventListener('click',function(){
+  if(!groupDone()){$('#qwarn').textContent='Vui lòng trả lời đủ các câu trong khu vực này.';return;}
+  if(cur<GROUPS.length-1){cur++;renderGroup();} else {show('#scrContact');}
+});
+$('#cBack').addEventListener('click',function(){show('#scrQuiz');renderGroup();});
+$('#cSubmit').addEventListener('click',async function(){
+  var name=$('#cName').value.trim(), phone=$('#cPhone').value.replace(/[^\d+]/g,'');
+  var em=$('#cEmail').value.trim();
+  if(!name){$('#cwarn').textContent='Vui lòng nhập họ tên.';return;}
+  if(!/^\+?\d{9,12}$/.test(phone)){$('#cwarn').textContent='Số điện thoại chưa đúng định dạng.';return;}
+  if(em&&!/^\S+@\S+\.\S+$/.test(em)){$('#cwarn').textContent='Email chưa đúng định dạng.';return;}
+  if(!$('#cConsent').checked){$('#cwarn').textContent='Vui lòng đồng ý chính sách bảo mật.';return;}
+  var r=calc();
+  var scores={};r.per.forEach(function(p){scores[p.code]=p.score;});
+  var payload={siteId:SITE,tool:TOOL,fullName:name,phone:phone,email:em||null,companyName:$('#cCompany').value.trim()||null,
+    answers:ans,scores:scores,totalScore:r.total,recommendation:r.band[4],sourcePage:location.pathname};
+  var saved='';
+  this.disabled=true;this.textContent='Đang gửi...';
+  try{
+    var res=await fetch('/api/v1/public/assessments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(res.ok){saved='Kết quả đã được lưu. BAIKA sẽ liên hệ với bạn để trao đổi sâu hơn.';}
+    else if(res.status===422||res.status===429){var er=await res.json().catch(function(){return{};});saved=er.message||'Dữ liệu chưa hợp lệ, kết quả hiển thị bên dưới.';}
+    else{throw new Error('endpoint không sẵn sàng ('+res.status+')');}
+  }catch(e){
+    try{var k='baika_assess_'+SITE;var arr=JSON.parse(localStorage.getItem(k)||'[]');arr.push(Object.assign({created_at:new Date().toISOString()},payload));localStorage.setItem(k,JSON.stringify(arr));}catch(e2){}
+    saved='Chế độ demo: kết quả lưu tạm trên máy bạn (máy chủ chưa kết nối).';
+  }
+  this.disabled=false;this.textContent='Xem kết quả';
+  renderResult(r,saved);
+});
+function renderResult(r,saved){
+  $('#rTotal').textContent=r.total;
+  $('#ring').style.background='conic-gradient(var(--pri) '+(r.total*3.6)+'deg, var(--bd) 0deg)';
+  $('#rLevel').textContent=r.band[2];
+  $('#rDesc').textContent=r.band[3];
+  var weak=r.per.slice().sort(function(a,b){return a.score-b.score;}).slice(0,3).map(function(p){return p.code;});
+  $('#rBars').innerHTML=r.per.map(function(p){
+    return '<div class="bar'+(weak.indexOf(p.code)>=0?' weak':'')+'"><span class="nm">'+p.name+'</span><span class="tr"><i style="width:'+(p.score*10)+'%"></i></span><span class="vl">'+p.score+'</span></div>';
+  }).join('');
+  $('#rPkg').textContent='Lộ trình đề xuất: '+r.band[4];
+  $('#rPkgD').textContent=r.band[3];
+  $('#saveNote').textContent=saved;
+  show('#scrResult');
+}
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+</body>
+</html>

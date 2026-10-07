@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAIKA Remote Ops — Xây hệ điều hành doanh nghiệp vận hành từ xa</title>
+<meta name="description" content="BAIKA Remote Ops — chẩn đoán vận hành, xây blueprint tổ chức & quy trình, vận hành đồng hành với dashboard KPI/KRI và cảnh báo điểm nghẽn.">
+<link rel="icon" href="/baika-suite/remote-ops/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Overpass+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/baika-suite/shared/animated-logo.css">
+<style>
+:root{
+  --void:#050B09; --void2:#081410; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.07); --bd:rgba(255,255,255,.10);
+  --teal:#2DD4BF; --logoc1:var(--teal); --logoc2:var(--amber); --logourl:url("/baika-suite/remote-ops/logo-emblem.png"); --teal-deep:#0E8C7A; --amber:#FFB020; --ok:#4ADE80;
+  --tx:#E9F5F2; --tx2:#94A8A3; --tx3:#697D77;
+  --disp:'Space Grotesk',sans-serif; --mono:'Overpass Mono',monospace; --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--tx);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;position:relative;max-width:100vw}
+::selection{background:var(--teal);color:#03120F}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);line-height:1.2}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.mono{font-family:var(--mono)}
+.kick{display:flex;align-items:center;gap:10px;color:var(--teal);font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:500;margin-bottom:14px}
+.kick::before{content:"";width:16px;height:1px;background:var(--teal);flex-shrink:0}
+h2.h{font-size:clamp(26px,3.6vw,38px);margin-bottom:14px;font-weight:700}
+.lead{color:var(--tx2);max-width:680px;font-size:16.5px}
+.sec{padding:56px 0;position:relative}
+@media (max-width:640px){.sec{padding:32px 0}}
+
+/* ===== nen: duong mach in (PCB traces), goc vuong — khac han 6 nen truoc ===== */
+
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 520px at 88% -8%, rgba(45,212,191,.09), transparent 60%),
+             radial-gradient(700px 460px at -8% 50%, rgba(255,176,32,.05), transparent 60%);}
+
+/* ===== topbar ===== */
+.top{position:sticky;top:0;z-index:50;background:rgba(5,11,9,.82);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--bd)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.home{flex-shrink:0;color:var(--tx2);text-decoration:none;font-size:13.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:color .2s}
+.home svg{width:15px;height:15px;flex-shrink:0}
+.home:hover{color:var(--tx)}
+.home .lbl{display:none}
+@media (min-width:560px){.home .lbl{display:inline}}
+
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:700;letter-spacing:0;font-size:14px;white-space:nowrap;overflow:hidden;min-width:0}
+.brand .dot{width:8px;height:8px;border-radius:2px;background:var(--ok);box-shadow:0 0 12px var(--ok);flex-shrink:0;animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.brand .full{display:none}.brand .short{display:inline}
+@media (min-width:640px){.brand .full{display:inline}.brand .short{display:none}}
+.top .sp{flex:1;min-width:4px}
+.navstat{flex-shrink:0;display:flex;align-items:center;gap:8px;color:var(--tx3);font-family:var(--mono);font-size:11px;white-space:nowrap}
+.navstat b{color:var(--ok);font-weight:600}
+@media (max-width:900px){.navstat{display:none}}
+
+/* ===== buttons ===== */
+/* ===== focus-visible: vien ro rang cho dieu huong ban phim ===== */
+a:focus-visible, button:focus-visible, .car-dot:focus-visible, .car-btn:focus-visible, summary:focus-visible, .chk:focus-within{
+  outline:2px solid var(--teal); outline-offset:2px; border-radius:6px;
+}
+.btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:9px;font-weight:600;font-size:15px;line-height:1.2;
+  text-decoration:none;cursor:pointer;border:1px solid transparent;font-family:var(--body);overflow:hidden;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.bp{background:linear-gradient(135deg,var(--teal),var(--teal-deep));color:#03120F;box-shadow:0 8px 28px rgba(45,212,191,.3)}
+.bp::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.4) 45%,transparent 60%);transform:translateX(-120%);transition:transform .7s ease}
+.bp:hover::after{transform:translateX(120%)}
+.bo{background:rgba(255,255,255,.03);color:var(--tx);border-color:var(--bd);backdrop-filter:blur(6px)}
+.bo:hover{border-color:var(--teal);color:var(--teal)}
+.magnet{will-change:transform}
+.top .diagbtn{flex-shrink:0;white-space:nowrap;padding:8px 13px;font-size:13px;gap:6px}
+.top .diagbtn .lbl-full{display:none}.top .diagbtn .lbl-short{display:inline}
+@media (min-width:480px){.top .diagbtn{padding:11px 20px;font-size:14.5px}.top .diagbtn .lbl-full{display:inline}.top .diagbtn .lbl-short{display:none}}
+
+/* ===== hero ===== */
+.hero{padding:88px 0 56px;position:relative}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--bd);border-radius:999px;color:var(--tx2);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;margin-bottom:26px;background:rgba(255,255,255,.02)}
+.badge b{color:var(--ok);font-weight:600}
+.hero h1{font-size:clamp(30px,5vw,52px);max-width:880px;font-weight:700}
+.hero .sub{color:var(--teal);font-family:var(--disp);font-weight:600;font-size:clamp(16px,2.1vw,20px);margin:18px 0 14px}
+.hero p.lead{margin-bottom:30px;font-size:17px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.trust{color:var(--tx3);font-size:13px;font-family:var(--mono)}
+
+/* ===== workflow stream (chu ky rieng — goi tin chay lien tuc, khac han flight-path/waveform) ===== */
+.flowbox{margin-top:36px;border:1px solid var(--bd);border-radius:16px;background:var(--panel);padding:26px 26px 20px;position:relative;overflow:hidden}
+.flow-head{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;color:var(--tx3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:22px}
+.flow-head .live{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px var(--ok);animation:blink 1.4s ease-in-out infinite}
+.flow-svg{width:100%;height:64px;display:block;overflow:visible}
+.flow-line{fill:none;stroke:var(--bd);stroke-width:2}
+.flow-node{fill:var(--void2);stroke:var(--teal);stroke-width:2}
+.flow-packet{fill:var(--teal);filter:drop-shadow(0 0 4px var(--teal))}
+.flow-labels{display:flex;justify-content:space-between;margin-top:12px}
+.flow-labels span{font-family:var(--mono);font-size:11px;color:var(--tx2);text-align:center;flex:1}
+.flow-cta{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:16px;margin-top:16px;border-top:1px solid var(--bd)}
+.flow-cta span{font-size:13.5px;color:var(--tx2)}
+.flow-cta a{font-family:var(--mono);color:var(--teal);text-decoration:none;font-size:13px;font-weight:700;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.flow-cta a:hover{color:var(--ok)}
+@media (prefers-reduced-motion: reduce){.flow-packet{animation:none!important}}
+
+.readout{display:flex;gap:0;margin-top:22px;border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.02)}
+.readout .cell{flex:1;padding:16px 18px;border-right:1px solid var(--bd)}
+.readout .cell:last-child{border-right:none}
+.readout .cell .k{font-family:var(--mono);font-size:10.5px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px}
+.readout .cell .v{font-family:var(--disp);font-size:18px;font-weight:700;color:var(--tx)}
+@media (max-width:760px){.readout{flex-wrap:wrap}.readout .cell{flex:1 1 50%;border-bottom:1px solid var(--bd)}}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .32s ease-out,transform .32s ease-out}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none} html{scroll-behavior:auto}}
+
+/* ===== carousel ===== */
+.carousel{position:relative;margin-top:28px}
+.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px;margin:-2px -2px -8px;cursor:grab;user-select:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track.grabbing{cursor:grabbing;scroll-snap-type:none}
+.car-track>*{scroll-snap-align:start;flex:0 0 auto}
+.car-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.car-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd);background:rgba(255,255,255,.03);color:var(--tx2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,opacity .2s;flex-shrink:0}
+.car-btn svg{width:16px;height:16px}
+.car-btn:hover:not(:disabled){border-color:var(--teal);color:var(--teal)}
+.car-btn:disabled{opacity:.28;cursor:default}
+.car-dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:200px}
+.car-dot{width:22px;height:22px;border-radius:50%;background:transparent;transition:none;cursor:pointer;flex-shrink:0;border:none;padding:0;display:flex;align-items:center;justify-content:center;position:relative}
+.car-dot::after{content:"";display:block;width:6px;height:6px;border-radius:2px;background:var(--bd);transition:width .25s,background .25s}
+.car-dot.on::after{width:16px;border-radius:3px;background:var(--teal)}
+
+
+/* ===== pains ===== */
+.pcard{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:12px;padding:24px;width:min(78vw,260px);transition:border-color .3s}
+.pcard:hover{border-color:rgba(45,212,191,.4)}
+.pcard h3{font-size:16.5px;margin-bottom:8px;font-weight:600}
+.pcard p{color:var(--tx2);font-size:14px}
+
+/* ===== 6 module — bang trang thai van hanh (Live Ops Status Board) ===== */
+.statusboard{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+.statustile{background:var(--panel);border:1px solid var(--bd);border-radius:12px;padding:20px;transition:border-color .3s}
+.statustile:hover{border-color:rgba(45,212,191,.4)}
+.statustile .stline{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.statustile .stled{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--ok);letter-spacing:.04em}
+.statustile .stled i{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px var(--ok);display:block}
+.statustile .stnum{font-family:var(--mono);color:var(--tx3);font-size:11px}
+.statustile h4{font-size:15.5px;margin-bottom:8px;font-weight:600}
+.statustile p{color:var(--tx2);font-size:13.3px}
+@media (max-width:900px){.statusboard{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.statusboard{grid-template-columns:1fr}}
+
+/* ===== packages ===== */
+.pkg{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:28px 24px;display:flex;flex-direction:column;overflow:hidden;width:min(84vw,300px)}
+.pkg.feat{border-color:transparent;background:linear-gradient(var(--void2),var(--void2)) padding-box,linear-gradient(135deg,var(--teal),var(--amber)) border-box;
+  border:1px solid transparent;box-shadow:0 14px 46px rgba(45,212,191,.2)}
+.pkg.feat::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(45,212,191,.26),transparent 30%);animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pkg.feat>*{position:relative;z-index:1}
+.ptag{position:absolute;top:-13px;left:22px;background:linear-gradient(135deg,var(--teal),var(--amber));color:#03120F;font-size:11.5px;
+  font-weight:700;padding:4px 13px;border-radius:6px;font-family:var(--mono);letter-spacing:.02em;z-index:2}
+.pkg h3{font-size:18px;margin-bottom:8px}
+.pdesc{color:var(--tx2);font-size:13.6px;margin-bottom:16px}
+.pkg ul{list-style:none;margin:0 0 22px;display:grid;gap:9px;flex:1}
+.pkg li{color:var(--tx2);font-size:13.8px;padding-left:22px;position:relative}
+.pkg li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-size:12px;font-weight:700;top:2px}
+
+/* ===== outcomes ===== */
+.outs{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 30px;margin-top:22px}
+.outs li{padding-left:32px;position:relative;color:var(--tx2);font-size:15px}
+.outs li svg{position:absolute;left:0;top:3px;width:20px;height:20px}
+.outs li svg path{stroke:var(--teal);stroke-width:2.4;fill:none;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .6s ease}
+.outs li.on svg path{stroke-dashoffset:0}
+@media (max-width:640px){.outs{grid-template-columns:1fr}}
+
+/* ===== audience/diffs ===== */
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:12px;padding:22px;transition:border-color .3s;width:min(78vw,270px)}
+.card:hover{border-color:rgba(255,255,255,.25)}
+.card h4{font-size:15.5px;margin-bottom:7px;font-weight:600}
+.card p{color:var(--tx2);font-size:13.8px}
+
+/* ===== faq ===== */
+.faqs{display:grid;gap:10px;margin-top:24px}
+.faq{background:var(--panel);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;display:flex;align-items:center;gap:12px;font-size:15px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"›";font-family:var(--mono);color:var(--teal);font-size:18px;transition:transform .3s}
+.faq[open] summary::before{transform:rotate(90deg)}
+.faq p{padding:0 20px 18px 44px;color:var(--tx2);font-size:14.3px}
+
+/* ===== form ===== */
+.formbox{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bd);border-radius:16px;padding:34px;margin-top:28px}
+.frm{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:12px;color:var(--tx2);font-weight:600;font-family:var(--mono);letter-spacing:.02em;text-transform:uppercase}
+.fld input,.fld select,.fld textarea{background:rgba(0,0,0,.35);border:1px solid var(--bd);border-radius:8px;padding:13px 15px;color:var(--tx);
+  font-family:var(--body);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(45,212,191,.15)}
+.fld.err input,.fld.err textarea{border-color:#E24B4A}
+.needs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;min-width:0}
+.chk{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.25);border:1px solid var(--bd);border-radius:8px;padding:10px 13px;cursor:pointer;font-size:13.6px;color:var(--tx2);transition:.2s}
+.chk:has(input:checked){border-color:var(--teal);color:var(--tx);background:rgba(45,212,191,.08)}
+.chk input{accent-color:var(--teal)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13.2px;color:var(--tx2)}
+.fmsg{grid-column:1/-1;font-size:14px;min-height:20px}
+.fmsg.ok{color:var(--ok)}.fmsg.bad{color:#F09595}
+
+/* ===== footer ===== */
+.foot{border-top:1px solid var(--bd);padding:40px 0;color:var(--tx3);font-size:13.5px}
+.foot .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.foot a{color:var(--tx2);text-decoration:none}
+.foot a:hover{color:var(--teal)}
+  #baikaAnimBg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.8}
+</style>
+<script src="/shield.js" defer></script>
+  <link rel="stylesheet" href="/baika-suite/shared/mobile-fixes.css">
+</head>
+<body>
+<canvas id="baikaAnimBg"></canvas>
+
+
+<header class="top"><div class="wrap">
+  <a class="home" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg><span class="lbl">Trang chủ</span></a>
+  <div class="brand"><span class="logo-stage"><div class="logo-halo"></div><div class="logo-mask"></div></span><span class="full">REMOTE OPS</span><span class="short">OPS</span></div>
+  <div class="sp"></div>
+  <span class="navstat">6/6 MODULE · <b>ONLINE</b></span>
+  <a class="btn bp magnet diagbtn" href="/remote-ops/survey"><span class="lbl-full">Khảo sát vận hành miễn phí</span><span class="lbl-short">Khảo sát</span></a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <span class="badge">◆ <b>6</b> CẤU PHẦN HỆ ĐIỀU HÀNH · <b>3</b> GÓI TRIỂN KHAI</span>
+  <h1 id="heroTitle">BAIKA Remote Ops</h1>
+  <div class="sub" id="heroSub">Xây hệ điều hành doanh nghiệp — vận hành chuẩn mà không cần CEO ngồi canh</div>
+  <p class="lead" id="heroDesc">Chuẩn hóa quy trình, sơ đồ tổ chức, task, KPI và báo cáo trên một nền tảng — để doanh nghiệp vận hành bằng hệ thống thay vì bằng trí nhớ của vài cá nhân.</p>
+  <div class="cta">
+    <a class="btn bp magnet" href="/remote-ops/survey" id="heroCta1">Khảo sát vận hành miễn phí</a>
+    <a class="btn bo magnet" href="#goi">Xem gói triển khai</a>
+  </div>
+  <p class="trust">// CHẨN ĐOÁN ĐÚNG BỆNH TRƯỚC — THIẾT KẾ VÀ VẬN HÀNH ĐỒNG HÀNH SAU</p>
+
+  <div class="flowbox rv">
+    <div class="flow-head"><span class="live"></span>LUỒNG TRIỂN KHAI — DỮ LIỆU ĐANG DI CHUYỂN QUA 3 GIAI ĐOẠN</div>
+    <svg class="flow-svg" id="flowSvg" viewBox="0 0 600 64" preserveAspectRatio="none">
+      <path class="flow-line" d="M50 32 H550"/>
+      <circle class="flow-node" cx="50" cy="32" r="9"/>
+      <circle class="flow-node" cx="300" cy="32" r="9"/>
+      <circle class="flow-node" cx="550" cy="32" r="9"/>
+      <circle class="flow-packet" r="4"><animateMotion dur="3.2s" repeatCount="indefinite" path="M50 32 H550"/></circle>
+      <circle class="flow-packet" r="4"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.07s" path="M50 32 H550"/></circle>
+      <circle class="flow-packet" r="4"><animateMotion dur="3.2s" repeatCount="indefinite" begin="2.13s" path="M50 32 H550"/></circle>
+    </svg>
+    <div class="flow-labels"><span>Chẩn đoán vận hành</span><span>Blueprint tổ chức & quy trình</span><span>Vận hành đồng hành</span></div>
+    <div class="flow-cta"><span>Muốn biết doanh nghiệp bạn đang tắc ở giai đoạn nào?</span><a href="/remote-ops/survey">Khảo sát ngay →</a></div>
+  </div>
+
+  <div class="readout rv">
+    <div class="cell"><div class="k">Cấu phần hệ thống</div><div class="v">06</div></div>
+    <div class="cell"><div class="k">Gói triển khai</div><div class="v">03</div></div>
+    <div class="cell"><div class="k">Đối tượng phù hợp</div><div class="v">06</div></div>
+    <div class="cell"><div class="k">Điểm khác biệt</div><div class="v">04</div></div>
+  </div>
+</div></section>
+
+<section class="sec" id="van-de"><div class="wrap">
+  <p class="kick">Chẩn đoán hiện trạng</p>
+  <h2 class="h">Vận hành của bạn có đang như thế này?</h2>
+  <div class="carousel">
+    <div class="pgrid car-track" id="painsTrack"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="painsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="pham-vi"><div class="wrap">
+  <p class="kick">Phạm vi hệ thống</p>
+  <h2 class="h">6 cấu phần của hệ điều hành vận hành</h2>
+  <p class="lead">Bảng trạng thái vận hành — mỗi cấu phần đều đang "chạy" trong hệ thống BAIKA triển khai cho khách hàng.</p>
+  <div class="statusboard" id="statusBoard"></div>
+</div></section>
+
+
+<section class="sec" id="tru-cot-v2"><div class="wrap">
+  <p class="kick">Dịch vụ trọng tâm</p>
+  <h2 class="h">Các mảng dịch vụ chính</h2>
+  <div class="carousel">
+    <div class="car-track" id="v2PillarsGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="v2PillarsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="cong-cu-v2"><div class="wrap">
+  <p class="kick">Tiện ích tương tác</p>
+  <h2 class="h">Công cụ hỗ trợ & Đánh giá</h2>
+  <p class="lead">Trải nghiệm các công cụ tự động để có cái nhìn trực quan nhất.</p>
+  <div class="stack3" id="v2ToolsGrid"></div>
+</div></section>
+
+<section class="sec" id="uu-dai-v2"><div class="wrap">
+  <p class="kick">Chương trình & ưu đãi</p>
+  <h2 class="h">Ưu đãi & Các gói đặc biệt</h2>
+  <div class="formbox" style="margin-top:20px; padding:28px;">
+    <div class="risktag crit" style="margin-bottom:12px;">ƯU ĐÃI CÓ HẠN</div>
+    
+    <div style="margin-bottom:24px;">
+        <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; font-family:var(--disp);">Sprint Hệ thống hóa</h3>
+        <p style="color:var(--tx2); font-size:15px; margin-bottom:16px;">Đăng ký trước hạn để nhận buổi Audit vận hành & báo cáo độ trưởng thành miễn phí.</p>
+    </div>
+
+    <a class="btn bp magnet" href="#lien-he">Nhận ưu đãi ngay</a>
+  </div>
+</div></section>
+
+
+<section class="sec" id="diagram" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">Tầm nhìn vận hành</p>
+  <h2 class="h">Khi vận hành là hệ thống, chủ doanh nghiệp được tự do</h2>
+  <p class="lead">5 bước chuyển đổi từ doanh nghiệp vận hành theo người sang doanh nghiệp vận hành theo hệ thống.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="diagramGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="diagramDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="services"><div class="wrap">
+  <p class="kick">Bốn hạng mục cốt lõi</p>
+  <h2 class="h">Bốn hạng mục — một hệ vận hành</h2>
+  <p class="lead">Mỗi hạng mục giải quyết một khâu trong chuỗi hệ thống hóa — làm đủ bốn để doanh nghiệp tự vận hành không cần chủ đứng bếp mãi.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="opsServicesGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="opsServicesDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="program" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">Ba nhịp đồng hành</p>
+  <h2 class="h">Chọn nhịp phù hợp với hiện trạng của bạn</h2>
+  <p class="lead">Từ sprint ngắn để giải quyết điểm nghẽn gấp, đến đồng hành dài hạn để doanh nghiệp vận hành trơn tru hoàn toàn.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="programGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="programDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="audit"><div class="wrap">
+  <p class="kick">Điểm khởi đầu</p>
+  <h2 class="h">Bắt đầu bằng một buổi chẩn đoán</h2>
+  <p class="lead">60 phút — đội ngũ BAIKA phân tích cách doanh nghiệp bạn đang vận hành và chỉ ra 3 điểm nghẽn lớn nhất cần xử lý ngay.</p>
+  <div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+    <a class="btn bp magnet" href="#lien-he">Đặt lịch chẩn đoán miễn phí</a>
+    <span style="color:var(--tx3);font-family:var(--mono);font-size:13px">// SPRINT Hệ thống hóa — đăng ký trước hạn nhận Audit miễn phí</span>
+  </div>
+</div></section>
+
+<section class="sec" id="tools" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <h2 class="h">Tự chẩn đoán trước khi tư vấn</h2>
+  <p class="lead">Hai công cụ giúp bạn biết doanh nghiệp đang ở mức độ trưởng thành vận hành nào — trước khi gặp chuyên gia BAIKA.</p>
+  <div class="stack3" id="opsToolsGrid" style="margin-top:24px"></div>
+</div></section>
+<section class="sec" id="goi"><div class="wrap">
+  <p class="kick">Gói triển khai</p>
+  <h2 class="h">Chọn điểm bắt đầu phù hợp</h2>
+  <p class="lead">Mỗi gói là một điểm vào — có thể nâng cấp dần theo mức độ sẵn sàng của doanh nghiệp.</p>
+  <div class="carousel">
+    <div class="pkgs car-track" id="pkgsBox"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="pkgDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="ket-qua"><div class="wrap">
+  <p class="kick">Kết quả nhận được</p>
+  <h2 class="h">Sau khi triển khai cùng BAIKA</h2>
+  <ul class="outs" id="outsList"></ul>
+</div></section>
+
+<section class="sec" id="phu-hop"><div class="wrap">
+  <p class="kick">Đối tượng phù hợp</p>
+  <h2 class="h">Dịch vụ này dành cho ai?</h2>
+  <div class="carousel">
+    <div class="car-track" id="audGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="audDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="khac-biet"><div class="wrap">
+  <p class="kick">Điểm khác biệt</p>
+  <h2 class="h">Vì sao chọn BAIKA?</h2>
+  <div class="carousel">
+    <div class="car-track" id="difGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="difDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="faq"><div class="wrap">
+  <p class="kick">Câu hỏi thường gặp</p>
+  <h2 class="h">FAQ</h2>
+  <div class="faqs" id="faqBox"></div>
+</div></section>
+
+<section class="sec" id="lien-he"><div class="wrap">
+  <p class="kick">Bắt đầu</p>
+  <h2 class="h">Đặt lịch tư vấn Remote Ops</h2>
+  <p class="lead">Điền thông tin — đội ngũ BAIKA sẽ liên hệ trong 24 giờ làm việc.</p>
+  <div class="formbox"><form id="leadForm" class="frm" novalidate>
+    <div class="fld"><label>Họ và tên *</label><input name="full_name" type="text" placeholder="Nguyễn Văn A" required></div>
+    <div class="fld"><label>Số điện thoại *</label><input name="phone" type="tel" placeholder="09xx xxx xxx" required></div>
+    <div class="fld"><label>Email</label><input name="email" type="email" placeholder="ban@congty.vn"></div>
+    <div class="fld"><label>Doanh nghiệp</label><input name="company" type="text" placeholder="Tên công ty (nếu có)"></div>
+    <div class="fld full"><label>Nhu cầu của bạn * (chọn 1 hoặc nhiều)</label><div class="needs" id="needsBox"></div></div>
+    <div class="fld full"><label>Gói quan tâm</label><select name="pkg" id="pkgSel"><option value="">— Chưa chọn —</option></select></div>
+    <div class="fld full"><label>Mô tả ngắn vấn đề đang gặp</label><textarea name="msg" rows="3" placeholder="Ví dụ: đội ngũ tăng nhanh nhưng quy trình vẫn thủ công..."></textarea></div>
+    <div class="fld full consent"><input type="checkbox" id="consent"><label for="consent">Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo chính sách bảo mật.</label></div>
+    <div class="fmsg" id="fmsg"></div>
+    <div class="fld full"><button type="submit" class="btn bp magnet" id="sbm">Gửi yêu cầu tư vấn</button></div>
+  </form></div>
+</div></section>
+
+<footer style="border-top: 1px solid var(--bd); padding: 60px 0; background: var(--void); color: var(--tx2); font-family: var(--body); font-size: 14px; line-height: 1.8;">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 32px; text-align: left;">
+    <!-- Logo & Status -->
+    <div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        
+        <div style="font-family: var(--disp), sans-serif; font-weight: 800; font-size: 26px; color: #FFF; letter-spacing: 3px;">BAIKA</div>
+        <div style="font-family: var(--mono), monospace; font-size: 11px; color: #FFF; border: 1px solid rgba(255,255,255,0.4); padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 1px;">JSC</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 4px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #4FE5FF; box-shadow: 0 0 10px #4FE5FF;"></span>
+        <span style="font-family: var(--mono), monospace; font-size: 11px; color: #8A98B3; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Hệ thống đang vận hành</span>
+      </div>
+    </div>
+
+    <!-- Company Name -->
+    <div>
+      <div style="font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 4px;">CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA</div>
+      <div style="font-size: 14px; color: #8A98B3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">BAIKA TECHNOLOGICAL JOINT STOCK COMPANY</div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="display: flex; flex-direction: column; gap: 16px; font-size: 15px;">
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Địa chỉ:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">Tầng 15, 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh, Việt Nam</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Hotline:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">0905.247.365</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Email:</span>
+        <span style="color: #8A98B3;">baika.vn@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/baika-suite/shared/site-common.js"></script>
+<script>
+(function(){
+  var wireCarousel = window.BaikaSite.wireCarousel;
+  /* ---------- DATA ---------- */
+  var PAINS=[
+    ["Phụ thuộc cá nhân","Việc chạy được nhờ vài người 'biết việc'. Một người nghỉ là cả mảng khựng lại."],
+    ["Quy trình không chuẩn","Mỗi người làm một kiểu; sai sót lặp lại; đào tạo người mới mất hàng tháng."],
+    ["Task trễ không ai chịu trách nhiệm","Giao việc qua tin nhắn, không deadline rõ, không ai theo dõi đến cùng."],
+    ["CEO thiếu thông tin điều hành","Muốn biết tình hình phải hỏi từng người; báo cáo chậm, số liệu mỗi nơi một kiểu."]
+  ];
+  var MODULES=[
+    ["Khảo sát & chẩn đoán vận hành","Khảo sát có cấu trúc trên Client Portal: hiện trạng quy trình, phân công, công cụ, điểm nghẽn. Đầu ra là Diagnosis Report chỉ rõ đang tắc ở đâu và vì sao."],
+    ["Sơ đồ tổ chức & vai trò","Thiết kế lại sơ đồ tổ chức theo chức năng thật; mô tả vai trò – trách nhiệm – quyền quyết định cho từng vị trí, chấm dứt tình trạng việc rơi giữa hai người."],
+    ["SOP & quy trình chuẩn","Xây bộ quy trình lõi theo template chuẩn: các bước, người thực hiện, thời hạn, tiêu chí hoàn thành. Người mới đọc là làm được."],
+    ["Quản lý task","Đưa công việc từ tin nhắn về hệ thống: task có người phụ trách, deadline, trạng thái; tự động cảnh báo task trễ hạn và task chưa có người nhận."],
+    ["KPI / KRI dashboard","Bộ chỉ số hiệu suất và chỉ số rủi ro theo từng bộ phận, cập nhật trên dashboard — CEO nhìn một màn hình biết doanh nghiệp đang chạy thế nào."],
+    ["Báo cáo & cảnh báo điểm nghẽn","Nhịp báo cáo tuần/tháng chuẩn hóa; hệ thống tự làm nổi các điểm nghẽn cần CEO can thiệp thay vì để chìm trong dữ liệu."]
+  ];
+  var PACKAGES=[
+    {name:"Ops Diagnosis",feat:false,desc:"Chẩn đoán vận hành toàn diện — biết chính xác đang tắc ở đâu.",items:["Khảo sát vận hành có cấu trúc","Phỏng vấn vị trí chủ chốt","Diagnosis Report & bản đồ điểm nghẽn","Khuyến nghị thứ tự xử lý"]},
+    {name:"Ops Blueprint",feat:true,desc:"Thiết kế trọn bộ hệ điều hành: tổ chức, quy trình, KPI.",items:["Toàn bộ hạng mục Ops Diagnosis","Sơ đồ tổ chức & mô tả vai trò","Bộ SOP quy trình lõi","Bộ KPI/KRI theo bộ phận","Kế hoạch triển khai theo giai đoạn"]},
+    {name:"Remote Ops Partner",feat:false,desc:"BAIKA vận hành đồng hành như một Giám đốc Vận hành từ xa.",items:["Toàn bộ hạng mục Ops Blueprint","Vận hành hệ thống task & báo cáo","Dashboard KPI cập nhật liên tục","Họp điều hành định kỳ cùng CEO","Cảnh báo & xử lý điểm nghẽn"]}
+  ];
+  var OUTCOMES=["Doanh nghiệp vận hành theo quy trình, không theo trí nhớ","Mỗi việc có người phụ trách, deadline và trạng thái rõ ràng","CEO xem một dashboard là nắm được sức khỏe vận hành","Đào tạo nhân sự mới nhanh hơn nhờ SOP chuẩn","Điểm nghẽn được cảnh báo sớm thay vì phát hiện khi đã thành khủng hoảng","Nền tảng sẵn sàng để mở rộng quy mô hoặc vận hành từ xa"];
+  var AUDIENCE=[["Doanh nghiệp 10–200 nhân sự","Đã qua giai đoạn sống sót, cần hệ thống để lớn tiếp mà không vỡ trận."],["CEO bị cuốn vào vận hành","Muốn thoát khỏi việc ngồi canh từng task để tập trung chiến lược."],["Doanh nghiệp nhiều chi nhánh / làm việc từ xa","Cần chuẩn vận hành thống nhất khi đội ngũ không ngồi cùng một chỗ."],["Doanh nghiệp chuẩn bị tăng trưởng","Biết rằng bộ máy hiện tại sẽ không chịu nổi khi quy mô gấp đôi."],["Công ty vừa tái cấu trúc","Cần dựng lại sơ đồ tổ chức, vai trò và quy trình từ nền mới."],["Doanh nghiệp gia đình chuyên nghiệp hóa","Chuyển từ điều hành thuận tiện sang điều hành có hệ thống."]];
+  var DIFFS=[["Consulting được sản phẩm hóa","Quy trình, template, portal chuẩn hóa — không phụ thuộc cảm hứng của tư vấn viên."],["Có nền tảng đi kèm","Không chỉ đưa file Word: khách vận hành trực tiếp trên Client Portal với task, KPI, báo cáo."],["Đồng hành đến khi tự chạy","Gói Partner vận hành cùng doanh nghiệp cho đến khi hệ thống thành nếp."],["Thiết kế cho SME Việt Nam","Chuẩn nhưng không cồng kềnh — đúng mức doanh nghiệp vừa và nhỏ hấp thụ được."]];
+  var FAQ=[["Doanh nghiệp tôi nhỏ, có cần hệ thống không?","Nếu dưới 10 người và việc vẫn trong tầm kiểm soát thì chưa gấp. Nhưng nếu bạn đã thấy việc rơi, sai lặp lại, người mới lâu bắt nhịp — đó là lúc bắt đầu, càng sớm càng rẻ."],["Triển khai mất bao lâu?","Ops Diagnosis thường 2–4 tuần. Ops Blueprint 6–10 tuần tùy quy mô. Remote Ops Partner theo kỳ 3–6 tháng."],["Có phải thay phần mềm đang dùng không?","Không bắt buộc. BAIKA ưu tiên chuẩn hóa trên công cụ bạn đang có; chỉ đề xuất đổi khi công cụ hiện tại là điểm nghẽn thật."],["Nhân viên có hợp tác không?","Blueprint luôn kèm kế hoạch chuyển đổi: đào tạo, giai đoạn thử, cơ chế phản hồi — thay đổi theo nhịp đội ngũ theo kịp."]];
+  var NEEDS=["Chẩn đoán vận hành","Chuẩn hóa quy trình / SOP","Sơ đồ tổ chức & vai trò","Hệ thống task & giao việc","KPI / báo cáo điều hành","Vận hành đồng hành (Ops Partner)","Nhu cầu khác"];
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  /* ---------- carousel ---------- */
+  
+
+  /* ---------- render ---------- */
+  document.getElementById('painsTrack').innerHTML = PAINS.map(function(p){ return '<div class="pcard rv"><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>'; }).join('');
+  wireCarousel('painsTrack','painsDots');
+
+  document.getElementById('statusBoard').innerHTML = MODULES.map(function(m,i){
+    var dur=(2.2+Math.random()*2.2).toFixed(1), delay=(Math.random()*2).toFixed(1);
+    return '<div class="statustile rv"><div class="stline"><span class="stled" style="animation:blink '+dur+'s ease-in-out '+delay+'s infinite"><i></i>ONLINE</span><span class="stnum mono">OPS-'+String(i+1).padStart(2,'0')+'</span></div><h4>'+esc(m[0])+'</h4><p>'+esc(m[1])+'</p></div>';
+  }).join('');
+
+  function pkgHTML(list){
+    return list.map(function(p){
+      var items=(p.items||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+      return '<div class="pkg rv'+(p.feat?' feat':'')+'">'+(p.feat?'<div class="ptag">ĐỀ XUẤT</div>':'')+
+        '<h3>'+esc(p.name)+'</h3><p class="pdesc">'+esc(p.desc||'')+'</p><ul>'+items+'</ul>'+
+        '<button class="btn '+(p.feat?'bp':'bo')+' magnet" data-pkg="'+esc(p.name)+'">Chọn gói này</button></div>';
+    }).join('');
+  }
+  document.getElementById('pkgsBox').innerHTML = pkgHTML(PACKAGES);
+  document.getElementById('pkgSel').innerHTML = '<option value="">— Chưa chọn —</option>'+PACKAGES.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+  wireCarousel('pkgsBox','pkgDots');
+
+  document.getElementById('outsList').innerHTML = OUTCOMES.map(function(o){ return '<li class="rv"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-8"/></svg>'+esc(o)+'</li>'; }).join('');
+
+  document.getElementById('audGrid').innerHTML = AUDIENCE.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('audGrid','audDots');
+  document.getElementById('difGrid').innerHTML = DIFFS.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('difGrid','difDots');
+  document.getElementById('faqBox').innerHTML = FAQ.map(function(f){return '<details class="faq rv"><summary>'+esc(f[0])+'</summary><p>'+esc(f[1])+'</p></details>';}).join('');
+  document.getElementById('needsBox').innerHTML = NEEDS.map(function(n){return '<label class="chk"><input type="checkbox" name="needs" value="'+esc(n)+'"><span>'+esc(n)+'</span></label>';}).join('');
+
+  function bindPkgButtons(){
+    document.querySelectorAll('[data-pkg]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var s=document.getElementById('pkgSel'); s.value=b.getAttribute('data-pkg');
+        document.getElementById('lien-he').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  }
+  bindPkgButtons();
+
+  /* ---------- reveal on scroll ---------- */
+
+  var V2_PILLARS = [["Audit hệ thống vận hành", "Chụp 'X-quang' toàn bộ cách doanh nghiệp đang chạy: điểm nghẽn, việc trùng, việc thiếu."], ["Xây quy trình & SOP", "Biến 'cách làm trong đầu' thành tài liệu chuẩn: rõ đầu vào — các bước — đầu ra — người phụ trách."], ["Tái cấu trúc vận hành", "Sắp xếp lại dòng chảy công việc và bộ máy để giảm ma sát, rút ngắn thời gian, tăng năng suất."], ["Phân vai & đo lường", "Mỗi vai trò biết rõ trách nhiệm và được đo bằng chỉ số. Quản trị bằng số liệu thay vì cảm tính."]];
+  var V2_TOOLS = [["Thang đo độ trưởng thành", "Chọn mức đúng với thực tế doanh nghiệp của bạn cho mỗi câu. Đánh giá tự động hệ thống vận hành."], ["Thư viện SOP mẫu", "Chọn một quy trình để xem các bước chuẩn nối tiếp nhau — khung để doanh nghiệp bạn tuỳ biến."]];
+
+  if (document.getElementById('v2PillarsGrid') && typeof V2_PILLARS !== 'undefined' && V2_PILLARS.length > 0) {
+    document.getElementById('v2PillarsGrid').innerHTML = V2_PILLARS.map(function(p){
+      return '<div class="card rv"><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    wireCarousel('v2PillarsGrid', 'v2PillarsDots');
+  }
+
+  if (document.getElementById('v2ToolsGrid') && typeof V2_TOOLS !== 'undefined' && V2_TOOLS.length > 0) {
+    document.getElementById('v2ToolsGrid').innerHTML = V2_TOOLS.map(function(p, i){
+      return '<div class="st3card rv"><div class="stn mono">TIỆN ÍCH 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+
+
+  /* -------- LÔ 3: REMOTE-OPS SECTIONS -------- */
+  var DIAGRAM_DATA = [
+    {step:"01", title:"Chẩn đoán", desc:"Audit toàn cảnh vận hành — chụp 'X-quang' để thấy điểm nghẽn, việc trùng, việc thiếu."},
+    {step:"02", title:"Chuẩn hóa", desc:"Quy trình & SOP viết ra — biến 'cách làm trong đầu' thành tài liệu ai cũng làm được."},
+    {step:"03", title:"Tái cấu trúc", desc:"Dòng chảy công việc gọn — sắp xếp lại bộ máy để giảm ma sát, rút ngắn thời gian."},
+    {step:"04", title:"Phân vai", desc:"RACI & quyền hạn rõ — mỗi vai trò biết đúng trách nhiệm, không còn ai làm thay ai."},
+    {step:"05", title:"Đo lường", desc:"KPI & dashboard nhịp — quản trị bằng số liệu thực, không phụ thuộc cảm tính nữa."}
+  ];
+
+  var OPS_SERVICES_DATA = [
+    ["Audit hệ thống vận hành", "Chụp 'X-quang' toàn bộ cách doanh nghiệp đang chạy: điểm nghẽn, việc trùng, việc thiếu người — báo cáo chi tiết trong 5 ngày làm việc."],
+    ["Xây quy trình & SOP", "Biến 'cách làm trong đầu' thành tài liệu chuẩn: rõ đầu vào — các bước — đầu ra — người phụ trách — thời gian hoàn thành."],
+    ["Tái cấu trúc vận hành", "Sắp xếp lại dòng chảy công việc và bộ máy để giảm ma sát, rút ngắn thời gian xử lý và tăng năng suất trên từng đầu người."],
+    ["Phân vai & đo lường", "Mỗi vai trò biết rõ trách nhiệm và được đo bằng chỉ số cụ thể. Quản trị bằng dashboard số liệu thực thay vì họp hành liên tục."]
+  ];
+
+  var PROGRAM_DATA = [
+    {name:"Sprint Hệ thống hóa", tag:"PHỔ BIẾN NHẤT", price:"6 tuần", desc:"Audit + xây SOP cho 3-5 quy trình trọng yếu + dashboard đo lường. Đăng ký trước hạn nhận buổi Audit vận hành & báo cáo độ trưởng thành miễn phí.", hot:true},
+    {name:"Đồng hành Hệ thống", tag:"DÀI HẠN", price:"3-6 tháng", desc:"Tái cơ cấu toàn diện hệ vận hành — từ quy trình, phân vai đến KPI và dashboard — phù hợp cho doanh nghiệp đang scale nhanh.", hot:false},
+    {name:"SOP Quick-Build", tag:"NHANH NHẤT", price:"2 tuần", desc:"Viết SOP chuẩn cho 1-2 quy trình cụ thể cần gấp — phù hợp khi tuyển nhân sự mới hoặc chuẩn bị bàn giao ca.", hot:false}
+  ];
+
+  if(document.getElementById('diagramGrid')){
+    document.getElementById('diagramGrid').innerHTML = DIAGRAM_DATA.map(function(p){
+      return '<div class="card rv" style="min-width:200px;position:relative">'+
+        '<div style="font-family:var(--mono);font-size:36px;font-weight:800;color:rgba(255,61,127,.15);position:absolute;top:12px;right:16px">'+p.step+'</div>'+
+        '<div style="font-family:var(--mono);font-size:11px;color:var(--ember);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px">BƯỚC '+p.step+'</div>'+
+        '<h4>'+esc(p.title)+'</h4><p>'+esc(p.desc)+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('diagramGrid','diagramDots');
+  }
+
+  if(document.getElementById('opsServicesGrid')){
+    document.getElementById('opsServicesGrid').innerHTML = OPS_SERVICES_DATA.map(function(p,i){
+      var icons = ['🔬','📋','⚙️','📐'];
+      return '<div class="card rv" style="min-width:220px"><div style="font-size:28px;margin-bottom:10px">'+icons[i]+'</div><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('opsServicesGrid','opsServicesDots');
+  }
+
+  if(document.getElementById('programGrid')){
+    document.getElementById('programGrid').innerHTML = PROGRAM_DATA.map(function(p){
+      return '<div class="pkg rv'+(p.hot?' feat':'')+'">'+
+        (p.hot?'<div class="ptag">'+esc(p.tag)+'</div>':'')+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<p class="pdesc" style="color:var(--ember);font-family:var(--mono);font-size:13px;margin-bottom:8px">'+esc(p.price)+'</p>'+
+        '<p class="pdesc">'+esc(p.desc)+'</p>'+
+        '<a class="btn '+(p.hot?'bp':'bo')+' magnet" href="#lien-he">Đăng ký ngay</a>'+
+        '</div>';
+    }).join('');
+    if(typeof wireCarousel !== 'undefined') wireCarousel('programGrid','programDots');
+  }
+
+  var OPS_TOOLS = [
+    ["Thang đo độ trưởng thành vận hành","Chọn mức đúng với thực tế doanh nghiệp của bạn cho mỗi câu. Kết quả cho biết đang ở Level nào (0=chưa có hệ thống, 4=vận hành tự động)."],
+    ["Thư viện SOP mẫu","Chọn một quy trình để xem các bước chuẩn nối tiếp nhau — khung để doanh nghiệp bạn tuỳ biến và áp dụng ngay."]
+  ];
+  if(document.getElementById('opsToolsGrid')){
+    document.getElementById('opsToolsGrid').innerHTML=OPS_TOOLS.map(function(p,i){
+      return '<div class="st3card rv"><div class="stn mono">CÔNG CỤ 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+window.BaikaSite.wireReveal();
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){
+    document.querySelectorAll('.flow-packet').forEach(function(p){ p.style.display='none'; });
+  }
+
+  /* ---------- magnetic buttons ---------- */
+window.BaikaSite.wireMagnet(reduce);
+
+  /* ---------- form submit ---------- */
+  var form=document.getElementById('leadForm'), msg=document.getElementById('fmsg'), btn=document.getElementById('sbm');
+  function setMsg(t,ok){ msg.textContent=t; msg.className='fmsg '+(ok?'ok':'bad'); }
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var name=form.full_name.value.trim(), phone=form.phone.value.replace(/[^\d+]/g,'');
+    var needs=[].slice.call(form.querySelectorAll('input[name=needs]:checked')).map(function(c){return c.value;});
+    form.querySelectorAll('.fld').forEach(function(f){f.classList.remove('err');});
+    if(!name){ setMsg('Vui lòng nhập họ tên.',false); form.full_name.closest('.fld').classList.add('err'); return; }
+    if(!/^\+?\d{9,12}$/.test(phone)){ setMsg('Số điện thoại chưa đúng định dạng.',false); form.phone.closest('.fld').classList.add('err'); return; }
+    if(form.email.value && !/^\S+@\S+\.\S+$/.test(form.email.value)){ setMsg('Email chưa đúng định dạng.',false); form.email.closest('.fld').classList.add('err'); return; }
+    if(needs.length<1){ setMsg('Vui lòng chọn ít nhất một nhu cầu.',false); return; }
+    if(!document.getElementById('consent').checked){ setMsg('Vui lòng đồng ý chính sách bảo mật để BAIKA có thể liên hệ.',false); return; }
+    var extras=[];
+    if(form.company.value) extras.push('Cty: '+form.company.value);
+    if(form.pkg.value) extras.push('Goi: '+form.pkg.value);
+    if(form.msg.value) extras.push(form.msg.value);
+    var payload={ fullName:name, phone:phone, email:form.email.value||null, serviceNeeds:needs,
+      siteId:'remote-ops', sourcePage:location.pathname, privacyConsent:true,
+      interestedPackage: form.pkg.value||null, problemDescription: extras.join(' | ')||null };
+    btn.disabled=true; btn.textContent='Đang gửi...';
+    try{
+      var res=await fetch('/api/v1/public/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(res.ok){ setMsg('Đã gửi thành công! BAIKA sẽ liên hệ với bạn trong 24 giờ làm việc.',true); form.reset(); }
+      else if(res.status===422||res.status===429){ var er=await res.json().catch(function(){return{};}); setMsg(er.message||er.error||'Dữ liệu chưa hợp lệ.',false); }
+      else{ throw new Error('endpoint '+res.status); }
+    }catch(err){
+      try{ var k='baika_leads_remote-ops'; var arr=JSON.parse(localStorage.getItem(k)||'[]'); arr.push(Object.assign({created_at:new Date().toISOString()},payload)); localStorage.setItem(k,JSON.stringify(arr));
+        setMsg('Đã ghi nhận yêu cầu (chế độ demo — máy chủ chưa kết nối). BAIKA sẽ liên hệ khi hệ thống hoạt động.',true); form.reset();
+      }catch(e2){ setMsg('Không gửi được. Vui lòng gọi trực tiếp 0905 247 365.',false); }
+    }
+    btn.disabled=false; btn.textContent='Gửi yêu cầu tư vấn';
+  });
+
+  /* ---------- GD4 CMS overlay ---------- */
+  fetch('/api/v1/public/site-content?site_id=remote-ops').then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.data) return;
+    var d=j.data;
+    if(d.hero){
+      if(d.hero.title){ document.getElementById('heroTitle').textContent=d.hero.title; }
+      if(d.hero.subtitle!=null) document.getElementById('heroSub').textContent=d.hero.subtitle;
+      if(d.hero.desc!=null) document.getElementById('heroDesc').textContent=d.hero.desc;
+      if(d.hero.cta1) document.getElementById('heroCta1').textContent=d.hero.cta1;
+    }
+    if(Array.isArray(d.packages)&&d.packages.length){
+      var merged=d.packages.map(function(p,i){ return {name:p.name,desc:p.desc,items:p.items,feat:PACKAGES[i]?PACKAGES[i].feat:false}; });
+      document.getElementById('pkgsBox').innerHTML=pkgHTML(merged); bindPkgButtons(); wireCarousel('pkgsBox','pkgDots');
+      document.getElementById('pkgSel').innerHTML='<option value="">— Chưa chọn —</option>'+merged.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+    }
+    if(Array.isArray(d.faq)&&d.faq.length){
+      document.getElementById('faqBox').innerHTML=d.faq.map(function(f){return '<details class="faq on"><summary>'+esc(f.q)+'</summary><p>'+esc(f.a||'')+'</p></details>';}).join('');
+    }
+  }).catch(function(){});
+})();
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+<script>
+
+  /* Remote Ops: Animated PCB Packets */
+  (function(){
+    var c=document.getElementById('baikaAnimBg'); if(!c) return;
+    var ctx=c.getContext('2d'), w=0, h=0, packets=[], active=true;
+    function r(){ w=c.width=window.innerWidth; h=c.height=window.innerHeight; }
+    window.addEventListener('resize', r); r();
+    var observer = new IntersectionObserver(es => { active = es[0].isIntersecting; });
+    observer.observe(document.body);
+    var traces = [
+      [{x:0,y:140},{x:340,y:140},{x:340,y:260},{x:620,y:260},{x:620,y:140},{x:1000,y:140},{x:1000,y:320}],
+      [{x:1200,y:240},{x:860,y:240},{x:860,y:420},{x:540,y:420}],
+      [{x:0,y:560},{x:260,y:560},{x:260,y:700},{x:520,y:700},{x:520,y:860},{x:180,y:860}]
+    ];
+    for(var i=0; i<5; i++) packets.push({t: Math.floor(Math.random()*traces.length), p: Math.random(), v: 0.002+Math.random()*0.003});
+    function getPoint(trace, p){
+      var segs = trace.length-1, total=0;
+      var lengths = [];
+      for(var i=0; i<segs; i++){
+        var d = Math.abs(trace[i+1].x-trace[i].x) + Math.abs(trace[i+1].y-trace[i].y);
+        lengths.push(d); total+=d;
+      }
+      var target = p*total, curr=0;
+      for(var i=0; i<segs; i++){
+        if(curr+lengths[i]>=target){
+          var ratio = (target-curr)/lengths[i];
+          return {x: trace[i].x + (trace[i+1].x-trace[i].x)*ratio, y: trace[i].y + (trace[i+1].y-trace[i].y)*ratio};
+        }
+        curr+=lengths[i];
+      }
+      return trace[trace.length-1];
+    }
+    function draw(){
+      if(!active){ requestAnimationFrame(draw); return; }
+      ctx.clearRect(0,0,w,h);
+      ctx.save();
+      var s = Math.max(w/1200, h/1400); ctx.scale(s,s);
+      ctx.strokeStyle='rgba(45,212,191,0.05)'; ctx.lineWidth=2;
+      for(var i=0; i<traces.length; i++){
+        ctx.beginPath();
+        for(var j=0; j<traces[i].length; j++){
+          if(j==0) ctx.moveTo(traces[i][j].x, traces[i][j].y);
+          else ctx.lineTo(traces[i][j].x, traces[i][j].y);
+        }
+        ctx.stroke();
+      }
+      for(var i=0; i<packets.length; i++){
+        var pk = packets[i]; pk.p+=pk.v; if(pk.p>1){ pk.p=0; pk.t=Math.floor(Math.random()*traces.length); }
+        var pos = getPoint(traces[pk.t], pk.p);
+        ctx.beginPath(); ctx.arc(pos.x,pos.y,4,0,Math.PI*2);
+        ctx.fillStyle='rgba(45,212,191,0.8)'; ctx.fill();
+      }
+      ctx.restore();
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+</script>
+</body>
+</html>

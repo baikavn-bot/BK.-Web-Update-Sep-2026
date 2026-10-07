@@ -7,7 +7,29 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ---
 
+## 06/10/2026 — trên `main` qua Pull Request
+
+**Tài liệu**
+- Chuẩn bị chuyển sang **Claude Code**: `.claude/settings.json` (lệnh agent được chạy / phải hỏi / bị cấm), `docs/chuyen-sang-claude-code.md` (checklist ngày đầu). Luật git đổi: **agent push nhánh riêng, Thắng gộp PR**; không ai push `main`. Người xem site không thấy gì khác.
+- Vá `.claude/settings.json`: chặn thêm các cách viết lệnh khác đẩy được lên `main` (`-u` / `--set-upstream`, `HEAD`, `refs/heads/main`, `+`, `--all`, `--mirror`, địa chỉ repo viết thẳng, `git push` trống, `gh pr merge`); xoá nhánh trên máy (`git branch -d/-D`) phải hỏi trước.
+
 ## 05/10/2026 — trên `main` qua Pull Request
+
+**Đổi**
+- **Header đứng yên khi cuộn trang** (cố định ở mép trên, mọi trang). Bấm link tới một mục (vd. «Liên hệ») thì mục đó không bị header che.
+- Nút **«Liên hệ»** trên header (desktop + menu mobile) mặc định hiện ở trạng thái **Active** (bóng chìm), theo Figma.
+
+**Thêm**
+- **5 công cụ chẩn đoán miễn phí** — nút Hero «… miễn phí» ở 5 trang dịch vụ giờ dẫn tới công cụ thật (trước đó trỏ về form liên hệ): `/ceo-blueprint/assessment` · `/finance/assessment` · `/remote-ops/survey` · `/ai-os/diagnosis` · `/marketing/diagnostic` (đường dẫn giữ như site cũ). Câu hỏi, cách tính điểm, gói đề xuất giữ y bản cũ (sếp chốt). Khách xem kết quả ngay; kết quả gửi mail về BAIKA. Spec: `docs/cong-cu-chan-doan/SPEC-MASTER.md`.
+
+**Đổi**
+- Trang **Chính sách bảo mật** dùng **bản chính thức** Kapi đã sửa và duyệt (Figma `971:3638`): điền tên công ty, mã số doanh nghiệp, thời hạn lưu 24 tháng, thời hạn phản hồi, nơi đặt máy chủ; thêm phần công cụ chẩn đoán, chuyển dữ liệu ra nước ngoài, rút lại đồng ý. Hết chỗ [ngoặc vuông]. Ngày cập nhật: 05/10/2026. Bỏ câu «gửi kết quả qua email» vì công cụ chưa có chức năng này.
+
+**Thêm (cho máy tìm kiếm)**
+- `robots.txt` và `sitemap.xml` (danh sách trang, tự sinh lúc build). Người xem không thấy gì khác; giúp Google đọc đủ trang khi baika.vn chuyển sang v2.
+
+**Tài liệu**
+- Spec nội dung 4 trang chưa dựng, chép nguyên văn từ site cũ baika.vn (`docs/trang-con-thieu/`) + dữ liệu 155 mô hình kinh doanh. Chưa đổi gì trên site.
 
 **Thêm**
 - Trang **Chính sách bảo mật** `/chinh-sach-bao-mat` — **bản nháp, chờ Pháp lý duyệt** (còn chỗ [ngoặc vuông]). Mobile: bảng nhà cung cấp xếp thành khối dọc.

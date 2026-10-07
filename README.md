@@ -27,7 +27,7 @@ Báo lỗ hổng bảo mật: [`SECURITY.md`](SECURITY.md).
 
 ## Ai làm gì
 
-Công ty **không có lập trình viên**. Code do agent (Claude) viết. **Thắng Trương** (designer) duyệt và tự chạy `git push`. Vercel tự dựng lại site sau mỗi lần push.
+Công ty **không có lập trình viên**. Code do agent (Claude) viết. Agent push lên nhánh riêng; **Thắng Trương** (designer) duyệt bản preview và gộp Pull Request vào `main`. Vercel tự dựng lại site sau mỗi lần push.
 
 ---
 

@@ -11,7 +11,8 @@ Công ty **không có dev**. Website do agent dựng; người duyệt là Thắ
 | Việc | Ai |
 | --- | --- |
 | Sửa code, sửa tài liệu, tạo commit | Agent |
-| `git push` · mở và gộp Pull Request | **Người** (Thắng hoặc sếp) — agent không cầm thông tin đăng nhập GitHub / Vercel |
+| `git push` **nhánh riêng** | Agent (từ 06/10/2026, Claude Code trên máy Thắng — dùng phiên đăng nhập đã lưu, không thấy mật khẩu). **Không bao giờ push `main`** |
+| Mở và gộp Pull Request | **Người** (Thắng hoặc sếp) |
 | Duyệt bằng mắt bản preview trước khi gộp | Thắng |
 | Quyết định nội dung, giá, ra mắt | Sếp |
 
@@ -44,7 +45,7 @@ Không ai gửi mật khẩu hay khoá qua chat, email hay file trong repo. Mỗ
 
 ## 4. Đưa một thay đổi lên web
 
-1. Agent commit trên nhánh riêng → người `git push origin <tên-nhánh>`.
+1. Agent commit trên nhánh riêng → agent `git push -u origin <tên-nhánh>` (trước 06/10: người push).
 2. GitHub hiện **Compare & pull request** → bấm → mẫu mô tả tự điền → **Create pull request**.
 3. Đợi kiểm tra tự động **`kiem-tra`** ✓ xanh (build + luật tĩnh + 11 ca ước tính). Đỏ thì **không gộp** — gửi agent sửa.
 4. Mở link preview Vercel trong PR, **nhìn bằng mắt**. CI không thay được bước này.

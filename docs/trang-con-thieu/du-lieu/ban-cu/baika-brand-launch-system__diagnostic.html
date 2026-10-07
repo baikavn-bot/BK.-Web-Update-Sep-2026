@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAIKA Brand Launch System — Chẩn đoán thương hiệu</title>
+<meta name="description" content="Chẩn đoán mức độ sẵn sàng thương hiệu: nhận Brand Readiness Score và gói triển khai đề xuất.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%23FF6B35'/%3E%3Cpath d='M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2M12 15l-3-3a22 22 0 0 1 8-10c2.5 0 4 1.5 4 4a22 22 0 0 1-10 8z' fill='none' stroke='%231A0F06' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#0D0605">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:title" content="BAIKA — Chẩn đoán thương hiệu">
+<meta property="og:description" content="Đo Brand Readiness Score trong 8 bước và nhận gói triển khai đề xuất theo đúng tình trạng của bạn.">
+<meta property="og:image" content="https://baikamkt.com/og-image.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://baikamkt.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/baika-suite/baika-brand-launch-system/baika.css">
+<style>
+.wrap{max-width:780px}
+.topnav{padding:18px 0}.topnav .inner{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.04em}
+.brand .mark{width:34px;height:34px;border-radius:10px;background:var(--fire);display:grid;place-items:center;box-shadow:0 8px 20px -6px var(--glow)}
+.brand small{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.2em;color:var(--ink-mute);font-weight:500}
+.back{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-soft);display:flex;align-items:center;gap:7px;transition:.2s}.back:hover{color:var(--gold)}
+/* progress */
+.prog-wrap{margin:14px 0 26px}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-soft)}
+.prog-top .pname{color:var(--gold)}
+.prog-bar{height:6px;border-radius:99px;background:rgba(244,239,230,.08);overflow:hidden;position:relative}
+.prog-bar i{display:block;height:100%;background:var(--fire);border-radius:99px;width:0;transition:width .5s cubic-bezier(.22,.8,.3,1);box-shadow:0 0 14px -1px var(--glow)}
+.stepper{display:flex;gap:4px;margin-top:14px;align-items:flex-end;height:28px}
+.sdot{flex:1;border-radius:3px 3px 1px 1px;background:rgba(244,239,230,.12);transition:height .4s cubic-bezier(.3,.8,.3,1),background .4s;height:22%}
+.sdot.done{background:linear-gradient(180deg,#FF6B35,#FF3D7F);height:78%}
+.sdot.cur{background:linear-gradient(180deg,#FF3D7F,#8B5CF6);box-shadow:0 0 10px -1px var(--glow);animation:wavebeat 1s ease-in-out infinite}
+@keyframes wavebeat{0%,100%{height:60%}50%{height:95%}}
+@media (prefers-reduced-motion: reduce){.sdot.cur{animation:none;height:78%}}
+/* draft banner */
+.draft-banner{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--glass-2);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;color:var(--ink-soft)}
+.draft-banner svg{color:var(--gold);flex-shrink:0}.db-actions{display:flex;gap:8px;margin-left:auto}
+/* step card */
+.step-card{padding:34px 32px;border-radius:var(--r-lg);position:relative;overflow:hidden;animation:stepIn .4s cubic-bezier(.22,.8,.3,1)}
+@keyframes stepIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.step-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--orange),transparent 60%)}
+.step-eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--gold);margin-bottom:8px}
+.step-card h2{font-size:23px;margin-bottom:6px}.step-card .desc{font-size:13.5px;color:var(--ink-mute);margin-bottom:24px}
+.hint{font-family:var(--mono);font-size:11px;color:var(--ink-mute);margin-top:7px}
+/* level selector */
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:4px}
+.lv{padding:13px 10px;border-radius:12px;border:1px solid var(--line-2);background:rgba(12,17,25,.4);cursor:pointer;text-align:center;font-family:var(--mono);font-size:13px;color:var(--ink-soft);transition:.18s;user-select:none}
+.lv:hover{border-color:var(--gold)}
+.lv .ld{font-size:10px;color:var(--ink-mute);margin-top:3px;font-family:var(--body)}
+.lv.sel{background:var(--fire);color:var(--on-fire);border-color:transparent;font-weight:700}.lv.sel .ld{color:rgba(26,15,6,.7)}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:12px}
+/* result */
+#resultView{display:none}#resultView.show{display:block;animation:fade .5s}
+#resultView .head{text-align:center;max-width:560px;margin:0 auto 28px}
+#resultView .head h1{font-size:clamp(28px,4vw,40px);margin:12px 0 12px}
+#resultView .head p{font-size:14.5px;color:var(--ink-soft)}
+#resultView .card{padding:30px;border-radius:var(--r-lg);margin-bottom:18px}
+.result-top{display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center}
+.gauge-wrap{display:flex;align-items:center;gap:22px}
+.gauge{position:relative;width:160px;height:160px;flex-shrink:0}.gauge svg{transform:rotate(-90deg)}.gauge .gv{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.gauge .gv b{font-family:var(--display);font-size:42px;font-weight:700;color:var(--ink)}.gauge .gv span{font-family:var(--mono);font-size:11px;color:var(--ink-mute);display:block}
+.level-badge{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;padding:7px 15px;border-radius:99px;background:rgba(255,61,127,.16);color:var(--gold);border:1px solid var(--line-2)}
+.radar-box{display:grid;place-items:center}
+.bar-row{margin-bottom:15px}.bar-top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px;color:var(--ink-soft)}.bar-top b{font-family:var(--display);color:var(--gold)}
+.bar-track{height:8px;border-radius:99px;background:rgba(244,239,230,.08);overflow:hidden}.bar-track i{display:block;height:100%;background:var(--fire);border-radius:99px;width:0;box-shadow:0 0 10px -2px var(--glow)}
+.flag-note{display:flex;align-items:flex-start;gap:10px;background:rgba(242,166,90,.1);border:1px solid rgba(242,166,90,.3);border-radius:14px;padding:14px 16px;margin-bottom:18px;font-size:13.5px;color:var(--gold)}.flag-note svg{flex-shrink:0;margin-top:2px}
+.rec-pkg{background:linear-gradient(150deg,#1B2433,#222C3D);border:1px solid var(--orange);border-radius:var(--r-lg);padding:30px;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:var(--shadow-glow)}
+.rec-pkg::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,61,127,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,61,127,.07) 1px,transparent 1px);background-size:30px 30px;opacity:.6;mask-image:radial-gradient(120% 100% at 80% 0,#000,transparent 75%)}
+.rec-pkg .rl{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--gold);margin-bottom:8px;position:relative}.rec-pkg h3{font-size:24px;margin-bottom:8px;position:relative}.rec-pkg p{color:var(--ink-soft);font-size:14px;margin-bottom:18px;position:relative}.rec-pkg ul{list-style:none;display:flex;flex-direction:column;gap:11px;position:relative}.rec-pkg li{display:flex;gap:11px;font-size:14px;color:var(--ink-soft);align-items:flex-start}.rec-pkg li svg{flex-shrink:0;margin-top:2px;color:var(--gold)}
+@media(max-width:640px){.result-top,.gauge-wrap{grid-template-columns:1fr;flex-direction:column;text-align:center}.step-card{padding:26px 20px}.levels{grid-template-columns:1fr}}
+</style>
+  <script src="/baika-suite/baika-brand-launch-system/guard.js"></script>
+<script src="/shield.js" defer></script>
+</head>
+<body>
+<div class="bg-base"></div><div class="bg-grid"></div><div class="orb a"></div><div class="orb b"></div><canvas id="fx"></canvas><div class="grain"></div>
+
+<div class="wrap">
+  <nav class="topnav"><div class="inner">
+    <a href="/" class="brand"><span class="mark"></span><span>BAIKA<small>BRAND DIAGNOSTIC</small></span></a>
+    <a href="/" class="back"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg> Về dịch vụ</a>
+  </div></nav>
+
+  <div id="draftBanner"></div>
+
+  <div id="wizardView">
+    <div class="prog-wrap">
+      <div class="prog-top"><span id="pStep">Nhóm 1/8</span><span class="pname" id="pName"></span></div>
+      <div class="prog-bar"><i id="pBar"></i></div>
+      <div class="stepper" id="stepper"></div>
+    </div>
+    <div class="glass step-card" id="stepCard"></div>
+  </div>
+
+  <div id="resultView"></div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script src="/baika-suite/baika-brand-launch-system/baika-fx.js"></script>
+<script src="/baika-suite/baika-brand-launch-system/api.js"></script>
+<script>
+const {K,SLUG,PHONE_RE,EMAIL_RE,sGet,sSet,sDel,uid,nowISO,normPhone,esc,reduce,UTM,track}=window.BAIKA;
+const $=s=>document.querySelector(s);
+
+function blank(){return{full_name:'',phone:'',email:'',company_name:'',industry:'',company_size:'',product_stage:'',
+ usp_clear:'',product_ready:'',positioning:'',identity:'',core_message:'',
+ channels_integrated:'',mkt_sales_aligned:'',content_calendar:'',
+ sales_materials:'',sales_process:'',
+ launch_goal_clear:'',launch_plan:'',measurement_plan:'',tracking_dashboard:'',content_capacity:'',
+ launch_timeline:'',budget_range:'',consent:false};}
+let D=blank(),cur=0;
+
+const SIZES=[['1_10','1–10'],['11_50','11–50'],['51_200','51–200'],['201_500','201–500'],['500_plus','>500']];
+const STAGES=[['idea','Ý tưởng'],['prototype','Prototype'],['ready_to_launch','Sắp ra mắt'],['already_launched','Đã ra mắt'],['repositioning','Tái định vị']];
+const LEVELS=[['0','Chưa','Chưa có'],['0.5','Một phần','Đang làm'],['1','Rồi','Đã có']];
+const TIMELINES=[['under_2_weeks','<2 tuần'],['2_4_weeks','2–4 tuần'],['1_3_months','1–3 tháng'],['3_6_months','3–6 tháng'],['not_fixed','Chưa cố định']];
+const BUDGETS=[['under_30m','<30 triệu'],['30m_70m','30–70 triệu'],['70m_150m','70–150 triệu'],['150m_300m','150–300 triệu'],['over_300m','>300 triệu'],['not_disclosed','Chưa tiết lộ']];
+const PACKAGES={
+ brand_foundation:{name:'Brand Foundation',d:'Dựng nền tảng thương hiệu vững trước khi ra mắt.',items:['Brand Diagnosis','Brand Strategy','Messaging System','Visual Identity Direction']},
+ imc_launch_blueprint:{name:'IMC Launch Blueprint',d:'Lập kế hoạch truyền thông tích hợp cho chiến dịch.',items:['Brand Foundation','IMC Blueprint','Launch Plan','Content Production Direction']},
+ brand_to_market_launch:{name:'Brand-to-Market Launch',d:'Trọn gói từ thương hiệu đến thị trường và bán hàng.',items:['IMC Launch Blueprint','Sales Enablement Kit','Launch Dashboard','Đồng hành ra mắt']},
+};
+const SUB_LABEL={brand:'Brand Foundation',imc:'IMC / Truyền thông',launch:'Launch Plan',sales:'Sales Enablement',content:'Content',measurement:'Đo lường'};
+/* scored questions: [field, sub_key, weight] */
+const SC=[['usp_clear','brand',1],['product_ready','launch',2],['positioning','brand',2],['identity','brand',1],['core_message','brand',1],['channels_integrated','imc',2],['mkt_sales_aligned','imc',1],['content_calendar','content',1],['sales_materials','sales',2],['sales_process','sales',1],['launch_goal_clear','launch',2],['launch_plan','launch',1],['measurement_plan','measurement',1],['tracking_dashboard','measurement',1],['content_capacity','content',1]];
+
+function levelGroup(field){return `<div class="levels" data-lvl="${field}">${LEVELS.map(([v,l,d])=>`<div class="lv ${D[field]===v?'sel':''}" data-v="${v}">${l}<div class="ld">${d}</div></div>`).join('')}</div>`;}
+function q(field,label){return `<div class="field"><label>${label}</label>${levelGroup(field)}</div>`;}
+
+const STEPS=[
+ {name:'Thông tin doanh nghiệp',render:()=>`
+   <div class="row2"><div class="field" data-v="full_name"><label>Họ và tên <span class="req">*</span></label><input data-d="full_name" maxlength="100" value="${esc(D.full_name)}" placeholder="Nguyễn Văn A"><div class="err">Vui lòng nhập họ tên.</div></div><div class="field" data-v="phone"><label>Số điện thoại <span class="req">*</span></label><input data-d="phone" inputmode="tel" value="${esc(D.phone)}" placeholder="0901 234 567"><div class="err">SĐT chưa hợp lệ.</div></div></div>
+   <div class="row2"><div class="field" data-v="company_name"><label>Tên DN / thương hiệu <span class="req">*</span></label><input data-d="company_name" maxlength="160" value="${esc(D.company_name)}" placeholder="Thương hiệu ..."><div class="err">Vui lòng nhập tên doanh nghiệp.</div></div><div class="field" data-v="email"><label>Email</label><input data-d="email" type="email" maxlength="120" value="${esc(D.email)}" placeholder="ban@congty.vn"><div class="err">Email chưa hợp lệ.</div></div></div>
+   <div class="row2"><div class="field"><label>Ngành</label><input data-d="industry" maxlength="120" value="${esc(D.industry)}" placeholder="VD: F&B, mỹ phẩm..."></div><div class="field"><label>Quy mô</label><select data-d="company_size"><option value="">— Chọn —</option>${SIZES.map(([v,l])=>`<option value="${v}" ${D.company_size===v?'selected':''}>${l}</option>`).join('')}</select></div></div>
+   <div class="field"><label>Giai đoạn sản phẩm</label><select data-d="product_stage"><option value="">— Chọn —</option>${STAGES.map(([v,l])=>`<option value="${v}" ${D.product_stage===v?'selected':''}>${l}</option>`).join('')}</select></div>`,
+  validate:()=>{let ok=true;mark('full_name',D.full_name.trim()!=='')||(ok=false);mark('phone',PHONE_RE.test(normPhone(D.phone)))||(ok=false);mark('company_name',D.company_name.trim()!=='')||(ok=false);mark('email',!D.email||EMAIL_RE.test(D.email))||(ok=false);return ok;}},
+ {name:'Tình trạng sản phẩm',render:()=>q('product_ready','Sản phẩm đã sẵn sàng ra mắt thị trường chưa?')+q('usp_clear','Điểm khác biệt (USP) của sản phẩm đã rõ chưa?'),validate:()=>true},
+ {name:'Tình trạng thương hiệu',render:()=>q('positioning','Định vị thương hiệu đã rõ ràng chưa?')+q('identity','Bộ nhận diện (logo/visual) đã có chưa?')+q('core_message','Thông điệp cốt lõi đã thống nhất chưa?'),validate:()=>true},
+ {name:'Tình trạng truyền thông',render:()=>q('channels_integrated','Các kênh truyền thông đã được lên kế hoạch tích hợp chưa?')+q('mkt_sales_aligned','Marketing và sales có nói cùng một thông điệp không?')+q('content_calendar','Đã có lịch nội dung/chiến dịch chưa?'),validate:()=>true},
+ {name:'Tình trạng sales enablement',render:()=>q('sales_materials','Đội sales đã có tài liệu chốt khách (deck/proposal) chưa?')+q('sales_process','Quy trình bán hàng đã rõ ràng chưa?'),validate:()=>true},
+ {name:'Mục tiêu launch',render:()=>q('launch_goal_clear','Mục tiêu ra mắt (KPI) đã rõ ràng chưa?')+q('launch_plan','Đã có kế hoạch ra mắt chi tiết chưa?')+q('measurement_plan','Đã có cách đo lường hiệu quả launch chưa?')+q('tracking_dashboard','Đã có dashboard/công cụ theo dõi chưa?')+q('content_capacity','Năng lực sản xuất nội dung đã sẵn sàng chưa?'),validate:()=>true},
+ {name:'Timeline mong muốn',render:()=>`<div class="field"><label>Bạn dự kiến ra mắt trong bao lâu?</label><select data-d="launch_timeline"><option value="">— Chọn —</option>${TIMELINES.map(([v,l])=>`<option value="${v}" ${D.launch_timeline===v?'selected':''}>${l}</option>`).join('')}</select><div class="hint">// Timeline rõ ràng giúp BAIKA đề xuất gói phù hợp hơn.</div></div>`,validate:()=>true},
+ {name:'Ngân sách dự kiến',render:()=>`<div class="field"><label>Ngân sách dự kiến cho chương trình ra mắt?</label><select data-d="budget_range"><option value="">— Chọn —</option>${BUDGETS.map(([v,l])=>`<option value="${v}" ${D.budget_range===v?'selected':''}>${l}</option>`).join('')}</select></div>
+   <label class="consent"><input type="checkbox" id="consentBox" ${D.consent?'checked':''}><span>Tôi đồng ý để BAIKA liên hệ tư vấn theo chính sách bảo mật. <span style="color:var(--danger)">*</span></span></label>`,
+  validate:()=>{return D.consent;}},
+];
+function mark(field,ok){const el=document.querySelector(`[data-v="${field}"]`);if(el)el.classList.toggle('invalid',!ok);return ok;}
+
+function renderStep(){
+  const s=STEPS[cur];
+  $('#pStep').textContent=`Nhóm ${cur+1}/8`;$('#pName').textContent=s.name;
+  $('#pBar').style.width=(cur/7*100)+'%';
+  $('#stepper').innerHTML=STEPS.map((_,i)=>`<span class="sdot ${i<cur?'done':''} ${i===cur?'cur':''}"></span>`).join('');
+  const desc=['Thông tin để BAIKA liên hệ & phân loại.','Mức độ sẵn sàng của sản phẩm.','Nền tảng thương hiệu hiện tại.','Hiện trạng truyền thông tích hợp.','Khả năng hỗ trợ đội bán hàng.','Mục tiêu, kế hoạch & đo lường ra mắt.','Thời gian dự kiến ra mắt.','Ngân sách & xác nhận tư vấn.'][cur];
+  $('#stepCard').innerHTML=`<div class="step-eyebrow">// NHÓM ${cur+1} / 8</div><h2>${s.name}</h2><div class="desc">${desc}</div>${s.render()}
+   <div class="nav-btns">${cur>0?'<button class="btn btn-ghost" id="backBtn">← Quay lại</button>':'<span></span>'}
+   ${cur<7?'<button class="btn btn-primary mag" id="nextBtn">Tiếp tục →</button>':'<button class="btn btn-primary mag" id="submitBtn"><span class="spinner"></span><span class="btn-label">Xem kết quả</span></button>'}</div>`;
+  bindStep();window.BAIKA.initTilt();
+}
+function bindStep(){
+  const c=$('#stepCard');
+  c.addEventListener('input',e=>{const t=e.target;if(t.dataset.d){D[t.dataset.d]=t.value;if(t.dataset.d==='phone'){let d=t.value.replace(/[^\d+]/g,'');if(!d.startsWith('+')){d=d.replace(/\D/g,'');t.value=d.replace(/(\d{4})(\d{3})(\d{0,4})/,'$1 $2 $3').trim();D.phone=t.value;}}t.closest('[data-v]')?.classList.remove('invalid');}});
+  c.addEventListener('change',e=>{const t=e.target;if(t.dataset.d)D[t.dataset.d]=t.value;if(t.id==='consentBox')D.consent=t.checked;});
+  c.querySelectorAll('[data-lvl]').forEach(g=>g.querySelectorAll('.lv').forEach(lv=>lv.addEventListener('click',()=>{D[g.dataset.lvl]=lv.dataset.v;g.querySelectorAll('.lv').forEach(x=>x.classList.toggle('sel',x===lv));})));
+  $('#backBtn')?.addEventListener('click',()=>{cur--;renderStep();window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});});
+  $('#nextBtn')?.addEventListener('click',()=>{if(!STEPS[cur].validate()){$('.invalid')?.scrollIntoView({behavior:'smooth',block:'center'});return;}cur++;saveDraft();renderStep();window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});});
+  $('#submitBtn')?.addEventListener('click',submit);
+}
+/* === part 2c continues below in same script === */
+
+/* scoring */
+function computeScores(){
+  const subRaw={brand:0,imc:0,launch:0,sales:0,content:0,measurement:0};
+  const subMax={brand:0,imc:0,launch:0,sales:0,content:0,measurement:0};
+  let totRaw=0,totMax=0;
+  SC.forEach(([k,key,w])=>{const v=D[k];if(v===''||v==null)return;const lvl=Number(v);subRaw[key]+=lvl*w;subMax[key]+=w;totRaw+=lvl*w;totMax+=w;});
+  const sub={};Object.keys(subRaw).forEach(k=>sub[k]=subMax[k]?Math.round(subRaw[k]/subMax[k]*100):0);
+  const overall=totMax?Math.round(totRaw/totMax*100):0;
+  return{sub,overall};
+}
+function mapPackage(sub,timeline){
+  const keys=['brand','imc','launch','sales','content','measurement'];
+  const lowCount=keys.filter(k=>sub[k]<50).length;
+  const clear=timeline&&timeline!=='not_fixed';
+  if(lowCount>=4&&clear)return'brand_to_market_launch';
+  if(sub.brand>=45&&sub.imc<65)return'imc_launch_blueprint';
+  if(sub.brand<45)return'brand_foundation';
+  return'imc_launch_blueprint';
+}
+async function activePackages(){const a=await sGet(K.admin);const def=['brand_foundation','imc_launch_blueprint','brand_to_market_launch'];if(a&&a.cms&&Array.isArray(a.cms.packages)){const act=a.cms.packages.filter(p=>p.is_active).map(p=>p.code);return act.length?act:def;}return def;}
+async function resolvePackage(mapped){const act=await activePackages();if(act.includes(mapped))return{pkg:mapped,fallback:false};const PRIORITY=['brand_to_market_launch','imc_launch_blueprint','brand_foundation'];const fb=PRIORITY.find(p=>act.includes(p))||mapped;return{pkg:fb,fallback:true};}
+
+async function submit(){
+  if(!STEPS[cur].validate()){toast('Vui lòng đồng ý điều khoản để tiếp tục.',true);return;}
+  const btn=$('#submitBtn');btn.classList.add('is-loading');btn.disabled=true;btn.querySelector('.btn-label').textContent='Đang tính điểm…';
+  await new Promise(r=>setTimeout(r,800));
+  // ---- DB mode: gửi chẩn đoán lên server (lưu vào lịch sử khách hàng) ----
+  await (window.BAIKA.apiReady||Promise.resolve());
+  if(window.BAIKA.apiOn){
+    try{
+      const payload={full_name:D.full_name,phone:D.phone,email:D.email,company_name:D.company_name,industry:D.industry,company_size:D.company_size,product_stage:D.product_stage,launch_timeline:D.launch_timeline,budget_range:D.budget_range,
+        responses:SC.map(([k])=>({question_code:k,answer:D[k]||null})),utm:UTM};
+      const r=await window.BAIKA.api.submitDiagnostic(payload);
+      if(r.ok&&r.data){await sDel(K.draft);await track('diagnostic_submitted',{lead_id:r.data.lead.id,score:r.data.overall,package:r.data.recommended_package_code,fallback:r.data.fallback_applied,mode:'db'});showResult(r.data.sub,r.data.overall,r.data.recommended_package_code,r.data.fallback_applied,r.data.mismatch);return;}
+    }catch(e){/* rớt mạng -> dùng localStorage bên dưới */}
+  }
+  const{sub,overall}=computeScores();
+  const mapped=mapPackage(sub,D.launch_timeline);
+  const{pkg,fallback}=await resolvePackage(mapped);
+  const mismatch=(D.launch_timeline==='under_2_weeks'&&D.budget_range==='under_30m');
+  // GD2: gui ket qua ve he thong hop nhat BAIKA (khong chan luong cu)
+  try{fetch('/api/v1/public/assessments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({siteId:'marketing',tool:'BRAND_DIAGNOSTIC',fullName:D.full_name,phone:D.phone,email:D.email||null,companyName:D.company_name||null,answers:{responses:SC.map(([k])=>({q:k,a:D[k]||null})),timeline:D.launch_timeline||null,budget:D.budget_range||null,product_stage:D.product_stage||null},scores:sub,totalScore:overall,recommendation:pkg,sourcePage:location.pathname})}).catch(()=>{});}catch(e){}
+  const leads=await sGet(K.leads)||[];
+  const recent=leads.filter(l=>(Date.now()-new Date(l.created_at))<60*60*1000);
+  const spam=recent.length>=4; // EC-15 approx (cùng phiên nhiều thương hiệu)
+  const phone=normPhone(D.phone),email=(D.email||'').trim().toLowerCase();
+  const dr={responses:SC.map(([k])=>({question_code:k,answer:D[k]||null})),timeline:D.launch_timeline||null,budget:D.budget_range||null,product_stage:D.product_stage||null,sub_scores:sub,brand_readiness_score:overall,recommended_package_code:pkg,mapped_package:mapped,fallback_applied:fallback,created_at:nowISO()};
+  const dup=leads.find(l=>phone&&normPhone(l.phone)===phone&&l.service_slug===SLUG&&(Date.now()-new Date(l.created_at))<30*24*3600*1000);
+  let lead;
+  if(dup){lead=dup;dup.brand_readiness_score=overall;dup.recommended_package_code=pkg;dup.diagnostic_responses=dr;dup.mismatch_expectation=mismatch;dup.spam_suspected=dup.spam_suspected||spam;dup.last_interested_at=nowISO();dup.main_needs=dup.main_needs&&dup.main_needs.length?dup.main_needs:[];dup.status_logs=dup.status_logs||[];dup.status_logs.push({at:nowISO(),type:'diagnostic',note:'Hoàn tất chẩn đoán · điểm '+overall});}
+  else{lead={id:uid('bl'),full_name:D.full_name.trim(),phone,email:email||null,company_name:D.company_name.trim(),position_title:null,industry:D.industry||null,company_size:D.company_size||null,product_stage:D.product_stage||null,main_needs:[],budget_range:D.budget_range||null,launch_timeline:D.launch_timeline||null,lead_source:'diagnostic_form',service_slug:SLUG,utm_source:UTM.utm_source||null,utm_medium:UTM.utm_medium||null,utm_campaign:UTM.utm_campaign||null,brand_readiness_score:overall,recommended_package_code:pkg,status:'new',assigned_to_user_id:null,possible_duplicate:false,spam_suspected:spam,mismatch_expectation:mismatch,version:1,created_at:nowISO(),last_interested_at:nowISO(),status_logs:[{at:nowISO(),type:'created',note:'Tạo lead từ chẩn đoán · điểm '+overall}],diagnostic_responses:dr};leads.push(lead);}
+  await sSet(K.leads,leads);
+  await track('diagnostic_submitted',{lead_id:lead.id,score:overall,package:pkg,fallback});
+  await sDel(K.draft);
+  showResult(sub,overall,pkg,fallback,mismatch);
+}
+
+function radarSVG(sub){
+  const order=['brand','imc','launch','sales','content','measurement'];const ax=['Brand','IMC','Launch','Sales','Content','Đo lường'];
+  const cx0=130,cy0=130,R=96;const pt=(i,r)=>{const a=-Math.PI/2+i/6*Math.PI*2;return[cx0+Math.cos(a)*R*r,cy0+Math.sin(a)*R*r];};
+  let g='';for(let ring=1;ring<=4;ring++){let p='';for(let i=0;i<6;i++){const[x,y]=pt(i,ring/4);p+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);}g+=`<path d="${p}Z" fill="none" stroke="rgba(244,239,230,.1)" stroke-width="1"/>`;}
+  for(let i=0;i<6;i++){const[x,y]=pt(i,1);g+=`<line x1="${cx0}" y1="${cy0}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(244,239,230,.1)"/>`;const[lx,ly]=pt(i,1.22);g+=`<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" fill="#857F73" font-family="JetBrains Mono,monospace" font-size="9" text-anchor="middle" dominant-baseline="middle">${ax[i]}</text>`;}
+  let poly='';for(let i=0;i<6;i++){const[x,y]=pt(i,(sub[order[i]]||0)/100);poly+=(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);}poly+='Z';
+  g+=`<defs><linearGradient id="rgg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6B35"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs>`;
+  g+=`<path id="rpoly" d="${poly}" fill="rgba(255,107,53,.2)" stroke="url(#rgg)" stroke-width="2" stroke-linejoin="round" style="${reduce?'':'opacity:0;transform:scale(.3);transform-origin:130px 130px;transition:opacity .8s ease,transform .8s cubic-bezier(.22,.8,.3,1)'}"/>`;
+  for(let i=0;i<6;i++){const[x,y]=pt(i,(sub[order[i]]||0)/100);g+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#8B5CF6"/>`;}
+  return `<svg width="260" height="260" viewBox="0 0 260 260">${g}</svg>`;
+}
+
+function showResult(sub,overall,pkgCode,fallback,mismatch){
+  $('#wizardView').style.display='none';
+  const p=PACKAGES[pkgCode];const C=427,off=C-C*overall/100;
+  const level=overall<30?'Khởi đầu':overall<60?'Đang định hình':overall<80?'Sẵn sàng':'Sẵn sàng cao';
+  const order=['brand','imc','launch','sales','content','measurement'];
+  $('#resultView').innerHTML=`
+   <div class="head"><span class="eyebrow">KẾT QUẢ SƠ BỘ</span><h1>Brand Readiness Score</h1><p>Đây là điểm <b>sơ bộ</b> để ưu tiên xử lý — chưa phải kết luận tư vấn cuối cùng.</p></div>
+   <div class="glass card">
+     <div class="result-top">
+       <div class="gauge"><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="68" fill="none" stroke="rgba(244,239,230,.08)" stroke-width="13"/><circle id="gArc" cx="80" cy="80" r="68" fill="none" stroke="url(#gg)" stroke-width="13" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}"/><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6B35"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs></svg><div class="gv"><b id="gNum">0</b><span>/ 100</span></div></div>
+       <div><div class="level-badge">${level}</div><p style="font-size:13px;color:var(--ink-mute);margin-top:12px;max-width:220px">Mức độ sẵn sàng đưa thương hiệu ra thị trường, tổng hợp trên 6 trục.</p></div>
+       <div class="radar-box">${radarSVG(sub)}</div>
+     </div>
+   </div>
+   <div class="glass card"><h2 style="font-size:18px;margin-bottom:16px">Phân tích theo nhóm</h2>${order.map(k=>`<div class="bar-row"><div class="bar-top"><span>${SUB_LABEL[k]}</span><b>${sub[k]}</b></div><div class="bar-track"><i data-bar style="width:0%" data-w="${sub[k]}"></i></div></div>`).join('')}</div>
+   ${mismatch?`<div class="flag-note"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg> Timeline khá gấp so với ngân sách — BAIKA sẽ tư vấn phương án phù hợp hơn về kỳ vọng.</div>`:''}
+   ${fallback?`<div class="flag-note"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg> Gói phù hợp nhất đang tạm ngưng — BAIKA đề xuất gói thay thế gần nhất bên dưới.</div>`:''}
+   <div class="rec-pkg"><div class="rl">// GÓI ĐỀ XUẤT</div><h3>${p.name}</h3><p>${p.d}</p><ul>${p.items.map(it=>`<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> ${it}</li>`).join('')}</ul></div>
+   <div class="glass card" style="text-align:center"><h2 style="font-size:19px;margin-bottom:8px">Bước tiếp theo</h2><p style="color:var(--ink-soft);font-size:14.5px;margin-bottom:18px">BAIKA sẽ liên hệ tư vấn chi tiết chương trình ra mắt cho thương hiệu của bạn.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="/#lien-he">Nhận tư vấn</a><a class="btn btn-ghost" href="/">Về trang dịch vụ</a></div></div>`;
+  $('#resultView').classList.add('show');window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  if(reduce){$('#gArc').style.strokeDashoffset=off;$('#gNum').textContent=overall;document.querySelectorAll('[data-bar]').forEach(b=>b.style.width=b.dataset.w+'%');const rp=$('#rpoly');if(rp){rp.style.opacity=1;rp.style.transform='none';}return;}
+  setTimeout(()=>{$('#gArc').style.transition='stroke-dashoffset 1.4s cubic-bezier(.22,.8,.3,1)';$('#gArc').style.strokeDashoffset=off;document.querySelectorAll('[data-bar]').forEach((b,i)=>{b.style.transition=`width 1s ease ${i*100}ms`;b.style.width=b.dataset.w+'%';});const rp=$('#rpoly');if(rp){rp.style.opacity=1;rp.style.transform='scale(1)';}},200);
+  let n=0;const step=()=>{n+=2;if(n>=overall){$('#gNum').textContent=overall;return;}$('#gNum').textContent=n;requestAnimationFrame(step);};setTimeout(step,300);
+}
+
+/* draft every 5s + restore */
+async function saveDraft(){await sSet(K.draft,{D,step:cur,savedAt:nowISO()});}
+setInterval(()=>{if($('#wizardView').style.display!=='none')saveDraft();},5000);
+async function checkDraft(){
+  const dr=await sGet(K.draft);
+  if(dr&&dr.savedAt&&(Date.now()-new Date(dr.savedAt))<7*24*3600*1000&&dr.D&&(dr.D.full_name||dr.step>0)){
+    $('#draftBanner').innerHTML=`<div class="draft-banner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg><span>Có bản nháp đã lưu (nhóm ${dr.step+1}/8). Khôi phục để tiếp tục?</span><div class="db-actions"><button class="btn btn-ghost btn-sm" id="draftDiscard">Bỏ</button><button class="btn btn-primary btn-sm" id="draftRestore">Khôi phục</button></div></div>`;
+    $('#draftRestore').addEventListener('click',()=>{D=Object.assign(blank(),dr.D);cur=Math.min(dr.step,7);$('#draftBanner').innerHTML='';renderStep();});
+    $('#draftDiscard').addEventListener('click',async()=>{await sDel(K.draft);$('#draftBanner').innerHTML='';});
+  }
+}
+function toast(msg,err){const el=document.createElement('div');el.className='toast';el.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="${err?'var(--danger)':'var(--success)'}" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">${err?'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>':'<path d="M20 6 9 17l-5-5"/>'}</svg><span>${esc(msg)}</span>`;$('#toasts').appendChild(el);setTimeout(()=>{el.style.opacity=0;el.style.transition='.3s';setTimeout(()=>el.remove(),300);},3200);}
+
+(async function(){await track('page_view',{page:'brand_diagnostic'});await checkDraft();renderStep();})();
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+</body>
+</html>

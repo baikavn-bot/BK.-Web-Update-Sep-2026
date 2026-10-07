@@ -1,0 +1,19 @@
+---
+// Khảo sát Vận hành Doanh nghiệp — công cụ chẩn đoán miễn phí. Logic + câu chữ giữ y v1 (sếp chốt 05/10/2026).
+// Nút Hero trang /remote-ops dẫn tới đây. Spec: docs/cong-cu-chan-doan/SPEC-MASTER.md
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import CongCuKieuA from '../../components/CongCuKieuA.astro';
+import { REMOTE_OPS } from '../../lib/chan-doan/kieu-a';
+---
+
+<BaseLayout
+  title="Khảo sát Vận hành Doanh nghiệp — BAIKA"
+  description="Đo mức độ hệ thống hóa của bộ máy vận hành trên 8 khu vực — biết doanh nghiệp đang tắc ở đâu. 16 câu hỏi, khoảng 5 phút."
+  pillar="van-hanh"
+>
+  <SiteHeader slot="header" current="/remote-ops" />
+  <CongCuKieuA cc={REMOTE_OPS} />
+  <SiteFooter slot="footer" />
+</BaseLayout>

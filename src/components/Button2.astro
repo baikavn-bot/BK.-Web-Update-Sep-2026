@@ -27,17 +27,23 @@ interface Props {
   disabled?: boolean;
   /** Dùng khi nút là nút gửi form. */
   type?: 'button' | 'submit';
+  /**
+   * Hiện sẵn ở trạng thái `Active` (bóng chìm) thay cho `Normal`.
+   * Thắng chốt 05/10/2026: nút «Liên hệ» trên header mặc định Active.
+   * Rê chuột / focus bàn phím vẫn đổi như mọi nút khác.
+   */
+  active?: boolean;
 }
 const {
   label, href, size = 'md',
   iconLeft = true, iconRight = true,
-  disabled = false, type = 'button',
+  disabled = false, type = 'button', active = false,
 } = Astro.props;
 const Tag = href && !disabled ? 'a' : 'button';
 ---
 
 <Tag
-  class:list={['btn2', `btn2--${size}`]}
+  class:list={['btn2', `btn2--${size}`, { 'btn2--active': active }]}
   href={href && !disabled ? href : undefined}
   type={Tag === 'button' ? type : undefined}
   disabled={Tag === 'button' && disabled ? true : undefined}
@@ -119,6 +125,7 @@ const Tag = href && !disabled ? 'a' : 'button';
   .btn2__icon :global(svg) { display: block; width: 24px; height: 24px; }
 
   /* --- Trạng thái — ngôn ngữ chung DEC-014 / DEC-015 ------------------ */
+  .btn2--active { box-shadow: var(--shadow-inner-press); }   /* đặt TRƯỚC hover/focus để 2 trạng thái đó vẫn đè được */
   .btn2:hover  { box-shadow: var(--shadow-inner); }
   .btn2:active { box-shadow: var(--shadow-inner-press); }
   .btn2:focus-visible {

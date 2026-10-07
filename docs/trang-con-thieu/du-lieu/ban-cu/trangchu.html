@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html><head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/shield.js" defer></script>
+<title>BAIKA Technology — Hệ sinh thái tăng trưởng doanh nghiệp</title>
+<meta name="description" content="BAIKA đồng hành cùng CEO từ chiến lược, vận hành đến công nghệ AI — biến mọi ý tưởng thành một hệ thống vận hành chuẩn xác.">
+<script id="hub-link-boot">(function(){function wire(){var name=document.querySelector(".b-hubname");var ic=document.querySelector(".b-hubic");if(!name){return setTimeout(wire,200);} var targets=[];[name,ic].forEach(function(el){if(el){targets.push(el);if(el.parentElement)targets.push(el.parentElement);}});targets.forEach(function(el){el.style.cursor="pointer";el.setAttribute("title","Vào Kho Ý Tưởng");el.addEventListener("click",function(ev){ev.stopPropagation();var m={type:"OPEN_SERVICE",id:"tram-y-tuong"};if(window.parent&&window.parent!==window){window.parent.postMessage(m,"*");}else{window.location.href="/tram-y-tuong";}},true);});}(function w(){document.querySelector(".b-hubname")?wire():setTimeout(w,200);})();})();</script><script id="orbit-node-link-boot">(function(){function wire(){var nodes=document.querySelectorAll(".b-node[data-sid]");if(!nodes.length){return setTimeout(wire,200);}nodes.forEach(function(el){el.style.cursor="pointer";el.addEventListener("click",function(ev){ev.preventDefault();ev.stopPropagation();var id=el.getAttribute("data-sid");var m={type:"OPEN_SERVICE",id:id};if(window.parent&&window.parent!==window){window.parent.postMessage(m,"*");}else{var idMap={"business-advisory":"/advisory","remote-ops":"/remote-ops","baika-brand-launch-system":"/marketing","baika-finance-readiness-system":"/finance","baika-legal-tax-control-system":"/legal-tax","baika-ai-operating-system":"/ai-os","ceo-blueprint":"/ceo-blueprint","tram-ket-noi":"https://tramketnoi.com/"};window.location.href=idMap[id]||"/";}},true);});}(function w(){document.querySelector(".b-node[data-sid]")?wire():setTimeout(w,200);})();})();</script>
+
+
+<style id="baika-logo-keyframes">
+  @keyframes logoFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-2px) scale(1.03); } }
+  @keyframes logoHalo { 0%,100% { opacity: 0.4; transform: scale(0.92); } 50% { opacity: 0.85; transform: scale(1.1); } }
+  @keyframes logoWave { 0% { transform: scale(0.62); opacity: 0.75; } 100% { transform: scale(1.55); opacity: 0; } }
+  @keyframes logoCharge { 0%,100% { opacity: 0.22; } 50% { opacity: 0.72; } }
+  @keyframes logoSweep { 0% { background-position: 170% 0; } 56%,100% { background-position: -170% 0; } }
+  @keyframes logoOrbit { to { transform: rotate(360deg); } }
+  @keyframes bSpin { to { transform: rotate(360deg); } }
+  @keyframes bSpinR { to { transform: rotate(-360deg); } }
+</style>
+
+<!-- ANTI-DEVTOOLS SECURITY -->
+<script>
+(function() {
+    // 1. Chống chuột phải
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Chống phím tắt F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 123 || // F12
+           (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || // Ctrl+Shift+I/J/C
+           (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 83))) { // Ctrl+U, Ctrl+S
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. Vô hiệu hóa bôi đen
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    });
+
+    // 4. Debugger loop để gây khó khăn khi bật F12
+    setInterval(function() {
+        var before = new Date().getTime();
+        debugger;
+        var after = new Date().getTime();
+        if (after - before > 100) {
+            // Có khả năng devtools đang mở, có thể chuyển hướng trang hoặc xóa nội dung
+            document.body.innerHTML = "<div style='display:flex;align-items:center;justify-content:center;height:100vh;background:#162032;color:#4FE5FF;font-family:sans-serif;'><h1>Bảo mật được kích hoạt. Vui lòng đóng DevTools.</h1></div>";
+        }
+    }, 1000);
+})();
+</script>
+<style>
+    /* Chống copy CSS */
+    body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+</style>
+<!-- END ANTI-DEVTOOLS -->
+
+</head>
+<body>
+<x-dc id="dc-root">
+
+<!-- KHUNG THÔNG BÁO CHẠY CHỮ MỚI -->
+<div id="premium-ticker-wrapper" style="position: absolute; left: 50%; transform: translateX(-50%); width: 86%; max-width: 800px; z-index: 9999; height: 32px; border-radius: 30px; display: flex; align-items: center; justify-content: center;">
+  <div id="premium-ticker">
+      <!-- Left Fade -->
+      <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 40px; background: linear-gradient(90deg, rgba(9,13,26,1) 0%, transparent 100%); z-index: 4; pointer-events: none; border-radius: 30px 0 0 30px;"></div>
+      
+      <!-- Glowing Dot Indicator -->
+      <div style="position: absolute; left: 18px; width: 6px; height: 6px; background-color: #00F0FF; border-radius: 50%; box-shadow: 0 0 10px #00F0FF, 0 0 20px #00F0FF; z-index: 5; animation: pulseDot 2s infinite;"></div>
+      
+      <!-- Scrolling Text -->
+      <div class="ticker-scroll-content" style="display: inline-flex; white-space: nowrap; animation: smoothScroll 25s linear infinite; align-items: center; padding-left: 30px; z-index: 3; position: relative;">
+          <span style="color: #A0F0FF; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; margin-right: 50px; text-shadow: 0 0 8px rgba(0,240,255,0.4);">
+            <strong style="color: #00F0FF; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,240,255,0.8);">CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA</strong> <span style="color: rgba(255,255,255,0.4); margin: 0 8px; text-shadow: none;">|</span> Bộ giải pháp toàn diện cho doanh nghiệp <span style="color: rgba(255,255,255,0.4); margin: 0 8px; text-shadow: none;">|</span> Địa chỉ: Tầng 15 số 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TPHCM <span style="color: rgba(255,255,255,0.4); margin: 0 8px; text-shadow: none;">|</span> Hotline: 0905.247.365
+          </span>
+          <span style="color: #A0F0FF; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; margin-right: 50px; text-shadow: 0 0 8px rgba(0,240,255,0.4);">
+            <strong style="color: #00F0FF; text-transform: uppercase; text-shadow: 0 0 10px rgba(0,240,255,0.8);">CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA</strong> <span style="color: rgba(255,255,255,0.4); margin: 0 8px; text-shadow: none;">|</span> Bộ giải pháp toàn diện cho doanh nghiệp <span style="color: rgba(255,255,255,0.4); margin: 0 8px; text-shadow: none;">|</span> Địa chỉ: Tầng 15 số 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TPHCM <span style="color: rgba(255,255,255,0.4); margin: 0 8px; text-shadow: none;">|</span> Hotline: 0905.247.365
+          </span>
+        </div>
+
+      <!-- Right Fade -->
+      <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 40px; background: linear-gradient(270deg, rgba(9,13,26,1) 0%, transparent 100%); z-index: 4; pointer-events: none; border-radius: 0 30px 30px 0;"></div>
+  </div>
+</div>
+
+<style id="ticker-styles">
+  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;700&display=swap');
+
+  #premium-ticker-wrapper {
+    top: auto !important; bottom: 160px !important;
+  }
+
+  #premium-ticker {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    font-family: 'Chakra Petch', sans-serif;
+  }
+
+  /* The rotating neon border effect */
+  #premium-ticker::before {
+    content: '';
+    position: absolute;
+    top: -150%; left: -50%;
+    width: 200%; height: 400%;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 65%, #00F0FF 100%);
+    animation: rotateNeon 3s linear infinite;
+    z-index: 1;
+  }
+
+  /* Inner background to mask the center and only show the border */
+  #premium-ticker::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 29px;
+    background: linear-gradient(90deg, rgba(9,13,26,0.8) 0%, rgba(9,13,26,0.95) 15%, rgba(9,13,26,0.95) 85%, rgba(9,13,26,0.8) 100%);
+    z-index: 2;
+  }
+
+  @keyframes rotateNeon {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  @media (max-width: 768px) {
+    #premium-ticker-wrapper {
+      top: auto !important; bottom: 160px !important; /* Trả lại vị trí phía trên, dưới logo */
+      width: 90% !important;
+      height: 30px !important;
+    }
+  }
+  @keyframes smoothScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes pulseDot {
+    0% { opacity: 0.5; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.5; transform: scale(0.8); }
+  }
+</style>
+
+
+
+
+
+
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<style>/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/assets/home/7a6cfa6dc3a5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/assets/home/8807e77fa0bd.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/assets/home/f74f214e079b.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/home/fe6a292550f5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/home/a46257d03d74.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/home/79141d22ee07.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/home/ee80d72b320a.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/home/8565f3e572f7.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/home/4ca4b0de939a.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/assets/home/f08f144d6ee5.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/assets/home/0ba9b517e5df.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Be Vietnam Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/assets/home/a4759a77d292.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/assets/home/80ced59b1aef.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/assets/home/3c963a23460f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/assets/home/2077a5271e5c.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/home/80ced59b1aef.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/home/3c963a23460f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/home/2077a5271e5c.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/home/80ced59b1aef.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/home/3c963a23460f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/home/2077a5271e5c.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/assets/home/80ced59b1aef.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/assets/home/3c963a23460f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/assets/home/2077a5271e5c.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/home/80ced59b1aef.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/home/3c963a23460f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/home/2077a5271e5c.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/assets/home/80ced59b1aef.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/assets/home/3c963a23460f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Lexend';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/assets/home/2077a5271e5c.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #162032; color: #EDF1F9; font-family: 'Be Vietnam Pro', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow: hidden; height: 100vh; }
+  ::selection { background: rgba(201,168,107,0.32); color: #fff; }
+  ::-webkit-scrollbar { width: 9px; }
+  ::-webkit-scrollbar-track { background: #162032; }
+  ::-webkit-scrollbar-thumb { background: #1d2b4d; border-radius: 9px; }
+  ::-webkit-scrollbar-thumb:hover { background: #2c4170; }
+
+  @keyframes bSpin { to { transform: rotate(360deg); } }
+  @keyframes bSpinR { to { transform: rotate(-360deg); } }
+  @keyframes bOrbit { to { transform: rotate(360deg); } }
+  @keyframes bOrbitR { to { transform: rotate(-360deg); } }
+  @keyframes bAurora { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(7%,-5%) scale(1.12); } 66% { transform: translate(-6%,5%) scale(0.94); } }
+  @keyframes bAurora2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-8%,6%) scale(1.15); } }
+  @keyframes bFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+  @keyframes bFloat2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(14px); } }
+  @keyframes bHubPulse { 0%,100% { box-shadow: 0 0 64px -4px rgba(201,168,107,0.6), inset 0 2px 18px rgba(255,255,255,0.32); } 50% { box-shadow: 0 0 104px 4px rgba(201,168,107,0.85), inset 0 2px 18px rgba(255,255,255,0.42); } }
+  @keyframes bRing { 0% { transform: scale(0.82); opacity: 0.65; } 100% { transform: scale(1.7); opacity: 0; } }
+  @keyframes bDot { 0%,100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  @keyframes bMarquee { to { transform: translateX(-50%); } }
+  @keyframes bSheen { from { left: -130%; } to { left: 160%; } }
+  @keyframes bGridScroll { from { background-position: 0 0; } to { background-position: 0 60px; } }
+  @keyframes bBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+  @keyframes bIconFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-2px) scale(1.06); } }
+  @keyframes bTextSheen { 0% { background-position: 130% 0; } 100% { background-position: -130% 0; } }
+
+  /* satellite icon: breathe + (depth glow driven by JS) */
+  .b-nic { animation: bIconFloat 3.8s ease-in-out infinite; will-change: transform; }
+  /* satellite text: moving light shimmer */
+  .b-name {
+    background-image: linear-gradient(105deg, #D7E2F5 0%, #D7E2F5 37%, #ffffff 46%, #BFEFFF 51%, #D7E2F5 61%, #D7E2F5 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent !important;
+    background-size: 220% 100%; animation: bTextSheen 5.4s linear infinite;
+  }
+  /* central hub */
+  .b-hubic { animation: bIconFloat 3.8s ease-in-out infinite; will-change: transform; }
+  .b-hubname {
+    background-image: linear-gradient(105deg, #1A1206 0%, #1A1206 38%, #6e521f 47%, #8a6526 51%, #1A1206 60%, #1A1206 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent !important;
+    background-size: 220% 100%; animation: bTextSheen 6s linear infinite;
+  }
+
+  .reveal { will-change: opacity, transform; }
+
+  .gnav-link { position: relative; transition: color 0.3s; }
+  .gnav-link::after { content: ''; position: absolute; left: 0; bottom: -7px; width: 0; height: 1.5px; background: linear-gradient(90deg, #C9A86B, #E6CB92); transition: width 0.38s cubic-bezier(0.16,1,0.3,1); }
+  .gnav-link:hover { color: #EDF1F9 !important; }
+  .gnav-link:hover::after { width: 100%; }
+
+  /* ===== Command node + fly-out menu ===== */
+  .cmd-node { transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .4s; }
+  .cmd-node:hover { transform: translateY(-1px) scale(1.06); border-color: rgba(201,168,107,0.55) !important; box-shadow: 0 0 30px -4px rgba(201,168,107,0.5), inset 0 1px 0 rgba(255,255,255,0.1) !important; }
+  .cmd-node.cmd-open { border-color: rgba(201,168,107,0.6) !important; box-shadow: 0 0 36px -3px rgba(201,168,107,0.6), inset 0 1px 0 rgba(255,255,255,0.12) !important; }
+  .cmd-ring { animation: bSpin 16s linear infinite; transform-origin: 50% 50%; }
+  .cmd-dots { transition: transform .55s cubic-bezier(.34,1.56,.64,1); }
+  .cmd-dots > i { transition: background .4s, box-shadow .4s; }
+  .cmd-node.cmd-open .cmd-dots { transform: rotate(225deg) scale(1.05); }
+  .cmd-node.cmd-open .cmd-dots > i { background: #E6CB92 !important; box-shadow: 0 0 9px rgba(230,203,146,0.95) !important; }
+
+  .cmd-menu { visibility: hidden; pointer-events: none; }
+  .cmd-menu.open { visibility: visible; pointer-events: auto; }
+  .cmd-beam { transform-origin: center; }
+  /* single-frame orbit fit */
+  .orbit-fit { transform: scale(0.92); transform-origin: center; }
+  .orbit-scale { transform: none !important; }
+  @media (max-height: 880px) { .orbit-fit { transform: scale(0.82); } }
+  @media (max-height: 780px) { .orbit-fit { transform: scale(0.72); } }
+  @media (max-height: 680px) { .orbit-fit { transform: scale(0.6); } }
+  @media (max-width: 980px) { .orbit-fit { transform: scale(0.74); } }
+  @media (max-width: 680px) { .orbit-fit { transform: scale(0.65); } .frame-info { display: none !important; } .frame-brand { max-width: 220px !important; transform: scale(0.85); transform-origin: top left; } }
+  @media (max-width: 480px) { .orbit-fit { transform: scale(0.5); } .frame-brand { transform: scale(0.75); transform-origin: top left; } }
+  .cmd-item { transition: border-color .35s, background .35s, transform .25s cubic-bezier(.16,1,.3,1); }
+  .cmd-item:hover { border-color: rgba(201,168,107,0.5) !important; background: linear-gradient(160deg, rgba(42,34,18,0.92), rgba(14,12,8,0.92)) !important; transform: translateY(-5px); }
+  .cmd-item:hover .cmd-acc { opacity: 1 !important; }
+  /* contact frames */
+  @keyframes beamRun { to { stroke-dashoffset: -100; } }
+  .beam-rect { animation: beamRun 4.6s linear infinite; }
+  .live-dot { width:7px; height:7px; border-radius:50%; background:#4FE5FF; box-shadow:0 0 8px rgba(79,229,255,0.85); animation: bDot 2s ease-in-out infinite; }
+  .hotline-num { background-image: linear-gradient(105deg,#4FE5FF 0%,#4FE5FF 34%,#ffffff 46%,#E6CB92 54%,#4FE5FF 68%,#4FE5FF 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent !important; background-size:220% 100%; animation: bTextSheen 4.2s linear infinite; }
+  .info-card { transition: border-color .4s, box-shadow .4s, transform .4s cubic-bezier(.16,1,.3,1); }
+  .info-card:hover { border-color: rgba(201,168,107,0.32) !important; box-shadow: 0 22px 52px -22px rgba(0,0,0,0.85), 0 0 26px -8px rgba(79,229,255,0.25) !important; transform: translateY(-3px); }
+  /* brand identity */
+  .brand-ring { animation: bSpin 16s linear infinite; transform-origin: 50% 50%; }
+  .brand-ring2 { animation: bSpinR 11s linear infinite; transform-origin: 50% 50%; }
+  /* === breakthrough logo motion === */
+  .logo-img { animation: logoFloat 5s ease-in-out infinite; will-change: transform; }
+  @keyframes logoFloat { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-2px) scale(1.03); } }
+  .logo-halo { animation: logoHalo 3s ease-in-out infinite; }
+  @keyframes logoHalo { 0%,100% { opacity: 0.4; transform: scale(0.92); } 50% { opacity: 0.85; transform: scale(1.1); } }
+  .logo-wave { animation: logoWave 3s ease-out infinite; transform-origin: 50% 50%; }
+  .logo-wave2 { animation-delay: 1.5s; }
+  @keyframes logoWave { 0% { transform: scale(0.62); opacity: 0.75; } 100% { transform: scale(1.55); opacity: 0; } }
+  .logo-charge { animation: logoCharge 2.6s ease-in-out infinite; }
+  @keyframes logoCharge { 0%,100% { opacity: 0.22; } 50% { opacity: 0.72; } }
+  .logo-sweep { animation: logoSweep 3.8s ease-in-out infinite; }
+  @keyframes logoSweep { 0% { background-position: 170% 0; } 56%,100% { background-position: -170% 0; } }
+  .logo-orbit { animation: logoOrbit 5s linear infinite; transform-origin: 50% 50%; }
+  @keyframes logoOrbit { to { transform: rotate(360deg); } }
+  .brand-logo:hover .logo-img { animation-duration: 2.4s; }
+  .brand-logo:hover .logo-sweep { animation-duration: 1.4s; }
+  .brand-word { background-image: linear-gradient(105deg,#ffffff 0%,#ffffff 36%,#E6CB92 49%,#C9A86B 58%,#ffffff 76%,#ffffff 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; background-size:230% 100%; animation: bTextSheen 6s linear infinite; }
+  .brand-name { background-image: linear-gradient(105deg,#C7D2E8 0%,#C7D2E8 38%,#ffffff 47%,#E6CB92 56%,#C7D2E8 66%,#C7D2E8 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent !important; background-size:220% 100%; animation: bTextSheen 5.2s linear infinite; }
+  .brand-div > span { position:absolute; top:0; left:-32%; width:32%; height:100%; background:linear-gradient(90deg, transparent, #4FE5FF, transparent); animation: brandScan 3.4s ease-in-out infinite; }
+  @keyframes brandScan { 0% { left:-32%; } 58%,100% { left:112%; } }
+  /* auto-fade modules */
+  .auto-fade { transition: opacity 1.15s ease; }
+  .auto-fade.dim { opacity: 0.1; }
+  .tw-desc, .tw-name { white-space: pre-wrap; }
+  .cmd-item:hover .cmd-ic { color: #E6CB92 !important; border-color: rgba(201,168,107,0.5) !important; box-shadow: 0 0 16px rgba(201,168,107,0.4), inset 0 0 12px rgba(201,168,107,0.2) !important; }
+  .cmd-item:hover .cmd-acc { opacity: 1 !important; }
+  @media (max-width: 560px) { .cmd-cta { display: none !important; } }
+
+  .sheen { position: relative; overflow: hidden; }
+  .sheen::after { content: ''; position: absolute; top: 0; left: -130%; width: 55%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent); transform: skewX(-22deg); pointer-events: none; }
+  .sheen:hover::after { animation: bSheen 0.95s ease; }
+
+  .b-prim { transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s; }
+  .b-prim:hover { transform: translateY(-3px); box-shadow: 0 22px 54px -14px rgba(201,168,107,0.7); }
+  .b-ghost { transition: border-color 0.35s, background 0.35s, color 0.35s, transform 0.35s; }
+  .b-ghost:hover { border-color: rgba(201,168,107,0.7) !important; background: rgba(201,168,107,0.07) !important; color: #E6CB92 !important; transform: translateY(-3px); }
+
+  .b-node { transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), border-color 0.4s, background 0.4s, box-shadow 0.4s; }
+  .b-node:hover { transform: scale(1.13); border-color: rgba(201,168,107,0.62) !important; box-shadow: 0 0 52px -6px rgba(201,168,107,0.55), inset 0 0 22px rgba(201,168,107,0.18) !important; z-index: 30; }
+  .b-node:hover .b-nic { color: #E6CB92 !important; border-color: rgba(201,168,107,0.55) !important; box-shadow: inset 0 0 17px rgba(201,168,107,0.34) !important; }
+  .b-node:hover .b-rimC { stroke: #E6CB92 !important; }
+  .b-node:hover .b-name { color: #ffffff !important; }
+  .b-node:hover .b-tip { opacity: 1 !important; transform: translate(-50%,0) !important; }
+
+  .b-shard { transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s, border-color 0.5s; }
+  .b-shard:hover { border-color: rgba(201,168,107,0.4) !important; box-shadow: 0 30px 70px -20px rgba(0,0,0,0.8), 0 0 40px -10px rgba(79,229,255,0.25) !important; }
+
+  .b-link { transition: color 0.3s; }
+  .b-link:hover { color: #E6CB92 !important; }
+
+  @media (max-width: 980px) {
+    .desk-nav { display: none !important; }
+    .hero-shard { display: none !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; }
+    [data-spin], .b-aurora, .b-float { animation: none !important; }
+  }
+
+  /* Mobile Fixes */
+  @media (max-width: 680px) {
+    .frame-brand { top: 12px !important; left: 12px !important; }
+    /* Giảm font chữ logo nếu vẫn bị to */
+    .brand-word { font-size: 1.2rem !important; }
+    /* Giảm cỡ chữ live-dot text */
+    .brand-logo > div > div:nth-child(2) > span:nth-child(2) { font-size: 0.45rem !important; }
+  }
+  @media (max-width: 480px) {
+    .frame-brand { top: 10px !important; left: 10px !important; }
+  }
+</style>
+</helmet>
+
+<div style="position: relative; width: 100%; height: 100vh; overflow: hidden; background: #162032;">
+  <!-- ===== LAYERED BACKGROUND ===== -->
+  <div aria-hidden="true" style="position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: #162032;">
+    
+    <!-- 5 GALACTIC WEATHER LAYERS -->
+    <div id="galactic-bg-layers" style="position: absolute; inset: 0;">
+      <!-- Layer 0: Mystic Nebula (Xanh thẳm & Lam ngọc) -->
+      <div class="gbg-layer active" style="position: absolute; inset: 0; transition: opacity 6s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity; opacity: 1;">
+        <div class="b-aurora" style="position: absolute; top: -10%; left: 40%; width: 90vw; height: 90vw; border-radius: 50%; background: radial-gradient(circle, rgba(20,60,160,0.92) 0%, transparent 60%); filter: blur(35px); animation: bAurora 18s ease-in-out infinite;"></div>
+        <div class="b-aurora" style="position: absolute; bottom: -20%; left: -10%; width: 80vw; height: 80vw; border-radius: 50%; background: radial-gradient(circle, rgba(79,229,255,0.6) 0%, transparent 65%); filter: blur(45px); animation: bAurora2 22s ease-in-out infinite;"></div>
+      </div>
+
+      <!-- Layer 1: Solar Flare (Cam sẫm & Vàng đồng) -->
+      <div class="gbg-layer" style="position: absolute; inset: 0; transition: opacity 6s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity; opacity: 0;">
+        <div class="b-aurora" style="position: absolute; top: -20%; right: -20%; width: 100vw; height: 100vw; border-radius: 50%; background: radial-gradient(circle, rgba(230,170,70,0.65) 0%, transparent 60%); filter: blur(45px); animation: bAurora2 20s ease-in-out infinite reverse;"></div>
+        <div class="b-aurora" style="position: absolute; bottom: -10%; left: 0%; width: 70vw; height: 70vw; border-radius: 50%; background: radial-gradient(circle, rgba(220,60,30,0.55) 0%, transparent 70%); filter: blur(55px); animation: bAurora 16s ease-in-out infinite;"></div>
+      </div>
+
+      <!-- Layer 2: Void Rift (Tím than & Đen tuyền sâu thẳm) -->
+      <div class="gbg-layer" style="position: absolute; inset: 0; transition: opacity 6s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity; opacity: 0;">
+        <div class="b-aurora" style="position: absolute; top: 0%; left: 10%; width: 120vw; height: 60vw; border-radius: 50%; background: radial-gradient(ellipse, rgba(90,30,140,0.9) 0%, transparent 70%); filter: blur(50px); transform: rotate(-25deg); animation: bAurora 26s ease-in-out infinite;"></div>
+        <div class="b-aurora" style="position: absolute; bottom: 0%; right: 0%; width: 80vw; height: 80vw; border-radius: 50%; background: radial-gradient(circle, rgba(15,5,30,0.95) 0%, transparent 70%); filter: blur(40px); animation: bAurora2 22s ease-in-out infinite reverse;"></div>
+      </div>
+
+      <!-- Layer 3: Cosmic Dust Storm (Xám bạc & Trắng lạnh xoáy sâu) -->
+      <div class="gbg-layer" style="position: absolute; inset: 0; transition: opacity 6s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity; opacity: 0;">
+        <div class="b-aurora" style="position: absolute; top: 20%; left: -30%; width: 100vw; height: 100vw; border-radius: 50%; background: radial-gradient(circle, rgba(80,110,170,0.75) 0%, transparent 65%); filter: blur(55px); animation: bAurora2 14s ease-in-out infinite;"></div>
+        <div class="b-aurora" style="position: absolute; top: -20%; right: 10%; width: 80vw; height: 80vw; border-radius: 50%; background: radial-gradient(circle, rgba(180,210,255,0.55) 0%, transparent 60%); filter: blur(35px); animation: bAurora 18s ease-in-out infinite reverse;"></div>
+      </div>
+
+      <!-- Layer 4: Galactic Gateway (Xanh Neon, Tím Cực quang, Vàng Nhạt) -->
+      <div class="gbg-layer" style="position: absolute; inset: 0; transition: opacity 6s cubic-bezier(0.4, 0, 0.2, 1); will-change: opacity; opacity: 0;">
+        <div class="b-aurora" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; height: 90vw; border-radius: 50%; background: radial-gradient(circle, rgba(79,229,255,0.5) 0%, rgba(180,50,255,0.55) 45%, transparent 75%); filter: blur(45px); animation: bAurora 20s ease-in-out infinite;"></div>
+        <div class="b-aurora" style="position: absolute; top: -10%; left: -10%; width: 70vw; height: 70vw; border-radius: 50%; background: radial-gradient(circle, rgba(240,210,130,0.5) 0%, transparent 65%); filter: blur(40px); animation: bAurora2 24s ease-in-out infinite reverse;"></div>
+      </div>
+    </div>
+
+    <!-- Common Overlay Textures (Grid & Noise) -->
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 0%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 0%, transparent 78%);"></div>
+    <canvas id="b-particles" style="position: absolute; inset: 0; width: 100%; height: 100%;"></canvas>
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 120% 80% at 50% 50%, transparent 55%, rgba(4,6,13,0.55) 100%);"></div>
+    <div style="position: absolute; inset: 0; opacity: 0.04; mix-blend-mode: overlay; background-image: url('data:image/svg+xml;utf8,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22&gt;&lt;filter id=%22n%22&gt;&lt;feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%222%22/&gt;&lt;/filter&gt;&lt;rect width=%22120%22 height=%22120%22 filter=%22url(%23n)%22/&gt;&lt;/svg&gt;');"></div>
+
+    <script id="galactic-bg-script">
+      (function() {
+        function startGalacticRotation() {
+          const layers = document.querySelectorAll('.gbg-layer');
+          if (!layers || layers.length === 0) return;
+          let activeIdx = 0;
+          setInterval(() => {
+            layers[activeIdx].style.opacity = '0';
+            layers[activeIdx].classList.remove('active');
+            activeIdx = (activeIdx + 1) % layers.length;
+            layers[activeIdx].style.opacity = '1';
+            layers[activeIdx].classList.add('active');
+          }, 10000); // 10 seconds
+        }
+        if(document.readyState === 'complete' || document.readyState === 'interactive') {
+          startGalacticRotation();
+        } else {
+          window.addEventListener('DOMContentLoaded', startGalacticRotation);
+        }
+      })();
+    </script>
+  </div>
+
+  <!-- ===== SINGLE-FRAME EXPERIENCE ===== -->
+
+  <!-- brand + company intro (top-left) -->
+  <div class="frame-brand" style="position: absolute; top: clamp(22px,3.4vh,42px); left: clamp(22px,3vw,52px); z-index: 20; width: 374px;">
+    <div class="brand-logo" style="display:flex; align-items:center; gap:0.85rem; margin-bottom:1rem;">
+      
+      
+      
+  <div class="baika-logo-container" style="width:48px;height:48px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+    <span class="logo-stage" style="position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+      <span class="logo-halo" style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(56,182,255,0.55),transparent 66%);filter:blur(5px);animation:logoHalo 3s ease-in-out infinite;"></span>
+      <span class="logo-wave" style="position:absolute;top:15%;left:15%;width:70%;height:70%;border-radius:50%;border:1.5px solid rgba(79,229,255,0.55);animation:logoWave 3s ease-out infinite;transform-origin:50% 50%;"></span>
+      <span class="logo-wave logo-wave2" style="position:absolute;top:15%;left:15%;width:70%;height:70%;border-radius:50%;border:1.5px solid rgba(79,229,255,0.45);animation:logoWave 3s ease-out infinite;transform-origin:50% 50%;animation-delay:1.5s;"></span>
+      <svg class="brand-ring" width="100%" height="100%" viewBox="0 0 62 62" style="position:absolute;inset:0;animation:bSpin 16s linear infinite;transform-origin:50% 50%;"><circle cx="31" cy="31" r="30" fill="none" stroke="rgba(56,182,255,0.5)" stroke-width="1.2" stroke-dasharray="30 8 5 8" stroke-linecap="round"></circle></svg>
+      <svg class="brand-ring2" width="100%" height="100%" viewBox="0 0 62 62" style="position:absolute;inset:0;animation:bSpinR 11s linear infinite;transform-origin:50% 50%;"><circle cx="31" cy="31" r="24.5" fill="none" stroke="rgba(120,170,240,0.2)" stroke-width="1" stroke-dasharray="2 6"></circle></svg>
+      <img class="logo-img" src="/assets/home/dc50f7caf2a0.png" alt="BAIKA" style="position:relative;display:block;width:74%;height:auto;filter:drop-shadow(0 2px 9px rgba(56,182,255,0.45));animation:logoFloat 5s ease-in-out infinite;will-change:transform;">
+      <span class="logo-charge" style="position:absolute;top:13%;left:13%;width:74%;height:74%;-webkit-mask:url(/assets/home/dc50f7caf2a0.png) center/contain no-repeat;mask:url(/assets/home/dc50f7caf2a0.png) center/contain no-repeat;background:radial-gradient(circle at 50% 45%,rgba(79,229,255,0.75),transparent 58%);mix-blend-mode:screen;pointer-events:none;animation:logoCharge 2.6s ease-in-out infinite;"></span>
+      <span class="logo-sweep" style="position:absolute;top:13%;left:13%;width:74%;height:74%;-webkit-mask:url(/assets/home/dc50f7caf2a0.png) center/contain no-repeat;mask:url(/assets/home/dc50f7caf2a0.png) center/contain no-repeat;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,0.9) 50%,transparent 62%);background-size:280% 100%;mix-blend-mode:screen;pointer-events:none;animation:logoSweep 3.8s ease-in-out infinite;"></span>
+      <span class="logo-orbit" style="position:absolute;inset:0;animation:logoOrbit 5s linear infinite;transform-origin:50% 50%;"><span style="position:absolute;top:-2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:#7FE3FF;box-shadow:0 0 9px 2px rgba(79,229,255,0.9);"></span></span>
+    </span>
+  </div>
+      <div>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span class="brand-word" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.5rem; letter-spacing:0.18em;">BAIKA</span>
+          <span style="font-family:'Lexend',sans-serif; font-size:0.48rem; font-weight:600; letter-spacing:0.16em; color:#9ab0d6; border:1px solid rgba(120,170,240,0.32); padding:2px 5px; border-radius:5px; box-shadow:inset 0 0 8px rgba(79,229,255,0.12);">JSC</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.42rem; margin-top:5px;">
+          <span class="live-dot" style="width:6px; height:6px;"></span>
+          <span style="font-family:'Lexend',sans-serif; font-size:0.52rem; font-weight:500; letter-spacing:0.26em; text-transform:uppercase; color:#5E6E91;">Hệ thống đang vận hành</span>
+        </div>
+      </div>
+    </div>
+
+    
+    
+
+  </div>
+
+  
+
+
+
+<!-- centered orbit (8 nodes) -->
+  <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; padding-bottom: 6vh; pointer-events: none;">
+    <div class="orbit-fit" style="position: relative; width: 900px; height: 720px; pointer-events: auto;">
+      <div class="reveal" id="b-orbit" style="position:relative; width:100%; max-width:900px; height:720px; margin:1.5rem auto 0; perspective:1500px; perspective-origin:50% 42%;">
+        <div id="b-scene" style="position:absolute; inset:0; transform-style:preserve-3d; will-change:transform;">
+
+          <div aria-hidden="true" style="position:absolute; left:50%; top:50%; width:580px; height:580px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle, rgba(201,168,107,0.13) 0%, transparent 60%); filter:blur(16px); pointer-events:none;"></div>
+
+          <canvas id="b-orbit-canvas" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:none;"></canvas>
+
+            <div class="b-node-pos" data-i="0" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="#" class="b-node" data-sid="business-advisory" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 15s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">01</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M15.5 8.5l-2.3 4.7-4.7 2.3 2.3-4.7z"></path></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Tư vấn
+Doanh nghiệp</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Định hướng chiến lược, mô hình và lộ trình tăng trưởng.</span>
+              </a>
+            </div>
+            <div class="b-node-pos" data-i="1" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="#" class="b-node" data-sid="remote-ops" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 16s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">02</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Hệ thống hóa
+Vận hành</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Chuẩn hóa quy trình, đo lường và tối ưu vận hành.</span>
+              </a>
+            </div>
+            <div class="b-node-pos" data-i="2" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="#" class="b-node" data-sid="baika-brand-launch-system" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 17s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">03</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 7-7"></path><path d="M14 8h6v6"></path></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Marketing
+&amp; Tăng trưởng</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Thương hiệu, nội dung và tăng trưởng gắn doanh số.</span>
+              </a>
+            </div>
+            <div class="b-node-pos" data-i="3" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="#" class="b-node" data-sid="baika-finance-readiness-system" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 18s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">04</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9.5 9.5h3.5a1.8 1.8 0 010 3.6h-3M9.5 16h4"></path></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Tài chính
+&amp; Dòng tiền</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Quản trị dòng tiền, kế hoạch tài chính, sẵn sàng gọi vốn.</span>
+              </a>
+            </div>
+            <div class="b-node-pos" data-i="4" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="#" class="b-node" data-sid="baika-legal-tax-control-system" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 19s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">05</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7h14M7 7l-2.5 5a2.5 2.5 0 005 0zM17 7l-2.5 5a2.5 2.5 0 005 0z"></path></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Pháp lý
+&amp; Thuế</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Pháp lý doanh nghiệp, hợp đồng, thuế và tuân thủ.</span>
+              </a>
+            </div>
+            <div class="b-node-pos" data-i="5" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="#" class="b-node" data-sid="baika-ai-operating-system" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 20s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">06</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"></rect><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"></path></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Công nghệ
+&amp; AI ứng dụng</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Ứng dụng công nghệ và AI trên công cụ sẵn có.</span>
+              </a>
+            </div>
+            <div class="b-node-pos" data-i="6" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="#" class="b-node" data-sid="ceo-blueprint" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 21s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">07</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.3"></circle><path d="M3.5 19a5.5 5.5 0 0111 0M15 19a4 4 0 016 0"></path></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Đào tạo
+&amp; CEO</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Nâng tầm năng lực lãnh đạo, đồng hành thực thi cùng CEO.</span>
+              </a>
+            </div>
+            <div class="b-node-pos" data-i="7" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); will-change:transform, opacity, filter;">
+              <a href="https://tramketnoi.com/" target="_blank" class="b-node" data-sid="tram-ket-noi" style="position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.3rem; width:122px; height:122px; border-radius:50%; text-decoration:none; color:inherit; border:1px solid rgba(120,160,230,0.22); background:radial-gradient(circle at 50% 18%, rgba(50,72,124,0.96), rgba(11,17,34,0.98) 70%); box-shadow:0 20px 48px -16px rgba(0,0,0,0.82), inset 0 2px 12px rgba(150,190,255,0.2), inset 0 -18px 28px rgba(0,0,0,0.55);">
+                <span aria-hidden="true" style="position:absolute; inset:0; pointer-events:none;">
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0; animation:bSpin 22s linear infinite; transform-origin:50% 50%;">
+                    <circle cx="61" cy="61" r="56" fill="none" stroke="rgba(120,160,230,0.13)" stroke-width="1"></circle>
+                    <circle class="b-rimC" cx="61" cy="61" r="56" fill="none" stroke="rgba(79,229,255,0.6)" stroke-width="1.6" stroke-dasharray="42 270" stroke-linecap="round"></circle>
+                    <circle class="b-rimG" cx="61" cy="61" r="56" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.6" stroke-dasharray="16 336" stroke-dashoffset="-160" stroke-linecap="round"></circle>
+                  </svg>
+                  <svg width="122" height="122" viewBox="0 0 122 122" style="position:absolute; inset:0;">
+                    <circle cx="61" cy="61" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="1.5 5"></circle>
+                    <g stroke="rgba(150,180,235,0.45)" stroke-width="1.4"><line x1="61" y1="3" x2="61" y2="9"></line><line x1="61" y1="113" x2="61" y2="119"></line><line x1="3" y1="61" x2="9" y2="61"></line><line x1="113" y1="61" x2="119" y2="61"></line></g>
+                  </svg>
+                </span>
+                <span aria-hidden="true" style="position:absolute; top:8px; left:50%; transform:translateX(-50%); width:62%; height:36%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.22), transparent 66%); filter:blur(1.5px); pointer-events:none;"></span>
+                <span style="position:absolute; top:13px; right:19px; font-family:'Lexend',sans-serif; font-size:0.52rem; letter-spacing:0.1em; color:rgba(79,229,255,0.72);">08</span>
+                <span class="b-nic" style="position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:50%; color:#CFE0FF; background:radial-gradient(circle at 50% 32%, rgba(79,229,255,0.18), rgba(18,28,52,0.55)); border:1px solid rgba(120,170,240,0.3); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color 0.4s, border-color 0.4s, box-shadow 0.4s;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13.1 11a4 4 0 011.8 3 4 4 0 01-1.8 3M9.1 11a4 4 0 00-1.8 3 4 4 0 001.8 3"></path><path d="M8 8a4 4 0 018 0"></path><circle cx="12" cy="12" r="3"></circle><circle cx="12" cy="5" r="2"></circle><circle cx="5" cy="18" r="2"></circle><circle cx="19" cy="18" r="2"></circle></svg></span>
+                <span class="b-name" style="position:relative; font-family:'Lexend',sans-serif; font-weight:600; font-size:0.69rem; line-height:1.14; text-align:center; white-space:pre-line; color:#EDF1F9;">Trạm
+Kết nối</span>
+                <span class="b-tip" style="position:absolute; top:calc(100% + 14px); left:50%; transform:translate(-50%,8px); width:max-content; max-width:210px; padding:0.65rem 0.9rem; border-radius:12px; background:rgba(8,12,24,0.97); border:1px solid rgba(201,168,107,0.32); box-shadow:0 18px 44px -12px rgba(0,0,0,0.78); font-size:0.74rem; font-weight:300; line-height:1.5; color:#C7D2E8; opacity:0; transition:opacity 0.35s, transform 0.35s; pointer-events:none; z-index:60;">Kết nối chuyên gia, đối tác và nhà đầu tư chiến lược.</span>
+              </a>
+            </div>
+
+          <div id="b-hub" style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:206px; height:206px; will-change:transform;">
+            <div aria-hidden="true" style="position:absolute; left:50%; top:50%; width:252px; height:252px; transform:translate(-50%,-50%); pointer-events:none;">
+              <svg width="252" height="252" viewBox="0 0 252 252" style="position:absolute; inset:0; animation:bSpin 30s linear infinite; transform-origin:50% 50%;">
+                <circle cx="126" cy="126" r="121" fill="none" stroke="rgba(201,168,107,0.16)" stroke-width="1" stroke-dasharray="2 9"></circle>
+                <circle cx="126" cy="126" r="121" fill="none" stroke="rgba(201,168,107,0.62)" stroke-width="2" stroke-dasharray="74 686" stroke-linecap="round"></circle>
+                <circle cx="126" cy="126" r="121" fill="none" stroke="rgba(201,168,107,0.45)" stroke-width="2" stroke-dasharray="20 740" stroke-dashoffset="-420" stroke-linecap="round"></circle>
+              </svg>
+              <svg width="252" height="252" viewBox="0 0 252 252" style="position:absolute; inset:0; animation:bSpinR 22s linear infinite; transform-origin:50% 50%;">
+                <circle cx="126" cy="126" r="110" fill="none" stroke="rgba(79,229,255,0.42)" stroke-width="1.6" stroke-dasharray="48 642" stroke-linecap="round"></circle>
+                <circle cx="126" cy="126" r="110" fill="none" stroke="rgba(79,229,255,0.3)" stroke-width="1.6" stroke-dasharray="14 676" stroke-dashoffset="-360" stroke-linecap="round"></circle>
+              </svg>
+            </div>
+            <div id="b-hub-ring1" aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; border:1px solid rgba(201,168,107,0.4); pointer-events:none;"></div>
+            <div id="b-hub-ring2" aria-hidden="true" style="position:absolute; inset:0; border-radius:50%; border:1px solid rgba(201,168,107,0.3); pointer-events:none;"></div>
+            <div id="b-hub-sheen" aria-hidden="true" style="position:absolute; inset:-1px; border-radius:50%; background:conic-gradient(from 0deg, transparent 0deg, transparent 58%, rgba(255,255,255,0.26) 80%, transparent 92%, transparent 360deg); mix-blend-mode:screen; pointer-events:none;"></div>
+            <a href="#" class="b-node" style="position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.34rem; border-radius:50%; text-decoration:none; border:none; background:radial-gradient(circle at 50% 28%, #F6E1B0, #C9A86B 50%, #9E7B41 86%); box-shadow:0 0 80px -2px rgba(201,168,107,0.62), inset 0 3px 22px rgba(255,255,255,0.42), inset 0 -22px 38px rgba(110,78,26,0.55);">
+              <span aria-hidden="true" style="position:absolute; top:14px; left:50%; transform:translateX(-50%); width:66%; height:40%; border-radius:50%; background:radial-gradient(ellipse at 50% 25%, rgba(255,255,255,0.55), transparent 62%); pointer-events:none;"></span>
+              <svg width="206" height="206" viewBox="0 0 206 206" style="position:absolute; inset:0; animation:bSpinR 18s linear infinite; transform-origin:50% 50%; pointer-events:none;">
+                <circle cx="103" cy="103" r="80" fill="none" stroke="rgba(120,82,24,0.3)" stroke-width="1" stroke-dasharray="2 7"></circle>
+                <circle cx="103" cy="103" r="80" fill="none" stroke="rgba(94,62,18,0.5)" stroke-width="1.6" stroke-dasharray="44 460" stroke-linecap="round"></circle>
+              </svg>
+              <span class="b-hubic" style="position:relative; display:flex; align-items:center; justify-content:center; width:46px; height:46px; border-radius:50%; color:#2A1C08; background:radial-gradient(circle at 50% 32%, rgba(255,248,228,0.95), rgba(224,186,120,0.55)); box-shadow:inset 0 1px 7px rgba(255,255,255,0.7), 0 5px 14px rgba(120,86,30,0.42);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"></path><path d="M12 2.5a6.5 6.5 0 00-3.8 11.8c.65.5 1.05 1.35 1.05 2.2h5.5c0-.85.4-1.7 1.05-2.2A6.5 6.5 0 0012 2.5z"></path></svg></span>
+              <span class="b-hubname" style="position:relative; font-family:'Lexend',sans-serif; font-weight:700; font-size:1.02rem; line-height:1.12; text-align:center; color:#1A1206; text-shadow:0 1px 0 rgba(255,255,255,0.25);">Trạm<br>Ý Tưởng</span>
+              <span style="position:relative; font-size:0.55rem; letter-spacing:0.24em; text-transform:uppercase; color:rgba(26,18,6,0.6);">Hạt nhân</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- command node (bottom-center) -->
+  <div class="cmd-wrap" style="position: absolute; left: 50%; bottom: clamp(22px,5vh,56px); transform: translateX(-50%); z-index: 40; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+    <div id="cmd-menu" class="cmd-menu" role="menu" style="position:absolute; bottom:calc(100% + 30px); left:50%; transform:translateX(-50%); display:flex; flex-direction:row; align-items:flex-end; gap:14px; z-index:90;">
+      <span class="cmd-feed" aria-hidden="true" style="position:absolute; bottom:-30px; left:calc(50% - 1px); width:2px; height:30px; background:linear-gradient(to top,#4FE5FF,rgba(79,229,255,0)); pointer-events:none;"></span>
+      <div class="cmd-beam" aria-hidden="true" style="position:absolute; bottom:-30px; left:0; right:0; height:2px; border-radius:2px; background:linear-gradient(90deg, transparent, #4FE5FF 16%, #C9A86B 84%, transparent); box-shadow:0 0 12px rgba(79,229,255,0.55); pointer-events:none;"></div>
+      <a class="cmd-item" role="menuitem" href="/ve-baika" target="_parent" style="position:relative; display:flex; flex-direction:column; align-items:center; gap:0.5rem; width:118px; padding:0.9rem 0.5rem 0.74rem; border-radius:16px; text-decoration:none; border:1px solid rgba(255,255,255,0.1); background:linear-gradient(160deg, rgba(26,36,64,0.92), rgba(10,15,30,0.94)); box-shadow:0 18px 40px -18px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.06); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); overflow:hidden;">
+        <span class="cmd-acc" aria-hidden="true" style="position:absolute; top:0; left:9px; right:9px; height:2px; border-radius:2px; background:linear-gradient(90deg,#4FE5FF,#C9A86B); opacity:0.42; transition:opacity .35s;"></span>
+        <span class="cmd-ic" style="width:42px; height:42px; border-radius:13px; display:flex; align-items:center; justify-content:center; color:#CFE0FF; border:1px solid rgba(120,170,240,0.28); background:radial-gradient(circle at 50% 30%, rgba(79,229,255,0.18), rgba(18,28,52,0.6)); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color .4s, border-color .4s, box-shadow .4s;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 11.5v4.5"></path><circle cx="12" cy="7.8" r="0.5" fill="currentColor" stroke="none"></circle></svg></span>
+        <span style="font-family:'Lexend',sans-serif; font-weight:600; font-size:0.82rem; color:#EDF1F9; text-align:center; line-height:1.12;">Về BAIKA</span>
+        <span style="font-size:0.54rem; letter-spacing:0.12em; text-transform:uppercase; color:#5E6E91; text-align:center;">Giới thiệu</span>
+      </a>
+      <a class="cmd-item" role="menuitem" href="/tai-nguyen" target="_parent" style="position:relative; display:flex; flex-direction:column; align-items:center; gap:0.5rem; width:118px; padding:0.9rem 0.5rem 0.74rem; border-radius:16px; text-decoration:none; border:1px solid rgba(255,255,255,0.1); background:linear-gradient(160deg, rgba(26,36,64,0.92), rgba(10,15,30,0.94)); box-shadow:0 18px 40px -18px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.06); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); overflow:hidden;">
+        <span class="cmd-acc" aria-hidden="true" style="position:absolute; top:0; left:9px; right:9px; height:2px; border-radius:2px; background:linear-gradient(90deg,#4FE5FF,#C9A86B); opacity:0.42; transition:opacity .35s;"></span>
+        <span class="cmd-ic" style="width:42px; height:42px; border-radius:13px; display:flex; align-items:center; justify-content:center; color:#CFE0FF; border:1px solid rgba(120,170,240,0.28); background:radial-gradient(circle at 50% 30%, rgba(79,229,255,0.18), rgba(18,28,52,0.6)); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color .4s, border-color .4s, box-shadow .4s;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"></path><path d="M3 13l9 5 9-5"></path></svg></span>
+        <span style="font-family:'Lexend',sans-serif; font-weight:600; font-size:0.82rem; color:#EDF1F9; text-align:center; line-height:1.12;">Tài nguyên</span>
+        <span style="font-size:0.54rem; letter-spacing:0.12em; text-transform:uppercase; color:#5E6E91; text-align:center;">Kiến thức</span>
+      </a>
+      <a class="cmd-item" role="menuitem" href="/sign-in" target="_parent" style="position:relative; display:flex; flex-direction:column; align-items:center; gap:0.5rem; width:118px; padding:0.9rem 0.5rem 0.74rem; border-radius:16px; text-decoration:none; border:1px solid rgba(255,255,255,0.1); background:linear-gradient(160deg, rgba(26,36,64,0.92), rgba(10,15,30,0.94)); box-shadow:0 18px 40px -18px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.06); -webkit-backdrop-filter:blur(9px); backdrop-filter:blur(9px); overflow:hidden;">
+        <span class="cmd-acc" aria-hidden="true" style="position:absolute; top:0; left:9px; right:9px; height:2px; border-radius:2px; background:linear-gradient(90deg,#4FE5FF,#C9A86B); opacity:0.42; transition:opacity .35s;"></span>
+        <span class="cmd-ic" style="width:42px; height:42px; border-radius:13px; display:flex; align-items:center; justify-content:center; color:#CFE0FF; border:1px solid rgba(120,170,240,0.28); background:radial-gradient(circle at 50% 30%, rgba(79,229,255,0.18), rgba(18,28,52,0.6)); box-shadow:inset 0 0 13px rgba(79,229,255,0.2); transition:color .4s, border-color .4s, box-shadow .4s;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"></circle><path d="M5.2 20a7 7 0 0113.6 0"></path></svg></span>
+        <span style="font-family:'Lexend',sans-serif; font-weight:600; font-size:0.82rem; color:#EDF1F9; text-align:center; line-height:1.12;">Đăng nhập</span>
+        <span style="font-size:0.54rem; letter-spacing:0.12em; text-transform:uppercase; color:#5E6E91; text-align:center;">Tài khoản</span>
+      </a>
+    </div>
+    <button id="cmd-node" class="cmd-node" type="button" aria-label="Mở menu điều hướng" aria-expanded="false" style="position: relative; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(120,170,240,0.3); background: radial-gradient(circle at 50% 28%, rgba(40,60,104,0.95), rgba(10,16,32,0.97)); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; box-shadow: 0 8px 24px -10px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08);">
+        <svg class="cmd-ring" width="46" height="46" viewBox="0 0 46 46" style="position: absolute; inset: 0; pointer-events: none;">
+          <circle cx="23" cy="23" r="21" fill="none" stroke="rgba(201,168,107,0.5)" stroke-width="1.4" stroke-dasharray="22 8 4 8" stroke-linecap="round"></circle>
+          <circle cx="23" cy="23" r="15.5" fill="none" stroke="rgba(120,170,240,0.18)" stroke-width="1" stroke-dasharray="2 5"></circle>
+        </svg>
+        <span class="cmd-dots" style="position: relative; display: grid; grid-template-columns: 6px 6px; grid-template-rows: 6px 6px; gap: 5px;">
+          <i style="display:block; width:6px; height:6px; border-radius:50%; background:#7FE3FF; box-shadow:0 0 6px rgba(79,229,255,0.75);"></i>
+          <i style="display:block; width:6px; height:6px; border-radius:50%; background:#7FE3FF; box-shadow:0 0 6px rgba(79,229,255,0.75);"></i>
+          <i style="display:block; width:6px; height:6px; border-radius:50%; background:#7FE3FF; box-shadow:0 0 6px rgba(79,229,255,0.75);"></i>
+          <i style="display:block; width:6px; height:6px; border-radius:50%; background:#7FE3FF; box-shadow:0 0 6px rgba(79,229,255,0.75);"></i>
+        </span>
+      </button>
+    <span style="font-family:'Lexend',sans-serif; font-size:0.55rem; font-weight:600; letter-spacing:0.3em; text-transform:uppercase; color:#5E6E91;">Điều hướng</span>
+  </div>
+
+  <!-- contact frames (designed) -->
+  <svg width="0" height="0" style="position:absolute;" aria-hidden="true"><defs><linearGradient id="beamGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FE5FF"></stop><stop offset="0.5" stop-color="#9ad8ff"></stop><stop offset="1" stop-color="#C9A86B"></stop></linearGradient></defs></svg>
+
+  
+  </div>
+
+</div>
+
+  
+
+  <style>
+    @keyframes pingVoice {
+      75%, 100% { transform: scale(1.6); opacity: 0; }
+    }
+    @keyframes bMarquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    @media (max-width: 768px) {
+      /* Hide marquee-container if it's still lingering */
+      .marquee-container {
+        display: none !important;
+      }
+    }
+  </style>
+
+  
+
+  
+
+  
+
+
+  <!-- Premium Notification Ticker -->
+  
+    
+    <!-- Scrolling text -->
+    <div style="flex: 1; overflow: hidden; margin: 0 12px; position: relative;">
+      <!-- Fade edges -->
+      <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 30px; background: linear-gradient(90deg, rgba(9,13,26,0.8), transparent); z-index: 2;"></div>
+      <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 30px; background: linear-gradient(-90deg, rgba(9,13,26,0.8), transparent); z-index: 2;"></div>
+      
+      <div style="white-space: nowrap; animation: premiumScroll 45s linear infinite; display: inline-block; will-change: transform;">
+          <span style="font-family: 'Lexend', sans-serif; font-size: 0.78rem; font-weight: 300; color: rgba(207, 224, 255, 0.88); letter-spacing: 0.06em;">
+            CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA &nbsp;·&nbsp; Bộ giải pháp toàn diện cho doanh nghiệp &nbsp;·&nbsp; Địa chỉ: Tầng 15 số 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TPHCM &nbsp;·&nbsp; Hotline: 0905.247.365 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <span style="font-family: 'Lexend', sans-serif; font-size: 0.78rem; font-weight: 300; color: rgba(207, 224, 255, 0.88); letter-spacing: 0.06em;">
+            CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA &nbsp;·&nbsp; Bộ giải pháp toàn diện cho doanh nghiệp &nbsp;·&nbsp; Địa chỉ: Tầng 15 số 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TPHCM &nbsp;·&nbsp; Hotline: 0905.247.365 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+        </div>
+    </div>
+    
+    <!-- Right accent dot -->
+    <div style="flex-shrink: 0; margin-right: 16px; width: 6px; height: 6px; border-radius: 50%; background: rgba(201,168,107,0.8); box-shadow: 0 0 6px rgba(201,168,107,0.5); animation: tickerDot 2s ease-in-out infinite alternate-reverse;"></div>
+  </div>
+
+  
+
+</x-dc>
+
+<script>
+class DCLogic {}
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = document.getElementById('top') ? document : document;
+
+    // ---- Scroll progress + header shrink ----
+    const prog = document.getElementById('b-progress');
+    const header = document.getElementById('b-header');
+    const onScroll = () => {
+      const st = document.documentElement.scrollTop || document.body.scrollTop;
+      const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (prog) prog.style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
+      if (header) {
+        if (st > 30) {
+          header.style.padding = '0.7rem 2.2rem';
+          header.style.background = 'rgba(6,9,18,0.82)';
+        } else {
+          header.style.padding = '1.05rem 2.2rem';
+          header.style.background = 'rgba(6,9,18,0.5)';
+        }
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    this._onScroll = onScroll;
+
+    // ---- Reveal: content is ALWAYS visible (the preview iframe throttles rAF + CSS
+    // animations when unfocused, so visibility is NEVER gated on them) ----
+    const reveals = Array.from(document.querySelectorAll('.reveal'));
+    reveals.forEach(el => { el.style.opacity = ''; el.style.transform = ''; el.style.willChange = 'auto'; });
+
+    // ---- 3D Orbit engine ----
+    this._initOrbit3D();
+
+    // ---- Command node fly-out menu ----
+    this._initCommandMenu();
+
+    // ---- Live Ho Chi Minh clock ----
+    const clock = document.getElementById('hcm-clock');
+    if (clock) {
+      const tick = () => {
+        try {
+          clock.textContent = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(new Date());
+        } catch (e) { clock.textContent = new Date().toLocaleTimeString('vi-VN'); }
+      };
+      tick();
+      this._clockT = setInterval(tick, 1000);
+    }
+
+    // ---- Typewriter + matrix reveal (smooth) ----
+    const TW_CHARS = 'ABCDEFGHIJKLMNPQRSTUVWXYZ0123456789#%&*<>/{}[]+=';
+    const typeMatrix = (node, speed, after) => {
+      const full = node.getAttribute('data-tw') != null ? node.getAttribute('data-tw') : node.textContent;
+      node.setAttribute('data-tw', full);
+      if (node._tw) clearInterval(node._tw);
+      let i = 0;
+      node.textContent = '';
+      node._tw = setInterval(() => {
+        let out = full.slice(0, i);
+        const ahead = Math.min(5, full.length - i);
+        for (let k = 0; k < ahead; k++) { const c = full[i + k]; out += (c === ' ' || c === '\n') ? c : TW_CHARS[Math.floor(Math.random() * TW_CHARS.length)]; }
+        node.textContent = out;
+        i++;
+        if (i > full.length) { clearInterval(node._tw); node._tw = null; node.textContent = full; if (after) after(); }
+      }, speed || 24);
+    };
+    const runBrandTW = () => {
+      const nm = document.querySelector('.tw-name');
+      const de = document.querySelector('.tw-desc');
+      if (nm) typeMatrix(nm, 30, () => { if (de) typeMatrix(de, 15); });
+      else if (de) typeMatrix(de, 15);
+    };
+
+    // ---- Auto-fade modules (each independent: visible 5s → dim to 10%; wake on hover/click) ----
+    document.querySelectorAll('[data-fade]').forEach(el => {
+      let timer = null;
+      const dim = () => { el.classList.add('dim'); timer = null; };
+      const schedule = () => { if (timer) clearTimeout(timer); timer = setTimeout(dim, 5000); };
+      const wake = (replay) => {
+        const wasDim = el.classList.contains('dim');
+        el.classList.remove('dim');
+        if (timer) { clearTimeout(timer); timer = null; }
+        if (replay && wasDim && el.getAttribute('data-fade') === 'brand') runBrandTW();
+      };
+      el.addEventListener('mouseenter', () => wake(true));
+      el.addEventListener('mouseleave', schedule);
+      el.addEventListener('focusin', () => wake(false));
+      el.addEventListener('focusout', schedule);
+      el.addEventListener('click', () => wake(true));
+      schedule();
+    });
+    runBrandTW();
+
+    // ---- Mouse parallax (hero layers) ----
+    const layers = Array.from(document.querySelectorAll('[data-parallax]'));
+    let raf = null, tx = 0, ty = 0, cx = 0, cy = 0;
+    const onMove = (ev) => {
+      const w = window.innerWidth, h = window.innerHeight;
+      tx = (ev.clientX - w / 2) / w;
+      ty = (ev.clientY - h / 2) / h;
+      if (!raf) raf = requestAnimationFrame(apply);
+    };
+    const apply = () => {
+      cx += (tx - cx) * 0.08;
+      cy += (ty - cy) * 0.08;
+      layers.forEach(l => {
+        const d = parseFloat(l.getAttribute('data-depth')) || 10;
+        const base = l.getAttribute('data-base') || '';
+        l.style.transform = base + ' translate3d(' + (-cx * d) + 'px,' + (-cy * d) + 'px,0)';
+      });
+      if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) {
+        raf = requestAnimationFrame(apply);
+      } else { raf = null; }
+    };
+    // preserve base transform for the grid (it uses translateX(-50%))
+    layers.forEach(l => {
+      if (l.style.transform && l.style.transform.indexOf('translateX(-50%)') !== -1) {
+        l.setAttribute('data-base', 'translateX(-50%)');
+      }
+    });
+    window.addEventListener('mousemove', onMove, { passive: true });
+    this._onMove = onMove;
+
+    // ---- Particle constellation ----
+    this._initParticles();
+
+    // ---- Footer matrix decode ----
+    this._initDecode();
+  }
+
+  _initParticles() {
+    const canvas = document.getElementById('b-particles');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    let w, h, dpr, pts = [];
+    const COUNT = Math.min(44, Math.floor(window.innerWidth / 34));
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    for (let i = 0; i < COUNT; i++) {
+      pts.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.18, vy: -0.12 - Math.random() * 0.22,
+        r: Math.random() * 1.6 + 0.5,
+        gold: Math.random() > 0.62
+      });
+    }
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      // links (squared-distance, no sqrt)
+      const MAX = 120, MAX2 = MAX * MAX;
+      for (let i = 0; i < pts.length; i++) {
+        const a = pts[i];
+        for (let j = i + 1; j < pts.length; j++) {
+          const b = pts[j];
+          const dx = a.x - b.x; if (dx > MAX || dx < -MAX) continue;
+          const dy = a.y - b.y; if (dy > MAX || dy < -MAX) continue;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < MAX2) {
+            ctx.strokeStyle = 'rgba(79,229,255,' + (0.10 * (1 - Math.sqrt(d2) / MAX)).toFixed(3) + ')';
+            ctx.lineWidth = 0.6;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+      // dots
+      for (const p of pts) {
+        ctx.beginPath();
+        ctx.fillStyle = p.gold ? 'rgba(201,168,107,0.55)' : 'rgba(120,160,230,0.5)';
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+      }
+      this._praf = requestAnimationFrame(draw);
+    };
+    draw();
+    this._presize = resize;
+    window.addEventListener('resize', resize);
+  }
+
+  _initDecode() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*<>';
+    const nodes = Array.from(document.querySelectorAll('[data-decode]'));
+    nodes.forEach((node, idx) => {
+      const text = node.textContent;
+      let timer = null;
+      const run = () => {
+        let frame = 0;
+        const total = Math.max(14, Math.round(text.length * 0.6));
+        clearInterval(timer);
+        timer = setInterval(() => {
+          node.textContent = text.split('').map((ch, i) => {
+            if (ch === ' ') return ' ';
+            if (i < (frame / total) * text.length) return text[i];
+            return chars[Math.floor(Math.random() * chars.length)];
+          }).join('');
+          frame++;
+          if (frame > total) { clearInterval(timer); node.textContent = text; }
+        }, 38);
+      };
+      const loop = setInterval(run, 5200 + idx * 700);
+      setTimeout(run, 900 + idx * 400);
+      this['_dec' + idx] = loop;
+      node._decTimer = () => timer;
+    });
+    this._decNodes = nodes;
+  }
+
+  _initCommandMenu() {
+    const node = document.getElementById('cmd-node');
+    const menu = document.getElementById('cmd-menu');
+    if (!node || !menu) return;
+    const items = Array.from(menu.querySelectorAll('.cmd-item'));
+    const beam = menu.querySelector('.cmd-beam');
+    let open = false;
+    const EASE = 'cubic-bezier(.16,1,.3,1)';
+    const setOpen = (v) => {
+      if (open === v) return;
+      open = v;
+      node.classList.toggle('cmd-open', v);
+      node.setAttribute('aria-expanded', v ? 'true' : 'false');
+      if (v) {
+        menu.classList.add('open'); // instant-visible base (never gated on a transition)
+        // light fly-out + travelling glow (pure enhancement via Web Animations API)
+        try {
+          menu.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease-out', fill: 'none' });
+          if (beam) beam.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 540, easing: EASE, fill: 'none' });
+          const mid = (items.length - 1) / 2;
+          items.forEach((it, i) => {
+            const off = (i - mid) * 132;
+            it.animate(
+              [{ opacity: 0, transform: 'translate(' + (-off) + 'px, 34px) scale(.42)' }, { opacity: 1, transform: 'none' }],
+              { duration: 600, delay: 70 + Math.abs(i - mid) * 78, easing: 'cubic-bezier(.2,.85,.3,1.15)', fill: 'none' }
+            );
+          });
+        } catch (e) {}
+      } else {
+        menu.classList.remove('open');
+      }
+    };
+    node.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!open); });
+    items.forEach(it => it.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('click', (e) => { if (open && !menu.contains(e.target) && !node.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  }
+
+  _initOrbit3D() {
+    const wrap = document.getElementById('b-orbit');
+    const scene = document.getElementById('b-scene');
+    const canvas = document.getElementById('b-orbit-canvas');
+    const hub = document.getElementById('b-hub');
+    const ring1 = document.getElementById('b-hub-ring1');
+    const ring2 = document.getElementById('b-hub-ring2');
+    const sheen = document.getElementById('b-hub-sheen');
+    const nodes = Array.from(document.querySelectorAll('.b-node-pos'));
+    if (!wrap || !scene || !canvas || !nodes.length) return;
+    const ctx = canvas.getContext('2d');
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const N = nodes.length;
+    const RX = 350, TILT = 0.42, RY = RX * TILT;
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const ringCanvas = document.createElement('canvas');
+    const rctx = ringCanvas.getContext('2d');
+    let W = 0, H = 0, cx = 0, cy = 0, dpr = 1;
+    const buildRing = () => { // pre-render the static orbit ring ONCE (not redrawn per frame)
+      ringCanvas.width = Math.round(W * dpr); ringCanvas.height = Math.round(H * dpr);
+      rctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      rctx.clearRect(0, 0, W, H);
+      const SEG = 120;
+      for (let k = 0; k < SEG; k++) {
+        const t0 = (k / SEG) * Math.PI * 2, t1 = ((k + 1) / SEG) * Math.PI * 2;
+        const d = (Math.sin((t0 + t1) / 2) + 1) / 2;
+        rctx.beginPath();
+        rctx.moveTo(cx + RX * Math.cos(t0), cy + RY * Math.sin(t0));
+        rctx.lineTo(cx + RX * Math.cos(t1), cy + RY * Math.sin(t1));
+        rctx.strokeStyle = 'rgba(' + Math.round(lerp(110, 201, d)) + ',' + Math.round(lerp(150, 168, d)) + ',' + Math.round(lerp(220, 107, d)) + ',' + (0.05 + 0.22 * d).toFixed(3) + ')';
+        rctx.lineWidth = 0.6 + 1.7 * d;
+        rctx.stroke();
+      }
+      rctx.lineWidth = 1;
+      rctx.strokeStyle = 'rgba(255,255,255,0.05)';
+      rctx.beginPath(); rctx.ellipse(cx, cy, RX * 0.62, RY * 0.62, 0, 0, Math.PI * 2); rctx.stroke();
+      rctx.strokeStyle = 'rgba(255,255,255,0.028)';
+      rctx.beginPath(); rctx.ellipse(cx, cy, RX * 1.16, RY * 1.16, 0, 0, Math.PI * 2); rctx.stroke();
+    };
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = wrap.clientWidth; H = wrap.clientHeight;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cx = W / 2; cy = H / 2;
+      buildRing();
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    this._orbitResize = resize;
+
+    const dust = [];
+    for (let i = 0; i < 14; i++) dust.push({ a: Math.random() * Math.PI * 2, r: 70 + Math.random() * 240, sp: (Math.random() - 0.5) * 0.0022, z: Math.random(), s: Math.random() * 1.4 + 0.3 });
+
+    const baseOmega = 0.17;
+    let angle = -Math.PI / 2, comet = 0, bob = 0;
+    let targetSlow = 1, slowF = 1;
+    let tiltX = 0, tiltY = 0, cTiltX = 0, cTiltY = 0, hoverIdx = -1;
+    let last = performance.now();
+
+    const onMove = (e) => {
+      const r = wrap.getBoundingClientRect();
+      tiltY = ((e.clientX - r.left) / r.width - 0.5) * 16;
+      tiltX = -((e.clientY - r.top) / r.height - 0.5) * 10;
+    };
+    wrap.addEventListener('mousemove', onMove);
+    wrap.addEventListener('mouseenter', () => { targetSlow = 0.08; });
+    wrap.addEventListener('mouseleave', () => { targetSlow = 1; tiltX = 0; tiltY = 0; });
+    nodes.forEach((n, i) => {
+      n._ic = n.querySelector('.b-nic');
+      n._nm = n.querySelector('.b-name');
+      if (n._ic) { // cheap opacity-driven glow layer (no per-frame box-shadow/blur)
+        const glow = document.createElement('span');
+        glow.setAttribute('aria-hidden', 'true');
+        glow.style.cssText = 'position:absolute; inset:-13px; border-radius:50%; background:radial-gradient(circle, rgba(79,229,255,0.6) 0%, rgba(79,229,255,0) 70%); opacity:0.15; pointer-events:none;';
+        n._ic.insertBefore(glow, n._ic.firstChild);
+        n._glow = glow;
+      }
+      n.addEventListener('mouseenter', () => { hoverIdx = i; });
+      n.addEventListener('mouseleave', () => { if (hoverIdx === i) hoverIdx = -1; });
+    });
+
+    const frame = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      slowF = lerp(slowF, targetSlow, 0.07);
+      angle += baseOmega * slowF * dt;
+      comet = (comet + dt * 0.085) % 1;
+      bob += dt;
+      cTiltX = lerp(cTiltX, tiltX, 0.06);
+      cTiltY = lerp(cTiltY, tiltY, 0.06);
+      scene.style.transform = 'rotateX(' + cTiltX.toFixed(2) + 'deg) rotateY(' + cTiltY.toFixed(2) + 'deg)';
+
+      ctx.clearRect(0, 0, W, H);
+      ctx.drawImage(ringCanvas, 0, 0, W, H); // blit pre-rendered ring
+
+      for (const p of dust) {
+        p.a += p.sp;
+        const dx = cx + Math.cos(p.a) * p.r, dy = cy + Math.sin(p.a) * p.r * TILT;
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(201,168,107,' + (0.08 + 0.16 * p.z).toFixed(3) + ')';
+        ctx.arc(dx, dy, p.s, 0, Math.PI * 2); ctx.fill();
+      }
+
+      // node geometry
+      const order = [];
+      for (let i = 0; i < N; i++) {
+        const a = angle + i * (Math.PI * 2 / N);
+        order.push({ i, x: RX * Math.cos(a), y: RY * Math.sin(a), d: (Math.sin(a) + 1) / 2 });
+      }
+      // spokes (far first)
+      order.slice().sort((p, q) => p.d - q.d).forEach(o => {
+        const px = cx + o.x, py = cy + o.y;
+        ctx.strokeStyle = 'rgba(112,182,236,' + (0.05 + 0.30 * o.d).toFixed(3) + ')';
+        ctx.lineWidth = 0.6 + 1.4 * o.d;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(px, py); ctx.stroke();
+        // energy pulses flowing OUTWARD from the core — brighter & larger toward the node
+        for (let pk = 0; pk < 2; pk++) {
+          const tt = ((now * 0.00018) + o.i * 0.137 + pk * 0.5) % 1;
+          const lx = cx + o.x * tt, ly = cy + o.y * tt;
+          const aa = (0.04 + 0.62 * tt) * (0.28 + 0.72 * o.d);
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(160,232,255,' + aa.toFixed(3) + ')';
+          ctx.arc(lx, ly, 0.7 + 2.4 * tt, 0, Math.PI * 2); ctx.fill();
+        }
+      });
+
+      // comet with trail
+      const ca = comet * Math.PI * 2, cd = (Math.sin(ca) + 1) / 2;
+      for (let t = 8; t >= 0; t--) {
+        const ta = ca - t * 0.055;
+        const tx = cx + RX * Math.cos(ta), ty = cy + RY * Math.sin(ta);
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(150,230,255,' + (0.5 * (1 - t / 9) * (0.4 + 0.6 * cd)).toFixed(3) + ')';
+        ctx.arc(tx, ty, (3 - t * 0.22) * (0.5 + 0.5 * cd), 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.beginPath(); ctx.fillStyle = 'rgba(200,245,255,' + (0.4 + 0.5 * cd).toFixed(3) + ')';
+      ctx.arc(cx + RX * Math.cos(ca), cy + RY * Math.sin(ca), 3.6 * (0.6 + 0.5 * cd), 0, Math.PI * 2); ctx.fill();
+
+      // place nodes in 3D (translateZ drives real depth sorting through the hub)
+      for (const o of order) {
+        const n = nodes[o.i];
+        const hov = hoverIdx === o.i;
+        const sc = (0.66 + 0.48 * o.d) * (hov ? 1.12 : 1);
+        const z = (o.d - 0.5) * 120;
+        n.style.transform = 'translate(-50%,-50%) translate3d(' + o.x.toFixed(1) + 'px,' + o.y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) scale(' + sc.toFixed(3) + ')';
+        n.style.opacity = (hov ? 1 : (0.46 + 0.54 * o.d)).toFixed(3);
+        // light "opens up" toward the front/outer — cheap GPU opacity on the glow layer only
+        if (n._glow) n._glow.style.opacity = (hov ? 1 : (0.1 + 0.9 * o.d)).toFixed(3);
+      }
+
+      // hub bob + sheen + pulsing rings
+      if (hub) hub.style.transform = 'translate(-50%,-50%) translateY(' + (Math.sin(bob * 0.9) * 5).toFixed(2) + 'px)';
+      if (sheen) sheen.style.transform = 'rotate(' + ((now * 0.05) % 360).toFixed(1) + 'deg)';
+      const rp = (bob * 0.32) % 1;
+      if (ring1) { ring1.style.transform = 'scale(' + (0.84 + rp * 0.85).toFixed(3) + ')'; ring1.style.opacity = (0.5 * (1 - rp)).toFixed(3); }
+      const rp2 = ((bob * 0.32) + 0.5) % 1;
+      if (ring2) { ring2.style.transform = 'scale(' + (0.84 + rp2 * 0.85).toFixed(3) + ')'; ring2.style.opacity = (0.45 * (1 - rp2)).toFixed(3); }
+    };
+
+    const loop = (now) => { frame(now); this._orbitRaf = requestAnimationFrame(loop); };
+
+    // === DRAG/SWIPE TO ROTATE ===
+    let _dragDelta = 0;   
+    let _dragVelocity = 0; 
+    const DRAG_DECAY = 0.96;
+
+    const _origFrame = frame;
+    const _patchedFrame = (now) => {
+      if (_dragDelta !== 0 || Math.abs(_dragVelocity) > 0.00001) {
+        angle += _dragDelta;
+        _dragDelta = 0;
+        _dragVelocity *= DRAG_DECAY;
+        if (Math.abs(_dragVelocity) > 0.00001) angle += _dragVelocity;
+      }
+      _origFrame(now);
+    };
+
+    if (this._orbitRaf) cancelAnimationFrame(this._orbitRaf);
+    const patchedLoop = (now) => { _patchedFrame(now); this._orbitRaf = requestAnimationFrame(patchedLoop); };
+    this._orbitRaf = requestAnimationFrame(patchedLoop);
+
+    let _isDragging = false, _lastX = 0, _lastY = 0;
+    const SENS = 0.005;
+
+    const onDragStart = (e) => {
+      _isDragging = true;
+      _lastX = e.touches ? e.touches[0].clientX : e.clientX;
+      _lastY = e.touches ? e.touches[0].clientY : e.clientY;
+      _dragVelocity = 0;
+      targetSlow = 0.08;
+    };
+    const onDragMove = (e) => {
+      if (!_isDragging) return;
+      const curX = e.touches ? e.touches[0].clientX : e.clientX;
+      const dx = curX - _lastX;
+      _lastX = curX;
+      _lastY = e.touches ? e.touches[0].clientY : e.clientY;
+      _dragDelta -= dx * SENS;
+      _dragVelocity = -dx * SENS * 0.8; 
+      if (e.cancelable) e.preventDefault();
+    };
+    const onDragEnd = () => { _isDragging = false; targetSlow = 1; };
+
+    if (canvas) {
+      canvas.addEventListener('mousedown', onDragStart, { passive: false });
+      canvas.addEventListener('touchstart', onDragStart, { passive: false });
+      canvas.style.cursor = 'grab';
+    }
+    if (wrap) {
+      wrap.addEventListener('mousedown', onDragStart, { passive: false });
+      wrap.addEventListener('touchstart', onDragStart, { passive: false });
+    }
+    window.addEventListener('mousemove', onDragMove, { passive: false });
+    window.addEventListener('mouseup', onDragEnd);
+    window.addEventListener('touchmove', onDragMove, { passive: false });
+    window.addEventListener('touchend', onDragEnd);
+    // === KẾT THÚC DRAG/SWIPE ===
+    frame(performance.now()); // render one frame immediately so the layout is correct even if rAF is throttled
+    if (!reduce) { this._orbitRaf = requestAnimationFrame(loop); }
+    this._orbitMove = onMove;
+  }
+
+  componentWillUnmount() {
+    if (this._orbitRaf) cancelAnimationFrame(this._orbitRaf);
+    window.removeEventListener('resize', this._orbitResize);
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('mousemove', this._onMove);
+    window.removeEventListener('resize', this._presize);
+    if (this._io) this._io.disconnect();
+    if (this._safety) clearTimeout(this._safety);
+    if (this._praf) cancelAnimationFrame(this._praf);
+  }
+
+  renderVals() { return {}; }
+}
+// Boot the component directly since dc-runtime is absent
+document.addEventListener('DOMContentLoaded', () => {
+  window.__baika_space = new Component();
+  window.__baika_space.componentDidMount();
+});
+// Fallback in case DOMContentLoaded already fired (e.g. iframe injection delay)
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  if (!window.__baika_space) {
+    window.__baika_space = new Component();
+    window.__baika_space.componentDidMount();
+  }
+}
+</script>
+
+
+
+<!-- KHUNG CONTACT NỔI -->
+<div id="tech-contact-widget">
+  <div class="tc-menu" id="tcMenu">
+    <a href="https://zalo.me/0905247365" target="_blank" class="tc-item tc-zalo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      <span>Chat Zalo</span>
+    </a>
+    <a href="tel:0905247365" class="tc-item tc-phone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+      <span>0905.247.365</span>
+    </a>
+  </div>
+  <div class="tc-btn" id="tcBtn">
+    <div class="tc-pulse"></div>
+    <svg class="tc-icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <svg class="tc-icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </div>
+</div>
+
+<style>
+  #tech-contact-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-family: 'Orbitron', 'Lexend', sans-serif;
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #tech-contact-widget.faded {
+    opacity: 0.3;
+  }
+  #tech-contact-widget:hover, #tech-contact-widget.active {
+    opacity: 1 !important;
+  }
+  .tc-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transform-origin: bottom right;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  #tech-contact-widget.active .tc-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+  .tc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(9, 13, 26, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(79, 229, 255, 0.3);
+    padding: 10px 18px;
+    border-radius: 20px;
+    color: #4FE5FF;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(79, 229, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .tc-item:hover {
+    background: rgba(14, 25, 48, 0.95);
+    border-color: #00F0FF;
+    box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.2);
+    transform: translateX(-5px);
+  }
+  .tc-item svg { width: 20px; height: 20px; }
+  
+  .tc-btn {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(9, 13, 26, 0.9), rgba(16, 28, 54, 0.9));
+    border: 1px solid #4FE5FF;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #00F0FF;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .tc-btn:hover {
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.5), inset 0 0 25px rgba(0, 240, 255, 0.4);
+    transform: scale(1.05);
+  }
+  .tc-pulse {
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid #00F0FF;
+    animation: tcPulse 2s infinite;
+    pointer-events: none;
+  }
+  @keyframes tcPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  
+  .tc-btn svg {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .tc-icon-close {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+  #tech-contact-widget.active .tc-icon-chat {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.5);
+  }
+  #tech-contact-widget.active .tc-icon-close {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+  #tech-contact-widget.active .tc-btn {
+    border-color: #FF4F79;
+    color: #FF4F79;
+    box-shadow: 0 0 20px rgba(255, 79, 121, 0.3), inset 0 0 15px rgba(255, 79, 121, 0.2);
+  }
+  #tech-contact-widget.active .tc-pulse {
+    border-color: #FF4F79;
+    animation-duration: 3s;
+  }
+  
+  @media (max-width: 768px) {
+    #tech-contact-widget {
+      bottom: 20px;
+      right: 20px;
+    }
+    .tc-btn { width: 50px; height: 50px; }
+    .tc-btn svg { width: 24px; height: 24px; }
+    .tc-item { padding: 8px 14px; font-size: 0.8rem; }
+    .tc-item svg { width: 16px; height: 16px; }
+  }
+</style>
+
+<script>
+  (function(){
+    var w = document.getElementById('tech-contact-widget');
+    var btn = document.getElementById('tcBtn');
+    var to;
+    
+    function resetFade() {
+      w.classList.remove('faded');
+      clearTimeout(to);
+      if (!w.classList.contains('active')) {
+        to = setTimeout(function() {
+          w.classList.add('faded');
+        }, 3000);
+      }
+    }
+
+    btn.addEventListener('click', function(e) {
+      w.classList.toggle('active');
+      resetFade();
+    });
+
+    w.addEventListener('mousemove', resetFade);
+    w.addEventListener('touchstart', resetFade);
+
+    // Initial timer
+    resetFade();
+  })();
+</script>
+<!-- KẾT THÚC KHUNG CONTACT NỔI -->
+
+  
+
+
+  <!-- TICKER TOGGLE BUTTON -->
+  <div id="ticker-toggle-wrapper" style="position:fixed; bottom: 20px; left:clamp(22px,3vw,52px); z-index:90;">
+    <button id="ticker-toggle-btn" style="position:relative; width:46px; height:46px; border-radius:50%; background:linear-gradient(135deg, rgba(79,229,255,0.1), rgba(18,26,48,0.9)); border:1px solid rgba(79,229,255,0.4); box-shadow:0 0 15px rgba(79,229,255,0.2); display:flex; align-items:center; justify-content:center; cursor:pointer; outline:none; transition:all 0.3s; z-index:91;" 
+    onmouseover="this.style.transform='scale(1.08)';this.style.boxShadow='0 0 25px rgba(79,229,255,0.5)';" 
+    onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 0 15px rgba(79,229,255,0.2)';">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4FE5FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: all 0.3s;">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+    </button>
+    <div id="ticker-tooltip" style="position:absolute; bottom:calc(100% + 15px); left:0; width:max-content; max-width:250px; background:rgba(6,9,18,0.95); border:1px solid rgba(79,229,255,0.4); padding:8px 12px; border-radius:8px; font-family:'Lexend',sans-serif; font-size:0.7rem; color:#CFE0FF; opacity:0; pointer-events:none; transition:opacity 0.3s; box-shadow:0 5px 20px rgba(0,0,0,0.6); z-index:92; white-space:nowrap;">Ẩn/Hiện thông báo</div>
+  </div>
+
+  <style>
+    /* CSS for ticker transition */
+    #premium-ticker-wrapper {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      transform-origin: top center;
+    }
+    #premium-ticker-wrapper.hidden {
+      opacity: 0 !important;
+      transform: translateX(-50%) translateY(25px) scale(0.95) !important;
+      pointer-events: none !important;
+    }
+    
+    #ticker-toggle-wrapper:hover #ticker-tooltip {
+      opacity: 1;
+    }
+  </style>
+
+  <script>
+    document.getElementById('ticker-toggle-btn').addEventListener('click', function() {
+      const ticker = document.getElementById('premium-ticker-wrapper');
+      const icon = this.querySelector('svg');
+      if (ticker.classList.contains('hidden')) {
+        ticker.classList.remove('hidden');
+        this.style.background = 'linear-gradient(135deg, rgba(79,229,255,0.1), rgba(18,26,48,0.9))';
+        icon.style.stroke = '#4FE5FF';
+      } else {
+        ticker.classList.add('hidden');
+        this.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(10,10,10,0.9))';
+        icon.style.stroke = '#888';
+      }
+    });
+  </script>
+  <!-- KẾT THÚC TICKER TOGGLE -->
+
+
+  <script>
+    // AUTO-HIDE TICKER
+    (function() {
+      function initTickerAutoHide() {
+        var wrapper = document.getElementById('premium-ticker-wrapper');
+        if (!wrapper) return;
+        var duration = 25000;
+        var btn = document.getElementById('ticker-toggle-btn');
+        var hideTimer = setTimeout(function() {
+          if (!wrapper.classList.contains('hidden')) {
+            wrapper.classList.add('hidden');
+            if (btn) {
+              btn.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(10,10,10,0.9))';
+              var icon = btn.querySelector('svg');
+              if (icon) icon.style.stroke = '#888';
+            }
+          }
+        }, duration);
+        if (btn) {
+          btn.addEventListener('click', function() { clearTimeout(hideTimer); }, { once: true });
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initTickerAutoHide);
+      } else {
+        initTickerAutoHide();
+      }
+    })();
+  </script>
+
+</body>
+
+</html>

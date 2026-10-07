@@ -1,0 +1,18 @@
+---
+// Khảo sát cơ hội ứng dụng AI — công cụ chẩn đoán miễn phí. Logic + câu chữ giữ y v1 (sếp chốt 05/10/2026).
+// Nút Hero trang /ai-os dẫn tới đây. Spec: docs/cong-cu-chan-doan/SPEC-MASTER.md
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import CongCuAI from '../../components/CongCuAI.astro';
+---
+
+<BaseLayout
+  title="Khảo sát cơ hội ứng dụng AI — BAIKA"
+  description="AI Readiness Diagnosis — 9 bước, khoảng 3 phút, nhận điểm sẵn sàng AI và gói triển khai đề xuất."
+  pillar="cong-nghe-ai"
+>
+  <SiteHeader slot="header" current="/ai-os" />
+  <CongCuAI />
+  <SiteFooter slot="footer" />
+</BaseLayout>

@@ -1,0 +1,218 @@
+---
+// KHUNG + BỘ KIỂU DÙNG CHUNG cho 5 công cụ chẩn đoán miễn phí.
+// =================================================================
+// Figma (page UI, bản MVP — Thắng duyệt 05/10/2026, «UI/UX sửa sau»):
+//   Finance 994:3944 · CEO 998:4178 · Remote Ops 999:4559 · AI 1000:4670 · Thương hiệu 1002:5246
+//
+// Số đo theo bản MVP: nền --gray-950 · cột nội dung 800 căn giữa · khoảng
+// giữa các khối --s-8 · thẻ câu hỏi nền --gray-900, bo --r-md, đệm --s-6
+// (mobile --s-4) · thanh tiến độ cao 6 · vòng điểm 200.
+//
+// Vì sao CSS ở đây viết dạng `:global(...)` dưới lớp `.cc`:
+//   Ba component công cụ (CongCuKieuA · CongCuAI · CongCuThuongHieu) dùng CHUNG
+//   một bộ kiểu. Thẻ <style> của Astro chỉ áp cho phần tử viết trong CHÍNH file
+//   đó, không áp cho nội dung truyền vào <slot>. Nên bộ kiểu được đặt «toàn cục
+//   nhưng có rào»: mọi luật bắt đầu bằng `.cc`, ra ngoài khung này không ảnh
+//   hưởng gì. Một chỗ sửa, cả 5 công cụ đổi theo.
+//
+// ⚠️ Hai kích thước KHÔNG có token (đã ghi ở nhật ký Figma, chờ vòng sửa UI):
+//   vòng điểm 200 và độ dày thanh 6 / 8 — viết bằng phép nhân từ thang --s-*.
+interface Props {
+  /** Mã công cụ — JS của từng công cụ dùng để tìm đúng khung. */
+  congCu: string;
+}
+const { congCu } = Astro.props;
+---
+
+<article class="cc" data-cong-cu={congCu}>
+  <slot />
+</article>
+
+<style>
+  :global(body) { background: var(--gray-950); }
+
+  .cc {
+    box-sizing: content-box;
+    max-width: 800px;                 /* như cột chữ trang Chính sách bảo mật */
+    margin: 0 auto;
+    /* Header nằm ĐÈ lên trang (cao 128) → lề trên = 128 + --s-20 (giống trang Chính sách). */
+    padding: calc(var(--s-6) * 2 + var(--s-12) + var(--s-20)) var(--s-6) var(--s-24);
+    color: var(--gray-50);
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
+    font-weight: var(--fw-body);
+  }
+  @media (min-width: 768px) {
+    .cc { padding-inline: var(--s-10); }
+  }
+
+  /* ── Màn hình: mỗi lúc chỉ một màn hiện ─────────────────────────── */
+  .cc :global(.cc-man) { display: flex; flex-direction: column; gap: var(--s-8); }
+  .cc :global(.cc-man[hidden]),
+  .cc :global(.cc-nhom[hidden]) { display: none; }
+  .cc :global(.cc-nhom) { display: flex; flex-direction: column; gap: var(--s-8); border: 0; margin: 0; padding: 0; min-width: 0; }
+  .cc :global(p) { margin: 0; }
+  .cc :global(a) { color: inherit; }
+
+  /* ── Chữ ───────────────────────────────────────────────────────── */
+  .cc :global(.cc-dau) { display: flex; flex-direction: column; gap: var(--s-2); }
+  .cc :global(.cc-mat),
+  .cc :global(.cc-phu) {
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    font-weight: var(--fw-caption);
+    color: var(--gray-400);
+  }
+  .cc :global(.cc-mat) { text-transform: uppercase; }
+  .cc :global(.cc-h1),
+  .cc :global(.cc-h2),
+  .cc :global(.cc-h3) { margin: 0; font-family: var(--font-heading); }
+  .cc :global(.cc-h1) { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: var(--fw-h1); }
+  .cc :global(.cc-h2) { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: var(--fw-h2); }
+  .cc :global(.cc-h3) { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--fw-h3); }
+  .cc :global(.cc-lon) { font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); font-weight: var(--fw-body-lg); }
+  .cc :global(.cc-mo) { color: var(--gray-400); }
+  .cc :global(.cc-ghichu) { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--gray-600); }
+
+  /* ── Tiến độ ───────────────────────────────────────────────────── */
+  .cc :global(.cc-tiendo) { display: flex; flex-direction: column; gap: var(--s-3); }
+  .cc :global(.cc-tiendo__tren) {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2);
+    font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--gray-400);
+  }
+  .cc :global(.cc-uoctinh) { display: inline-flex; align-items: baseline; gap: var(--s-2); }
+  .cc :global(.cc-uoctinh b) {
+    font-family: var(--font-heading); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: var(--fw-h2); color: var(--gray-50);
+  }
+  .cc :global(.cc-ray) {
+    height: calc(var(--s-1) * 1.5);   /* 6 — chưa có token, xem đầu file */
+    border-radius: var(--r-pill);
+    background: var(--gray-800);
+    overflow: hidden;
+  }
+  .cc :global(.cc-ray__day) {
+    display: block; height: 100%; width: 0;
+    border-radius: inherit; background: var(--gray-50);
+    transition: width 200ms ease;
+  }
+
+  /* ── Thẻ câu hỏi ───────────────────────────────────────────────── */
+  .cc :global(.cc-the) {
+    display: flex; flex-direction: column; gap: var(--s-4);
+    padding: var(--s-4);
+    border-radius: var(--r-md);
+    background: var(--gray-900);
+    border: 1px solid transparent;    /* chỗ dành sẵn cho viền lỗi — không nhảy layout */
+    min-width: 0;
+    margin: 0;
+  }
+  @media (min-width: 768px) { .cc :global(.cc-the) { padding: var(--s-6); } }
+  .cc :global(.cc-the[data-loi='true']) { border-color: var(--red-200); }
+  .cc :global(.cc-the legend) { padding: 0; float: left; width: 100%; }
+  .cc :global(.cc-the legend + *) { clear: both; }
+
+  .cc :global(.cc-luachon) { display: grid; gap: var(--s-3); grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 768px) {
+    .cc :global(.cc-luachon[data-cot='2']) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cc :global(.cc-luachon[data-cot='3']) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  /* ── Form ──────────────────────────────────────────────────────── */
+  .cc :global(.cc-form) { display: grid; gap: var(--s-4); grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 768px) {
+    .cc :global(.cc-form[data-cot='2']) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cc :global(.cc-form .cc-rong) { grid-column: 1 / -1; }
+  }
+
+  /* Dòng báo lỗi chung — đặt ngay trên nút, như form Liên hệ. */
+  .cc :global(.cc-loi) {
+    padding: var(--s-3) var(--s-4);
+    border-radius: var(--r-sm);
+    border: 1px solid var(--red-200);
+    color: var(--red-100);
+    font-size: var(--fs-caption); line-height: var(--lh-caption);
+  }
+  .cc :global(.cc-loi[hidden]) { display: none; }
+
+  /* ── Nút ───────────────────────────────────────────────────────── */
+  .cc :global(.cc-nut) { display: flex; flex-wrap: wrap; gap: var(--s-4); justify-content: space-between; }
+  .cc :global(.cc-nut[data-mot]) { justify-content: flex-end; }
+  .cc :global(.cc-nut[data-trai]) { justify-content: flex-start; }
+  .cc :global(.cc-nut .btn2[hidden]) { display: none; }
+
+  /* ── Kết quả: vòng điểm ────────────────────────────────────────── */
+  .cc :global(.cc-diem) { display: flex; flex-direction: column; gap: var(--s-6); }
+  @media (min-width: 768px) { .cc :global(.cc-diem) { flex-direction: row; align-items: center; gap: var(--s-10); } }
+  .cc :global(.cc-vong) {
+    position: relative; flex: none;
+    width: calc(var(--s-20) * 2.5);   /* 200 — chưa có token, xem đầu file */
+    aspect-ratio: 1;
+  }
+  .cc :global(.cc-vong svg) { display: block; width: 100%; height: 100%; transform: rotate(-90deg); }
+  .cc :global(.cc-vong__nen) { stroke: var(--gray-800); }
+  .cc :global(.cc-vong__day) { stroke: var(--gray-50); transition: stroke-dasharray 600ms ease; }
+  .cc :global(.cc-vong__so) {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .cc :global(.cc-vong__so b) {
+    font-family: var(--font-display); font-size: var(--fs-display-2); line-height: var(--lh-display-2); font-weight: var(--fw-display-2);
+  }
+  .cc :global(.cc-vong__so span) { font-size: var(--fs-caption); line-height: var(--lh-caption); color: var(--gray-400); }
+  .cc :global(.cc-diem__chu) { display: flex; flex-direction: column; gap: var(--s-3); flex: 1; min-width: 0; }
+
+  /* ── Kết quả: thanh điểm từng nhóm ─────────────────────────────── */
+  /* Mobile: tên ở trên, thanh + số ở dưới. Nhãn «Nên bắt đầu» nằm CHUNG ô với tên
+     (dạt phải) — để cột số luôn rộng --s-8 và mọi thanh dài bằng nhau. */
+  .cc :global(.cc-thanh) {
+    display: grid; gap: var(--s-2) var(--s-3); align-items: center;
+    grid-template-columns: minmax(0, 1fr) var(--s-8);
+    grid-template-areas: 'ten ten' 'ray so';
+  }
+  .cc :global(.cc-thanh .cc-thanh__nhan) { grid-area: ten; justify-self: end; }
+  .cc :global(.cc-thanh[data-yeu='true'] .cc-thanh__ten) { padding-right: var(--s-24); }
+  @media (min-width: 768px) {
+    .cc :global(.cc-thanh) {
+      gap: var(--s-4);
+      /* 200 · phần còn lại · 32 · 112 — cột cố định để các dòng thẳng hàng */
+      grid-template-columns: calc(var(--s-20) * 2.5) minmax(0, 1fr) var(--s-8) calc(var(--s-24) + var(--s-4));
+      grid-template-areas: 'ten ray so nhan';
+    }
+    .cc :global(.cc-thanh .cc-thanh__nhan) { grid-area: nhan; justify-self: start; }
+    .cc :global(.cc-thanh[data-yeu='true'] .cc-thanh__ten) { padding-right: 0; }
+  }
+  .cc :global(.cc-thanh__ten) { grid-area: ten; }
+  .cc :global(.cc-thanh__so) { grid-area: so; text-align: right; }
+  .cc :global(.cc-thanh__nhan) { display: flex; }
+  .cc :global(.cc-thanh .cc-ray) { grid-area: ray; height: var(--s-2); }
+  .cc :global(.cc-thanh[data-yeu='true'] .cc-ray__day) { background: var(--gray-400); }
+
+  /* Nhãn «Nên bắt đầu» — Figma `Badge` 134:707 (Status=Error · Icon=No · Pill):
+     đệm --s-1/--s-2 · bo --r-pill · viền --red-100 · nền --red-200 @30% · chữ label --red-200. */
+  .cc :global(.cc-nhan) {
+    display: inline-flex; align-items: center;
+    padding: var(--s-1) var(--s-2);
+    border-radius: var(--r-pill);
+    border: 1px solid var(--red-100);
+    background: color-mix(in srgb, var(--red-200) 30%, transparent);
+    color: var(--red-200);
+    font-size: var(--fs-label); line-height: var(--lh-label); font-weight: var(--fw-label);
+    white-space: nowrap;
+  }
+  .cc :global(.cc-nhan[hidden]) { display: none; }
+
+  /* ── Kết quả: gói đề xuất ──────────────────────────────────────── */
+  .cc :global(.cc-goi ul) { margin: 0; padding-left: var(--s-6); display: flex; flex-direction: column; gap: var(--s-1); }
+  .cc :global(.cc-canhbao) {
+    padding: var(--s-3) var(--s-4); border-radius: var(--r-sm);
+    border: 1px solid var(--gray-800); color: var(--gray-400);
+    font-size: var(--fs-caption); line-height: var(--lh-caption);
+  }
+  .cc :global(.cc-canhbao[hidden]) { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cc :global(.cc-ray__day),
+    .cc :global(.cc-vong__day) { transition: none; }
+  }
+</style>

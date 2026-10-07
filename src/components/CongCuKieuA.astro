@@ -1,0 +1,281 @@
+---
+// CÔNG CỤ CHẨN ĐOÁN KIỂU A — dùng cho 3 công cụ: CEO Blueprint · Finance · Remote Ops.
+// =====================================================================================
+// Figma MVP (page UI): Finance 994:3944 · CEO 998:4178 · Remote Ops 999:4559.
+// 4 màn: Giới thiệu → Câu hỏi (mỗi lần một khu vực) → Thông tin liên hệ → Kết quả.
+// Câu chữ + cách tính: src/lib/chan-doan/kieu-a.ts (nguyên văn v1, sếp chốt 05/10).
+//
+// Mọi màn được dựng sẵn trong HTML (ẩn bằng `hidden`); JS chỉ bật/tắt và tô điểm.
+// Vì vậy câu hỏi đọc được cả khi JS chưa tải xong, và dùng được component Astro
+// có sẵn (Button 2, Text field, Checkbox) thay vì tự dựng HTML trong JS.
+import CongCuKhung from './CongCuKhung.astro';
+import LuaChon from './LuaChon.astro';
+import Button2 from './Button2.astro';
+import TextField from './TextField.astro';
+import Checkbox from './Checkbox.astro';
+import { THANG_DIEM, maCau, soCau, type CongCuKieuA } from '../lib/chan-doan/kieu-a';
+
+interface Props { cc: CongCuKieuA }
+const { cc } = Astro.props;
+const N = cc.nhom.length;
+const NQ = soCau(cc);
+const nutPhu = { size: 'md' as const, iconLeft: false, iconRight: false };
+---
+
+<CongCuKhung congCu={cc.trang}>
+  {/* ── 1 · Giới thiệu ─────────────────────────────────────────── */}
+  <section class="cc-man" data-man="gioi-thieu">
+    <div class="cc-dau">
+      <p class="cc-mat">Công cụ tự đánh giá · {cc.nhanTru}</p>
+      <h1 class="cc-h1" data-tieu-de tabindex="-1">{cc.tieuDe}</h1>
+      <p class="cc-lon cc-mo">{cc.moTa}</p>
+      <p class="cc-phu">{cc.dongPhu}</p>
+    </div>
+    <div class="cc-nut" data-trai>
+      <span data-nut="bat-dau"><Button2 label="Bắt đầu đánh giá" {...nutPhu} /></span>
+    </div>
+    <p class="cc-ghichu">Câu trả lời của bạn được dùng để tính điểm và đề xuất lộ trình. Thông tin liên hệ chỉ hỏi ở bước cuối.</p>
+  </section>
+
+  {/* ── 2 · Câu hỏi ────────────────────────────────────────────── */}
+  <section class="cc-man" data-man="cau-hoi" hidden>
+    <div class="cc-tiendo">
+      <div class="cc-tiendo__tren">
+        <span data-o="da-tra-loi">Đã trả lời 0 / {NQ} câu</span>
+        {cc.coDiemUocTinh && (
+          <span class="cc-uoctinh">Điểm ước tính hiện tại <b data-o="uoc-tinh">0</b> /100</span>
+        )}
+      </div>
+      <div class="cc-ray" data-thanh="tien-do"><span class="cc-ray__day"></span></div>
+    </div>
+
+    {cc.nhom.map((g, gi) => (
+      <div class="cc-nhom" data-nhom={gi} hidden={gi > 0}>
+        <div class="cc-dau">
+          <p class="cc-mat">{cc.tenNhom} {gi + 1} / {N}</p>
+          <h2 class="cc-h2" data-tieu-de tabindex="-1">{g.ten}</h2>
+        </div>
+        {g.cauHoi.map((q, i) => (
+          <fieldset class="cc-the" data-cau={maCau(g, i)}>
+            <legend class="cc-lon">{q}</legend>
+            <div class="cc-luachon" data-cot="2">
+              {THANG_DIEM.map((nhan, v) => <LuaChon name={maCau(g, i)} value={String(v)} label={nhan} />)}
+            </div>
+          </fieldset>
+        ))}
+      </div>
+    ))}
+
+    <p class="cc-loi" data-o="loi-nhom" role="alert" hidden></p>
+    <div class="cc-nut">
+      <span data-nut="lui"><Button2 label="← Quay lại" {...nutPhu} /></span>
+      <span data-nut="tiep"><Button2 label="Tiếp tục →" {...nutPhu} /></span>
+    </div>
+  </section>
+
+  {/* ── 3 · Thông tin liên hệ ──────────────────────────────────── */}
+  <section class="cc-man" data-man="lien-he" hidden>
+    <div class="cc-dau">
+      <p class="cc-mat">Bước cuối</p>
+      <h2 class="cc-h2" data-tieu-de tabindex="-1">Nhận kết quả đánh giá</h2>
+      <p class="cc-mo">Kết quả hiển thị ngay sau khi bạn xác nhận thông tin. BAIKA có thể liên hệ để trao đổi sâu hơn về bản đồ điểm của bạn.</p>
+    </div>
+    <form class="cc-form" data-cot="2" novalidate>
+      <TextField id="cc-ten" name="ten" label="Họ và tên *" required autocomplete="name" />
+      <TextField id="cc-sdt" name="sdt" label="Số điện thoại *" type="tel" required autocomplete="tel" />
+      <TextField id="cc-email" name="email" label="Email" type="email" autocomplete="email" />
+      <TextField id="cc-donvi" name="donvi" label="Doanh nghiệp" autocomplete="organization" />
+      {/* Bẫy spam — giống form Liên hệ: người thật không thấy ô này. */}
+      <div class="sr-only" aria-hidden="true">
+        <label for="cc-website">Đừng điền ô này</label>
+        <input id="cc-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <div class="cc-rong">
+        <Checkbox id="cc-dongy" name="dongy" required>
+          Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo <a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">chính sách bảo mật</a>.
+        </Checkbox>
+      </div>
+      <p class="cc-loi cc-rong" data-o="loi-lien-he" role="alert" hidden></p>
+      <div class="cc-nut cc-rong">
+        <span data-nut="lui-lien-he"><Button2 label="← Quay lại" {...nutPhu} /></span>
+        <span data-nut="gui"><Button2 label="Xem kết quả" type="submit" {...nutPhu} /></span>
+      </div>
+    </form>
+  </section>
+
+  {/* ── 4 · Kết quả ────────────────────────────────────────────── */}
+  <section class="cc-man" data-man="ket-qua" hidden>
+    <div class="cc-diem">
+      <div class="cc-vong" data-vong>
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="cc-vong__nen" cx="50" cy="50" r="47" fill="none" stroke-width="6" pathLength="100" />
+          <circle class="cc-vong__day" cx="50" cy="50" r="47" fill="none" stroke-width="6" pathLength="100" stroke-dasharray="0 100" />
+        </svg>
+        <div class="cc-vong__so"><b>0</b><span>/100</span></div>
+      </div>
+      <div class="cc-diem__chu">
+        <p class="cc-mat">Kết quả của bạn</p>
+        <h2 class="cc-h2" data-tieu-de tabindex="-1" data-o="muc"></h2>
+        <p class="cc-mo" data-o="mo-ta"></p>
+      </div>
+    </div>
+
+    <section class="cc-the">
+      <h3 class="cc-h3">Điểm theo từng khu vực (0–10)</h3>
+      <p class="cc-phu">Ba khu vực thấp nhất được đánh dấu đỏ — đó là nơi nên bắt đầu.</p>
+      {cc.nhom.map((g) => (
+        <div class="cc-thanh" data-thanh-nhom={g.ma}>
+          <span class="cc-thanh__ten">{g.ten}</span>
+          <span class="cc-ray" aria-hidden="true"><span class="cc-ray__day"></span></span>
+          <span class="cc-thanh__so" data-o={`diem-${g.ma}`}>0</span>
+          <span class="cc-thanh__nhan"><span class="cc-nhan" hidden>Nên bắt đầu</span></span>
+        </div>
+      ))}
+    </section>
+
+    <section class="cc-the cc-goi">
+      <p class="cc-mat">Lộ trình đề xuất</p>
+      <h3 class="cc-h3" data-o="goi"></h3>
+      <p class="cc-mo" data-o="mo-ta"></p>
+    </section>
+
+    <p class="cc-phu" data-o="trang-thai-gui" role="status"></p>
+    <div class="cc-nut" data-trai>
+      <Button2 label={cc.nutTuVan} href={`/${cc.trang}#lien-he`} {...nutPhu} />
+      <Button2 label="Về trang dịch vụ" href={`/${cc.trang}`} {...nutPhu} />
+    </div>
+  </section>
+</CongCuKhung>
+
+<script>
+  import { CONG_CU_KIEU_A, THANG_DIEM, maCau, soCau, tinhKieuA, diemUocTinh } from '../lib/chan-doan/kieu-a';
+  import {
+    hienMan, veDauKhoi, toThanh, toVong, ghi, chuNut, nut,
+    datLoi, giaTri, sdtDung, emailDung, taoMaHoSo, guiKetQua,
+  } from '../lib/chan-doan/trinh-duyet';
+
+  const goc = document.querySelector<HTMLElement>('.cc[data-cong-cu]');
+  const cc = goc ? CONG_CU_KIEU_A[goc.dataset.congCu as keyof typeof CONG_CU_KIEU_A] : undefined;
+
+  if (goc && cc) {
+    const NQ = soCau(cc);
+    const traLoi: Record<string, number> = {};
+    let cur = 0;
+
+    const manCauHoi = goc.querySelector<HTMLElement>('[data-man="cau-hoi"]')!;
+    const form = goc.querySelector<HTMLFormElement>('[data-man="lien-he"] form')!;
+
+    const capNhatTienDo = () => {
+      const xong = Object.keys(traLoi).length;
+      ghi(goc, 'da-tra-loi', `Đã trả lời ${xong} / ${NQ} câu`);
+      ghi(goc, 'uoc-tinh', String(diemUocTinh(traLoi)));
+      toThanh(goc.querySelector('[data-thanh="tien-do"]'), xong / NQ);
+    };
+
+    const veNhom = () => {
+      goc.querySelectorAll<HTMLElement>('[data-nhom]').forEach((el) => { el.hidden = Number(el.dataset.nhom) !== cur; });
+      const lui = goc.querySelector<HTMLElement>('[data-nut="lui"]');
+      if (lui) lui.style.visibility = cur === 0 ? 'hidden' : 'visible';   // giữ chỗ, như v1
+      chuNut(goc, 'tiep', cur === cc.nhom.length - 1 ? 'Hoàn tất →' : 'Tiếp tục →');
+      const loi = goc.querySelector<HTMLElement>('[data-o="loi-nhom"]');
+      if (loi) loi.hidden = true;
+      capNhatTienDo();
+      veDauKhoi(manCauHoi);
+    };
+
+    // Chọn một mức → ghi lại điểm (0–3). Bấm lại «Quay lại» thì ô đã chọn vẫn còn.
+    manCauHoi.addEventListener('change', (e) => {
+      const t = e.target as HTMLInputElement;
+      if (t.type !== 'radio') return;
+      traLoi[t.name] = Number(t.value);
+      t.closest('.cc-the')?.removeAttribute('data-loi');
+      capNhatTienDo();
+    });
+
+    nut(goc, 'bat-dau')?.addEventListener('click', () => { hienMan(goc, 'cau-hoi'); cur = 0; veNhom(); });
+    nut(goc, 'lui')?.addEventListener('click', () => { if (cur > 0) { cur--; veNhom(); } });
+    nut(goc, 'tiep')?.addEventListener('click', () => {
+      // Như v1 (`groupDone`): phải trả lời ĐỦ các câu trong khu vực mới qua được.
+      const g = cc.nhom[cur];
+      const thieu = g.cauHoi.map((_, i) => maCau(g, i)).filter((m) => typeof traLoi[m] !== 'number');
+      goc.querySelectorAll<HTMLElement>(`[data-nhom="${cur}"] .cc-the`).forEach((the) => {
+        if (thieu.includes(the.dataset.cau ?? '')) the.dataset.loi = 'true';
+      });
+      if (thieu.length) {
+        const loi = goc.querySelector<HTMLElement>('[data-o="loi-nhom"]');
+        if (loi) { loi.textContent = 'Vui lòng trả lời đủ các câu trong khu vực này.'; loi.hidden = false; }
+        goc.querySelector<HTMLInputElement>(`[name="${thieu[0]}"]`)?.focus();
+        return;
+      }
+      if (cur < cc.nhom.length - 1) { cur++; veNhom(); } else { hienMan(goc, 'lien-he'); }
+    });
+    nut(goc, 'lui-lien-he')?.addEventListener('click', () => { hienMan(goc, 'cau-hoi'); veNhom(); });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const ten = giaTri(form, 'ten');
+      const sdt = giaTri(form, 'sdt');
+      const email = giaTri(form, 'email');
+      const dongy = form.querySelector<HTMLInputElement>('[name="dongy"]')?.checked ?? false;
+
+      const loi: Array<[string, string]> = [];
+      if (!ten) loi.push(['ten', 'Vui lòng nhập họ tên.']);
+      if (!sdtDung(sdt)) loi.push(['sdt', 'Số điện thoại chưa đúng định dạng.']);
+      if (email && !emailDung(email)) loi.push(['email', 'Email chưa đúng định dạng.']);
+      if (!dongy) loi.push(['dongy', 'Vui lòng đồng ý chính sách bảo mật.']);
+      for (const n of ['ten', 'sdt', 'email', 'dongy']) datLoi(form, n, null);
+      for (const [n, m] of loi) datLoi(form, n, m);
+      const hop = goc.querySelector<HTMLElement>('[data-o="loi-lien-he"]');
+      if (loi.length) {
+        if (hop) { hop.textContent = loi[0][1]; hop.hidden = false; }
+        form.querySelector<HTMLElement>(`[name="${loi[0][0]}"]`)?.focus();
+        return;
+      }
+      if (hop) hop.hidden = true;
+
+      const kq = tinhKieuA(cc, traLoi);
+      const nutGui = nut(goc, 'gui');
+      if (nutGui) nutGui.disabled = true;
+      chuNut(goc, 'gui', 'Đang gửi…');
+
+      const { thongBao } = await guiKetQua({
+        congCu: cc.trang,
+        maHoSo: taoMaHoSo(),
+        ten, sdt, email,
+        donvi: giaTri(form, 'donvi'),
+        dongy,
+        website: giaTri(form, 'website'),
+        trang: location.pathname,
+        diem: kq.tong,
+        muc: kq.muc.ten,
+        goi: kq.muc.goi,
+        chiTiet: cc.nhom.map((g, gi) => [
+          `${g.ten} — ${kq.nhom[gi].diem}/10${kq.yeu.includes(g.ma) ? ' (yếu nhất)' : ''}`,
+          g.cauHoi.map((q, i) => `• ${q}\n  → ${THANG_DIEM[traLoi[maCau(g, i)]] ?? '(chưa trả lời)'}`).join('\n'),
+        ] as [string, string]),
+      });
+
+      if (nutGui) nutGui.disabled = false;
+      chuNut(goc, 'gui', 'Xem kết quả');
+
+      // ── Vẽ kết quả ──
+      const man = goc.querySelector<HTMLElement>('[data-man="ket-qua"]')!;
+      toVong(man.querySelector('[data-vong]'), kq.tong);
+      ghi(man, 'muc', kq.muc.ten);
+      ghi(man, 'mo-ta', kq.muc.moTa);
+      ghi(man, 'goi', kq.muc.goi);
+      ghi(man, 'trang-thai-gui', thongBao);
+      for (const n of kq.nhom) {
+        const dong = man.querySelector<HTMLElement>(`[data-thanh-nhom="${n.ma}"]`);
+        if (!dong) continue;
+        const yeu = kq.yeu.includes(n.ma);
+        dong.dataset.yeu = String(yeu);
+        toThanh(dong.querySelector('.cc-ray'), n.diem / 10);
+        ghi(dong, `diem-${n.ma}`, String(n.diem));
+        const nhan = dong.querySelector<HTMLElement>('.cc-nhan');
+        if (nhan) nhan.hidden = !yeu;
+      }
+      hienMan(goc, 'ket-qua');
+    });
+  }
+</script>

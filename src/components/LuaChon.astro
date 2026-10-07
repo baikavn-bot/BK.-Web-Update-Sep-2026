@@ -1,0 +1,82 @@
+---
+// MỘT LỰA CHỌN TRONG CÂU HỎI — Figma `Check` 836:7698 (page Component).
+//   Variant `Default` = chưa chọn · `Choose` = đã chọn. Dòng cao 48 · đệm --s-3/--s-4 ·
+//   nền --opacity-white · chữ H-3 bên TRÁI · ô tick 24 bên PHẢI.
+//
+// Cùng hình với `CheckItem.astro` của nhánh Remote Office (chưa gộp vào main lúc
+// viết file này). Khác ở chỗ: ở đây chọn được kiểu `radio` (chỉ chọn MỘT — câu
+// hỏi chấm điểm) hoặc `checkbox` (chọn nhiều). Figma chưa có biến thể tròn cho
+// radio → dùng chung ô vuông, như bản MVP Thắng đã duyệt 05/10 (câu hỏi ① trong
+// nhật ký Figma — chờ vòng sửa UI). Khi gộp Remote Office, cân nhắc gộp 2 file.
+//
+// CẢ DÒNG là vùng bấm (thẻ <label> bọc hết) → vùng chạm 48px trên mobile.
+// <input> thật nằm dưới SVG → bàn phím (Tab, phím mũi tên với radio) và trình đọc
+// màn hình chạy sẵn, không cần JS.
+interface Props {
+  name: string;
+  value: string;
+  label: string;
+  /** Chữ phụ nhỏ sau nhãn (vd. «Chưa có» sau «Chưa»). */
+  phu?: string;
+  kieu?: 'radio' | 'checkbox';
+  checked?: boolean;
+}
+const { name, value, label, phu, kieu = 'radio', checked = false } = Astro.props;
+---
+
+<label class="lc">
+  <span class="lc__chu">
+    {label}{phu && <span class="lc__phu"> · {phu}</span>}
+  </span>
+  <span class="lc__o">
+    <input class="lc__input" type={kieu} name={name} value={value} checked={checked} />
+    <svg class="lc__svg" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+      <rect class="lc__khung" x="2.5" y="2.5" width="15.333" height="15.333" rx="1.917"
+            stroke="currentColor" stroke-width="1" stroke-linejoin="round" />
+      <path class="lc__tick" d="M13.96 7 L8.66 13.417 L6.38 10.85"
+            stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </span>
+</label>
+
+<style>
+  .lc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+    min-height: var(--s-12);           /* 48 */
+    padding: var(--s-3) var(--s-4);    /* 12 / 16 */
+    box-sizing: border-box;
+    background: var(--opacity-white);
+    color: var(--gray-50);
+    cursor: pointer;
+    transition: box-shadow 120ms ease;
+  }
+  .lc:hover { box-shadow: var(--shadow-inner); }
+  .lc:has(.lc__input:focus-visible) { box-shadow: var(--shadow-drop-inner); }
+
+  .lc__chu {
+    font-family: var(--font-heading);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: var(--fw-h3);
+  }
+  .lc__phu {
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    line-height: var(--lh-caption);
+    font-weight: var(--fw-caption);
+    color: var(--gray-400);
+  }
+
+  .lc__o { position: relative; flex: none; width: var(--s-6); height: var(--s-6); }
+  .lc__input {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    margin: 0; opacity: 0; cursor: pointer;
+  }
+  .lc__svg { display: block; width: 100%; height: 100%; pointer-events: none; }
+  .lc__tick { opacity: 0; }
+  .lc__input:checked + .lc__svg .lc__khung { fill: var(--gray-950); }
+  .lc__input:checked + .lc__svg .lc__tick { opacity: 1; }
+</style>

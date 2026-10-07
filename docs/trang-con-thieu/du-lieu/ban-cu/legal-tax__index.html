@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAIKA Legal & Tax Control — Kiểm soát rủi ro pháp lý – thuế</title>
+<meta name="description" content="BAIKA Legal & Tax Control — rà soát rủi ro thuế, hệ thống pháp lý doanh nghiệp, kiểm soát hợp đồng, giải trình thuế, kế hoạch thuế, pháp lý chủ sở hữu, giải thể.">
+<link rel="icon" href="/baika-suite/legal-tax/logo-emblem.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/baika-suite/shared/animated-logo.css">
+<style>
+:root{
+  --void:#0A0808; --void2:#120C0D; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.07); --bd:rgba(255,255,255,.11);
+  --seal:#C43B4E; --logoc1:var(--seal); --logoc2:var(--gold); --logourl:url("/baika-suite/legal-tax/logo-emblem.png"); --seal-deep:#7A1F2E; --steel:#7C93A8; --gold:#D4AF6A;
+  --tx:#F0EDE9; --tx2:#A39B93; --tx3:#7F776E;
+  --disp:'Spectral',serif; --mono:'Fira Code',monospace; --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--tx);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden;position:relative;max-width:100vw}
+::selection{background:var(--seal);color:#160404}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--disp);line-height:1.2}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+.mono{font-family:var(--mono)}
+.kick{display:flex;align-items:center;gap:10px;color:var(--gold);font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-size:12px;font-weight:500;margin-bottom:14px}
+.kick::before{content:"";width:16px;height:1px;background:var(--gold);flex-shrink:0}
+h2.h{font-size:clamp(26px,3.6vw,38px);margin-bottom:14px;font-weight:700}
+.lead{color:var(--tx2);max-width:680px;font-size:16.5px}
+.sec{padding:56px 0;position:relative}
+@media (max-width:640px){.sec{padding:32px 0}}
+
+/* ===== nen: vong khoa vault + hat giay mo nhat ===== */
+#vaultBg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.6}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 520px at 88% -8%, rgba(196,59,78,.09), transparent 60%),
+             radial-gradient(700px 460px at -8% 50%, rgba(124,147,168,.07), transparent 60%);}
+
+/* ===== topbar ===== */
+.top{position:sticky;top:0;z-index:50;background:rgba(10,8,8,.82);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--bd)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:60px}
+.home{flex-shrink:0;color:var(--tx2);text-decoration:none;font-size:13.5px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:color .2s}
+.home svg{width:15px;height:15px;flex-shrink:0}
+.home:hover{color:var(--tx)}
+.home .lbl{display:none}
+@media (min-width:560px){.home .lbl{display:inline}}
+
+.brand{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:700;letter-spacing:.01em;font-size:15px;white-space:nowrap;overflow:hidden;min-width:0}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--seal);box-shadow:0 0 12px var(--seal);flex-shrink:0;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.brand .full{display:none}.brand .short{display:inline}
+@media (min-width:640px){.brand .full{display:inline}.brand .short{display:none}}
+.top .sp{flex:1;min-width:4px}
+.navstat{flex-shrink:0;display:flex;align-items:center;gap:8px;color:var(--tx3);font-family:var(--mono);font-size:11px;white-space:nowrap}
+.navstat b{color:var(--gold);font-weight:600}
+@media (max-width:900px){.navstat{display:none}}
+
+/* ===== buttons ===== */
+/* ===== focus-visible: vien ro rang cho dieu huong ban phim ===== */
+a:focus-visible, button:focus-visible, .car-dot:focus-visible, .car-btn:focus-visible, summary:focus-visible, .chk:focus-within{
+  outline:2px solid var(--gold); outline-offset:2px; border-radius:6px;
+}
+.btn{position:relative;display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:9px;font-weight:600;font-size:15px;line-height:1.2;
+  text-decoration:none;cursor:pointer;border:1px solid transparent;font-family:var(--body);overflow:hidden;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
+.bp{background:linear-gradient(135deg,var(--seal),var(--seal-deep));color:#fff;box-shadow:0 8px 28px rgba(196,59,78,.32)}
+.bp::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.3) 45%,transparent 60%);transform:translateX(-120%);transition:transform .7s ease}
+.bp:hover::after{transform:translateX(120%)}
+.bo{background:rgba(255,255,255,.03);color:var(--tx);border-color:var(--bd);backdrop-filter:blur(6px)}
+.bo:hover{border-color:var(--gold);color:var(--gold)}
+.magnet{will-change:transform}
+.top .diagbtn{flex-shrink:0;white-space:nowrap;padding:8px 13px;font-size:13px;gap:6px}
+.top .diagbtn .lbl-full{display:none}.top .diagbtn .lbl-short{display:inline}
+@media (min-width:480px){.top .diagbtn{padding:11px 20px;font-size:14.5px}.top .diagbtn .lbl-full{display:inline}.top .diagbtn .lbl-short{display:none}}
+
+/* ===== hero ===== */
+.hero{padding:88px 0 56px;position:relative}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border:1px solid var(--bd);border-radius:999px;color:var(--tx2);
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;margin-bottom:26px;background:rgba(255,255,255,.02)}
+.badge b{color:var(--gold);font-weight:600}
+.hero h1{font-size:clamp(30px,5vw,52px);max-width:880px;font-weight:700}
+.hero .sub{color:var(--seal);font-family:var(--disp);font-weight:600;font-style:italic;font-size:clamp(17px,2.2vw,21px);margin:18px 0 14px}
+.hero p.lead{margin-bottom:30px;font-size:17px}
+.cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.trust{color:var(--tx3);font-size:13px;font-family:var(--mono)}
+
+/* ===== seal teaser (chu ky rieng — dong dau, khac gauge/radar/KPI-ticker) ===== */
+.sealteaser{display:flex;align-items:center;gap:24px;margin-top:36px;padding:24px 26px;border-radius:14px;text-decoration:none;
+  position:relative;overflow:hidden;background:var(--panel);border:1px solid var(--bd);transition:border-color .35s,transform .35s}
+.sealteaser:hover{border-color:var(--seal);transform:translateY(-3px)}
+.seal-stamp{position:relative;width:72px;height:72px;flex-shrink:0;transform:scale(1.5) rotate(-18deg);opacity:0;animation:stampIn .7s cubic-bezier(.2,.9,.25,1.1) .3s forwards}
+@keyframes stampIn{to{transform:scale(1) rotate(-8deg);opacity:1}}
+.seal-stamp svg{width:100%;height:100%}
+.st-txt{flex:1;min-width:0}
+.st-kick{font-family:var(--mono);color:var(--gold);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.st-txt h3{font-size:clamp(16px,2.3vw,19px);margin-bottom:6px;color:var(--tx);font-weight:600}
+.st-txt p{color:var(--tx2);font-size:13.6px}
+.st-arrow{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;color:var(--seal);transition:transform .3s}
+.st-arrow svg{width:17px;height:17px}
+.sealteaser:hover .st-arrow{transform:translateX(4px)}
+@media (max-width:640px){.sealteaser{flex-wrap:wrap;padding:20px}.st-arrow{display:none}}
+@media (prefers-reduced-motion: reduce){.seal-stamp{animation:none;opacity:1;transform:rotate(-8deg)}}
+
+.readout{display:flex;gap:0;margin-top:22px;border:1px solid var(--bd);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.02)}
+.readout .cell{flex:1;padding:16px 18px;border-right:1px solid var(--bd)}
+.readout .cell:last-child{border-right:none}
+.readout .cell .k{font-family:var(--mono);font-size:10.5px;color:var(--tx3);letter-spacing:.05em;text-transform:uppercase;margin-bottom:5px}
+.readout .cell .v{font-family:var(--disp);font-size:18px;font-weight:700;color:var(--tx)}
+@media (max-width:760px){.readout{flex-wrap:wrap}.readout .cell{flex:1 1 50%;border-bottom:1px solid var(--bd)}}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .32s ease-out,transform .32s ease-out}
+.rv.on{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none} html{scroll-behavior:auto}}
+
+/* ===== carousel ===== */
+.carousel{position:relative;margin-top:28px}
+.car-track{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x proximity;scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 2px 10px;margin:-2px -2px -8px;cursor:grab;user-select:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track.grabbing{cursor:grabbing;scroll-snap-type:none}
+.car-track>*{scroll-snap-align:start;flex:0 0 auto}
+.car-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px}
+.car-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--bd);background:rgba(255,255,255,.03);color:var(--tx2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s,color .2s,opacity .2s;flex-shrink:0}
+.car-btn svg{width:16px;height:16px}
+.car-btn:hover:not(:disabled){border-color:var(--seal);color:var(--seal)}
+.car-btn:disabled{opacity:.28;cursor:default}
+.car-dots{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:200px}
+.car-dot{width:22px;height:22px;border-radius:50%;background:transparent;transition:none;cursor:pointer;flex-shrink:0;border:none;padding:0;display:flex;align-items:center;justify-content:center;position:relative}
+.car-dot::after{content:"";display:block;width:6px;height:6px;border-radius:50%;background:var(--bd);transition:width .25s,background .25s}
+.car-dot.on::after{width:16px;border-radius:99px;background:var(--seal)}
+
+
+/* ===== pains — muc do rui ro (semantic that) ===== */
+.risklist{display:flex;flex-direction:column;gap:12px;margin-top:28px}
+.riskrow{display:flex;align-items:center;gap:20px;padding:20px 24px;border-radius:12px;background:var(--panel);border:1px solid var(--bd);transition:border-color .3s}
+.riskrow:hover{border-color:rgba(255,255,255,.22)}
+.risktag{flex-shrink:0;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 12px;border-radius:6px;text-transform:uppercase;width:108px;text-align:center}
+.risktag.low{color:#7ED9A0;background:rgba(126,217,160,.1);border:1px solid rgba(126,217,160,.3)}
+.risktag.med{color:#F2C14E;background:rgba(242,193,78,.1);border:1px solid rgba(242,193,78,.3)}
+.risktag.high{color:#F2954E;background:rgba(242,149,78,.1);border:1px solid rgba(242,149,78,.3)}
+.risktag.crit{color:var(--seal);background:rgba(196,59,78,.12);border:1px solid rgba(196,59,78,.35)}
+.riskrow h3{font-size:16.5px;margin-bottom:4px;font-weight:600}
+.riskrow p{color:var(--tx2);font-size:14px}
+@media (max-width:640px){.riskrow{flex-direction:column;align-items:flex-start;gap:10px}.risktag{width:auto}}
+
+/* ===== 3 tru: chuyen tu bi dong sang chu dong ===== */
+.stack3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+.st3card{position:relative;padding:26px 24px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bd)}
+.st3card .stn{font-family:var(--mono);color:var(--gold);font-size:12px;margin-bottom:10px}
+.st3card h3{font-size:17px;margin-bottom:8px;font-weight:600}
+.st3card p{color:var(--tx2);font-size:14px}
+@media (max-width:760px){.stack3{grid-template-columns:1fr}}
+
+/* ===== 8 nhom dich vu — SO DOCKET HO SO (khac han ledger/flight-path/strata/card) ===== */
+.docket{margin-top:32px;border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:var(--panel)}
+.docket-row{display:flex;align-items:center;gap:18px;padding:18px 22px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .25s}
+.docket-row:last-child{border-bottom:none}
+.docket-row:hover{background:rgba(196,59,78,.05)}
+.docket-num{flex-shrink:0;font-family:var(--mono);color:var(--seal);font-size:12.5px;width:64px}
+.docket-title{font-weight:600;font-size:15.5px;flex-shrink:0}
+.docket-leader{flex:1;border-bottom:1px dotted var(--bd);margin:0 4px;height:1px;min-width:20px}
+.docket-action{flex-shrink:0;font-family:var(--mono);font-size:11.5px;color:var(--tx3);display:flex;align-items:center;gap:6px}
+.docket-action svg{width:13px;height:13px;transition:transform .3s}
+.docket-row.on .docket-action svg{transform:rotate(90deg)}
+.docket-row.on .docket-action{color:var(--gold)}
+.docket-desc{max-height:0;overflow:hidden;opacity:0;transition:max-height .35s ease,opacity .35s ease,padding .35s ease;padding:0 22px;color:var(--tx2);font-size:13.8px}
+.docket-desc.on{max-height:200px;opacity:1;padding:0 22px 18px 106px}
+@media (max-width:700px){
+  .docket-row{flex-wrap:wrap}
+  .docket-title{order:1;width:100%}
+  .docket-num{order:0}
+  .docket-leader{display:none}
+  .docket-action{order:2;margin-left:auto}
+  .docket-desc.on{padding-left:22px}
+}
+
+/* ===== packages ===== */
+.pkg{position:relative;background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:28px 24px;display:flex;flex-direction:column;overflow:hidden;width:min(84vw,300px)}
+.pkg.feat{border-color:transparent;background:linear-gradient(var(--void2),var(--void2)) padding-box,linear-gradient(135deg,var(--seal),var(--gold)) border-box;
+  border:1px solid transparent;box-shadow:0 14px 46px rgba(196,59,78,.2)}
+.pkg.feat::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent,rgba(196,59,78,.26),transparent 30%);animation:spin 7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pkg.feat>*{position:relative;z-index:1}
+.ptag{position:absolute;top:-13px;left:22px;background:linear-gradient(135deg,var(--seal),var(--gold));color:#160404;font-size:11.5px;
+  font-weight:700;padding:4px 13px;border-radius:999px;font-family:var(--mono);letter-spacing:.02em;z-index:2}
+.pkg h3{font-size:18px;margin-bottom:8px}
+.pdesc{color:var(--tx2);font-size:13.6px;margin-bottom:16px}
+.pkg ul{list-style:none;margin:0 0 22px;display:grid;gap:9px;flex:1}
+.pkg li{color:var(--tx2);font-size:13.8px;padding-left:22px;position:relative}
+.pkg li::before{content:"◆";position:absolute;left:0;color:var(--gold);font-size:9px;top:5px}
+
+/* ===== outcomes ===== */
+.outs{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:14px 30px;margin-top:22px}
+.outs li{padding-left:32px;position:relative;color:var(--tx2);font-size:15px}
+.outs li svg{position:absolute;left:0;top:3px;width:20px;height:20px}
+.outs li svg path{stroke:var(--gold);stroke-width:2.4;fill:none;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .6s ease}
+.outs li.on svg path{stroke-dashoffset:0}
+@media (max-width:640px){.outs{grid-template-columns:1fr}}
+
+/* ===== audience/diffs ===== */
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:12px;padding:22px;transition:border-color .3s;width:min(78vw,270px)}
+.card:hover{border-color:rgba(255,255,255,.25)}
+.card h4{font-size:15.5px;margin-bottom:7px;font-weight:600}
+.card p{color:var(--tx2);font-size:13.8px}
+
+/* ===== faq ===== */
+.faqs{display:grid;gap:10px;margin-top:24px}
+.faq{background:var(--panel);border:1px solid var(--bd);border-radius:10px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:600;display:flex;align-items:center;gap:12px;font-size:15px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"›";font-family:var(--mono);color:var(--seal);font-size:18px;transition:transform .3s}
+.faq[open] summary::before{transform:rotate(90deg)}
+.faq p{padding:0 20px 18px 44px;color:var(--tx2);font-size:14.3px}
+
+/* ===== form ===== */
+.formbox{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--bd);border-radius:16px;padding:34px;margin-top:28px}
+.frm{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld.full{grid-column:1/-1}
+.fld label{font-size:12px;color:var(--tx2);font-weight:600;font-family:var(--mono);letter-spacing:.02em;text-transform:uppercase}
+.fld input,.fld select,.fld textarea{background:rgba(0,0,0,.35);border:1px solid var(--bd);border-radius:8px;padding:13px 15px;color:var(--tx);
+  font-family:var(--body);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--seal);box-shadow:0 0 0 3px rgba(196,59,78,.15)}
+.fld.err input,.fld.err textarea{border-color:#E24B4A}
+.fld select#urgencySel{font-weight:600}
+.needs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;min-width:0}
+.chk{display:flex;gap:8px;align-items:center;background:rgba(0,0,0,.25);border:1px solid var(--bd);border-radius:8px;padding:10px 13px;cursor:pointer;font-size:13.6px;color:var(--tx2);transition:.2s}
+.chk:has(input:checked){border-color:var(--seal);color:var(--tx);background:rgba(196,59,78,.08)}
+.chk input{accent-color:var(--seal)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13.2px;color:var(--tx2)}
+.fmsg{grid-column:1/-1;font-size:14px;min-height:20px}
+.fmsg.ok{color:#7ED9A0}.fmsg.bad{color:#F09595}
+
+/* ===== footer ===== */
+.foot{border-top:1px solid var(--bd);padding:40px 0;color:var(--tx3);font-size:13.5px}
+.foot .wrap{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.foot a{color:var(--tx2);text-decoration:none}
+.foot a:hover{color:var(--seal)}
+  #baikaAnimBg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.8}
+</style>
+<script src="/shield.js" defer></script>
+  <link rel="stylesheet" href="/baika-suite/shared/mobile-fixes.css">
+</head>
+<body>
+<canvas id="baikaAnimBg"></canvas>
+<svg id="vaultBg" viewBox="0 0 1200 1400" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="rgba(196,59,78,.07)" stroke-width="1">
+    <circle cx="1030" cy="90" r="70"/><circle cx="1030" cy="90" r="130"/><circle cx="1030" cy="90" r="190"/>
+    <circle cx="90" cy="760" r="80"/><circle cx="90" cy="760" r="150"/>
+  </g>
+  <g stroke="rgba(212,175,106,.10)" stroke-width="1.5">
+    <g id="ticks1"></g><g id="ticks2"></g>
+  </g>
+</svg>
+
+<header class="top"><div class="wrap">
+  <a class="home" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg><span class="lbl">Trang chủ</span></a>
+  <div class="brand"><span class="logo-stage"><div class="logo-halo"></div><div class="logo-mask"></div></span><span class="full">LEGAL & TAX CONTROL</span><span class="short">LEGAL·TAX</span></div>
+  <div class="sp"></div>
+  <span class="navstat">HỒ SƠ · <b>NIÊM PHONG</b></span>
+  <a class="btn bp magnet diagbtn" href="#lien-he"><span class="lbl-full">Đăng ký rà soát ngay</span><span class="lbl-short">Rà soát</span></a>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <span class="badge">◆ <b>8</b> NHÓM DỊCH VỤ · <b>4</b> GÓI TRIỂN KHAI</span>
+  <h1 id="heroTitle">BAIKA Legal & Tax Control</h1>
+  <div class="sub" id="heroSub">Kiểm soát rủi ro pháp lý – thuế trước khi rủi ro tìm đến bạn</div>
+  <p class="lead" id="heroDesc">Hệ thống dịch vụ pháp lý – thuế cho doanh nghiệp SME: rà soát rủi ro, dựng hệ thống tuân thủ, kiểm soát hợp đồng và đồng hành giải trình khi cơ quan thuế yêu cầu.</p>
+  <div class="cta">
+    <a class="btn bp magnet" href="#lien-he" id="heroCta1">Đăng ký rà soát pháp lý – thuế</a>
+    <a class="btn bo magnet" href="#goi">Xem gói triển khai</a>
+  </div>
+  <p class="trust">// PHÒNG NGỪA THAY VÌ CHỮA CHÁY — RÀ SOÁT TRƯỚC KHI CÓ ÁP LỰC LUÔN RẺ HƠN</p>
+
+  <a class="sealteaser rv" href="#goi">
+    <div class="seal-stamp"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#C43B4E" stroke-width="2.5"/><circle cx="50" cy="50" r="38" fill="none" stroke="#C43B4E" stroke-width="1"/>
+      <path id="sealtxt" fill="none" d="M 50 12 A 38 38 0 1 1 49.9 12"/>
+      <text font-family="Fira Code, monospace" font-size="7.2" fill="#D4AF6A" letter-spacing="2"><textPath href="#sealtxt" startOffset="2">• BAIKA LEGAL TAX CONTROL • RÀ SOÁT • BẢO VỆ •</textPath></text>
+      <path d="M38 50l8 8 16-18" fill="none" stroke="#C43B4E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg></div>
+    <div class="st-txt">
+      <div class="st-kick">◆ Điểm khởi đầu được khuyên dùng</div>
+      <h3>Legal & Tax Health Check — biết chính xác đang phơi nhiễm rủi ro gì</h3>
+      <p>Rà soát hồ sơ pháp nhân, hợp đồng, hạch toán · nhận bản đồ rủi ro xếp theo mức độ nghiêm trọng.</p>
+    </div>
+    <span class="st-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+  </a>
+
+  <div class="readout rv">
+    <div class="cell"><div class="k">Nhóm dịch vụ</div><div class="v">08</div></div>
+    <div class="cell"><div class="k">Gói triển khai</div><div class="v">04</div></div>
+    <div class="cell"><div class="k">Đối tượng phù hợp</div><div class="v">06</div></div>
+    <div class="cell"><div class="k">Điểm khác biệt</div><div class="v">04</div></div>
+  </div>
+</div></section>
+
+<section class="sec" id="van-de"><div class="wrap">
+  <p class="kick">Chẩn đoán hiện trạng</p>
+  <h2 class="h">Những rủi ro đang âm thầm tích tụ</h2>
+  <div class="risklist" id="riskList"></div>
+</div></section>
+
+<section class="sec" id="giai-phap"><div class="wrap">
+  <p class="kick">Cách tiếp cận</p>
+  <h2 class="h">Từ bị động đối phó sang chủ động kiểm soát</h2>
+  <p class="lead">BAIKA tiếp cận theo hệ thống: rà soát để biết đang đứng ở đâu, dựng nền tuân thủ để không phát sinh lỗi mới, và có đội đồng hành khi tình huống xảy ra.</p>
+  <div class="stack3" id="stack3"></div>
+</div></section>
+
+<section class="sec" id="pham-vi"><div class="wrap">
+  <p class="kick">Phạm vi dịch vụ</p>
+  <h2 class="h">8 nhóm dịch vụ — sổ hồ sơ vụ việc</h2>
+  <div class="docket" id="docketList"></div>
+</div></section>
+
+
+<section class="sec" id="tru-cot-v2"><div class="wrap">
+  <p class="kick">Dịch vụ trọng tâm</p>
+  <h2 class="h">Năm trụ cột dịch vụ pháp lý & thuế</h2>
+  <div class="carousel">
+    <div class="car-track" id="v2PillarsGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="v2PillarsDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="cong-cu-v2"><div class="wrap">
+  <p class="kick">Công cụ hỗ trợ</p>
+  <h2 class="h">Ba công cụ hỗ trợ quyết định</h2>
+  <p class="lead">Trải nghiệm các công cụ hỗ trợ tự động từ BAIKA để tự đánh giá mức độ tuân thủ và ước tính chi phí thuế.</p>
+  <div class="stack3" id="v2ToolsGrid"></div>
+</div></section>
+
+<section class="sec" id="uu-dai-v2"><div class="wrap">
+  <p class="kick">Chương trình & ưu đãi</p>
+  <h2 class="h">Đồng hành theo mùa, định kỳ & đột xuất</h2>
+  <div class="formbox" style="margin-top:20px; padding:28px;">
+    <div class="risktag crit" style="margin-bottom:12px;">ƯU ĐÃI CÓ HẠN</div>
+    <h3 style="font-size:20px; font-weight:700; margin-bottom:8px; font-family:var(--disp);">Chiến dịch Quyết toán an tâm</h3>
+    <p style="color:var(--tx2); font-size:15px; margin-bottom:16px;">Miễn phí rà soát sơ bộ hồ sơ thuế & giảm 20% phí gói tư vấn quyết toán cho doanh nghiệp đăng ký trước hạn. Số lượng giới hạn theo đợt.</p>
+    <a class="btn bp magnet" href="#lien-he">Nhận ưu đãi ngay</a>
+  </div>
+</div></section>
+
+<section class="sec" id="dichvu" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <h2 class="h">Năm trụ cột dịch vụ pháp lý & thuế</h2>
+  <p class="lead">Bao phủ toàn diện từ tư vấn thường xuyên đến giải quyết tranh chấp — doanh nghiệp có đội pháp lý riêng mà không cần tuyển dụng.</p>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="ltDichVuGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="ltDichVuDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+<section class="sec" id="congcu"><div class="wrap">
+  <h2 class="h">Ba công cụ hỗ trợ quyết định</h2>
+  <p class="lead">Tự kiểm tra nhanh rủi ro pháp lý & thuế trước khi gặp chuyên gia.</p>
+  <div class="stack3" id="ltCongCuGrid" style="margin-top:24px"></div>
+</div></section>
+<section class="sec" id="uudai" style="background:rgba(255,255,255,.018)"><div class="wrap">
+  <p class="kick">Ưu đãi có hạn</p>
+  <h2 class="h">Đồng hành theo mùa, định kỳ & đột xuất</h2>
+  <div class="carousel" style="margin-top:28px">
+    <div class="car-track" id="ltUuDaiGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="ltUuDaiDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+<section class="sec" id="goi"><div class="wrap">
+  <p class="kick">Gói triển khai</p>
+  <h2 class="h">Chọn điểm bắt đầu phù hợp</h2>
+  <p class="lead">Mỗi gói là một điểm vào — có thể nâng cấp dần theo mức độ sẵn sàng của doanh nghiệp.</p>
+  <div class="carousel">
+    <div class="pkgs car-track" id="pkgsBox"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="pkgDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="ket-qua"><div class="wrap">
+  <p class="kick">Kết quả nhận được</p>
+  <h2 class="h">Sau khi triển khai cùng BAIKA</h2>
+  <ul class="outs" id="outsList"></ul>
+</div></section>
+
+<section class="sec" id="phu-hop"><div class="wrap">
+  <p class="kick">Đối tượng phù hợp</p>
+  <h2 class="h">Dịch vụ này dành cho ai?</h2>
+  <div class="carousel">
+    <div class="car-track" id="audGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="audDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="khac-biet"><div class="wrap">
+  <p class="kick">Điểm khác biệt</p>
+  <h2 class="h">Vì sao chọn BAIKA?</h2>
+  <div class="carousel">
+    <div class="car-track" id="difGrid"></div>
+    <div class="car-nav">
+      <button class="car-btn" type="button" data-dir="-1" aria-label="Trước"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="car-dots" id="difDots"></div>
+      <button class="car-btn" type="button" data-dir="1" aria-label="Sau"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="faq"><div class="wrap">
+  <p class="kick">Câu hỏi thường gặp</p>
+  <h2 class="h">FAQ</h2>
+  <div class="faqs" id="faqBox"></div>
+</div></section>
+
+<section class="sec" id="lien-he"><div class="wrap">
+  <p class="kick">Bắt đầu</p>
+  <h2 class="h">Gửi hồ sơ để BAIKA rà soát sơ bộ</h2>
+  <p class="lead">Điền thông tin — đội ngũ BAIKA sẽ liên hệ trong 24 giờ làm việc. Nếu tình huống gấp, chọn đúng mức độ khẩn cấp để được ưu tiên.</p>
+  <div class="formbox"><form id="leadForm" class="frm" novalidate>
+    <div class="fld"><label>Họ và tên *</label><input name="full_name" type="text" placeholder="Nguyễn Văn A" required></div>
+    <div class="fld"><label>Số điện thoại *</label><input name="phone" type="tel" placeholder="09xx xxx xxx" required></div>
+    <div class="fld"><label>Email</label><input name="email" type="email" placeholder="ban@congty.vn"></div>
+    <div class="fld"><label>Doanh nghiệp</label><input name="company" type="text" placeholder="Tên công ty (nếu có)"></div>
+    <div class="fld full"><label>Nhu cầu của bạn * (chọn 1 hoặc nhiều)</label><div class="needs" id="needsBox"></div></div>
+    <div class="fld"><label>Gói quan tâm</label><select name="pkg" id="pkgSel"><option value="">— Chưa chọn —</option></select></div>
+    <div class="fld"><label>Mức độ khẩn cấp</label><select name="urgency" id="urgencySel"><option value="Bình thường">Bình thường</option><option value="Khẩn — cần xử lý trong tuần">Khẩn — cần xử lý trong tuần</option><option value="Rất khẩn — đang có yêu cầu từ cơ quan thuế">Rất khẩn — đang có yêu cầu từ cơ quan thuế</option></select></div>
+    <div class="fld full"><label>Mô tả ngắn vấn đề đang gặp</label><textarea name="msg" rows="3" placeholder="Ví dụ: vừa nhận yêu cầu giải trình từ cơ quan thuế..."></textarea></div>
+    <div class="fld full consent"><input type="checkbox" id="consent"><label for="consent">Tôi đồng ý để BAIKA liên hệ và xử lý thông tin theo chính sách bảo mật.</label></div>
+    <div class="fmsg" id="fmsg"></div>
+    <div class="fld full"><button type="submit" class="btn bp magnet" id="sbm">Gửi hồ sơ rà soát</button></div>
+  </form></div>
+</div></section>
+
+<footer style="border-top: 1px solid var(--bd); padding: 60px 0; background: var(--void); color: var(--tx2); font-family: var(--body); font-size: 14px; line-height: 1.8;">
+  <div class="wrap" style="display: flex; flex-direction: column; gap: 32px; text-align: left;">
+    <!-- Logo & Status -->
+    <div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+        
+        <div style="font-family: var(--disp), sans-serif; font-weight: 800; font-size: 26px; color: #FFF; letter-spacing: 3px;">BAIKA</div>
+        <div style="font-family: var(--mono), monospace; font-size: 11px; color: #FFF; border: 1px solid rgba(255,255,255,0.4); padding: 2px 8px; border-radius: 4px; font-weight: 700; letter-spacing: 1px;">JSC</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding-left: 4px;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #4FE5FF; box-shadow: 0 0 10px #4FE5FF;"></span>
+        <span style="font-family: var(--mono), monospace; font-size: 11px; color: #8A98B3; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Hệ thống đang vận hành</span>
+      </div>
+    </div>
+
+    <!-- Company Name -->
+    <div>
+      <div style="font-size: 18px; font-weight: 700; color: #FFF; margin-bottom: 4px;">CÔNG TY CỔ PHẦN CÔNG NGHỆ BAIKA</div>
+      <div style="font-size: 14px; color: #8A98B3; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">BAIKA TECHNOLOGICAL JOINT STOCK COMPANY</div>
+    </div>
+
+    <!-- Contact Info -->
+    <div style="display: flex; flex-direction: column; gap: 16px; font-size: 15px;">
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Địa chỉ:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">Tầng 15, 72 Lê Thánh Tôn, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh, Việt Nam</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Hotline:</span>
+        <span style="color: #4FE5FF; text-shadow: 0 0 10px rgba(79, 229, 255, 0.4); font-family: var(--mono), monospace;">0905.247.365</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span style="font-weight: 700; color: #FFF; width: 70px; flex-shrink: 0;">Email:</span>
+        <span style="color: #8A98B3;">baika.vn@gmail.com</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/baika-suite/shared/site-common.js"></script>
+<script>
+(function(){
+  var wireCarousel = window.BaikaSite.wireCarousel;
+  /* ---------- DATA ---------- */
+  var PAINS=[
+    ["Rủi ro thuế tiềm ẩn","Hạch toán theo thói quen nhiều năm; không ai rà lại xem đang sai ở đâu — cho đến khi có quyết định kiểm tra.","med"],
+    ["Hợp đồng lỏng lẻo","Dùng mẫu trôi nổi trên mạng; điều khoản bất lợi chỉ lộ ra khi tranh chấp đã xảy ra.","high"],
+    ["Bị hỏi mà không biết giải trình","Cơ quan thuế yêu cầu giải trình — doanh nghiệp lúng túng, trả lời sai cách khiến vấn đề nặng thêm.","crit"],
+    ["Pháp lý chủ doanh nghiệp lẫn với công ty","Tài sản, vay mượn, sở hữu cá nhân và công ty đan xen — rủi ro dồn cả vào người đứng đầu.","high"]
+  ];
+  var RISK_LABEL={low:"Thấp",med:"Trung bình",high:"Cao",crit:"Nghiêm trọng"};
+  var PILLARS=[
+    ["Rà soát & nhận diện rủi ro","Biết chính xác doanh nghiệp đang đứng ở đâu trước khi hành động — không đoán, không phỏng chừng."],
+    ["Dựng hệ thống tuân thủ","Nền pháp lý và quy trình chuẩn để không tiếp tục phát sinh lỗi mới theo thời gian."],
+    ["Đồng hành xử lý tình huống","Khi sự cố xảy ra, có đội chuẩn bị hồ sơ và làm việc cùng bạn qua từng vòng, không đơn độc."]
+  ];
+  var MODULES=[
+    ["LGL-01","Legal & Tax Diagnosis","Rà soát tổng thể pháp lý – thuế: hồ sơ pháp nhân, hợp đồng, hạch toán, hóa đơn, nghĩa vụ thuế. Đầu ra là bản đồ rủi ro xếp theo mức độ nghiêm trọng."],
+    ["LGL-02","Business Legal System","Dựng hệ thống pháp lý nội bộ: điều lệ, quy chế, phân quyền ký kết, hồ sơ pháp nhân chuẩn — nền tuân thủ cho mọi giao dịch."],
+    ["LGL-03","Contract Control","Kiểm soát hợp đồng: chuẩn hóa bộ mẫu theo giao dịch thật của doanh nghiệp, quy trình soát xét trước ký và quản lý vòng đời hợp đồng."],
+    ["LGL-04","Tax Risk Review","Rà soát chuyên sâu rủi ro thuế: doanh thu, chi phí được trừ, hóa đơn đầu vào, giao dịch liên kết — lượng hóa mức phơi nhiễm từng khoản."],
+    ["LGL-05","Tax Explanation & Response","Đồng hành giải trình thuế: chuẩn bị hồ sơ, xây phương án giải trình, làm việc cùng doanh nghiệp qua từng vòng yêu cầu của cơ quan thuế."],
+    ["LGL-06","Tax Planning","Kế hoạch thuế hợp pháp: cấu trúc giao dịch, lựa chọn chính sách phù hợp để tối ưu nghĩa vụ trong khuôn khổ pháp luật — không lách, không rủi ro tích tụ."],
+    ["LGL-07","Owner Legal Advisory","Pháp lý cho chủ sở hữu: tách bạch tài sản cá nhân – công ty, cấu trúc sở hữu, thỏa thuận cổ đông, chuẩn bị chuyển giao."],
+    ["LGL-08","Dissolution & Exit Process","Giải thể, tạm ngừng, chuyển nhượng: xử lý đúng trình tự để đóng lại sạch sẽ, không để nghĩa vụ treo đeo bám người đứng đầu."]
+  ];
+  var PACKAGES=[
+    {name:"Legal & Tax Health Check",feat:true,desc:"Rà soát tổng thể — biết chính xác doanh nghiệp đang phơi nhiễm rủi ro gì.",items:["Rà soát hồ sơ pháp nhân & hợp đồng","Rà soát hạch toán & hóa đơn","Bản đồ rủi ro theo mức độ","Khuyến nghị thứ tự xử lý"]},
+    {name:"Legal & Tax Control Setup",feat:false,desc:"Dựng hệ thống tuân thủ để không phát sinh lỗi mới.",items:["Hệ thống pháp lý nội bộ","Bộ mẫu & quy trình kiểm soát hợp đồng","Lịch tuân thủ thuế","Đào tạo đội ngũ liên quan"]},
+    {name:"Tax Response Program",feat:false,desc:"Đồng hành khi có yêu cầu kiểm tra, giải trình từ cơ quan thuế.",items:["Đánh giá tình huống khẩn","Chuẩn bị hồ sơ & phương án giải trình","Đồng hành qua từng vòng làm việc","Phương án xử lý hậu kiểm"]},
+    {name:"Legal Exit & Dissolution",feat:false,desc:"Đóng, tạm ngừng hoặc chuyển nhượng doanh nghiệp đúng trình tự.",items:["Rà soát nghĩa vụ tồn đọng","Lộ trình giải thể / tạm ngừng","Xử lý thuế khi đóng doanh nghiệp","Hoàn tất hồ sơ pháp lý cuối cùng"]}
+  ];
+  var OUTCOMES=["Biết rõ doanh nghiệp đang có những rủi ro pháp lý – thuế nào, mức độ ra sao","Hợp đồng được kiểm soát trước khi ký, không còn điều khoản bẫy","Có lịch tuân thủ — không bỏ sót nghĩa vụ, không bị phạt vặt","Khi bị yêu cầu giải trình: có phương án, có người đồng hành","Tài sản cá nhân của chủ doanh nghiệp được tách bạch, bảo vệ","Nếu cần đóng doanh nghiệp: đóng sạch, không nghĩa vụ treo"];
+  var AUDIENCE=[["Doanh nghiệp nhiều năm chưa từng rà soát","Hoạt động 3–10 năm theo thói quen, chưa ai kiểm tra lại hệ thống."],["Doanh nghiệp vừa nhận yêu cầu từ cơ quan thuế","Cần phương án giải trình đúng cách, ngay lập tức."],["Doanh nghiệp ký nhiều hợp đồng","Giá trị giao dịch lớn dần nhưng khâu soát xét vẫn sơ sài."],["Chủ doanh nghiệp lo rủi ro cá nhân","Muốn tách bạch và bảo vệ tài sản gia đình khỏi rủi ro công ty."],["Doanh nghiệp chuẩn bị giao dịch lớn","Sắp gọi vốn, M&A, vay lớn — cần hồ sơ pháp lý sạch."],["Doanh nghiệp cần rút lui đúng cách","Muốn giải thể, tạm ngừng hoặc chuyển nhượng không để lại hậu quả."]];
+  var DIFFS=[["Phòng ngừa thay vì chữa cháy","Trọng tâm là rà soát và dựng hệ thống trước khi sự cố xảy ra."],["Hiểu cả pháp lý lẫn số liệu","Đội tư vấn đọc được cả hợp đồng lẫn sổ sách — rủi ro thuế luôn nằm giữa hai thứ đó."],["Đồng hành tình huống thật","Không chỉ đưa ý kiến: cùng doanh nghiệp chuẩn bị hồ sơ và làm việc qua từng vòng giải trình."],["Kiểm soát truy cập & bảo mật","Dữ liệu pháp lý – thuế nhạy cảm được phân quyền truy cập và ghi vết thao tác."]];
+  var FAQ=[["Tôi chưa bị kiểm tra, có cần rà soát không?","Đó là thời điểm tốt nhất. Rà soát khi chưa có áp lực cho phép xử lý chủ động với chi phí thấp nhất; khi đã có quyết định kiểm tra, lựa chọn hẹp đi rất nhiều."],["Đang bị yêu cầu giải trình gấp thì sao?","Chọn mức 'Rất khẩn' trong form — BAIKA ưu tiên liên hệ trong ngày làm việc để đánh giá tình huống và phương án ban đầu."],["Thông tin của tôi có an toàn không?","Có. Hồ sơ được trao đổi qua kênh kiểm soát, phân quyền truy cập theo vai trò và ràng buộc bảo mật trong hợp đồng dịch vụ."],["BAIKA có làm việc với luật sư / đại lý thuế của tôi không?","Có. BAIKA phối hợp với đội hiện có của bạn — vai trò của BAIKA là hệ thống hóa và điều phối để mọi tuyến đi cùng một phương án."]];
+  var NEEDS=["Rà soát pháp lý – thuế tổng thể","Hệ thống pháp lý doanh nghiệp","Kiểm soát hợp đồng","Rà soát rủi ro thuế","Giải trình / làm việc với cơ quan thuế","Kế hoạch thuế","Pháp lý chủ sở hữu","Giải thể / tạm ngừng / chuyển nhượng","Nhu cầu khác"];
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  /* ---------- ve vach chia mat so khoa (nen) ---------- */
+  function ticksSVG(cx,cy,r,n){
+    var s='';
+    for(var i=0;i<n;i++){
+      var a=(i/n)*Math.PI*2;
+      var x1=cx+Math.cos(a)*(r-8), y1=cy+Math.sin(a)*(r-8);
+      var x2=cx+Math.cos(a)*r, y2=cy+Math.sin(a)*r;
+      s+='<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+'"/>';
+    }
+    return s;
+  }
+  document.getElementById('ticks1').innerHTML = ticksSVG(1030,90,110,36);
+  document.getElementById('ticks2').innerHTML = ticksSVG(90,760,115,30);
+
+  /* ---------- carousel ---------- */
+  
+
+  /* ---------- render ---------- */
+  document.getElementById('riskList').innerHTML = PAINS.map(function(p){
+    return '<div class="riskrow rv"><span class="risktag '+p[2]+'">'+RISK_LABEL[p[2]]+'</span><div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div></div>';
+  }).join('');
+
+  document.getElementById('stack3').innerHTML = PILLARS.map(function(p,i){
+    return '<div class="st3card rv"><div class="stn mono">GIAI ĐOẠN '+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+  }).join('');
+
+  document.getElementById('docketList').innerHTML = MODULES.map(function(m,i){
+    return '<div class="docket-row rv" data-i="'+i+'"><span class="docket-num mono">'+esc(m[0])+'</span><span class="docket-title">'+esc(m[1])+'</span><span class="docket-leader"></span>'+
+      '<span class="docket-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>Mở hồ sơ</span></div>'+
+      '<div class="docket-desc" id="docdesc-'+i+'">'+esc(m[2])+'</div>';
+  }).join('');
+  document.querySelectorAll('.docket-row').forEach(function(row){
+    row.addEventListener('click', function(){
+      var i=row.getAttribute('data-i'), desc=document.getElementById('docdesc-'+i);
+      row.classList.toggle('on'); desc.classList.toggle('on');
+    });
+  });
+
+  function pkgHTML(list){
+    return list.map(function(p){
+      var items=(p.items||[]).map(function(x){return '<li>'+esc(x)+'</li>';}).join('');
+      return '<div class="pkg rv'+(p.feat?' feat':'')+'">'+(p.feat?'<div class="ptag">ĐỀ XUẤT</div>':'')+
+        '<h3>'+esc(p.name)+'</h3><p class="pdesc">'+esc(p.desc||'')+'</p><ul>'+items+'</ul>'+
+        '<button class="btn '+(p.feat?'bp':'bo')+' magnet" data-pkg="'+esc(p.name)+'">Chọn gói này</button></div>';
+    }).join('');
+  }
+  document.getElementById('pkgsBox').innerHTML = pkgHTML(PACKAGES);
+  document.getElementById('pkgSel').innerHTML = '<option value="">— Chưa chọn —</option>'+PACKAGES.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+  wireCarousel('pkgsBox','pkgDots');
+
+  document.getElementById('outsList').innerHTML = OUTCOMES.map(function(o){ return '<li class="rv"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-8"/></svg>'+esc(o)+'</li>'; }).join('');
+
+  document.getElementById('audGrid').innerHTML = AUDIENCE.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('audGrid','audDots');
+  document.getElementById('difGrid').innerHTML = DIFFS.map(function(a){return '<div class="card rv"><h4>'+esc(a[0])+'</h4><p>'+esc(a[1])+'</p></div>';}).join('');
+  wireCarousel('difGrid','difDots');
+  document.getElementById('faqBox').innerHTML = FAQ.map(function(f){return '<details class="faq rv"><summary>'+esc(f[0])+'</summary><p>'+esc(f[1])+'</p></details>';}).join('');
+  document.getElementById('needsBox').innerHTML = NEEDS.map(function(n){return '<label class="chk"><input type="checkbox" name="needs" value="'+esc(n)+'"><span>'+esc(n)+'</span></label>';}).join('');
+
+  function bindPkgButtons(){
+    document.querySelectorAll('[data-pkg]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var s=document.getElementById('pkgSel'); s.value=b.getAttribute('data-pkg');
+        document.getElementById('lien-he').scrollIntoView({behavior:'smooth'});
+      });
+    });
+  }
+  bindPkgButtons();
+
+  /* ---------- reveal on scroll ---------- */
+
+  var V2_PILLARS = [
+    ["Tư vấn pháp lý thường xuyên", "Bộ phận pháp chế thuê ngoài cho doanh nghiệp không có in-house."],
+    ["Hợp đồng & giao dịch", "Soạn thảo, rà soát và đàm phán mọi loại hợp đồng thương mại."],
+    ["Thuế — tối ưu hợp pháp", "Hoạch định thuế TNDN, GTGT, TNCN trong khung pháp luật hiện hành."],
+    ["M&A & tái cấu trúc", "Thẩm định pháp lý (due diligence) và tái cấu trúc doanh nghiệp."],
+    ["Giải quyết tranh chấp", "Đại diện & bảo vệ quyền lợi trong thương lượng, trọng tài, toà án."]
+  ];
+  
+  var V2_TOOLS = [
+    ["Thư viện hợp đồng", "Các mẫu chỉ mang tính tham khảo, cần được luật sư điều chỉnh theo từng giao dịch cụ thể."],
+    ["Ước tính thuế", "Kết quả chỉ là ước tính nhanh theo thuế suất phổ biến, chưa tính đầy đủ ưu đãi, khấu trừ & điều chỉnh."],
+    ["Checklist tuân thủ", "Checklist mang tính định hướng chung cho doanh nghiệp vừa và nhỏ. Danh mục tuân thủ thực tế tuỳ ngành nghề."]
+  ];
+
+  if (document.getElementById('v2PillarsGrid')) {
+    document.getElementById('v2PillarsGrid').innerHTML = V2_PILLARS.map(function(p){
+      return '<div class="card rv"><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    wireCarousel('v2PillarsGrid', 'v2PillarsDots');
+  }
+
+  if (document.getElementById('v2ToolsGrid')) {
+    document.getElementById('v2ToolsGrid').innerHTML = V2_TOOLS.map(function(p, i){
+      return '<div class="st3card rv"><div class="stn mono">CÔNG CỤ 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+
+  var LT_DICHVU = [
+    ["Tư vấn pháp lý thường xuyên","Bộ phận pháp chế thuê ngoài cho doanh nghiệp không có in-house lawyer — tư vấn nhanh, phản hồi trong 4 giờ."],
+    ["Hợp đồng & giao dịch","Soạn thảo, rà soát và đàm phán mọi loại hợp đồng thương mại — bảo vệ quyền lợi doanh nghiệp từ điều khoản nhỏ nhất."],
+    ["Thuế — tối ưu hợp pháp","Hoạch định thuế TNDN, GTGT, TNCN trong khung pháp luật — giảm gánh nặng thuế đúng luật, không rủi ro."],
+    ["M&A & tái cấu trúc","Thẩm định pháp lý (due diligence) và tái cấu trúc doanh nghiệp cho mục tiêu gọi vốn, sáp nhập hoặc thoái vốn."],
+    ["Giải quyết tranh chấp","Đại diện & bảo vệ quyền lợi trong thương lượng, trọng tài thương mại và tố tụng khi cần thiết."]
+  ];
+  if(document.getElementById('ltDichVuGrid')){
+    document.getElementById('ltDichVuGrid').innerHTML=LT_DICHVU.map(function(p,i){
+      var icons=['⚖️','📝','💹','🏛️','🛡️'];
+      return '<div class="card rv" style="min-width:220px"><div style="font-size:28px;margin-bottom:10px">'+icons[i]+'</div><h4>'+esc(p[0])+'</h4><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+    if(typeof wireCarousel!=='undefined') wireCarousel('ltDichVuGrid','ltDichVuDots');
+  }
+  var LT_CONGCU = [
+    ["Kiểm tra rủi ro hợp đồng","Tải hợp đồng lên để hệ thống gắn cờ các điều khoản rủi ro — nhanh hơn rà soát thủ công."],
+    ["Tự rà soát tuân thủ thuế","Trả lời 10 câu hỏi để biết doanh nghiệp đang ở mức độ tuân thủ nào và cần cải thiện gì ngay."],
+    ["Tra cứu thông tư & nghị định","Cơ sở dữ liệu văn bản pháp luật cập nhật — tìm kiếm nhanh theo từ khóa, lĩnh vực và ngày hiệu lực."]
+  ];
+  if(document.getElementById('ltCongCuGrid')){
+    document.getElementById('ltCongCuGrid').innerHTML=LT_CONGCU.map(function(p,i){
+      return '<div class="st3card rv"><div class="stn mono">CÔNG CỤ 0'+(i+1)+'</div><h3>'+esc(p[0])+'</h3><p>'+esc(p[1])+'</p></div>';
+    }).join('');
+  }
+  var LT_UUDAI = [
+    {name:"Chiến dịch Quyết toán an tâm",tag:"ƯU ĐÃI CÓ HẠN",price:"Miễn phí rà soát sơ bộ",desc:"Rà soát sơ bộ hồ sơ thuế & giảm 20% phí gói tư vấn pháp lý định kỳ cho doanh nghiệp đăng ký trước ngày 30/11.",hot:true},
+    {name:"Gói Pháp chế Dài hạn",tag:"ĐỊNH KỲ",price:"từ 12tr/tháng",desc:"Trọn gói tư vấn pháp lý thường xuyên, soạn thảo hợp đồng không giới hạn và hỗ trợ pháp lý đột xuất theo năm.",hot:false},
+    {name:"Review hợp đồng cấp tốc",tag:"HỎA TỐC",price:"Trong 24 giờ",desc:"Cần ký gấp nhưng chưa rà soát hợp đồng? BAIKA Legal rà soát và phản hồi rủi ro trong 24 giờ làm việc.",hot:false}
+  ];
+  if(document.getElementById('ltUuDaiGrid')){
+    document.getElementById('ltUuDaiGrid').innerHTML=LT_UUDAI.map(function(p){
+      return '<div class="pkg rv'+(p.hot?' feat':'')+'">'+
+        (p.hot?'<div class="ptag">'+esc(p.tag)+'</div>':'')+
+        '<h3>'+esc(p.name)+'</h3>'+
+        '<p class="pdesc" style="color:var(--ember);font-family:var(--mono);font-size:13px;margin-bottom:8px">'+esc(p.price)+'</p>'+
+        '<p class="pdesc">'+esc(p.desc)+'</p>'+
+        '<a class="btn '+(p.hot?'bp':'bo')+' magnet" href="#lien-he">Đăng ký ngay</a>'+
+        '</div>';
+    }).join('');
+    if(typeof wireCarousel!=='undefined') wireCarousel('ltUuDaiGrid','ltUuDaiDots');
+  }
+window.BaikaSite.wireReveal();
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- magnetic buttons ---------- */
+window.BaikaSite.wireMagnet(reduce);
+
+  /* ---------- form submit (co truong khan cap that) ---------- */
+  var form=document.getElementById('leadForm'), msg=document.getElementById('fmsg'), btn=document.getElementById('sbm');
+  function setMsg(t,ok){ msg.textContent=t; msg.className='fmsg '+(ok?'ok':'bad'); }
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var name=form.full_name.value.trim(), phone=form.phone.value.replace(/[^\d+]/g,'');
+    var needs=[].slice.call(form.querySelectorAll('input[name=needs]:checked')).map(function(c){return c.value;});
+    form.querySelectorAll('.fld').forEach(function(f){f.classList.remove('err');});
+    if(!name){ setMsg('Vui lòng nhập họ tên.',false); form.full_name.closest('.fld').classList.add('err'); return; }
+    if(!/^\+?\d{9,12}$/.test(phone)){ setMsg('Số điện thoại chưa đúng định dạng.',false); form.phone.closest('.fld').classList.add('err'); return; }
+    if(form.email.value && !/^\S+@\S+\.\S+$/.test(form.email.value)){ setMsg('Email chưa đúng định dạng.',false); form.email.closest('.fld').classList.add('err'); return; }
+    if(needs.length<1){ setMsg('Vui lòng chọn ít nhất một nhu cầu.',false); return; }
+    if(!document.getElementById('consent').checked){ setMsg('Vui lòng đồng ý chính sách bảo mật để BAIKA có thể liên hệ.',false); return; }
+    var extras=[];
+    if(form.company.value) extras.push('Cty: '+form.company.value);
+    if(form.pkg.value) extras.push('Goi: '+form.pkg.value);
+    if(form.urgency.value && form.urgency.value!=='Bình thường') extras.push('Khan cap: '+form.urgency.value);
+    if(form.msg.value) extras.push(form.msg.value);
+    var payload={ fullName:name, phone:phone, email:form.email.value||null, serviceNeeds:needs,
+      siteId:'legal-tax', sourcePage:location.pathname, privacyConsent:true,
+      interestedPackage: form.pkg.value||null, problemDescription: extras.join(' | ')||null };
+    btn.disabled=true; btn.textContent='Đang gửi...';
+    try{
+      var res=await fetch('/api/v1/public/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(res.ok){ setMsg('Đã gửi thành công! BAIKA sẽ liên hệ với bạn trong 24 giờ làm việc.',true); form.reset(); }
+      else if(res.status===422||res.status===429){ var er=await res.json().catch(function(){return{};}); setMsg(er.message||er.error||'Dữ liệu chưa hợp lệ.',false); }
+      else{ throw new Error('endpoint '+res.status); }
+    }catch(err){
+      try{ var k='baika_leads_legal-tax'; var arr=JSON.parse(localStorage.getItem(k)||'[]'); arr.push(Object.assign({created_at:new Date().toISOString()},payload)); localStorage.setItem(k,JSON.stringify(arr));
+        setMsg('Đã ghi nhận yêu cầu (chế độ demo — máy chủ chưa kết nối). BAIKA sẽ liên hệ khi hệ thống hoạt động.',true); form.reset();
+      }catch(e2){ setMsg('Không gửi được. Vui lòng gọi trực tiếp 0905 247 365.',false); }
+    }
+    btn.disabled=false; btn.textContent='Gửi hồ sơ rà soát';
+  });
+
+  /* ---------- GD4 CMS overlay ---------- */
+  fetch('/api/v1/public/site-content?site_id=legal-tax').then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.data) return;
+    var d=j.data;
+    if(d.hero){
+      if(d.hero.title){ document.getElementById('heroTitle').textContent=d.hero.title; }
+      if(d.hero.subtitle!=null) document.getElementById('heroSub').textContent=d.hero.subtitle;
+      if(d.hero.desc!=null) document.getElementById('heroDesc').textContent=d.hero.desc;
+      if(d.hero.cta1) document.getElementById('heroCta1').textContent=d.hero.cta1;
+    }
+    if(Array.isArray(d.packages)&&d.packages.length){
+      var merged=d.packages.map(function(p,i){ return {name:p.name,desc:p.desc,items:p.items,feat:PACKAGES[i]?PACKAGES[i].feat:false}; });
+      document.getElementById('pkgsBox').innerHTML=pkgHTML(merged); bindPkgButtons(); wireCarousel('pkgsBox','pkgDots');
+      document.getElementById('pkgSel').innerHTML='<option value="">— Chưa chọn —</option>'+merged.map(function(p){return '<option>'+esc(p.name)+'</option>';}).join('');
+    }
+    if(Array.isArray(d.faq)&&d.faq.length){
+      document.getElementById('faqBox').innerHTML=d.faq.map(function(f){return '<details class="faq on"><summary>'+esc(f.q)+'</summary><p>'+esc(f.a||'')+'</p></details>';}).join('');
+    }
+  }).catch(function(){});
+})();
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+<script>
+
+  /* Legal & Tax: Hexagon Shield Grid */
+  (function(){
+    var c=document.getElementById('baikaAnimBg'); if(!c) return;
+    var ctx=c.getContext('2d'), w=0, h=0, time=0, active=true;
+    function r(){ w=c.width=window.innerWidth; h=c.height=window.innerHeight; }
+    window.addEventListener('resize', r); r();
+    var observer = new IntersectionObserver(es => { active = es[0].isIntersecting; });
+    observer.observe(document.body);
+    function drawHex(x,y,size,alpha){
+      ctx.beginPath();
+      for(var i=0; i<6; i++){
+        var a=Math.PI/3*i;
+        var hx=x+size*Math.cos(a), hy=y+size*Math.sin(a);
+        if(i==0) ctx.moveTo(hx,hy); else ctx.lineTo(hx,hy);
+      }
+      ctx.closePath();
+      ctx.strokeStyle='rgba(212,175,106,'+alpha+')'; ctx.lineWidth=1; ctx.stroke();
+    }
+    function draw(){
+      if(!active){ requestAnimationFrame(draw); return; }
+      ctx.clearRect(0,0,w,h); time+=0.02;
+      var size=40, dx=size*1.5, dy=size*Math.sqrt(3);
+      for(var x=-dx; x<w+dx; x+=dx){
+        for(var y=-dy; y<h+dy; y+=dy/2){
+          var cy = (Math.round(x/dx)%2==0) ? y : y+dy/4;
+          var dist = Math.sqrt(Math.pow(x-w/2,2)+Math.pow(cy-h/2,2));
+          var alpha = (Math.sin(dist*0.01 - time)+1)*0.05;
+          if(alpha>0.01) drawHex(x,cy,size*0.9,alpha);
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+  })();
+
+</script>
+</body>
+</html>

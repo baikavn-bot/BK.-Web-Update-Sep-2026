@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAIKA AI Operating System — Khảo sát cơ hội AI</title>
+<meta name="description" content="Khảo sát mức độ sẵn sàng AI của doanh nghiệp: nhận AI Readiness Score, Automation Opportunity Score và gói triển khai đề xuất.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--canvas-top:#0F1422;--canvas-bot:#0A0E18;--ink:#EDEFF6;--ink-soft:#C4CADA;--muted:#8A92A8;--line:rgba(237,239,246,.10);--line-soft:rgba(237,239,246,.055);--line2:rgba(237,239,246,.16);--glass:rgba(20,26,40,.58);--glass-strong:rgba(24,31,48,.74);--glass-bright:rgba(28,36,56,.90);--primary:#9B7CF0;--primary-deep:#5B21B6;--accent:#F472B6;--accent-soft:rgba(197,107,224,.16);--p-rgb:155,124,240;--a-rgb:197,107,224;--grad:linear-gradient(135deg,#9B7CF0,#F472B6);--grad-soft:linear-gradient(135deg,rgba(155,124,240,.18),rgba(197,107,224,.14));--success:#34D6A0;--warn:#E4B14A;--danger:#F2725C;--shadow-sm:0 4px 14px -8px rgba(0,0,0,.55);--shadow:0 22px 50px -24px rgba(0,0,0,.62);--shadow-lg:0 40px 90px -34px rgba(0,0,0,.7);--r:18px;--r-sm:12px;--r-lg:26px;--display:"Bricolage Grotesque",sans-serif;--body:"Inter",sans-serif;--mono:"IBM Plex Mono",monospace}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--body);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;background:radial-gradient(1100px 620px at 84% -8%,rgba(219,39,119,.16),transparent 60%),radial-gradient(900px 560px at 6% 6%,rgba(124,58,237,.14),transparent 58%),linear-gradient(180deg,var(--canvas-top),var(--canvas-bot));background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.45;background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(120% 100% at 50% 0%,#000 30%,transparent 86%)}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.18;letter-spacing:-.02em}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--primary);font-weight:500}
+.topnav{padding:18px 0}.topnav .inner{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:16px}
+.brand .mark{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center}
+.brand small{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.13em;color:var(--muted);font-weight:500;margin-top:-2px}
+.btn{font-family:var(--body);font-weight:600;font-size:14px;border:none;cursor:pointer;border-radius:12px;padding:12px 20px;transition:transform .16s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+.btn:focus-visible{outline:2.5px solid var(--primary);outline-offset:2px}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 12px 26px -12px rgba(124,58,237,.7)}.btn-primary:hover{transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.6);color:var(--ink);border:1px solid var(--line)}.btn-ghost:hover{background:#fff}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none!important;box-shadow:none}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}@keyframes spin{to{transform:rotate(360deg)}}.is-loading .spinner{display:inline-block}
+.glass{background:var(--glass);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border:1px solid var(--line2);box-shadow:var(--shadow);border-radius:var(--r-lg)}
+.head{text-align:center;padding:24px 0 14px}.head h1{font-size:clamp(24px,4vw,32px);margin:10px 0 8px}.head p{color:var(--ink-soft);font-size:15px}
+.progress-wrap{margin:18px 0 22px}.progress-top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:7px}.ptrack{height:8px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}.ptrack>i{display:block;height:100%;border-radius:6px;background:var(--grad);transition:width .4s cubic-bezier(.22,.8,.3,1)}
+.stepper{margin-top:14px}
+/* ===== neural-node stepper: chu ky AI-OS — moi buoc hoan thanh = 1 nut mang sang len + noi canh ===== */
+.neuralstep{width:100%;height:46px;overflow:visible}
+.ns-edge{stroke:var(--line2);stroke-width:1.5;fill:none}
+.ns-edge-fill{stroke:#9B7CF0;stroke-width:2;fill:none;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .5s ease}
+.ns-node{fill:var(--canvas-bot);stroke:var(--line2);stroke-width:1.5;transition:fill .3s,stroke .3s,r .3s}
+.ns-node.done{fill:var(--primary);stroke:var(--primary)}
+.ns-node.cur{fill:var(--accent);stroke:var(--accent);r:6}
+.ns-pulse{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0;transform-origin:center}
+.ns-node.cur + .ns-pulse{animation:nsPulse 1.6s ease-out infinite}
+@keyframes nsPulse{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(2.4)}}
+@media (prefers-reduced-motion: reduce){.ns-node.cur + .ns-pulse{animation:none}}
+/* logo dong trong topnav — thay cho o vuong gradient tinh */
+.brand .logo-stage{position:relative;width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.brand .logo-halo{position:absolute;inset:-3px;border-radius:50%;background:radial-gradient(circle,var(--primary) 0%,transparent 68%);filter:blur(3px);opacity:.5;animation:logoHaloD 3s ease-in-out infinite}
+@keyframes logoHaloD{0%,100%{opacity:.35;transform:scale(.92)}50%{opacity:.75;transform:scale(1.1)}}
+.brand .logo-mask{position:absolute;inset:4px;background:var(--grad);-webkit-mask:url("/baika-suite/baika-ai-operating-system/logo-emblem.png") center/contain no-repeat;mask:url("/baika-suite/baika-ai-operating-system/logo-emblem.png") center/contain no-repeat;animation:logoFloatD 5s ease-in-out infinite}
+@keyframes logoFloatD{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}
+@media (prefers-reduced-motion: reduce){.brand .logo-halo,.brand .logo-mask{animation:none}}
+.card{padding:30px;margin-bottom:18px}
+.step-eyebrow{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em}
+.card h2{font-size:21px;margin:6px 0 6px}.card .desc{font-size:14px;color:var(--muted);margin-bottom:20px}
+.field{margin-bottom:16px}.field label{display:block;font-size:13.5px;font-weight:600;color:var(--ink-soft);margin-bottom:6px}.field label .req{color:var(--danger)}
+.field input,.field select,.field textarea{width:100%;font-family:var(--body);font-size:14.5px;color:var(--ink);padding:12px 14px;border-radius:11px;border:1px solid var(--line);background:rgba(0,0,0,.28);transition:.2s;outline:none}.field textarea{resize:vertical;min-height:80px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3.5px rgba(155,124,240,.18)}
+.field.invalid input,.field.invalid select{border-color:var(--danger);box-shadow:0 0 0 3.5px rgba(221,75,54,.12)}.field .err{font-size:12px;color:var(--danger);margin-top:5px;display:none}.field.invalid .err{display:block}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.lv{text-align:center;padding:13px 8px;border-radius:11px;border:1.5px solid var(--line);background:rgba(255,255,255,.03);cursor:pointer;font-size:13px;font-weight:500;transition:.15s;user-select:none;color:var(--ink-soft)}.lv:hover{border-color:var(--primary)}.lv.sel{background:var(--grad);color:#fff;border-color:transparent}.lv .ld{font-size:11px;opacity:.8;font-weight:400;margin-top:2px}
+.field.invalid .levels{outline:2px solid rgba(221,75,54,.25);outline-offset:4px;border-radius:12px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chk-item{display:flex;align-items:flex-start;gap:10px;padding:13px;border-radius:12px;border:1.5px solid var(--line);background:rgba(255,255,255,.03);cursor:pointer;transition:.15s;font-size:13.5px;color:var(--ink-soft)}.chk-item:hover{border-color:var(--primary)}.chk-item.sel{border-color:var(--primary);background:var(--grad-soft);color:var(--ink)}.chk-item .box{width:20px;height:20px;border-radius:6px;border:2px solid var(--line);flex-shrink:0;display:grid;place-items:center;transition:.15s;margin-top:1px}.chk-item.sel .box{background:var(--grad);border-color:transparent}.chk-item .box svg{opacity:0;transition:.15s}.chk-item.sel .box svg{opacity:1}
+.nav-btns{display:flex;justify-content:space-between;gap:12px;margin-top:8px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin:6px 0 8px}.consent input{width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:var(--primary)}
+.draft-banner{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:14px;background:var(--grad-soft);border:1px solid rgba(155,124,240,.25);margin-bottom:16px;font-size:13.5px;color:var(--ink-soft)}.draft-banner .db-actions{margin-left:auto;display:flex;gap:8px}
+.hint{font-size:12px;color:var(--muted);font-family:var(--mono);margin-top:4px}
+/* result */
+.result{display:none}.result.show{display:block;animation:fade .4s}@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.gauge-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;text-align:center;margin-bottom:8px}
+.gauge{position:relative;width:160px;height:160px;flex-shrink:0}.gauge svg{transform:rotate(-90deg)}.gauge .gv{position:absolute;inset:0;display:grid;place-content:center}.gauge .gv b{font-family:var(--display);font-size:42px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}.gauge .gv span{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.level-badge{display:inline-block;font-family:var(--mono);font-size:13px;font-weight:600;padding:7px 16px;border-radius:99px;background:var(--grad);color:#fff;margin-top:6px}
+.metric{padding:16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);margin-bottom:12px}.metric .mtop{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:var(--ink-soft)}.metric .mtrack{height:9px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}.metric .mtrack>i{display:block;height:100%;border-radius:6px;background:var(--grad)}
+.rec-pkg{padding:24px;border-radius:var(--r-lg);background:var(--grad);color:#fff;margin:18px 0;position:relative;overflow:hidden}.rec-pkg::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px;opacity:.5}.rec-pkg .rl{font-family:var(--mono);font-size:11px;opacity:.9;position:relative}.rec-pkg h3{color:#fff;font-size:24px;margin:6px 0 8px;position:relative}.rec-pkg p{font-size:14px;opacity:.94;position:relative;margin-bottom:14px}.rec-pkg ul{list-style:none;display:flex;flex-direction:column;gap:8px;position:relative}.rec-pkg li{display:flex;gap:9px;font-size:13.5px;align-items:flex-start}.rec-pkg li svg{flex-shrink:0;margin-top:3px}
+.flag-note{padding:12px 14px;border-radius:11px;background:rgba(228,177,74,.1);border:1px solid rgba(228,177,74,.3);font-size:13px;color:#E4B14A;margin-bottom:14px;display:flex;gap:9px;align-items:flex-start}
+.toasts{position:fixed;bottom:22px;right:22px;z-index:200;display:flex;flex-direction:column;gap:10px}.toast{min-width:240px;max-width:340px;padding:13px 15px;border-radius:13px;background:var(--glass-bright);backdrop-filter:blur(20px);border:1px solid var(--line2);box-shadow:var(--shadow-lg);display:flex;gap:10px;align-items:center;font-size:13.5px;font-weight:500;color:var(--ink);animation:fade .3s}
+@media(max-width:560px){.row2,.checks,.levels{grid-template-columns:1fr}.card{padding:22px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+<script src="/shield.js" defer></script>
+</head>
+<body>
+<script>/* VPS persistence shim: dùng localStorage khi không có window.storage (môi trường thật) */
+window.storage=window.storage||{get:async k=>{const v=localStorage.getItem(k);return v==null?null:{key:k,value:v};},set:async (k,v)=>{localStorage.setItem(k,v);return{key:k,value:v};},delete:async k=>{localStorage.removeItem(k);return{key:k,deleted:true};},list:async p=>({keys:Object.keys(localStorage).filter(x=>!p||x.startsWith(p))})};</script>
+<div class="wrap">
+<div class="topnav"><div class="inner"><a href="index.html" class="brand"><span>BAIKA<small>AI DIAGNOSIS</small></span></a><a class="btn btn-ghost" href="index.html">← Về trang dịch vụ</a></div></div>
+
+<div id="wizardView">
+  <div class="head"><span class="eyebrow">AI Readiness Diagnosis</span><h1>Khảo sát cơ hội ứng dụng AI</h1><p>9 bước · ~3 phút · nhận điểm sẵn sàng AI và gói triển khai đề xuất.</p></div>
+  <div id="draftBanner"></div>
+  <div class="progress-wrap">
+    <div class="progress-top"><span id="pStep">Bước 1/9</span><span id="pName"></span></div>
+    <div class="ptrack"><i id="pBar" style="width:0%"></i></div>
+    <div class="stepper" id="stepper"></div>
+  </div>
+  <div class="glass card" id="stepCard"></div>
+</div>
+
+<div class="result" id="resultView"></div>
+</div>
+<div class="toasts" id="toasts"></div>
+
+<script>
+const PHONE_RE=/^(0|\+84)[0-9]{9,10}$/,EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const K={leads:'aiops_leads',subs:'aiops_submissions',events:'aiops_events',draft:'aiops_diagnosis_draft'};
+const mem={};
+async function sGet(k){try{if(window.storage){const r=await window.storage.get(k);return r?JSON.parse(r.value):null;}}catch(e){}return mem[k]??null;}
+async function sSet(k,v){try{if(window.storage){await window.storage.set(k,JSON.stringify(v));return;}}catch(e){}mem[k]=v;}
+async function sDel(k){try{if(window.storage){await window.storage.delete(k);return;}}catch(e){}delete mem[k];}
+function uid(p){return (p||'id')+'_'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function nowISO(){return new Date().toISOString();}
+function normPhone(v){return v.replace(/[^\d+]/g,'');}
+const $=s=>document.querySelector(s);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const UTM=Object.fromEntries(new URLSearchParams(location.search).entries());
+async function track(type,meta){const ev=await sGet(K.events)||[];ev.push({id:uid('ev'),type,meta:meta||{},at:nowISO()});await sSet(K.events,ev);}
+
+/* ===== STATE ===== */
+function blank(){return{company_name:'',industry:'',company_size:'',city:'',business_model:'',
+ process_documented:'',data_structured:'',tools:[],tools_api:'',
+ auto_signals:[],ai_roles:[],workflows:[],software_needs:[],
+ team_ready:'',leadership_goal:'',budget_ready:'',
+ contact_name:'',phone:'',email:'',budget_range:'',implementation_timeline:'',pain_points:'',expected_outcomes:'',consent:false};}
+let D=blank(),cur=0;
+
+/* options */
+const SIZES=[['1_5','1–5'],['6_20','6–20'],['21_50','21–50'],['51_100','51–100'],['101_300','101–300'],['300_plus','>300']];
+const LEVELS=[['0','Chưa','Chưa có'],['0.5','Một phần','Đang làm'],['1','Rồi','Đã có']];
+const AUTO_SIGNALS=[['repeated_tasks','Nhiều thao tác lặp lại hằng ngày',20],['manual_csc','Chăm sóc khách hàng thủ công',15],['manual_reports','Báo cáo làm bằng tay',15],['content_creation','Tạo nội dung thường xuyên',10],['document_handling','Xử lý hồ sơ/hợp đồng/chứng từ',10],['team_3plus','Đội sales/CSKH/vận hành ≥3 người',10],['frequent_errors','Hay lỗi/quên việc/chậm phản hồi',5]];
+const AI_ROLES=[['sales','Sales Agent'],['marketing','Marketing Agent'],['customer_care','CSKH Agent'],['finance','Finance Agent'],['legal_tax','Legal/Tax Agent'],['hr','HR Agent'],['ceo','CEO Assistant'],['operation','Operation Agent']];
+const WORKFLOWS=[['data_entry','Tự động nhập liệu'],['followup','Tự động CSKH / follow-up'],['reporting','Tự động tổng hợp báo cáo'],['documents','Tự động xử lý chứng từ'],['content','Tự động tạo nội dung'],['lead_routing','Tự động phân loại lead']];
+const SOFTWARE=[['crm','CRM'],['erp','ERP'],['dashboard','Dashboard điều hành'],['internal_tool','Internal tool / automation'],['knowledge_portal','Knowledge base portal'],['integration','Tích hợp hệ thống']];
+const BUDGETS=[['under_30m','<30 triệu'],['30_80m','30–80 triệu'],['80_200m','80–200 triệu'],['200m_plus','>200 triệu'],['unknown','Chưa rõ']];
+const TIMELINES=[['immediate','Ngay lập tức'],['1_month','Trong 1 tháng'],['3_months','Trong 3 tháng'],['6_months','Trong 6 tháng'],['unknown','Chưa rõ']];
+const PACKAGES={
+ ai_opportunity_audit:{name:'AI Opportunity Audit',d:'Chẩn đoán cơ hội ứng dụng AI cho doanh nghiệp.',items:['Khảo sát hiện trạng','Bản đồ cơ hội AI','Khuyến nghị ưu tiên']},
+ ai_agent_starter_kit:{name:'AI Agent Starter Kit',d:'Xây AI Agent đầu tiên theo 1–3 vai trò.',items:['Thiết kế 1–3 AI Agent','Knowledge base nền','Hướng dẫn sử dụng']},
+ ai_workflow_automation:{name:'AI Workflow Automation',d:'Tự động hóa các quy trình lặp lại.',items:['Sơ đồ tự động hóa','Triển khai workflow','Đo lường hiệu quả']},
+ custom_ai_software:{name:'Custom AI Software',d:'Phần mềm/internal tool riêng tích hợp AI.',items:['CRM/ERP/dashboard riêng','Tích hợp AI theo nhu cầu','Bàn giao & đào tạo']},
+ ai_operating_system_partner:{name:'AI Operating System Partner',d:'Đồng hành xây hệ điều hành AI toàn diện.',items:['Toàn bộ 3 lớp giải pháp','Roadmap 30-60-90','AI Governance & đào tạo']},
+};
+
+/* ===== RENDER HELPERS ===== */
+function levelGroup(field){return `<div class="levels" data-lvl="${field}">${LEVELS.map(([v,l,d])=>`<div class="lv ${D[field]===v?'sel':''}" data-v="${v}">${l}<div class="ld">${d}</div></div>`).join('')}</div>`;}
+function checkGroup(arrKey,opts){return `<div class="checks" data-multi="${arrKey}">${opts.map(o=>{const v=o[0],l=o[1];const sel=D[arrKey].includes(v);return `<div class="chk-item ${sel?'sel':''}" data-v="${v}"><span class="box"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span>${l}</span></div>`;}).join('')}</div>`;}
+
+/* ===== STEPS ===== */
+const STEPS=[
+ {name:'Thông tin doanh nghiệp',render:()=>`
+   <div class="field" data-v="company_name"><label>Tên doanh nghiệp <span class="req">*</span></label><input data-d="company_name" maxlength="150" value="${esc(D.company_name)}" placeholder="Công ty ..."><div class="err">Vui lòng nhập tên doanh nghiệp.</div></div>
+   <div class="row2"><div class="field"><label>Ngành</label><input data-d="industry" maxlength="100" value="${esc(D.industry)}" placeholder="VD: Thương mại, sản xuất..."></div><div class="field" data-v="company_size"><label>Quy mô <span class="req">*</span></label><select data-d="company_size"><option value="">— Chọn —</option>${SIZES.map(([v,l])=>`<option value="${v}" ${D.company_size===v?'selected':''}>${l}</option>`).join('')}</select><div class="err">Vui lòng chọn quy mô.</div></div></div>
+   <div class="field"><label>Mô hình kinh doanh (ngắn gọn)</label><textarea data-d="business_model" maxlength="500" placeholder="Doanh nghiệp bạn làm gì, bán cho ai...">${esc(D.business_model)}</textarea></div>`,
+  validate:()=>{let ok=true;mark('company_name',D.company_name.trim()!=='')||(ok=false);mark('company_size',D.company_size!=='')||(ok=false);return ok;}},
+ {name:'Hiện trạng quy trình',render:()=>`
+   <div class="field" data-v="process_documented"><label>Quy trình cốt lõi đã được mô tả/tài liệu hóa rõ chưa? <span class="req">*</span></label>${levelGroup('process_documented')}<div class="err">Vui lòng chọn một mức.</div></div>
+   <div class="field"><label>Dấu hiệu cơ hội tự động hóa (chọn những điều đúng)</label>${checkGroup('auto_signals',AUTO_SIGNALS)}<div class="hint">Càng nhiều dấu hiệu, cơ hội tự động hóa càng cao.</div></div>`,
+  validate:()=>mark('process_documented',D.process_documented!=='')},
+ {name:'Hiện trạng dữ liệu',render:()=>`
+   <div class="field" data-v="data_structured"><label>Dữ liệu của doanh nghiệp đã có cấu trúc chưa? <span class="req">*</span></label>${levelGroup('data_structured')}<div class="err">Vui lòng chọn một mức.</div></div>
+   <div class="field"><label>Tình trạng phân tán dữ liệu</label>${checkGroup('auto_signals',[['data_scattered','Dữ liệu nằm rải rác ở nhiều nơi (file, app, giấy...)',15]])}</div>`,
+  validate:()=>mark('data_structured',D.data_structured!=='')},
+ {name:'Công cụ / phần mềm đang dùng',render:()=>`
+   <div class="field"><label>Bạn đang dùng những loại công cụ nào? (chọn nhiều)</label>${checkGroup('tools',[['spreadsheet','Excel / Google Sheets'],['crm','CRM'],['accounting','Phần mềm kế toán'],['chat','Zalo / Messenger'],['erp','ERP'],['none','Hầu như chưa có']])}</div>
+   <div class="field" data-v="tools_api"><label>Công cụ hiện tại có khả năng API / export dữ liệu không? <span class="req">*</span></label>${levelGroup('tools_api')}<div class="err">Vui lòng chọn một mức.</div></div>`,
+  validate:()=>mark('tools_api',D.tools_api!=='')},
+ {name:'Nhu cầu AI Agent',render:()=>`
+   <div class="field"><label>Bạn muốn xây AI Agent cho phòng ban nào? (chọn nhiều, có thể bỏ trống)</label>${checkGroup('ai_roles',AI_ROLES)}<div class="hint">Không bắt buộc — bỏ trống nếu chưa rõ.</div></div>`,
+  validate:()=>true},
+ {name:'Nhu cầu Workflow Automation',render:()=>`
+   <div class="field"><label>Bạn muốn tự động hóa quy trình nào? (chọn nhiều, có thể bỏ trống)</label>${checkGroup('workflows',WORKFLOWS)}</div>`,
+  validate:()=>true},
+ {name:'Nhu cầu Custom Software',render:()=>`
+   <div class="field"><label>Bạn có nhu cầu phần mềm riêng nào? (chọn nhiều, có thể bỏ trống)</label>${checkGroup('software_needs',SOFTWARE)}<div class="hint">Có nhu cầu CRM/ERP/dashboard/internal tool sẽ ưu tiên gói Custom AI Software.</div></div>`,
+  validate:()=>true},
+ {name:'Mức độ sẵn sàng triển khai',render:()=>`
+   <div class="field" data-v="team_ready"><label>Đội ngũ có sẵn sàng thay đổi cách làm việc không? <span class="req">*</span></label>${levelGroup('team_ready')}<div class="err">Vui lòng chọn.</div></div>
+   <div class="field" data-v="leadership_goal"><label>CEO/quản lý đã có mục tiêu ứng dụng AI rõ ràng chưa? <span class="req">*</span></label>${levelGroup('leadership_goal')}<div class="err">Vui lòng chọn.</div></div>
+   <div class="field" data-v="budget_ready"><label>Doanh nghiệp đã sẵn ngân sách triển khai chưa? <span class="req">*</span></label>${levelGroup('budget_ready')}<div class="err">Vui lòng chọn.</div></div>`,
+  validate:()=>{let ok=true;['team_ready','leadership_goal','budget_ready'].forEach(f=>{mark(f,D[f]!=='')||(ok=false);});return ok;}},
+ {name:'Gửi yêu cầu tư vấn',render:()=>`
+   <div class="row2"><div class="field" data-v="contact_name"><label>Họ và tên <span class="req">*</span></label><input data-d="contact_name" maxlength="100" value="${esc(D.contact_name)}" placeholder="Nguyễn Văn A"><div class="err">Vui lòng nhập họ tên.</div></div><div class="field" data-v="phone"><label>Số điện thoại <span class="req">*</span></label><input data-d="phone" inputmode="tel" value="${esc(D.phone)}" placeholder="0901 234 567"><div class="err">SĐT chưa hợp lệ.</div></div></div>
+   <div class="field" data-v="email"><label>Email</label><input data-d="email" type="email" maxlength="150" value="${esc(D.email)}" placeholder="ban@congty.vn"><div class="err">Email chưa hợp lệ.</div></div>
+   <div class="row2"><div class="field"><label>Ngân sách dự kiến</label><select data-d="budget_range"><option value="">— Chọn —</option>${BUDGETS.map(([v,l])=>`<option value="${v}" ${D.budget_range===v?'selected':''}>${l}</option>`).join('')}</select></div><div class="field"><label>Thời gian triển khai</label><select data-d="implementation_timeline"><option value="">— Chọn —</option>${TIMELINES.map(([v,l])=>`<option value="${v}" ${D.implementation_timeline===v?'selected':''}>${l}</option>`).join('')}</select></div></div>
+   <div class="field"><label>Vấn đề lớn nhất hiện tại</label><textarea data-d="pain_points" maxlength="2000" placeholder="Điều gì đang cản trở doanh nghiệp nhất?">${esc(D.pain_points)}</textarea></div>
+   <div class="field"><label>Kết quả mong đợi từ AI</label><textarea data-d="expected_outcomes" maxlength="2000" placeholder="Bạn muốn AI giúp đạt được gì?">${esc(D.expected_outcomes)}</textarea></div>
+   <label class="consent"><input type="checkbox" id="consentBox" ${D.consent?'checked':''}><span>Tôi đồng ý để BAIKA liên hệ tư vấn theo chính sách bảo mật. <span style="color:var(--danger)">*</span></span></label>`,
+  validate:()=>{let ok=true;mark('contact_name',D.contact_name.trim()!=='')||(ok=false);mark('phone',PHONE_RE.test(normPhone(D.phone)))||(ok=false);mark('email',!D.email||EMAIL_RE.test(D.email))||(ok=false);if(!D.consent)ok=false;return ok;}},
+];
+function esc(s){return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function neuralStepSVG(){
+  const n=STEPS.length,w=680,pad=14,step=(w-pad*2)/(n-1);
+  const pts=STEPS.map((_,i)=>{const x=pad+i*step;const y=23+Math.sin(i*1.3)*7;return[x,y];});
+  const lineD='M'+pts.map(p=>p.join(',')).join(' L');
+  const doneFrac=n>1?cur/(n-1):0;
+  const nodes=pts.map(([x,y],i)=>{
+    const cls=i<cur?'done':(i===cur?'cur':'');
+    let s=`<circle class="ns-node ${cls}" cx="${x}" cy="${y}" r="${i===cur?6:4}"></circle>`;
+    if(i===cur) s+=`<circle class="ns-pulse" cx="${x}" cy="${y}" r="6"></circle>`;
+    return s;
+  }).join('');
+  return `<svg class="neuralstep" viewBox="0 0 ${w} 46" preserveAspectRatio="none">
+    <path class="ns-edge" d="${lineD}"></path>
+    <path class="ns-edge-fill" d="${lineD}" pathLength="1" style="stroke-dashoffset:${1-doneFrac}"></path>
+    ${nodes}
+  </svg>`;
+}
+function mark(field,ok){const el=document.querySelector(`[data-v="${field}"]`);if(el)el.classList.toggle('invalid',!ok);return ok;}
+
+/* ===== RENDER ===== */
+function renderStep(){
+  const s=STEPS[cur];
+  $('#pStep').textContent=`Bước ${cur+1}/9`;$('#pName').textContent=s.name;
+  $('#pBar').style.width=((cur)/8*100)+'%';
+  $('#stepper').innerHTML=neuralStepSVG();
+  $('#stepCard').innerHTML=`<div class="step-eyebrow">BƯỚC ${cur+1}</div><h2>${s.name}</h2><div class="desc">${['Cho BAIKA biết về doanh nghiệp của bạn.','Mức độ rõ ràng của quy trình & dấu hiệu cần tự động hóa.','Dữ liệu của bạn đang ở trạng thái nào.','Công cụ hiện tại và khả năng kết nối.','Chọn vai trò AI Agent bạn muốn xây.','Chọn quy trình muốn tự động hóa.','Chọn loại phần mềm riêng cần xây.','Mức độ sẵn sàng để triển khai AI.','Để lại thông tin để nhận kết quả & tư vấn.'][cur]}</div>
+    ${s.render()}
+    <div class="nav-btns">${cur>0?'<button class="btn btn-ghost" id="backBtn">← Quay lại</button>':'<span></span>'}
+    ${cur<8?'<button class="btn btn-primary" id="nextBtn">Tiếp tục →</button>':'<button class="btn btn-primary" id="submitBtn"><span class="spinner"></span><span class="btn-label">Xem kết quả & gửi</span></button>'}</div>`;
+  bindStep();
+}
+function bindStep(){
+  const c=$('#stepCard');
+  c.addEventListener('input',e=>{const t=e.target;if(t.dataset.d){D[t.dataset.d]=t.value;if(t.dataset.d==='phone'){let d=t.value.replace(/[^\d+]/g,'');if(!d.startsWith('+')){d=d.replace(/\D/g,'');t.value=d.replace(/(\d{4})(\d{3})(\d{0,4})/,'$1 $2 $3').trim();D.phone=t.value;}}const f=t.closest('[data-v]');if(f)f.classList.remove('invalid');}});
+  c.addEventListener('change',e=>{const t=e.target;if(t.dataset.d)D[t.dataset.d]=t.value;if(t.id==='consentBox')D.consent=t.checked;saveDraft();});
+  c.querySelectorAll('[data-lvl]').forEach(g=>g.querySelectorAll('.lv').forEach(lv=>lv.addEventListener('click',()=>{D[g.dataset.lvl]=lv.dataset.v;g.querySelectorAll('.lv').forEach(x=>x.classList.toggle('sel',x===lv));g.closest('[data-v]')?.classList.remove('invalid');saveDraft();})));
+  c.querySelectorAll('[data-multi]').forEach(g=>{const key=g.dataset.multi;g.querySelectorAll('.chk-item').forEach(it=>it.addEventListener('click',()=>{const v=it.dataset.v;const arr=D[key];const i=arr.indexOf(v);if(i>=0)arr.splice(i,1);else arr.push(v);it.classList.toggle('sel');saveDraft();}));});
+  $('#backBtn')?.addEventListener('click',()=>{cur--;renderStep();window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});});
+  $('#nextBtn')?.addEventListener('click',()=>{if(!STEPS[cur].validate()){$('.invalid')?.scrollIntoView({behavior:'smooth',block:'center'});return;}cur++;saveDraft();renderStep();window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});});
+  $('#submitBtn')?.addEventListener('click',submitDiagnosis);
+}
+
+/* ===== SCORING ===== */
+function computeScores(){
+  const lv=f=>Number(D[f]||0);
+  const readiness=Math.round(lv('process_documented')*20+lv('data_structured')*20+lv('tools_api')*15+lv('team_ready')*15+lv('leadership_goal')*15+lv('budget_ready')*15);
+  const PTS={repeated_tasks:20,manual_csc:15,manual_reports:15,data_scattered:15,content_creation:10,document_handling:10,team_3plus:10,frequent_errors:5};
+  let automation=D.auto_signals.reduce((s,k)=>s+(PTS[k]||0),0);if(automation>100)automation=100;
+  const level=readiness<30?'Low Readiness':readiness<60?'Medium Readiness':readiness<80?'High Readiness':'Enterprise Ready';
+  const deptCount=D.ai_roles.length,softwareNeeds=D.software_needs.length>0;
+  let pkg;
+  if(readiness>=75&&deptCount>=3)pkg='ai_operating_system_partner';
+  else if(softwareNeeds)pkg='custom_ai_software';
+  else if(automation>=60)pkg='ai_workflow_automation';
+  else if(readiness>=30&&readiness<60&&deptCount>=1&&deptCount<=3)pkg='ai_agent_starter_kit';
+  else pkg='ai_opportunity_audit';
+  const complex_scope=(D.ai_roles.length+D.workflows.length+D.software_needs.length)>8;
+  return{readiness,automation,level,pkg,complex_scope};
+}
+
+/* ===== SUBMIT ===== */
+async function submitDiagnosis(){
+  if(!STEPS[cur].validate()){$('.invalid')?.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const btn=$('#submitBtn');btn.classList.add('is-loading');btn.disabled=true;btn.querySelector('.btn-label').textContent='Đang tính điểm…';
+  await new Promise(r=>setTimeout(r,800));
+  const sc=computeScores();
+  const leads=await sGet(K.leads)||[];
+  const phone=normPhone(D.phone),email=(D.email||'').trim().toLowerCase();
+  const dup=leads.find(l=>((phone&&normPhone(l.phone)===phone)||(email&&(l.email||'').toLowerCase()===email))&&(Date.now()-new Date(l.created_at))<30*24*3600*1000);
+  let lead;
+  if(dup){lead=dup;dup.ai_readiness_score=sc.readiness;dup.automation_opportunity_score=sc.automation;dup.recommended_package=sc.pkg;dup.complex_scope=sc.complex_scope;dup.activities=dup.activities||[];dup.activities.push({at:nowISO(),activity_type:'form_submit',title:'Hoàn tất khảo sát AI (cập nhật điểm)'});}
+  else{lead={id:uid('ai'),company_name:D.company_name.trim(),contact_name:D.contact_name.trim(),phone,email:email||null,company_size:D.company_size||null,industry:D.industry||null,status:'new',source:'diagnosis_form',recommended_package:sc.pkg,ai_readiness_score:sc.readiness,automation_opportunity_score:sc.automation,complex_scope:sc.complex_scope,assigned_consultant_id:null,utm_source:UTM.utm_source||null,utm_campaign:UTM.utm_campaign||null,created_at:nowISO(),activities:[{at:nowISO(),activity_type:'form_submit',title:'Tạo lead từ khảo sát AI (diagnosis)'}]};leads.push(lead);}
+  await sSet(K.leads,leads);
+  const subs=await sGet(K.subs)||[];
+  // GD2: gui ket qua ve he thong hop nhat BAIKA (khong chan luong cu)
+  let saved='Đã gửi tới hệ thống BAIKA — đội ngũ sẽ liên hệ tư vấn.';
+  try{
+    const res=await fetch('/api/v1/public/assessments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({siteId:'ai-os',tool:'AI_DIAGNOSIS',fullName:D.contact_name,phone:D.phone,email:D.email||null,companyName:D.company_name||null,answers:{business:{industry:D.industry,size:D.company_size,model:D.business_model},process_documented:D.process_documented,data_structured:D.data_structured,tools:D.tools,ai_roles:D.ai_roles,workflows:D.workflows,software_needs:D.software_needs,budget:D.budget_range||null,timeline:D.implementation_timeline||null},scores:{readiness:sc.readiness,automation:sc.automation},totalScore:sc.readiness,recommendation:sc.pkg,sourcePage:location.pathname})});
+    if(!res.ok){
+      const er=await res.json().catch(()=>({}));
+      saved=er.message||'Không gửi được tới hệ thống trung tâm — đã lưu tạm trên máy này, vui lòng liên hệ trực tiếp để chắc chắn.';
+    }
+  }catch(e){
+    saved='Không kết nối được máy chủ — đã lưu tạm trên máy này, vui lòng liên hệ trực tiếp để chắc chắn.';
+  }
+  const sub={id:uid('sub'),lead_id:lead.id,business_context:{company_name:D.company_name,industry:D.industry,company_size:D.company_size,business_model:D.business_model},process_current_state:{process_documented:D.process_documented},data_current_state:{data_structured:D.data_structured},tool_stack:D.tools,selected_ai_roles:D.ai_roles,selected_workflows:D.workflows,selected_software_needs:D.software_needs,readiness_answers:{tools_api:D.tools_api,team_ready:D.team_ready,leadership_goal:D.leadership_goal,budget_ready:D.budget_ready,auto_signals:D.auto_signals},pain_points:D.pain_points||null,expected_outcomes:D.expected_outcomes||null,budget_range:D.budget_range||null,implementation_timeline:D.implementation_timeline||null,calculated_scores:sc,created_at:nowISO()};
+  subs.push(sub);await sSet(K.subs,subs);
+  await track('diagnosis_submitted',{lead_id:lead.id,submission_id:sub.id,readiness:sc.readiness,automation:sc.automation,package:sc.pkg});
+  await sDel(K.draft);
+  showResult(sc,sub.id,saved);
+}
+
+/* ===== RESULT ===== */
+function showResult(sc,subId,saved){
+  $('#wizardView').style.display='none';
+  const p=PACKAGES[sc.pkg];const C=427,off=C-C*sc.readiness/100;
+  $('#resultView').innerHTML=`
+   <div class="head"><span class="eyebrow">Kết quả sơ bộ</span><h1>Mức độ sẵn sàng AI của bạn</h1><p>Đây là điểm <b>sơ bộ</b> để ưu tiên xử lý — chưa phải kết luận tư vấn cuối cùng.</p></div>
+   <div class="glass card">
+     <div class="gauge-wrap"><div class="gauge"><svg width="160" height="160" viewBox="0 0 160 160"><circle cx="80" cy="80" r="68" fill="none" stroke="rgba(26,20,38,.08)" stroke-width="13"/><circle id="gArc" cx="80" cy="80" r="68" fill="none" stroke="url(#gg)" stroke-width="13" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}"/><defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#DB2777"/></linearGradient></defs></svg><div class="gv"><b id="gNum">0</b><span>/ 100</span></div></div>
+       <div><div class="level-badge">${sc.level}</div><div style="margin-top:14px;max-width:240px"><div class="metric" style="margin-bottom:0"><div class="mtop"><span>Automation Opportunity</span><b>${sc.automation}/100</b></div><div class="mtrack"><i id="autoBar" style="width:0%"></i></div></div></div></div>
+     </div>
+   </div>
+   ${sc.complex_scope?`<div class="flag-note"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg> Bạn chọn nhiều nhu cầu — BAIKA sẽ tư vấn lộ trình triển khai theo giai đoạn để tránh quá tải.</div>`:''}
+   <div class="rec-pkg"><div class="rl">GÓI ĐỀ XUẤT</div><h3>${p.name}</h3><p>${p.d}</p><ul>${p.items.map(it=>`<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> ${it}</li>`).join('')}</ul></div>
+   <div class="glass card" style="text-align:center"><h2 style="font-size:19px;margin-bottom:8px">Bước tiếp theo</h2><p style="color:var(--ink-soft);font-size:14.5px;margin-bottom:18px">BAIKA sẽ liên hệ tư vấn và xây roadmap 30-60-90 cho doanh nghiệp của bạn.</p><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn btn-primary" href="index.html#lien-he">Đặt lịch tư vấn</a><a class="btn btn-ghost" href="index.html">Về trang dịch vụ</a></div><div style="margin-top:16px;font-family:var(--mono);font-size:11.5px;color:var(--muted)">Mã hồ sơ: ${subId.toUpperCase()}</div><div style="margin-top:8px;font-size:12.5px;color:var(--muted)">${esc(saved)}</div></div>`;
+  $('#resultView').classList.add('show');window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  if(reduce){$('#gArc').style.strokeDashoffset=off;$('#gNum').textContent=sc.readiness;$('#autoBar').style.width=sc.automation+'%';return;}
+  setTimeout(()=>{$('#gArc').style.transition='stroke-dashoffset 1.4s cubic-bezier(.22,.8,.3,1)';$('#gArc').style.strokeDashoffset=off;$('#autoBar').style.transition='width 1.2s ease .2s';$('#autoBar').style.width=sc.automation+'%';},200);
+  let n=0;const step=()=>{n+=2;if(n>=sc.readiness){$('#gNum').textContent=sc.readiness;return;}$('#gNum').textContent=n;requestAnimationFrame(step);};setTimeout(step,300);
+}
+
+/* ===== DRAFT ===== */
+async function saveDraft(){await sSet(K.draft,{D,step:cur,savedAt:nowISO()});}
+async function checkDraft(){
+  const dr=await sGet(K.draft);
+  if(dr&&dr.savedAt&&(Date.now()-new Date(dr.savedAt))<7*24*3600*1000&&dr.D&&(dr.D.company_name||dr.step>0)){
+    $('#draftBanner').innerHTML=`<div class="draft-banner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/></svg><span>Có bản nháp đã lưu (bước ${dr.step+1}/9). Khôi phục để tiếp tục?</span><div class="db-actions"><button class="btn btn-ghost" style="padding:7px 12px;font-size:13px" id="draftDiscard">Bỏ</button><button class="btn btn-primary" style="padding:7px 12px;font-size:13px" id="draftRestore">Khôi phục</button></div></div>`;
+    $('#draftRestore').addEventListener('click',()=>{D=Object.assign(blank(),dr.D);cur=Math.min(dr.step,8);$('#draftBanner').innerHTML='';renderStep();});
+    $('#draftDiscard').addEventListener('click',async()=>{await sDel(K.draft);$('#draftBanner').innerHTML='';});
+  }
+}
+
+/* init */
+(async function(){await track('page_view',{page:'ai_diagnosis'});await checkDraft();renderStep();})();
+</script>
+<script src="/baika-suite/shared-auth.js"></script>
+</body>
+</html>

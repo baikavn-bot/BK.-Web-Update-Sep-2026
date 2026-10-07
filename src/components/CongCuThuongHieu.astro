@@ -1,0 +1,261 @@
+---
+// CÔNG CỤ CHẨN ĐOÁN THƯƠNG HIỆU — Brand Diagnostic (/marketing/diagnostic)
+// ==========================================================================
+// Figma MVP (page UI): section 1002:5246 — 8 nhóm + kết quả, desktop + mobile.
+// Câu chữ + cách tính: src/lib/chan-doan/thuong-hieu.ts (nguyên văn v1, sếp chốt 05/10/2026).
+//
+// Khác 2 kiểu kia: hỏi thông tin liên hệ ở NHÓM ĐẦU (như v1), và câu chấm điểm
+// KHÔNG bắt buộc (giữ y v1 — xem đầu thuong-hieu.ts).
+//
+// Bỏ so với v1, có chủ ý: lưu nháp, ghi sự kiện theo dõi, chuyển gói khi gói bị
+// tắt trong trang quản trị (v2 không có trang quản trị). Biểu đồ radar 6 trục để
+// dành vòng sửa UI — tạm thay bằng thanh điểm như bản Figma MVP.
+import CongCuKhung from './CongCuKhung.astro';
+import LuaChon from './LuaChon.astro';
+import Button2 from './Button2.astro';
+import TextField from './TextField.astro';
+import Checkbox from './Checkbox.astro';
+import { MUC_TRA_LOI, QUY_MO, GIAI_DOAN, THOI_HAN, NGAN_SACH, NHOM, THU_TU_TRUC, TEN_TRUC } from '../lib/chan-doan/thuong-hieu';
+
+const nutPhu = { size: 'md' as const, iconLeft: false, iconRight: false };
+---
+
+<CongCuKhung congCu="marketing">
+  <section class="cc-man" data-man="nhom">
+    <h1 class="sr-only">Chẩn đoán thương hiệu — Brand Diagnostic</h1>
+
+    <div class="cc-tiendo">
+      <div class="cc-tiendo__tren"><span data-o="tien-do">Nhóm 1/8 · {NHOM[0].ten}</span></div>
+      <div class="cc-ray" data-thanh="tien-do"><span class="cc-ray__day"></span></div>
+    </div>
+
+    <form class="cc-man" novalidate>
+      {NHOM.map((n, ni) => (
+        <div class="cc-nhom" data-nhom={ni} hidden={ni > 0}>
+          <h2 class="sr-only" data-tieu-de tabindex="-1">Nhóm {ni + 1}: {n.ten}</h2>
+          <p class="cc-mo">{n.moTa}</p>
+
+          {ni === 0 && (
+            <div class="cc-form" data-cot="2">
+              <TextField id="th-ten" name="ten" label="Họ và tên *" required autocomplete="name" />
+              <TextField id="th-sdt" name="sdt" label="Số điện thoại *" type="tel" required autocomplete="tel" />
+              <TextField id="th-donvi" name="donvi" label="Tên DN / thương hiệu *" required autocomplete="organization" />
+              <TextField id="th-email" name="email" label="Email" type="email" autocomplete="email" />
+              <TextField id="th-industry" name="industry" label="Ngành" />
+              <TextField id="th-company_size" name="company_size" label="Quy mô" options={QUY_MO.map((x) => x.nhan)} />
+              <div class="cc-rong"><TextField id="th-product_stage" name="product_stage" label="Giai đoạn sản phẩm" options={GIAI_DOAN.map((x) => x.nhan)} /></div>
+            </div>
+          )}
+
+          {n.cauHoi.map((c) => (
+            <fieldset class="cc-the">
+              <legend class="cc-lon">{c.cau}</legend>
+              <div class="cc-luachon" data-cot="3">
+                {MUC_TRA_LOI.map((x) => <LuaChon name={c.ma} value={x.gt} label={x.nhan} phu={x.phu} />)}
+              </div>
+            </fieldset>
+          ))}
+
+          {ni === 6 && (
+            <div class="cc-dau">
+              <TextField id="th-launch_timeline" name="launch_timeline" label="Bạn dự kiến ra mắt trong bao lâu?" options={THOI_HAN.map((x) => x.nhan)} />
+              <p class="cc-phu">// Timeline rõ ràng giúp BAIKA đề xuất gói phù hợp hơn.</p>
+            </div>
+          )}
+
+          {ni === 7 && (
+            <div class="cc-form">
+              <TextField id="th-budget_range" name="budget_range" label="Ngân sách dự kiến cho chương trình ra mắt?" options={NGAN_SACH.map((x) => x.nhan)} />
+              <div class="sr-only" aria-hidden="true">
+                <label for="th-website">Đừng điền ô này</label>
+                <input id="th-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+              <Checkbox id="th-dongy" name="dongy" required>
+                Tôi đồng ý để BAIKA liên hệ tư vấn theo <a href="/chinh-sach-bao-mat" target="_blank" rel="noopener">chính sách bảo mật</a>. *
+              </Checkbox>
+            </div>
+          )}
+        </div>
+      ))}
+
+      <p class="cc-loi" data-o="loi" role="alert" hidden></p>
+      <div class="cc-nut">
+        <span data-nut="lui"><Button2 label="← Quay lại" {...nutPhu} /></span>
+        <span data-nut="tiep"><Button2 label="Tiếp tục →" type="submit" {...nutPhu} /></span>
+      </div>
+    </form>
+  </section>
+
+  {/* ── Kết quả ── */}
+  <section class="cc-man" data-man="ket-qua" hidden>
+    <div class="cc-diem">
+      <div class="cc-vong" data-vong>
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="cc-vong__nen" cx="50" cy="50" r="47" fill="none" stroke-width="6" pathLength="100" />
+          <circle class="cc-vong__day" cx="50" cy="50" r="47" fill="none" stroke-width="6" pathLength="100" stroke-dasharray="0 100" />
+        </svg>
+        <div class="cc-vong__so"><b>0</b><span>/100</span></div>
+      </div>
+      <div class="cc-diem__chu">
+        <p class="cc-mat">Kết quả sơ bộ · Brand Readiness Score</p>
+        <h2 class="cc-h2" data-tieu-de tabindex="-1" data-o="muc"></h2>
+        <p class="cc-mo">Mức độ sẵn sàng đưa thương hiệu ra thị trường, tổng hợp trên 6 trục.</p>
+      </div>
+    </div>
+
+    <section class="cc-the">
+      <h3 class="cc-h3">Phân tích theo nhóm</h3>
+      {THU_TU_TRUC.map((k) => (
+        <div class="cc-thanh" data-thanh-nhom={k}>
+          <span class="cc-thanh__ten">{TEN_TRUC[k]}</span>
+          <span class="cc-ray" aria-hidden="true"><span class="cc-ray__day"></span></span>
+          <span class="cc-thanh__so" data-o={`diem-${k}`}>0</span>
+        </div>
+      ))}
+    </section>
+
+    <p class="cc-canhbao" data-o="lech" hidden>Timeline khá gấp so với ngân sách — BAIKA sẽ tư vấn phương án phù hợp hơn về kỳ vọng.</p>
+
+    <section class="cc-the cc-goi">
+      <p class="cc-mat">// Gói đề xuất</p>
+      <h3 class="cc-h3" data-o="goi"></h3>
+      <p class="cc-mo" data-o="goi-mo-ta"></p>
+      <ul data-o-ds="goi-hang-muc"></ul>
+    </section>
+
+    <section class="cc-dau">
+      <h3 class="cc-h3">Bước tiếp theo</h3>
+      <p class="cc-mo">BAIKA sẽ liên hệ tư vấn chi tiết chương trình ra mắt cho thương hiệu của bạn.</p>
+    </section>
+    <div class="cc-nut" data-trai>
+      <Button2 label="Nhận tư vấn" href="/marketing#lien-he" {...nutPhu} />
+      <Button2 label="Về trang dịch vụ" href="/marketing" {...nutPhu} />
+    </div>
+    <p class="cc-phu" role="status" data-o="trang-thai-gui"></p>
+  </section>
+</CongCuKhung>
+
+<script>
+  import { tinhThuongHieu, NHOM, CAU_CHAM_DIEM, MUC_TRA_LOI, GOI_TH, THU_TU_TRUC, TEN_TRUC, THOI_HAN, NGAN_SACH } from '../lib/chan-doan/thuong-hieu';
+  import {
+    hienMan, veDauKhoi, toThanh, toVong, ghi, chuNut, nut,
+    datLoi, giaTri, nhanDaChon, sdtDung, emailDung, taoMaHoSo, guiKetQua,
+  } from '../lib/chan-doan/trinh-duyet';
+
+  const goc = document.querySelector<HTMLElement>('.cc[data-cong-cu="marketing"]');
+  const form = goc?.querySelector<HTMLFormElement>('form');
+
+  if (goc && form) {
+    const SO_NHOM = NHOM.length;   // 8
+    let cur = 0;
+
+    const veNhom = (dichChuyen = true) => {
+      form.querySelectorAll<HTMLElement>('[data-nhom]').forEach((el) => { el.hidden = Number(el.dataset.nhom) !== cur; });
+      ghi(goc, 'tien-do', `Nhóm ${cur + 1}/${SO_NHOM} · ${NHOM[cur].ten}`);
+      toThanh(goc.querySelector('[data-thanh="tien-do"]'), cur / (SO_NHOM - 1));
+      const lui = goc.querySelector<HTMLElement>('[data-nut="lui"]');
+      if (lui) lui.style.visibility = cur === 0 ? 'hidden' : 'visible';
+      chuNut(goc, 'tiep', cur < SO_NHOM - 1 ? 'Tiếp tục →' : 'Xem kết quả');
+      const loi = goc.querySelector<HTMLElement>('[data-o="loi"]');
+      if (loi) loi.hidden = true;
+      if (dichChuyen) veDauKhoi(form);
+    };
+
+    /** Đúng các điều kiện `validate` của v1: chỉ nhóm 1 (liên hệ) và nhóm 8 (đồng ý) bắt buộc. */
+    const kiemNhom = (): string | null => {
+      const loi: Array<[string, string]> = [];
+      const them = (n: string, m: string) => { loi.push([n, m]); datLoi(form, n, m); };
+      if (cur === 0) {
+        for (const n of ['ten', 'sdt', 'donvi', 'email']) datLoi(form, n, null);
+        if (!giaTri(form, 'ten')) them('ten', 'Vui lòng nhập họ tên.');
+        if (!sdtDung(giaTri(form, 'sdt'))) them('sdt', 'SĐT chưa hợp lệ.');
+        if (!giaTri(form, 'donvi')) them('donvi', 'Vui lòng nhập tên doanh nghiệp.');
+        const em = giaTri(form, 'email');
+        if (em && !emailDung(em)) them('email', 'Email chưa hợp lệ.');
+      }
+      if (cur === SO_NHOM - 1) {
+        datLoi(form, 'dongy', null);
+        if (!form.querySelector<HTMLInputElement>('[name="dongy"]')?.checked) them('dongy', 'Vui lòng đồng ý điều khoản để tiếp tục.');
+      }
+      if (!loi.length) return null;
+      form.querySelector<HTMLElement>(`[name="${loi[0][0]}"]`)?.focus();
+      return loi[0][1];
+    };
+
+    nut(goc, 'lui')?.addEventListener('click', () => { if (cur > 0) { cur--; veNhom(); } });
+
+    /** Đổi nhãn đang hiện của ô chọn về mã của v1 (thời hạn / ngân sách dùng mã trong luật chọn gói). */
+    const maTu = (ds: Array<{ gt: string; nhan: string }>, nhan: string) => ds.find((x) => x.nhan === nhan)?.gt ?? '';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const loi = kiemNhom();
+      const hop = goc.querySelector<HTMLElement>('[data-o="loi"]');
+      if (loi) { if (hop) { hop.textContent = loi; hop.hidden = false; } return; }
+      if (cur < SO_NHOM - 1) { cur++; veNhom(); return; }
+
+      // ── Nhóm cuối: tính điểm + gửi ──
+      const traLoi: Record<string, string> = {};
+      for (const c of CAU_CHAM_DIEM) traLoi[c.ma] = form.querySelector<HTMLInputElement>(`[name="${c.ma}"]:checked`)?.value ?? '';
+      const thoiHan = maTu(THOI_HAN, giaTri(form, 'launch_timeline'));
+      const nganSach = maTu(NGAN_SACH, giaTri(form, 'budget_range'));
+      const kq = tinhThuongHieu(traLoi, thoiHan, nganSach);
+      const goi = GOI_TH[kq.goi];
+
+      const nutGui = nut(goc, 'tiep');
+      if (nutGui) nutGui.disabled = true;
+      chuNut(goc, 'tiep', 'Đang tính điểm…');
+
+      const nhanMuc = (v: string) => MUC_TRA_LOI.find((x) => x.gt === v)?.nhan ?? '(bỏ trống)';
+      const { thongBao } = await guiKetQua({
+        congCu: 'marketing',
+        maHoSo: taoMaHoSo(),
+        ten: giaTri(form, 'ten'),
+        sdt: giaTri(form, 'sdt'),
+        email: giaTri(form, 'email'),
+        donvi: giaTri(form, 'donvi'),
+        dongy: true,
+        website: giaTri(form, 'website'),
+        trang: location.pathname,
+        diem: kq.tong,
+        muc: kq.muc,
+        goi: goi.ten,
+        chiTiet: [
+          ['Điểm 6 trục', THU_TU_TRUC.map((k) => `${TEN_TRUC[k]}: ${kq.truc[k]}`).join('\n')],
+          ['Ngành', giaTri(form, 'industry') || '(để trống)'],
+          ['Quy mô', nhanDaChon(form, 'company_size') || '(không chọn)'],
+          ['Giai đoạn sản phẩm', nhanDaChon(form, 'product_stage') || '(không chọn)'],
+          ['Thời hạn ra mắt', nhanDaChon(form, 'launch_timeline') || '(không chọn)'],
+          ['Ngân sách dự kiến', nhanDaChon(form, 'budget_range') || '(không chọn)'],
+          ...NHOM.filter((n) => n.cauHoi.length).map((n) => [
+            n.ten,
+            n.cauHoi.map((c) => `• ${c.cau}\n  → ${nhanMuc(traLoi[c.ma])}`).join('\n'),
+          ] as [string, string]),
+          ...(kq.lechKyVong ? [['Ghi chú', 'Thời hạn <2 tuần nhưng ngân sách <30 triệu — kỳ vọng chưa khớp.'] as [string, string]] : []),
+        ],
+      });
+
+      if (nutGui) nutGui.disabled = false;
+      chuNut(goc, 'tiep', 'Xem kết quả');
+
+      const man = goc.querySelector<HTMLElement>('[data-man="ket-qua"]')!;
+      toVong(man.querySelector('[data-vong]'), kq.tong);
+      ghi(man, 'muc', kq.muc);
+      for (const k of THU_TU_TRUC) {
+        const dong = man.querySelector(`[data-thanh-nhom="${k}"]`);
+        toThanh(dong?.querySelector('.cc-ray') ?? null, kq.truc[k] / 100);
+        if (dong) ghi(dong, `diem-${k}`, String(kq.truc[k]));
+      }
+      const lech = man.querySelector<HTMLElement>('[data-o="lech"]');
+      if (lech) lech.hidden = !kq.lechKyVong;
+      ghi(man, 'goi', goi.ten);
+      ghi(man, 'goi-mo-ta', goi.moTa);
+      const ds = man.querySelector('[data-o-ds="goi-hang-muc"]');
+      if (ds) ds.replaceChildren(...goi.hangMuc.map((x) => Object.assign(document.createElement('li'), { textContent: x })));
+      ghi(man, 'trang-thai-gui', thongBao);
+      hienMan(goc, 'ket-qua');
+    });
+
+    veNhom(false);
+  }
+</script>

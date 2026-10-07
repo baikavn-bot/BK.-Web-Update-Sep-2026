@@ -1,0 +1,2882 @@
+{
+ "/ceo-blueprint/assessment": {
+  "GROUPS": [
+   {
+    "code": "CEO_SYSTEM_THINKING",
+    "name": "Tư duy hệ thống CEO",
+    "qs": [
+     "Tôi có bức tranh tổng thể doanh nghiệp trên giấy (sơ đồ, bản đồ hệ thống), không chỉ trong đầu.",
+     "Các quyết định lớn được đưa ra theo khung tiêu chí rõ ràng, không thuần cảm tính.",
+     "Tôi chủ động thiết kế cách doanh nghiệp vận hành thay vì chỉ xử lý sự vụ phát sinh."
+    ]
+   },
+   {
+    "code": "BUSINESS_FOUNDATION",
+    "name": "Nền tảng kinh doanh",
+    "qs": [
+     "Chân dung khách hàng mục tiêu được mô tả rõ và cả đội ngũ hiểu giống nhau.",
+     "Giá trị khác biệt của doanh nghiệp được viết ra và kiểm chứng bằng phản hồi khách hàng.",
+     "Lợi thế cạnh tranh hiện tại khó bị sao chép trong 1–2 năm tới."
+    ]
+   },
+   {
+    "code": "REVENUE_LOGIC",
+    "name": "Logic doanh thu",
+    "qs": [
+     "Tôi biết chính xác mảng nào đang tạo lợi nhuận thật, mảng nào đang bù lỗ.",
+     "Giá bán được tính từ số liệu chi phí và biên lợi nhuận, không chỉ nhìn theo đối thủ.",
+     "Doanh thu có tính lặp lại và dự báo được, không phụ thuộc vài thương vụ may rủi."
+    ]
+   },
+   {
+    "code": "OPERATING_SYSTEM",
+    "name": "Hệ điều hành doanh nghiệp",
+    "qs": [
+     "Các quy trình lõi được viết thành văn bản và đội ngũ làm theo.",
+     "Mỗi vị trí có mô tả vai trò – trách nhiệm – quyền quyết định rõ ràng.",
+     "Doanh nghiệp vận hành bình thường khi tôi vắng mặt 2 tuần."
+    ]
+   },
+   {
+    "code": "FINANCE_CASHFLOW",
+    "name": "Tài chính & dòng tiền",
+    "qs": [
+     "Tôi nhận được báo cáo quản trị định kỳ và tin vào số liệu đó.",
+     "Dòng tiền được lập kế hoạch trước ít nhất 4–8 tuần.",
+     "Tôi biết điểm hòa vốn và ngưỡng an toàn tiền mặt của doanh nghiệp."
+    ]
+   },
+   {
+    "code": "MARKETING_GROWTH",
+    "name": "Marketing & tăng trưởng",
+    "qs": [
+     "Doanh nghiệp có định vị rõ và thông điệp nhất quán trên các kênh.",
+     "Có kênh tạo khách hàng ổn định, đo được chi phí cho mỗi khách hàng mới.",
+     "Kế hoạch marketing gắn với mục tiêu doanh thu, có ngân sách và KPI."
+    ]
+   },
+   {
+    "code": "LEGAL_TAX_RISK",
+    "name": "Rủi ro pháp lý – thuế",
+    "qs": [
+     "Hợp đồng quan trọng được soát xét trước khi ký.",
+     "Nghĩa vụ thuế được theo dõi theo lịch tuân thủ, không bị động chờ nhắc.",
+     "Tài sản cá nhân của tôi và tài sản công ty được tách bạch rõ ràng."
+    ]
+   },
+   {
+    "code": "TECH_AI",
+    "name": "Công nghệ & AI",
+    "qs": [
+     "Dữ liệu kinh doanh quan trọng nằm trong hệ thống, không rải rác trong file cá nhân.",
+     "Công cụ phần mềm hiện tại phục vụ tốt các quy trình chính.",
+     "Doanh nghiệp đã ứng dụng AI có kiểm soát vào ít nhất một khâu công việc."
+    ]
+   },
+   {
+    "code": "CEO_DASHBOARD",
+    "name": "CEO Dashboard",
+    "qs": [
+     "Tôi có bộ chỉ số cốt lõi xem định kỳ hằng tuần.",
+     "Số liệu điều hành được cập nhật tự động hoặc bán tự động, không đợi tổng hợp tay.",
+     "Khi chỉ số bất thường, tôi biết trong vài ngày chứ không phải đến cuối quý."
+    ]
+   },
+   {
+    "code": "ROADMAP_90_DAYS",
+    "name": "Lộ trình 90 ngày",
+    "qs": [
+     "Doanh nghiệp có mục tiêu 90 ngày được viết ra với chỉ số đo được.",
+     "Ưu tiên của tôi trong quý gắn với mục tiêu đó, không bị cuốn theo sự vụ.",
+     "Cuối mỗi quý có phiên nhìn lại: điều gì đạt, điều gì cần rút kinh nghiệm."
+    ]
+   }
+  ],
+  "BANDS": [
+   [
+    0,
+    39,
+    "Nền hệ thống đang mỏng",
+    "Doanh nghiệp đang vận hành chủ yếu dựa trên kinh nghiệm và sự có mặt của người đứng đầu. Chương trình trọn bộ CEO Operating Blueprint sẽ giúp bạn dựng bản đồ từ nền móng.",
+    "Chương trình CEO Operating Blueprint"
+   ],
+   [
+    40,
+    69,
+    "Có nền nhưng chưa thành hệ thống",
+    "Một số trụ đã hình thành nhưng chưa nối thành hệ thống hoàn chỉnh. Nên vào chương trình trọn bộ với trọng tâm là các trụ cột yếu nhất bên dưới.",
+    "Chương trình CEO Operating Blueprint"
+   ],
+   [
+    70,
+    100,
+    "Nền hệ thống khá vững",
+    "Doanh nghiệp đã có nền tốt. Giai đoạn này phù hợp với cố vấn 1-1 để tinh chỉnh các trụ còn yếu và nâng chuẩn quyết định của người đứng đầu.",
+    "Đồng hành cố vấn CEO"
+   ]
+  ],
+  "SCALE": [
+   "Chưa có gì",
+   "Mới manh nha",
+   "Có nhưng chưa ổn định",
+   "Đã thành hệ thống"
+  ]
+ },
+ "/finance/assessment": {
+  "GROUPS": [
+   {
+    "code": "ACCOUNTING",
+    "name": "Sổ sách kế toán",
+    "qs": [
+     "Số liệu kế toán phản ánh đúng thực tế kinh doanh của doanh nghiệp.",
+     "Không còn khoản treo hoặc sai lệch tồn đọng kéo dài qua nhiều kỳ."
+    ]
+   },
+   {
+    "code": "DOCUMENTS",
+    "name": "Hóa đơn – chứng từ",
+    "qs": [
+     "Chứng từ đầy đủ, lưu trữ có hệ thống, truy xuất được trong vài phút.",
+     "Quy trình phát hành và kiểm tra hóa đơn được kiểm soát chặt."
+    ]
+   },
+   {
+    "code": "WORKFLOW",
+    "name": "Quy trình tài chính",
+    "qs": [
+     "Đề nghị – duyệt chi có cấp phê duyệt và hạn mức rõ ràng.",
+     "Tạm ứng, hoàn ứng, mua hàng, thanh toán đều theo quy trình chuẩn."
+    ]
+   },
+   {
+    "code": "REPORTING",
+    "name": "Báo cáo quản trị",
+    "qs": [
+     "CEO nhận báo cáo quản trị định kỳ: lãi lỗ theo mảng, cơ cấu chi phí.",
+     "Các quyết định kinh doanh quan trọng dựa trên báo cáo đó."
+    ]
+   },
+   {
+    "code": "CASHFLOW",
+    "name": "Dòng tiền",
+    "qs": [
+     "Có kế hoạch thu – chi theo tuần hoặc theo tháng.",
+     "Thiếu hụt tiền được dự báo trước, không rơi vào thế bị động."
+    ]
+   },
+   {
+    "code": "CAPITAL",
+    "name": "Sẵn sàng vốn",
+    "qs": [
+     "Hồ sơ tài chính đủ chuẩn khi ngân hàng hoặc nhà đầu tư yêu cầu.",
+     "Có mô hình số liệu (doanh thu, chi phí, dự báo) trình bày được ngay."
+    ]
+   },
+   {
+    "code": "GOVERNANCE",
+    "name": "Quản trị tài chính",
+    "qs": [
+     "Phân quyền tài chính rõ ràng: ai duyệt gì, hạn mức bao nhiêu.",
+     "Có cơ chế kiểm soát nội bộ hoặc đối chiếu chéo định kỳ."
+    ]
+   },
+   {
+    "code": "TAX_RISK",
+    "name": "Rủi ro thuế",
+    "qs": [
+     "Nghĩa vụ thuế được theo dõi theo lịch tuân thủ.",
+     "Rủi ro thuế đã được rà soát trong 12 tháng gần đây."
+    ]
+   }
+  ],
+  "BANDS": [
+   [
+    0,
+    39,
+    "Rủi ro cao — cần chẩn đoán ngay",
+    "Hệ thống tài chính đang ở vùng rủi ro: số liệu khó tin cậy, kiểm soát mỏng. Bắt đầu bằng Finance Health Check để biết chính xác cần xử lý gì trước.",
+    "Finance Health Check"
+   ],
+   [
+    40,
+    69,
+    "Cần làm sạch và thiết lập kiểm soát",
+    "Nền đã có nhưng còn nhiều lỗ hổng ở số liệu và quy trình. Gói Finance Clean-Up & Control là bước phù hợp để đưa hệ thống vào nề nếp.",
+    "Finance Clean-Up & Control"
+   ],
+   [
+    70,
+    100,
+    "Nền khá tốt — hướng tới chuẩn gọi vốn",
+    "Hệ thống tài chính đã khá vững. Doanh nghiệp có thể hướng tới Capital Readiness Program để đạt chuẩn làm việc với ngân hàng, nhà đầu tư.",
+    "Capital Readiness Program"
+   ]
+  ],
+  "SCALE": [
+   "Chưa có gì",
+   "Mới manh nha",
+   "Có nhưng chưa ổn định",
+   "Đã thành hệ thống"
+  ]
+ },
+ "/remote-ops/survey": {
+  "GROUPS": [
+   {
+    "code": "PROCESS",
+    "name": "Quy trình",
+    "qs": [
+     "Các quy trình lõi được viết thành văn bản và đội ngũ làm theo.",
+     "Người mới đọc tài liệu là làm được các việc cơ bản của vị trí."
+    ]
+   },
+   {
+    "code": "ROLES",
+    "name": "Tổ chức & vai trò",
+    "qs": [
+     "Mỗi vị trí có mô tả vai trò – trách nhiệm – quyền quyết định rõ ràng.",
+     "Không có việc quan trọng bị rơi giữa hai người vì không rõ ai phụ trách."
+    ]
+   },
+   {
+    "code": "TASKS",
+    "name": "Giao việc & theo dõi",
+    "qs": [
+     "Công việc có người phụ trách, thời hạn và trạng thái trên hệ thống chung.",
+     "Task trễ hạn được phát hiện tự động, không phụ thuộc ai đó nhớ ra."
+    ]
+   },
+   {
+    "code": "RHYTHM",
+    "name": "Nhịp điều hành",
+    "qs": [
+     "Có nhịp họp điều hành định kỳ với chương trình và thời lượng rõ.",
+     "Quyết định sau họp được ghi lại và theo dõi đến khi hoàn thành."
+    ]
+   },
+   {
+    "code": "KPI",
+    "name": "Đo lường hiệu suất",
+    "qs": [
+     "Mỗi bộ phận có bộ chỉ số hiệu suất (KPI) rõ ràng.",
+     "Chỉ số được cập nhật định kỳ, không đợi tổng hợp thủ công."
+    ]
+   },
+   {
+    "code": "REPORTING",
+    "name": "Báo cáo & cảnh báo",
+    "qs": [
+     "CEO nhận báo cáo vận hành định kỳ, đúng hạn.",
+     "Báo cáo làm nổi các điểm nghẽn cần can thiệp, không chỉ liệt kê số liệu."
+    ]
+   },
+   {
+    "code": "DEPENDENCE",
+    "name": "Phụ thuộc cá nhân",
+    "qs": [
+     "Doanh nghiệp vận hành bình thường khi một nhân sự chủ chốt vắng 2 tuần.",
+     "Tri thức công việc được lưu trong hệ thống, không chỉ trong đầu vài người."
+    ]
+   },
+   {
+    "code": "TOOLS",
+    "name": "Công cụ & dữ liệu",
+    "qs": [
+     "Các công cụ đang dùng phục vụ tốt quy trình chính.",
+     "Dữ liệu vận hành nằm trong hệ thống, truy xuất được nhanh."
+    ]
+   }
+  ],
+  "BANDS": [
+   [
+    0,
+    39,
+    "Vận hành đang phụ thuộc cá nhân",
+    "Bộ máy chạy chủ yếu nhờ vài người 'biết việc' — rủi ro cao khi biến động nhân sự. Bắt đầu bằng Ops Diagnosis để chẩn đoán chính xác và xếp thứ tự xử lý.",
+    "Ops Diagnosis"
+   ],
+   [
+    40,
+    69,
+    "Có nền nhưng chưa thành hệ thống",
+    "Một số khu vực đã có nề nếp nhưng chưa nối thành hệ điều hành hoàn chỉnh. Ops Blueprint là bước phù hợp: dựng trọn bộ tổ chức, quy trình và KPI.",
+    "Ops Blueprint"
+   ],
+   [
+    70,
+    100,
+    "Nền vận hành khá vững",
+    "Doanh nghiệp đã có hệ thống tốt. Giai đoạn này phù hợp với Remote Ops Partner — vận hành đồng hành, tinh chỉnh và cảnh báo điểm nghẽn liên tục.",
+    "Remote Ops Partner"
+   ]
+  ],
+  "SCALE": [
+   "Chưa có gì",
+   "Mới manh nha",
+   "Có nhưng chưa ổn định",
+   "Đã thành hệ thống"
+  ]
+ },
+ "/ai-os/diagnosis": {
+  "LEVELS": [
+   [
+    "0",
+    "Chưa",
+    "Chưa có"
+   ],
+   [
+    "0.5",
+    "Một phần",
+    "Đang làm"
+   ],
+   [
+    "1",
+    "Rồi",
+    "Đã có"
+   ]
+  ],
+  "AUTO_SIGNALS": [
+   [
+    "repeated_tasks",
+    "Nhiều thao tác lặp lại hằng ngày",
+    20
+   ],
+   [
+    "manual_csc",
+    "Chăm sóc khách hàng thủ công",
+    15
+   ],
+   [
+    "manual_reports",
+    "Báo cáo làm bằng tay",
+    15
+   ],
+   [
+    "content_creation",
+    "Tạo nội dung thường xuyên",
+    10
+   ],
+   [
+    "document_handling",
+    "Xử lý hồ sơ/hợp đồng/chứng từ",
+    10
+   ],
+   [
+    "team_3plus",
+    "Đội sales/CSKH/vận hành ≥3 người",
+    10
+   ],
+   [
+    "frequent_errors",
+    "Hay lỗi/quên việc/chậm phản hồi",
+    5
+   ]
+  ],
+  "WORKFLOWS": [
+   [
+    "data_entry",
+    "Tự động nhập liệu"
+   ],
+   [
+    "followup",
+    "Tự động CSKH / follow-up"
+   ],
+   [
+    "reporting",
+    "Tự động tổng hợp báo cáo"
+   ],
+   [
+    "documents",
+    "Tự động xử lý chứng từ"
+   ],
+   [
+    "content",
+    "Tự động tạo nội dung"
+   ],
+   [
+    "lead_routing",
+    "Tự động phân loại lead"
+   ]
+  ],
+  "SOFTWARE": [
+   [
+    "crm",
+    "CRM"
+   ],
+   [
+    "erp",
+    "ERP"
+   ],
+   [
+    "dashboard",
+    "Dashboard điều hành"
+   ],
+   [
+    "internal_tool",
+    "Internal tool / automation"
+   ],
+   [
+    "knowledge_portal",
+    "Knowledge base portal"
+   ],
+   [
+    "integration",
+    "Tích hợp hệ thống"
+   ]
+  ],
+  "BUDGETS": [
+   [
+    "under_30m",
+    "<30 triệu"
+   ],
+   [
+    "30_80m",
+    "30–80 triệu"
+   ],
+   [
+    "80_200m",
+    "80–200 triệu"
+   ],
+   [
+    "200m_plus",
+    ">200 triệu"
+   ],
+   [
+    "unknown",
+    "Chưa rõ"
+   ]
+  ],
+  "TIMELINES": [
+   [
+    "immediate",
+    "Ngay lập tức"
+   ],
+   [
+    "1_month",
+    "Trong 1 tháng"
+   ],
+   [
+    "3_months",
+    "Trong 3 tháng"
+   ],
+   [
+    "6_months",
+    "Trong 6 tháng"
+   ],
+   [
+    "unknown",
+    "Chưa rõ"
+   ]
+  ],
+  "PACKAGES": {
+   "ai_opportunity_audit": {
+    "name": "AI Opportunity Audit",
+    "d": "Chẩn đoán cơ hội ứng dụng AI cho doanh nghiệp.",
+    "items": [
+     "Khảo sát hiện trạng",
+     "Bản đồ cơ hội AI",
+     "Khuyến nghị ưu tiên"
+    ]
+   },
+   "ai_agent_starter_kit": {
+    "name": "AI Agent Starter Kit",
+    "d": "Xây AI Agent đầu tiên theo 1–3 vai trò.",
+    "items": [
+     "Thiết kế 1–3 AI Agent",
+     "Knowledge base nền",
+     "Hướng dẫn sử dụng"
+    ]
+   },
+   "ai_workflow_automation": {
+    "name": "AI Workflow Automation",
+    "d": "Tự động hóa các quy trình lặp lại.",
+    "items": [
+     "Sơ đồ tự động hóa",
+     "Triển khai workflow",
+     "Đo lường hiệu quả"
+    ]
+   },
+   "custom_ai_software": {
+    "name": "Custom AI Software",
+    "d": "Phần mềm/internal tool riêng tích hợp AI.",
+    "items": [
+     "CRM/ERP/dashboard riêng",
+     "Tích hợp AI theo nhu cầu",
+     "Bàn giao & đào tạo"
+    ]
+   },
+   "ai_operating_system_partner": {
+    "name": "AI Operating System Partner",
+    "d": "Đồng hành xây hệ điều hành AI toàn diện.",
+    "items": [
+     "Toàn bộ 3 lớp giải pháp",
+     "Roadmap 30-60-90",
+     "AI Governance & đào tạo"
+    ]
+   }
+  },
+  "STEPS": [
+   {
+    "name": "Thông tin doanh nghiệp"
+   },
+   {
+    "name": "Hiện trạng quy trình"
+   },
+   {
+    "name": "Hiện trạng dữ liệu"
+   },
+   {
+    "name": "Công cụ / phần mềm đang dùng"
+   },
+   {
+    "name": "Nhu cầu AI Agent"
+   },
+   {
+    "name": "Nhu cầu Workflow Automation"
+   },
+   {
+    "name": "Nhu cầu Custom Software"
+   },
+   {
+    "name": "Mức độ sẵn sàng triển khai"
+   },
+   {
+    "name": "Gửi yêu cầu tư vấn"
+   }
+  ]
+ },
+ "/marketing/diagnostic": {
+  "STAGES": [
+   [
+    "idea",
+    "Ý tưởng"
+   ],
+   [
+    "prototype",
+    "Prototype"
+   ],
+   [
+    "ready_to_launch",
+    "Sắp ra mắt"
+   ],
+   [
+    "already_launched",
+    "Đã ra mắt"
+   ],
+   [
+    "repositioning",
+    "Tái định vị"
+   ]
+  ],
+  "LEVELS": [
+   [
+    "0",
+    "Chưa",
+    "Chưa có"
+   ],
+   [
+    "0.5",
+    "Một phần",
+    "Đang làm"
+   ],
+   [
+    "1",
+    "Rồi",
+    "Đã có"
+   ]
+  ],
+  "TIMELINES": [
+   [
+    "under_2_weeks",
+    "<2 tuần"
+   ],
+   [
+    "2_4_weeks",
+    "2–4 tuần"
+   ],
+   [
+    "1_3_months",
+    "1–3 tháng"
+   ],
+   [
+    "3_6_months",
+    "3–6 tháng"
+   ],
+   [
+    "not_fixed",
+    "Chưa cố định"
+   ]
+  ],
+  "BUDGETS": [
+   [
+    "under_30m",
+    "<30 triệu"
+   ],
+   [
+    "30m_70m",
+    "30–70 triệu"
+   ],
+   [
+    "70m_150m",
+    "70–150 triệu"
+   ],
+   [
+    "150m_300m",
+    "150–300 triệu"
+   ],
+   [
+    "over_300m",
+    ">300 triệu"
+   ],
+   [
+    "not_disclosed",
+    "Chưa tiết lộ"
+   ]
+  ],
+  "PACKAGES": {
+   "brand_foundation": {
+    "name": "Brand Foundation",
+    "d": "Dựng nền tảng thương hiệu vững trước khi ra mắt.",
+    "items": [
+     "Brand Diagnosis",
+     "Brand Strategy",
+     "Messaging System",
+     "Visual Identity Direction"
+    ]
+   },
+   "imc_launch_blueprint": {
+    "name": "IMC Launch Blueprint",
+    "d": "Lập kế hoạch truyền thông tích hợp cho chiến dịch.",
+    "items": [
+     "Brand Foundation",
+     "IMC Blueprint",
+     "Launch Plan",
+     "Content Production Direction"
+    ]
+   },
+   "brand_to_market_launch": {
+    "name": "Brand-to-Market Launch",
+    "d": "Trọn gói từ thương hiệu đến thị trường và bán hàng.",
+    "items": [
+     "IMC Launch Blueprint",
+     "Sales Enablement Kit",
+     "Launch Dashboard",
+     "Đồng hành ra mắt"
+    ]
+   }
+  },
+  "SUB_LABEL": {
+   "brand": "Brand Foundation",
+   "imc": "IMC / Truyền thông",
+   "launch": "Launch Plan",
+   "sales": "Sales Enablement",
+   "content": "Content",
+   "measurement": "Đo lường"
+  },
+  "STEPS": [
+   {
+    "name": "Thông tin doanh nghiệp"
+   },
+   {
+    "name": "Tình trạng sản phẩm"
+   },
+   {
+    "name": "Tình trạng thương hiệu"
+   },
+   {
+    "name": "Tình trạng truyền thông"
+   },
+   {
+    "name": "Tình trạng sales enablement"
+   },
+   {
+    "name": "Mục tiêu launch"
+   },
+   {
+    "name": "Timeline mong muốn"
+   },
+   {
+    "name": "Ngân sách dự kiến"
+   }
+  ],
+  "desc": [
+   "Thông tin để BAIKA liên hệ & phân loại.",
+   "Mức độ sẵn sàng của sản phẩm.",
+   "Nền tảng thương hiệu hiện tại.",
+   "Hiện trạng truyền thông tích hợp.",
+   "Khả năng hỗ trợ đội bán hàng.",
+   "Mục tiêu, kế hoạch & đo lường ra mắt.",
+   "Thời gian dự kiến ra mắt.",
+   "Ngân sách & xác nhận tư vấn."
+  ],
+  "ax": [
+   "Brand",
+   "IMC",
+   "Launch",
+   "Sales",
+   "Content",
+   "Đo lường"
+  ]
+ },
+ "/advisory": {
+  "PILLARS": [
+   "Mô hình kinh doanh",
+   "Vận hành",
+   "Marketing",
+   "Tài chính",
+   "Pháp lý – Thuế",
+   "Công nghệ",
+   "Năng lực CEO"
+  ],
+  "MODULES": [
+   [
+    "Mô hình kinh doanh",
+    "Rà soát và thiết kế mô hình: phân khúc khách hàng, giá trị cốt lõi, kênh bán, cấu trúc doanh thu – chi phí, lợi thế cạnh tranh và điều kiện nhân rộng."
+   ],
+   [
+    "Vận hành",
+    "Chuẩn hóa quy trình lõi, phân định vai trò – trách nhiệm, thiết kế cơ chế phối hợp giữa các bộ phận và hệ thống đo lường hiệu quả vận hành."
+   ],
+   [
+    "Marketing & tăng trưởng",
+    "Định vị, thông điệp, cấu trúc kênh và kế hoạch tăng trưởng gắn với năng lực thật của doanh nghiệp — không chạy chiến dịch khi nền chưa vững."
+   ],
+   [
+    "Tài chính",
+    "Đọc sức khỏe tài chính, cấu trúc chi phí, điểm hòa vốn, kỷ luật dòng tiền và chuẩn bị nền tảng số liệu cho quyết định của CEO."
+   ],
+   [
+    "Pháp lý – Thuế",
+    "Nhận diện rủi ro pháp lý và thuế trong mô hình hiện tại; khuyến nghị cấu trúc hợp đồng, sở hữu và tuân thủ trước khi rủi ro thành chi phí."
+   ],
+   [
+    "Công nghệ",
+    "Đánh giá mức độ phù hợp của công cụ đang dùng; lộ trình số hóa và ứng dụng AI theo đúng bài toán, tránh đầu tư công nghệ lãng phí."
+   ],
+   [
+    "Năng lực CEO",
+    "Cố vấn trực tiếp cho người đứng đầu: khung ra quyết định, quản trị ưu tiên, xây dựng đội ngũ kế cận và kỷ luật điều hành."
+   ]
+  ],
+  "PACKAGES": [
+   {
+    "name": "Business Start",
+    "feat": false,
+    "desc": "Cho người chuẩn bị mở doanh nghiệp hoặc dưới 12 tháng tuổi.",
+    "items": [
+     "Định hình mô hình kinh doanh",
+     "Kiểm tra tính khả thi & điểm hòa vốn",
+     "Lộ trình khởi động 90 ngày",
+     "Checklist pháp lý khi thành lập"
+    ]
+   },
+   {
+    "name": "Business Health Check",
+    "feat": true,
+    "desc": "Khám tổng thể doanh nghiệp trên cả 7 trục — điểm khởi đầu được khuyên dùng.",
+    "items": [
+     "Chẩn đoán 7 trục hệ thống",
+     "Báo cáo điểm mạnh – điểm nghẽn",
+     "Bản đồ ưu tiên hành động",
+     "Phiên trình bày trực tiếp với CEO"
+    ]
+   },
+   {
+    "name": "Business Improvement",
+    "feat": false,
+    "desc": "Đồng hành cải thiện các trục yếu sau chẩn đoán.",
+    "items": [
+     "Kế hoạch cải thiện theo trục",
+     "Chuẩn hóa quy trình & vai trò",
+     "Đồng hành triển khai theo giai đoạn",
+     "Đo lường kết quả từng mốc"
+    ]
+   },
+   {
+    "name": "CEO Strategic Advisory",
+    "feat": false,
+    "desc": "Cố vấn chiến lược định kỳ dành riêng cho người đứng đầu.",
+    "items": [
+     "Phiên cố vấn 1-1 định kỳ",
+     "Khung ra quyết định cho CEO",
+     "Đồng hành các quyết định lớn",
+     "Kênh trao đổi ưu tiên"
+    ]
+   }
+  ],
+  "OUTCOMES": [
+   "Nhìn rõ bức tranh doanh nghiệp trên 7 trục thay vì cảm tính",
+   "Bản đồ hành động có thứ tự ưu tiên cho 90 ngày – 1 năm",
+   "Quy trình và vai trò được chuẩn hóa, giảm phụ thuộc cá nhân",
+   "CEO thoát dần khỏi vận hành vụn để tập trung quyết định lớn",
+   "Rủi ro tài chính – pháp lý – thuế được nhận diện sớm",
+   "Có cố vấn đồng hành thay vì tự mò mẫm một mình"
+  ],
+  "AUDIENCE": [
+   [
+    "Người chuẩn bị mở doanh nghiệp",
+    "Muốn bắt đầu đúng ngay từ mô hình, tránh trả giá bằng 2–3 năm đầu."
+   ],
+   [
+    "Founder giai đoạn đầu",
+    "Đã chạy được nhưng cảm thấy mọi thứ dựa vào mình quá nhiều."
+   ],
+   [
+    "CEO doanh nghiệp SME",
+    "Doanh nghiệp 1–3 năm tuổi trở lên, cần hệ thống hóa để lớn tiếp."
+   ],
+   [
+    "Công ty gia đình",
+    "Cần tách bạch sở hữu – điều hành và chuẩn bị chuyển giao."
+   ],
+   [
+    "Doanh nghiệp đang tăng trưởng",
+    "Tăng doanh thu nhanh nhưng bộ máy không theo kịp."
+   ],
+   [
+    "CEO cần người cố vấn",
+    "Muốn có góc nhìn độc lập, thẳng thắn trước các quyết định lớn."
+   ]
+  ],
+  "DIFFS": [
+   [
+    "Tư duy hệ thống",
+    "Mọi khuyến nghị đặt trong bức tranh 7 trục, xử lý gốc rễ thay vì triệu chứng."
+   ],
+   [
+    "Thực chiến SME Việt Nam",
+    "Kinh nghiệm trực tiếp với doanh nghiệp vừa và nhỏ, không bê nguyên lý thuyết tập đoàn."
+   ],
+   [
+    "Từ tư vấn đến triển khai",
+    "Không dừng ở bản khuyến nghị — đồng hành đến khi vận hành được."
+   ],
+   [
+    "Đa năng lực trong một đầu mối",
+    "Chiến lược, vận hành, tài chính, pháp lý, công nghệ trong cùng một hệ tư vấn."
+   ],
+   [
+    "Tập trung vào quyết định của CEO",
+    "Mục tiêu cuối là giúp người đứng đầu quyết định đúng và nhanh hơn."
+   ]
+  ],
+  "FAQ": [
+   [
+    "Doanh nghiệp nhỏ có phù hợp không?",
+    "Có. BAIKA thiết kế gói theo giai đoạn — từ chuẩn bị thành lập đến doanh nghiệp đang tăng trưởng. Gói Business Start dành riêng cho giai đoạn sớm."
+   ],
+   [
+    "Bắt đầu như thế nào?",
+    "Bước đầu luôn là chẩn đoán (Business Health Check hoặc phiên chẩn đoán sơ bộ miễn phí khi bạn gửi form) để biết chính xác nên làm gì trước."
+   ],
+   [
+    "Tư vấn online hay trực tiếp?",
+    "Cả hai. Các phiên làm việc có thể trực tuyến; giai đoạn khảo sát chuyên sâu có thể thực hiện tại doanh nghiệp."
+   ],
+   [
+    "Chi phí tính như thế nào?",
+    "Theo gói và phạm vi thống nhất trước khi bắt đầu — không phát sinh ẩn. Sau chẩn đoán sơ bộ, BAIKA gửi đề xuất phạm vi và chi phí rõ ràng."
+   ]
+  ],
+  "NEEDS": [
+   "Mở doanh nghiệp mới",
+   "Khám sức khỏe doanh nghiệp",
+   "Cải thiện vận hành",
+   "Tổ chức & nhân sự",
+   "Chiến lược kinh doanh",
+   "Tài chính – pháp lý – thuế",
+   "Cố vấn CEO",
+   "Chuyển đổi số",
+   "Nhu cầu khác"
+  ],
+  "V2_PILLARS": [
+   [
+    "Chẩn đoán Doanh nghiệp",
+    "Quét toàn diện 9 điểm nghẽn: thị trường, sản phẩm, dòng tiền, vận hành, con người..."
+   ],
+   [
+    "Chiến lược tăng trưởng",
+    "Xác định đòn bẩy tăng trưởng thật, dựng lộ trình 12 tháng gắn với chỉ số đo được."
+   ],
+   [
+    "Mô hình kinh doanh",
+    "Tái thiết kế mô hình qua Business Model Canvas: giá trị cốt lõi, dòng doanh thu..."
+   ],
+   [
+    "Cố vấn đồng hành theo quý",
+    "Một cố vấn ngồi cạnh ban lãnh đạo, review theo quý, giữ nhịp thực thi và điều chỉnh."
+   ]
+  ],
+  "V2_TOOLS": [
+   [
+    "Chẩn đoán 9 điểm nghẽn",
+    "Cho điểm mỗi mảng theo thang 1–4 (1 = rất yếu, 4 = rất tốt). Kết quả cập nhật tức thì."
+   ],
+   [
+    "Business Model Canvas",
+    "Phác thảo mô hình kinh doanh của bạn trên 9 ô kinh điển. Gõ trực tiếp — bộ đếm số ô đã điền."
+   ]
+  ],
+  "ADV_DICHVU": [
+   [
+    "Chẩn đoán Doanh nghiệp",
+    "Quét toàn diện 9 điểm nghẽn: thị trường, sản phẩm, dòng tiền, vận hành, con người — biết đúng bệnh trước khi ra thuốc."
+   ],
+   [
+    "Chiến lược tăng trưởng",
+    "Xác định đòn bẩy tăng trưởng thật, dựng lộ trình 12 tháng gắn với chỉ số đo được — không còn tăng trưởng theo cảm tính."
+   ],
+   [
+    "Mô hình kinh doanh",
+    "Tái thiết kế mô hình qua Business Model Canvas: giá trị cốt lõi, dòng doanh thu, kênh phân phối và cơ cấu chi phí."
+   ],
+   [
+    "Cố vấn đồng hành theo quý",
+    "Một cố vấn ngồi cạnh ban lãnh đạo, review theo quý, giữ nhịp thực thi và điều chỉnh khi thị trường thay đổi."
+   ]
+  ],
+  "ADV_TOOLS": [
+   [
+    "Chẩn đoán 9 điểm nghẽn",
+    "Cho điểm mỗi mảng theo thang 1–4 (1=rất yếu, 4=rất tốt). Kết quả cập nhật tức thì — biết ngay doanh nghiệp đang yếu ở đâu."
+   ],
+   [
+    "Business Model Canvas",
+    "Phác thảo mô hình kinh doanh của bạn trên 9 ô kinh điển. Gõ trực tiếp — bộ đếm số ô đã điền hiển thị mức độ hoàn thiện."
+   ]
+  ],
+  "ADV_UUDAI": [
+   {
+    "name": "Gói Chẩn đoán giữa năm",
+    "tag": "CÓ HẠN",
+    "price": "Ưu đãi mùa hè",
+    "desc": "Rà soát lại nửa năm đã qua và tái ưu tiên cho hai quý còn lại trước mùa lập kế hoạch năm sau.",
+    "hot": true
+   },
+   {
+    "name": "Đồng hành trọn năm",
+    "tag": "CAM KẾT",
+    "price": "Giữ nguyên đơn giá",
+    "desc": "Cam kết cố vấn theo quý đủ 4 kỳ trong năm — chốt trước, giữ nguyên đơn giá cả năm dù thị trường có biến động.",
+    "hot": false
+   },
+   {
+    "name": "Bệ phóng khởi nghiệp",
+    "tag": "STARTUP",
+    "price": "Ưu đãi đặc biệt",
+    "desc": "Hỗ trợ đặc biệt cho startup dưới 24 tháng tuổi muốn chuẩn hoá mô hình trước vòng gọi vốn đầu tiên.",
+    "hot": false
+   },
+   {
+    "name": "Chẩn đoán trước, trả sau",
+    "tag": "0 RỦI RO",
+    "price": "Miễn phí 60 phút",
+    "desc": "Đăng ký trong đợt này: nhận buổi chẩn đoán sơ bộ 60 phút miễn phí, chỉ thanh toán khi có lộ trình rõ ràng.",
+    "hot": false
+   }
+  ]
+ },
+ "/ai-os": {
+  "MODULES": [
+   [
+    "AI Opportunity Diagnosis",
+    "Khảo sát hiện trạng quy trình, dữ liệu, công cụ; chấm điểm mức độ sẵn sàng AI và điểm cơ hội tự động hóa; đề xuất lộ trình 30–60–90 ngày."
+   ],
+   [
+    "AI Agent",
+    "Xây AI Agent theo vai trò: trợ lý CSKH, trợ lý sales, trợ lý nội bộ — được huấn luyện trên dữ liệu doanh nghiệp, làm việc trong quy trình thật."
+   ],
+   [
+    "AI Workflow Automation",
+    "Tự động hóa quy trình lặp lại: nhập liệu, đối chiếu, tổng hợp báo cáo, luân chuyển hồ sơ — nối các công cụ đang dùng thành dòng chảy tự động."
+   ],
+   [
+    "Knowledge Base",
+    "Quy tri thức doanh nghiệp về một mối: tài liệu, quy trình, hỏi đáp nội bộ — nền để AI trả lời đúng theo cách doanh nghiệp bạn làm việc."
+   ],
+   [
+    "Custom Software",
+    "Phần mềm may đo cho nghiệp vụ đặc thù mà phần mềm đóng gói không xử lý được — tích hợp AI ngay trong thiết kế."
+   ],
+   [
+    "Data & Dashboard",
+    "Gom dữ liệu phân tán về kho chung; dashboard điều hành cập nhật tự động thay cho báo cáo tay cuối tuần."
+   ],
+   [
+    "AI Governance",
+    "Quy tắc sử dụng AI trong doanh nghiệp: dữ liệu nào được đưa vào AI, ai được dùng gì, kiểm soát chất lượng đầu ra và rủi ro."
+   ],
+   [
+    "AI Training",
+    "Đào tạo đội ngũ dùng AI đúng cách theo từng vai trò — để hệ thống được dùng thật thay vì bỏ xó sau bàn giao."
+   ]
+  ],
+  "USECASES": [
+   [
+    "Sales",
+    "Trợ lý soạn báo giá, chăm lead tự động, tóm tắt lịch sử khách trước cuộc gọi."
+   ],
+   [
+    "Marketing",
+    "Sản xuất nội dung theo guideline, phân tích chiến dịch, đề xuất tối ưu ngân sách."
+   ],
+   [
+    "CSKH",
+    "AI Agent trả lời 24/7 trên nền tri thức doanh nghiệp, chuyển ca phức tạp cho người."
+   ],
+   [
+    "Tài chính",
+    "Đối chiếu chứng từ tự động, cảnh báo bất thường, tổng hợp báo cáo quản trị."
+   ],
+   [
+    "Pháp lý – Thuế",
+    "Soát xét hợp đồng sơ bộ, nhắc lịch tuân thủ, tra cứu quy định nội bộ."
+   ],
+   [
+    "Nhân sự",
+    "Sàng lọc hồ sơ, trợ lý onboarding, giải đáp chính sách cho nhân viên."
+   ],
+   [
+    "CEO",
+    "Dashboard điều hành, tóm tắt báo cáo các phòng, chuẩn bị dữ liệu cho quyết định."
+   ],
+   [
+    "Vận hành",
+    "Tự động luân chuyển hồ sơ giữa các khâu, cảnh báo task trễ, cập nhật tiến độ."
+   ]
+  ],
+  "PACKAGES": [
+   {
+    "name": "AI Opportunity Audit",
+    "feat": false,
+    "desc": "Khảo sát và chấm điểm cơ hội AI — biết nên tự động hóa cái gì trước.",
+    "items": [
+     "Khảo sát quy trình – dữ liệu – công cụ",
+     "Điểm sẵn sàng AI & cơ hội tự động hóa",
+     "Danh mục use case xếp hạng ROI",
+     "Lộ trình 30–60–90 ngày"
+    ]
+   },
+   {
+    "name": "AI Agent Starter Kit",
+    "feat": false,
+    "desc": "AI Agent đầu tiên chạy thật trong một quy trình cụ thể.",
+    "items": [
+     "1 AI Agent theo vai trò chọn trước",
+     "Huấn luyện trên dữ liệu doanh nghiệp",
+     "Tích hợp vào kênh đang dùng",
+     "Đo lường hiệu quả sau 30 ngày"
+    ]
+   },
+   {
+    "name": "AI Workflow Automation",
+    "feat": true,
+    "desc": "Tự động hóa các quy trình lặp lại ngốn nhiều giờ công nhất.",
+    "items": [
+     "Thiết kế lại quy trình trước khi tự động",
+     "Kết nối các công cụ hiện có",
+     "Knowledge base cho quy trình liên quan",
+     "Bàn giao kèm đào tạo vận hành"
+    ]
+   },
+   {
+    "name": "Custom AI Software",
+    "feat": false,
+    "desc": "Phần mềm may đo cho nghiệp vụ đặc thù, AI trong lõi thiết kế.",
+    "items": [
+     "Phân tích nghiệp vụ chuyên sâu",
+     "Thiết kế & phát triển theo giai đoạn",
+     "Tích hợp hệ thống hiện hữu",
+     "Bảo hành & phát triển tiếp"
+    ]
+   },
+   {
+    "name": "AI Operating System Partner",
+    "feat": false,
+    "desc": "BAIKA làm đối tác AI dài hạn — xây và vận hành cả hệ điều hành AI.",
+    "items": [
+     "Toàn bộ các lớp giải pháp theo lộ trình",
+     "Data platform & dashboard điều hành",
+     "AI Governance & đào tạo toàn công ty",
+     "Đội đồng hành phát triển liên tục"
+    ]
+   }
+  ],
+  "OUTCOMES": [
+   "Những việc lặp lại được tự động — đội ngũ dồn thời gian cho việc tạo giá trị",
+   "AI Agent làm việc thật trong quy trình, không phải bản demo trình diễn",
+   "Dữ liệu quy về một mối, dashboard điều hành cập nhật tự động",
+   "Tri thức doanh nghiệp được hệ thống hóa, không thất thoát khi người rời đi",
+   "Có quy tắc dùng AI an toàn — kiểm soát dữ liệu và chất lượng đầu ra",
+   "Lộ trình AI rõ ràng theo ROI thay vì chạy theo trào lưu"
+  ],
+  "AUDIENCE": [
+   [
+    "Doanh nghiệp nhiều việc lặp lại",
+    "Nhập liệu, đối chiếu, báo cáo tay đang ngốn giờ công lớn mỗi tuần."
+   ],
+   [
+    "Doanh nghiệp muốn dùng AI nghiêm túc",
+    "Đã thử lẻ tẻ, giờ muốn triển khai có hệ thống và đo được hiệu quả."
+   ],
+   [
+    "Doanh nghiệp có dữ liệu nhưng không dùng được",
+    "Số liệu nằm rải rác, muốn quy về một mối để điều hành."
+   ],
+   [
+    "Doanh nghiệp cần phần mềm đặc thù",
+    "Nghiệp vụ riêng mà phần mềm đóng gói không đáp ứng."
+   ],
+   [
+    "CSKH / Sales tải lớn",
+    "Cần AI Agent gánh phần tương tác lặp lại, người tập trung ca khó."
+   ],
+   [
+    "CEO muốn dashboard điều hành",
+    "Chán cảnh chờ báo cáo tay tổng hợp mỗi cuối tuần."
+   ]
+  ],
+  "DIFFS": [
+   [
+    "Bài toán trước, công nghệ sau",
+    "Bắt đầu bằng chẩn đoán và ROI — không bán công nghệ theo trào lưu."
+   ],
+   [
+    "AI chạy trong quy trình thật",
+    "Tiêu chí nghiệm thu là vận hành thật với người dùng thật, không phải demo."
+   ],
+   [
+    "Hiểu vận hành doanh nghiệp Việt",
+    "AI được lắp vào quy trình, dữ liệu và thói quen làm việc thực tế của SME."
+   ],
+   [
+    "Trọn hệ, một đầu mối",
+    "Từ agent, workflow, dữ liệu đến phần mềm may đo — không vá ghép nhiều nhà cung cấp."
+   ]
+  ],
+  "FAQ": [
+   [
+    "Doanh nghiệp tôi chưa có dữ liệu chuẩn, làm AI được không?",
+    "Được — và đó là lý do lộ trình luôn bắt đầu bằng chẩn đoán. Nhiều use case đầu tiên (như AI Agent trên tri thức nội bộ) chạy được ngay trong khi nền dữ liệu được xây song song."
+   ],
+   [
+    "Chi phí triển khai AI có đắt không?",
+    "BAIKA xếp hạng use case theo ROI và bắt đầu từ điểm hoàn vốn nhanh nhất. Gói Audit giúp bạn biết con số cụ thể trước khi cam kết đầu tư lớn."
+   ],
+   [
+    "Dữ liệu doanh nghiệp có an toàn khi dùng AI?",
+    "Đây là hạng mục AI Governance: phân loại dữ liệu nào được đưa vào AI, chọn mô hình/hạ tầng phù hợp và kiểm soát truy cập theo vai trò."
+   ],
+   [
+    "Nhân viên không rành công nghệ có dùng được không?",
+    "Hệ thống thiết kế theo nguyên tắc lắp vào công cụ đang dùng, kèm gói đào tạo theo vai trò — không bắt đội ngũ học lại từ đầu."
+   ]
+  ],
+  "NEEDS": [
+   "Khảo sát cơ hội AI",
+   "AI Agent (CSKH / Sales / nội bộ)",
+   "Tự động hóa quy trình",
+   "Knowledge Base nội bộ",
+   "Phần mềm tùy chỉnh",
+   "Dashboard dữ liệu điều hành",
+   "Đào tạo AI cho đội ngũ",
+   "Nhu cầu khác"
+  ],
+  "V2_PILLARS": [
+   [
+    "Xây dựng AI Agent",
+    "Trợ lý AI riêng của doanh nghiệp — trả lời khách hàng, tra cứu dữ liệu nội bộ."
+   ],
+   [
+    "Ứng dụng AI theo ngành",
+    "Lọc theo lĩnh vực để xem những bài toán AI & tự động hóa đã được triển khai."
+   ]
+  ],
+  "V2_TOOLS": [
+   [
+    "Bạn tiết kiệm được bao nhiêu?",
+    "Điều chỉnh thông số dưới đây để ước tính chi phí tiết kiệm khi tự động hóa công việc."
+   ],
+   [
+    "Trò chuyện thử với trợ lý BAIKA",
+    "Hỏi về dịch vụ, quy trình, chi phí — trợ lý mô phỏng sẽ trả lời ngay (demo)."
+   ]
+  ],
+  "SHOWCASE_DATA": [
+   {
+    "icon": "🤖",
+    "title": "Xây dựng AI Agent",
+    "desc": "Trợ lý AI riêng của doanh nghiệp — trả lời khách hàng, tra cứu dữ liệu nội bộ, xử lý yêu cầu 24/7 không cần nhân sự."
+   },
+   {
+    "icon": "🎯",
+    "title": "Thiết kế CRM may đo",
+    "desc": "Hệ thống quản lý khách hàng & bán hàng tùy biến — theo dõi lead, pipeline và chăm sóc sau bán theo quy trình riêng của bạn."
+   },
+   {
+    "icon": "🏗️",
+    "title": "Thiết kế ERP",
+    "desc": "Nền tảng ERP hợp nhất bán hàng, kho, mua hàng, kế toán và sản xuất — một nguồn dữ liệu duy nhất, không còn báo cáo chắp vá."
+   },
+   {
+    "icon": "💻",
+    "title": "Phần mềm quản lý DN",
+    "desc": "Công cụ quản lý công việc, dự án, tài sản, nhân sự & phê duyệt — đội ngũ làm việc minh bạch, CEO theo dõi real-time."
+   },
+   {
+    "icon": "🔧",
+    "title": "Gia công phần mềm theo yêu cầu",
+    "desc": "Đội ngũ dev tận tâm nhận triển khai từng phần hoặc trọn gói — phù hợp khi bạn có ý tưởng cần đội kỹ thuật thực thi."
+   },
+   {
+    "icon": "🎨",
+    "title": "Thiết kế phần mềm theo yêu cầu",
+    "desc": "Từ ý tưởng đến sản phẩm chạy thật — phân tích nghiệp vụ, thiết kế UX/UI, phát triển và bàn giao theo sprint."
+   },
+   {
+    "icon": "⚡",
+    "title": "Tự động hóa quy trình (RPA)",
+    "desc": "Thay thế các tác vụ lặp đi lặp lại bằng robot xử lý — giảm lỗi con người, tăng tốc độ và giải phóng nhân sự cho việc sáng tạo."
+   },
+   {
+    "icon": "📊",
+    "title": "Data Analytics & Dashboard",
+    "desc": "Biến dữ liệu thô thành insight kinh doanh — dashboard real-time giúp ban lãnh đạo ra quyết định dựa trên số liệu thực."
+   },
+   {
+    "icon": "🔗",
+    "title": "Tích hợp hệ thống (Integration)",
+    "desc": "Kết nối các phần mềm đang dùng — CRM, kế toán, bán hàng, vận chuyển — thành một luồng dữ liệu thông suốt."
+   }
+  ],
+  "PROCESS_DATA": [
+   {
+    "step": "01",
+    "title": "Khảo sát",
+    "desc": "Phân tích quy trình, dữ liệu & điểm nghẽn hiện tại. Deliverable: báo cáo hiện trạng & đề xuất giải pháp."
+   },
+   {
+    "step": "02",
+    "title": "Thiết kế",
+    "desc": "Đề xuất kiến trúc, UX/UI & kế hoạch tự động hóa cụ thể. Deliverable: prototype & roadmap triển khai."
+   },
+   {
+    "step": "03",
+    "title": "Phát triển",
+    "desc": "Xây dựng theo sprint 2 tuần, bàn giao từng phần chạy thật để bạn dùng và phản hồi ngay."
+   },
+   {
+    "step": "04",
+    "title": "Triển khai",
+    "desc": "Tích hợp hệ thống, di trú dữ liệu & đào tạo đội ngũ. Deliverable: hệ thống live, tài liệu hướng dẫn."
+   },
+   {
+    "step": "05",
+    "title": "Vận hành",
+    "desc": "Theo dõi hiệu quả, tối ưu & bảo trì dài hạn. SLA rõ ràng, phản hồi sự cố trong 4 giờ làm việc."
+   }
+  ],
+  "AI_OFFERS_DATA": [
+   {
+    "name": "BAIKA AI SUMMER",
+    "tag": "MÙA HÈ 2026",
+    "price": "Giảm 25% gói AI Agent",
+    "desc": "Đăng ký triển khai AI Agent trong mùa hè 2026, tặng kèm 3 tháng vận hành & bảo trì. Số lượng có hạn.",
+    "hot": true
+   },
+   {
+    "name": "Ưu đãi khởi động quý",
+    "tag": "ĐẦU QUÝ",
+    "price": "Giảm phí thiết kế",
+    "desc": "Đầu mỗi quý, giảm phí thiết kế cho dự án CRM/ERP mới ký kết — phù hợp cho kế hoạch số hóa trong năm.",
+    "hot": false
+   },
+   {
+    "name": "Gói bảo trì & đồng hành",
+    "tag": "ĐỊNH KỲ THÁNG",
+    "price": "Từ 8tr/tháng",
+    "desc": "Hợp đồng vận hành theo tháng — cập nhật, tối ưu & hỗ trợ ưu tiên. Đảm bảo hệ thống luôn hoạt động.",
+    "hot": false
+   },
+   {
+    "name": "Flash số hóa dữ liệu",
+    "tag": "ĐỘT XUẤT",
+    "price": "Theo volume",
+    "desc": "Chương trình mở đột xuất — số hóa & xây database khối lượng lớn với chi phí ưu đãi đặc biệt.",
+    "hot": false
+   }
+  ],
+  "AI_TOOLS": [
+   [
+    "Ứng dụng AI theo ngành của bạn",
+    "Lọc theo lĩnh vực để xem những bài toán AI & tự động hóa đã được triển khai — tìm ngay use case phù hợp doanh nghiệp bạn."
+   ],
+   [
+    "Bạn tiết kiệm được bao nhiêu?",
+    "Điều chỉnh thông số số lượng nhân sự, giờ làm và chi phí — hệ thống ước tính chi phí tiết kiệm khi tự động hóa quy trình."
+   ],
+   [
+    "Trò chuyện thử với trợ lý BAIKA",
+    "Hỏi về dịch vụ, quy trình, chi phí — trợ lý mô phỏng sẽ trả lời ngay (demo canvas, không cần đăng ký)."
+   ]
+  ]
+ },
+ "/ceo-blueprint": {
+  "PAINS": [
+   [
+    "Doanh nghiệp chạy bằng trí nhớ CEO",
+    "Mọi quyết định, mọi mối nối đều qua bạn; đi vắng một tuần là công ty chậm lại."
+   ],
+   [
+    "Quyết định thiếu dữ liệu",
+    "Không có dashboard, không có số liệu tin được — quyết định lớn dựa trên cảm giác."
+   ],
+   [
+    "Tăng trưởng nhưng lãi mỏng",
+    "Doanh thu đi lên nhưng tiền không ở lại; không rõ mảng nào đang nuôi mảng nào."
+   ],
+   [
+    "Kẹt trong vận hành, không kịp nghĩ chiến lược",
+    "Cả tuần xử lý việc vụn; câu hỏi lớn về hướng đi bị trì hoãn hết quý này sang quý khác."
+   ]
+  ],
+  "QUESTIONS": [
+   "Doanh nghiệp của bạn thật sự kiếm tiền bằng cách nào — và mô hình đó còn đúng trong 3 năm tới không?",
+   "Doanh nghiệp đang vận hành bằng hệ thống, hay bằng sự có mặt của bạn?",
+   "Tiền đang nằm ở đâu, chảy đi đâu — và con số nào quyết định sống còn?",
+   "Rủi ro pháp lý – thuế nào đang tích tụ mà bạn chưa nhìn thấy?",
+   "90 ngày tới, đâu là ba việc xứng đáng nhất với thời gian của người đứng đầu?"
+  ],
+  "WAYPOINTS": [
+   [
+    "Tư duy hệ thống CEO",
+    "Chuyển từ tư duy xử lý sự vụ sang tư duy thiết kế hệ thống: nhìn doanh nghiệp như một cỗ máy có thể đo, chỉnh và nhân rộng."
+   ],
+   [
+    "Nền tảng kinh doanh",
+    "Rà lại nền móng: khách hàng thật sự là ai, giá trị cốt lõi là gì, lợi thế nào bền — trước khi xây thêm bất cứ tầng nào."
+   ],
+   [
+    "Logic doanh thu",
+    "Mổ xẻ cấu trúc doanh thu – chi phí – biên lợi nhuận theo từng mảng; nhận diện mảng nuôi mảng và điểm đòn bẩy tăng trưởng."
+   ],
+   [
+    "Hệ điều hành doanh nghiệp",
+    "Thiết kế bộ máy: sơ đồ tổ chức, vai trò, quy trình lõi và nhịp điều hành — để doanh nghiệp chạy không cần CEO ngồi canh."
+   ],
+   [
+    "Tài chính & dòng tiền",
+    "Đọc hiểu số liệu như người điều hành: báo cáo quản trị, kỷ luật dòng tiền, điểm hòa vốn và ngưỡng an toàn."
+   ],
+   [
+    "Marketing & tăng trưởng",
+    "Khung tăng trưởng gắn với định vị và năng lực thật; phân biệt hoạt động xây thương hiệu và hoạt động tạo số."
+   ],
+   [
+    "Rủi ro pháp lý – thuế",
+    "Bản đồ rủi ro người đứng đầu phải tự nhìn thấy: hợp đồng, thuế, sở hữu, trách nhiệm cá nhân — và cách kiểm soát."
+   ],
+   [
+    "Công nghệ & AI",
+    "Lộ trình ứng dụng công nghệ và AI theo bài toán, tránh cả hai cực: thờ ơ bỏ lỡ và chạy theo trào lưu đốt tiền."
+   ],
+   [
+    "CEO Dashboard",
+    "Thiết kế bảng điều khiển cá nhân của CEO: bộ chỉ số tối thiểu đủ để nắm sức khỏe doanh nghiệp trong 15 phút mỗi tuần."
+   ],
+   [
+    "Lộ trình 90 ngày",
+    "Kết tinh toàn bộ chương trình thành kế hoạch hành động 90 ngày cho chính doanh nghiệp bạn — có mốc, có chỉ số, có cam kết."
+   ]
+  ],
+  "PACKAGES": [
+   {
+    "name": "Business Blueprint Assessment",
+    "feat": false,
+    "desc": "Tự đánh giá doanh nghiệp theo 10 trụ cột — điểm khởi đầu miễn phí.",
+    "items": [
+     "Bộ câu hỏi đánh giá 10 trụ cột",
+     "Điểm số từng trụ cột (0–10)",
+     "Bản đồ điểm mạnh – điểm yếu",
+     "Đề xuất lộ trình phù hợp"
+    ]
+   },
+   {
+    "name": "Chương trình CEO Operating Blueprint",
+    "feat": true,
+    "desc": "Chương trình trọn bộ 10 hạng mục, áp trực tiếp lên doanh nghiệp bạn.",
+    "items": [
+     "10 hạng mục theo lộ trình",
+     "Bài tập áp dụng trên doanh nghiệp thật",
+     "CEO Dashboard cá nhân hóa",
+     "Lộ trình 90 ngày kèm cam kết"
+    ]
+   },
+   {
+    "name": "Đồng hành cố vấn CEO",
+    "feat": false,
+    "desc": "Cố vấn 1-1 sau chương trình — đi cùng các quyết định lớn.",
+    "items": [
+     "Phiên cố vấn 1-1 định kỳ",
+     "Rà soát tiến độ lộ trình 90 ngày",
+     "Tham vấn trước quyết định lớn",
+     "Kênh trao đổi ưu tiên"
+    ]
+   }
+  ],
+  "OUTCOMES": [
+   "Một bản đồ doanh nghiệp hoàn chỉnh trên 10 trụ cột — thấy rõ đang mạnh, yếu ở đâu",
+   "Trả lời được 5 câu hỏi trọng yếu bằng dữ liệu, không bằng cảm giác",
+   "CEO Dashboard cá nhân: nắm sức khỏe doanh nghiệp trong 15 phút mỗi tuần",
+   "Lộ trình 90 ngày cụ thể cho chính doanh nghiệp của bạn",
+   "Thoát dần khỏi vận hành vụn — thời gian dồn cho quyết định xứng tầm",
+   "Kết nối cộng đồng CEO cùng hành trình hệ thống hóa"
+  ],
+  "AUDIENCE": [
+   [
+    "CEO / Founder doanh nghiệp SME",
+    "Đang điều hành thật, muốn nâng cấp từ kinh nghiệm sang hệ thống."
+   ],
+   [
+    "Người chuẩn bị nhận chuyển giao",
+    "Thế hệ kế nghiệp cần bản đồ hoàn chỉnh trước khi cầm lái."
+   ],
+   [
+    "CEO sau giai đoạn tăng trưởng nóng",
+    "Doanh nghiệp lớn nhanh hơn năng lực hệ thống — cần củng cố lại nền."
+   ],
+   [
+    "Founder kỹ thuật lên làm điều hành",
+    "Giỏi sản phẩm nhưng cần khung về tài chính, vận hành, pháp lý."
+   ],
+   [
+    "CEO cảm thấy cô độc khi quyết định",
+    "Muốn có khung, có dữ liệu và có người đối thoại trước quyết định lớn."
+   ],
+   [
+    "Chủ doanh nghiệp gia đình",
+    "Chuyên nghiệp hóa điều hành, chuẩn bị cho thế hệ tiếp theo."
+   ]
+  ],
+  "DIFFS": [
+   [
+    "Áp lên doanh nghiệp thật",
+    "Mọi hạng mục làm trên số liệu và bối cảnh doanh nghiệp của chính bạn — không học chay."
+   ],
+   [
+    "Bản đồ, không phải khóa học lẻ",
+    "10 trụ cột nối thành một hệ thống — khác với gom nhiều khóa kỹ năng rời rạc."
+   ],
+   [
+    "Kết thúc bằng lộ trình 90 ngày",
+    "Đầu ra là kế hoạch hành động có mốc và chỉ số, không phải chứng chỉ treo tường."
+   ],
+   [
+    "Đứng trên hệ sinh thái BAIKA",
+    "Sau chương trình, từng trụ cột có tuyến dịch vụ chuyên sâu đồng hành khi bạn cần triển khai."
+   ]
+  ],
+  "FAQ": [
+   [
+    "Chương trình khác gì các khóa học CEO khác?",
+    "Khác ở chỗ áp trực tiếp: bạn làm việc trên số liệu, tổ chức và vấn đề thật của doanh nghiệp mình, và ra về với lộ trình 90 ngày — không phải bộ slide."
+   ],
+   [
+    "Tôi nên bắt đầu từ đâu?",
+    "Làm Business Blueprint Assessment (miễn phí) để chấm điểm 10 trụ cột. Kết quả sẽ cho thấy bạn nên vào chương trình trọn bộ hay tập trung vài trụ cột trước."
+   ],
+   [
+    "Tôi bận, chương trình tốn bao nhiêu thời gian?",
+    "Chương trình thiết kế cho người đang điều hành: các phiên tập trung kết hợp bài tập áp dụng ngắn — trung bình vài giờ mỗi tuần trong thời gian chương trình."
+   ],
+   [
+    "Sau chương trình có được đồng hành tiếp không?",
+    "Có — gói Đồng hành cố vấn CEO duy trì phiên 1-1 định kỳ và tham vấn trước các quyết định lớn."
+   ]
+  ],
+  "NEEDS": [
+   "Làm Business Blueprint Assessment",
+   "Tham gia chương trình trọn bộ",
+   "Cố vấn CEO 1-1",
+   "Đặt lịch tư vấn riêng",
+   "Nhu cầu khác"
+  ],
+  "V2_PILLARS": [
+   [
+    "Chương trình chính cho DN",
+    "Khung đào tạo chuẩn hóa cho ban lãnh đạo & đội ngũ quản lý, học theo cohort hệ thống."
+   ],
+   [
+    "Đào tạo nội bộ",
+    "Thiết kế riêng cho từng doanh nghiệp — dựa trên khảo sát thực trạng và mục tiêu."
+   ],
+   [
+    "Khóa đào tạo riêng",
+    "Các khóa signature độc quyền, chắt lọc từ phương pháp luận và kinh nghiệm điều hành thực chiến."
+   ]
+  ],
+  "CEO_PROGRAMS_DATA": [
+   [
+    "Chương trình chính cho doanh nghiệp",
+    "Khung đào tạo chuẩn hóa cho ban lãnh đạo & đội ngũ quản lý, học theo cohort hệ thống — phù hợp doanh nghiệp 20-200 người muốn nâng cấp toàn đội ngũ quản lý."
+   ],
+   [
+    "Đào tạo nội bộ theo bài toán DN",
+    "Thiết kế riêng cho từng doanh nghiệp — dựa trên khảo sát thực trạng và mục tiêu. CEO chọn chủ đề, BAIKA thiết kế curriculum, triển khai ngay tại công ty bạn."
+   ],
+   [
+    "Khóa đào tạo riêng của BAIKA",
+    "Các khóa signature độc quyền, chắt lọc từ phương pháp luận và kinh nghiệm điều hành thực chiến — mở đăng ký theo lịch cohort hằng quý."
+   ]
+  ],
+  "MODULES_DATA": [
+   {
+    "icon": "🧭",
+    "title": "Tư duy chiến lược",
+    "desc": "Đọc bối cảnh, xác lập tầm nhìn và ra quyết định dài hạn trong môi trường nhiều biến số."
+   },
+   {
+    "icon": "⚙️",
+    "title": "Quản trị vận hành",
+    "desc": "Thiết kế hệ thống, quy trình và chỉ số để doanh nghiệp chạy trơn tru không cần chủ đứng bếp."
+   },
+   {
+    "icon": "💰",
+    "title": "Tài chính cho CEO",
+    "desc": "Đọc báo cáo, quản dòng tiền, định giá và ra quyết định đầu tư dựa trên dữ liệu thực."
+   },
+   {
+    "icon": "👥",
+    "title": "Lãnh đạo đội ngũ",
+    "desc": "Xây văn hóa, tuyển chọn, phát triển và giữ chân nhân tài cốt lõi trong giai đoạn tăng trưởng."
+   },
+   {
+    "icon": "📈",
+    "title": "Tăng trưởng & thị trường",
+    "desc": "Chiến lược sản phẩm, kênh và thương hiệu để mở rộng thị phần và bảo vệ vị thế."
+   },
+   {
+    "icon": "🤝",
+    "title": "Đàm phán & Gọi vốn",
+    "desc": "Kỹ năng đàm phán chiến lược, chuẩn bị hồ sơ gọi vốn và làm việc hiệu quả với nhà đầu tư."
+   }
+  ],
+  "OFFERS_DATA": [
+   {
+    "name": "Cohort mùa Thu 2026 — CEO Toàn Diện",
+    "tag": "ĐĂNG KÝ SỚM",
+    "price": "-25% học phí",
+    "desc": "Ưu đãi học phí -25% cho 15 học viên đăng ký sớm nhất. Khai giảng ngày 08/09/2026.",
+    "hot": true
+   },
+   {
+    "name": "Học bổng lãnh đạo trẻ",
+    "tag": "DƯỚI 30 TUỔI",
+    "price": "50% học phí",
+    "desc": "Suất học bổng dành cho nhà sáng lập dưới 30 tuổi và doanh nghiệp dưới 24 tháng tuổi — đầu tư cho thế hệ lãnh đạo tương lai.",
+    "hot": false
+   },
+   {
+    "name": "Ưu đãi theo mùa",
+    "tag": "ĐỊNH KỲ",
+    "price": "Luân phiên",
+    "desc": "Chương trình giảm học phí luân phiên theo mùa Xuân – Hè – Thu – Đông. Đăng ký nhận thông báo sớm nhất.",
+    "hot": false
+   },
+   {
+    "name": "Ưu đãi nhóm doanh nghiệp",
+    "tag": "NHÓM 3+",
+    "price": "Giảm thêm 15%",
+    "desc": "Đăng ký nhóm từ 3 người trở lên từ cùng một doanh nghiệp — học cùng nhau, thay đổi cùng nhau.",
+    "hot": false
+   }
+  ],
+  "CEO_TOOLS": [
+   [
+    "Đăng ký giữ chỗ lịch học",
+    "Chọn buổi học bạn quan tâm, để lại thông tin — BAIKA sẽ xác nhận trong vòng 24 giờ làm việc."
+   ]
+  ]
+ },
+ "/finance": {
+  "PAINS": [
+   [
+    "Sổ sách thiếu chuẩn",
+    "Số liệu kế toán lệch với thực tế kinh doanh; báo cáo làm để nộp chứ không dùng để điều hành."
+   ],
+   [
+    "Hóa đơn – chứng từ rối",
+    "Chứng từ thiếu, lưu rải rác; đến kỳ quyết toán mới cuống cuồng truy tìm."
+   ],
+   [
+    "Không có báo cáo quản trị",
+    "CEO không biết lãi thật ở đâu, sản phẩm nào nuôi sản phẩm nào; quyết định bằng cảm giác."
+   ],
+   [
+    "Dòng tiền không kiểm soát",
+    "Có lãi trên sổ nhưng luôn thiếu tiền; không dự báo được các khoản phải trả sắp tới."
+   ],
+   [
+    "Chưa sẵn sàng gọi vốn",
+    "Ngân hàng, nhà đầu tư hỏi số liệu là lộ điểm yếu; hồ sơ tài chính không đủ chuẩn thẩm định."
+   ]
+  ],
+  "STEPS": [
+   "Chẩn đoán",
+   "Làm sạch",
+   "Kiểm soát",
+   "Sẵn sàng vốn"
+  ],
+  "MODULES": [
+   [
+    "FIN-01",
+    "Finance Diagnosis",
+    "Chẩn đoán toàn diện: chất lượng số liệu, quy trình kế toán, kiểm soát chứng từ, dòng tiền, rủi ro thuế. Đầu ra là báo cáo sức khỏe tài chính kèm bản đồ ưu tiên."
+   ],
+   [
+    "FIN-02",
+    "Accounting Clean-Up",
+    "Làm sạch sổ sách: đối chiếu, xử lý sai lệch tồn đọng, chuẩn hóa hệ thống tài khoản và nguyên tắc ghi nhận — nền số liệu đáng tin để đi tiếp."
+   ],
+   [
+    "FIN-03",
+    "Invoice & Document Control",
+    "Thiết lập quy trình hóa đơn – chứng từ: chuẩn phát hành, luân chuyển, lưu trữ và kiểm tra chéo; không còn cảnh truy tìm chứng từ cuối kỳ."
+   ],
+   [
+    "FIN-04",
+    "Finance Workflow",
+    "Chuẩn hóa quy trình tài chính: đề nghị – duyệt chi, tạm ứng – hoàn ứng, mua hàng – thanh toán với cấp phê duyệt và thời hạn rõ ràng."
+   ],
+   [
+    "FIN-05",
+    "Management Reporting",
+    "Bộ báo cáo quản trị cho CEO: lãi lỗ theo mảng, cơ cấu chi phí, chỉ số sức khỏe — đọc trong 15 phút, ra quyết định được ngay."
+   ],
+   [
+    "FIN-06",
+    "Cash Flow Control",
+    "Kiểm soát dòng tiền: kế hoạch thu – chi theo tuần, dự báo thiếu hụt sớm, kỷ luật ưu tiên thanh toán và hạn mức."
+   ],
+   [
+    "FIN-07",
+    "Capital Readiness",
+    "Chuẩn bị gọi vốn / vay vốn: chuẩn hóa hồ sơ tài chính, số liệu thẩm định, kịch bản trả lời câu hỏi của ngân hàng, quỹ đầu tư."
+   ],
+   [
+    "FIN-08",
+    "Finance Governance",
+    "Thiết lập quản trị tài chính dài hạn: phân quyền, kiểm soát nội bộ, lịch tuân thủ thuế và cơ chế giám sát định kỳ."
+   ]
+  ],
+  "PACKAGES": [
+   {
+    "name": "Finance Health Check",
+    "feat": false,
+    "desc": "Chẩn đoán sức khỏe tài chính toàn diện — điểm khởi đầu bắt buộc.",
+    "items": [
+     "Đánh giá chất lượng số liệu & quy trình",
+     "Rà soát chứng từ & rủi ro thuế",
+     "Báo cáo sức khỏe tài chính",
+     "Bản đồ ưu tiên hành động"
+    ]
+   },
+   {
+    "name": "Finance Clean-Up & Control",
+    "feat": true,
+    "desc": "Làm sạch nền số liệu và thiết lập hệ thống kiểm soát vận hành được.",
+    "items": [
+     "Toàn bộ Finance Health Check",
+     "Accounting Clean-Up",
+     "Kiểm soát hóa đơn – chứng từ",
+     "Quy trình tài chính & duyệt chi",
+     "Báo cáo quản trị + kiểm soát dòng tiền"
+    ]
+   },
+   {
+    "name": "Capital Readiness Program",
+    "feat": false,
+    "desc": "Nâng chuẩn hồ sơ tài chính để làm việc với ngân hàng, nhà đầu tư.",
+    "items": [
+     "Yêu cầu nền Clean-Up & Control",
+     "Chuẩn hóa hồ sơ tài chính thẩm định",
+     "Mô hình số liệu trình nhà đầu tư",
+     "Đồng hành qua vòng thẩm định"
+    ]
+   }
+  ],
+  "OUTCOMES": [
+   "Số liệu tài chính khớp với thực tế kinh doanh",
+   "Chứng từ đầy đủ, truy xuất được trong vài phút",
+   "CEO đọc báo cáo quản trị 15 phút là nắm được sức khỏe doanh nghiệp",
+   "Dòng tiền được dự báo trước — hết cảnh 'có lãi mà thiếu tiền' bất ngờ",
+   "Rủi ro thuế được nhận diện và xử lý trước khi thành tiền phạt",
+   "Hồ sơ tài chính đủ chuẩn khi ngân hàng, nhà đầu tư yêu cầu"
+  ],
+  "AUDIENCE": [
+   [
+    "Doanh nghiệp 1–10 năm tuổi",
+    "Kế toán đang chạy nhưng CEO không tin hẳn vào số liệu."
+   ],
+   [
+    "CEO ra quyết định bằng cảm giác",
+    "Muốn có báo cáo quản trị thật thay vì chỉ báo cáo thuế."
+   ],
+   [
+    "Doanh nghiệp hay căng dòng tiền",
+    "Doanh thu ổn nhưng tiền mặt luôn trong trạng thái giật gấu vá vai."
+   ],
+   [
+    "Doanh nghiệp chuẩn bị vay / gọi vốn",
+    "Cần hồ sơ tài chính chịu được thẩm định trong 6–12 tháng tới."
+   ],
+   [
+    "Công ty sau giai đoạn tăng trưởng nóng",
+    "Doanh số tăng nhanh, hệ thống tài chính không theo kịp."
+   ],
+   [
+    "Doanh nghiệp gia đình chuẩn hóa",
+    "Tách bạch tài chính công ty và tài chính chủ sở hữu."
+   ]
+  ],
+  "DIFFS": [
+   [
+    "Nhìn tài chính bằng con mắt điều hành",
+    "Không làm thay kế toán thuế — xây hệ thống số liệu để CEO ra quyết định."
+   ],
+   [
+    "Trình tự chuẩn, không nhảy cóc",
+    "Chẩn đoán trước, làm sạch trước, rồi mới kiểm soát và nâng chuẩn — bền thay vì vá."
+   ],
+   [
+    "Có Client Portal đồng hành",
+    "Tài liệu, checklist, tiến độ và dashboard theo dõi trên một cổng làm việc chung."
+   ],
+   [
+    "Kết nối pháp lý – thuế",
+    "Phối hợp trực tiếp với tuyến Legal & Tax của BAIKA khi rủi ro liên quan cả hai mảng."
+   ]
+  ],
+  "FAQ": [
+   [
+    "BAIKA có thay thế kế toán của tôi không?",
+    "Không. Kế toán của bạn vẫn vận hành hằng ngày; BAIKA chẩn đoán, thiết kế hệ thống, chuẩn hóa quy trình và nâng năng lực đội hiện có."
+   ],
+   [
+    "Sổ sách tôi đang rối, có làm được không?",
+    "Đó chính là tình huống phổ biến nhất. Gói Clean-Up & Control sinh ra cho việc này — bắt đầu từ Health Check để đo mức độ trước."
+   ],
+   [
+    "Số liệu của tôi có được bảo mật?",
+    "Có. Quyền truy cập phân theo vai trò, tài liệu trao đổi qua kênh kiểm soát và có điều khoản bảo mật trong hợp đồng."
+   ],
+   [
+    "Bao lâu thì gọi vốn được?",
+    "Tùy nền hiện tại. Thông thường: Health Check 2–3 tuần, Clean-Up & Control 2–3 tháng, Capital Readiness thêm 1–2 tháng."
+   ]
+  ],
+  "NEEDS": [
+   "Chẩn đoán sức khỏe tài chính",
+   "Làm sạch sổ sách kế toán",
+   "Kiểm soát hóa đơn – chứng từ",
+   "Báo cáo quản trị cho CEO",
+   "Kiểm soát dòng tiền",
+   "Chuẩn bị vay vốn / gọi vốn",
+   "Tải Finance Readiness Checklist",
+   "Nhu cầu khác"
+  ],
+  "KPIS": [
+   {
+    "k": "Độ lệch sổ sách",
+    "v": "18%",
+    "delta": "↓ mục tiêu <5%",
+    "dir": "down",
+    "spark": [
+     40,
+     55,
+     35,
+     60,
+     45,
+     70,
+     50
+    ]
+   },
+   {
+    "k": "Thời gian truy xuất chứng từ",
+    "v": "3.2 ngày",
+    "delta": "↓ mục tiêu <1 giờ",
+    "dir": "down",
+    "spark": [
+     60,
+     50,
+     65,
+     45,
+     55,
+     40,
+     58
+    ]
+   },
+   {
+    "k": "Độ trễ báo cáo quản trị",
+    "v": "22 ngày",
+    "delta": "↓ mục tiêu 15 phút đọc",
+    "dir": "down",
+    "spark": [
+     45,
+     60,
+     50,
+     70,
+     55,
+     65,
+     48
+    ]
+   },
+   {
+    "k": "Dự báo dòng tiền",
+    "v": "0 tuần",
+    "delta": "↑ mục tiêu 4–8 tuần",
+    "dir": "up",
+    "spark": [
+     20,
+     25,
+     22,
+     30,
+     28,
+     35,
+     26
+    ]
+   }
+  ],
+  "V2_PILLARS": [
+   [
+    "Quản trị dòng tiền",
+    "Lập kế hoạch thu chi, dự báo thanh khoản và kiểm soát vòng quay tiền mặt theo tuần/tháng."
+   ],
+   [
+    "Báo cáo quản trị & kiểm soát",
+    "Báo cáo tài chính quản trị định kỳ, hệ thống KPI và cơ chế kiểm soát nội bộ minh bạch."
+   ],
+   [
+    "Cấu trúc vốn & gọi vốn",
+    "Lập phương án gọi vốn, tối ưu cơ cấu nợ/vốn chủ sở hữu và hỗ trợ đàm phán nhà đầu tư."
+   ],
+   [
+    "Quản trị rủi ro & tuân thủ",
+    "Đánh giá sức khỏe tài chính, nhận diện rủi ro tiềm ẩn và đảm bảo tuân thủ chuẩn mực kế toán."
+   ]
+  ],
+  "V2_TOOLS": [
+   [
+    "Máy tính điểm hòa vốn & ROI",
+    "Xác định sản lượng hòa vốn, dòng tiền ròng và tỷ suất sinh lời."
+   ],
+   [
+    "Tối ưu phân bổ vốn",
+    "Phân bổ vốn cho từng hạng mục kinh doanh một cách tối ưu."
+   ],
+   [
+    "Biểu đồ kinh tế mẫu",
+    "Doanh thu / dòng tiền và tốc độ tăng trưởng mẫu theo ngành."
+   ]
+  ],
+  "STRENGTHS_DATA": [
+   [
+    "Không cần thuê CFO full-time",
+    "BAIKA Finance hoạt động như CFO bán thời gian — chuyên môn cao, chi phí linh hoạt, phản hồi trong 24 giờ."
+   ],
+   [
+    "Dữ liệu thực, quyết định thật",
+    "Dashboard tài chính cập nhật theo tuần — không cần chờ cuối tháng mới biết tiền đang chảy đi đâu."
+   ],
+   [
+    "Gắn với chiến lược tăng trưởng",
+    "Không chỉ quản lý chi phí — BAIKA Finance đặt tài chính vào bức tranh tăng trưởng tổng thể."
+   ],
+   [
+    "Tuân thủ & minh bạch",
+    "Chuẩn mực kế toán, kiểm soát nội bộ và báo cáo pháp lý — sẵn sàng cho gọi vốn và kiểm toán bất kỳ lúc nào."
+   ]
+  ],
+  "SERVICES_FIN_DATA": [
+   [
+    "Quản trị dòng tiền",
+    "Lập kế hoạch thu chi, dự báo thanh khoản và kiểm soát vòng quay tiền mặt theo tuần/tháng — không bao giờ bị động về tiền."
+   ],
+   [
+    "Báo cáo quản trị & kiểm soát",
+    "Báo cáo tài chính quản trị định kỳ, hệ thống KPI tài chính và cơ chế kiểm soát nội bộ minh bạch."
+   ],
+   [
+    "Cấu trúc vốn & gọi vốn",
+    "Lập phương án gọi vốn, tối ưu cơ cấu nợ/vốn chủ sở hữu và hỗ trợ đàm phán với nhà đầu tư."
+   ],
+   [
+    "Quản trị rủi ro & tuân thủ",
+    "Đánh giá sức khỏe tài chính, nhận diện rủi ro tiềm ẩn và đảm bảo tuân thủ chuẩn mực kế toán hiện hành."
+   ]
+  ],
+  "PROGRAMS_FIN_DATA": [
+   {
+    "name": "Ưu đãi Quyết toán 2026",
+    "tag": "CÓ HẠN",
+    "price": "Giảm đến 30%",
+    "desc": "Đăng ký gói quản trị dòng tiền trước 30/11/2026 — nhận thêm báo cáo dự phóng tài chính 12 tháng MIỄN PHÍ.",
+    "hot": true
+   },
+   {
+    "name": "Gói CFO Khởi Nghiệp",
+    "tag": "STARTUP",
+    "price": "từ 8tr/tháng",
+    "desc": "Dành cho startup dưới 3 năm tuổi cần CFO bán thời gian — tài chính minh bạch trước vòng gọi vốn đầu tiên.",
+    "hot": false
+   },
+   {
+    "name": "Gói Tài Chính Bứt Phá",
+    "tag": "SCALE-UP",
+    "price": "Báo giá theo quy mô",
+    "desc": "Cho doanh nghiệp đang mở rộng cần tái cơ cấu tài chính — gọi vốn, M&A, IPO prep và quản trị rủi ro toàn diện.",
+    "hot": false
+   }
+  ],
+  "FIN_TOOLS": [
+   [
+    "Máy tính điểm hòa vốn & ROI",
+    "Xác định sản lượng hòa vốn, dòng tiền ròng và tỷ suất sinh lời — nhập số liệu, nhận kết quả tức thì."
+   ],
+   [
+    "Tối ưu phân bổ vốn",
+    "Kéo thanh trượt để phân bổ vốn cho từng hạng mục kinh doanh — tổng luôn bằng 100%, kết quả cập nhật real-time."
+   ],
+   [
+    "Biểu đồ kinh tế mẫu",
+    "Doanh thu / dòng tiền và tốc độ tăng trưởng theo năm — so sánh với chuẩn ngành để tự định vị."
+   ]
+  ]
+ },
+ "/legal-tax": {
+  "PAINS": [
+   [
+    "Rủi ro thuế tiềm ẩn",
+    "Hạch toán theo thói quen nhiều năm; không ai rà lại xem đang sai ở đâu — cho đến khi có quyết định kiểm tra.",
+    "med"
+   ],
+   [
+    "Hợp đồng lỏng lẻo",
+    "Dùng mẫu trôi nổi trên mạng; điều khoản bất lợi chỉ lộ ra khi tranh chấp đã xảy ra.",
+    "high"
+   ],
+   [
+    "Bị hỏi mà không biết giải trình",
+    "Cơ quan thuế yêu cầu giải trình — doanh nghiệp lúng túng, trả lời sai cách khiến vấn đề nặng thêm.",
+    "crit"
+   ],
+   [
+    "Pháp lý chủ doanh nghiệp lẫn với công ty",
+    "Tài sản, vay mượn, sở hữu cá nhân và công ty đan xen — rủi ro dồn cả vào người đứng đầu.",
+    "high"
+   ]
+  ],
+  "RISK_LABEL": {
+   "low": "Thấp",
+   "med": "Trung bình",
+   "high": "Cao",
+   "crit": "Nghiêm trọng"
+  },
+  "PILLARS": [
+   [
+    "Rà soát & nhận diện rủi ro",
+    "Biết chính xác doanh nghiệp đang đứng ở đâu trước khi hành động — không đoán, không phỏng chừng."
+   ],
+   [
+    "Dựng hệ thống tuân thủ",
+    "Nền pháp lý và quy trình chuẩn để không tiếp tục phát sinh lỗi mới theo thời gian."
+   ],
+   [
+    "Đồng hành xử lý tình huống",
+    "Khi sự cố xảy ra, có đội chuẩn bị hồ sơ và làm việc cùng bạn qua từng vòng, không đơn độc."
+   ]
+  ],
+  "MODULES": [
+   [
+    "LGL-01",
+    "Legal & Tax Diagnosis",
+    "Rà soát tổng thể pháp lý – thuế: hồ sơ pháp nhân, hợp đồng, hạch toán, hóa đơn, nghĩa vụ thuế. Đầu ra là bản đồ rủi ro xếp theo mức độ nghiêm trọng."
+   ],
+   [
+    "LGL-02",
+    "Business Legal System",
+    "Dựng hệ thống pháp lý nội bộ: điều lệ, quy chế, phân quyền ký kết, hồ sơ pháp nhân chuẩn — nền tuân thủ cho mọi giao dịch."
+   ],
+   [
+    "LGL-03",
+    "Contract Control",
+    "Kiểm soát hợp đồng: chuẩn hóa bộ mẫu theo giao dịch thật của doanh nghiệp, quy trình soát xét trước ký và quản lý vòng đời hợp đồng."
+   ],
+   [
+    "LGL-04",
+    "Tax Risk Review",
+    "Rà soát chuyên sâu rủi ro thuế: doanh thu, chi phí được trừ, hóa đơn đầu vào, giao dịch liên kết — lượng hóa mức phơi nhiễm từng khoản."
+   ],
+   [
+    "LGL-05",
+    "Tax Explanation & Response",
+    "Đồng hành giải trình thuế: chuẩn bị hồ sơ, xây phương án giải trình, làm việc cùng doanh nghiệp qua từng vòng yêu cầu của cơ quan thuế."
+   ],
+   [
+    "LGL-06",
+    "Tax Planning",
+    "Kế hoạch thuế hợp pháp: cấu trúc giao dịch, lựa chọn chính sách phù hợp để tối ưu nghĩa vụ trong khuôn khổ pháp luật — không lách, không rủi ro tích tụ."
+   ],
+   [
+    "LGL-07",
+    "Owner Legal Advisory",
+    "Pháp lý cho chủ sở hữu: tách bạch tài sản cá nhân – công ty, cấu trúc sở hữu, thỏa thuận cổ đông, chuẩn bị chuyển giao."
+   ],
+   [
+    "LGL-08",
+    "Dissolution & Exit Process",
+    "Giải thể, tạm ngừng, chuyển nhượng: xử lý đúng trình tự để đóng lại sạch sẽ, không để nghĩa vụ treo đeo bám người đứng đầu."
+   ]
+  ],
+  "PACKAGES": [
+   {
+    "name": "Legal & Tax Health Check",
+    "feat": true,
+    "desc": "Rà soát tổng thể — biết chính xác doanh nghiệp đang phơi nhiễm rủi ro gì.",
+    "items": [
+     "Rà soát hồ sơ pháp nhân & hợp đồng",
+     "Rà soát hạch toán & hóa đơn",
+     "Bản đồ rủi ro theo mức độ",
+     "Khuyến nghị thứ tự xử lý"
+    ]
+   },
+   {
+    "name": "Legal & Tax Control Setup",
+    "feat": false,
+    "desc": "Dựng hệ thống tuân thủ để không phát sinh lỗi mới.",
+    "items": [
+     "Hệ thống pháp lý nội bộ",
+     "Bộ mẫu & quy trình kiểm soát hợp đồng",
+     "Lịch tuân thủ thuế",
+     "Đào tạo đội ngũ liên quan"
+    ]
+   },
+   {
+    "name": "Tax Response Program",
+    "feat": false,
+    "desc": "Đồng hành khi có yêu cầu kiểm tra, giải trình từ cơ quan thuế.",
+    "items": [
+     "Đánh giá tình huống khẩn",
+     "Chuẩn bị hồ sơ & phương án giải trình",
+     "Đồng hành qua từng vòng làm việc",
+     "Phương án xử lý hậu kiểm"
+    ]
+   },
+   {
+    "name": "Legal Exit & Dissolution",
+    "feat": false,
+    "desc": "Đóng, tạm ngừng hoặc chuyển nhượng doanh nghiệp đúng trình tự.",
+    "items": [
+     "Rà soát nghĩa vụ tồn đọng",
+     "Lộ trình giải thể / tạm ngừng",
+     "Xử lý thuế khi đóng doanh nghiệp",
+     "Hoàn tất hồ sơ pháp lý cuối cùng"
+    ]
+   }
+  ],
+  "OUTCOMES": [
+   "Biết rõ doanh nghiệp đang có những rủi ro pháp lý – thuế nào, mức độ ra sao",
+   "Hợp đồng được kiểm soát trước khi ký, không còn điều khoản bẫy",
+   "Có lịch tuân thủ — không bỏ sót nghĩa vụ, không bị phạt vặt",
+   "Khi bị yêu cầu giải trình: có phương án, có người đồng hành",
+   "Tài sản cá nhân của chủ doanh nghiệp được tách bạch, bảo vệ",
+   "Nếu cần đóng doanh nghiệp: đóng sạch, không nghĩa vụ treo"
+  ],
+  "AUDIENCE": [
+   [
+    "Doanh nghiệp nhiều năm chưa từng rà soát",
+    "Hoạt động 3–10 năm theo thói quen, chưa ai kiểm tra lại hệ thống."
+   ],
+   [
+    "Doanh nghiệp vừa nhận yêu cầu từ cơ quan thuế",
+    "Cần phương án giải trình đúng cách, ngay lập tức."
+   ],
+   [
+    "Doanh nghiệp ký nhiều hợp đồng",
+    "Giá trị giao dịch lớn dần nhưng khâu soát xét vẫn sơ sài."
+   ],
+   [
+    "Chủ doanh nghiệp lo rủi ro cá nhân",
+    "Muốn tách bạch và bảo vệ tài sản gia đình khỏi rủi ro công ty."
+   ],
+   [
+    "Doanh nghiệp chuẩn bị giao dịch lớn",
+    "Sắp gọi vốn, M&A, vay lớn — cần hồ sơ pháp lý sạch."
+   ],
+   [
+    "Doanh nghiệp cần rút lui đúng cách",
+    "Muốn giải thể, tạm ngừng hoặc chuyển nhượng không để lại hậu quả."
+   ]
+  ],
+  "DIFFS": [
+   [
+    "Phòng ngừa thay vì chữa cháy",
+    "Trọng tâm là rà soát và dựng hệ thống trước khi sự cố xảy ra."
+   ],
+   [
+    "Hiểu cả pháp lý lẫn số liệu",
+    "Đội tư vấn đọc được cả hợp đồng lẫn sổ sách — rủi ro thuế luôn nằm giữa hai thứ đó."
+   ],
+   [
+    "Đồng hành tình huống thật",
+    "Không chỉ đưa ý kiến: cùng doanh nghiệp chuẩn bị hồ sơ và làm việc qua từng vòng giải trình."
+   ],
+   [
+    "Kiểm soát truy cập & bảo mật",
+    "Dữ liệu pháp lý – thuế nhạy cảm được phân quyền truy cập và ghi vết thao tác."
+   ]
+  ],
+  "FAQ": [
+   [
+    "Tôi chưa bị kiểm tra, có cần rà soát không?",
+    "Đó là thời điểm tốt nhất. Rà soát khi chưa có áp lực cho phép xử lý chủ động với chi phí thấp nhất; khi đã có quyết định kiểm tra, lựa chọn hẹp đi rất nhiều."
+   ],
+   [
+    "Đang bị yêu cầu giải trình gấp thì sao?",
+    "Chọn mức 'Rất khẩn' trong form — BAIKA ưu tiên liên hệ trong ngày làm việc để đánh giá tình huống và phương án ban đầu."
+   ],
+   [
+    "Thông tin của tôi có an toàn không?",
+    "Có. Hồ sơ được trao đổi qua kênh kiểm soát, phân quyền truy cập theo vai trò và ràng buộc bảo mật trong hợp đồng dịch vụ."
+   ],
+   [
+    "BAIKA có làm việc với luật sư / đại lý thuế của tôi không?",
+    "Có. BAIKA phối hợp với đội hiện có của bạn — vai trò của BAIKA là hệ thống hóa và điều phối để mọi tuyến đi cùng một phương án."
+   ]
+  ],
+  "NEEDS": [
+   "Rà soát pháp lý – thuế tổng thể",
+   "Hệ thống pháp lý doanh nghiệp",
+   "Kiểm soát hợp đồng",
+   "Rà soát rủi ro thuế",
+   "Giải trình / làm việc với cơ quan thuế",
+   "Kế hoạch thuế",
+   "Pháp lý chủ sở hữu",
+   "Giải thể / tạm ngừng / chuyển nhượng",
+   "Nhu cầu khác"
+  ],
+  "V2_PILLARS": [
+   [
+    "Tư vấn pháp lý thường xuyên",
+    "Bộ phận pháp chế thuê ngoài cho doanh nghiệp không có in-house."
+   ],
+   [
+    "Hợp đồng & giao dịch",
+    "Soạn thảo, rà soát và đàm phán mọi loại hợp đồng thương mại."
+   ],
+   [
+    "Thuế — tối ưu hợp pháp",
+    "Hoạch định thuế TNDN, GTGT, TNCN trong khung pháp luật hiện hành."
+   ],
+   [
+    "M&A & tái cấu trúc",
+    "Thẩm định pháp lý (due diligence) và tái cấu trúc doanh nghiệp."
+   ],
+   [
+    "Giải quyết tranh chấp",
+    "Đại diện & bảo vệ quyền lợi trong thương lượng, trọng tài, toà án."
+   ]
+  ],
+  "V2_TOOLS": [
+   [
+    "Thư viện hợp đồng",
+    "Các mẫu chỉ mang tính tham khảo, cần được luật sư điều chỉnh theo từng giao dịch cụ thể."
+   ],
+   [
+    "Ước tính thuế",
+    "Kết quả chỉ là ước tính nhanh theo thuế suất phổ biến, chưa tính đầy đủ ưu đãi, khấu trừ & điều chỉnh."
+   ],
+   [
+    "Checklist tuân thủ",
+    "Checklist mang tính định hướng chung cho doanh nghiệp vừa và nhỏ. Danh mục tuân thủ thực tế tuỳ ngành nghề."
+   ]
+  ],
+  "LT_DICHVU": [
+   [
+    "Tư vấn pháp lý thường xuyên",
+    "Bộ phận pháp chế thuê ngoài cho doanh nghiệp không có in-house lawyer — tư vấn nhanh, phản hồi trong 4 giờ."
+   ],
+   [
+    "Hợp đồng & giao dịch",
+    "Soạn thảo, rà soát và đàm phán mọi loại hợp đồng thương mại — bảo vệ quyền lợi doanh nghiệp từ điều khoản nhỏ nhất."
+   ],
+   [
+    "Thuế — tối ưu hợp pháp",
+    "Hoạch định thuế TNDN, GTGT, TNCN trong khung pháp luật — giảm gánh nặng thuế đúng luật, không rủi ro."
+   ],
+   [
+    "M&A & tái cấu trúc",
+    "Thẩm định pháp lý (due diligence) và tái cấu trúc doanh nghiệp cho mục tiêu gọi vốn, sáp nhập hoặc thoái vốn."
+   ],
+   [
+    "Giải quyết tranh chấp",
+    "Đại diện & bảo vệ quyền lợi trong thương lượng, trọng tài thương mại và tố tụng khi cần thiết."
+   ]
+  ],
+  "LT_CONGCU": [
+   [
+    "Kiểm tra rủi ro hợp đồng",
+    "Tải hợp đồng lên để hệ thống gắn cờ các điều khoản rủi ro — nhanh hơn rà soát thủ công."
+   ],
+   [
+    "Tự rà soát tuân thủ thuế",
+    "Trả lời 10 câu hỏi để biết doanh nghiệp đang ở mức độ tuân thủ nào và cần cải thiện gì ngay."
+   ],
+   [
+    "Tra cứu thông tư & nghị định",
+    "Cơ sở dữ liệu văn bản pháp luật cập nhật — tìm kiếm nhanh theo từ khóa, lĩnh vực và ngày hiệu lực."
+   ]
+  ],
+  "LT_UUDAI": [
+   {
+    "name": "Chiến dịch Quyết toán an tâm",
+    "tag": "ƯU ĐÃI CÓ HẠN",
+    "price": "Miễn phí rà soát sơ bộ",
+    "desc": "Rà soát sơ bộ hồ sơ thuế & giảm 20% phí gói tư vấn pháp lý định kỳ cho doanh nghiệp đăng ký trước ngày 30/11.",
+    "hot": true
+   },
+   {
+    "name": "Gói Pháp chế Dài hạn",
+    "tag": "ĐỊNH KỲ",
+    "price": "từ 12tr/tháng",
+    "desc": "Trọn gói tư vấn pháp lý thường xuyên, soạn thảo hợp đồng không giới hạn và hỗ trợ pháp lý đột xuất theo năm.",
+    "hot": false
+   },
+   {
+    "name": "Review hợp đồng cấp tốc",
+    "tag": "HỎA TỐC",
+    "price": "Trong 24 giờ",
+    "desc": "Cần ký gấp nhưng chưa rà soát hợp đồng? BAIKA Legal rà soát và phản hồi rủi ro trong 24 giờ làm việc.",
+    "hot": false
+   }
+  ]
+ },
+ "/marketing": {
+  "PAINS": [
+   [
+    "Thương hiệu mờ nhạt",
+    "Khách không phân biệt được bạn với đối thủ; giá trị thật của sản phẩm không được truyền tải."
+   ],
+   [
+    "Truyền thông rời rạc",
+    "Mỗi kênh nói một kiểu, thông điệp thay đổi theo cảm hứng; chạy quảng cáo nhưng không đọng lại gì."
+   ],
+   [
+    "Launch thiếu kế hoạch",
+    "Ra sản phẩm mới theo kiểu 'đăng bài rồi tính tiếp'; không có lộ trình, mốc và ngân sách rõ ràng."
+   ],
+   [
+    "Đội sales thiếu công cụ",
+    "Nhân viên bán hàng tự chế tài liệu; câu chuyện thương hiệu mỗi người kể một khác."
+   ]
+  ],
+  "EPISODES": [
+   [
+    "Brand Diagnosis",
+    "Chẩn đoán hiện trạng thương hiệu: mức độ nhận biết, tính nhất quán, khoảng cách giữa định vị mong muốn và cảm nhận thực tế của khách hàng."
+   ],
+   [
+    "Brand Strategy",
+    "Chiến lược định vị: chọn phân khúc, điểm khác biệt, lời hứa thương hiệu và kiến trúc thương hiệu phù hợp mô hình kinh doanh."
+   ],
+   [
+    "Messaging System",
+    "Hệ thông điệp phân tầng: thông điệp lõi, thông điệp theo nhóm khách hàng, theo kênh và theo giai đoạn hành trình mua."
+   ],
+   [
+    "Visual Identity Direction",
+    "Định hướng nhận diện thị giác: tinh thần thiết kế, bảng màu, typography và nguyên tắc ứng dụng — nhất quán trên mọi điểm chạm."
+   ],
+   [
+    "IMC Blueprint",
+    "Bản thiết kế truyền thông tích hợp: mục tiêu từng kênh, vai trò từng loại nội dung, nhịp truyền thông và phối hợp giữa các kênh."
+   ],
+   [
+    "Launch Plan",
+    "Kế hoạch ra mắt theo mốc: pre-launch, launch, post-launch với hạng mục, ngân sách, KPI và kịch bản dự phòng."
+   ],
+   [
+    "Sales Enablement Kit",
+    "Bộ công cụ cho đội bán hàng: sales deck, kịch bản tư vấn, xử lý từ chối, one-pager — kể cùng một câu chuyện thương hiệu."
+   ],
+   [
+    "Content Production Direction",
+    "Định hướng sản xuất nội dung: trục nội dung, guideline giọng điệu, khung biên tập để đội in-house hoặc agency thực thi đúng chuẩn."
+   ],
+   [
+    "Launch Dashboard",
+    "Bộ chỉ số theo dõi chiến dịch: nhận biết, tương tác, chuyển đổi — biết cái gì hiệu quả để dồn ngân sách đúng chỗ."
+   ]
+  ],
+  "PACKAGES": [
+   {
+    "name": "Brand Foundation",
+    "feat": false,
+    "desc": "Xây nền thương hiệu: định vị, thông điệp, định hướng nhận diện.",
+    "items": [
+     "Brand Diagnosis",
+     "Brand Strategy & định vị",
+     "Messaging System",
+     "Visual Identity Direction"
+    ]
+   },
+   {
+    "name": "IMC Launch Blueprint",
+    "feat": false,
+    "desc": "Thiết kế hệ truyền thông tích hợp và kế hoạch ra mắt.",
+    "items": [
+     "Toàn bộ Brand Foundation",
+     "IMC Blueprint",
+     "Launch Plan theo mốc",
+     "Định hướng content"
+    ]
+   },
+   {
+    "name": "Brand-to-Market Launch",
+    "feat": true,
+    "desc": "Trọn bộ từ nền thương hiệu đến công cụ bán hàng và dashboard.",
+    "items": [
+     "Toàn bộ IMC Launch Blueprint",
+     "Sales Enablement Kit",
+     "Launch Dashboard",
+     "Đồng hành giai đoạn ra mắt"
+    ]
+   }
+  ],
+  "OUTCOMES": [
+   "Định vị rõ ràng — khách hàng hiểu bạn khác gì đối thủ",
+   "Một hệ thông điệp nhất quán trên mọi kênh, mọi nhân sự",
+   "Kế hoạch launch có mốc, ngân sách và KPI thay vì ngẫu hứng",
+   "Đội sales có bộ công cụ chuẩn, kể cùng một câu chuyện",
+   "Nội dung sản xuất theo định hướng, không lệch tông",
+   "Dashboard đo lường để biết ngân sách đang sinh hiệu quả ở đâu"
+  ],
+  "AUDIENCE": [
+   [
+    "Doanh nghiệp sắp ra mắt sản phẩm",
+    "Cần một kế hoạch launch bài bản thay vì đăng bài cầu may."
+   ],
+   [
+    "Thương hiệu đang mờ nhạt",
+    "Bán được hàng nhưng thương hiệu không đọng lại trong tâm trí khách."
+   ],
+   [
+    "Doanh nghiệp tái định vị",
+    "Đổi phân khúc, đổi mô hình — cần kể lại câu chuyện thương hiệu từ đầu."
+   ],
+   [
+    "Đội marketing thiếu khung",
+    "Có người chạy kênh nhưng thiếu chiến lược và hệ thông điệp phía trên."
+   ],
+   [
+    "Doanh nghiệp B2B cần sales kit",
+    "Chu trình bán dài, cần công cụ thuyết phục nhất quán cho đội ngũ."
+   ],
+   [
+    "Founder chuẩn bị gọi vốn",
+    "Cần câu chuyện thương hiệu chặt chẽ trước nhà đầu tư và thị trường."
+   ]
+  ],
+  "DIFFS": [
+   [
+    "Hệ thống, không phải dự án lẻ",
+    "9 tầng liên kết với nhau — làm tầng nào cũng đặt trong tổng thể."
+   ],
+   [
+    "Chiến lược gắn với thực thi",
+    "Không dừng ở slide đẹp: có kế hoạch, công cụ và dashboard để chạy thật."
+   ],
+   [
+    "Bắt đầu bằng chẩn đoán",
+    "Có công cụ chẩn đoán thương hiệu để đề xuất đúng gói — không bán thừa."
+   ],
+   [
+    "Đồng bộ với hệ sinh thái BAIKA",
+    "Kết nối với tư vấn vận hành, tài chính, công nghệ khi tăng trưởng cần."
+   ]
+  ],
+  "FAQ": [
+   [
+    "Tôi chưa biết mình cần gì thì bắt đầu từ đâu?",
+    "Làm bài chẩn đoán thương hiệu miễn phí (5 phút) — hệ thống chấm điểm mức độ sẵn sàng và đề xuất gói phù hợp trước khi bạn quyết định."
+   ],
+   [
+    "BAIKA có thiết kế logo / chạy quảng cáo không?",
+    "BAIKA làm tầng chiến lược và định hướng (bao gồm định hướng nhận diện, định hướng content). Phần sản xuất thiết kế và chạy kênh có thể do đội của bạn, agency, hoặc BAIKA giới thiệu đối tác thực thi theo đúng định hướng."
+   ],
+   [
+    "Thời gian triển khai bao lâu?",
+    "Brand Foundation khoảng 4–6 tuần; trọn bộ Brand-to-Market Launch 8–12 tuần tùy phạm vi."
+   ],
+   [
+    "Doanh nghiệp B2B có phù hợp không?",
+    "Rất phù hợp — hệ thông điệp phân tầng và Sales Enablement Kit được thiết kế đặc biệt hiệu quả cho chu trình bán B2B."
+   ]
+  ],
+  "NEEDS": [
+   "Branding / định vị",
+   "Truyền thông tích hợp (IMC)",
+   "Kế hoạch launch",
+   "Sales Enablement",
+   "Định hướng content",
+   "Dashboard đo lường",
+   "Nhu cầu khác"
+  ],
+  "V2_PILLARS": [
+   [
+    "Xây dựng Content",
+    "Chiến lược nội dung, content pillar, kịch bản viral, storytelling."
+   ],
+   [
+    "Xây kênh (Owned Media)",
+    "Vận hành TikTok, YouTube, Fanpage và Website chuẩn SEO."
+   ],
+   [
+    "Digital Marketing",
+    "Performance ads, SEO, Email automation — tối ưu chuyển đổi."
+   ],
+   [
+    "Thiết kế chiến dịch IMC",
+    "Truyền thông tích hợp: một thông điệp, nhiều kênh."
+   ],
+   [
+    "Thương hiệu tổng thể",
+    "Định vị, bộ nhận diện, tông giọng và hệ thống hình ảnh."
+   ],
+   [
+    "Booking KOL / KOC",
+    "Mạng lưới KOL/KOC theo lĩnh vực, đo lường hiệu quả rõ ràng."
+   ],
+   [
+    "Sự kiện & Activation",
+    "Tổ chức sự kiện, roadshow, activation chuyên nghiệp."
+   ],
+   [
+    "Quay dựng & Sản xuất",
+    "TVC, phim viral, video review, photoshoot in-house."
+   ]
+  ],
+  "V2_TOOLS": [
+   [
+    "Seasonal Ignite",
+    "từ 35tr/chiến dịch. Thiết kế dành riêng cho mùa lễ hội."
+   ],
+   [
+    "Growth Engine",
+    "từ 28tr/tháng. Đóng gói cho vận hành dài hạn."
+   ],
+   [
+    "Rapid Strike",
+    "Báo giá riêng. Triển khai hỏa tốc các chiến dịch đặc thù."
+   ]
+  ],
+  "DICHVU_DATA": [
+   [
+    "Xây dựng Content",
+    "Chiến lược nội dung, content pillar, kịch bản viral, storytelling thương hiệu — xây từ nền, không đăng vô tội vạ."
+   ],
+   [
+    "Xây kênh (Owned Media)",
+    "Vận hành & nuôi lớn TikTok, YouTube, Fanpage và Website chuẩn SEO — kênh tự sở hữu, không phụ thuộc thuật toán mãi mãi."
+   ],
+   [
+    "Digital Marketing",
+    "Performance ads, SEO, Email automation — tối ưu chuyển đổi theo dữ liệu thực, không đốt ngân sách mù."
+   ],
+   [
+    "Thiết kế chiến dịch IMC",
+    "Truyền thông tích hợp: một thông điệp, nhiều kênh, cùng một nhịp khuếch đại."
+   ],
+   [
+    "Thương hiệu tổng thể",
+    "Định vị, bộ nhận diện, tông giọng và hệ thống hình ảnh — xây thương hiệu nhớ lâu, yêu lâu."
+   ],
+   [
+    "Booking KOL / KOC",
+    "Mạng lưới KOL/KOC theo lĩnh vực & nền tảng, đo lường hiệu quả rõ ràng thay vì chọn theo cảm tính."
+   ],
+   [
+    "Sự kiện & Activation",
+    "Tổ chức sự kiện, roadshow, activation — biến khoảnh khắc thành trải nghiệm thương hiệu không quên."
+   ],
+   [
+    "Quay dựng & Sản xuất",
+    "TVC, phim viral, video review, photoshoot — đội ngũ sản xuất in-house, chất lượng nhất quán."
+   ]
+  ],
+  "IMC_DATA": [
+   [
+    "Nội dung (Content)",
+    "Trục nội dung & lịch biên tập đồng bộ trên mọi kênh — giọng điệu nhất quán, tần suất đều đặn."
+   ],
+   [
+    "Truyền thông trả phí",
+    "Performance ads: Meta, Google, TikTok — phân bổ ngân sách theo dữ liệu, tối ưu ROAS liên tục."
+   ],
+   [
+    "Owned Media",
+    "Website, fanpage, kênh YouTube — tài sản số tự sở hữu tăng giá trị theo thời gian."
+   ],
+   [
+    "Earned Media",
+    "PR, báo chí, viral organic — khuếch đại bằng uy tín thay vì chỉ bằng tiền."
+   ],
+   [
+    "KOL / KOC",
+    "Gương mặt đại diện phù hợp thương hiệu — không chọn theo follower, chọn theo độ khớp & engagement thật."
+   ],
+   [
+    "Sự kiện & Activation",
+    "Điểm chạm ngoài đời thực — kết nối cảm xúc, tạo trải nghiệm nhớ lâu."
+   ]
+  ],
+  "KOL_DATA": [
+   [
+    "Mega KOL (>1M followers)",
+    "Phù hợp với chiến dịch nhận diện thương hiệu diện rộng, ra mắt sản phẩm mới cần độ phủ cao."
+   ],
+   [
+    "Macro KOL (100K–1M)",
+    "Cân bằng giữa độ phủ & tương tác — hiệu quả cho chiến dịch thương hiệu & bán hàng tích hợp."
+   ],
+   [
+    "Micro KOC (10K–100K)",
+    "Engagement thật, cộng đồng trung thành — ROI cao nhất cho nhóm sản phẩm đặc thù, ngách."
+   ],
+   [
+    "Nano KOC (<10K)",
+    "Uy tín trong cộng đồng nhỏ, review chân thực — phù hợp F&B, lifestyle, beauty địa phương."
+   ],
+   [
+    "Tìm KOL theo ngành",
+    "Lọc theo lĩnh vực: F&B, thời trang, công nghệ, tài chính, giáo dục, sức khỏe & làm đẹp."
+   ],
+   [
+    "Đo lường sau chiến dịch",
+    "Báo cáo reach, engagement, conversion & brand sentiment — biết rõ đồng tiền sinh hiệu quả ở đâu."
+   ]
+  ],
+  "UUDAI_DATA": [
+   {
+    "name": "Seasonal Ignite",
+    "tag": "MÙA LỄ HỘI",
+    "price": "từ 35tr/chiến dịch",
+    "desc": "Gói chiến dịch trọn bộ cho mùa lễ hội: Tết, 8/3, 10/10, Black Friday — content, ads & KOC. Ký trước hạn nhận thêm 1 video viral tặng kèm.",
+    "hot": true
+   },
+   {
+    "name": "Growth Engine",
+    "tag": "ĐỊNH KỲ",
+    "price": "từ 28tr/tháng",
+    "desc": "Gói vận hành kênh dài hạn: content, owned media, performance ads, báo cáo tháng — phù hợp cho doanh nghiệp muốn tăng trưởng bền vững.",
+    "hot": false
+   },
+   {
+    "name": "Rapid Strike",
+    "tag": "HỎA TỐC",
+    "price": "Báo giá riêng",
+    "desc": "Triển khai nhanh cho chiến dịch đặc thù, deadline gấp — đội ngũ BAIKA phản hồi trong 4 giờ, lên plan trong 24 giờ.",
+    "hot": false
+   }
+  ],
+  "CASE_DATA": [
+   {
+    "k": "Tăng trưởng đơn hàng",
+    "v": "+340%",
+    "sub": "3 tháng nhờ chiến dịch IMC kết hợp TikTok owned media & KOC review"
+   },
+   {
+    "k": "Lượt xem viral",
+    "v": "12M+",
+    "sub": "1 TVC + chuỗi video review lan tỏa tự nhiên, cháy hàng ngay tuần đầu"
+   },
+   {
+    "k": "ROAS quảng cáo",
+    "v": "8.4x",
+    "sub": "Tối ưu funnel & nội dung, giảm 38% chi phí mỗi lead trong 6 tháng"
+   },
+   {
+    "k": "Thương hiệu phủ sóng",
+    "v": "95%",
+    "sub": "Brand awareness tăng từ 31% lên 95% trong cộng đồng mục tiêu sau 6 tháng"
+   }
+  ]
+ },
+ "/remote-ops": {
+  "PAINS": [
+   [
+    "Phụ thuộc cá nhân",
+    "Việc chạy được nhờ vài người 'biết việc'. Một người nghỉ là cả mảng khựng lại."
+   ],
+   [
+    "Quy trình không chuẩn",
+    "Mỗi người làm một kiểu; sai sót lặp lại; đào tạo người mới mất hàng tháng."
+   ],
+   [
+    "Task trễ không ai chịu trách nhiệm",
+    "Giao việc qua tin nhắn, không deadline rõ, không ai theo dõi đến cùng."
+   ],
+   [
+    "CEO thiếu thông tin điều hành",
+    "Muốn biết tình hình phải hỏi từng người; báo cáo chậm, số liệu mỗi nơi một kiểu."
+   ]
+  ],
+  "MODULES": [
+   [
+    "Khảo sát & chẩn đoán vận hành",
+    "Khảo sát có cấu trúc trên Client Portal: hiện trạng quy trình, phân công, công cụ, điểm nghẽn. Đầu ra là Diagnosis Report chỉ rõ đang tắc ở đâu và vì sao."
+   ],
+   [
+    "Sơ đồ tổ chức & vai trò",
+    "Thiết kế lại sơ đồ tổ chức theo chức năng thật; mô tả vai trò – trách nhiệm – quyền quyết định cho từng vị trí, chấm dứt tình trạng việc rơi giữa hai người."
+   ],
+   [
+    "SOP & quy trình chuẩn",
+    "Xây bộ quy trình lõi theo template chuẩn: các bước, người thực hiện, thời hạn, tiêu chí hoàn thành. Người mới đọc là làm được."
+   ],
+   [
+    "Quản lý task",
+    "Đưa công việc từ tin nhắn về hệ thống: task có người phụ trách, deadline, trạng thái; tự động cảnh báo task trễ hạn và task chưa có người nhận."
+   ],
+   [
+    "KPI / KRI dashboard",
+    "Bộ chỉ số hiệu suất và chỉ số rủi ro theo từng bộ phận, cập nhật trên dashboard — CEO nhìn một màn hình biết doanh nghiệp đang chạy thế nào."
+   ],
+   [
+    "Báo cáo & cảnh báo điểm nghẽn",
+    "Nhịp báo cáo tuần/tháng chuẩn hóa; hệ thống tự làm nổi các điểm nghẽn cần CEO can thiệp thay vì để chìm trong dữ liệu."
+   ]
+  ],
+  "PACKAGES": [
+   {
+    "name": "Ops Diagnosis",
+    "feat": false,
+    "desc": "Chẩn đoán vận hành toàn diện — biết chính xác đang tắc ở đâu.",
+    "items": [
+     "Khảo sát vận hành có cấu trúc",
+     "Phỏng vấn vị trí chủ chốt",
+     "Diagnosis Report & bản đồ điểm nghẽn",
+     "Khuyến nghị thứ tự xử lý"
+    ]
+   },
+   {
+    "name": "Ops Blueprint",
+    "feat": true,
+    "desc": "Thiết kế trọn bộ hệ điều hành: tổ chức, quy trình, KPI.",
+    "items": [
+     "Toàn bộ hạng mục Ops Diagnosis",
+     "Sơ đồ tổ chức & mô tả vai trò",
+     "Bộ SOP quy trình lõi",
+     "Bộ KPI/KRI theo bộ phận",
+     "Kế hoạch triển khai theo giai đoạn"
+    ]
+   },
+   {
+    "name": "Remote Ops Partner",
+    "feat": false,
+    "desc": "BAIKA vận hành đồng hành như một Giám đốc Vận hành từ xa.",
+    "items": [
+     "Toàn bộ hạng mục Ops Blueprint",
+     "Vận hành hệ thống task & báo cáo",
+     "Dashboard KPI cập nhật liên tục",
+     "Họp điều hành định kỳ cùng CEO",
+     "Cảnh báo & xử lý điểm nghẽn"
+    ]
+   }
+  ],
+  "OUTCOMES": [
+   "Doanh nghiệp vận hành theo quy trình, không theo trí nhớ",
+   "Mỗi việc có người phụ trách, deadline và trạng thái rõ ràng",
+   "CEO xem một dashboard là nắm được sức khỏe vận hành",
+   "Đào tạo nhân sự mới nhanh hơn nhờ SOP chuẩn",
+   "Điểm nghẽn được cảnh báo sớm thay vì phát hiện khi đã thành khủng hoảng",
+   "Nền tảng sẵn sàng để mở rộng quy mô hoặc vận hành từ xa"
+  ],
+  "AUDIENCE": [
+   [
+    "Doanh nghiệp 10–200 nhân sự",
+    "Đã qua giai đoạn sống sót, cần hệ thống để lớn tiếp mà không vỡ trận."
+   ],
+   [
+    "CEO bị cuốn vào vận hành",
+    "Muốn thoát khỏi việc ngồi canh từng task để tập trung chiến lược."
+   ],
+   [
+    "Doanh nghiệp nhiều chi nhánh / làm việc từ xa",
+    "Cần chuẩn vận hành thống nhất khi đội ngũ không ngồi cùng một chỗ."
+   ],
+   [
+    "Doanh nghiệp chuẩn bị tăng trưởng",
+    "Biết rằng bộ máy hiện tại sẽ không chịu nổi khi quy mô gấp đôi."
+   ],
+   [
+    "Công ty vừa tái cấu trúc",
+    "Cần dựng lại sơ đồ tổ chức, vai trò và quy trình từ nền mới."
+   ],
+   [
+    "Doanh nghiệp gia đình chuyên nghiệp hóa",
+    "Chuyển từ điều hành thuận tiện sang điều hành có hệ thống."
+   ]
+  ],
+  "DIFFS": [
+   [
+    "Consulting được sản phẩm hóa",
+    "Quy trình, template, portal chuẩn hóa — không phụ thuộc cảm hứng của tư vấn viên."
+   ],
+   [
+    "Có nền tảng đi kèm",
+    "Không chỉ đưa file Word: khách vận hành trực tiếp trên Client Portal với task, KPI, báo cáo."
+   ],
+   [
+    "Đồng hành đến khi tự chạy",
+    "Gói Partner vận hành cùng doanh nghiệp cho đến khi hệ thống thành nếp."
+   ],
+   [
+    "Thiết kế cho SME Việt Nam",
+    "Chuẩn nhưng không cồng kềnh — đúng mức doanh nghiệp vừa và nhỏ hấp thụ được."
+   ]
+  ],
+  "FAQ": [
+   [
+    "Doanh nghiệp tôi nhỏ, có cần hệ thống không?",
+    "Nếu dưới 10 người và việc vẫn trong tầm kiểm soát thì chưa gấp. Nhưng nếu bạn đã thấy việc rơi, sai lặp lại, người mới lâu bắt nhịp — đó là lúc bắt đầu, càng sớm càng rẻ."
+   ],
+   [
+    "Triển khai mất bao lâu?",
+    "Ops Diagnosis thường 2–4 tuần. Ops Blueprint 6–10 tuần tùy quy mô. Remote Ops Partner theo kỳ 3–6 tháng."
+   ],
+   [
+    "Có phải thay phần mềm đang dùng không?",
+    "Không bắt buộc. BAIKA ưu tiên chuẩn hóa trên công cụ bạn đang có; chỉ đề xuất đổi khi công cụ hiện tại là điểm nghẽn thật."
+   ],
+   [
+    "Nhân viên có hợp tác không?",
+    "Blueprint luôn kèm kế hoạch chuyển đổi: đào tạo, giai đoạn thử, cơ chế phản hồi — thay đổi theo nhịp đội ngũ theo kịp."
+   ]
+  ],
+  "NEEDS": [
+   "Chẩn đoán vận hành",
+   "Chuẩn hóa quy trình / SOP",
+   "Sơ đồ tổ chức & vai trò",
+   "Hệ thống task & giao việc",
+   "KPI / báo cáo điều hành",
+   "Vận hành đồng hành (Ops Partner)",
+   "Nhu cầu khác"
+  ],
+  "V2_PILLARS": [
+   [
+    "Audit hệ thống vận hành",
+    "Chụp 'X-quang' toàn bộ cách doanh nghiệp đang chạy: điểm nghẽn, việc trùng, việc thiếu."
+   ],
+   [
+    "Xây quy trình & SOP",
+    "Biến 'cách làm trong đầu' thành tài liệu chuẩn: rõ đầu vào — các bước — đầu ra — người phụ trách."
+   ],
+   [
+    "Tái cấu trúc vận hành",
+    "Sắp xếp lại dòng chảy công việc và bộ máy để giảm ma sát, rút ngắn thời gian, tăng năng suất."
+   ],
+   [
+    "Phân vai & đo lường",
+    "Mỗi vai trò biết rõ trách nhiệm và được đo bằng chỉ số. Quản trị bằng số liệu thay vì cảm tính."
+   ]
+  ],
+  "V2_TOOLS": [
+   [
+    "Thang đo độ trưởng thành",
+    "Chọn mức đúng với thực tế doanh nghiệp của bạn cho mỗi câu. Đánh giá tự động hệ thống vận hành."
+   ],
+   [
+    "Thư viện SOP mẫu",
+    "Chọn một quy trình để xem các bước chuẩn nối tiếp nhau — khung để doanh nghiệp bạn tuỳ biến."
+   ]
+  ],
+  "DIAGRAM_DATA": [
+   {
+    "step": "01",
+    "title": "Chẩn đoán",
+    "desc": "Audit toàn cảnh vận hành — chụp 'X-quang' để thấy điểm nghẽn, việc trùng, việc thiếu."
+   },
+   {
+    "step": "02",
+    "title": "Chuẩn hóa",
+    "desc": "Quy trình & SOP viết ra — biến 'cách làm trong đầu' thành tài liệu ai cũng làm được."
+   },
+   {
+    "step": "03",
+    "title": "Tái cấu trúc",
+    "desc": "Dòng chảy công việc gọn — sắp xếp lại bộ máy để giảm ma sát, rút ngắn thời gian."
+   },
+   {
+    "step": "04",
+    "title": "Phân vai",
+    "desc": "RACI & quyền hạn rõ — mỗi vai trò biết đúng trách nhiệm, không còn ai làm thay ai."
+   },
+   {
+    "step": "05",
+    "title": "Đo lường",
+    "desc": "KPI & dashboard nhịp — quản trị bằng số liệu thực, không phụ thuộc cảm tính nữa."
+   }
+  ],
+  "OPS_SERVICES_DATA": [
+   [
+    "Audit hệ thống vận hành",
+    "Chụp 'X-quang' toàn bộ cách doanh nghiệp đang chạy: điểm nghẽn, việc trùng, việc thiếu người — báo cáo chi tiết trong 5 ngày làm việc."
+   ],
+   [
+    "Xây quy trình & SOP",
+    "Biến 'cách làm trong đầu' thành tài liệu chuẩn: rõ đầu vào — các bước — đầu ra — người phụ trách — thời gian hoàn thành."
+   ],
+   [
+    "Tái cấu trúc vận hành",
+    "Sắp xếp lại dòng chảy công việc và bộ máy để giảm ma sát, rút ngắn thời gian xử lý và tăng năng suất trên từng đầu người."
+   ],
+   [
+    "Phân vai & đo lường",
+    "Mỗi vai trò biết rõ trách nhiệm và được đo bằng chỉ số cụ thể. Quản trị bằng dashboard số liệu thực thay vì họp hành liên tục."
+   ]
+  ],
+  "PROGRAM_DATA": [
+   {
+    "name": "Sprint Hệ thống hóa",
+    "tag": "PHỔ BIẾN NHẤT",
+    "price": "6 tuần",
+    "desc": "Audit + xây SOP cho 3-5 quy trình trọng yếu + dashboard đo lường. Đăng ký trước hạn nhận buổi Audit vận hành & báo cáo độ trưởng thành miễn phí.",
+    "hot": true
+   },
+   {
+    "name": "Đồng hành Hệ thống",
+    "tag": "DÀI HẠN",
+    "price": "3-6 tháng",
+    "desc": "Tái cơ cấu toàn diện hệ vận hành — từ quy trình, phân vai đến KPI và dashboard — phù hợp cho doanh nghiệp đang scale nhanh.",
+    "hot": false
+   },
+   {
+    "name": "SOP Quick-Build",
+    "tag": "NHANH NHẤT",
+    "price": "2 tuần",
+    "desc": "Viết SOP chuẩn cho 1-2 quy trình cụ thể cần gấp — phù hợp khi tuyển nhân sự mới hoặc chuẩn bị bàn giao ca.",
+    "hot": false
+   }
+  ],
+  "OPS_TOOLS": [
+   [
+    "Thang đo độ trưởng thành vận hành",
+    "Chọn mức đúng với thực tế doanh nghiệp của bạn cho mỗi câu. Kết quả cho biết đang ở Level nào (0=chưa có hệ thống, 4=vận hành tự động)."
+   ],
+   [
+    "Thư viện SOP mẫu",
+    "Chọn một quy trình để xem các bước chuẩn nối tiếp nhau — khung để doanh nghiệp bạn tuỳ biến và áp dụng ngay."
+   ]
+  ]
+ }
+}
