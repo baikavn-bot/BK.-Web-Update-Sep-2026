@@ -20,6 +20,7 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 | `viec-cho.md` | **Việc đang chờ** — agent đọc mỗi phiên, nhắc Thắng mục nào tới điều kiện (chuyển từ project Claude 04/10) | **Đang dùng** |
 | `buoi-xem-figma.md` | Câu hỏi giao diện còn chờ Thắng nhìn | **Đang dùng** |
 | `nhat-ky-figma-chung.md` | Nhật ký Figma của **component dùng chung** (menu, chân trang, thẻ gói…) — mỗi lần agent hoặc Thắng sửa | **Đang dùng** |
+| `chuyen-sang-claude-code.md` | Checklist chuyển sang **Claude Code** (06/10/2026): cài đặt, file riêng `CLAUDE.local.md`, skill, Figma MCP, quyền `.claude/settings.json` | **Đang dùng** |
 | `huong-dan-github.md` | Cho Thắng: push, nhãn phiên bản, khoá nhánh `main`, quay lui trên Vercel | **Đang dùng** |
 | `_chung/` | Tài liệu chung cho 7 trang dịch vụ + trang chủ + Liên hệ, **chép nguyên văn** từ project Claude ngày 03/10/2026 | **Lưu trữ có ghi chú** — đầu mỗi file ghi rõ chỗ nào đã lỗi thời |
 

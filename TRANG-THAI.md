@@ -106,7 +106,7 @@ Chi tiết: `docs/remote-office/quy-trinh-build.md` §5.7.
 ## 8. Ghi chú máy của Thắng — đọc nếu agent làm việc trên máy anh
 
 - **Repo nằm ở `D:\BK. Web\baika-website`** (chuyển từ `Downloads` ngày 02/10). Đường dẫn có dấu cách, nên mở CMD phải có ngoặc kép: `cd /d "D:\BK. Web\baika-website"`.
-- **`git push` do Thắng tự chạy.** Agent không đụng tài khoản đăng nhập.
+- **Từ 06/10/2026 (Claude Code): agent push NHÁNH RIÊNG, Thắng gộp PR.** Không push `main`. Agent không đụng tài khoản đăng nhập — push dùng phiên đã lưu trên máy. Cách làm việc riêng: `CLAUDE.local.md` (không lên GitHub).
 - Commit bằng danh tính có sẵn của repo (`BAIKA`, email `noreply` của `baikavn-bot`). Vercel chỉ deploy commit của danh tính này **[xác minh 26/09]**.
 - **Phiên agent mới chưa có quyền xoá file** trên máy Thắng. Lệnh `git switch` / `git status` có thể để lại file khoá `.git/index.lock`, làm các lệnh git sau báo lỗi. Cách gỡ: xin quyền xoá, rồi xoá `.git/index.lock`.
 - Thư mục `Claude outputs/` (ảnh chụp, bản vá) đã bị `.gitignore` chặn — không lên GitHub.
