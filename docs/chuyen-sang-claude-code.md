@@ -76,8 +76,8 @@ File này tự áp dụng khi mở repo. Tóm tắt:
 | Nhóm | Gồm | Agent làm được? |
 | --- | --- | --- |
 | **Cho phép luôn** | `pnpm build` · `pnpm kiem-tra…` · `git status/diff/log` · tạo nhánh · `git add` · `git commit` · `git push origin <nhánh>` | Có, không hỏi |
-| **Hỏi Thắng trước** | `git merge` · `git rebase` · `git stash` · thêm / bớt thư viện (`pnpm add/remove`) · sửa `tokens.css` · `vercel.json` · `.github/` | Phải Thắng bấm đồng ý |
-| **Cấm** | push `main` · force push · xoá nhánh trên GitHub · `git reset --hard` · `git clean` · `git config` · `rm -r` · đọc / sửa `.env` | Không, kể cả khi Thắng bảo |
+| **Hỏi Thắng trước** | `git merge` · `git rebase` · `git stash` · xoá nhánh trên máy (`git branch -d/-D`) · thêm / bớt thư viện (`pnpm add/remove`) · sửa `tokens.css` · `vercel.json` · `.github/` | Phải Thắng bấm đồng ý |
+| **Cấm** | push `main` (mọi cách viết đã biết: `-u`, `HEAD`, `refs/heads/main`, `+`, `--all`, `--mirror`, `git push` trống) · force push · xoá nhánh trên GitHub · gộp PR bằng `gh pr merge` · `git reset --hard` · `git clean` · `git config` · `rm -r` · đọc / sửa `.env` | Không, kể cả khi Thắng bảo |
 
 - [ ] Kiểm: trong Claude Code gõ `/permissions` → thấy 3 nhóm trên.
 - ⚠️ Danh sách cấm so theo **chữ đầu lệnh** — không chặn được mọi cách viết. Lớp bảo vệ thật vẫn là **khoá `main` trên GitHub** (PR + CI xanh). Đừng tắt khoá đó.
