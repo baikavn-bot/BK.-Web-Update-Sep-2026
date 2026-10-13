@@ -7,6 +7,11 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ---
 
+## 13/10/2026 — trên `main` qua Pull Request
+
+**Đổi**
+- **Header có nền mờ khi cuộn** (mọi trang): chữ của trang cuộn qua phía sau header bị làm mờ, mờ nhất ở mép trên, nhạt dần xuống dưới — theo Figma (Background blur Progressive 100). Trước đó nền trong suốt, chữ lộ rõ sau logo và menu.
+
 ## 06/10/2026 — trên `main` qua Pull Request
 
 **Tài liệu**
