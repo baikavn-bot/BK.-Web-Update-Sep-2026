@@ -33,7 +33,10 @@ jobs:
       - name: Tải code
         uses: actions/checkout@v7
 
-      - name: Cài Node đúng bản của repo (.nvmrc = 20.11)
+      # MỘT bản Node cho mọi bước (13/10/2026): .nvmrc = 24, khớp `engines` trong
+      # package.json và Node 24.x trên Vercel. Node 24 đọc thẳng file .ts nên
+      # 2 bài kiểm ước tính / chẩn đoán dưới không cần đổi bản Node nữa.
+      - name: Cài Node đúng bản của repo (.nvmrc = 24)
         uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
@@ -51,29 +54,13 @@ jobs:
       - name: Luật tĩnh — màu viết cứng, #FFFFFF, khoá bí mật
         run: pnpm kiem-tra
 
-      # Bài kiểm công cụ ước tính cần Node ≥ 22.6 (đọc thẳng file .ts).
-      # Site vẫn build bằng Node 20 ở trên; Node 22 chỉ dùng cho bước này.
       # Chỉ chạy khi nhánh có công cụ ước tính (Remote Office). Nhánh `main` trước
-      # khi gộp Remote Office chưa có file này → bỏ qua 2 bước dưới, không báo đỏ.
-      - name: Đổi sang Node 22 cho bài kiểm ước tính
-        if: hashFiles('tools/kiem-tra-uoc-tinh.mts') != ''
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          package-manager-cache: false
-
+      # khi gộp Remote Office chưa có file này → bỏ qua bước dưới, không báo đỏ.
       - name: Công cụ ước tính Remote Office — phải 11/11
         if: hashFiles('tools/kiem-tra-uoc-tinh.mts') != ''
         run: node --experimental-strip-types tools/kiem-tra-uoc-tinh.mts
 
-      # 5 công cụ chẩn đoán (logic giữ y v1) — cũng cần Node ≥ 22.6 để đọc file .ts.
-      - name: Đổi sang Node 22 cho bài kiểm công cụ chẩn đoán
-        if: hashFiles('tools/kiem-tra-chan-doan.mts') != ''
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          package-manager-cache: false
-
+      # 5 công cụ chẩn đoán (logic giữ y v1).
       - name: 5 công cụ chẩn đoán — phải đúng hết các ca
         if: hashFiles('tools/kiem-tra-chan-doan.mts') != ''
         run: node --experimental-strip-types tools/kiem-tra-chan-doan.mts

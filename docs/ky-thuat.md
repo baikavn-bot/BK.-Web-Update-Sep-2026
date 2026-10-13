@@ -79,7 +79,7 @@ Ngoại lệ duy nhất của site tĩnh: *serverless function* — đoạn code
 
 | Công cụ | Bản | Ghi chú |
 | --- | --- | --- |
-| Node | theo `.nvmrc` | Bài kiểm `kiem-tra:uoc-tinh` / `kiem-tra:chan-doan` cần Node ≥ 22.6 (đọc thẳng file `.ts`) |
+| Node | **24** (`.nvmrc`, `engines: 24.x`, CI, Vercel — một bản cho mọi nơi, 13/10) | Node 24 đọc thẳng file `.ts` cho 2 bài kiểm ước tính / chẩn đoán |
 | pnpm | 9.12.0 | Đừng nâng theo lời mời của pnpm |
 | Git | — | `.gitattributes` ép xuống dòng LF trong repo |
 | Playwright | tuỳ chọn | Chỉ cần cho `kiem-tra:trang`, `chup`, `so-anh` — không nằm trong `package.json` |
