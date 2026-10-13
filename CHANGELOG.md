@@ -10,6 +10,7 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 ## 13/10/2026 — trên `main` qua Pull Request
 
 **Tài liệu**
+- `CLAUDE.md` viết lại gọn (~130 dòng, giữ số mục cũ): luật + chỗ tra, chi tiết chuyển sang 7 tài liệu nền; tự nạp `TRANG-THAI.md` + `docs/viec-cho.md`. `TRANG-THAI.md` cập nhật theo 13/10, thêm mục **Lộ trình**. `docs/chuyen-baika-vn.md` thêm **§0 Checklist chuyển baika.vn** (đã xong / làm được ngay / bị chặn; 4 trang chưa dựng không bắt buộc — dùng chuyển hướng tạm).
 - 7 tài liệu nền trong `docs/`: `tong-quan` · `so-do-trang` · `he-thong-thiet-ke` · `ky-thuat` · `quy-uoc-code` · `quy-trinh-lam-viec` · `van-de-da-biet`, kèm **bảng ánh xạ** với kiến trúc tài liệu chuẩn trong `docs/README.md`, và **mục lục quyết định** `docs/_chung/muc-luc-dec.md` (mỗi DEC/VD một dòng, cột còn hiệu lực). Gom từ `CLAUDE.md`, `TRANG-THAI.md`, `CONTRIBUTING.md`, code và tài liệu project Claude cũ. Người xem site không thấy gì khác.
 
 **Đổi**

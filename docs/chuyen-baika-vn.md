@@ -6,6 +6,48 @@ Hiện tại: v2 chạy công khai ở `baika.tech` (**bản thử**) và `baika
 
 Ký hiệu: 🔴 chặn — chưa xong không trỏ · 🟡 nên xong trước · 🟢 làm đúng ngày chuyển. **[xác minh]** / **[suy luận]** như các file khác.
 
+## 0. Checklist chuyển baika.vn — cập nhật 13/10/2026
+
+*Mục tiêu 3 tháng (Thắng chốt 07/10): thay hẳn site cũ bằng site mới, càng sớm càng tốt. Bảng này là bản tóm; chi tiết từng dòng ở §1–§5.*
+
+### ✅ Đã xong
+
+- [x] 7 trang dịch vụ · trang chủ · Liên hệ chạy trên `www.baika.tech`, **cùng slug** với site cũ.
+- [x] **5 công cụ chẩn đoán** dựng lại ở **đúng đường dẫn cũ** (PR #16, 05/10) → link cũ `/…/assessment`, `/…/diagnosis`, `/…/diagnostic`, `/…/survey` không cần chuyển hướng. Mail kết quả chạy thật **[Thắng thử 07/10]**.
+- [x] **Chính sách bảo mật** bản Kapi duyệt (PR #14) — C4.
+- [x] `robots.txt` + `sitemap.xml` (PR #12).
+- [x] Header mới, trang «Sắp ra mắt», nền mờ header (PR #9–#21).
+- [x] Dữ liệu site cũ: sếp xác nhận không có gì cần giữ — C3 **[sếp nói miệng, chưa kiểm máy chủ]**.
+- [x] Bảng chuyển hướng đường dẫn cũ **đã quyết** (176 địa chỉ rà) — §4. **Chưa viết thành luật** (làm ngày chuyển).
+- [x] DNS: Thắng vào được — C6.
+
+### 🔨 Làm được ngay (không chờ ai)
+
+- [ ] **`noindex` cho `baika.tech` theo tên miền** *(Thắng chốt 07/10, giai đoạn a)*: header `X-Robots-Tag: noindex` cho `baika.tech` + `www.baika.tech` trong `vercel.json`. Site tĩnh không biết mình chạy ở tên miền nào lúc dựng → không dùng thẻ `<meta>` được. ⚠️ `vercel.json` hiện chỉ có trên nhánh `remote-office` — thêm vào `main` thì lúc gộp Remote Office phải gộp tay 2 bản `vercel.json`.
+- [ ] Kiểm tên miền gửi mail Resend có cần xác minh lại khi đổi sang `baika.vn` **[chưa kiểm]**.
+- [ ] Soạn sẵn luật chuyển hướng §4 thành `routes` trong `vercel.json` (để trên nhánh riêng, gộp đúng ngày chuyển).
+- [ ] Nút «Chat Zalo» — site cũ có, v2 chưa có (§4.7). Cần Thắng quyết có làm không.
+
+### ⛔ Bị chặn
+
+| Việc | Ai chặn | Chờ gì |
+| --- | --- | --- |
+| **Vercel Pro** — Hobby chỉ cho dùng phi thương mại (C1) | Sếp | Duyệt chi phí — «đang chờ duyệt» từ 05/10 |
+| Lời hứa chưa duyệt: SLA trang AI (`viec-cho` #6) · ô «Mức độ khẩn cấp» Pháp lý (#3) (C5) | Sếp · Thắng | Quyết giữ / sửa chữ. 🟡 nên xong trước, không chặn kỹ thuật |
+| Nội dung site cũ chưa có trên v2 (§5) — cắt có chủ ý hay đưa lại | Thắng | Chọn (a) / (b) / (c) cho từng nhóm. 🟡 không chặn kỹ thuật |
+
+### 4 trang chưa dựng — **KHÔNG bắt buộc trước ngày chuyển**
+
+Trạm Ý Tưởng (+ 155 trang mô hình) · Kho Tài Nguyên · Về BAIKA · Trạm Kết Nối: **dùng bảng chuyển hướng tạm** Thắng chốt 05/10 (§4.1) — `/tram-y-tuong*` + `/tai-nguyen` → `/sap-ra-mat` · `/ve-baika` → `/` · `/tram-ket-noi` → `https://tramketnoi.com/`. Dựng trang thật sau, rồi đổi đích chuyển hướng.
+
+### 🟢 Ngày chuyển — thứ tự
+
+1. Ghi lại **toàn bộ** bản ghi DNS hiện tại của `baika.vn` (A, CNAME, MX, TXT…). Không xoá bản ghi email / xác minh.
+2. Agent sửa `src/lib/ten-mien.ts` + `vercel.json` cùng lúc: site chính = `baika.vn`; logo trên `baika.website` trỏ `baika.vn`; thêm luật chuyển hướng §4 + `/baika-suite/:path*` (§4.5).
+3. Gắn `baika.vn` + `www.baika.vn` vào project Vercel → đổi DNS theo hướng dẫn Vercel.
+4. **`baika.tech` chuyển hướng 308 về `baika.vn`** trong Vercel → Domains *(Thắng chốt 07/10, giai đoạn b)*, **rồi gỡ `noindex`** của `baika.tech` khỏi `vercel.json`.
+5. Kiểm: cửa sổ ẩn danh mở 9 trang + 5 công cụ + vài link cũ · gửi thử form · Google Search Console (nộp `sitemap.xml`).
+
 ## 1. 🔴 Chặn
 
 | # | Việc | Ai | Tình trạng |
@@ -13,16 +55,16 @@ Ký hiệu: 🔴 chặn — chưa xong không trỏ · 🟡 nên xong trước �
 | C1 | **Vercel Pro** — gói Hobby chỉ cho dùng cá nhân, phi thương mại (điều khoản Vercel) **05/10:** sếp (anh Tú — Alviss Wu) báo **đang chờ duyệt**. | Sếp | Chờ duyệt | |
 | C2 | **Danh sách toàn bộ đường dẫn bản cũ** + bảng chuyển hướng sang v2 — tránh link cũ ra 404. Đã biết bản cũ có `/tram-y-tuong` · `/tram-y-tuong?tab=ideas` · `/tai-nguyen` · `/ve-baika` mà v2 chưa có **[xác minh 05/10]** | Agent rà · Thắng quyết | Rà xong 05/10 (2 lượt, 176 địa chỉ) → §4, nội dung thiếu → §5. Còn các ô ❓ chờ quyết |
 | C3 | **Bản cũ có đăng nhập + dữ liệu?** Bản cũ gọi `/api/auth/session` và `/api/ideas` **[xác minh]**. Cần sếp trả lời: (a) đã có ai thật sự đăng nhập / tạo tài khoản chưa, hay chỉ là demo? (b) đăng nhập xong người dùng có thêm những gì? (c) nếu có, thông tin tài khoản và dữ liệu đang lưu ở đâu, ai quản lý? **05/10 — sếp trả lời:** không có dữ liệu, web cũ không ai vào/không ai dùng → 3 kho leads/bookings/assessments không cần xuất. **[sếp xác nhận, chưa kiểm máy chủ]** | Sếp | ✅ Hết chặn | |
-| C4 | **Chính sách bảo mật** còn là bản nháp — **Kapi (agent của sếp) rà soát và viết lại** khi sếp tới công ty **05/10:** Kapi đã sửa và duyệt xong — chờ nhận bản cuối. | Sếp + Kapi | Chờ bản cuối từ Kapi | |
-| C5 | **Lời hứa chưa duyệt:** 5 nút «… miễn phí» trỏ tới công cụ chưa có (`viec-cho` #1, #2) — **bộ công cụ do sếp + Kapi tạo**, xong thì cập nhật lên repo để agent tích hợp vào source · SLA trang AI (#6) · ô mức khẩn cấp trang Pháp lý (#3) **05/10 — sếp chốt:** công cụ dùng lại logic v1, kết quả tạm gửi mail. Còn chờ duyệt: SLA trang AI (#6), ô khẩn cấp Pháp lý (#3). | Sếp + Kapi · Thắng | Công cụ ✅ chốt · lời hứa còn chờ | |
+| C4 | **Chính sách bảo mật** còn là bản nháp — **Kapi (agent của sếp) rà soát và viết lại** khi sếp tới công ty **05/10:** Kapi đã sửa và duyệt xong — chờ nhận bản cuối. | Sếp + Kapi | ✅ Xong — bản Kapi duyệt lên web (PR #14) | |
+| C5 | **Lời hứa chưa duyệt:** 5 nút «… miễn phí» trỏ tới công cụ chưa có (`viec-cho` #1, #2) — **bộ công cụ do sếp + Kapi tạo**, xong thì cập nhật lên repo để agent tích hợp vào source · SLA trang AI (#6) · ô mức khẩn cấp trang Pháp lý (#3) **05/10 — sếp chốt:** công cụ dùng lại logic v1, kết quả tạm gửi mail. Còn chờ duyệt: SLA trang AI (#6), ô khẩn cấp Pháp lý (#3). | Sếp + Kapi · Thắng | Công cụ ✅ đã dựng (PR #16) · lời hứa còn chờ | |
 | C6 | **DNS baika.vn** — **Thắng truy cập được** (xác nhận 05/10). Trước khi sửa: chụp/ghi lại TOÀN BỘ bản ghi hiện có (A, CNAME, MX, TXT…) để còn khôi phục, và không xoá bản ghi email/xác minh | Thắng | Sẵn sàng — làm ở §3 |
 
 ## 2. 🟡 Nên xong trước
 
-- Gộp các nhánh đang chờ: `bo-sap-ra-mat` · `sap-ra-mat` (header mới + trang Sắp ra mắt) · `spec-4-trang`.
-- `robots.txt` + `sitemap.xml` — repo chưa có **[xác minh]**.
+- ~~Gộp các nhánh đang chờ~~ ✅ đã gộp hết (PR #9–#21).
+- ~~`robots.txt` + `sitemap.xml`~~ ✅ PR #12.
 - Gửi mail từ form (Resend): kiểm tên miền gửi có cần xác minh lại khi đổi sang baika.vn **[chưa kiểm]**.
-- Việc nhỏ: favicon + xoá 3 ảnh logo cũ (#14) · màn > 2560 (#15) · màu nút Button 2 (#8) · blur header (#24, nhánh `sap-ra-mat`).
+- Việc nhỏ: favicon + xoá 3 ảnh logo cũ (#14) · màn > 2560 (#15) · màu nút Button 2 (#8). ~~Blur header (#24)~~ ✅ 13/10.
 
 ## 3. 🟢 Ngày chuyển (agent sửa code, Thắng push + đổi DNS)
 
@@ -66,15 +108,17 @@ Phát hiện quan trọng: 5 công cụ «miễn phí» mà `viec-cho` #1 #2 ghi
 
 | Đường dẫn cũ | Tiêu đề trang | v2 hiện tại | Quyết |
 | --- | --- | --- | --- |
-| `/ceo-blueprint/assessment` | «Business Blueprint Assessment» | Nút trỏ về form liên hệ | ❓ |
-| `/finance/assessment` | «Finance Readiness Assessment» | như trên | ❓ |
-| `/remote-ops/survey` | «Khảo sát Vận hành Doanh nghiệp» | như trên | ❓ |
-| `/ai-os/diagnosis` | «Khảo sát cơ hội ứng dụng AI» | như trên | ❓ |
-| `/marketing/diagnostic` | «Chẩn đoán thương hiệu» | như trên | ❓ |
+| `/ceo-blueprint/assessment` | «Business Blueprint Assessment» | ✅ **Có, cùng đường dẫn** (05/10) | ✅ |
+| `/finance/assessment` | «Finance Readiness Assessment» | ✅ như trên | ✅ |
+| `/remote-ops/survey` | «Khảo sát Vận hành Doanh nghiệp» | ✅ như trên | ✅ |
+| `/ai-os/diagnosis` | «Khảo sát cơ hội ứng dụng AI» | ✅ như trên | ✅ |
+| `/marketing/diagnostic` | «Chẩn đoán thương hiệu» | ✅ như trên | ✅ |
+
+> ✅ **Cập nhật 05/10:** sếp chốt dùng lại logic v1; 5 công cụ đã dựng lại trên v2 ở **đúng 5 đường dẫn này** (PR #16), kết quả gửi mail, không lưu. Đoạn dưới là phát hiện lúc rà, giữ để tra.
 
 Cả 5 công cụ **gửi kết quả về** `/api/v1/public/assessments` của máy chủ bản cũ **[xác minh: đọc mã trang; không gửi thử]** → bản cũ **đang lưu câu trả lời của khách** ở đâu đó. Liên quan trực tiếp tới C3 (đăng nhập + dữ liệu), C5 (bộ công cụ sếp + Kapi làm) và Chính sách bảo mật. Câu hỏi cho sếp: bộ công cụ mới có **thay** 5 công cụ này không, hay dùng lại chúng?
 
-Tạm thời khi chuyển: chuyển 5 đường dẫn về **trang dịch vụ tương ứng** của v2 (vd. `/finance/assessment` → `/finance`).
+~~Tạm thời khi chuyển: chuyển 5 đường dẫn về trang dịch vụ tương ứng của v2~~ — không cần nữa, v2 đã có trang ở cùng đường dẫn.
 
 ### 4.3 Đăng nhập & quản trị — không phải trang cho khách
 
