@@ -2,8 +2,8 @@
 //
 // Chạy:   pnpm kiem-tra:chan-doan
 //         (= node --experimental-strip-types tools/kiem-tra-chan-doan.mts)
-// Cần Node 22.6 trở lên (để Node đọc thẳng file .ts). Repo dùng Node 20 để build —
-// file này chỉ dành cho agent kiểm tra, không nằm trong site.
+// Cần Node 22.6 trở lên (để Node đọc thẳng file .ts) — repo dùng Node 24 từ 13/10/2026.
+// File này chỉ dành cho agent kiểm tra, không nằm trong site.
 //
 // Mỗi ca: một bộ câu trả lời → kết quả TÍNH TAY trước theo công thức v1
 // (`docs/trang-con-thieu/cong-cu-chan-doan-v1.md`). Ra «N/N» là đúng.

@@ -9,7 +9,7 @@ Viết lại từ cách Claude đã dựng 7 trang dịch vụ + trang chủ (24
 
 | Cần | Kiểm sao |
 | --- | --- |
-| Node **20.11+**, **pnpm** | `node -v` · `pnpm -v` |
+| Node **24** (`.nvmrc`), **pnpm 9.12.0** | `node -v` · `pnpm -v` |
 | Cài thư viện | `pnpm install` |
 | **Đọc được Figma** `YmcXg1lQqGVjQOFrVtdOgW` (Figma MCP hoặc Dev Mode) | Mở được node `913:4649`. **Không đọc được Figma thì dừng** — không dựng theo ảnh chụp hay trí nhớ |
 | Đã đọc `/CLAUDE.md` + `SPEC-MASTER.md` | |

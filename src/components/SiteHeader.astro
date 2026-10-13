@@ -26,8 +26,9 @@
 //     theo (5 biến thể header). Quầng sáng Focus vẫn chỉ hiện khi focus bàn phím (VD-005).
 //   · ✅ 05/10 (tối) — Thắng chốt: header CỐ ĐỊNH theo trang («Fixed to page») —
 //     cuộn trang thì header đứng yên ở trên. Figma: cả 71 instance đã đặt cố định.
-//   · Header Figma có Background blur PROGRESSIVE 100 → 0. Thang --blur-* không có
-//     mức tương ứng (Figma 100 = CSS 50px) → CHƯA làm, chờ Thắng chốt.
+//   · ✅ 13/10 — Thắng chốt (viec-cho #24): nền mờ theo Figma effect style
+//     `BackgroundBlur/Progressive/100` → token --blur-100 (50px). CSS không có blur
+//     «mờ dần» → lớp ::before blur đều 50px + mask-image mờ dần trên → dưới.
 //
 // Logo: `Logo / Lockup` 861:8828 — public/img/logo/baika-lockup-white.svg (xuất
 // thẳng từ Figma, màu trắng nằm trong file ảnh — ngoại lệ đã ghi từ 28/09).
@@ -131,9 +132,8 @@ const dichVu = [
 
 <style>
   .hdr {
-    /* Cố định theo màn hình khi cuộn (Thắng chốt 05/10). Nền vẫn trong suốt như
-       Figma → nội dung cuộn qua sẽ hiện SAU header. Lớp mờ nền (blur) chưa làm —
-       xem viec-cho #24. */
+    /* Cố định theo màn hình khi cuộn (Thắng chốt 05/10). Nền trong suốt như
+       Figma; nội dung cuộn qua bị làm mờ bởi lớp ::before bên dưới (13/10). */
     position: fixed;
     inset: 0 0 auto 0;
     z-index: 20;
@@ -144,6 +144,20 @@ const dichVu = [
     padding: 0 var(--s-6);          /* Mobile: lề 24 */
     background: none;               /* Figma: fill của khung đang ẨN → trong suốt */
     pointer-events: none;           /* chuột lọt xuống nội dung bên dưới */
+  }
+  /* Nền mờ dần (Figma BackgroundBlur Progressive 100 → 0). Làm mờ ĐỀU 50px, rồi
+     mask-image cho lớp mờ đó nhạt dần từ trên (mờ đủ) xuống dưới (không mờ).
+     mask chỉ đọc độ đục của màu → dùng token đục bất kỳ, màu không hiện ra. */
+  .hdr::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    -webkit-backdrop-filter: blur(var(--blur-100));
+    backdrop-filter: blur(var(--blur-100));
+    -webkit-mask-image: linear-gradient(to bottom, var(--gray-950), transparent);
+    mask-image: linear-gradient(to bottom, var(--gray-950), transparent);
+    pointer-events: none;
   }
   .hdr > * { pointer-events: auto; }
   .hdr > [hidden] { display: none; }

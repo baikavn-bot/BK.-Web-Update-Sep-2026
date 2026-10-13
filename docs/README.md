@@ -9,6 +9,43 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 3. Thư mục của trang đang làm (bảng dưới).
 4. `_chung/` — chỉ khi cần tra lý do một quyết định, hoặc thông tin chung chưa có ở 3 chỗ trên.
 
+## Tài liệu nền — đọc khi cần
+
+| File | Trả lời câu |
+| --- | --- |
+| `tong-quan.md` | BAIKA là gì, website để làm gì, phạm vi, ai quyết gì |
+| `so-do-trang.md` | Site có những đường dẫn nào, file nào |
+| `he-thong-thiet-ke.md` | Figma ở đâu, luật token, chữ, trạng thái, breakpoint, mức sàn chất lượng |
+| `ky-thuat.md` | Stack, cấu trúc thư mục, `api/`, biến môi trường, tên miền, lệnh, triển khai, quay lui |
+| `quy-uoc-code.md` | Viết code thế nào cho người không biết code đọc được |
+| `quy-trinh-lam-viec.md` | Một vòng làm việc, nguồn nào thắng, đồng bộ ngược Figma, tài liệu đi theo thay đổi, bài học |
+| `van-de-da-biet.md` | Sai lệch có chủ ý, lỗi treo, rủi ro |
+
+## Bảng ánh xạ — kiến trúc tài liệu chuẩn ↔ repo này
+
+*Chốt 06/10/2026 (phương án B): giữ tên tiếng Việt và vị trí file đang chạy tốt; kiến trúc chuẩn chỉ dùng làm **checklist độ đầy đủ**. Mỗi thông tin chỉ có **một** chỗ ở.*
+
+| Vai trò chuẩn | File trong repo |
+| --- | --- |
+| `CLAUDE.md` | `../CLAUDE.md` (luật ngắn + trỏ tới đây) |
+| `CLAUDE.local.md` | `../CLAUDE.local.md` — riêng máy, không lên GitHub |
+| `README.md` | `../README.md` |
+| `.claude/settings.json` | `../.claude/settings.json` — quyền agent |
+| PROJECT_BRIEF | `tong-quan.md` |
+| REQUIREMENTS | `<trang>/SPEC-MASTER.md` + `spec-noi-dung.md` của từng trang (`remote-office/`, `cong-cu-chan-doan/`) · chung: `_chung/ban-giao-ky-thuat.md` |
+| SITEMAP | `so-do-trang.md` |
+| DESIGN_SYSTEM | `he-thong-thiet-ke.md` · nhật ký: `nhat-ky-figma-chung.md` |
+| ARCHITECTURE · ENVIRONMENT · DEPLOYMENT | `ky-thuat.md` (gộp 3 vai trò) |
+| ADR (quyết định) | `DEC-xxx` trong `_chung/` — mục lục: `_chung/muc-luc-dec.md` |
+| CODING_STANDARDS | `quy-uoc-code.md` |
+| GIT_WORKFLOW | `../CONTRIBUTING.md` · cho người: `huong-dan-github.md` |
+| WORKFLOW | `quy-trinh-lam-viec.md` |
+| PROGRESS · ROADMAP | `../TRANG-THAI.md` (có mục «Lộ trình») |
+| KNOWN_ISSUES | `van-de-da-biet.md` |
+| OPEN_QUESTIONS | `viec-cho.md` · giao diện: `buoi-xem-figma.md` |
+| CHANGELOG | `../CHANGELOG.md` |
+| HANDOFF · AUDIT | Bản riêng trên máy Thắng (có thông tin nội bộ — không lên repo công khai) |
+
 ## Thư mục
 
 | Thư mục | Chứa gì | Tình trạng |
@@ -52,7 +89,7 @@ Mọi tài liệu cần để **dựng và sửa** website nằm ở đây, tron
 
 ### Còn ở project Claude, chưa chuyển
 
-Các file `_chung/` có nhắc tới những file dưới đây. Chúng **chưa** vào repo — hoặc thuộc luồng khác, hoặc là bản rà soát đã xong việc:
+**Từ 07/10/2026 không làm ở project claude.ai nữa.** Toàn bộ tài liệu của project đã được xuất ra và lưu **riêng trên máy Thắng** (06/10); phần còn giá trị đã đưa vào các file nền ở trên (13/10). Các file `_chung/` có nhắc tới những file dưới đây — chúng **không** vào repo vì thuộc luồng khác, đã lỗi thời, hoặc có thông tin nội bộ:
 
 `claude/framer-cms-schema.md` (phương án đã loại) · `claude/ban-giao-tuan.md` (tên cũ của `ban-giao-ky-thuat.md`) · `claude/he-thong-button.md` · `claude/noi-dung-theo-section.md` · `claude/noi-dung-7-trang.md` · `claude/ra-soat-system-2509.md` · `claude/ke-hoach-build-7-trang.md` · `claude/tien-do-24-09.md` · `claude/website-agent-figma-gap-audit.md` · `claude/huong-dan-git-vercel.md` · `claude/quy-uoc-ban-giao.md` · `project-brief.md` · `design-log.md`
 

@@ -24,7 +24,7 @@ Từ đây, việc **code** của website làm bằng **Claude Code** chạy th�
 ## 1. Cài công cụ (một lần)
 
 - [ ] **Git for Windows** — đã có (Thắng đang dùng `git` trong cmd). Claude Code trên Windows cần nó.
-- [ ] **Node 20.11** — mở cmd, gõ `node -v`. Thiếu hoặc khác → cài bản 20 LTS từ nodejs.org. *(Bài kiểm `kiem-tra:chan-doan` / `kiem-tra:uoc-tinh` cần Node ≥ 22.6; build vẫn dùng 20. Chạy được trên GitHub CI rồi nên không bắt buộc ở máy.)*
+- [ ] **Node 24** *(từ 13/10/2026 — trước đó 20.11)* — mở cmd, gõ `node -v` → phải ra `v24.…`. Thiếu hoặc khác → cài bản 24 LTS từ nodejs.org. Một bản cho mọi việc: build lẫn các bài kiểm.
 - [ ] **pnpm 9.12** — `npm install -g pnpm@9.12.0`, kiểm bằng `pnpm -v`.
 - [ ] **Claude Code** — cách dễ nhất: mở app Claude trên máy, vào phần **Code**, chọn thư mục `D:\BK. Web\baika-website`. Hoặc bản dòng lệnh theo hướng dẫn chính thức tại docs.claude.com (mục Claude Code → cài đặt cho Windows). *[Tèo chưa kiểm trực tiếp trên máy Thắng — làm theo hướng dẫn chính thức nếu khác.]*
 

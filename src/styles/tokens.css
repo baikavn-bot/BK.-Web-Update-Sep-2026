@@ -235,6 +235,11 @@
   --blur-card:       8px;   /* Figma BackgroundBlur 16 — trạng thái Default   */
   --blur-card-alt:  16px;   /* Figma BackgroundBlur 32 — Hover/Active/Focus   */
 
+  /* Làm mờ HẬU CẢNH của header (NVG header) — thêm 13/10/2026, Thắng chốt (viec-cho #24).
+     Figma: effect style `BackgroundBlur/Progressive/100` (mờ dần 100 → 0, trên → dưới).
+     CSS không có blur «mờ dần» → dùng blur đều + mask-image mờ dần (SiteHeader.astro). */
+  --blur-100:       50px;   /* Figma BackgroundBlur/Progressive/100 */
+
   /* -----------------------------------------------------------
      12 · LƯỚI & BREAKPOINT — 5 grid style
      Breakpoint mobile là 375, KHÔNG phải 390 (DEC-031).

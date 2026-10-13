@@ -1,113 +1,82 @@
 # TRẠNG THÁI DỰ ÁN — đọc file này đầu tiên mỗi phiên
 
-*Cập nhật **04/10/2026** · Ai sửa trạng thái thì sửa ngày ở dòng này.*
+*Cập nhật **13/10/2026** · Ai sửa trạng thái thì sửa ngày ở dòng này. Chỉ sửa trên `main` qua Pull Request.*
 
-File này trả lời câu: **"Dự án đang ở đâu, cái gì chạy, cái gì kẹt, làm gì tiếp?"**
-Luật làm việc nằm ở `CLAUDE.md`. Quy trình GitHub: `CONTRIBUTING.md`. **Việc chờ nhắc: `docs/viec-cho.md`.** Lịch sử thay đổi nằm ở `CHANGELOG.md`.
+File này trả lời: **«Dự án đang ở đâu, cái gì chạy, cái gì kẹt, làm gì tiếp?»** Luật: `CLAUDE.md`. Việc chờ: `docs/viec-cho.md`. Lịch sử: `CHANGELOG.md`.
 
-Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy luận]** = suy ra từ tài liệu, chưa kiểm.
-
----
-
-## 1. Tóm tắt một dòng
-
-7 trang dịch vụ, trang chủ và Liên hệ đã chạy trên nhánh `main`. Trang **Remote Office** dựng xong 9/9 khối trên nhánh `remote-office`. Tên miền `baika.website` **chạy đầy đủ, khách xem được** (04/10). Chưa ra mắt thật: vẫn `noindex`, chưa gộp vào `main`.
+Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy luận]** = suy ra, chưa kiểm.
 
 ---
 
-## 2. Nhánh (branch) — mỗi nhánh là một bản riêng của code
+## 1. Tóm tắt
 
-Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai** (sếp đồng ý, xác nhận 03/10). Nhãn phiên bản: `v1.0.0` = `main` `aac95de` — đã lên GitHub **[xác minh 03/10]**. Kiểm tra tự động (CI): chạy xanh trên `remote-office` **[xác minh 04/10 — ảnh tab Actions]**. Khoá nhánh `main`: **đã bật** — ruleset `bao-ve-main`, Active, không ai được vượt khoá **[xác minh 04/10 — ảnh chụp]**; đưa thay đổi lên `main` chỉ qua Pull Request — `docs/huong-dan-github.md`. Bảo mật tài khoản / repo **[xác minh 04/10 — ảnh chụp]**: xác thực 2 lớp đã bật · **Secret Protection + Push protection** đã bật (GitHub chặn push có khoá bí mật) · nhánh tự xoá sau khi gộp PR.
+Site mới chạy đầy đủ ở `www.baika.tech` (bản thử, nhánh `main`): trang chủ · 7 trang dịch vụ · Liên hệ · 5 công cụ chẩn đoán · Chính sách bảo mật (bản Kapi duyệt) · header cố định có nền mờ. Landing **Remote Office** chạy ở `baika.website` (nhánh `remote-office`, `noindex`). **Chưa ra mắt thật:** khách vào `baika.vn` vẫn thấy site cũ. Từ 06/10 làm bằng **Claude Code**; tài liệu bàn giao đang vào `main` (13/10).
 
-| Nhánh | Commit mới nhất | Chứa gì | Đã lên GitHub |
-| --- | --- | --- | --- |
-| `main` | PR #8 (05/10) | 7 trang dịch vụ · trang chủ · Liên hệ · CI · toàn bộ tài liệu · **trang Chính sách bảo mật — bản nháp** (PR #7) · **bỏ link chết: 2 Trạm «Sắp ra mắt», ẩn mạng xã hội** (PR #8) | ✅ **[xác minh 05/10]** |
-| `remote-office` | `ca25e16` (02/10) + các commit sau đó | Mọi thứ của `main` + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + tài liệu repo | ✅ đến `ca25e16` **[xác minh 03/10]** |
+## 2. Nhánh
 
-`remote-office` **chưa gộp (merge)** vào `main`. ✅ Đã kéo `main` (PR #1–#4) vào `remote-office` ngày 04/10 — commit `4e41d85`, build sạch, 11/11 ca ước tính. Gộp ra mắt sau này sẽ không còn xung đột (trừ khi `main` có thêm commit). Gộp khi ra mắt Remote Office thật — xem mục 7.
+Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai**. Khoá `main`: ruleset `bao-ve-main` (chỉ gộp qua PR, CI `kiem-tra` phải xanh) **[xác minh 04/10]**. Nhãn `v1.0.0` = bản chính đầu tiên 29/09.
 
-⚠️ Bản sửa "mail ghi đúng trang gửi" (`ContactForm.astro` + `api/contact.ts`) dùng chung cho cả 9 trang, nhưng hiện **chỉ có trên `remote-office`**. Form ở `main` vẫn ghi «Gửi từ: trang /lien-he» cho mọi trang. Sẽ tự hết khi gộp nhánh.
+| Nhánh | Đang ở | Chứa gì |
+| --- | --- | --- |
+| `main` | PR #21 `ccd126d` (13/10) **[xác minh 13/10]** | Toàn bộ site chính + tài liệu. PR gần nhất: #18 quyền Claude Code · #19 `viec-cho` · #20 nhật ký Figma · #21 header nền mờ |
+| `remote-office` | `278f319` (đã gộp `main` tới PR #18, push 13/10) **[xác minh 13/10]** | Mọi thứ của `main` tới PR #18 + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + công cụ ước tính. **Chưa có** PR #19–#21 → `baika.website` chưa có header nền mờ |
 
----
+`remote-office` **chưa gộp** vào `main` — gộp khi ra mắt Remote Office (§6). Trước đó kéo `main` vào lần nữa; lần 07/10 không có xung đột.
 
 ## 3. Đang chạy ở đâu
 
-### Vercel — project `bk-web-update-sep-2026` (team `baika`, gói **Hobby**)
+**Vercel** — project `bk-web-update-sep-2026`, gói **Hobby**, Node **24.x** (dashboard) **[Thắng xác minh 06/10]**.
 
 | Địa chỉ | Lấy code từ | Ghi chú |
 | --- | --- | --- |
-| `baika.tech` · `www.baika.tech` · `bk-web-update-sep-2026.vercel.app` | `main` (Production) | Bản chính hiện tại — **bản thử** (Thắng chốt 04/10), sẽ được `baika.vn` thay. Ngày trỏ `baika.vn`: đổi `src/lib/ten-mien.ts` **và** `vercel.json` cùng lúc |
-| Bản preview của nhánh `remote-office` | `remote-office` (Preview) | **Ai có link cũng xem được** — Thắng tắt *Vercel Authentication* 04/10 để khách xem `baika.website` |
-| `baika.website` | `remote-office` (Preview) | **Đã chạy, khách ngoài xem được** — 6 mục kiểm §5.6 đạt **[Thắng kiểm 04/10, cửa sổ ẩn danh]**. Vẫn `noindex`. 8 trang khác chuyển sang `www.baika.tech` |
-| `www.baika.website` | — | **Đã chạy** — chuyển 308 về `baika.website` · DNS `CNAME www` **[xác minh 04/10]** |
-| `baika.vn` | — (hosting riêng, sếp giữ) | **Không thuộc repo này.** Vẫn là site cũ (Next.js), chỉ để tham khảo. Ngày trỏ sang repo này: đổi chuyển hướng trong `vercel.json` từ `www.baika.tech` về `baika.vn` (`docs/remote-office/quy-trinh-build.md` §5.2 dòng 2) *[suy luận — chưa kiểm lại sau 29/09]* |
+| `www.baika.tech` · `baika.tech` · `bk-web-update-sep-2026.vercel.app` | `main` (Production) | **Bản thử** — sau này `baika.vn` thay. Đang mở cho Google lập chỉ mục (§5) |
+| `baika.website` · `www.baika.website` (308) | `remote-office` (Preview) | Khách ngoài xem được · `noindex` · 8 trang chính chuyển sang `www.baika.tech` **[xác minh 13/10: chính sách bảo mật bản chính thức, trang chủ, `/finance/assessment` mở được]** |
+| Preview mọi nhánh | nhánh đó | Ai có link cũng xem được (tắt Vercel Authentication 04/10) |
+| `baika.vn` | — (hosting riêng, sếp giữ) | **Site CŨ, không thuộc repo này.** Kế hoạch chuyển: `docs/chuyen-baika-vn.md` |
 
-**Biến môi trường (environment variable** — giá trị cài trên Vercel, không nằm trong code**)** cho form gửi mail: `RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM`. Cả ba đã bật cho Preview **[xác minh 02/10 — `/api/health` trả `true` cả ba]**. Giá trị thật **không bao giờ** ghi vào repo.
+**Form gửi mail:** 3 biến `RESEND_API_KEY` · `CONTACT_TO` · `CONTACT_FROM` (Resend gói Free).
+- Preview: đã bật **[xác minh 02/10 — `/api/health`]**; mail Liên hệ về đúng hộp thư, đúng trang gửi **[xác minh 02/10]**.
+- Production: công cụ Finance Readiness gửi mail kết quả về hộp thư công ty đầy đủ **[Thắng thử 07/10 trên `baika.tech`]**.
 
-Đã gửi thử form ở preview `remote-office`, mail về hộp thư công ty đúng tiêu đề và đúng trang gửi **[xác minh 02/10]**.
+Cách gắn tên miền, biến môi trường, quay lui: `docs/ky-thuat.md`.
 
-### Cách `baika.website` mở ra trang Remote Office
+## 4. Đang kẹt
 
-File `vercel.json` dùng **`routes`, không dùng `rewrites`**. Lý do: `rewrites` thua file tĩnh `index.html`. Chi tiết + bảng từng dòng: `docs/remote-office/quy-trinh-build.md` §5.
-
-Đã kiểm `routes` đè được `index.html` bằng dòng thử `/?thu-baika-website` **[xác minh 02/10]**.
-
----
-
-## 4. 🔴 Đang kẹt / đang làm
-
-Không còn việc kẹt về kỹ thuật. Tên miền Remote Office **xong 04/10** (`baika.website` + `www`, khách xem được, 6 mục kiểm đạt).
-
-Còn lại là **quyết định** — mục 5 — và **ra mắt thật** — mục 7.
-
----
+Không có việc kẹt về kỹ thuật. Còn chờ **quyết định** (§5).
 
 ## 5. Còn chờ quyết — agent KHÔNG tự quyết
 
-Danh sách đầy đủ của Remote Office: `docs/remote-office/SPEC-MASTER.md` §7. Các mục còn mở:
+| # | Câu hỏi | Ai | Chặn gì | Đang chạy tạm |
+| --- | --- | --- | --- | --- |
+| C1 | Nâng **Vercel Pro** (Hobby chỉ cho dùng phi thương mại) | Sếp | Ra mắt Remote Office + chuyển `baika.vn` | Hobby — sếp báo «đang chờ duyệt» 05/10, chưa có tin mới |
+| RO-5 | Giữ chi phí cố định **1.800.000 đ/người** (Remote Office)? | Sếp | Ra mắt Remote Office | Giữ, theo Spec v3 **[suy luận từ câu chốt của sếp]** |
+| RO-12 | Danh sách chính thức ô «Lĩnh vực» | Thắng | — | 8 lựa chọn tạm (Remote Office + 7 trụ) |
+| DEC-090 | Quầng sáng thẻ gói: Hover (Figma) hay Focus (code) | Thắng | — | Lệch, để nguyên — `docs/buoi-xem-figma.md` |
+| — | Lời hứa chưa duyệt: SLA trang AI (`viec-cho` #6) · ô «Mức độ khẩn cấp» Pháp lý (#3) | Sếp · Thắng | Nên xong trước chuyển `baika.vn` | Như Figma |
 
-| # | Câu hỏi | Ai quyết | Đang chạy tạm |
-| --- | --- | --- | --- |
-| 5 | Giữ chi phí cố định **1.800.000 đ/người**? | Sếp | Giữ, theo Spec v3 — **[suy luận từ câu chốt của sếp]** |
-| 10 | ✅ Chốt 04/10: số «23,5» = **80px** — chuẩn hoá Figma theo token | — | Code + Figma khớp |
-| 11 | ✅ Chốt 04/10: khoảng **12** (`--s-3`) — Figma đã sửa | — | Code + Figma khớp |
-| 12 | ✅ Chốt TẠM 04/10: ô «Lĩnh vực» = 8 lựa chọn (Remote Office + 7 trụ) — đã dựng. Danh sách chính thức chốt sau | Thắng | 8 lựa chọn |
-| 13 | ✅ Chốt 04/10: **thêm** mục «Remote Office» **đứng đầu** menu (8 → 9 mục) — đã vẽ Figma + dựng code | — | ✅ **Đã lên bản chính** — PR #4, `main` `3d9c30a` · Thắng kiểm `www.baika.tech` 04/10: đủ 9 mục |
-| 16 | ✅ Chốt 04/10: ô bảng cao **theo nội dung** — Figma đã sửa | — | Code + Figma khớp |
-| 17 | ✅ Chốt 04/10: lề trang tablet **40** — Figma đã sửa | — | Code + Figma khớp |
-| L14 | ✅ Chốt 04/10: dòng pháp lý **dưới form Liên hệ** — đã dựng | — | Đã có (nhánh `remote-office`) · Figma đã vẽ `960:3633` |
-| ✅ | Chốt 04/10: logo trên `baika.website` dẫn về **site chính** (`www.baika.tech`, khai ở `src/lib/ten-mien.ts`) — đã dựng | — | — |
-| — | Nâng **Vercel Pro** trước khi ra mắt (Hobby chỉ cho dùng phi thương mại) | Sếp | Hobby |
-| ✅ | Chốt 04/10: **`baika.tech` là bản THỬ** — sau này `baika.vn` trỏ sang repo này và thay nó. Canonical 9 trang đã trỏ `baika.vn` từ trước, đúng hướng | — | — |
-| ~~—~~ | ~~Trang chủ không có `<h1>`~~ — ✅ **chốt 04/10:** dòng mô tả dưới logo làm `<h1>`, nhìn không đổi (so ảnh giống từng pixel). Lên bản chính qua Pull Request `sua-h1-trang-chu` | — | — |
-| DEC-090 | Quầng sáng thẻ gói: Figma để ở **Hover**, code để ở **Focus** — Thắng 04/10: giữ Figma, code «đang làm xấu hơn», **chưa rà** | Thắng | Lệch, để nguyên cả hai — `docs/nhat-ky-figma-chung.md` |
+**Đã chốt, chưa làm:** `baika.tech` đặt `noindex` theo tên miền (Thắng chốt 07/10) — `docs/chuyen-baika-vn.md` §0.
 
-DEC-090 + 2 việc phát sinh 04/10 (chữ BAIKA mờ, nút Lg 46/48): `docs/buoi-xem-figma.md`. #10 #11 #16 #17 đã xong 04/10.
+Quyết định riêng của Remote Office: `docs/remote-office/SPEC-MASTER.md` §7.
 
-Mục chung cả site (Nav Button thiếu Hover/Focus, link chết ở 2 ô bento…): `CLAUDE.md` §11.
+## 6. Lộ trình
 
----
+*Mục tiêu 3 tháng (Thắng chốt 07/10): **thay hẳn site cũ `baika.vn` bằng site mới, càng sớm càng tốt.***
 
-## 6. Ba việc tiếp theo
+| Khi nào | Việc | Phụ thuộc |
+| --- | --- | --- |
+| **Bây giờ** | Gộp 4 PR bàn giao (mục lục DEC → 7 tài liệu → `CLAUDE.md`/trạng thái → Node 24) | Thắng gộp theo thứ tự |
+| **Bây giờ** | `noindex` cho `baika.tech` · kéo `main` vào `remote-office` (header nền mờ) | — |
+| **Bây giờ** | Nghiệm thu bàn giao (phiên agent mới chạy thử) · cập nhật `web-starter` | — |
+| **Khi sếp duyệt** | **Ra mắt Remote Office:** gộp `remote-office` vào `main` → `baika.website` sang Production → gỡ `noindex` — `docs/remote-office/quy-trinh-build.md` §5.7 | C1 · RO-5 |
+| **Khi sếp duyệt** | **Chuyển `baika.vn`:** checklist `docs/chuyen-baika-vn.md` §0 | C1 |
+| Sau | 4 trang chưa dựng (Trạm Ý Tưởng · Kho mô hình · Kho Tài Nguyên · Về BAIKA) — ngày chuyển dùng chuyển hướng tạm | Thiết kế Figma |
+| Sau | Vòng UI 5 công cụ chẩn đoán (màn kết quả mức thấp/cao) — `viec-cho` #2 | Thắng |
+| Sau | Giới hạn số lần gửi form · analytics (`viec-cho` #27) · Astro 5 | Sếp (analytics) |
 
-1. **Sếp duyệt để ra mắt Remote Office:** con số 1,8 triệu (#5) · gói Vercel Pro · gỡ `noindex` → rồi làm mục 7.
-2. **Chốt các mục ở mục 5** — ít nhất #5 (sếp) và Vercel Pro, vì hai mục này chặn ra mắt.
-3. **Báo sếp:** `main` đã khoá — agent của sếp cũng phải đi qua Pull Request. *(Hoàn thiện repo xong: 4 đợt + CI + khoá nhánh, 03–04/10.)*
+## 7. Ghi chú máy của Thắng
 
----
-
-## 7. Ra mắt Remote Office — khi mọi mục ở 4 và 5 xong
-
-Gộp `remote-office` vào `main` → chuyển `baika.website` từ Preview sang Production → gỡ `noindex` → nâng Vercel Pro.
-Chi tiết: `docs/remote-office/quy-trinh-build.md` §5.7.
-
----
-
-## 8. Ghi chú máy của Thắng — đọc nếu agent làm việc trên máy anh
-
-- **Repo nằm ở `D:\BK. Web\baika-website`** (chuyển từ `Downloads` ngày 02/10). Đường dẫn có dấu cách, nên mở CMD phải có ngoặc kép: `cd /d "D:\BK. Web\baika-website"`.
-- **Từ 06/10/2026 (Claude Code): agent push NHÁNH RIÊNG, Thắng gộp PR.** Không push `main`. Agent không đụng tài khoản đăng nhập — push dùng phiên đã lưu trên máy. Cách làm việc riêng: `CLAUDE.local.md` (không lên GitHub).
-- Commit bằng danh tính có sẵn của repo (`BAIKA`, email `noreply` của `baikavn-bot`). Vercel chỉ deploy commit của danh tính này **[xác minh 26/09]**.
-- **Phiên agent mới chưa có quyền xoá file** trên máy Thắng. Lệnh `git switch` / `git status` có thể để lại file khoá `.git/index.lock`, làm các lệnh git sau báo lỗi. Cách gỡ: xin quyền xoá, rồi xoá `.git/index.lock`.
-- Thư mục `Claude outputs/` (ảnh chụp, bản vá) đã bị `.gitignore` chặn — không lên GitHub.
-- **Xuống dòng kiểu Windows (CRLF) [xác minh 04/10]:** git trên máy Thắng tự đổi file sang CRLF khi `git switch`. Agent nhìn từ máy ảo sẽ thấy ~40 file «đã sửa» dù nội dung không đổi. Cách đúng: chạy git trong máy ảo với `git -c core.autocrlf=true …` (status, add, commit). **Không** `git merge` trực tiếp trong thư mục của Thắng — sẽ ghi nhầm CRLF vào commit; gộp trong một bản clone tạm rồi `merge --ff-only` về.
+- **Repo ở `D:\BK. Web\baika-website`.** Đường dẫn có dấu cách — lệnh `cd` phải có ngoặc kép.
+- **Claude Code chạy thẳng trên máy** (từ 06/10): agent push **nhánh riêng** bằng phiên đăng nhập đã lưu, Thắng gộp PR. Cách làm việc riêng: `CLAUDE.local.md` (không lên GitHub).
+- Máy: Node 24 · pnpm 9.12.0 **[xác minh 06/10]** — build sạch trên cả `main` lẫn `remote-office`.
+- Xuống dòng: `.gitattributes` ép LF khi lưu vào git; `core.autocrlf=true` trên máy — không cần xử lý tay.
+- `Claude outputs/` (ảnh chụp, file nháp) bị `.gitignore` chặn.
