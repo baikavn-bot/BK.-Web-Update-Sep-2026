@@ -9,6 +9,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 13/10/2026 — trên `main` qua Pull Request
 
+**Tài liệu**
+- 7 tài liệu nền trong `docs/`: `tong-quan` · `so-do-trang` · `he-thong-thiet-ke` · `ky-thuat` · `quy-uoc-code` · `quy-trinh-lam-viec` · `van-de-da-biet`, kèm **bảng ánh xạ** với kiến trúc tài liệu chuẩn trong `docs/README.md`, và **mục lục quyết định** `docs/_chung/muc-luc-dec.md` (mỗi DEC/VD một dòng, cột còn hiệu lực). Gom từ `CLAUDE.md`, `TRANG-THAI.md`, `CONTRIBUTING.md`, code và tài liệu project Claude cũ. Người xem site không thấy gì khác.
+
 **Đổi**
 - **Header có nền mờ khi cuộn** (mọi trang): chữ của trang cuộn qua phía sau header bị làm mờ, mờ nhất ở mép trên, nhạt dần xuống dưới — theo Figma (Background blur Progressive 100). Trước đó nền trong suốt, chữ lộ rõ sau logo và menu.
 
