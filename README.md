@@ -33,7 +33,7 @@ Công ty **không có lập trình viên**. Code do agent (Claude) viết. Agent
 
 ## Chạy trên máy
 
-Cần **Node 20.11** trở lên (xem `.nvmrc`) và **pnpm 9**.
+Cần **Node 24** (xem `.nvmrc`) và **pnpm 9.12.0**.
 
 ```bash
 pnpm install    # cài lần đầu
