@@ -23,7 +23,7 @@ Ký hiệu: 🔴 chặn — chưa xong không trỏ · 🟡 nên xong trước �
 
 ### 🔨 Làm được ngay (không chờ ai)
 
-- [ ] **`noindex` cho `baika.tech` theo tên miền** *(Thắng chốt 07/10, giai đoạn a)*: header `X-Robots-Tag: noindex` cho `baika.tech` + `www.baika.tech` trong `vercel.json`. Site tĩnh không biết mình chạy ở tên miền nào lúc dựng → không dùng thẻ `<meta>` được. ⚠️ `vercel.json` hiện chỉ có trên nhánh `remote-office` — thêm vào `main` thì lúc gộp Remote Office phải gộp tay 2 bản `vercel.json`.
+- [x] **`noindex` cho `baika.tech` theo tên miền** *(Thắng chốt 07/10, giai đoạn a — viết vào `vercel.json` 15/10; kiểm sau khi gộp: `curl -sI https://www.baika.tech | grep -i x-robots` phải ra `noindex`)*: header `X-Robots-Tag: noindex` cho `baika.tech` + `www.baika.tech` trong `vercel.json`. Site tĩnh không biết mình chạy ở tên miền nào lúc dựng → không dùng thẻ `<meta>` được. ⚠️ Từ nay `main` và `remote-office` mỗi bên có một `vercel.json` → lần kéo `main` vào `remote-office` kế tiếp phải gộp tay: giữ 2 luật `noindex` của `main` ở đầu + 3 luật `baika.website`.
 - [ ] Kiểm tên miền gửi mail Resend có cần xác minh lại khi đổi sang `baika.vn` **[chưa kiểm]**.
 - [ ] Soạn sẵn luật chuyển hướng §4 thành `routes` trong `vercel.json` (để trên nhánh riêng, gộp đúng ngày chuyển).
 - [ ] Nút «Chat Zalo» — site cũ có, v2 chưa có (§4.7). Cần Thắng quyết có làm không.

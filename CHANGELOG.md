@@ -7,6 +7,11 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ---
 
+## 15/10/2026 — trên `main` qua Pull Request
+
+**Đổi**
+- **`www.baika.tech` và `baika.tech` báo Google «đừng lập chỉ mục»** (header `X-Robots-Tag: noindex` trong `vercel.json`, gắn theo tên miền). Người xem site không thấy gì khác; Google sẽ dần gỡ `baika.tech` khỏi kết quả tìm kiếm, để sau này `baika.vn` không bị coi là trùng nội dung. Tên miền khác (link preview, `*.vercel.app`, `baika.vn` tương lai) không bị ảnh hưởng.
+
 ## 13/10/2026 — trên `main` qua Pull Request
 
 **Kỹ thuật**
