@@ -29,7 +29,7 @@ baika-website/
 ├── api/                   ← hàm chạy trên Vercel (§3)
 ├── tools/                 ← script kiểm tra, KHÔNG nằm trong site
 ├── astro.config.mjs       ← site tĩnh, `site: https://baika.vn` (canonical)
-├── vercel.json            ← luật tên miền baika.website — CHỈ trên nhánh remote-office
+├── vercel.json            ← luật theo tên miền: `noindex` cho baika.tech (main) · baika.website (nhánh remote-office)
 ├── public/                ← file phục vụ nguyên trạng (ảnh, favicon, robots.txt)
 └── src/
     ├── styles/            ← tokens.css (từ Figma) · reset.css · global.css (chỉ thứ dùng ở MỌI trang)
@@ -72,6 +72,8 @@ Ngoại lệ duy nhất của site tĩnh: *serverless function* — đoạn code
 Đánh đổi đã biết: địa chỉ không `www` trỏ bằng IP cố định (bản ghi A) — Vercel đổi IP thì sửa DNS tay.
 
 **Một source, nhiều tên miền:** gắn bằng **`routes`** trong `vercel.json`, **không** dùng `rewrites` — `rewrites` thua file tĩnh, không đè được `/` đã có `index.html`. Chi tiết: `docs/remote-office/quy-trinh-build.md` §5.
+
+**`noindex` cho `baika.tech`** *(Thắng chốt 07/10, giai đoạn a)*: `vercel.json` gắn header `X-Robots-Tag: noindex` cho mọi đường dẫn khi tên miền là `www.baika.tech` hoặc `baika.tech` (luật `routes` + `has` host + `continue: true` — chỉ thêm header, không đổi trang trả về). Không dùng thẻ `<meta>` vì cùng một bản dựng còn chạy ở tên miền khác (`baika.vn` tương lai). `bk-web-update-sep-2026.vercel.app` và link preview **không** có header này. Kiểm: `curl -sI https://www.baika.tech | grep -i x-robots`. Ngày `baika.tech` chuyển 308 về `baika.vn` (giai đoạn b) → gỡ 2 luật này — `docs/chuyen-baika-vn.md` §0.
 
 **Địa chỉ site chính** khai ở **một chỗ**: `src/lib/ten-mien.ts`. `vercel.json` không đọc được file này → ngày đổi tên miền phải sửa **cả hai**.
 

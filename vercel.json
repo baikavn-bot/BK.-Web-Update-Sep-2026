@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "/.*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.baika.tech"
+        }
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      },
+      "continue": true
+    },
+    {
+      "src": "/.*",
+      "has": [
+        {
+          "type": "host",
+          "value": "baika.tech"
+        }
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      },
+      "continue": true
+    }
+  ]
+}
