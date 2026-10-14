@@ -1,6 +1,6 @@
 # TRẠNG THÁI DỰ ÁN — đọc file này đầu tiên mỗi phiên
 
-*Cập nhật **13/10/2026** · Ai sửa trạng thái thì sửa ngày ở dòng này. Chỉ sửa trên `main` qua Pull Request.*
+*Cập nhật **14/10/2026** · Ai sửa trạng thái thì sửa ngày ở dòng này. Chỉ sửa trên `main` qua Pull Request.*
 
 File này trả lời: **«Dự án đang ở đâu, cái gì chạy, cái gì kẹt, làm gì tiếp?»** Luật: `CLAUDE.md`. Việc chờ: `docs/viec-cho.md`. Lịch sử: `CHANGELOG.md`.
 
@@ -10,7 +10,7 @@ Ký hiệu: **[xác minh dd/mm]** = đã mở ra kiểm, có ngày · **[suy lu�
 
 ## 1. Tóm tắt
 
-Site mới chạy đầy đủ ở `www.baika.tech` (bản thử, nhánh `main`): trang chủ · 7 trang dịch vụ · Liên hệ · 5 công cụ chẩn đoán · Chính sách bảo mật (bản Kapi duyệt) · header cố định có nền mờ. Landing **Remote Office** chạy ở `baika.website` (nhánh `remote-office`, `noindex`). **Chưa ra mắt thật:** khách vào `baika.vn` vẫn thấy site cũ. Từ 06/10 làm bằng **Claude Code**; tài liệu bàn giao đang vào `main` (13/10).
+Site mới chạy đầy đủ ở `www.baika.tech` (bản thử, nhánh `main`): trang chủ · 7 trang dịch vụ · Liên hệ · 5 công cụ chẩn đoán · Chính sách bảo mật (bản Kapi duyệt) · header cố định có nền mờ. Landing **Remote Office** chạy ở `baika.website` (nhánh `remote-office`, `noindex`). **Chưa ra mắt thật:** khách vào `baika.vn` vẫn thấy site cũ. Từ 06/10 làm bằng **Claude Code**; tài liệu bàn giao đã vào `main` (PR #22–#25, 13/10) và đã nghiệm thu.
 
 ## 2. Nhánh
 
@@ -18,10 +18,10 @@ Repo `baikavn-bot/BK.-Web-Update-Sep-2026` — **công khai**. Khoá `main`: rul
 
 | Nhánh | Đang ở | Chứa gì |
 | --- | --- | --- |
-| `main` | PR #21 `ccd126d` (13/10) **[xác minh 13/10]** | Toàn bộ site chính + tài liệu. PR gần nhất: #18 quyền Claude Code · #19 `viec-cho` · #20 nhật ký Figma · #21 header nền mờ |
-| `remote-office` | `278f319` (đã gộp `main` tới PR #18, push 13/10) **[xác minh 13/10]** | Mọi thứ của `main` tới PR #18 + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + công cụ ước tính. **Chưa có** PR #19–#21 → `baika.website` chưa có header nền mờ |
+| `main` | PR #25 `7d3ad84` (13/10) **[xác minh 15/10]** | Toàn bộ site chính + tài liệu. PR gần nhất: #21 header nền mờ · #22 mục lục DEC · #23 7 tài liệu nền · #24 `CLAUDE.md` gọn + trạng thái · #25 Node 24 |
+| `remote-office` | `aa56e87` (đã gộp `main` tới PR #25, push 13/10) **[xác minh 15/10]** | Mọi thứ của `main` tới PR #25 + trang `/remote-office` + `vercel.json` + mail ghi đúng trang gửi + công cụ ước tính. `baika.website` đã có header nền mờ **[xác minh 15/10 — CSS trên site có `backdrop-filter`]** |
 
-`remote-office` **chưa gộp** vào `main` — gộp khi ra mắt Remote Office (§6). Trước đó kéo `main` vào lần nữa; lần 07/10 không có xung đột.
+`remote-office` **chưa gộp** vào `main` — gộp khi ra mắt Remote Office (§6). Trước đó kéo `main` vào lần nữa; lần 07/10 và 13/10 không có xung đột.
 
 ## 3. Đang chạy ở đâu
 
@@ -64,9 +64,8 @@ Quyết định riêng của Remote Office: `docs/remote-office/SPEC-MASTER.md` 
 
 | Khi nào | Việc | Phụ thuộc |
 | --- | --- | --- |
-| **Bây giờ** | Gộp 4 PR bàn giao (mục lục DEC → 7 tài liệu → `CLAUDE.md`/trạng thái → Node 24) | Thắng gộp theo thứ tự |
-| **Bây giờ** | `noindex` cho `baika.tech` · kéo `main` vào `remote-office` (header nền mờ) | — |
-| **Bây giờ** | Nghiệm thu bàn giao (phiên agent mới chạy thử) · cập nhật `web-starter` | — |
+| **Bây giờ** | `noindex` cho `baika.tech` (đã chốt 07/10 — site hiện **chưa** có `noindex` **[xác minh 15/10]**) | — |
+| **Bây giờ** | Cập nhật `web-starter` | — |
 | **Khi sếp duyệt** | **Ra mắt Remote Office:** gộp `remote-office` vào `main` → `baika.website` sang Production → gỡ `noindex` — `docs/remote-office/quy-trinh-build.md` §5.7 | C1 · RO-5 |
 | **Khi sếp duyệt** | **Chuyển `baika.vn`:** checklist `docs/chuyen-baika-vn.md` §0 | C1 |
 | Sau | 4 trang chưa dựng (Trạm Ý Tưởng · Kho mô hình · Kho Tài Nguyên · Về BAIKA) — ngày chuyển dùng chuyển hướng tạm | Thiết kế Figma |
