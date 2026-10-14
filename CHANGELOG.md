@@ -9,6 +9,9 @@ Nhóm: **Thêm** · **Đổi** · **Sửa lỗi** · **Tài liệu**.
 
 ## 15/10/2026 — trên `main` qua Pull Request
 
+**Sửa lỗi**
+- **Nút «Làm Blueprint Assessment miễn phí» ở đầu trang Đào tạo CEO giờ mở đúng công cụ** `/ceo-blueprint/assessment`, như 4 trang dịch vụ còn lại. Trước đó code ghi hai đích cho nút, đích sau (`#lien-he`) đè đích trước nên nút cuộn xuống form liên hệ.
+
 **Đổi**
 - **`www.baika.tech` và `baika.tech` báo Google «đừng lập chỉ mục»** (header `X-Robots-Tag: noindex` trong `vercel.json`, gắn theo tên miền). Người xem site không thấy gì khác; Google sẽ dần gỡ `baika.tech` khỏi kết quả tìm kiếm, để sau này `baika.vn` không bị coi là trùng nội dung. Tên miền khác (link preview, `*.vercel.app`, `baika.vn` tương lai) không bị ảnh hưởng.
 
